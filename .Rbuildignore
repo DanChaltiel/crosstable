@@ -1,0 +1,4 @@
+.git
+.git/*
+R/layout.r
+R/plot.r
