@@ -11,8 +11,10 @@ summarize <- function(x, funs = c(mean, sd, quantile, n, na), ..., digits = 2) {
     stop("x doit etre numerique")
 
   if (!is.character(funs)) {
-    funs <- as.character(as.list(substitute(funs)))
-    funs <- funs[funs != "c" & funs != "list"]
+      nomf <- names(funs)
+      funs <- as.character(as.list(substitute(funs)))
+      funs <- funs[funs != "c" & funs != "list"]
+      names(funs) <- nomf
   }
 
   fun <- do.call(funs2fun, as.list(funs))
@@ -37,22 +39,15 @@ summarize <- function(x, funs = c(mean, sd, quantile, n, na), ..., digits = 2) {
 ##' @importFrom plyr ldply
 summarize.data.frame <- function(df, funs = c(mean, sd, quantile, n, na), ..., digits = 2, label = FALSE) {
   if (!is.character(funs)) {
-    funs <- as.character(as.list(substitute(funs)))
-    funs <- funs[funs != "c" & funs != "list"]
+      nomf <- names(funs)
+      funs <- as.character(as.list(substitute(funs)))
+      funs <- funs[funs != "c" & funs != "list"]
+      names(funs) <- nomf
   }
 
   dfl <- as.list(df)
   results <- ldply(dfl, summarize, funs = funs, ..., digits = digits)
 
-  ## class(results) <- c("summarize", "matrix")
-
-  if (length(funs) == 1) {
-    if (length(match.fun(funs)(1:10, ...)) == 1) {
-      dim(results) <- rev(dim(results))
-      ## rownames(results) <- names(dfl)
-      colnames(results) <- funs
-    }
-  }
   if (label)
     results[, ".id"] <- sapply(dfl[results[, ".id"]], label.default)
 

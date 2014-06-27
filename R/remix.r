@@ -42,8 +42,10 @@ is.numeric.and.not.surv <- function(x) {
 ##' @keywords internal
 cross_one <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., margin = 0:2, total = FALSE, digits = 2, showNA = c("no", "ifany", "always"), method = c("pearson", "kendall", "spearman"), times = NULL, followup = FALSE, test = FALSE, test.tabular = test.tabular.auto, test.summarize = test.summarize.auto, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
   if (!is.character(funs)) {
-    funs <- as.character(as.list(substitute(funs)))
-    funs <- funs[funs != "c" & funs != "list"]
+      nomf <- names(funs)
+      funs <- as.character(as.list(substitute(funs)))
+      funs <- funs[funs != "c" & funs != "list"]
+      names(funs) <- nomf
   }
 
   results <- "What?"
@@ -124,8 +126,10 @@ cross_one <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., mar
 cross_all <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., margin = 0:2, total = FALSE, digits = 2, showNA = c("no", "ifany", "always"), method = c("pearson", "kendall", "spearman"), times = NULL, followup = FALSE, test = FALSE, test.tabular = test.tabular.auto, test.summarize = test.summarize.auto, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
 
     if (!is.character(funs)) {
+        nomf <- names(funs)
         funs <- as.character(as.list(substitute(funs)))
         funs <- funs[funs != "c" & funs != "list"]
+        names(funs) <- nomf
     }
 
     results <- "What?"
@@ -241,7 +245,6 @@ cross_list <- function(l, funs = c(mean, sd, quantile, n, na), ..., margin = 0:2
 ##' @keywords internal
 regroup <- function(vars, numdata, catdata, survdata) {
   vars <- lapply(vars, function(x) remove_blank(elements(x)))
-
 
   results <- unique(unlist(lapply(vars, function(x) {
     numvars <- x[x %in% numdata]
@@ -367,8 +370,10 @@ cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(mean, sd, quan
     formula <- deparse(formula, 500)
 
   if (!is.character(funs)) {
-    funs <- as.character(as.list(substitute(funs)))
-    funs <- funs[funs != "c" & funs != "list"]
+      nomf <- names(funs)
+      funs <- as.character(as.list(substitute(funs)))
+      funs <- funs[funs != "c" & funs != "list"]
+      names(funs) <- nomf
   }
 
   varnames <- names(data)

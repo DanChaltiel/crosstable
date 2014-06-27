@@ -33,8 +33,10 @@ summarize.by <- function(x, by, funs = c(mean, sd, quantile, n, na), ..., showNA
         stop("x doit etre numerique")
 
     if (!is.character(funs)) {
+        nomf <- names(funs)
         funs <- as.character(as.list(substitute(funs)))
         funs <- funs[funs != "c" & funs != "list"]
+        names(funs) <- nomf
     }
 
     fun <- function(df, funs = funs, ...) summarize(df[, 1], funs = funs, digits = digits, ...)
@@ -89,8 +91,10 @@ summarize.by <- function(x, by, funs = c(mean, sd, quantile, n, na), ..., showNA
 ##' @importFrom plyr ldply
 summarize.data.frame.by <- function(df, by, funs = c(mean, sd, quantile, n, na), ..., showNA = c("no", "ifany", "always"), total = FALSE, digits = 2, test = FALSE, test.summarize = test.summarize.auto, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
   if (!is.character(funs)) {
-    funs <- as.character(as.list(substitute(funs)))
-    funs <- funs[funs != "c" & funs != "list"]
+      nomf <- names(funs)
+      funs <- as.character(as.list(substitute(funs)))
+      funs <- funs[funs != "c" & funs != "list"]
+      names(funs) <- nomf
   }
 
   if (label) {
