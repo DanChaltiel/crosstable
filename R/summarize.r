@@ -19,9 +19,8 @@ summarize <- function(x, funs = c(mean, sd, quantile, n, na), ..., digits = 2) {
 
   fun <- do.call(funs2fun, as.list(funs))
   results <- fun(x, ...)
-  results <- data.frame(variable = names(results), value = results, row.names = NULL)
-
   results <- sapply(results, function(x) if (is.numeric(x)) as.character(round(x, digits)) else as.character(x))
+  results <- data.frame(variable = names(results), value = results, row.names = NULL, check.names = FALSE)
 
   results
 }
