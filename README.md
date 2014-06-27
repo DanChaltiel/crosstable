@@ -1,1 +1,1 @@
-For now, implement `cross` (a partial rewrite of `remix`)
+For now, the package implements `cross` (a partial rewrite of `remix`)
