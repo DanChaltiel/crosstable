@@ -47,9 +47,8 @@ funs2fun <- function(...) {
       }
       tmp <- do.call(func, finalargs)
       names(tmp) <- trim(paste(fnames[i], names(tmp)))
-      results <- c(results, list(tmp))
+      results <- c(results, as.list(tmp))
     }
-    names(results) <- fnames
     data.frame(results, check.names = FALSE)
   }
 }
