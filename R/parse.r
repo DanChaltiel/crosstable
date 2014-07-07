@@ -83,11 +83,13 @@ parse_formula <- function(formula, varnames) {
 elements <- function(x) {
   xx <- paste(x, "~ 1")
   f <- as.formula(xx)
-  if (grepl("^cbind\\(", x))
-    res <- sapply(f[[2]], function(y) deparse(y, 500))
-  else
-    res <- x
-  res[res != "cbind"]
+  if (grepl("^cbind\\(", x)) {
+      res <- sapply(f[[2]], function(y) paste(deparse(y, 500), collapse = ""))
+      res <- res[res != "cbind"]
+  } else {
+      res <- x
+  }
+  res
 }
 
 ##' Parse data
