@@ -32,12 +32,12 @@ funs2fun <- function(...) {
       func <- match.fun(fs[[i]])
       forms <- formals(func) # Pour min et max (et les autres
                              # primitives), il faudrait mettre
-                             # 'formals(args(func))'. Le problème est
+                             # 'formals(args(func))'. Le probleme est
                              # que min et max retourne le minimum de
                              # tout ce qui n'est pas 'na.rm', donc si
                              # je met un autre argument (genre probs =
                              # 1/3), min et max prennent en compte sa
-                             # valeur, d'où surprises... Je préfère
+                             # valeur, d'ou surprises... Je prefere
                              # laisser comme ça.
       namesforms <- names(forms)
       if (all(namesforms != "...")) {
