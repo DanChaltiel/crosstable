@@ -269,75 +269,82 @@ regroup <- function(vars, numdata, catdata, survdata) {
 ##'
 ##' @param formula a formula (see Details).
 ##' @param data a data.frame.
-##' @param funs functions for describing numeric variable.   Can be
-##' \code{c(fun1, fun2, fun3)} or   \code{c("fun1", "fun2", "fun3")}
-##' or a list.
-##' @param ... further arguments (all passed to funs), for example
-##'{na.rm = TRUE}
-##' @param margin index, or vector of indices to generate proportion
-##' in frequency tables (0: cell, 1: row, 2: col).
-##' @param total whether to add margins. Integers (\code{c(1, 2)}: both 1: row, 2: col, 0: no margins) or logical.
+##' @param funs Functions used for describing numeric
+##' variables. Vector (named or not): \code{c(fun1, fun2, fun3)} or
+##' \code{c("fun1", "fun2", "fun3")}.
+##' @param ... further arguments, all passed to funs. For example
+##' {na.rm = TRUE}
+##' @param margin index, or vector of indices to indicate which
+##' proportions should be computed in frequency tables (0: cell, 1:
+##' row, 2: col).
+##' @param total whether to add margins. Integers (\code{c(1, 2)}:
+##' both row and col margins, 1: row margins, 2: col margins, 0: no
+##' margins) or logical (\code{TRUE}: row and col margins,
+##' \code{FALSE}: no margins).
 ##' @param digits number of digits
-##' @param showNA whether to show numbers of NA
+##' @param showNA whether to show NA (\code{c("no", "ifany", "always"}
+##' like in \code{table()})
 ##' @param method a character string indicating which correlation
-##' coefficient is to be   used. One of \code{"pearson"},
+##' coefficient is to be used. One of \code{"pearson"},
 ##' \code{"kendall"}, or \code{"spearman"}, can be abbreviated.
-##' @param times vector of times (see \code{?summary.survival}
-##' un package \code{survival}). Not yet implemented.
+##' @param times vector of times (see \code{?summary.survival} in
+##' package \code{survival}). Not yet implemented.
 ##' @param followup whether to display follow-up time. Not yet implemented.
 ##' @param test whether to perform tests
 ##' @param test.summarize a function of two arguments (continuous
-##' variable and grouping variable) used to compare continuous
-##' variable, that return a list of two components : \code{p.value}
-##' and \code{method} (the test name). See \code{test.summarize.auto},
+##' variable and grouping variable), used to compare continuous
+##' variable. Returns a list of two components : \code{p.value} and
+##' \code{method} (the test name). See \code{test.summarize.auto},
 ##' \code{test.summarize.kruskal},
 ##' \code{test.summarize.oneway.equalvar}, or
-##' \code{test.summarize.unequalvar} for example of such
+##' \code{test.summarize.unequalvar} for some examples of such
 ##' functions. Users can provide their own function.
-##' @param test.survival a function of one argument (a formula) used
-##' to compare survival estimations, that returns the same components
-##' as created by \code{test.summarize}. See
+##' @param test.survival a function of one argument (a formula), used
+##' to compare survival estimations. Returns the same components as
+##' created by \code{test.summarize}. See
 ##' \code{test.survival.logrank}. Users can provide their own
 ##' function. Not yet implemented.
-##' @param test.tabular a function of three arguments (two categorical
-##' variables and a logical \code{na}) used to test association
-##' between two factors, that returns the same components as created
-##' by \code{test.summarize}. See \code{test.tabular.auto} and
-##' \code{test.tabular.fisher}. Users can provide their own function.
-##' @param show.test a function used to display the test result. See
+##' @param test.tabular a function of two arguments (two categorical
+##' variables), used to test association between two factors.  Returns
+##' the same components as created by \code{test.summarize}. See
+##' \code{test.tabular.auto} and \code{test.tabular.fisher}. Users can
+##' provide their own function.
+##' @param show.test function used to display the test result. See
 ##' \code{display.test}.
 ##' @param plim number of digits for the p value
-##' @param show.method should display the test name?
+##' @param show.method wether to display the test name (logical)
 ##' @param label whether to display labels of variables (using
 ##' \code{label} in package \code{Hmisc})
-##' @param regroup whether to regroup numerics with numerics and factors with factors in \code{cbind}
-##' @note
-##'   The formula has the following format: \code{x_1 + x_2 + ... ~ y_1 + y_2 + ...}
+##' @param regroup whether to regroup numerics with numerics and
+##' factors with factors in \code{cbind} (logical)
+##' @note The formula has the following format: \code{x_1 + x_2 +
+##' ... ~ y_1 + y_2 + ...}
 ##'
-##'   There are a couple of special variables: \code{...} represents all
-##'   other variables not used in the formula and \code{.} represents no
-##'   variable, so you can do \code{formula = var1 ~ .}.
+##' There are a couple of special variables: \code{...} represents all
+##' other variables not used in the formula and \code{.}  represents
+##' no variable, so you can do \code{formula = var1 ~ .}.
 ##'
-##'   If \code{var1} is numeric, \code{var1 ~ .} produce a summary
-##'   table using \code{funs}. If \code{var1} is a factor, \code{var1 ~
-##'   .} produce a frequency table. If \code{var1} is of class
-##'   \code{Surv}, \code{var1 ~ .} produce a table with the estimates of
-##'   survival at \code{times} (NOT YET implemented). If \code{var1} is
-##'   numeric and \code{var2} is numeric, \code{var1 ~ var2} gives
-##'   correlation. if \code{var1} is numeric and \code{var2} is a
-##'   factor, \code{var1 ~ var2} produce a summary table using
-##'   \code{funs} according to the levels of \code{var2}. If \code{var1}
-##'   is a factor and \code{var2} is a factor, \code{var1 ~ var2}
-##'   produce a contingency table. If \code{var1} is of class
-##'   \code{Surv} and \code{var2} is a factor, \code{var1 ~ var2}
-##'   produce a table with the estimates of survival for each level of
-##'   \code{var2} (NOT YET implemented).
+##' If \code{var1} is numeric, \code{var1 ~ .} produce a summary table
+##' using \code{funs}. If \code{var1} is a factor, \code{var1 ~ .}
+##' produce a frequency table. If \code{var1} is of class \code{Surv},
+##' \code{var1 ~ .} produce a table with the estimates of survival at
+##' \code{times} (NOT YET implemented). If \code{var1} is numeric and
+##' \code{var2} is numeric, \code{var1 ~ var2} produces a correlation
+##' correlation coefficient. if \code{var1} is numeric and \code{var2}
+##' is a factor, \code{var1 ~ var2} produce a summary table (using
+##' functions in \code{funs}) according to the levels of
+##' \code{var2}. If \code{var1} is a factor and \code{var2} is a
+##' factor, \code{var1 ~ var2} produce a contingency table. If
+##' \code{var1} is of class \code{Surv} and \code{var2} is a factor,
+##' \code{var1 ~ var2} produce a table with the estimates of survival
+##' for each level of \code{var2} (NOT YET implemented).
 ##'
-##'   You can group several variables together with \code{cbind(var1,
-##'   var2, var3)}, they will be grouped in the same
-##'   table. \code{cbind(...)} works (ie regroups all variables). The
-##'   function will do its best to group everything in the same table
-##'   when it is possible.
+##' You can group several variables together with \code{cbind(var1,
+##' var2, var3)}: \code{var1}, \code{var2} and \code{var3} will be
+##' grouped in the same table. \code{cbind(...)} works (ie regroups
+##' all variables of the data.frame together). When a \code{cbind} is
+##' in both sides of the formula, \code{cross} will do its best to
+##' group everything in the same table, but only if it is possible...
 ##'
 ##'
 ##' @return
@@ -347,8 +354,6 @@ regroup <- function(vars, numdata, catdata, survdata) {
 ##'   \code{cast} (\code{reshape} package, H Wickham).
 ##' @seealso \code{cast} (reshape) and \code{summary.formula} (Hmisc).
 ##' @examples
-##' parwidth <- getOption("width")
-##' options(width = 100)
 ##'
 ##' library(biostat2)
 ##' cross(data = iris)
@@ -357,9 +362,8 @@ regroup <- function(vars, numdata, catdata, survdata) {
 ##' cross(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width, iris)
 ##' cross(cbind(Sepal.Length, Sepal.Width) ~ cbind(Petal.Length, Petal.Width), iris)
 ##' cross(... ~ ., esoph)
-##' cross(alcgp ~ tobgp, esoph)
+##' cross(alcgp ~ tobgp, esoph, test = TRUE)
 ##'
-##' options(width = parwidth)
 ##' @keywords univar
 ##' @export
 ##' @importFrom plyr is.formula
