@@ -410,8 +410,11 @@ cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(mean, sd, quan
 
   if (length(results) == 1) {
       results <- results[[1]]
+      class(results) <- c("cross", "data.frame")
+
   } else {
       results <- results[results != "What?"]
+      class(results) <- c("cross", "list")
   }
   ## names(results) <- apply(eg, 1, paste, collapse = " ~ ")
 
@@ -423,6 +426,36 @@ cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(mean, sd, quan
 
   ## attr(results, "data") <- data
   results
+}
+
+
+##' Print a cross object
+##'
+##' Print cross object using ascii package
+##'
+##' @export
+##' @method print cross
+##' @param x a cross object
+##' @param ... other arguments passed to nothing
+##'    which has no effect)
+##' @author David Hajage
+##' @keywords univar
+print.cross <- function(x, ...) {
+    fun <- function(obj) {
+        y <- obj
+        y[, 1] <- ifelse(!duplicated(y[, 1]), as.character(y[, 1]), "")
+        if ("p" %in% names(y))
+            y$p <- ifelse(!duplicated(y$p), as.character(y$p), "")
+        class(y) <- "data.frame"
+        y
+    }
+
+    if (is.data.frame(x)) {
+        res <- fun(x)
+    } else {
+        res <- lapply(x, fun)
+    }
+    print(res)
 }
 
 ## ##' Ascii for remix object.
