@@ -425,6 +425,7 @@ cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(mean, sd, quan
   ## ## attr(results, "by") <- parsed$by
 
   ## attr(results, "data") <- data
+  attr(results, "test") <- test
   results
 }
 
@@ -444,8 +445,8 @@ print.cross <- function(x, ...) {
     fun <- function(obj) {
         y <- obj
         y[, 1] <- ifelse(!duplicated(y[, 1]), as.character(y[, 1]), "")
-        if ("p" %in% names(y))
-            y$p <- ifelse(!duplicated(y$p), as.character(y$p), "")
+        if (attr(obj, "test"))
+            y[, ncol(y)] <- ifelse(!duplicated(y[, ncol(y)]), as.character(y[, ncol(y)]), "")
         class(y) <- "data.frame"
         y
     }
