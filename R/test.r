@@ -195,7 +195,7 @@ test.summarize.oneway.unequalvar <- function(x, g) {
 ##' @return a list with two componments: p.value and method
 ##' @author David Hajage
 ##' @export
-##' @importFrom survival survdiff
+##' @import survival 
 test.survival.logrank <- function(formula) {
   survdiff.obj <- survdiff(formula)
   p <- 1-pchisq(survdiff.obj$chisq, length(survdiff.obj$n)-1)

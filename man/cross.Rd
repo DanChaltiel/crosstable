@@ -43,9 +43,9 @@ coefficient is to be used. One of \code{"pearson"},
 \code{"kendall"}, or \code{"spearman"}, can be abbreviated.}
 
 \item{times}{vector of times (see \code{?summary.survival} in
-package \code{survival}). Not yet implemented.}
+package \code{survival}).}
 
-\item{followup}{whether to display follow-up time. Not yet implemented.}
+\item{followup}{whether to display follow-up time.}
 
 \item{test}{whether to perform tests}
 
@@ -62,7 +62,7 @@ functions. Users can provide their own function.}
 to compare survival estimations. Returns the same components as
 created by \code{test.summarize}. See
 \code{test.survival.logrank}. Users can provide their own
-function. Not yet implemented.}
+function.}
 
 \item{test.tabular}{a function of two arguments (two categorical
 variables), used to test association between two factors.  Returns
@@ -101,16 +101,16 @@ If \code{var1} is numeric, \code{var1 ~ .} produce a summary table
 using \code{funs}. If \code{var1} is a factor, \code{var1 ~ .}
 produce a frequency table. If \code{var1} is of class \code{Surv},
 \code{var1 ~ .} produce a table with the estimates of survival at
-\code{times} (NOT YET implemented). If \code{var1} is numeric and
-\code{var2} is numeric, \code{var1 ~ var2} produces a correlation
-correlation coefficient. if \code{var1} is numeric and \code{var2}
-is a factor, \code{var1 ~ var2} produce a summary table (using
+\code{times}. If \code{var1} is numeric and \code{var2} is
+numeric, \code{var1 ~ var2} produces a correlation correlation
+coefficient. if \code{var1} is numeric and \code{var2} is a
+factor, \code{var1 ~ var2} produce a summary table (using
 functions in \code{funs}) according to the levels of
 \code{var2}. If \code{var1} is a factor and \code{var2} is a
 factor, \code{var1 ~ var2} produce a contingency table. If
 \code{var1} is of class \code{Surv} and \code{var2} is a factor,
 \code{var1 ~ var2} produce a table with the estimates of survival
-for each level of \code{var2} (NOT YET implemented).
+for each level of \code{var2}.
 
 You can group several variables together with \code{cbind(var1,
 var2, var3)}: \code{var1}, \code{var2} and \code{var3} will be
@@ -128,6 +128,8 @@ cross(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width, iris)
 cross(cbind(Sepal.Length, Sepal.Width) ~ cbind(Petal.Length, Petal.Width), iris)
 cross(... ~ ., esoph)
 cross(alcgp ~ tobgp, esoph, test = TRUE)
+library(survival)
+cross(Surv(time, status) ~ x, data = aml)
 }
 \author{
 David Hajage, inspired by the design and the code of

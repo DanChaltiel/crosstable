@@ -12,7 +12,7 @@ is.character.or.factor <- function(x) {
 ##' @param x x
 ##' @author David Hajage
 ##' @keywords internal
-##' @importFrom survival is.Surv
+##' @import survival
 is.numeric.and.not.surv <- function(x) {
   is.numeric(x) & !is.Surv(x)
 }
@@ -282,8 +282,8 @@ regroup <- function(vars, numdata, catdata, survdata) {
 ##' coefficient is to be used. One of \code{"pearson"},
 ##' \code{"kendall"}, or \code{"spearman"}, can be abbreviated.
 ##' @param times vector of times (see \code{?summary.survival} in
-##' package \code{survival}). Not yet implemented.
-##' @param followup whether to display follow-up time. Not yet implemented.
+##' package \code{survival}). 
+##' @param followup whether to display follow-up time. 
 ##' @param test whether to perform tests
 ##' @param test.summarize a function of two arguments (continuous
 ##' variable and grouping variable), used to compare continuous
@@ -297,7 +297,7 @@ regroup <- function(vars, numdata, catdata, survdata) {
 ##' to compare survival estimations. Returns the same components as
 ##' created by \code{test.summarize}. See
 ##' \code{test.survival.logrank}. Users can provide their own
-##' function. Not yet implemented.
+##' function. 
 ##' @param test.tabular a function of two arguments (two categorical
 ##' variables), used to test association between two factors.  Returns
 ##' the same components as created by \code{test.summarize}. See
@@ -322,16 +322,16 @@ regroup <- function(vars, numdata, catdata, survdata) {
 ##' using \code{funs}. If \code{var1} is a factor, \code{var1 ~ .}
 ##' produce a frequency table. If \code{var1} is of class \code{Surv},
 ##' \code{var1 ~ .} produce a table with the estimates of survival at
-##' \code{times} (NOT YET implemented). If \code{var1} is numeric and
-##' \code{var2} is numeric, \code{var1 ~ var2} produces a correlation
-##' correlation coefficient. if \code{var1} is numeric and \code{var2}
-##' is a factor, \code{var1 ~ var2} produce a summary table (using
+##' \code{times}. If \code{var1} is numeric and \code{var2} is
+##' numeric, \code{var1 ~ var2} produces a correlation correlation
+##' coefficient. if \code{var1} is numeric and \code{var2} is a
+##' factor, \code{var1 ~ var2} produce a summary table (using
 ##' functions in \code{funs}) according to the levels of
 ##' \code{var2}. If \code{var1} is a factor and \code{var2} is a
 ##' factor, \code{var1 ~ var2} produce a contingency table. If
 ##' \code{var1} is of class \code{Surv} and \code{var2} is a factor,
 ##' \code{var1 ~ var2} produce a table with the estimates of survival
-##' for each level of \code{var2} (NOT YET implemented).
+##' for each level of \code{var2}.
 ##'
 ##' You can group several variables together with \code{cbind(var1,
 ##' var2, var3)}: \code{var1}, \code{var2} and \code{var3} will be
@@ -357,7 +357,8 @@ regroup <- function(vars, numdata, catdata, survdata) {
 ##' cross(cbind(Sepal.Length, Sepal.Width) ~ cbind(Petal.Length, Petal.Width), iris)
 ##' cross(... ~ ., esoph)
 ##' cross(alcgp ~ tobgp, esoph, test = TRUE)
-##'
+##' library(survival)
+##' cross(Surv(time, status) ~ x, data = aml)
 ##' @keywords univar
 ##' @export
 ##' @importFrom plyr is.formula

@@ -1,10 +1,13 @@
 ##' Compute survival
 ##'
+##' @import survival
 ##' @importFrom Hmisc label.default
+##' @importFrom plyr daply
 ##' @param surv a Surv object
 ##' @param by by
 ##' @param times times
 ##' @param followup followup
+##' @param digits digits
 ##' @param test test
 ##' @param test.survival test.survival
 ##' @param show.test show.test
@@ -92,6 +95,7 @@ survival <- function(surv, by = NULL, times = NULL, followup = FALSE, digits = 2
 ##' @param df df
 ##' @param times times
 ##' @param followup followup
+##' @param digits digits
 ##' @param label label
 ##' @author David Hajage
 survival.data.frame <- function(df, times = NULL, digits = 2, followup = FALSE, label = FALSE) {
@@ -113,11 +117,13 @@ survival.data.frame <- function(df, times = NULL, digits = 2, followup = FALSE, 
 
 ##' Compute survival according to a factor (data.frame input)
 ##'
+##' @import survival
 ##' @importFrom Hmisc label
 ##' @param df df
 ##' @param by by
 ##' @param times times
 ##' @param followup followup
+##' @param digits digits
 ##' @param test test
 ##' @param test.survival test.survival
 ##' @param show.test show.test
