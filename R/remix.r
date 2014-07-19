@@ -51,21 +51,18 @@ cross_one <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., mar
   results <- "What?"
 
   if (!is.null(x) & !is.null(y)) {
-    ## if (all(sapply(x, is.numeric.and.not.surv)) & all(sapply(y, is.character.or.factor))) {
     if (is.numeric.and.not.surv(x[, 1]) & is.character.or.factor(y[, 1])) {
       results <- summarize.data.frame.by(x, y, funs = funs, ..., total = total, digits = digits, showNA = showNA, test = test, test.summarize = test.summarize, show.test = show.test, plim = plim, show.method = show.method, label = label)
     }
-    ## if (all(sapply(y, is.numeric.and.not.surv)) & all(sapply(x, is.character.or.factor))) {
     if (is.numeric.and.not.surv(y[, 1]) & is.character.or.factor(x[, 1])) {
       results <- summarize.data.frame.by(y, x, funs = funs, ..., total = total, digits = digits, showNA = showNA, test = test, test.summarize = test.summarize, show.test = show.test, plim = plim, show.method = show.method, label = label)
     }
-    ## if (all(sapply(x, is.Surv)) & all(sapply(y, is.character.or.factor))) {
-    ##   results <- survival.data.frame.by(x, y, times = times, followup = followup, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, label = label)
-    ## }
-    ## if (all(sapply(y, is.Surv)) & all(sapply(x, is.character.or.factor))) {
-    ##   results <- survival.data.frame.by(y, x, times = times, followup = followup, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, label = label)
-    ## }
-    ## if (all(sapply(x, is.character.or.factor)) & all(sapply(y, is.character.or.factor))) {
+    if (is.Surv(x[, 1]) & is.character.or.factor(y[, 1])) {
+      results <- survival.data.frame.by(x, y, times = times, followup = followup, digits = digits, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, label = label)
+    }
+    if (is.Surv(y[, 1]) & is.character.or.factor(x[, 1])) {
+      results <- survival.data.frame.by(y, x, times = times, followup = followup, digits = digits, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, label = label)
+    }
     if (is.character.or.factor(x[, 1]) & is.character.or.factor(y[, 1])) {
       results <- tabular.data.frame(x, y, margin = margin, total = total, digits = digits, showNA = showNA, test = test, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method, label = label)
     }
@@ -79,9 +76,9 @@ cross_one <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., mar
     if (is.numeric.and.not.surv(x[, 1])) {
       results <- summarize.data.frame(x, funs = funs, ..., digits = digits, label = label)
     }
-    ## if (all(sapply(x, is.Surv))) {
-    ##   results <- survival.data.frame(x, times = times, followup = followup, label = label)
-    ## }
+    if (is.Surv(x[, 1])) {
+      results <- survival.data.frame(x, times = times, followup = followup, digits = digits, label = label)
+    }
   } else if (is.null(x)) {
     if (is.character.or.factor(y[, 1])) {
       results <- freq.data.frame(y, total = total, digits = digits, showNA = showNA, label = label)
@@ -89,13 +86,10 @@ cross_one <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., mar
     if (is.numeric.and.not.surv(y[, 1])) {
       results <- summarize.data.frame(y, funs = funs, ..., digits = digits, label = label)
     }
-    ## if (all(sapply(y, is.Surv))) {
-    ##   results <- survival.data.frame(y, times = times, followup = followup, label = label)
-    ## }
+    if (is.Surv(y[, 1])) {
+      results <- survival.data.frame(y, times = times, followup = followup, digits = digits, label = label)
+    }
   }
-
-  ## attr(results, "split_type") <- NULL
-  ## attr(results, "split_labels") <- NULL
 
   results
 }
@@ -410,11 +404,11 @@ cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(mean, sd, quan
 
   if (length(results) == 1) {
       results <- results[[1]]
-      class(results) <- c("cross", "data.frame")
+      ## class(results) <- c("cross", "data.frame")
 
   } else {
       results <- results[results != "What?"]
-      class(results) <- c("cross", "list")
+      ## class(results) <- c("cross", "list")
   }
   ## names(results) <- apply(eg, 1, paste, collapse = " ~ ")
 
@@ -425,39 +419,39 @@ cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(mean, sd, quan
   ## ## attr(results, "by") <- parsed$by
 
   ## attr(results, "data") <- data
-  attr(results, "test") <- test
+  ## attr(results, "test") <- test
   results
 }
 
 
-##' Print a cross object
-##'
-##' Print cross object using ascii package
-##'
-##' @export
-##' @method print cross
-##' @param x a cross object
-##' @param ... other arguments passed to nothing
-##'    which has no effect)
-##' @author David Hajage
-##' @keywords univar
-print.cross <- function(x, ...) {
-    fun <- function(obj) {
-        y <- obj
-        y[, 1] <- ifelse(!duplicated(y[, 1]), as.character(y[, 1]), "")
-        if (attr(obj, "test"))
-            y[, ncol(y)] <- ifelse(!duplicated(y[, ncol(y)]), as.character(y[, ncol(y)]), "")
-        class(y) <- "data.frame"
-        y
-    }
+## ##' Print a cross object
+## ##'
+## ##' Print cross object using ascii package
+## ##'
+## ##' @export
+## ##' @method print cross
+## ##' @param x a cross object
+## ##' @param ... other arguments passed to nothing
+## ##'    which has no effect)
+## ##' @author David Hajage
+## ##' @keywords univar
+## print.cross <- function(x, ...) {
+##     fun <- function(obj) {
+##         y <- obj
+##         y[, 1] <- ifelse(!duplicated(y[, 1]), as.character(y[, 1]), "")
+##         if (attr(obj, "test"))
+##             y[, ncol(y)] <- ifelse(!duplicated(y[, ncol(y)]), as.character(y[, ncol(y)]), "")
+##         class(y) <- "data.frame"
+##         y
+##     }
 
-    if (is.data.frame(x)) {
-        res <- fun(x)
-    } else {
-        res <- lapply(x, fun)
-    }
-    print(res)
-}
+##     if (is.data.frame(x)) {
+##         res <- fun(x)
+##     } else {
+##         res <- lapply(x, fun)
+##     }
+##     print(res)
+## }
 
 ## ##' Ascii for remix object.
 ## ##'

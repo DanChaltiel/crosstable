@@ -1,200 +1,153 @@
-## ##' Compute survival
-## ##'
-## ##' @import ascii
-## ##' @param surv a Surv object
-## ##' @param by by
-## ##' @param times times
-## ##' @param followup followup
-## ##' @param test test
-## ##' @param test.survival test.survival
-## ##' @param show.test show.test
-## ##' @param plim plim
-## ##' @param show.method show.method
-## ##' @author David Hajage
-## ##' @keywords internal
-## survival <- function(surv, by = NULL, times = NULL, followup = FALSE, test = FALSE, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE) {
+##' Compute survival
+##'
+##' @importFrom Hmisc label.default
+##' @param surv a Surv object
+##' @param by by
+##' @param times times
+##' @param followup followup
+##' @param test test
+##' @param test.survival test.survival
+##' @param show.test show.test
+##' @param plim plim
+##' @param show.method show.method
+##' @author David Hajage
+##' @keywords internal
+survival <- function(surv, by = NULL, times = NULL, followup = FALSE, digits = 2, test = FALSE, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
 
-##   df <- unclass(surv)
-##   if (!is.null(by)) {
-##     formula <- as.formula(paste("Surv(df[, 1], df[, 2]) ~ by", sep = ""))
-##     formula.followup <- as.formula(paste("Surv(df[, 1], 1-df[, 2]) ~ by", sep = ""))
-##   }
-##   else {
-##     formula <- as.formula(paste("Surv(df[, 1], df[, 2]) ~ 1", sep = ""))
-##     formula.followup <- as.formula(paste("Surv(df[, 1], 1-df[, 2]) ~ 1", sep = ""))
-##   }
+  df <- unclass(surv)
+  if (!is.null(by)) {
+    formula <- as.formula(paste("Surv(df[, 1], df[, 2]) ~ by", sep = ""))
+    formula.followup <- as.formula(paste("Surv(df[, 1], 1-df[, 2]) ~ by", sep = ""))
+  } else {
+    formula <- as.formula(paste("Surv(df[, 1], df[, 2]) ~ 1", sep = ""))
+    formula.followup <- as.formula(paste("Surv(df[, 1], 1-df[, 2]) ~ 1", sep = ""))
+  }
 
-##   survfit.obj <- survfit(formula)
+  survfit.obj <- survfit(formula)
 
-##   if (followup) {
-##     suivfit.obj <- survfit(formula.followup)
-##   }
+  if (followup) {
+    suivfit.obj <- survfit(formula.followup)
+  }
 
-##   if (is.null(times)) {
-##     times <- sort(survfit.obj$time)
-##     x <- summary(survfit.obj, times = times, extend = TRUE)
-##   } else {
-##     x <- summary(survfit.obj, times = times, extend = TRUE)
-##   }
+  if (is.null(times)) {
+    times <- sort(survfit.obj$time)
+  }
+  x <- summary(survfit.obj, times = times, extend = TRUE)
 
-##   mat <- cbind(x$surv, x$n.event, x$n.risk)
-##   mat <- paste.matrix(round(mat[, 1], 4), " (", mat[, 2], "/", mat[, 3], ")", sep = "")
-##   if (!is.null(x$strata)) {
-##     strata <- x$strata
-##     results <- tocharac(do.call("cbind", split(as.data.frame(mat), strata)))
-##     nstrata <- length(unique(strata))
+  mat <- cbind(x$surv, x$n.event, x$n.risk)
+  mat <- paste.matrix(round(mat[, 1], digits), " (", mat[, 2], "/", mat[, 3], ")", sep = "")
+  
+  if (!is.null(x$strata)) {
+    strata <- x$strata
+    ## results <- tocharac(do.call("cbind", split(as.data.frame(mat), strata)))
+    results <- sapply(do.call("cbind", split(as.data.frame(mat), strata)), as.character)
+    nstrata <- length(unique(strata))
 
-##     if (followup) {
-##       mediansuiv <- summary(suivfit.obj)$table[, 5]
-##       tmp <- data.frame(unclass(model.frame(formula)[, 1]), model.frame(formula)[, 2])
-##       bornes <- daply(tmp, .(tmp[, 3]), function(df) paste("[", min(df[df[, 2] == 0, 1]), " ; ", max(df[, 1]), "]", sep = ""))
-##       suiv <- paste(mediansuiv, bornes)
-##     } else {
-##       suiv <- NULL
-##     }
-##     if (test) {
-##       p <- show.test(test.survival(formula), digits = plim, method = show.method)
-##     } else {
-##       p <- NULL
-##     }
-##     cnames <- names(table(by))
-##   } else {
-##     results <- mat
-##     nstrata <- 1
-##     if (followup) {
-##       mediansuiv <- summary(suivfit.obj)$table[5]
-##       tmp <- unclass(model.frame(formula)[, 1])
-##       minsuiv <- min(tmp[tmp[, 2] == 0, 1])
-##       maxsuiv <- max(tmp[, 1])
-##       suiv <- paste(mediansuiv, " [", minsuiv, " ; ", maxsuiv, "]", sep = "")
-##     } else {
-##       suiv <- NULL
-##     }
-##     p <- NULL
-##     cnames <- NULL
-##   }
+    if (followup) {
+      mediansuiv <- summary(suivfit.obj)$table[, 5]
+      tmp <- data.frame(unclass(model.frame(formula)[, 1]), model.frame(formula)[, 2])
+      bornes <- daply(tmp, .(tmp[, 3]), function(df) paste("[", min(df[df[, 2] == 0, 1]), " ; ", max(df[, 1]), "]", sep = ""))
+      suiv <- paste(mediansuiv, bornes)
+    } else {
+      suiv <- NULL
+    }
+    if (test) {
+      p <- show.test(test.survival(formula), digits = plim, method = show.method)
+    } else {
+      p <- NULL
+    }
+    cnames <- names(table(by))
+  } else {
+    results <- mat
+    nstrata <- 1
+    if (followup) {
+      mediansuiv <- summary(suivfit.obj)$table[5]
+      tmp <- unclass(model.frame(formula)[, 1])
+      minsuiv <- min(tmp[tmp[, 2] == 0, 1])
+      maxsuiv <- max(tmp[, 1])
+      suiv <- paste(mediansuiv, " [", minsuiv, " ; ", maxsuiv, "]", sep = "")
+    } else {
+      suiv <- NULL
+    }
+    p <- NULL
+    cnames <- "survival"
+  }
 
-##   if (followup) {
-##     rnames <- c("Median follow up [min ; max]", "Median survival", times)
-##   } else {
-##     rnames <- c("Median survival", times)
-##   }
-##   mediansurv <- expand(x$table, nrow = nstrata, ncol = 7, drop = F)[, 5]
+  if (followup) {
+    rnames <- c(times, "Median follow up [min ; max]", "Median survival")
+  } else {
+    rnames <- c(times, "Median survival")
+  }
+  mediansurv <- expand(x$table, nrow = nstrata, ncol = 7, drop = F)[, 5]
 
-##   results <- rbind(suiv, mediansurv, results)
-##   colnames(results) <- cnames
-##   attr(results, "rgroup") <- p
-##   attr(results, "lgroup") <- list(rnames, paste("Surv(", colnames(df)[1], ", ", names(df)[2], ")", sep = ""))
-##   attr(results, "n.lgroup") <- list(rep(1, nrow(results)), nrow(results))
-##   class(results) <- c("survival", "matrix")
-##   results
-## }
+  results <- data.frame(paste("Surv(", colnames(df)[1], ", ", colnames(df)[2], ")", sep = ""), rnames, rbind(results, suiv, mediansurv), row.names = NULL)
+  colnames(results) <- c(".id", "variable", cnames)
+  results$p <- p
+  results
+}
 
-## ##' Compute survival according to a factor (data.frame input)
-## ##'
-## ##' @importFrom Hmisc label
-## ##' @param df df
-## ##' @param by by
-## ##' @param times times
-## ##' @param followup followup
-## ##' @param test test
-## ##' @param test.survival test.survival
-## ##' @param show.test show.test
-## ##' @param plim plim
-## ##' @param show.method show.method
-## ##' @param label label
-## ##' @author David Hajage
-## survival.data.frame.by <- function(df, by, times = NULL, followup = FALSE, test = FALSE, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
+##' Compute survival (data.frame input)
+##'
+##' @importFrom Hmisc label.default
+##' @param df df
+##' @param times times
+##' @param followup followup
+##' @param label label
+##' @author David Hajage
+survival.data.frame <- function(df, times = NULL, digits = 2, followup = FALSE, label = FALSE) {
 
-##   dfx <- as.list(df)
-##   byx <- as.list(by)
+  results <- lapply(df, survival, NULL, times = times, followup = followup, digits = digits)
 
-##   results <- lapply(byx, function(y) lapply(dfx, survival, y, times = times, followup = followup, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method))
+  if (!label)
+    nom <- names(df)
+  else
+    nom <- sapply(df, label.default)
 
-##   if (!label)
-##     tgroup <- names(by)
-##   else
-##     tgroup <- sapply(by, Hmisc:::label.default)
-##   n.tgroup <- sapply(by, nlevels)
+  for (i in 1:length(results)) {
+      results[[i]][, 1] <- nom[i]
+  }
+  results <- rbind.list(results)
+  
+  results
+}
 
-##   lgroup <- lapply(results[[1]], function(x) attr(x, "lgroup"))
-##   n.lgroup <- lapply(results[[1]], function(x) attr(x, "n.lgroup"))
+##' Compute survival according to a factor (data.frame input)
+##'
+##' @importFrom Hmisc label
+##' @param df df
+##' @param by by
+##' @param times times
+##' @param followup followup
+##' @param test test
+##' @param test.survival test.survival
+##' @param show.test show.test
+##' @param plim plim
+##' @param show.method show.method
+##' @param label label
+##' @author David Hajage
+survival.data.frame.by <- function(df, by, times = NULL, followup = FALSE, digits = 2, test = FALSE, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
 
-##   for (i in 1:length(n.lgroup)) {
-##     n.lgroup[[i]] <- c(n.lgroup[[i]], sum(n.lgroup[[i]][[2]]))
-##   }
-##   n.lgroup1 <- unlist(lapply(n.lgroup, function(x) x[[1]]))
-##   n.lgroup2 <- unlist(lapply(n.lgroup, function(x) x[[2]]))
-##   n.lgroup <- list(n.lgroup1, n.lgroup2)
+  dfx <- as.list(df)
+  byx <- as.list(by)
 
-##   lgroup1 <- unlist(lapply(lgroup, function(x) x[[1]]))
-##   if (!label)
-##     lgroup2 <- names(df)
-##   else
-##     lgroup2 <- sapply(df, Hmisc:::label.default)
-##   lgroup <- list(lgroup1, lgroup2)
+  results <- lapply(byx, function(y) lapply(dfx, survival, y, times = times, followup = followup, digits = digits, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method))
+  
+  if (!label)
+      nom <- names(df)
+  else
+      nom <- sapply(df, label.default)
 
-##   rgroup <- lapply(results, function(x) sapply(x, attr, "rgroup"))
-##   n.rgroup <- n.lgroup[[2]]
-
-##   results <- lapply(results, rbind.list)
-
-##   attr(results[[1]], "lgroup") <- lgroup
-##   attr(results[[1]], "n.lgroup") <- n.lgroup
-
-##   if(test) {
-##     for (i in 1:length(results)) {
-##       attr(results[[i]], "rgroup") <- rgroup[[i]]
-##       attr(results[[i]], "n.rgroup") <- n.rgroup
-##     }
-##   }
-
-##   for (i in 1:length(results)) {
-##     attr(results[[i]], "tgroup") <- tgroup[i]
-##     attr(results[[i]], "n.tgroup") <- n.tgroup[i]
-##   }
-##   class(results) <- "survival"
-##   results
-## }
-
-## ##' Compute survival (data.frame input)
-## ##'
-## ##' @param df df
-## ##' @param times times
-## ##' @param followup followup
-## ##' @param label label
-## ##' @author David Hajage
-## survival.data.frame <- function(df, times = NULL, followup = FALSE, label = FALSE) {
-
-##   results <- lapply(df, survival, NULL, times = times, followup = followup)
-
-##   lgroup <- lapply(results, function(x) attr(x, "lgroup"))
-##   n.lgroup <- lapply(results, function(x) attr(x, "n.lgroup"))
-
-##   n.lgroup1 <- unlist(lapply(n.lgroup, function(x) x[[1]]))
-##   n.lgroup2 <- unlist(lapply(n.lgroup, function(x) x[[2]]))
-##   n.lgroup <- list(n.lgroup1, n.lgroup2)
-
-##   lgroup1 <- unlist(lapply(lgroup, function(x) x[[1]]))
-
-
-##   if (!label)
-##     lgroup2 <- names(df)
-##   else
-##     lgroup2 <- sapply(df, Hmisc:::label.default)
-
-##   lgroup <- list(lgroup1, lgroup2)
-
-##   results <- rbind.list(results)
-##   colnames(results) <- "Survival"
-##   results <- list(results)
-
-##   attr(results[[1]], "lgroup") <- lgroup
-##   attr(results[[1]], "n.lgroup") <- n.lgroup
-
-##   class(results) <- "survival"
-##   results
-## }
+  results <- lapply(results, function(x) {
+      for (i in 1:length(x)) {
+          x[[i]][, 1] <- nom[i]
+      }
+      x
+  })
+  
+  results <- lapply(results, rbind.list)
+  results <- data.frame(cbind.list(c(results[1], lapply(results[-1], function(x) x[, -c(1, 2)]))), stringsAsFactors = FALSE, check.names = FALSE)
+  results
+}
 
 ## ##' Ascii for survival object.
 ## ##'
