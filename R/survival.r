@@ -15,7 +15,7 @@
 ##' @param show.method show.method
 ##' @author David Hajage
 ##' @keywords internal
-survival <- function(surv, by = NULL, times = NULL, followup = FALSE, digits = 2, test = FALSE, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
+survival <- function(surv, by = NULL, times = NULL, followup = FALSE, total = FALSE, digits = 2, test = FALSE, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
 
   df <- unclass(surv)
   if (!is.null(by)) {
@@ -123,6 +123,7 @@ survival.data.frame <- function(df, times = NULL, digits = 2, followup = FALSE, 
 ##' @param by by
 ##' @param times times
 ##' @param followup followup
+##' @param total total
 ##' @param digits digits
 ##' @param test test
 ##' @param test.survival test.survival
@@ -131,12 +132,22 @@ survival.data.frame <- function(df, times = NULL, digits = 2, followup = FALSE, 
 ##' @param show.method show.method
 ##' @param label label
 ##' @author David Hajage
-survival.data.frame.by <- function(df, by, times = NULL, followup = FALSE, digits = 2, test = FALSE, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
+survival.data.frame.by <- function(df, by, times = NULL, followup = FALSE, total = FALSE, digits = 2, test = FALSE, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
 
   dfx <- as.list(df)
   byx <- as.list(by)
 
   results <- lapply(byx, function(y) lapply(dfx, survival, y, times = times, followup = followup, digits = digits, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method))
+
+  if (identical(total, 1) | identical(total, 1:2) | identical(total, TRUE)) {
+      results.tot <- lapply(dfx, survival, times = na.omit(suppressWarnings(as.numeric(as.character(results[[1]][[1]]$variable)))), followup = followup, digits = digits, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method)
+
+      for (i in 1:length(results)) {
+          for (j in 1:length(results.tot)) {
+              results[[i]][[j]]$Total <- results.tot[[j]]$value
+          }
+      }
+  }
   
   if (!label)
       nom <- names(df)

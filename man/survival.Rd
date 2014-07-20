@@ -3,8 +3,8 @@
 \alias{survival}
 \title{Compute survival}
 \usage{
-survival(surv, by = NULL, times = NULL, followup = FALSE, digits = 2,
-  test = FALSE, test.survival = test.survival.logrank,
+survival(surv, by = NULL, times = NULL, followup = FALSE, total = FALSE,
+  digits = 2, test = FALSE, test.survival = test.survival.logrank,
   show.test = display.test, plim = 4, show.method = TRUE, label = FALSE)
 }
 \arguments{

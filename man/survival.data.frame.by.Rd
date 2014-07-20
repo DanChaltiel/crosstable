@@ -3,9 +3,10 @@
 \alias{survival.data.frame.by}
 \title{Compute survival according to a factor (data.frame input)}
 \usage{
-survival.data.frame.by(df, by, times = NULL, followup = FALSE, digits = 2,
-  test = FALSE, test.survival = test.survival.logrank,
-  show.test = display.test, plim = 4, show.method = TRUE, label = FALSE)
+survival.data.frame.by(df, by, times = NULL, followup = FALSE,
+  total = FALSE, digits = 2, test = FALSE,
+  test.survival = test.survival.logrank, show.test = display.test,
+  plim = 4, show.method = TRUE, label = FALSE)
 }
 \arguments{
 \item{df}{df}
@@ -15,6 +16,8 @@ survival.data.frame.by(df, by, times = NULL, followup = FALSE, digits = 2,
 \item{times}{times}
 
 \item{followup}{followup}
+
+\item{total}{total}
 
 \item{digits}{digits}
 

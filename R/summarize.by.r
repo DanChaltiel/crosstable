@@ -22,8 +22,6 @@ summarize.by <- function(x, by, funs = c(mean, sd, quantile, n, na), ..., showNA
 
     showNA <- showNA[1]
 
-    total <- sum(total)
-
     by2 <- by
     if (showNA == "always" | (showNA == "ifany" & anyNA(by))) {
         by2 <- addNA(by2)
@@ -52,7 +50,7 @@ summarize.by <- function(x, by, funs = c(mean, sd, quantile, n, na), ..., showNA
     results$variable <- factor(results$variable, as.character(unique(res$variable)), as.character(unique(res$variable)))
     results <- results[order(results$variable), ]
 
-    if (total) {
+  if (identical(total, 1) | identical(total, 1:2) | identical(total, TRUE)) {
         results$Total <- summarize(x, funs = funs, ..., digits = digits)[, 2]
     }
     ## results <- sapply(results, function(x) if (is.numeric(x)) as.character(round(x, digits)) else as.character(x))

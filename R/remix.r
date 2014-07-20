@@ -58,10 +58,10 @@ cross_one <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., mar
       results <- summarize.data.frame.by(y, x, funs = funs, ..., total = total, digits = digits, showNA = showNA, test = test, test.summarize = test.summarize, show.test = show.test, plim = plim, show.method = show.method, label = label)
     }
     if (is.Surv(x[, 1]) & is.character.or.factor(y[, 1])) {
-      results <- survival.data.frame.by(x, y, times = times, followup = followup, digits = digits, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, label = label)
+      results <- survival.data.frame.by(x, y, times = times, followup = followup, total = total, digits = digits, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, label = label)
     }
     if (is.Surv(y[, 1]) & is.character.or.factor(x[, 1])) {
-      results <- survival.data.frame.by(y, x, times = times, followup = followup, digits = digits, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, label = label)
+      results <- survival.data.frame.by(y, x, times = times, followup = followup, digits = digits, total = total, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, label = label)
     }
     if (is.character.or.factor(x[, 1]) & is.character.or.factor(y[, 1])) {
       results <- tabular.data.frame(x, y, margin = margin, total = total, digits = digits, showNA = showNA, test = test, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method, label = label)
