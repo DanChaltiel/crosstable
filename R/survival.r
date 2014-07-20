@@ -73,7 +73,7 @@ survival <- function(surv, by = NULL, times = NULL, followup = FALSE, digits = 2
       suiv <- NULL
     }
     p <- NULL
-    cnames <- "survival"
+    cnames <- "value"
   }
 
   if (followup) {
