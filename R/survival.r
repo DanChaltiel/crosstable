@@ -39,7 +39,7 @@ survival <- function(surv, by = NULL, times = NULL, followup = FALSE, total = FA
 
   mat <- cbind(x$surv, x$n.event, x$n.risk)
   mat <- paste.matrix(round(mat[, 1], digits), " (", mat[, 2], "/", mat[, 3], ")", sep = "")
-  
+
   if (!is.null(x$strata)) {
     strata <- x$strata
     ## results <- tocharac(do.call("cbind", split(as.data.frame(mat), strata)))
@@ -111,7 +111,7 @@ survival.data.frame <- function(df, times = NULL, digits = 2, followup = FALSE, 
       results[[i]][, 1] <- nom[i]
   }
   results <- rbind.list(results)
-  
+
   results
 }
 
@@ -148,7 +148,7 @@ survival.data.frame.by <- function(df, by, times = NULL, followup = FALSE, total
           }
       }
   }
-  
+
   if (!label)
       nom <- names(df)
   else
@@ -160,9 +160,12 @@ survival.data.frame.by <- function(df, by, times = NULL, followup = FALSE, total
       }
       x
   })
-  
+
   results <- lapply(results, rbind.list)
   results <- data.frame(cbind.list(c(results[1], lapply(results[-1], function(x) x[, -c(1, 2)]))), stringsAsFactors = FALSE, check.names = FALSE)
+  if ("p" %in% names(results) & "Total" %in% names(results)) {
+      results <- results[, c(names(results)[!(names(results) %in% c("p", "Total"))], "Total", "p")]
+  }
   results
 }
 
