@@ -53,8 +53,8 @@ test.tabular.auto <- function(x, y) {
     test <- list(p.value = NULL, method = NULL)
   else if (all(exp >= 5))
     test <- suppressWarnings(chisq.test(x, y, correct = FALSE))
-  else if (all(exp >= 3))
-    test <- suppressWarnings(chisq.test(x, y, correct = TRUE))
+  ## else if (all(exp >= 3))
+  ##   test <- suppressWarnings(chisq.test(x, y, correct = TRUE))
   else
     test <- fisher.test(x, y)
 
@@ -195,7 +195,7 @@ test.summarize.oneway.unequalvar <- function(x, g) {
 ##' @return a list with two componments: p.value and method
 ##' @author David Hajage
 ##' @export
-##' @import survival 
+##' @import survival
 test.survival.logrank <- function(formula) {
   survdiff.obj <- survdiff(formula)
   p <- 1-pchisq(survdiff.obj$chisq, length(survdiff.obj$n)-1)
