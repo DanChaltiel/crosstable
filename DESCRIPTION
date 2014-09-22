@@ -1,6 +1,6 @@
 Package: biostat2
 Title: biostat, mais 2
-Version: 0.2
+Version: 0.3
 Authors@R: person("David", "Hajage", email = "david.hajage@lmr.aphp.fr", role =
     c("aut", "cre"))
 Description: Fonctions facilitant la description et l'analyse
@@ -10,6 +10,7 @@ Imports:
     plyr,
     reshape2,
     Hmisc,
-    survival
+    survival,
+    ReporteRs
 License: GPL (>= 2)
 LazyData: true
