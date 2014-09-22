@@ -282,8 +282,8 @@ regroup <- function(vars, numdata, catdata, survdata) {
 ##' coefficient is to be used. One of \code{"pearson"},
 ##' \code{"kendall"}, or \code{"spearman"}, can be abbreviated.
 ##' @param times vector of times (see \code{?summary.survival} in
-##' package \code{survival}). 
-##' @param followup whether to display follow-up time. 
+##' package \code{survival}).
+##' @param followup whether to display follow-up time.
 ##' @param test whether to perform tests
 ##' @param test.summarize a function of two arguments (continuous
 ##' variable and grouping variable), used to compare continuous
@@ -297,7 +297,7 @@ regroup <- function(vars, numdata, catdata, survdata) {
 ##' to compare survival estimations. Returns the same components as
 ##' created by \code{test.summarize}. See
 ##' \code{test.survival.logrank}. Users can provide their own
-##' function. 
+##' function.
 ##' @param test.tabular a function of two arguments (two categorical
 ##' variables), used to test association between two factors.  Returns
 ##' the same components as created by \code{test.summarize}. See
@@ -363,7 +363,7 @@ regroup <- function(vars, numdata, catdata, survdata) {
 ##' @export
 ##' @importFrom plyr is.formula
 ##' @importFrom plyr llply
-cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(mean, sd, quantile, n, na), ..., margin = 0:2, total = FALSE, digits = 2, showNA = c("no", "ifany", "always"), method = c("pearson", "kendall", "spearman"), times = NULL, followup = FALSE, test = FALSE, test.summarize = test.summarize.auto, test.survival = test.survival.logrank, test.tabular = test.tabular.auto, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE, regroup = FALSE) {
+cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(" " = mysummary), ..., margin = 0:2, total = FALSE, digits = 2, showNA = c("no", "ifany", "always"), method = c("pearson", "kendall", "spearman"), times = NULL, followup = FALSE, test = FALSE, test.summarize = test.summarize.auto, test.survival = test.survival.logrank, test.tabular = test.tabular.auto, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE, regroup = FALSE) {
 
   if (is.formula(formula))
     formula <- deparse(formula, 500)

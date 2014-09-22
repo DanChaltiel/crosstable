@@ -38,7 +38,7 @@ funs2fun <- function(...) {
                              # je met un autre argument (genre probs =
                              # 1/3), min et max prennent en compte sa
                              # valeur, d'ou surprises... Je prefere
-                             # laisser comme ça.
+                             # laisser comme ca.
       namesforms <- names(forms)
       if (all(namesforms != "...")) {
         finalargs <- c(list(x = x), args[namesargs %in% namesforms])
@@ -52,3 +52,60 @@ funs2fun <- function(...) {
     data.frame(results, check.names = FALSE)
   }
 }
+
+## Default summary function
+
+##' Return min and max
+##'
+##' @param x a numeric vector
+##' @param na.rm \code{TRUE} as default
+##' @param dig number of digits
+##' @keywords internal
+minmax <- function(x, na.rm = TRUE, dig = 2) {
+    mi <- ifelse(!all(is.na(x)), round(min(x, na.rm = na.rm), dig), NA)
+    ma <- ifelse(!all(is.na(x)), round(max(x, na.rm = na.rm), dig), NA)
+    paste(mi, "/", ma)
+}
+
+##' Return median and IQR
+##'
+##' @param x a numeric vector
+##' @param na.rm \code{TRUE} as default
+##' @param dig number of digits
+##' @keywords internal
+mediqr <- function(x, na.rm = TRUE, dig = 2) {
+    med <- round(median(x, na.rm = na.rm), dig)
+    iqr <- round(quantile(x, probs = c(0.25, 0.75), na.rm = na.rm), dig)
+    paste(med, " [", iqr[1], "-", iqr[2], "]", sep = "")
+}
+
+##' Return mean and sd
+##'
+##' @param x a numeric vector
+##' @param na.rm \code{TRUE} as default
+##' @param dig number of digits
+##' @keywords internal
+moystd <- function(x, na.rm = TRUE, dig = 2) {
+    moy <- round(mean(x, na.rm = na.rm), dig)
+    std <- round(sd(x, na.rm = na.rm), dig)
+    paste(moy, " (", std, ")", sep = "")
+}
+
+##' Return n and na
+##'
+##' @param x a numeric vector
+##' @keywords internal
+nna <- function(x) {
+    paste(n(x), " (", na(x), ")", sep = "")
+}
+
+##' Summarize a numeric vector
+##'
+##' @param x a numeric vector
+##' @param na.rm \code{TRUE} as default
+##' @param dig number of digits
+##' @keywords internal
+mysummary <- function(x, na.rm = TRUE, dig = 2) {
+        return(c("Min / Max" = minmax(x), "Med [IQR]" = mediqr(x), "Moy (std)" = moystd(x), "N (NA)" = nna(x)))
+}
+
