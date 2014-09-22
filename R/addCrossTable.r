@@ -43,7 +43,7 @@ compact <- function(x) {
 ##' mytable <- cross(cbind(...) ~ tobgp, esoph, test = TRUE)
 ##' doc <- docx()
 ##' doc <- addCrossTable(doc, mytable)
-##' doc <- addPageBreak()
+##' doc <- addPageBreak(doc)
 ##' doc <- addCrossTable(doc, mytable, TRUE)
 ##' }
 ##' @keywords univar
