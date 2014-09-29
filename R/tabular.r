@@ -155,8 +155,10 @@ tabular <- function(x, y, showNA = c("no", "ifany", "always"), margin = 0:2, tot
 tabular.data.frame <- function(dfx, dfy, margin = 0:2, showNA = c("no", "ifany", "always"), total = FALSE, digits = 2, test = FALSE, test.tabular = test.tabular.auto, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
 
     if (label) {
-        names(dfx) <- sapply(dfx, label.default)
-        names(dfy) <- sapply(dfy, label.default)
+        labs.dfx <- sapply(dfx, label.default)
+        names(dfx)[labs.dfx != ""] <- labs.dfx[labs.dfx != ""]
+        labs.dfy <- sapply(dfy, label.default)
+        names(dfy)[labs.dfy != ""] <- labs.dfy[labs.dfy != ""]
     }
 
     results <- llply(dfy, function(y) llply(dfx, function(x) tabular(x, y, margin = margin, showNA = showNA, total = total, digits = digits, test = test, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method)))

@@ -1,2 +1,20 @@
 biostat2 0.1
 ------------
+
+Première version
+
+biostat2 0.2
+------------
+
+Analyse de survie
+
+biostat2 0.3
+------------
+
+addCrossTable
+
+biostat2 0.4
+------------
+
+Si label = TRUE mais qu'une variable n'a pas de label, affiche son nom
+à la place

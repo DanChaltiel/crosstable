@@ -49,7 +49,8 @@ freq.data.frame <- function(df, showNA = c("no", "ifany", "always"), total = FAL
   dfl <- as.list(df)
 
   if (label) {
-      names(dfl) <- sapply(dfl, label.default)
+      labs <- sapply(dfl, label.default)
+      names(dfl)[labs != ""] <- labs[labs != ""]
   }
 
   results <- ldply(dfl, freq, showNA = showNA, total = total, digits = digits)

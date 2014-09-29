@@ -47,8 +47,10 @@ summarize.data.frame <- function(df, funs = c(mean, sd, quantile, n, na), ..., d
   dfl <- as.list(df)
   results <- ldply(dfl, summarize, funs = funs, ..., digits = digits)
 
-  if (label)
-    results[, ".id"] <- sapply(dfl[results[, ".id"]], label.default)
+  if (label) {
+    labs <- sapply(dfl[results[, ".id"]], label.default)
+    results[, ".id"][labs != ""] <- labs[labs != ""]
+  }
 
   results
 }

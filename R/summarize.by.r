@@ -96,8 +96,10 @@ summarize.data.frame.by <- function(df, by, funs = c(mean, sd, quantile, n, na),
   }
 
   if (label) {
-    names(df) <- sapply(df, label.default)
-    names(by) <- sapply(by, label.default)
+    labs.df <- sapply(df, label.default)
+    names(df)[labs.df != ""] <- labs.df[labs.df != ""]
+    labs.by <- sapply(by, label.default)
+    names(by)[labs.by != ""] <- labs.by[labs.by != ""]
   }
 
   results <- llply(by, function(y) ldply(df, function(x) summarize.by(x, y, funs = funs, ..., showNA = showNA, total = total, digits = digits, test = test, test.summarize = test.summarize, show.test = show.test, plim = plim, show.method = show.method)))

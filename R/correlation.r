@@ -25,8 +25,10 @@ correlation <- function(x, y, method = c("pearson", "kendall", "spearman"), digi
 correlation.data.frame <- function(dfx, dfy, method = c("pearson", "kendall", "spearman"), digits = 2, label = FALSE) {
 
     if (label) {
-        names(dfx) <- sapply(dfx, label.default)
-        names(dfy) <- sapply(dfy, label.default)
+        labs.dfy <- sapply(dfx, label.default)
+        names(dfx)[labs.dfx != ""] <- labs.dfx[labs.dfx != ""]
+        labs.dfy <- sapply(dfy, label.default)
+        names(dfy)[labs.dfy != ""] <- labs.dfy[labs.dfy != ""]
     }
 
     results <- sapply(dfy, function(y) sapply(dfx, function(x) correlation(x, y, method = method, digits = digits)))

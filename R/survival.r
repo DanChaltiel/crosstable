@@ -102,10 +102,11 @@ survival.data.frame <- function(df, times = NULL, digits = 2, followup = FALSE, 
 
   results <- lapply(df, survival, NULL, times = times, followup = followup, digits = digits)
 
-  if (!label)
-    nom <- names(df)
-  else
-    nom <- sapply(df, label.default)
+  nom <- names(df)
+  if (label) {
+    labs <- sapply(df, label.default)
+    nom[labs != ""] <- labs[labs != ""]
+  }
 
   for (i in 1:length(results)) {
       results[[i]][, 1] <- nom[i]
@@ -149,10 +150,11 @@ survival.data.frame.by <- function(df, by, times = NULL, followup = FALSE, total
       }
   }
 
-  if (!label)
-      nom <- names(df)
-  else
-      nom <- sapply(df, label.default)
+  nom <- names(df)
+  if (label) {
+      labs <- sapply(df, label.default)
+      nom[labs != ""] <- labs[labs != ""]
+  }
 
   results <- lapply(results, function(x) {
       for (i in 1:length(x)) {
