@@ -20,6 +20,8 @@ compact <- function(x) {
     } else {
         res <- do.call("rbind", dlply(x, ".id", function(y) {
             tmp <- sapply(y[, -1, FALSE], as.character)
+            dim(tmp) <- dim(y[, -1, FALSE])
+            dimnames(tmp) <- dimnames(y[, -1, FALSE])
             tmp[, 1] <- paste("    ", tmp[, 1], sep = "")
             rbind(as.character(unique(y$`.id`)), tmp)
         }))

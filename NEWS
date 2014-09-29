@@ -18,3 +18,9 @@ biostat2 0.4
 
 Si label = TRUE mais qu'une variable n'a pas de label, affiche son nom
 à la place
+
+biostat2 0.4.1
+------------
+
+Correction d'un bug mineur quand addCrosTable(compact = TRUE) est
+utilisé sur une table avec une seule ligne
