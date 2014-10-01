@@ -95,25 +95,37 @@ test.tabular.fisher <- function(x, y) {
 ##' @export
 test.summarize.auto <- function(x, g) {
   ng <- table(g)
+
   if (length(ng) <= 1) {
     p <- NULL
     method <- NULL
   } else {
     shapirog <- tapply(x, g, function(x) shapiro.test(x)$p.value)
     if (any(ng < 30) | any(shapirog < 0.05)) {
-      type <- "kruskal"
+        if (length(ng) == 2) {
+            type <- "wilcox"
+        } else {
+            type <- "kruskal"
+        }
     } else {
       bartlettg <- bartlett.test(x, g)$p.value
-      if (bartlettg < 0.05) {
-        type <- "unequalvar"
-      } else {
-        type <- "equalvar"
+      if (bartlettg < 0.05 & length(ng) == 2) {
+        type <- "t.unequalvar"
+      } else if (bartlettg < 0.05 & length(ng) > 2) {
+        type <- "a.unequalvar"
+      } else if (bartlettg > 0.05 & length(ng) == 2) {
+        type <- "t.equalvar"
+      } else if (bartlettg > 0.05 & length(ng) > 2) {
+        type <- "a.equalvar"
       }
     }
     test <- switch(type,
+                   wilcox = wilcox.test(x ~ g, correct = FALSE),
                    kruskal = kruskal.test(x, g),
-                   unequalvar = oneway.test(x ~  g, var.equal = FALSE),
-                   equalvar = oneway.test(x ~ g, var.equal = TRUE))
+                   t.unequalvar = t.test(x ~  g, var.equal = FALSE),
+                   t.equalvar = t.test(x ~  g, var.equal = TRUE),
+                   a.unequalvar = oneway.test(x ~  g, var.equal = FALSE),
+                   a.equalvar = oneway.test(x ~ g, var.equal = TRUE))
     p <- test$p.value
     method <- test$method
   }
@@ -132,12 +144,16 @@ test.summarize.auto <- function(x, g) {
 test.summarize.kruskal <- function(x, g) {
   ng <- table(g)
   if (length(ng) <= 1) {
-    p <- NULL
-    method <- NULL
-  } else {
-    test <- kruskal.test(x, g)
-    p <- test$p.value
-    method <- test$method
+      p <- NULL
+      method <- NULL
+  } else if (length(ng) == 2) {
+      test <- wilcox.test(x ~ g, correct = FALSE)
+      p <- test$p.value
+      method <- test$method
+  } else if (length(ng) > 2) {
+      test <- kruskal.test(x, g)
+      p <- test$p.value
+      method <- test$method
   }
   list(p.value = p, method = method)
 }
@@ -156,8 +172,12 @@ test.summarize.oneway.equalvar <- function(x, g) {
   if (length(ng) <= 1) {
     p <- NULL
     method <- NULL
-  } else {
-    test <- oneway.test(x ~  g, var.equal = TRUE)
+  } else if (length(ng) == 2) {
+    test <- t.test(x ~ g, var.equal = TRUE)
+    p <- test$p.value
+    method <- test$method
+  } else if (length(ng) > 2) {
+    test <- oneway.test(x ~ g, var.equal = TRUE)
     p <- test$p.value
     method <- test$method
   }
@@ -178,7 +198,11 @@ test.summarize.oneway.unequalvar <- function(x, g) {
   if (length(ng) <= 1) {
     p <- NULL
     method <- NULL
-  } else {
+  } else if (length(ng) == 2) {
+    test <- t.test(x ~  g, var.equal = FALSE)
+    p <- test$p.value
+    method <- test$method
+  } else if (length(ng) > 2) {
     test <- oneway.test(x ~  g, var.equal = FALSE)
     p <- test$p.value
     method <- test$method
