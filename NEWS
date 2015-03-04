@@ -31,3 +31,8 @@ biostat2 0.5
 Quand deux groupes sont comparés, utilise un test de student ou de
 wilcoxon au lieu d'une anova ou d'un kruskal (ne change rien au
 p-value calculées, mais fait plaisir aux investigateurs)
+
+biostat2 0.6
+------------
+
+Rajout de la fonction FlexCrossTable, pour créer un objet FlexTable

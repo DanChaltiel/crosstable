@@ -30,28 +30,25 @@ compact <- function(x) {
     res
 }
 
-##' add a table made by the cross function into a ReporteRs document
+##' Create a FlexTable object from a table made by the cross function
 ##'
-##' @param doc a \code{docx} object created by \code{docx} function (package \code{ReporteRs})
 ##' @param crosstable the result of \code{cross} function
 ##' @param compact compact the table?
 ##' @return
-##'   A \code{docx} object
+##'   A \code{FlexTable} object
 ##' @author David Hajage
 ##' @examples
 ##' \dontrun{
 ##' library(biostat2)
 ##' library(ReporteRs)
 ##' mytable <- cross(cbind(...) ~ tobgp, esoph, test = TRUE)
-##' doc <- docx()
-##' doc <- addCrossTable(doc, mytable)
-##' doc <- addPageBreak(doc)
-##' doc <- addCrossTable(doc, mytable, TRUE)
+##' FlexCrossTable(mytable)
+##' FlexCrossTable(mytable, TRUE)
 ##' }
 ##' @keywords univar
 ##' @export
 ##' @import ReporteRs
-addCrossTable <- function(doc, crosstable, compact = FALSE) {
+FlexCrossTable <- function(crosstable, compact = FALSE) {
 
     if (!compact) {
         ft <- FlexTable(crosstable)
@@ -92,6 +89,36 @@ addCrossTable <- function(doc, crosstable, compact = FALSE) {
                 ft <- spanFlexTableColumns(ft, i = i, runs = crosstable2[i, ])
             }
         }
+    }
+    return(ft)
+}
+
+##' add a table made by the cross function into a ReporteRs document
+##'
+##' @param doc a \code{docx} object created by \code{docx} function (package \code{ReporteRs})
+##' @param crosstable the result of \code{cross} function
+##' @param compact compact the table?
+##' @return
+##'   A \code{docx} object
+##' @author David Hajage
+##' @examples
+##' \dontrun{
+##' library(biostat2)
+##' library(ReporteRs)
+##' mytable <- cross(cbind(...) ~ tobgp, esoph, test = TRUE)
+##' doc <- docx()
+##' doc <- addCrossTable(doc, mytable)
+##' doc <- addPageBreak(doc)
+##' doc <- addCrossTable(doc, mytable, TRUE)
+##' }
+##' @keywords univar
+##' @export
+##' @import ReporteRs
+addCrossTable <- function(doc, crosstable, compact = FALSE) {
+    if (!inherits(crosstable, "FlexTable")) {
+        ft <- FlexCrossTable(crosstable, compact)
+    } else {
+        ft <- crosstable
     }
     doc <- addFlexTable(doc, ft)
     return(doc)
