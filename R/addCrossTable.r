@@ -18,6 +18,7 @@ compact <- function(x) {
             }))))
         }))
     } else {
+        x$`.id` <- factor(x$`.id`, unique(x$`.id`), unique(x$`.id`))
         res <- do.call("rbind", dlply(x, ".id", function(y) {
             tmp <- sapply(y[, -1, FALSE], as.character)
             dim(tmp) <- dim(y[, -1, FALSE])
