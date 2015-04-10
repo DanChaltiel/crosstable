@@ -70,8 +70,10 @@ FlexCrossTable <- function(crosstable, compact = FALSE) {
                                   outer.vertical = borderProperties(width = 0), outer.horizontal = borderProperties(width = 3))
 
         if ("p" %in% names(crosstable)) {
-            bord <- cumsum(table(crosstable$.id)+2)
-            bord2 <- bord - (table(crosstable$.id)+1)
+            ## bord <- cumsum(table(crosstable$.id)+2)
+            ## bord2 <- bord - (table(crosstable$.id)+1)
+            bord <- cumsum(table(factor(crosstable$.id, unique(crosstable$.id), unique(crosstable$.id))) + 2)
+            bord2 <- bord - (table(factor(crosstable$.id, unique(crosstable$.id), unique(crosstable$.id))) + 1)
             ft[bord[-length(bord)], , side = "bottom"] = borderProperties(width = 1)
             ft[bord, , side = "top"] = borderProperties(style = "dashed")
             ft[bord2, ] <- textProperties(font.style = "italic")
@@ -82,8 +84,10 @@ FlexCrossTable <- function(crosstable, compact = FALSE) {
                 ft <- spanFlexTableColumns(ft, i = i, runs = crosstable2[i, ])
             }
         } else {
-            bord <- cumsum(table(crosstable$.id)+1)
-            bord2 <- bord - (table(crosstable$.id))
+            ## bord <- cumsum(table(crosstable$.id)+1)
+            ## bord2 <- bord - (table(crosstable$.id))
+            bord <- cumsum(table(factor(crosstable$.id, unique(crosstable$.id), unique(crosstable$.id))) + 1)
+            bord2 <- bord - table(factor(crosstable$.id, unique(crosstable$.id), unique(crosstable$.id)))
             ft[bord[-length(bord)], , side = "bottom"] = borderProperties(width = 1)
             ft[bord2, ] <- textProperties(font.style = "italic")
             for (i in bord2) {

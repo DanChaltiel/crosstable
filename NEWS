@@ -38,7 +38,12 @@ biostat2 0.6
 Rajout de la fonction FlexCrossTable, pour créer un objet FlexTable
 
 biostat2 0.6.1
-------------
+--------------
 
 Correction d'un bug mineur qui classait certains tableaux par ordre
 alphabétique avec l'option 'compact'
+
+biostat2 0.6.2
+--------------
+
+Autre bug avec compact
