@@ -18,7 +18,6 @@ compact <- function(x) {
             }))))
         }))
     } else {
-        x$`.id` <- factor(x$`.id`, unique(x$`.id`), unique(x$`.id`))
         res <- do.call("rbind", dlply(x, ".id", function(y) {
             tmp <- sapply(y[, -1, FALSE], as.character)
             dim(tmp) <- dim(y[, -1, FALSE])
@@ -50,6 +49,7 @@ compact <- function(x) {
 ##' @export
 ##' @import ReporteRs
 FlexCrossTable <- function(crosstable, compact = FALSE) {
+    crosstable$`.id` <- factor(crosstable$`.id`, unique(crosstable$`.id`), unique(crosstable$`.id`))
 
     if (!compact) {
         ft <- FlexTable(crosstable)
