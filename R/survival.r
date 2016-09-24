@@ -47,7 +47,7 @@ survival <- function(surv, by = NULL, times = NULL, followup = FALSE, total = FA
     nstrata <- length(unique(strata))
 
     if (followup) {
-      mediansuiv <- summary(suivfit.obj)$table[, 5]
+      mediansuiv <- round(summary(suivfit.obj)$table[, 5], digits = digits)
       tmp <- data.frame(unclass(model.frame(formula)[, 1]), model.frame(formula)[, 2])
       bornes <- daply(tmp, .(tmp[, 3]), function(df) paste("[", min(df[df[, 2] == 0, 1]), " ; ", max(df[, 1]), "]", sep = ""))
       suiv <- paste(mediansuiv, bornes)
@@ -64,7 +64,7 @@ survival <- function(surv, by = NULL, times = NULL, followup = FALSE, total = FA
     results <- mat
     nstrata <- 1
     if (followup) {
-      mediansuiv <- summary(suivfit.obj)$table[5]
+      mediansuiv <- round(summary(suivfit.obj)$table[5], digits = digits)
       tmp <- unclass(model.frame(formula)[, 1])
       minsuiv <- min(tmp[tmp[, 2] == 0, 1])
       maxsuiv <- max(tmp[, 1])
@@ -81,7 +81,7 @@ survival <- function(surv, by = NULL, times = NULL, followup = FALSE, total = FA
   } else {
     rnames <- c(times, "Median survival")
   }
-  mediansurv <- expand(x$table, nrow = nstrata, ncol = 7, drop = F)[, 5]
+  mediansurv <- expand(round(x$table, digits = digits), nrow = nstrata, ncol = 7, drop = F)[, 5]
 
   results <- data.frame(paste("Surv(", colnames(df)[1], ", ", colnames(df)[2], ")", sep = ""), rnames, rbind(results, suiv, mediansurv), row.names = NULL)
   colnames(results) <- c(".id", "variable", cnames)
