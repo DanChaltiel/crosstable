@@ -1,6 +1,6 @@
 Package: biostat2
 Title: biostat, mais 2
-Version: 0.6.2
+Version: 0.7
 Authors@R: person("David", "Hajage", email = "david.hajage@lmr.aphp.fr", role =
     c("aut", "cre"))
 Description: Fonctions facilitant la description et l'analyse
@@ -11,6 +11,8 @@ Imports:
     reshape2,
     Hmisc,
     survival,
-    ReporteRs
+    ReporteRs,
+    flextable
 License: GPL (>= 2)
 LazyData: true
+RoxygenNote: 6.0.1

@@ -35,7 +35,7 @@ summarize <- function(x, funs = c(mean, sd, quantile, n, na), ..., digits = 2) {
 ##' @author David Hajage
 ##' @keywords internal
 ##' @importFrom Hmisc label.default
-##' @importFrom plyr ldply
+##' @importFrom plyr ldply mapvalues
 summarize.data.frame <- function(df, funs = c(mean, sd, quantile, n, na), ..., digits = 2, label = FALSE) {
   if (!is.character(funs)) {
       nomf <- names(funs)
@@ -44,13 +44,30 @@ summarize.data.frame <- function(df, funs = c(mean, sd, quantile, n, na), ..., d
       names(funs) <- nomf
   }
 
+  noms.df <- names(df)
+
+  if (label) {
+      labs.df <- sapply(df, label.default)
+      labs.df[labs.df == ""] <- noms.df[labs.df == ""]
+      # names(df) <- noms.df
+  } else {
+      labs.df <- noms.df
+  }
+
   dfl <- as.list(df)
   results <- ldply(dfl, summarize, funs = funs, ..., digits = digits)
 
-  if (label) {
-    labs <- sapply(dfl[results[, ".id"]], label.default)
-    results[, ".id"][labs != ""] <- labs[labs != ""]
-  }
+  n.df <- rep(length(unique(results$variable)), length(dfl))
+
+  results$label <- mapvalues(results$`.id`, from = noms.df, to = labs.df)
+  results <- results[, c(".id", "label", names(results)[!(names(results) %in% c(".id", "label"))])]
+
+  attr(results, "noms.lig") <- noms.df
+  attr(results, "noms.col") <- character(0)
+  attr(results, "labs.lig") <- labs.df
+  attr(results, "labs.col") <- character(0)
+  attr(results, "n.lig") <- n.df
+  attr(results, "n.col") <- numeric(0)
 
   results
 }

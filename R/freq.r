@@ -29,7 +29,7 @@ freq <- function(x, showNA = c("no", "ifany", "always"), total = FALSE, digits =
   nom[is.na(nom)] <- "NA"
   results <- data.frame("variable" = nom, value = value)
 
-  ## Si NA n'est pas dans le facteur, on met la colonne après "Total"
+  # Si NA n'est pas dans le facteur, on met la colonne apres "Total"
   if ((any(results$variable == "NA") & any(results$variable == "Total")) & !anyNA(levels(x))) {
       tmp <- results[results$variable == "NA", ]
       results <- rbind(results[results$variable != "NA", ], tmp)
@@ -45,15 +45,38 @@ freq <- function(x, showNA = c("no", "ifany", "always"), total = FALSE, digits =
 ##' @author David Hajage
 ##' @keywords internal
 ##' @importFrom Hmisc label.default
+##' @importFrom plyr mapvalues
 freq.data.frame <- function(df, showNA = c("no", "ifany", "always"), total = FALSE, digits = 2, label = FALSE) {
+    noms.df <- names(df)
+
+    if (label) {
+        labs.df <- sapply(df, label.default)
+        labs.df[labs.df == ""] <- noms.df[labs.df == ""]
+        # names(df) <- noms.df
+    } else {
+        labs.df <- noms.df
+    }
+
+
   dfl <- as.list(df)
 
-  if (label) {
-      labs <- sapply(dfl, label.default)
-      names(dfl)[labs != ""] <- labs[labs != ""]
-  }
+  results <- llply(dfl, freq, showNA = showNA, total = total, digits = digits)
+  n.df <- sapply(results, nrow)
 
-  results <- ldply(dfl, freq, showNA = showNA, total = total, digits = digits)
+  for (i in 1:length(results)) {
+          results[[i]] <- cbind(".id" = noms.df[i], results[[i]])
+  }
+  results <- rbind.list(results)
+  results$label <- mapvalues(results$`.id`, from = noms.df, to = labs.df)
+  results <- results[, c(".id", "label", names(results)[!(names(results) %in% c(".id", "label"))])]
+
+  attr(results, "noms.lig") <- noms.df
+  attr(results, "noms.col") <- character(0)
+  attr(results, "labs.lig") <- labs.df
+  attr(results, "labs.col") <- character(0)
+  attr(results, "n.lig") <- n.df
+  attr(results, "n.col") <- numeric(0)
+
   results
 }
 

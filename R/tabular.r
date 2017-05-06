@@ -120,7 +120,7 @@ tabular <- function(x, y, showNA = c("no", "ifany", "always"), margin = 0:2, tot
     nom[is.na(nom)] <- "NA"
     colnames(results) <- nom
 
-    ## Si NA n'est pas dans le facteur, on met la colonne après "Total"
+    ## Si NA n'est pas dans le facteur, on met la colonne apres "Total"
     if ((any(colnames(results) == "NA") & any(colnames(results) == "Total")) & !anyNA(levels(y))) {
         tmp <- results[, "NA"]
         results <- cbind(results[, colnames(results) != "NA"], "NA" = tmp)
@@ -152,14 +152,24 @@ tabular <- function(x, y, showNA = c("no", "ifany", "always"), margin = 0:2, tot
 ##' @param label label
 ##' @author David Hajage
 ##' @keywords internal
+##' @importFrom plyr mapvalues
 tabular.data.frame <- function(dfx, dfy, margin = 0:2, showNA = c("no", "ifany", "always"), total = FALSE, digits = 2, test = FALSE, test.tabular = test.tabular.auto, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
+
+    noms.dfx <- names(dfx)
+    noms.dfy <- names(dfy)
 
     if (label) {
         labs.dfx <- sapply(dfx, label.default)
-        names(dfx)[labs.dfx != ""] <- labs.dfx[labs.dfx != ""]
+        labs.dfx[labs.dfx == ""] <- noms.dfx[labs.dfx == ""]
+        # names(dfx) <- noms.dfx
         labs.dfy <- sapply(dfy, label.default)
-        names(dfy)[labs.dfy != ""] <- labs.dfy[labs.dfy != ""]
+        labs.dfy[labs.dfy == ""] <- noms.dfy[labs.dfy == ""]
+        # names(dfy) <- noms.dfy
+    } else {
+        labs.dfx <- noms.dfx
+        labs.dfy <- noms.dfy
     }
+
 
     results <- llply(dfy, function(y) llply(dfx, function(x) tabular(x, y, margin = margin, showNA = showNA, total = total, digits = digits, test = test, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method)))
 
@@ -171,15 +181,30 @@ tabular.data.frame <- function(dfx, dfy, margin = 0:2, showNA = c("no", "ifany",
         x
     })
 
+    n.dfx <- sapply(results[[1]], nrow)
+
     results <- lapply(results, rbind.list)
 
     if (length(results) > 1) {
+        n.dfy <- laply(results, ncol) - 2
         results <- cbind(results[[1]], cbind.list(lapply(results[-1], function(x) x[, -(1:2)])))
     } else {
+        n.dfy <- ncol(results[[1]]) - 2
         results <- results[[1]]
     }
 
-    data.frame(results, check.names = FALSE)
+    results <- data.frame(results, check.names = FALSE)
+    results$label <- mapvalues(results$`.id`, from = noms.dfx, to = labs.dfx)
+    results <- results[, c(".id", "label", names(results)[!(names(results) %in% c(".id", "label"))])]
+
+    attr(results, "noms.lig") <- noms.dfx
+    attr(results, "noms.col") <- noms.dfy
+    attr(results, "labs.lig") <- labs.dfx
+    attr(results, "labs.col") <- labs.dfy
+    attr(results, "n.lig") <- n.dfx
+    attr(results, "n.col") <- n.dfy
+
+    results
 }
 
 ## ##' Ascii for tabular object.

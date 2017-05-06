@@ -33,7 +33,7 @@ is.numeric.and.not.surv <- function(x) {
 ##' @param test test
 ##' @param test.tabular test.tabular
 ##' @param test.summarize test.summarize
-##' @param test.survival
+##' @param test.survival test.survival
 ##' @param show.test show.test
 ##' @param plim plim
 ##' @param show.method show.method
@@ -67,7 +67,7 @@ cross_one <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., mar
       results <- tabular.data.frame(x, y, margin = margin, total = total, digits = digits, showNA = showNA, test = test, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method, label = label)
     }
     if (is.numeric.and.not.surv(x[, 1]) & is.numeric.and.not.surv(y[, 1])) {
-      results <- correlation.data.frame(x, y, method = method)
+      results <- correlation.data.frame(x, y, method = method, label = label)
     }
   } else if (is.null(y)) {
     if (is.character.or.factor(x[, 1])) {
@@ -110,7 +110,7 @@ cross_one <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., mar
 ##' @param test test
 ##' @param test.tabular test.tabular
 ##' @param test.summarize test.summarize
-##' @param test.survival
+##' @param test.survival test.survival
 ##' @param show.test show.test
 ##' @param plim plim
 ##' @param show.method show.method
@@ -147,11 +147,12 @@ cross_all <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., mar
 
             res <- NULL
             for (i in 1:nrow(croix)) {
+                # res <- c(res, list(cross_one(df[, croix$Var1[i], F], df[, croix$Var2[i], F], funs = funs, margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method, label = label)))
                 res <- c(res, list(cross_one(df[, croix$Var1[i], F], df[, croix$Var2[i], F], funs = funs, ..., margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method, label = label)))
             }
 
             idx <- tapply(1:nrow(croix), croix$Var2, c)
-            results <- unname(lapply(idx, function(i) rbind.list(res[i])))
+            results <- unname(lapply(idx, function(i) rbind.list(res[i], TRUE)))
 
             idx2 <- tapply(1:length(results), tapply(croix$Var1, croix$Var2, paste, collapse = ""), c)
 
@@ -162,7 +163,16 @@ cross_all <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., mar
             results <- unname(lapply(idx2, function(i) {
                 tmp <- results[i]
                 if (length(tmp) > 1) {
-                    res <- cbind(tmp[[1]], cbind.list(lapply(tmp[-1], function(x) x[, -(1:2), FALSE])))
+                    # res <- cbind(tmp[[1]], cbind.list(lapply(tmp[-1], function(x) x[, -(1:2), FALSE])))
+                    res <- cbind.list(c(list(tmp[[1]]), list(cbind.list(lapply(tmp[-1], function(x) {
+                        xx <- x[, -(1:2), FALSE]
+                        attr(xx, "noms.col") <- attr(x, "noms.col")
+                        attr(xx, "labs.col") <- attr(x, "labs.col")
+                        attr(xx, "n.col") <- attr(x, "n.col")
+                        attr(xx, "noms.lig") <- attr(x, "noms.lig")
+                        attr(xx, "labs.lig") <- attr(x, "labs.lig")
+                        attr(xx, "n.lig") <- attr(x, "n.lig")
+                        xx}), TRUE))), TRUE)
                 } else {
                     res <- tmp[[1]]
                 }
@@ -172,15 +182,16 @@ cross_all <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., mar
     } else if (is.null(y)) {
         res <- NULL
         for (i in 1:ncol(x)) {
+            # res <- c(res, list(cross_one(x[, i, FALSE], NULL, funs = funs, margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method, label = label)))
             res <- c(res, list(cross_one(x[, i, FALSE], NULL, funs = funs, ..., margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method, label = label)))
         }
-        results <- rbind.list(res)
+        results <- rbind.list(res, TRUE)
     } else if (is.null(x)) {
         res <- NULL
         for (i in 1:ncol(y)) {
             res <- c(res, list(cross_one(y[, i, FALSE], NULL, funs = funs, ..., margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method, label = label)))
         }
-        results <- rbind.list(res)
+        results <- rbind.list(res, TRUE)
     }
 
     if (length(results) == 1) {
@@ -192,7 +203,7 @@ cross_all <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., mar
 
 ##' Cross variables in a list
 ##'
-##' @param l
+##' @param l l
 ##' @param funs funs
 ##' @param ... \dots
 ##' @param margin margin
@@ -204,7 +215,7 @@ cross_all <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., mar
 ##' @param followup followup
 ##' @param test test
 ##' @param test.summarize test.summarize
-##' @param test.survival
+##' @param test.survival test.survival
 ##' @param test.tabular test.tabular
 ##' @param show.test show.test
 ##' @param plim plim
@@ -401,6 +412,8 @@ cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(" " = mysummar
       lapply(y, function(z) data[, remove_blank(elements(z)), drop = FALSE])
   })
 
+  # results <- llply(comb, function(x) cross_list(x, funs = funs, margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method, label = label))
+
   results <- llply(comb, function(x) cross_list(x, funs = funs, ..., margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method, label = label))
 
   if (length(results) == 1) {
@@ -415,8 +428,8 @@ cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(" " = mysummar
 
   ## class(results) <- c("remix")
   ## attr(results, "formula") <- formula
-  ## attr(results, "left") <- parsed$left
-  ## attr(results, "right") <- parsed$right
+  # attr(results, "left") <- parsed$left
+  # attr(results, "right") <- parsed$right
   ## ## attr(results, "by") <- parsed$by
 
   ## attr(results, "data") <- data

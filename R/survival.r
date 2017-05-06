@@ -98,20 +98,36 @@ survival <- function(surv, by = NULL, times = NULL, followup = FALSE, total = FA
 ##' @param digits digits
 ##' @param label label
 ##' @author David Hajage
+##' @importFrom plyr mapvalues
 survival.data.frame <- function(df, times = NULL, digits = 2, followup = FALSE, label = FALSE) {
+
+    noms.df <- names(df)
+
+    if (label) {
+        labs.df <- sapply(df, label.default)
+        labs.df[labs.df == ""] <- noms.df[labs.df == ""]
+        # names(df) <- noms.df
+    } else {
+        labs.df <- noms.df
+    }
 
   results <- lapply(df, survival, NULL, times = times, followup = followup, digits = digits)
 
-  nom <- names(df)
-  if (label) {
-    labs <- sapply(df, label.default)
-    nom[labs != ""] <- labs[labs != ""]
-  }
-
   for (i in 1:length(results)) {
-      results[[i]][, 1] <- nom[i]
+      results[[i]][, 1] <- noms.df[i]
   }
+  n.df <- sapply(results, nrow)
+
   results <- rbind.list(results)
+  results$label <- mapvalues(results$`.id`, from = noms.df, to = labs.df)
+  results <- results[, c(".id", "label", names(results)[!(names(results) %in% c(".id", "label"))])]
+
+  attr(results, "noms.lig") <- noms.df
+  attr(results, "noms.col") <- character(0)
+  attr(results, "labs.lig") <- labs.df
+  attr(results, "labs.col") <- character(0)
+  attr(results, "n.lig") <- n.df
+  attr(results, "n.col") <- numeric(0)
 
   results
 }
@@ -135,6 +151,21 @@ survival.data.frame <- function(df, times = NULL, digits = 2, followup = FALSE, 
 ##' @author David Hajage
 survival.data.frame.by <- function(df, by, times = NULL, followup = FALSE, total = FALSE, digits = 2, test = FALSE, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
 
+    noms.df <- names(df)
+    noms.by <- names(by)
+
+    if (label) {
+        labs.df <- sapply(df, label.default)
+        labs.df[labs.df == ""] <- noms.df[labs.df == ""]
+        # names(df) <- noms.df
+        labs.by <- sapply(by, label.default)
+        labs.by[labs.by == ""] <- noms.by[labs.by == ""]
+        # names(by) <- noms.by
+    } else {
+        labs.df <- noms.df
+        labs.by <- noms.by
+    }
+
   dfx <- as.list(df)
   byx <- as.list(by)
 
@@ -150,24 +181,33 @@ survival.data.frame.by <- function(df, by, times = NULL, followup = FALSE, total
       }
   }
 
-  nom <- names(df)
-  if (label) {
-      labs <- sapply(df, label.default)
-      nom[labs != ""] <- labs[labs != ""]
-  }
 
   results <- lapply(results, function(x) {
       for (i in 1:length(x)) {
-          x[[i]][, 1] <- nom[i]
+          x[[i]][, 1] <- noms.df[i]
       }
       x
   })
 
+  n.df <- sapply(results[[1]], nrow)
+
   results <- lapply(results, rbind.list)
+  n.by <- sapply(results, ncol) - 2
+
   results <- data.frame(cbind.list(c(results[1], lapply(results[-1], function(x) x[, -c(1, 2)]))), stringsAsFactors = FALSE, check.names = FALSE)
   if ("p" %in% names(results) & "Total" %in% names(results)) {
       results <- results[, c(names(results)[!(names(results) %in% c("p", "Total"))], "Total", "p")]
   }
+
+  results$label <- mapvalues(results$`.id`, from = noms.df, to = labs.df)
+  results <- results[, c(".id", "label", names(results)[!(names(results) %in% c(".id", "label"))])]
+  attr(results, "noms.lig") <- noms.df
+  attr(results, "noms.col") <- noms.by
+  attr(results, "labs.lig") <- labs.df
+  attr(results, "labs.col") <- labs.by
+  attr(results, "n.lig") <- n.df
+  attr(results, "n.col") <- n.by
+
   results
 }
 

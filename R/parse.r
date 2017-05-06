@@ -77,7 +77,7 @@ parse_formula <- function(formula, varnames) {
 
 ##' Return elements in cbind, or x
 ##'
-##' @param x
+##' @param x x
 ##' @author David Hajage
 ##' @keywords internal
 elements <- function(x) {

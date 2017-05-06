@@ -55,7 +55,7 @@ summarize.by <- function(x, by, funs = c(mean, sd, quantile, n, na), ..., showNA
     }
     ## results <- sapply(results, function(x) if (is.numeric(x)) as.character(round(x, digits)) else as.character(x))
 
-    ## Si NA n'est pas dans le facteur, on met la colonne après "Total"
+    ## Si NA n'est pas dans le facteur, on met la colonne apres "Total"
     if ((any(colnames(results) == "NA") & any(colnames(results) == "Total")) & !anyNA(levels(by))) {
         tmp <- results[, "NA"]
         results <- cbind(results[, colnames(results) != "NA"], "NA" = tmp)
@@ -86,7 +86,7 @@ summarize.by <- function(x, by, funs = c(mean, sd, quantile, n, na), ..., showNA
 ##' @author David Hajage
 ##' @keywords internal
 ##' @importFrom Hmisc label.default
-##' @importFrom plyr ldply
+##' @importFrom plyr ldply mapvalues
 summarize.data.frame.by <- function(df, by, funs = c(mean, sd, quantile, n, na), ..., showNA = c("no", "ifany", "always"), total = FALSE, digits = 2, test = FALSE, test.summarize = test.summarize.auto, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
   if (!is.character(funs)) {
       nomf <- names(funs)
@@ -95,20 +95,42 @@ summarize.data.frame.by <- function(df, by, funs = c(mean, sd, quantile, n, na),
       names(funs) <- nomf
   }
 
+    noms.df <- names(df)
+    noms.by <- names(by)
+
   if (label) {
     labs.df <- sapply(df, label.default)
-    names(df)[labs.df != ""] <- labs.df[labs.df != ""]
+    labs.df[labs.df == ""] <- noms.df[labs.df == ""]
+    # names(df) <- noms.df
     labs.by <- sapply(by, label.default)
-    names(by)[labs.by != ""] <- labs.by[labs.by != ""]
+    labs.by[labs.by == ""] <- noms.by[labs.by == ""]
+    # names(by) <- noms.by
+  } else {
+      labs.df <- noms.df
+      labs.by <- noms.by
   }
 
-  results <- llply(by, function(y) ldply(df, function(x) summarize.by(x, y, funs = funs, ..., showNA = showNA, total = total, digits = digits, test = test, test.summarize = test.summarize, show.test = show.test, plim = plim, show.method = show.method)))
+    # results <- llply(by, function(y) ldply(df, function(x) summarize.by(x, y, funs = funs, showNA = showNA, total = total, digits = digits, test = test, test.summarize = test.summarize, show.test = show.test, plim = plim, show.method = show.method)))
+    results <- llply(by, function(y) ldply(df, function(x) summarize.by(x, y, funs = funs, ..., showNA = showNA, total = total, digits = digits, test = test, test.summarize = test.summarize, show.test = show.test, plim = plim, show.method = show.method)))
 
   if (length(results) > 1) {
+      n.df <- rep(length(unique(results[[1]]$variable)), length(results))
+      n.by <- laply(results, ncol) - 2
       results <- cbind(results[[1]], cbind.list(lapply(results[-1], function(x) x[, -(1:2)])))
   } else {
+      n.df <- nrow(results[[1]])
+      n.by <- ncol(results[[1]]) - 2
       results <- results[[1]]
   }
+
+    results$label <- mapvalues(results$`.id`, from = noms.df, to = labs.df)
+    results <- results[, c(".id", "label", names(results)[!(names(results) %in% c(".id", "label"))])]
+    attr(results, "noms.lig") <- noms.df
+    attr(results, "noms.col") <- noms.by
+    attr(results, "labs.lig") <- labs.df
+    attr(results, "labs.col") <- labs.by
+    attr(results, "n.lig") <- n.df
+    attr(results, "n.col") <- n.by
 
   results
 }
