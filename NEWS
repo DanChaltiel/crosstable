@@ -50,10 +50,24 @@ Encore un bug avec compact, j'espère que ça va maintenant !
 
 
 biostat2 0.7
---------------
+------------
 
 * Label des colonnes (enfin !)
 * Fonction rbind_crosstable pour superposer deux tables (à utiliser pour préserver le label des colonnes, justement).
 * Possibilité de personnaliser le nom des colonnes '.id', 'variable' et 'p' (dans les fonctions 'FlexCrossTable' et 'addFlexCrossTable').
 * Premier support (beta) des packages flextable et officer.
 * Correction du bug empêchant d'avoir deux variables successives avec le même label.
+
+biostat2 0.7.1
+--------------
+
+* Ordre des variables conservé avec l'option compact = TRUE de FlexCrossTable
+
+biostat2 0.8
+------------
+
+* Ajout de la fonction create.report
+* Ajout de raccourcis pour insérer des paragraphes avec des styles spécifiques dans un document (addNormal, addComment, addAlert, addVerbatim, addCode, addPlotlegend, addTablegend, addItemize, addEnumerate)
+* Ajout d'une fonction créant un objet FlexTable au style très simple (simple.table)
+* Ajout de templates de rapports directement dans le package
+
