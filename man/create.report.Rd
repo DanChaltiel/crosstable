@@ -10,7 +10,7 @@ create.report(template = c("gerc", "urc", "cephepi"), title = "",
   date_update = "", history = NULL)
 }
 \arguments{
-\item{template}{either 'gerc', 'urc', or 'cephepi',}
+\item{template}{either 'gerc', 'urc', or 'cephepi'}
 
 \item{title}{Study title (character string)}
 

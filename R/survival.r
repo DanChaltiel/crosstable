@@ -47,9 +47,9 @@ survival <- function(surv, by = NULL, times = NULL, followup = FALSE, total = FA
     nstrata <- length(unique(strata))
 
     if (followup) {
-      mediansuiv <- round(summary(suivfit.obj)$table[, 5], digits = digits)
+      mediansuiv <- round(summary(suivfit.obj)$table[, "median"], digits = digits)
       tmp <- data.frame(unclass(model.frame(formula)[, 1]), model.frame(formula)[, 2])
-      bornes <- daply(tmp, .(tmp[, 3]), function(df) paste("[", min(df[df[, 2] == 0, 1]), " ; ", max(df[, 1]), "]", sep = ""))
+      bornes <- daply(tmp, .(tmp[, 3]), function(df) paste("[", round(min(df[df[, 2] == 0, 1]), digits = digits), " ; ", round(max(df[, 1]), digits = digits), "]", sep = ""))
       suiv <- paste(mediansuiv, bornes)
     } else {
       suiv <- NULL
@@ -64,10 +64,10 @@ survival <- function(surv, by = NULL, times = NULL, followup = FALSE, total = FA
     results <- mat
     nstrata <- 1
     if (followup) {
-      mediansuiv <- round(summary(suivfit.obj)$table[5], digits = digits)
+      mediansuiv <- round(summary(suivfit.obj)$table["median"], digits = digits)
       tmp <- unclass(model.frame(formula)[, 1])
-      minsuiv <- min(tmp[tmp[, 2] == 0, 1])
-      maxsuiv <- max(tmp[, 1])
+      minsuiv <- round(min(tmp[tmp[, 2] == 0, 1]), digits = digits)
+      maxsuiv <- round(max(tmp[, 1]), digits = digits)
       suiv <- paste(mediansuiv, " [", minsuiv, " ; ", maxsuiv, "]", sep = "")
     } else {
       suiv <- NULL
@@ -81,7 +81,12 @@ survival <- function(surv, by = NULL, times = NULL, followup = FALSE, total = FA
   } else {
     rnames <- c(times, "Median survival")
   }
-  mediansurv <- expand(round(x$table, digits = digits), nrow = nstrata, ncol = 7, drop = F)[, 5]
+  if (nstrata == 1) {
+    mediansurv <- round(x$table["median"], digits = digits)
+  } else if (nstrata > 1) {
+    mediansurv <- round(x$table[,"median"], digits = digits)
+  }
+  # mediansurv <- biostat2:::expand(round(x$table, digits = digits), nrow = nstrata, ncol = 7, drop = F)[, 7]
 
   results <- data.frame(paste("Surv(", colnames(df)[1], ", ", colnames(df)[2], ")", sep = ""), rnames, rbind(results, suiv, mediansurv), row.names = NULL)
   colnames(results) <- c(".id", "variable", cnames)

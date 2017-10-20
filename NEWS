@@ -71,3 +71,12 @@ biostat2 0.8
 * Ajout d'une fonction créant un objet FlexTable au style très simple (simple.table)
 * Ajout de templates de rapports directement dans le package
 
+biostat2 0.8.1
+--------------
+
+* Correction d'un bug sur la survie et le suivi médian
+
+biostat2 0.8.2
+--------------
+
+* Correction d'un bug sur l'arrondi du suivi médian

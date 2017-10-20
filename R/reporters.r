@@ -261,7 +261,7 @@ simple.table <- function(dataset, add.rownames = FALSE) {
 ##' Create a docx object with a specific template and informations already inserted
 ##'
 ##' @name create.report
-##' @param template either 'gerc', 'urc', or 'cephepi',
+##' @param template either 'gerc', 'urc', or 'cephepi'
 ##' @param title Study title (character string)
 ##' @param acronym Study acronym (character string)
 ##' @param version Version number (character string)
