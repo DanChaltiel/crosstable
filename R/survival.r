@@ -1,7 +1,7 @@
 ##' Compute survival
 ##'
 ##' @import survival
-##' @importFrom Hmisc label.default
+##' @importFrom Hmisc label
 ##' @importFrom plyr daply
 ##' @param surv a Surv object
 ##' @param by by
@@ -96,7 +96,7 @@ survival <- function(surv, by = NULL, times = NULL, followup = FALSE, total = FA
 
 ##' Compute survival (data.frame input)
 ##'
-##' @importFrom Hmisc label.default
+##' @importFrom Hmisc label
 ##' @param df df
 ##' @param times times
 ##' @param followup followup
@@ -109,7 +109,7 @@ survival.data.frame <- function(df, times = NULL, digits = 2, followup = FALSE, 
     noms.df <- names(df)
 
     if (label) {
-        labs.df <- sapply(df, label.default)
+        labs.df <- sapply(df, label)
         labs.df[labs.df == ""] <- noms.df[labs.df == ""]
         # names(df) <- noms.df
     } else {
@@ -160,10 +160,10 @@ survival.data.frame.by <- function(df, by, times = NULL, followup = FALSE, total
     noms.by <- names(by)
 
     if (label) {
-        labs.df <- sapply(df, label.default)
+        labs.df <- sapply(df, label)
         labs.df[labs.df == ""] <- noms.df[labs.df == ""]
         # names(df) <- noms.df
-        labs.by <- sapply(by, label.default)
+        labs.by <- sapply(by, label)
         labs.by[labs.by == ""] <- noms.by[labs.by == ""]
         # names(by) <- noms.by
     } else {

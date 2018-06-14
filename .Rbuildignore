@@ -2,3 +2,5 @@
 .git/*
 R/layout.r
 R/plot.r
+^.*\.Rproj$
+^\.Rproj\.user$

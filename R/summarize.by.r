@@ -85,7 +85,7 @@ summarize.by <- function(x, by, funs = c(mean, sd, quantile, n, na), ..., showNA
 ##' @param label label
 ##' @author David Hajage
 ##' @keywords internal
-##' @importFrom Hmisc label.default
+##' @importFrom Hmisc label
 ##' @importFrom plyr ldply mapvalues
 summarize.data.frame.by <- function(df, by, funs = c(mean, sd, quantile, n, na), ..., showNA = c("no", "ifany", "always"), total = FALSE, digits = 2, test = FALSE, test.summarize = test.summarize.auto, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
   if (!is.character(funs)) {
@@ -99,10 +99,10 @@ summarize.data.frame.by <- function(df, by, funs = c(mean, sd, quantile, n, na),
     noms.by <- names(by)
 
   if (label) {
-    labs.df <- sapply(df, label.default)
+    labs.df <- sapply(df, label)
     labs.df[labs.df == ""] <- noms.df[labs.df == ""]
     # names(df) <- noms.df
-    labs.by <- sapply(by, label.default)
+    labs.by <- sapply(by, label)
     labs.by[labs.by == ""] <- noms.by[labs.by == ""]
     # names(by) <- noms.by
   } else {

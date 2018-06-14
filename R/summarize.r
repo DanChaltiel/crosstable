@@ -34,7 +34,7 @@ summarize <- function(x, funs = c(mean, sd, quantile, n, na), ..., digits = 2) {
 ##' @param label add labels
 ##' @author David Hajage
 ##' @keywords internal
-##' @importFrom Hmisc label.default
+##' @importFrom Hmisc label
 ##' @importFrom plyr ldply mapvalues
 summarize.data.frame <- function(df, funs = c(mean, sd, quantile, n, na), ..., digits = 2, label = FALSE) {
   if (!is.character(funs)) {
@@ -47,7 +47,7 @@ summarize.data.frame <- function(df, funs = c(mean, sd, quantile, n, na), ..., d
   noms.df <- names(df)
 
   if (label) {
-      labs.df <- sapply(df, label.default)
+      labs.df <- sapply(df, label)
       labs.df[labs.df == ""] <- noms.df[labs.df == ""]
       # names(df) <- noms.df
   } else {

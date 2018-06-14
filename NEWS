@@ -80,3 +80,23 @@ biostat2 0.8.2
 --------------
 
 * Correction d'un bug sur l'arrondi du suivi médian
+
+biostat2 0.8.3
+--------------
+
+* Correction d'un bug concernant les entêtes des templates lors de l'introduction d'un saut de section
+
+biostat2 0.8.4
+--------------
+
+* Correction d'un bug concernant l'argument "test.survival" qui n'était pas pris en compte
+
+biostat2 0.8.5
+--------------
+
+* Correction d'un bug avec Hmisc 4.1 (les labels ne fonctionnaient plus)
+
+biostat2 0.8.6
+--------------
+
+* Correction d'un bug avec l'option compact de FlexCrossTable : erreur quand une colonne "NA" existait dans le tableau

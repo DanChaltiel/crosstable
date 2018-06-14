@@ -121,7 +121,7 @@ tabular <- function(x, y, showNA = c("no", "ifany", "always"), margin = 0:2, tot
     colnames(results) <- nom
 
     ## Si NA n'est pas dans le facteur, on met la colonne apres "Total"
-    if ((any(colnames(results) == "NA") & any(colnames(results) == "Total")) & !anyNA(levels(y))) {
+    if ((any(colnames(results) == "NA") & any(colnames(results) %in% c("Total", "p"))) & !anyNA(levels(y))) {
         tmp <- results[, "NA"]
         results <- cbind(results[, colnames(results) != "NA"], "NA" = tmp)
     }
@@ -137,7 +137,7 @@ tabular <- function(x, y, showNA = c("no", "ifany", "always"), margin = 0:2, tot
 
 ##' Compute a contingency table (data.frame input)
 ##'
-##' @importFrom Hmisc label.default
+##' @importFrom Hmisc label
 ##' @param dfx data.frame
 ##' @param dfy data.frame
 ##' @param margin margin
@@ -159,10 +159,10 @@ tabular.data.frame <- function(dfx, dfy, margin = 0:2, showNA = c("no", "ifany",
     noms.dfy <- names(dfy)
 
     if (label) {
-        labs.dfx <- sapply(dfx, label.default)
+        labs.dfx <- sapply(dfx, label)
         labs.dfx[labs.dfx == ""] <- noms.dfx[labs.dfx == ""]
         # names(dfx) <- noms.dfx
-        labs.dfy <- sapply(dfy, label.default)
+        labs.dfy <- sapply(dfy, label)
         labs.dfy[labs.dfy == ""] <- noms.dfy[labs.dfy == ""]
         # names(dfy) <- noms.dfy
     } else {
