@@ -19,15 +19,15 @@ left_right <- function(formula) {
 
   left <- formula[[2]]
   if (length(left) == 1) {
-    left <- deparse(left, 500)
+    left <- paste(deparse(left, 500), collapse = "")
   } else {
-    left <- attr(terms(formula(paste("~", deparse(left, 500))), allowDotAsName = TRUE), "term.labels")
+    left <- attr(terms(formula(paste("~", paste(deparse(left, 500), collapse = ""))), allowDotAsName = TRUE), "term.labels")
   }
   right <- formula[[3]]
   if (length(right) == 1) {
-    right <- deparse(right, 500)
+    right <- paste(deparse(right, 500), collapse = "")
   } else {
-    right <- attr(terms(formula(paste("~", deparse(right, 500))), allowDotAsName = TRUE), "term.labels")
+    right <- attr(terms(formula(paste("~", paste(deparse(right, 500), collapse = ""))), allowDotAsName = TRUE), "term.labels")
   }
   return(list(left = left, right = right))
 }

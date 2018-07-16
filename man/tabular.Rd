@@ -7,7 +7,8 @@
 tabular(x, y, showNA = c("no", "ifany", "always"), margin = 0:2,
   total = FALSE, digits = 2, test = FALSE,
   test.tabular = test.tabular.auto, show.test = display.test, plim = 4,
-  show.method = TRUE)
+  show.method = TRUE, effect = FALSE, effect.tabular = or.row.by.col,
+  conf.level = 0.95, show.effect = display.effect)
 }
 \arguments{
 \item{x}{x}
@@ -31,6 +32,14 @@ tabular(x, y, showNA = c("no", "ifany", "always"), margin = 0:2,
 \item{plim}{plim}
 
 \item{show.method}{show.method}
+
+\item{effect}{effect}
+
+\item{effect.tabular}{effect.tabular}
+
+\item{conf.level}{conf.level}
+
+\item{show.effect}{show.effect}
 }
 \description{
 Compute a contingency table

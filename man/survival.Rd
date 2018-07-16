@@ -6,7 +6,9 @@
 \usage{
 survival(surv, by = NULL, times = NULL, followup = FALSE, total = FALSE,
   digits = 2, test = FALSE, test.survival = test.survival.logrank,
-  show.test = display.test, plim = 4, show.method = TRUE, label = FALSE)
+  show.test = display.test, plim = 4, show.method = TRUE,
+  effect = FALSE, effect.survival = effect.survival.coxph,
+  show.effect = display.effect, conf.level = 0.95, label = FALSE)
 }
 \arguments{
 \item{surv}{a Surv object}
@@ -16,6 +18,8 @@ survival(surv, by = NULL, times = NULL, followup = FALSE, total = FALSE,
 \item{times}{times}
 
 \item{followup}{followup}
+
+\item{total}{total}
 
 \item{digits}{digits}
 
@@ -28,6 +32,16 @@ survival(surv, by = NULL, times = NULL, followup = FALSE, total = FALSE,
 \item{plim}{plim}
 
 \item{show.method}{show.method}
+
+\item{effect}{effect}
+
+\item{effect.survival}{effect.survival}
+
+\item{show.effect}{show.effect}
+
+\item{conf.level}{conf.level}
+
+\item{label}{label}
 }
 \description{
 Compute survival

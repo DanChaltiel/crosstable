@@ -9,7 +9,10 @@ cross_list(l, funs = c(mean, sd, quantile, n, na), ..., margin = 0:2,
   method = c("pearson", "kendall", "spearman"), times = NULL,
   followup = FALSE, test = FALSE, test.summarize = test.summarize.auto,
   test.survival = test.survival.logrank, test.tabular = test.tabular.auto,
-  show.test = display.test, plim = 4, show.method = TRUE, label = FALSE)
+  show.test = display.test, plim = 4, show.method = TRUE,
+  effect = FALSE, effect.summarize = diff.mean.auto,
+  effect.tabular = or.row.by.col, effect.survival = effect.survival.coxph,
+  conf.level = 0.95, label = FALSE)
 }
 \arguments{
 \item{l}{l}
@@ -45,6 +48,16 @@ cross_list(l, funs = c(mean, sd, quantile, n, na), ..., margin = 0:2,
 \item{plim}{plim}
 
 \item{show.method}{show.method}
+
+\item{effect}{effect}
+
+\item{effect.summarize}{effect.summarize}
+
+\item{effect.tabular}{effect.tabular}
+
+\item{effect.survival}{effect.survival}
+
+\item{conf.level}{conf.level}
 
 \item{label}{label}
 }

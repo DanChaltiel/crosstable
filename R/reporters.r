@@ -4,6 +4,7 @@
 ##' @param doc the doc object (created with the docx function of ReporteRs package)
 ##' @param value a character string
 ##' @param stylename a character string 
+##' @param ... ...
 ##' @return
 ##'   a new doc object
 ##' @author David Hajage
@@ -29,6 +30,7 @@ addNormal <- function(doc, value, stylename = "Normal", ...) {
 ##' @param doc the doc object (created with the docx function of ReporteRs package)
 ##' @param value a character string
 ##' @param stylename a character string 
+##' @param ... ...
 ##' @return
 ##'   a new doc object
 ##' @author David Hajage
@@ -51,6 +53,7 @@ addComment <- function(doc, value, stylename = "Comment", ...) {
 ##' @param doc the doc object (created with the docx function of ReporteRs package)
 ##' @param value a character string
 ##' @param stylename a character string 
+##' @param ... ...
 ##' @return
 ##'   a new doc object
 ##' @author David Hajage
@@ -73,6 +76,7 @@ addAlert <- function(doc, value, stylename = "Alert", ...) {
 ##' @param doc the doc object (created with the docx function of ReporteRs package)
 ##' @param value a character string
 ##' @param stylename a character string 
+##' @param ... ...
 ##' @return
 ##'   a new doc object
 ##' @author David Hajage
@@ -94,7 +98,7 @@ addVerbatim <- function(doc, value, stylename = "Verbatim", ...) {
 ##' @name addCode
 ##' @param doc the doc object (created with the docx function of ReporteRs package)
 ##' @param value a character string
-##' @param stylename a character string 
+##' @param ... ...
 ##' @return
 ##'   a new doc object
 ##' @author David Hajage
@@ -117,6 +121,7 @@ addCode <- function(doc, value, ...) {
 ##' @param doc the doc object (created with the docx function of ReporteRs package)
 ##' @param value a character string
 ##' @param stylename a character string 
+##' @param ... ...
 ##' @return
 ##'   a new doc object
 ##' @author David Hajage
@@ -139,6 +144,7 @@ addPlotlegend <- function(doc, value, stylename = "figurereference", ...) {
 ##' @param doc the doc object (created with the docx function of ReporteRs package)
 ##' @param value a character string
 ##' @param stylename a character string 
+##' @param ... ...
 ##' @return
 ##'   a new doc object
 ##' @author David Hajage
@@ -161,6 +167,7 @@ addTablegend <- function(doc, value, stylename = "tablereference", ...) {
 ##' @param doc the doc object (created with the docx function of ReporteRs package)
 ##' @param value a vector of character strings
 ##' @param level a integer (1 to 4)
+##' @param ... ...
 ##' @return
 ##'   a new doc object
 ##' @author David Hajage
@@ -197,6 +204,7 @@ addItemize <- function(doc, value, level = 1, ...) {
 ##' @param doc the doc object (created with the docx function of ReporteRs package)
 ##' @param value a vector of character strings
 ##' @param level a integer (1 to 4)
+##' @param ... ...
 ##' @return
 ##'   a new doc object
 ##' @author David Hajage

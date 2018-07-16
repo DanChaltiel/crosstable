@@ -6,7 +6,7 @@
 \title{Create a FlexTable object from a table made by the cross function}
 \usage{
 FlexCrossTable(crosstable, compact = FALSE, id = ".id",
-  variable = "variable", value = "value", p = "p")
+  variable = "variable", value = "value", effect = "effect", p = "p")
 }
 \arguments{
 \item{crosstable}{the result of \code{cross} function}
@@ -18,6 +18,8 @@ FlexCrossTable(crosstable, compact = FALSE, id = ".id",
 \item{variable}{name of the 'variable' column}
 
 \item{value}{name of the 'value' column}
+
+\item{effect}{name of the 'effect' column}
 
 \item{p}{name of the 'p' column}
 }

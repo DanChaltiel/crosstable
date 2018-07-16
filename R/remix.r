@@ -37,10 +37,16 @@ is.numeric.and.not.surv <- function(x) {
 ##' @param show.test show.test
 ##' @param plim plim
 ##' @param show.method show.method
+##' @param effect effect
+##' @param effect.summarize effect.summarize
+##' @param effect.tabular effect.tabular
+##' @param conf.level conf.level
 ##' @param label label
+##' @param effect.survival effect.survival 
+##'
 ##' @author David Hajage
 ##' @keywords internal
-cross_one <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., margin = 0:2, total = FALSE, digits = 2, showNA = c("no", "ifany", "always"), method = c("pearson", "kendall", "spearman"), times = NULL, followup = FALSE, test = FALSE, test.tabular = test.tabular.auto, test.summarize = test.summarize.auto, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
+cross_one <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., margin = 0:2, total = FALSE, digits = 2, showNA = c("no", "ifany", "always"), method = c("pearson", "kendall", "spearman"), times = NULL, followup = FALSE, test = FALSE, test.tabular = test.tabular.auto, test.summarize = test.summarize.auto, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE, effect = FALSE, effect.summarize = diff.mean.auto, effect.tabular = or.row.by.col, effect.survival = effect.survival.coxph, conf.level = 0.95, label = FALSE) {
   if (!is.character(funs)) {
       nomf <- names(funs)
       funs <- as.character(as.list(substitute(funs)))
@@ -52,19 +58,19 @@ cross_one <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., mar
 
   if (!is.null(x) & !is.null(y)) {
     if (is.numeric.and.not.surv(x[, 1]) & is.character.or.factor(y[, 1])) {
-      results <- summarize.data.frame.by(x, y, funs = funs, ..., total = total, digits = digits, showNA = showNA, test = test, test.summarize = test.summarize, show.test = show.test, plim = plim, show.method = show.method, label = label)
+      results <- summarize.data.frame.by(x, y, funs = funs, ..., total = total, digits = digits, showNA = showNA, test = test, test.summarize = test.summarize, show.test = show.test, plim = plim, show.method = show.method, effect = effect, effect.summarize = effect.summarize, conf.level = conf.level, label = label)
     }
     if (is.numeric.and.not.surv(y[, 1]) & is.character.or.factor(x[, 1])) {
-      results <- summarize.data.frame.by(y, x, funs = funs, ..., total = total, digits = digits, showNA = showNA, test = test, test.summarize = test.summarize, show.test = show.test, plim = plim, show.method = show.method, label = label)
+      results <- summarize.data.frame.by(y, x, funs = funs, ..., total = total, digits = digits, showNA = showNA, test = test, test.summarize = test.summarize, show.test = show.test, plim = plim, show.method = show.method, effect = effect, effect.summarize = effect.summarize, conf.level = conf.level, label = label)
     }
     if (is.Surv(x[, 1]) & is.character.or.factor(y[, 1])) {
-      results <- survival.data.frame.by(x, y, times = times, followup = followup, total = total, digits = digits, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, label = label)
+      results <- survival.data.frame.by(x, y, times = times, followup = followup, total = total, digits = digits, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, effect = effect, effect.survival = effect.survival, label = label)
     }
     if (is.Surv(y[, 1]) & is.character.or.factor(x[, 1])) {
-      results <- survival.data.frame.by(y, x, times = times, followup = followup, digits = digits, total = total, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, label = label)
+      results <- survival.data.frame.by(y, x, times = times, followup = followup, digits = digits, total = total, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, effect = effect, effect.survival = effect.survival, label = label)
     }
     if (is.character.or.factor(x[, 1]) & is.character.or.factor(y[, 1])) {
-      results <- tabular.data.frame(x, y, margin = margin, total = total, digits = digits, showNA = showNA, test = test, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method, label = label)
+      results <- tabular.data.frame(x, y, margin = margin, total = total, digits = digits, showNA = showNA, test = test, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method, effect = effect, effect.tabular = effect.tabular, conf.level = conf.level, label = label)
     }
     if (is.numeric.and.not.surv(x[, 1]) & is.numeric.and.not.surv(y[, 1])) {
       results <- correlation.data.frame(x, y, method = method, label = label)
@@ -114,10 +120,16 @@ cross_one <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., mar
 ##' @param show.test show.test
 ##' @param plim plim
 ##' @param show.method show.method
+##' @param effect effect
+##' @param effect.summarize effect.summarize
+##' @param effect.tabular effect.tabular
+##' @param conf.level conf.level
 ##' @param label label
+##' @param effect.survival effect.survival 
+##'
 ##' @author David Hajage
 ##' @keywords internal
-cross_all <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., margin = 0:2, total = FALSE, digits = 2, showNA = c("no", "ifany", "always"), method = c("pearson", "kendall", "spearman"), times = NULL, followup = FALSE, test = FALSE, test.tabular = test.tabular.auto, test.summarize = test.summarize.auto, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
+cross_all <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., margin = 0:2, total = FALSE, digits = 2, showNA = c("no", "ifany", "always"), method = c("pearson", "kendall", "spearman"), times = NULL, followup = FALSE, test = FALSE, test.tabular = test.tabular.auto, test.summarize = test.summarize.auto, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE, effect = FALSE, effect.summarize = diff.mean.auto, effect.tabular = or.row.by.col, effect.survival = effect.survival.coxph, conf.level = 0.95, label = FALSE) {
 
     if (!is.character(funs)) {
         nomf <- names(funs)
@@ -147,11 +159,11 @@ cross_all <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., mar
 
             res <- NULL
             for (i in 1:nrow(croix)) {
-                # res <- c(res, list(cross_one(df[, croix$Var1[i], F], df[, croix$Var2[i], F], funs = funs, margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method, label = label)))
-                res <- c(res, list(cross_one(df[, croix$Var1[i], F], df[, croix$Var2[i], F], funs = funs, ..., margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, label = label)))
+                # res <- c(res, list(cross_one(df[, croix$Var1[i], F], df[, croix$Var2[i], F], funs = funs, margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, effect = effect, effect.summarize = effect.summarize, effect.tabular = effect.tabular, effect.survival = effect.survival, conf.level = conf.level, label = label)))
+                res <- c(res, list(cross_one(df[, croix$Var1[i], F], df[, croix$Var2[i], F], funs = funs, ..., margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, effect = effect, effect.summarize = effect.summarize, effect.tabular = effect.tabular, effect.survival = effect.survival, conf.level = conf.level, label = label)))
             }
 
-            idx <- tapply(1:nrow(croix), croix$Var2, c)
+            idx <- tapply(1:nrow(croix), croix$Var2, c)[unique(croix$Var2)]
             results <- unname(lapply(idx, function(i) rbind.list(res[i], TRUE)))
 
             idx2 <- tapply(1:length(results), tapply(croix$Var1, croix$Var2, paste, collapse = ""), c)
@@ -183,13 +195,13 @@ cross_all <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., mar
         res <- NULL
         for (i in 1:ncol(x)) {
             # res <- c(res, list(cross_one(x[, i, FALSE], NULL, funs = funs, margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method, label = label)))
-            res <- c(res, list(cross_one(x[, i, FALSE], NULL, funs = funs, ..., margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, label = label)))
+            res <- c(res, list(cross_one(x[, i, FALSE], NULL, funs = funs, ..., margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, effect = effect, effect.summarize = effect.summarize, effect.tabular = effect.tabular, effect.survival = effect.survival, conf.level = conf.level, label = label)))
         }
         results <- rbind.list(res, TRUE)
     } else if (is.null(x)) {
         res <- NULL
         for (i in 1:ncol(y)) {
-            res <- c(res, list(cross_one(y[, i, FALSE], NULL, funs = funs, ..., margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, label = label)))
+            res <- c(res, list(cross_one(y[, i, FALSE], NULL, funs = funs, ..., margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, effect = effect, effect.summarize = effect.summarize, effect.tabular = effect.tabular, effect.survival = effect.survival, conf.level = conf.level, label = label)))
         }
         results <- rbind.list(res, TRUE)
     }
@@ -220,10 +232,16 @@ cross_all <- function(x, y = NULL, funs = c(mean, sd, quantile, n, na), ..., mar
 ##' @param show.test show.test
 ##' @param plim plim
 ##' @param show.method show.method
+##' @param effect effect
+##' @param effect.summarize effect.summarize
+##' @param effect.tabular effect.tabular
+##' @param conf.level conf.level
 ##' @param label label
+##' @param effect.survival effect.survival 
+##'
 ##' @author David Hajage
 ##' @keywords internal
-cross_list <- function(l, funs = c(mean, sd, quantile, n, na), ..., margin = 0:2, total = FALSE, digits = 2, showNA = c("no", "ifany", "always"), method = c("pearson", "kendall", "spearman"), times = NULL, followup = FALSE, test = FALSE, test.summarize = test.summarize.auto, test.survival = test.survival.logrank, test.tabular = test.tabular.auto, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
+cross_list <- function(l, funs = c(mean, sd, quantile, n, na), ..., margin = 0:2, total = FALSE, digits = 2, showNA = c("no", "ifany", "always"), method = c("pearson", "kendall", "spearman"), times = NULL, followup = FALSE, test = FALSE, test.summarize = test.summarize.auto, test.survival = test.survival.logrank, test.tabular = test.tabular.auto, show.test = display.test, plim = 4, show.method = TRUE, effect = FALSE, effect.summarize = diff.mean.auto, effect.tabular = or.row.by.col, effect.survival = effect.survival.coxph, conf.level = 0.95, label = FALSE) {
 
   if (!is.character(funs)) {
     funs <- as.character(as.list(substitute(funs)))
@@ -237,7 +255,9 @@ cross_list <- function(l, funs = c(mean, sd, quantile, n, na), ..., margin = 0:2
     y <- NULL
   }
 
-  cross_all(x = x, y = y, funs = funs, ..., margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, label = label)
+  # cross_all(x = x, y = y, funs = funs, margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, effect = effect, effect.summarize = effect.summarize, effect.tabular = effect.tabular, effect.survival = effect.survival, conf.level = conf.level, label = label)
+  
+  cross_all(x = x, y = y, funs = funs, ..., margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, effect = effect, effect.summarize = effect.summarize, effect.tabular = effect.tabular, effect.survival = effect.survival, conf.level = conf.level, label = label)
 }
 
 ##' Regroup factors with factors, and numerical variables with numerical variables
@@ -318,6 +338,27 @@ regroup <- function(vars, numdata, catdata, survdata) {
 ##' \code{display.test}.
 ##' @param plim number of digits for the p value
 ##' @param show.method wether to display the test name (logical)
+##' @param effect whether to compute a effect measure
+##' @param effect.summarize a function of three arguments (continuous
+##' variable, grouping variable and conf.level), used to compare continuous
+##' variable. Returns a list of five components : \code{effect} (the effect value(s)),
+##' \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the 
+##' interpretiation(s) of the effect value(s)), \code{effect.type} (the description of 
+##' the measure used) and \code{conf.level} (the confidence interval level). See 
+##' \code{diff.mean.auto}, \code{diff.mean.student} or \code{diff.mean.boot} for some examples of such
+##' functions. Users can provide their own function.
+##' @param effect.tabular a function of three arguments (two categorical variables and conf.level) used to measure the associations between two factors.
+##' Returns a list of five components : \code{effect} (the effect value(s)),
+##' \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the 
+##' interpretiation(s) of the effect value(s)), \code{effect.type} (the description of 
+##' the measure used) and \code{conf.level} (the confidence interval level). See 
+##' \code{or.row.by.col}, \code{rr.row.by.col}, \code{rd.row.by.col}, \code{or.col.by.row}, \code{rr.col.by.row}, or \code{rd.col.by.row} for some examples of such functions. Users can provide their own function.
+##' @param effect.survival a function of two argument (a formula and conf.level), used
+##' to measure the association between a consored and a factor. Returns the same components as
+##' created by \code{effect.summarize}. See
+##' \code{effect.survival.coxph}. Users can provide their own
+##' function.
+##' @param conf.level The desired confidence interval level 
 ##' @param label whether to display labels of variables (using
 ##' \code{label} in package \code{Hmisc})
 ##' @param regroup whether to regroup numerics with numerics and
@@ -374,10 +415,10 @@ regroup <- function(vars, numdata, catdata, survdata) {
 ##' @export
 ##' @importFrom plyr is.formula
 ##' @importFrom plyr llply
-cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(" " = mysummary), ..., margin = 0:2, total = FALSE, digits = 2, showNA = c("no", "ifany", "always"), method = c("pearson", "kendall", "spearman"), times = NULL, followup = FALSE, test = FALSE, test.summarize = test.summarize.auto, test.survival = test.survival.logrank, test.tabular = test.tabular.auto, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE, regroup = FALSE) {
+cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(" " = mysummary), ..., margin = 0:2, total = FALSE, digits = 2, showNA = c("no", "ifany", "always"), method = c("pearson", "kendall", "spearman"), times = NULL, followup = FALSE, test = FALSE, test.summarize = test.summarize.auto, test.survival = test.survival.logrank, test.tabular = test.tabular.auto, show.test = display.test, plim = 4, show.method = TRUE, effect = FALSE, effect.summarize = diff.mean.auto, effect.tabular = or.row.by.col, effect.survival = effect.survival.coxph, conf.level = 0.95, label = FALSE, regroup = FALSE) {
 
   if (is.formula(formula))
-    formula <- deparse(formula, 500)
+    formula <- paste(deparse(formula, 500), collapse = "")
 
   if (!is.character(funs)) {
       nomf <- names(funs)
@@ -412,9 +453,9 @@ cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(" " = mysummar
       lapply(y, function(z) data[, remove_blank(elements(z)), drop = FALSE])
   })
 
-  # results <- llply(comb, function(x) cross_list(x, funs = funs, margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method, label = label))
+  # results <- llply(comb, function(x) cross_list(x, funs = funs, margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, test.survival = test.survival, show.test = show.test, plim = plim, effect = effect, effect.summarize = effect.summarize, effect.tabular = effect.tabular, effect.survival = effect.survival, conf.level = conf.level, show.method = show.method, label = label))
 
-  results <- llply(comb, function(x) cross_list(x, funs = funs, ..., margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, label = label))
+  results <- llply(comb, function(x) cross_list(x, funs = funs, ..., margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, test.survival = test.survival, show.test = show.test, plim = plim, effect = effect, effect.summarize = effect.summarize, effect.tabular = effect.tabular, effect.survival = effect.survival, conf.level = conf.level, show.method = show.method, label = label))
 
   if (length(results) == 1) {
       results <- results[[1]]

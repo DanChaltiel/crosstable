@@ -12,6 +12,8 @@ addPlotlegend(doc, value, stylename = "figurereference", ...)
 \item{value}{a character string}
 
 \item{stylename}{a character string}
+
+\item{...}{...}
 }
 \value{
 a new doc object

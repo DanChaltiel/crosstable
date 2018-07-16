@@ -10,8 +10,10 @@ cross(formula = cbind(...) ~ ., data = NULL, funs = c(` ` = mysummary),
   times = NULL, followup = FALSE, test = FALSE,
   test.summarize = test.summarize.auto,
   test.survival = test.survival.logrank, test.tabular = test.tabular.auto,
-  show.test = display.test, plim = 4, show.method = TRUE, label = FALSE,
-  regroup = FALSE)
+  show.test = display.test, plim = 4, show.method = TRUE,
+  effect = FALSE, effect.summarize = diff.mean.auto,
+  effect.tabular = or.row.by.col, effect.survival = effect.survival.coxph,
+  conf.level = 0.95, label = FALSE, regroup = FALSE)
 }
 \arguments{
 \item{formula}{a formula (see Details).}
@@ -77,6 +79,32 @@ provide their own function.}
 \item{plim}{number of digits for the p value}
 
 \item{show.method}{wether to display the test name (logical)}
+
+\item{effect}{whether to compute a effect measure}
+
+\item{effect.summarize}{a function of three arguments (continuous
+variable, grouping variable and conf.level), used to compare continuous
+variable. Returns a list of five components : \code{effect} (the effect value(s)),
+\code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the 
+interpretiation(s) of the effect value(s)), \code{effect.type} (the description of 
+the measure used) and \code{conf.level} (the confidence interval level). See 
+\code{diff.mean.auto}, \code{diff.mean.student} or \code{diff.mean.boot} for some examples of such
+functions. Users can provide their own function.}
+
+\item{effect.tabular}{a function of three arguments (two categorical variables and conf.level) used to measure the associations between two factors.
+Returns a list of five components : \code{effect} (the effect value(s)),
+\code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the 
+interpretiation(s) of the effect value(s)), \code{effect.type} (the description of 
+the measure used) and \code{conf.level} (the confidence interval level). See 
+\code{or.row.by.col}, \code{rr.row.by.col}, \code{rd.row.by.col}, \code{or.col.by.row}, \code{rr.col.by.row}, or \code{rd.col.by.row} for some examples of such functions. Users can provide their own function.}
+
+\item{effect.survival}{a function of two argument (a formula and conf.level), used
+to measure the association between a consored and a factor. Returns the same components as
+created by \code{effect.summarize}. See
+\code{effect.survival.coxph}. Users can provide their own
+function.}
+
+\item{conf.level}{The desired confidence interval level}
 
 \item{label}{whether to display labels of variables (using
 \code{label} in package \code{Hmisc})}

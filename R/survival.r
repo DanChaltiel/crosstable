@@ -3,6 +3,7 @@
 ##' @import survival
 ##' @importFrom Hmisc label
 ##' @importFrom plyr daply
+##'
 ##' @param surv a Surv object
 ##' @param by by
 ##' @param times times
@@ -12,10 +13,17 @@
 ##' @param test.survival test.survival
 ##' @param show.test show.test
 ##' @param plim plim
+##' @param total total 
+##' @param effect effect 
+##' @param effect.survival effect.survival 
+##' @param show.effect show.effect 
+##' @param conf.level conf.level 
+##' @param label label
 ##' @param show.method show.method
+##'
 ##' @author David Hajage
 ##' @keywords internal
-survival <- function(surv, by = NULL, times = NULL, followup = FALSE, total = FALSE, digits = 2, test = FALSE, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
+survival <- function(surv, by = NULL, times = NULL, followup = FALSE, total = FALSE, digits = 2, test = FALSE, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE, effect = FALSE, effect.survival = effect.survival.coxph, show.effect = display.effect, conf.level = 0.95, label = FALSE) {
 
   df <- unclass(surv)
   if (!is.null(by)) {
@@ -54,6 +62,12 @@ survival <- function(surv, by = NULL, times = NULL, followup = FALSE, total = FA
     } else {
       suiv <- NULL
     }
+    if (effect) {
+        eff <- show.effect(effect.survival(formula, conf.level), digits = digits)
+    } else {
+        eff <- NULL
+    }
+    
     if (test) {
       p <- show.test(test.survival(formula), digits = plim, method = show.method)
     } else {
@@ -73,6 +87,7 @@ survival <- function(surv, by = NULL, times = NULL, followup = FALSE, total = FA
       suiv <- NULL
     }
     p <- NULL
+    eff <- NULL
     cnames <- "value"
   }
 
@@ -88,9 +103,10 @@ survival <- function(surv, by = NULL, times = NULL, followup = FALSE, total = FA
   }
   # mediansurv <- biostat2:::expand(round(x$table, digits = digits), nrow = nstrata, ncol = 7, drop = F)[, 7]
 
-  results <- data.frame(paste("Surv(", colnames(df)[1], ", ", colnames(df)[2], ")", sep = ""), rnames, rbind(results, suiv, mediansurv), row.names = NULL)
+  results <- data.frame(paste("Surv(", colnames(df)[1], ", ", colnames(df)[2], ")", sep = ""), rnames, unname(rbind(results, suiv, mediansurv)), row.names = NULL)
   colnames(results) <- c(".id", "variable", cnames)
   results$p <- p
+  results$effect <- eff
   results
 }
 
@@ -141,6 +157,7 @@ survival.data.frame <- function(df, times = NULL, digits = 2, followup = FALSE, 
 ##'
 ##' @import survival
 ##' @importFrom Hmisc label
+##'
 ##' @param df df
 ##' @param by by
 ##' @param times times
@@ -152,9 +169,14 @@ survival.data.frame <- function(df, times = NULL, digits = 2, followup = FALSE, 
 ##' @param show.test show.test
 ##' @param plim plim
 ##' @param show.method show.method
+##' @param effect effect 
+##' @param effect.survival effect.survival 
+##' @param show.effect show.effect 
+##' @param conf.level conf.level 
 ##' @param label label
+##'
 ##' @author David Hajage
-survival.data.frame.by <- function(df, by, times = NULL, followup = FALSE, total = FALSE, digits = 2, test = FALSE, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
+survival.data.frame.by <- function(df, by, times = NULL, followup = FALSE, total = FALSE, digits = 2, test = FALSE, test.survival = test.survival.logrank, show.test = display.test, plim = 4, show.method = TRUE, effect = FALSE, effect.survival = effect.survival.coxph, show.effect = display.effect, conf.level = 0.95, label = FALSE) {
 
     noms.df <- names(df)
     noms.by <- names(by)
@@ -174,10 +196,10 @@ survival.data.frame.by <- function(df, by, times = NULL, followup = FALSE, total
   dfx <- as.list(df)
   byx <- as.list(by)
 
-  results <- lapply(byx, function(y) lapply(dfx, survival, y, times = times, followup = followup, digits = digits, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method))
+  results <- lapply(byx, function(y) lapply(dfx, survival, y, times = times, followup = followup, digits = digits, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, effect = effect, effect.survival = effect.survival, show.effect = show.effect, conf.level = conf.level))
 
   if (identical(total, 1) | identical(total, 1:2) | identical(total, TRUE)) {
-      results.tot <- lapply(dfx, survival, times = na.omit(suppressWarnings(as.numeric(as.character(results[[1]][[1]]$variable)))), followup = followup, digits = digits, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method)
+      results.tot <- lapply(dfx, survival, times = na.omit(suppressWarnings(as.numeric(as.character(results[[1]][[1]]$variable)))), followup = followup, digits = digits, test = test, test.survival = test.survival, show.test = show.test, plim = plim, show.method = show.method, effect = effect, effect.survival = effect.survival, show.effect = show.effect, conf.level = conf.level)
 
       for (i in 1:length(results)) {
           for (j in 1:length(results.tot)) {
@@ -195,10 +217,12 @@ survival.data.frame.by <- function(df, by, times = NULL, followup = FALSE, total
   })
 
   n.df <- sapply(results[[1]], nrow)
-
+  n.df <- unname(n.df)
+  
   results <- lapply(results, rbind.list)
   n.by <- sapply(results, ncol) - 2
-
+  n.by <- unname(n.by)
+  
   results <- data.frame(cbind.list(c(results[1], lapply(results[-1], function(x) x[, -c(1, 2)]))), stringsAsFactors = FALSE, check.names = FALSE)
   if ("p" %in% names(results) & "Total" %in% names(results)) {
       results <- results[, c(names(results)[!(names(results) %in% c("p", "Total"))], "Total", "p")]
