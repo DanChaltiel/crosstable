@@ -12,6 +12,8 @@ addComment(doc, value, stylename = "Comment", ...)
 \item{value}{a character string}
 
 \item{stylename}{a character string}
+
+\item{...}{...}
 }
 \value{
 a new doc object

@@ -18,7 +18,7 @@
 ##' @importFrom plyr ddply
 ##' @importFrom plyr .
 ##' @importFrom reshape2 dcast
-summarize.by <- function(x, by, funs = c(mean, sd, quantile, n, na), ..., showNA = c("no", "ifany", "always"), total = FALSE, digits = 2, test = FALSE, test.summarize = test.summarize.auto, show.test = display.test, plim = 4, show.method = TRUE) {
+summarize.by <- function(x, by, funs = c(mean, sd, quantile, n, na), ..., showNA = c("no", "ifany", "always"), total = FALSE, digits = 2, test = FALSE, test.summarize = test.summarize.auto, show.test = display.test, plim = 4, show.method = TRUE, effect = FALSE, effect.summarize = diff.mean.auto, conf.level = 0.95, show.effect = display.effect) {
 
     showNA <- showNA[1]
 
@@ -61,6 +61,10 @@ summarize.by <- function(x, by, funs = c(mean, sd, quantile, n, na), ..., showNA
         results <- cbind(results[, colnames(results) != "NA"], "NA" = tmp)
     }
 
+    if (effect) {
+        results <- cbind(results, effect = show.effect(effect.summarize(x, by, conf.level), digits = digits))
+    }
+    
     if (test) {
         results <- cbind(results, p = show.test(test.summarize(x, by), digits = plim, method = show.method))
     }
@@ -87,7 +91,7 @@ summarize.by <- function(x, by, funs = c(mean, sd, quantile, n, na), ..., showNA
 ##' @keywords internal
 ##' @importFrom Hmisc label
 ##' @importFrom plyr ldply mapvalues
-summarize.data.frame.by <- function(df, by, funs = c(mean, sd, quantile, n, na), ..., showNA = c("no", "ifany", "always"), total = FALSE, digits = 2, test = FALSE, test.summarize = test.summarize.auto, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
+summarize.data.frame.by <- function(df, by, funs = c(mean, sd, quantile, n, na), ..., showNA = c("no", "ifany", "always"), total = FALSE, digits = 2, test = FALSE, test.summarize = test.summarize.auto, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE, effect = FALSE, effect.summarize = diff.mean.auto, conf.level = 0.95, show.effect = display.effect) {
   if (!is.character(funs)) {
       nomf <- names(funs)
       funs <- as.character(as.list(substitute(funs)))
@@ -111,7 +115,7 @@ summarize.data.frame.by <- function(df, by, funs = c(mean, sd, quantile, n, na),
   }
 
     # results <- llply(by, function(y) ldply(df, function(x) summarize.by(x, y, funs = funs, showNA = showNA, total = total, digits = digits, test = test, test.summarize = test.summarize, show.test = show.test, plim = plim, show.method = show.method)))
-    results <- llply(by, function(y) ldply(df, function(x) summarize.by(x, y, funs = funs, ..., showNA = showNA, total = total, digits = digits, test = test, test.summarize = test.summarize, show.test = show.test, plim = plim, show.method = show.method)))
+    results <- llply(by, function(y) ldply(df, function(x) summarize.by(x, y, funs = funs, ..., showNA = showNA, total = total, digits = digits, test = test, test.summarize = test.summarize, show.test = show.test, plim = plim, show.method = show.method, effect = effect, effect.summarize = effect.summarize, conf.level = conf.level, show.effect = show.effect)))
 
   if (length(results) > 1) {
       n.df <- rep(length(unique(results[[1]]$variable)), length(results))

@@ -10,10 +10,15 @@
 ##' @param test.tabular test.tabular
 ##' @param show.test show.test
 ##' @param plim plim
+##' @param effect effect
+##' @param effect.tabular effect.tabular 
+##' @param conf.level conf.level
+##' @param show.effect show.effect
 ##' @param show.method show.method
+##'
 ##' @author David Hajage
 ##' @keywords internal
-tabular <- function(x, y, showNA = c("no", "ifany", "always"), margin = 0:2, total = FALSE, digits = 2, test = FALSE, test.tabular = test.tabular.auto, show.test = display.test, plim = 4, show.method = TRUE) {
+tabular <- function(x, y, showNA = c("no", "ifany", "always"), margin = 0:2, total = FALSE, digits = 2, test = FALSE, test.tabular = test.tabular.auto, show.test = display.test, plim = 4, show.method = TRUE, effect = FALSE, effect.tabular = or.row.by.col, conf.level = 0.95, show.effect = display.effect) {
 
     nn <- table(x, y)
     n <- table(x, y, useNA = showNA)
@@ -108,10 +113,15 @@ tabular <- function(x, y, showNA = c("no", "ifany", "always"), margin = 0:2, tot
     rownames(results) <- rownames(n)
     colnames(results) <- colnames(n)
 
+    if (effect) {
+        results <- cbind(results, effect = show.effect(effect.tabular(x, y, conf.level), digits = digits))
+    }
+
     if (test) {
         results <- cbind(results, p = show.test(test.tabular(x, y), digits = plim, method = show.method))
     }
 
+    
     rn <- rownames(results)
     rn[is.na(rn)] <- "NA"
     results <- cbind(variable = rn, results)
@@ -153,7 +163,7 @@ tabular <- function(x, y, showNA = c("no", "ifany", "always"), margin = 0:2, tot
 ##' @author David Hajage
 ##' @keywords internal
 ##' @importFrom plyr mapvalues
-tabular.data.frame <- function(dfx, dfy, margin = 0:2, showNA = c("no", "ifany", "always"), total = FALSE, digits = 2, test = FALSE, test.tabular = test.tabular.auto, show.test = display.test, plim = 4, show.method = TRUE, label = FALSE) {
+tabular.data.frame <- function(dfx, dfy, margin = 0:2, showNA = c("no", "ifany", "always"), total = FALSE, digits = 2, test = FALSE, test.tabular = test.tabular.auto, show.test = display.test, plim = 4, show.method = TRUE, effect = FALSE, effect.tabular = or.row.by.col, conf.level = 0.95, show.effect = display.effect, label = FALSE) {
 
     noms.dfx <- names(dfx)
     noms.dfy <- names(dfy)
@@ -171,7 +181,7 @@ tabular.data.frame <- function(dfx, dfy, margin = 0:2, showNA = c("no", "ifany",
     }
 
 
-    results <- llply(dfy, function(y) llply(dfx, function(x) tabular(x, y, margin = margin, showNA = showNA, total = total, digits = digits, test = test, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method)))
+    results <- llply(dfy, function(y) llply(dfx, function(x) tabular(x, y, margin = margin, showNA = showNA, total = total, digits = digits, test = test, test.tabular = test.tabular, show.test = show.test, plim = plim, show.method = show.method, effect = effect, effect.tabular = effect.tabular, conf.level = conf.level, show.effect = show.effect)))
 
     results <- lapply(results, function(x) {
         noms <- names(x)

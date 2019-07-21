@@ -7,7 +7,8 @@
 tabular.data.frame(dfx, dfy, margin = 0:2, showNA = c("no", "ifany",
   "always"), total = FALSE, digits = 2, test = FALSE,
   test.tabular = test.tabular.auto, show.test = display.test, plim = 4,
-  show.method = TRUE, label = FALSE)
+  show.method = TRUE, effect = FALSE, effect.tabular = or.row.by.col,
+  conf.level = 0.95, show.effect = display.effect, label = FALSE)
 }
 \arguments{
 \item{dfx}{data.frame}

@@ -1,17 +1,19 @@
 Package: biostat2
 Title: biostat, mais 2
-Version: 0.8.6
+Version: 0.9.0
 Authors@R: person("David", "Hajage", email = "david.hajage@lmr.aphp.fr", role =
     c("aut", "cre"))
 Description: Fonctions facilitant la description et l'analyse
 Depends:
     R (>= 3.1.0)
 Imports:
+    stats,
     plyr,
     reshape2,
     Hmisc,
     survival,
-    ReporteRs
+    ReporteRs,
+    nortest
 License: GPL (>= 2)
 LazyData: true
 RoxygenNote: 6.0.1

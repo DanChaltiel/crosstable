@@ -12,6 +12,8 @@ addEnumerate(doc, value, level = 1, ...)
 \item{value}{a vector of character strings}
 
 \item{level}{a integer (1 to 4)}
+
+\item{...}{...}
 }
 \value{
 a new doc object

@@ -7,7 +7,9 @@
 summarize.by(x, by, funs = c(mean, sd, quantile, n, na), ...,
   showNA = c("no", "ifany", "always"), total = FALSE, digits = 2,
   test = FALSE, test.summarize = test.summarize.auto,
-  show.test = display.test, plim = 4, show.method = TRUE)
+  show.test = display.test, plim = 4, show.method = TRUE,
+  effect = FALSE, effect.summarize = diff.mean.auto, conf.level = 0.95,
+  show.effect = display.effect)
 }
 \arguments{
 \item{x}{numeric object}

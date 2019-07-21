@@ -12,6 +12,8 @@ addAlert(doc, value, stylename = "Alert", ...)
 \item{value}{a character string}
 
 \item{stylename}{a character string}
+
+\item{...}{...}
 }
 \value{
 a new doc object

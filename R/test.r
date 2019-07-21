@@ -83,7 +83,7 @@ test.tabular.fisher <- function(x, y) {
   list(p.value = p, method = method)
 }
 
-##' test for mean comparison
+##' test for mean comparison (old version)
 ##'
 ##' Compute a oneway.test (with equal or unequal variance) or a
 ##' kruskal.test as appropriate.
@@ -93,7 +93,7 @@ test.tabular.fisher <- function(x, y) {
 ##' @return a list with two componments: p.value and method
 ##' @author David Hajage
 ##' @export
-test.summarize.auto <- function(x, g) {
+test.summarize.auto.old <- function(x, g) {
   ng <- table(g)
 
   if (length(ng) <= 1) {
@@ -130,6 +130,60 @@ test.summarize.auto <- function(x, g) {
     method <- test$method
   }
   list(p.value = p, method = method)
+}
+
+##' test for mean comparison (old version)
+##'
+##' Compute a oneway.test (with equal or unequal variance) or a
+##' kruskal.test as appropriate.
+##'
+##' @param x vector
+##' @param g another vector
+##' @return a list with two componments: p.value and method
+##' @author David Hajage
+##' @importFrom nortest ad.test
+##' @export
+test.summarize.auto <- function(x, g) {
+    ng <- table(g)
+    
+    if (length(ng) <= 1) {
+        p <- NULL
+        method <- NULL
+    } else {
+        if (any(ng < 50)) {
+            normg <- tapply(x, g, function(x) shapiro.test(x)$p.value)
+        } else {
+            normg <- tapply(x, g, function(x) ad.test(x)$p.value)
+        }
+        if (any(normg < 0.05)) {
+            if (length(ng) == 2) {
+                type <- "wilcox"
+            } else {
+                type <- "kruskal"
+            }
+        } else {
+            bartlettg <- bartlett.test(x, g)$p.value
+            if (bartlettg < 0.05 & length(ng) == 2) {
+                type <- "t.unequalvar"
+            } else if (bartlettg < 0.05 & length(ng) > 2) {
+                type <- "a.unequalvar"
+            } else if (bartlettg > 0.05 & length(ng) == 2) {
+                type <- "t.equalvar"
+            } else if (bartlettg > 0.05 & length(ng) > 2) {
+                type <- "a.equalvar"
+            }
+        }
+        test <- switch(type,
+                       wilcox = wilcox.test(x ~ g, correct = FALSE),
+                       kruskal = kruskal.test(x, g),
+                       t.unequalvar = t.test(x ~  g, var.equal = FALSE),
+                       t.equalvar = t.test(x ~  g, var.equal = TRUE),
+                       a.unequalvar = oneway.test(x ~  g, var.equal = FALSE),
+                       a.equalvar = oneway.test(x ~ g, var.equal = TRUE))
+        p <- test$p.value
+        method <- test$method
+    }
+    list(p.value = p, method = method)
 }
 
 ##' test for mean comparison
@@ -225,3 +279,4 @@ test.survival.logrank <- function(formula) {
   p <- 1-pchisq(survdiff.obj$chisq, length(survdiff.obj$n)-1)
   list(p.value = p, method = "Logrank test")
 }
+

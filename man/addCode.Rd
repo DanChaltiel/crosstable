@@ -11,7 +11,7 @@ addCode(doc, value, ...)
 
 \item{value}{a character string}
 
-\item{stylename}{a character string}
+\item{...}{...}
 }
 \value{
 a new doc object

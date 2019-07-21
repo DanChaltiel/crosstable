@@ -12,6 +12,8 @@ addVerbatim(doc, value, stylename = "Verbatim", ...)
 \item{value}{a character string}
 
 \item{stylename}{a character string}
+
+\item{...}{...}
 }
 \value{
 a new doc object
