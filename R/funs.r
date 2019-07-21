@@ -76,7 +76,7 @@ minmax <- function(x, na.rm = TRUE, dig = 2) {
 mediqr <- function(x, na.rm = TRUE, dig = 2) {
     med <- round(median(x, na.rm = na.rm), dig)
     iqr <- round(quantile(x, probs = c(0.25, 0.75), na.rm = na.rm), dig)
-    paste(med, " [", iqr[1], "-", iqr[2], "]", sep = "")
+    paste(med, " [", iqr[1], ";", iqr[2], "]", sep = "")
 }
 
 ##' Return mean and sd
