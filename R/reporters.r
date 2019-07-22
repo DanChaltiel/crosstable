@@ -1,3 +1,11 @@
+
+check_reporter_dependency <- function(){
+    if (!requireNamespace("ReporteRs", quietly = TRUE)) {
+        stop("Package \"ReporteRs\" is deprecated but needed for this function to work. \nIf you really want to use this function, please install it",
+             call. = FALSE)
+    }
+}
+
 ##' Add a new paragraph with a Normal style
 ##'
 ##' @name addNormal
@@ -16,8 +24,8 @@
 ##' }
 ##' @keywords univar
 ##' @export
-##' @import ReporteRs
 addNormal <- function(doc, value, stylename = "Normal", ...) {
+    check_reporter_dependency()
     if (class(value) == "character") {
         value <- do.call("set_of_paragraphs", args = lapply(value, pot))
     }
@@ -42,8 +50,8 @@ addNormal <- function(doc, value, stylename = "Normal", ...) {
 ##' }
 ##' @keywords univar
 ##' @export
-##' @import ReporteRs
 addComment <- function(doc, value, stylename = "Comment", ...) {
+    check_reporter_dependency()
     addParagraph(doc, value, stylename = stylename)
 }
 
@@ -65,8 +73,8 @@ addComment <- function(doc, value, stylename = "Comment", ...) {
 ##' }
 ##' @keywords univar
 ##' @export
-##' @import ReporteRs
 addAlert <- function(doc, value, stylename = "Alert", ...) {
+    check_reporter_dependency()
     addParagraph(doc, value, stylename = stylename)
 }
 
@@ -88,8 +96,8 @@ addAlert <- function(doc, value, stylename = "Alert", ...) {
 ##' }
 ##' @keywords univar
 ##' @export
-##' @import ReporteRs
 addVerbatim <- function(doc, value, stylename = "Verbatim", ...) {
+    check_reporter_dependency()
     addParagraph(doc, value, stylename = stylename, ...)
 }
 
@@ -110,8 +118,8 @@ addVerbatim <- function(doc, value, stylename = "Verbatim", ...) {
 ##' }
 ##' @keywords univar
 ##' @export
-##' @import ReporteRs
 addCode <- function(doc, value, ...) {
+    check_reporter_dependency()
     addRScript(doc, text = value, par.properties = parProperties(shading.color = "#eeeeee"))
 }
 
@@ -133,8 +141,8 @@ addCode <- function(doc, value, ...) {
 ##' }
 ##' @keywords univar
 ##' @export
-##' @import ReporteRs
 addPlotlegend <- function(doc, value, stylename = "figurereference", ...) {
+    check_reporter_dependency()
     addParagraph(doc, value, stylename = stylename)
 }
 
@@ -155,9 +163,9 @@ addPlotlegend <- function(doc, value, stylename = "figurereference", ...) {
 ##' doc <- addTablegend(doc, "Coucou")
 ##' }
 ##' @keywords univar
-##' @export
-##' @import ReporteRs
+##' @export 
 addTablegend <- function(doc, value, stylename = "tablereference", ...) {
+    check_reporter_dependency()
     addParagraph(doc, value, stylename = stylename)
 }
 
@@ -179,8 +187,8 @@ addTablegend <- function(doc, value, stylename = "tablereference", ...) {
 ##' }
 ##' @keywords univar
 ##' @export
-##' @import ReporteRs
 addItemize <- function(doc, value, level = 1, ...) {
+    check_reporter_dependency()
     unordered.list.level1 <- parProperties(list.style = "unordered", level = 1)
     unordered.list.level2 <- parProperties(list.style = "unordered", level = 2)
     unordered.list.level3 <- parProperties(list.style = "unordered", level = 3)
@@ -216,8 +224,8 @@ addItemize <- function(doc, value, level = 1, ...) {
 ##' }
 ##' @keywords univar
 ##' @export
-##' @import ReporteRs
 addEnumerate <- function(doc, value, level = 1, ...) {
+    check_reporter_dependency()
     ordered.list.level1 <- parProperties(list.style = "ordered", level = 1)
     ordered.list.level2 <- parProperties(list.style = "ordered", level = 2)
     ordered.list.level3 <- parProperties(list.style = "ordered", level = 3)
@@ -251,8 +259,8 @@ addEnumerate <- function(doc, value, level = 1, ...) {
 ##' }
 ##' @keywords univar
 ##' @export
-##' @import ReporteRs
 simple.table <- function(dataset, add.rownames = FALSE) {
+    check_reporter_dependency()
     ft = FlexTable(dataset, add.rownames = add.rownames)
     ft[, , to = "header"] = textBold()
     #    ft[, , to = "header"] = parRight()
@@ -315,9 +323,9 @@ simple.table <- function(dataset, add.rownames = FALSE) {
 ##' }
 ##' @keywords univar
 ##' @export
-##' @import ReporteRs
 create.report <- function(template = c("gerc", "urc", "cephepi"), title = "", acronym = "", version = "", npromo = "", nct = "", invest = "", biostat = "", methodo = "", date_lastmodif = "", date_freez = "", date_update = "", history = NULL) {
     
+    check_reporter_dependency()
     URC <- FALSE
     if (template[1] == "urc") {
         template.file <- system.file("templates/template_urc.docx", package = "biostat2")

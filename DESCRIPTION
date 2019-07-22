@@ -1,19 +1,25 @@
 Package: biostat2
 Title: biostat, mais 2
-Version: 0.9.0
-Authors@R: person("David", "Hajage", email = "david.hajage@lmr.aphp.fr", role =
-    c("aut", "cre"))
+Version: 0.10.0
+Authors@R: c(
+    person("David", "Hajage", email = "david.hajage@lmr.aphp.fr", role = c("aut", "cre")),
+    person("Dan", "Chaltiel", email = "dan.chaltiel@gmail.com", role = c("ctb")))
 Description: Fonctions facilitant la description et l'analyse
 Depends:
     R (>= 3.1.0)
 Imports:
     stats,
     plyr,
+    dplyr,
     reshape2,
     Hmisc,
     survival,
-    ReporteRs,
+    officer,
+    flextable,
     nortest
 License: GPL (>= 2)
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
+Suggests: 
+    testthat,
+    ReporteRs

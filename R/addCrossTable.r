@@ -79,32 +79,34 @@ compact <- function(x) {
     res
 }
 
-##' Create a FlexTable object from a table made by the cross function
-##'
-##' @name FlexCrossTable-ReporteRs
-##' @param crosstable the result of \code{cross} function
-##' @param compact compact the table?
-##' @param id name of the 'id' column
-##' @param variable name of the 'variable' column
-##' @param value name of the 'value' column
-##' @param effect name of the 'effect' column
-##' @param p name of the 'p' column
-##' @return
-##'   A \code{FlexTable} object (see \code{ReporteRs} package)
-##' @author David Hajage
-##' @examples
-##' \dontrun{
-##' library(biostat2)
-##' library(ReporteRs)
-##' mytable <- cross(cbind(...) ~ tobgp, esoph, test = TRUE)
-##' FlexCrossTable(mytable)
-##' FlexCrossTable(mytable, TRUE)
-##' }
-##' @keywords univar
-##' @export
-##' @import ReporteRs
+#' Create a FlexTable object from a table made by the cross function
+#'
+#' **Deprecation** : Since \code{ReporteRs} is deprecated and not available on CRAN, please use \code{officer} instead.
+#'
+#' @name FlexCrossTable-ReporteRs
+#' @param crosstable the result of \code{cross} function
+#' @param compact compact the table?
+#' @param id name of the 'id' column
+#' @param variable name of the 'variable' column
+#' @param value name of the 'value' column
+#' @param effect name of the 'effect' column
+#' @param p name of the 'p' column
+#' @return
+#'   A \code{FlexTable} object (see \code{ReporteRs} package)
+#' @author David Hajage
+#' @examples
+#' \dontrun{
+#' library(biostat2)
+#' library(ReporteRs)
+#' mytable <- cross(cbind(...) ~ tobgp, esoph, test = TRUE)
+#' FlexCrossTable(mytable)
+#' FlexCrossTable(mytable, TRUE)
+#' }
+#' @keywords univar
+#' @export
 FlexCrossTable <- function(crosstable, compact = FALSE, id = ".id", variable = "variable", value = "value", effect = "effect", p = "p") {
-
+    check_reporter_dependency()
+    
     header <- names(crosstable)[names(crosstable) != "label"]
     names(header) <- header
     header[header == ".id"] <- id
@@ -119,7 +121,7 @@ FlexCrossTable <- function(crosstable, compact = FALSE, id = ".id", variable = "
         if ("p" %in% names(crosstable)) {
             ft <- spanFlexTableRows(ft, j = c(1, which(names(crosstable) == "p")-1), runs = crosstable$`.id`)
         }
-         if ("effect" %in% names(crosstable)) {
+        if ("effect" %in% names(crosstable)) {
             ft <- spanFlexTableRows(ft, j = c(1, which(names(crosstable) == "effect")-1), runs = crosstable$`.id`)
         }
         if (length(attr(crosstable, "noms.col")) > 0) {
@@ -141,11 +143,11 @@ FlexCrossTable <- function(crosstable, compact = FALSE, id = ".id", variable = "
             ft <- addHeaderRow(ft, value = c(sapply(attr(crosstable, "labs.col"), function(x) c("", x))), colspan = colspan, par.properties = parProperties(text.align = "center"))
         }
         ft <- addHeaderRow(ft, value = header)
-
+        
         ft <- setFlexTableBorders(ft,
                                   inner.vertical =  borderProperties(width = 0), inner.horizontal = borderProperties(width = 0),
                                   outer.vertical = borderProperties(width = 0), outer.horizontal = borderProperties(width = 3))
-
+        
         if ("p" %in% names(crosstable) | "effect" %in% names(crosstable)) {
             if ("effect" %in% names(crosstable)) {
                 bord <- grep("    Effect", crosstable2[, "variable"])
@@ -156,7 +158,7 @@ FlexCrossTable <- function(crosstable, compact = FALSE, id = ".id", variable = "
             bord2 <- cumsum(table(factor(crosstable$.id, unique(crosstable$.id)))+nb+1) - (table(factor(crosstable$.id, unique(crosstable$.id)))+nb)
             
             bord3 <- grep("    Effect|    Test", crosstable2[, "variable"])
-                
+            
             ft[bord[-length(bord)], , side = "bottom"] = borderProperties(width = 1)
             ft[bord- (nb-1), , side = "top"] = borderProperties(style = "dashed")
             ft[bord2, ] <- textProperties(font.style = "italic")
@@ -184,32 +186,38 @@ FlexCrossTable <- function(crosstable, compact = FALSE, id = ".id", variable = "
 }
 
 
-##' add a table made by the cross function into a ReporteRs document
-##'
-##' @param doc a \code{docx} object created by \code{docx} function (see \code{ReporteRs} package)
-##' @param crosstable the result of \code{cross} function
-##' @param compact compact the table?
-##' @param id name of the 'id' column
-##' @param variable name of the 'variable' column
-##' @param value name of the 'value' column
-##' @param p name of the 'p' column
-##' @return
-##'   A \code{docx} object
-##' @author David Hajage
-##' @examples
-##' \dontrun{
-##' library(biostat2)
-##' library(ReporteRs)
-##' mytable <- cross(cbind(...) ~ tobgp, esoph, test = TRUE)
-##' doc <- docx()
-##' doc <- addCrossTable(doc, mytable)
-##' doc <- addPageBreak(doc)
-##' doc <- addCrossTable(doc, mytable, TRUE)
-##' }
-##' @keywords univar
-##' @export
-##' @import ReporteRs
+#' Deprecated
+#' add a table made by the cross function into a ReporteRs document
+#' 
+#' **Deprecation** : Since \code{ReporteRs} is deprecated and not available on CRAN, please use \code{officer} and \code{biostats2::body_add_crosstable} instead.
+#'
+#' @param doc a \code{docx} object created by \code{docx} function (see \code{ReporteRs} package)
+#' @param crosstable the result of \code{cross} function
+#' @param compact compact the table?
+#' @param id name of the 'id' column
+#' @param variable name of the 'variable' column
+#' @param value name of the 'value' column
+#' @param p name of the 'p' column
+#' @return
+#'   A \code{docx} object
+#' @author David Hajage
+#' @examples
+#' \dontrun{
+#' library(biostat2)
+#' library(ReporteRs)
+#' mytable <- cross(cbind(...) ~ tobgp, esoph, test = TRUE)
+#' doc <- docx()
+#' doc <- addCrossTable(doc, mytable)
+#' doc <- addPageBreak(doc)
+#' doc <- addCrossTable(doc, mytable, TRUE)
+#' dfile <- "test_doc.docx"
+#' print(doc, target = dfile)
+#' shell.exec(dfile)
+#' }
+#' @keywords univar
+#' @export
 addCrossTable <- function(doc, crosstable, compact = FALSE, id = ".id", variable = "variable", value = "value", p = "p") {
+    check_reporter_dependency()
     if (!inherits(crosstable, "FlexTable")) {
         ft <- FlexCrossTable(crosstable, compact, id, variable, value, p)
     } else {
@@ -218,6 +226,80 @@ addCrossTable <- function(doc, crosstable, compact = FALSE, id = ".id", variable
     doc <- addFlexTable(doc, ft)
     return(doc)
 }
+
+
+
+#' add a table made by the cross function into an officer document
+#'
+#' @param doc 
+#' @param crosstable 
+#'
+#' @return A \code{docx} object
+#' @author Dan Chaltiel
+#' @importFrom dplyr select lead
+#' @import officer flextable 
+#' @export
+#'
+#' @examples 
+#' \dontrun{
+#' mytable <- cross(cbind(...) ~ tobgp, esoph, test = TRUE)
+#' mytable <- cross(cbind(...) ~ Species, iris, test = TRUE)
+#' doc <- read_docx()%>% 
+#'     body_add_crosstable(mytable) %>% 
+#'     body_add_break %>% 
+#'     body_add_crosstable(mytable, TRUE)
+#' 
+#' dfile <- "test_doc.docx"
+#' print(doc, target = dfile)
+#' shell.exec(dfile)
+#' }
+body_add_crosstable = function(doc, crosstable, compact = FALSE, id = ".id", variable = "variable", label = "label", p = "p"){
+    border1 <- fp_border(color = "black", style = "solid", width = 1)
+    border2 <- fp_border(color = "black", style = "solid", width = 1.5)
+    labs.col <- attr(crosstable, "labs.col")
+    
+    if(compact) {
+        sep.rows = which(crosstable[[id]]!=lead(crosstable[[id]]))
+        sep.rows = sep.rows+2*(1:length(sep.rows))
+        crosstable <- crosstable %>% 
+            compact %>% 
+            as.data.frame %>% 
+            flextable %>% 
+            add_header_row(values=c(variable, labs.col), colwidths=c(1, ncol(crosstable)-4)) %>% 
+            merge_v(j=1, part = "head") %>% 
+            align(align = "left", part="all") %>% 
+            align(i=1, align = "center", part="head") %>% 
+            merge_h(i=c(1, sep.rows, sep.rows+1)) %>% 
+            bold(i=c(1, sep.rows+1)) %>% 
+            bold(part="head") %>% 
+            hline(i=sep.rows, border = border1) %>% 
+            hline_top(border = border2, part = "head") %>% 
+            border_inner_h(border = border2, part = "head")
+    } else {
+        crosstable <- crosstable %>% 
+            select(-!!sym(id)) %>% 
+            flextable %>% 
+            add_header_row(values=c(label, variable, labs.col, p), 
+                           colwidths=c(1, 1, ncol(crosstable)-4, 1)) %>% 
+            merge_v(j=c(1,2,ncol(crosstable)-1), part = "head") %>% 
+            align(align = "left", part="all") %>% 
+            align(i=1, align = "center", part="head") %>% 
+            hline_top(border = border2, part = "head") %>% 
+            border_inner_h(border = border2, part = "head") %>% 
+            merge_v(j = c("label", p)) %>% 
+            bold(part="head") %>% 
+            border_inner_h(border = border1)
+    }
+    ft <- crosstable
+    # return(ft)
+    doc <- body_add_flextable(doc, ft)
+    return(doc)
+}
+
+
+
+
+
 # 
 # ##' add_header_list
 # ##'
