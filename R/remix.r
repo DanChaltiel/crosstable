@@ -429,7 +429,8 @@ cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(" " = mysummar
 
   varnames <- names(data)
   parsed <- parse_formula(formula, varnames)
-
+  # parsed$left = gsub("\\n *", "", parsed$left) 
+  
   data <-   parse_data(expand_formula(formula, varnames), data)
   names(data) <- remove_blank(names(data))
   varform <- names(data)
