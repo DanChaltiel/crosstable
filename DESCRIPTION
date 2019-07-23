@@ -4,7 +4,7 @@ Version: 0.10.0
 Authors@R: c(
     person("David", "Hajage", email = "david.hajage@lmr.aphp.fr", role = c("aut", "cre")),
     person("Dan", "Chaltiel", email = "dan.chaltiel@gmail.com", role = c("ctb")))
-Description: Fonctions facilitant la description et l'analyse
+Description: Fonctions facilitant la description et l'analyse.
 Depends:
     R (>= 3.1.0)
 Imports:
@@ -14,6 +14,7 @@ Imports:
     reshape2,
     Hmisc,
     survival,
+    methods,
     officer,
     flextable,
     nortest

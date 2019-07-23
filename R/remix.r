@@ -460,7 +460,7 @@ cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(" " = mysummar
 
   if (length(results) == 1) {
       results <- results[[1]]
-      ## class(results) <- c("cross", "data.frame")
+      class(results) <- c("cross", "data.frame")
 
   } else {
       results <- results[results != "What?"]
@@ -476,6 +476,7 @@ cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(" " = mysummar
 
   ## attr(results, "data") <- data
   ## attr(results, "test") <- test
+  
   results
 }
 

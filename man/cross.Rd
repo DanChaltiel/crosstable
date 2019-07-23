@@ -4,16 +4,17 @@
 \alias{cross}
 \title{Describe everything}
 \usage{
-cross(formula = cbind(...) ~ ., data = NULL, funs = c(` ` = mysummary),
-  ..., margin = 0:2, total = FALSE, digits = 2, showNA = c("no",
-  "ifany", "always"), method = c("pearson", "kendall", "spearman"),
-  times = NULL, followup = FALSE, test = FALSE,
+cross(formula = cbind(...) ~ ., data = NULL, funs = c(` ` =
+  mysummary), ..., margin = 0:2, total = FALSE, digits = 2,
+  showNA = c("no", "ifany", "always"), method = c("pearson", "kendall",
+  "spearman"), times = NULL, followup = FALSE, test = FALSE,
   test.summarize = test.summarize.auto,
-  test.survival = test.survival.logrank, test.tabular = test.tabular.auto,
-  show.test = display.test, plim = 4, show.method = TRUE,
-  effect = FALSE, effect.summarize = diff.mean.auto,
-  effect.tabular = or.row.by.col, effect.survival = effect.survival.coxph,
-  conf.level = 0.95, label = FALSE, regroup = FALSE)
+  test.survival = test.survival.logrank,
+  test.tabular = test.tabular.auto, show.test = display.test,
+  plim = 4, show.method = TRUE, effect = FALSE,
+  effect.summarize = diff.mean.auto, effect.tabular = or.row.by.col,
+  effect.survival = effect.survival.coxph, conf.level = 0.95,
+  label = FALSE, regroup = FALSE)
 }
 \arguments{
 \item{formula}{a formula (see Details).}

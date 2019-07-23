@@ -2,7 +2,8 @@
 % Please edit documentation in R/addCrossTable.r
 \name{addCrossTable}
 \alias{addCrossTable}
-\title{add a table made by the cross function into a ReporteRs document}
+\title{Deprecated
+add a table made by the cross function into a ReporteRs document}
 \usage{
 addCrossTable(doc, crosstable, compact = FALSE, id = ".id",
   variable = "variable", value = "value", p = "p")
@@ -26,7 +27,7 @@ addCrossTable(doc, crosstable, compact = FALSE, id = ".id",
 A \code{docx} object
 }
 \description{
-add a table made by the cross function into a ReporteRs document
+**Deprecation** : Since \code{ReporteRs} is deprecated and not available on CRAN, please use \code{officer} and \code{biostats2::body_add_crosstable} instead.
 }
 \examples{
 \dontrun{
@@ -37,6 +38,9 @@ doc <- docx()
 doc <- addCrossTable(doc, mytable)
 doc <- addPageBreak(doc)
 doc <- addCrossTable(doc, mytable, TRUE)
+dfile <- "test_doc.docx"
+print(doc, target = dfile)
+shell.exec(dfile)
 }
 }
 \author{

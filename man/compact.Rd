@@ -7,12 +7,15 @@
 compact(x)
 }
 \arguments{
-\item{x}{x}
+\item{x}{a crosstable, the result of \code{cross} function}
 }
 \description{
 Compact the result of cross function
 }
+\examples{
+mytable <- cross(cbind(...) ~ tobgp, esoph, test = TRUE)
+compact(mytable)
+}
 \author{
 David Hajage
 }
-\keyword{internal}

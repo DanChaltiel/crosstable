@@ -3,10 +3,12 @@
 \name{FlexCrossTable-ReporteRs}
 \alias{FlexCrossTable-ReporteRs}
 \alias{FlexCrossTable}
-\title{Create a FlexTable object from a table made by the cross function}
+\title{Deprecated
+Create a FlexTable object from a table made by the cross function}
 \usage{
 FlexCrossTable(crosstable, compact = FALSE, id = ".id",
-  variable = "variable", value = "value", effect = "effect", p = "p")
+  variable = "variable", value = "value", effect = "effect",
+  p = "p")
 }
 \arguments{
 \item{crosstable}{the result of \code{cross} function}
@@ -27,7 +29,7 @@ FlexCrossTable(crosstable, compact = FALSE, id = ".id",
 A \code{FlexTable} object (see \code{ReporteRs} package)
 }
 \description{
-Create a FlexTable object from a table made by the cross function
+**Deprecation** : Since \code{ReporteRs} is deprecated and not available on CRAN, please use \code{flextable} and \code{officer} packages instead.
 }
 \examples{
 \dontrun{
