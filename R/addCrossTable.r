@@ -97,7 +97,9 @@ compact <- function(x) {
 #' @param id name of the 'id' column
 #' @param variable name of the 'variable' column
 #' @param label name of the 'label' column
+#' @param value name of the 'value' column
 #' @param p name of the 'p' column
+#' @param show.test.name in the p column, show the test name
 #'
 #' @return A \code{rdocx} object
 #' @author Dan Chaltiel
@@ -111,6 +113,7 @@ compact <- function(x) {
 #' library(officer)
 #' mytable <- cross(cbind(...) ~ tobgp, esoph, test = TRUE)
 #' mytable <- cross(cbind(...) ~ Species, iris, test = TRUE)
+#' mytable <- cross(cbind(...) ~ ., esoph)
 #' doc <- read_docx() %>% 
 #'     body_add_crosstable(mytable) %>% 
 #'     body_add_break %>% 
@@ -123,46 +126,70 @@ compact <- function(x) {
 #' print(doc, target = dfile)
 #' shell.exec(dfile)
 #' }
-body_add_crosstable = function(doc, crosstable, compact = FALSE, auto.fit = FALSE, id = ".id", variable = "variable", label = "label", p = "p"){
+body_add_crosstable = function(doc, crosstable, compact = FALSE, auto.fit = FALSE, id = ".id", variable = "variable", label = "label", value="value", p = "p", show.test.name=F){
     border1 <- fp_border(color = "black", style = "solid", width = 1)
     border2 <- fp_border(color = "black", style = "solid", width = 1.5)
+    
     labs.col <- attr(crosstable, "labs.col")
+    rtn = crosstable
     
-    if(compact && !is(crosstable, "compacted")) {
-        crosstable <- compact(crosstable)
+    is_tested = rtn %>% names %>% grepl(p,.) %>% any
+    is_multiple = rtn %>% names %>% grepl(value,.) %>% any %>% `!`
+    
+    if(is_tested && !show.test.name){
+        rtn$p = rtn$p %>% gsub(" \\(.*\\)","", .)
     }
+    if(compact && !is(rtn, "compacted")) {
+        rtn <- compact(rtn)
+    }
+    #TODO : si une seule fonction (funs=moystd) et compact  
+    #TODO : améliorer la fusion si plusieurs pvalues sont <0.001  
+    #TODO : implémenter si compact arrive avant la fonction  
     
-    if(is(crosstable, "compacted")) {
-        sep.rows <- which(crosstable[[id]]!=lead(crosstable[[id]]))
-        sep.rows <- sep.rows+2*(1:length(sep.rows))
-        crosstable <- crosstable %>% 
+    if(is(rtn, "compacted")) {
+        sep.rows <- which(rtn[,1] %in% crosstable$label)[-1] #$label ou $.id ?
+        
+        rtn <- rtn %>% 
             as.data.frame %>% 
             flextable %>% 
-            add_header_row(values=c(variable, labs.col), colwidths=c(1, ncol(crosstable)-1)) %>% 
-            merge_v(j=1, part = "head") %>% 
-            merge_h(i=c(1, sep.rows, sep.rows+1)) %>% 
-            bold(i=c(1, sep.rows+1)) %>% 
-            hline(i=sep.rows, border = border1)
+            hline(i=sep.rows-1, border = border1)
+        
+        if(is_multiple){
+            header_colwidths = if(is_tested) c(1, ncol(crosstable)-4) else c(1, ncol(crosstable)-3)
+            rtn <- rtn %>% 
+                add_header_row(values=c(variable, labs.col), colwidths=header_colwidths) %>% 
+                merge_v(j=1, part = "head") %>% 
+                merge_h(i=c(1, sep.rows, sep.rows+1)) %>% 
+                bold(i=c(1, sep.rows))
+        }
     } else {
-        crosstable <- crosstable %>% 
+        sep.rows <- which(rtn$label != lead(rtn$label)) #$label ou $.id ?
+        rtn <- rtn %>% 
             select(-!!sym(id)) %>% 
             flextable %>% 
-            add_header_row(values=c(label, variable, labs.col, p), 
-                           colwidths=c(1, 1, ncol(crosstable)-4, 1)) %>% 
-            merge_v(j=c(1,2,ncol(crosstable)-1), part = "head") %>% 
-            merge_v(j = c("label", p)) %>% 
-            border_inner_h(border = border1)
+            hline(i=sep.rows, border = border1)
+        if(is_multiple){
+            header_values = if(is_tested) c(label, variable, labs.col, p) else c(label, variable, value)
+            header_colwidths = if(is_tested) c(1, 1, ncol(crosstable)-4, 1) else c(1, 1, ncol(crosstable)-3)
+            body_merge = if(is_tested) c("label", p) else c("label")
+            rtn <- rtn %>% 
+                add_header_row(values=header_values, 
+                               colwidths=header_colwidths) %>% 
+                merge_v(j=c(1,2,ncol(crosstable)-1), part = "head") %>% 
+                merge_v(j = body_merge)
+        }
     }
-    ft <- crosstable %>% 
-            bold(part="head") %>% 
-            align(align = "left", part="all") %>% 
-            align(i=1, align = "center", part="head") %>% 
-            hline_top(border = border2, part = "head") %>% 
-            border_inner_h(border = border2, part = "head")
+    rtn <- rtn %>% 
+        bold(part="head") %>% 
+        align(align = "left", part="all") %>% 
+        align(i=1, align = "center", part="head") %>% 
+        hline_top(border = border2, part = "head") %>% 
+        hline_bottom(border = border2, part = "head") %>% 
+        border_inner_h(border = border2, part = "head")
     if(auto.fit){
-        ft <- autofit(ft)
+        rtn <- autofit(rtn)
     }
-    doc <- body_add_flextable(doc, ft)
+    doc <- body_add_flextable(doc, rtn)
     return(doc)
 }
 

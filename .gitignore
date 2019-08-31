@@ -13,6 +13,7 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+*.docx
 
 # =========================
 # Operating System Files
@@ -26,7 +27,8 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must ends with two \r.
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -36,6 +38,6 @@ Icon
 .Trashes
 *~
 *.Rhistory
-*.Rhistory
-*.Rhistory
+.RData
+.Rhistory
 .Rproj.user

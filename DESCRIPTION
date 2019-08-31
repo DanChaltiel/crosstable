@@ -1,6 +1,6 @@
 Package: biostat2
 Title: biostat, mais 2
-Version: 0.10.0
+Version: 0.11.0
 Authors@R: c(
     person("David", "Hajage", email = "david.hajage@lmr.aphp.fr", role = c("aut", "cre")),
     person("Dan", "Chaltiel", email = "dan.chaltiel@gmail.com", role = c("ctb")))
