@@ -4,8 +4,8 @@
 \alias{correlation.data.frame}
 \title{Compute correlation (data.frame input)}
 \usage{
-correlation.data.frame(dfx, dfy, method = c("pearson", "kendall", "spearman"),
-  digits = 2, label = FALSE)
+correlation.data.frame(dfx, dfy, method = c("pearson", "kendall",
+  "spearman"), digits = 2, label = FALSE)
 }
 \arguments{
 \item{dfx}{data.frame}

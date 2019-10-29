@@ -16,4 +16,3 @@ moystd(x, na.rm = TRUE, dig = 2)
 \description{
 Return mean and sd
 }
-\keyword{internal}

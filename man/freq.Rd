@@ -4,7 +4,8 @@
 \alias{freq}
 \title{Compute frequencies}
 \usage{
-freq(x, showNA = c("no", "ifany", "always"), total = FALSE, digits = 2)
+freq(x, showNA = c("no", "ifany", "always"), total = FALSE,
+  digits = 2)
 }
 \arguments{
 \item{x}{factor}

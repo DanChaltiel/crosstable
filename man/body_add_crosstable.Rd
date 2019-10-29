@@ -5,7 +5,8 @@
 \title{add a table made by the cross function into an officer document}
 \usage{
 body_add_crosstable(doc, crosstable, compact = FALSE, auto.fit = FALSE,
-  id = ".id", variable = "variable", label = "label", p = "p")
+  id = ".id", variable = "variable", label = "label",
+  value = "value", p = "p", show.test.name = F)
 }
 \arguments{
 \item{doc}{a \code{rdocx} object created by \code{read_docx} function (see \code{officer} package)}
@@ -22,7 +23,11 @@ body_add_crosstable(doc, crosstable, compact = FALSE, auto.fit = FALSE,
 
 \item{label}{name of the 'label' column}
 
+\item{value}{name of the 'value' column}
+
 \item{p}{name of the 'p' column}
+
+\item{show.test.name}{in the p column, show the test name}
 }
 \value{
 A \code{rdocx} object
@@ -35,6 +40,7 @@ library(dplyr) #for the pipe operator
 library(officer)
 mytable <- cross(cbind(...) ~ tobgp, esoph, test = TRUE)
 mytable <- cross(cbind(...) ~ Species, iris, test = TRUE)
+mytable <- cross(cbind(...) ~ ., esoph)
 doc <- read_docx() \%>\% 
     body_add_crosstable(mytable) \%>\% 
     body_add_break \%>\% 

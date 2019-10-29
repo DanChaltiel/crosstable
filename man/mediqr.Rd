@@ -16,4 +16,3 @@ mediqr(x, na.rm = TRUE, dig = 2)
 \description{
 Return median and IQR
 }
-\keyword{internal}

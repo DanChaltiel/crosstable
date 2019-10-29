@@ -4,10 +4,11 @@
 \alias{survival}
 \title{Compute survival}
 \usage{
-survival(surv, by = NULL, times = NULL, followup = FALSE, total = FALSE,
-  digits = 2, test = FALSE, test.survival = test.survival.logrank,
-  show.test = display.test, plim = 4, show.method = TRUE,
-  effect = FALSE, effect.survival = effect.survival.coxph,
+survival(surv, by = NULL, times = NULL, followup = FALSE,
+  total = FALSE, digits = 2, test = FALSE,
+  test.survival = test.survival.logrank, show.test = display.test,
+  plim = 4, show.method = TRUE, effect = FALSE,
+  effect.survival = effect.survival.coxph,
   show.effect = display.effect, conf.level = 0.95, label = FALSE)
 }
 \arguments{

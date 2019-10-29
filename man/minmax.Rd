@@ -16,4 +16,3 @@ minmax(x, na.rm = TRUE, dig = 2)
 \description{
 Return min and max
 }
-\keyword{internal}

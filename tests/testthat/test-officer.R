@@ -9,6 +9,8 @@ crosstables = list(
     #des warnings sur wilcoxon mais OSEF
 )
 
+#TODO body_add_crosstable when compacted before function
+
 test_that("crosstables don't throw errors in officer", {
     doc <- read_docx()
     #test with compact=F et compact=T

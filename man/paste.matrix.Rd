@@ -4,8 +4,8 @@
 \alias{paste.matrix}
 \title{paste.matrix}
 \usage{
-paste.matrix(..., sep = " ", transpose.vector = FALSE, collapse = NULL,
-  byrow = FALSE)
+paste.matrix(..., sep = " ", transpose.vector = FALSE,
+  collapse = NULL, byrow = FALSE)
 }
 \arguments{
 \item{...}{...}

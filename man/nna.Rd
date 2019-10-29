@@ -12,4 +12,3 @@ nna(x)
 \description{
 Return n and na
 }
-\keyword{internal}
