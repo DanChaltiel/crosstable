@@ -44,9 +44,7 @@ mytable <- cross(cbind(...) ~ ., esoph)
 doc <- read_docx() \%>\% 
     body_add_crosstable(mytable) \%>\% 
     body_add_break \%>\% 
-    body_add_crosstable(mytable, TRUE) \%>\% 
-    body_add_break \%>\% 
-    body_add_crosstable(compact(mytable))
+    body_add_crosstable(mytable, TRUE)
 
 \dontrun{
 dfile <- "test_doc.docx"

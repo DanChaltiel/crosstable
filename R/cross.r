@@ -481,6 +481,13 @@ cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(" " = mysummar
 }
 
 
+
+
+
+# Old ---------------------------------------------------------------------
+
+
+
 ## ##' Print a cross object
 ## ##'
 ## ##' Print cross object using ascii package

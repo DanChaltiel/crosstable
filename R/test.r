@@ -167,9 +167,9 @@ test.summarize.auto <- function(x, g) {
         type <- "t.unequalvar"
       } else if (bartlettg < 0.05 & length(ng) > 2) {
         type <- "a.unequalvar"
-      } else if (bartlettg > 0.05 & length(ng) == 2) {
+      } else if (bartlettg => 0.05 & length(ng) == 2) {
         type <- "t.equalvar"
-      } else if (bartlettg > 0.05 & length(ng) > 2) {
+      } else if (bartlettg => 0.05 & length(ng) > 2) {
         type <- "a.equalvar"
       }
     }
@@ -288,13 +288,14 @@ test.survival.logrank <- function(formula) {
 
 #' Test for linear trend across ordered factor with contrasts
 #'
-#' @param x 
-#' @param y un ordered factor
+#' @param x vector
+#' @param y ordered factor
 #'
 #' @return a list with two componments: p.value and method
 #' @author Dan Chaltiel
 #' @export
 #' @import gmodels
+#' @importFrom DescTools CochranArmitageTest
 #'
 #' @examples
 #' library(dplyr)
@@ -302,6 +303,7 @@ test.survival.logrank <- function(formula) {
 #'   mutate(Petal.Width.qt = paste0("Q", ntile(Petal.Width, 5)) %>% ordered()) %>% 
 #'   cross(Petal.Length ~ Petal.Width.qt, data=., test=T, test.summarize = test.summarize.contrasts.lin)
 test.summarize.contrasts.lin = function(x, y){
+  stopifnot(is.ordered(y))
   levels_seq = 1:length(levels(y))
   contr = levels_seq - mean(levels_seq)  #centered on 0, step of 1
   m = lm(x ~ y)

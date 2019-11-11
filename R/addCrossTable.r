@@ -117,9 +117,7 @@ compact <- function(x) {
 #' doc <- read_docx() %>% 
 #'     body_add_crosstable(mytable) %>% 
 #'     body_add_break %>% 
-#'     body_add_crosstable(mytable, TRUE) %>% 
-#'     body_add_break %>% 
-#'     body_add_crosstable(compact(mytable))
+#'     body_add_crosstable(mytable, TRUE)
 #' 
 #' \dontrun{
 #' dfile <- "test_doc.docx"
@@ -194,6 +192,39 @@ body_add_crosstable = function(doc, crosstable, compact = FALSE, auto.fit = FALS
 }
 
 
+
+#' Coerce to a Crosstable (for officer docx addition)
+#'
+#' @param df a data.frame
+#' @param labs.col the name of the grouping variable
+#'
+#' @return a cross
+#' @export
+#'
+#' @examples
+#' library(dplyr) #for the pipe operator
+#' library(officer)
+#' mytable = cross(cbind(Sepal.Length, I(Sepal.Width^2)) ~ Species, iris) %>% 
+#'    as.data.frame %>% #loses attributes
+#'    as.crosstable(labs.col = "Species")
+#'    
+#' doc <- read_docx() %>% 
+#'     body_add_crosstable(mytable) 
+#' 
+#' \dontrun{
+#' dfile <- "test_doc.docx"
+#' print(doc, target = dfile)
+#' shell.exec(dfile)
+#' 
+as.crosstable = function(df, labs.col = "???"){
+    class(df) = c("cross", "data.frame")
+    attr(df, "labs.col") = labs.col
+    df
+}
+
+
+
+# LEGACY ------------------------------------------------------------------
 
 #' Deprecated
 #' Create a FlexTable object from a table made by the cross function
@@ -349,7 +380,9 @@ addCrossTable <- function(doc, crosstable, compact = FALSE, id = ".id", variable
 
 
 
-# LEGACY ------------------------------------------------------------------
+
+# old ---------------------------------------------------------------------
+
 
 
 

@@ -15,6 +15,7 @@ Imports:
     Hmisc,
     survival,
     methods,
+    gmodels,
     officer,
     flextable,
     nortest
