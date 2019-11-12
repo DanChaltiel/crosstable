@@ -167,9 +167,9 @@ test.summarize.auto <- function(x, g) {
         type <- "t.unequalvar"
       } else if (bartlettg < 0.05 & length(ng) > 2) {
         type <- "a.unequalvar"
-      } else if (bartlettg => 0.05 & length(ng) == 2) {
+      } else if (bartlettg >= 0.05 & length(ng) == 2) {
         type <- "t.equalvar"
-      } else if (bartlettg => 0.05 & length(ng) > 2) {
+      } else if (bartlettg >= 0.05 & length(ng) > 2) {
         type <- "a.equalvar"
       }
     }
@@ -312,7 +312,7 @@ test.summarize.contrasts.lin = function(x, y){
 }
 
 
-#TODO faire tout Áa !
+#TODO faire tout √ßa !
 
 test.summarize.auto.dan = function (x, g) {
   ng <- table(g)
@@ -343,7 +343,7 @@ test.summarize.auto.dan = function (x, g) {
       else if (bartlettg < 0.05 & length(ng) > 2) {
         type <- "a.unequalvar"
       }
-      else if (bartlettg >= 0.05 & length(ng) == 2) {#DAN ajoute un egal au cas o˘ bartlettg==0.05!
+      else if (bartlettg >= 0.05 & length(ng) == 2) {#DAN ajoute un egal au cas o√π bartlettg==0.05!
         type <- "t.equalvar"
       }
       else if (bartlettg >= 0.05 & length(ng) > 2) {
