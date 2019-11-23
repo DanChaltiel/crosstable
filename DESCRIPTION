@@ -16,6 +16,7 @@ Imports:
     survival,
     methods,
     gmodels,
+    DescTools,
     officer,
     flextable,
     nortest

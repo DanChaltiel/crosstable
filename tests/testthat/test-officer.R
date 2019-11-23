@@ -32,3 +32,63 @@ test_that("crosstables don't throw errors in officer", {
     }
     print(doc, "test_cross_officer.docx")
 })
+
+
+
+test_that("crosstables are OK as flextables", {
+    library(purrr)
+    cross=biostat2::cross
+    library(dplyr)
+    library(officer)
+    library(Hmisc)
+    showNA = c("no", "ifany")
+    test = c(T,F)
+    effect = c(T,F)
+    label = T
+    total = list(F,T,1,2)
+    
+    #TODO, si total et (NA dans variable BY), mettre un footer "les chiffres sont pas bons"
+    mtcars2 = mtcars %>% 
+        mutate(
+            gear=as.factor(gear), 
+            gear=ifelse(row_number() %in% 17:18, NA, gear),
+            drat=ifelse(between(drat, 3.5, 3.7), NA, drat),
+            am=ifelse(am==0, "automatic", "manual"),
+            am=ifelse(row_number() %in% 3:4, NA, am)
+        )
+    label(mtcars2$drat) = "Rear axle ratio"
+    label(mtcars2$gear) = "Number of forward gears"
+    label(mtcars2$am) = "Transmission"
+    
+    x = expand.grid(showNA, test, effect, label, total, stringsAsFactors = F) %>% arrange #32 possibilités
+    cross_tables = x %>% pmap(~{
+        # print(paste(..1, ..2, ..3, ..4, ..5))
+        cross(
+            cbind(drat, gear) ~ am,
+            data=mtcars2,
+            showNA = ..1,
+            margin = 2,
+            test=..2,
+            effect=..3,
+            label=..4,
+            total=..5
+        )
+    })
+    
+    # # Une table au hasard
+    # x %>% sample_n(1) %>% pmap(~{
+    #     print(paste(..1, ..2, ..3, ..4, ..5, sep=" -- "))
+    #     cross(
+    #         cbind(drat, gear) ~ am,
+    #         data=mtcars2,
+    #         margin = 2,
+    #         show.method = F,
+    #         showNA = ..1,
+    #         test=..2,
+    #         effect=..3,
+    #         label=..4,
+    #         total=..5
+    #     )
+    # }) %>% first %>% cross_to_flextable
+    
+})

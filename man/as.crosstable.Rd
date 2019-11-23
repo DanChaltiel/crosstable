@@ -17,3 +17,20 @@ a cross
 \description{
 Coerce to a Crosstable (for officer docx addition)
 }
+\examples{
+library(dplyr) #for the pipe operator
+library(officer)
+mytable = cross(cbind(Sepal.Length, I(Sepal.Width^2)) ~ Species, iris) \%>\% 
+   as.data.frame \%>\% #loses attributes
+   as.crosstable(labs.col = "Species")
+   
+doc <- read_docx() \%>\% 
+    body_add_crosstable(mytable) 
+
+\dontrun{
+dfile <- "test_doc.docx"
+print(doc, target = dfile)
+shell.exec(dfile)
+}
+
+}

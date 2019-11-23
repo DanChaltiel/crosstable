@@ -7,9 +7,9 @@
 test.summarize.contrasts.lin(x, y)
 }
 \arguments{
-\item{x}{}
+\item{x}{vector}
 
-\item{y}{un ordered factor}
+\item{y}{ordered factor}
 }
 \value{
 a list with two componments: p.value and method

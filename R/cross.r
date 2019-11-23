@@ -415,9 +415,10 @@ regroup <- function(vars, numdata, catdata, survdata) {
 ##' @export
 ##' @importFrom plyr is.formula
 ##' @importFrom plyr llply
+# TODO: show.effect.details=T, 
 cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(" " = mysummary), ..., margin = 0:2, total = FALSE, digits = 2, showNA = c("no", "ifany", "always"), method = c("pearson", "kendall", "spearman"), times = NULL, followup = FALSE, test = FALSE, test.summarize = test.summarize.auto, test.survival = test.survival.logrank, test.tabular = test.tabular.auto, show.test = display.test, plim = 4, show.method = TRUE, effect = FALSE, effect.summarize = diff.mean.auto, effect.tabular = or.row.by.col, effect.survival = effect.survival.coxph, conf.level = 0.95, label = FALSE, regroup = FALSE) {
 
-  if (is.formula(formula))
+  if (plyr::is.formula(formula))
     formula <- paste(deparse(formula, 500), collapse = "")
 
   if (!is.character(funs)) {
@@ -454,9 +455,9 @@ cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(" " = mysummar
       lapply(y, function(z) data[, remove_blank(elements(z)), drop = FALSE])
   })
 
-  # results <- llply(comb, function(x) cross_list(x, funs = funs, margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, test.survival = test.survival, show.test = show.test, plim = plim, effect = effect, effect.summarize = effect.summarize, effect.tabular = effect.tabular, effect.survival = effect.survival, conf.level = conf.level, show.method = show.method, label = label))
-
-  results <- llply(comb, function(x) cross_list(x, funs = funs, ..., margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, test.survival = test.survival, show.test = show.test, plim = plim, effect = effect, effect.summarize = effect.summarize, effect.tabular = effect.tabular, effect.survival = effect.survival, conf.level = conf.level, show.method = show.method, label = label))
+  
+  results <- llply(comb, function(x) 
+    cross_list(x, funs = funs, ..., margin = margin, total = total, digits = digits, showNA = showNA, method = method, times = times, followup = followup, test = test, test.summarize = test.summarize, test.tabular = test.tabular, test.survival = test.survival, show.test = show.test, plim = plim, effect = effect, effect.summarize = effect.summarize, effect.tabular = effect.tabular, effect.survival = effect.survival, conf.level = conf.level, show.method = show.method, label = label))
 
   if (length(results) == 1) {
       results <- results[[1]]

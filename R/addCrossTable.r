@@ -88,7 +88,138 @@ compact <- function(x) {
 
 
 
-#' add a table made by the cross function into an officer document
+#' Crosstables output 
+#' @description \code{cross_to_flextable} turns a table made by the cross function into a flextable.
+#'
+#' @param crosstable the result of \code{cross} function
+#' @param compact whether to compact the table
+#' @param auto.fit whether to \code{flextable::autofit} the table
+#' @param id name of the 'id' column
+#' @param variable name of the 'variable' column
+#' @param label name of the 'label' column
+#' @param value name of the 'value' column
+#' @param p name of the 'p' column
+#' @param show.test.name in the p column, show the test name
+#'
+#' @return A \code{rdocx} object
+#' @author Dan Chaltiel
+#' @importFrom dplyr select lead sym %>% 
+#' @importFrom methods is
+#' @import officer flextable 
+#' @export
+#'
+#' @examples 
+#' ### cross_to_flextable
+#' library(dplyr) #for the pipe operator
+#' library(officer)
+#' cross(cbind(...) ~ tobgp, esoph, test = TRUE) %>% cross_to_flextable
+#' cross(cbind(...) ~ Species, iris, test = TRUE) %>% cross_to_flextable
+#' cross(cbind(...) ~ ., esoph) %>% cross_to_flextable
+#' 
+cross_to_flextable = 
+    function (crosstable, compact = FALSE, auto.fit = FALSE, 
+              id = ".id", variable = "variable", label = "label", value = "value", p = "p", 
+              show.test.name = F, generic.labels=c(id, variable, label, value, p, "effect", "Total")) {
+    stopifnot(is.data.frame(crosstable))    
+    border1 <- fp_border(color = "black", style = "solid", width = 1)
+    border2 <- fp_border(color = "black", style = "solid", width = 1.5)
+    labs.col <- attr(crosstable, "labs.col")
+    labs.names <- crosstable %>% names %>% .[!(. %in% generic.labels)]
+    is_tested = crosstable %>% names %>% grepl(p, .) %>% any
+    is_multiple = crosstable %>% names %>% grepl(value, .) %>% any %>% `!`
+    has_total = crosstable %>% names %>% grepl("Total", .) %>% any
+    rtn = crosstable
+    if (is_tested && !show.test.name) {
+        rtn$p = rtn$p %>% gsub(" \\(.*\\)", "", .)
+    }
+    if (compact && !is(rtn, "compacted")) {
+        rtn <- compact(rtn)
+    }
+    if (is(rtn, "compacted")) {
+        sep.rows <- which(rtn[, 1] %in% crosstable$label)[-1]
+        rtn <- rtn %>% as.data.frame %>% flextable %>% hline(i = sep.rows - 1, border = border1)
+        if (is_multiple) {
+            header_colwidths = if (is_tested) c(1, ncol(crosstable) - 4)
+            else           c(1, ncol(crosstable) - 3)
+            rtn <- rtn %>% 
+                add_header_row(values = c(variable, labs.col), colwidths = header_colwidths) %>% 
+                merge_v(j = 1, part = "head") %>%
+                merge_h(i = c(1, sep.rows, sep.rows + 1)) %>% 
+                bold(i = c(1, sep.rows))
+        }
+    }
+    else {
+        sep.rows <- which(rtn$label != lead(rtn$label))
+        rtn <- rtn %>% select(-!!sym(id)) %>% flextable %>% hline(i = sep.rows, border = border1)
+        if (is_multiple) {
+            
+            r = labs.names %>% 
+                gsub("([\\\\\\^\\$\\.\\|\\?\\*\\+\\(\\)\\[\\{])", "\\\\\\1", .) %>% 
+                paste(collapse="|")
+            header_values = crosstable %>% select(-id) %>% names %>% 
+                gsub(r, labs.col, .) %>% unique
+            header_colwidths = ifelse(header_values==labs.col, sum(names(crosstable) %in% labs.names), 1)
+            
+            body_merge = if (is_tested) c("label", p) else c("label")
+            head_merge = header_values[!header_values %in% labs.col]
+            # browser()
+            rtn <- rtn %>% 
+                add_header_row(values = header_values, colwidths = header_colwidths) %>% 
+                merge_v(j = head_merge, part = "head") %>% 
+                merge_v(j = body_merge, part = "body")
+        }
+    }
+    rtn <- rtn %>% 
+        bold(part = "head") %>% 
+        align(align = "left", part = "all") %>% 
+        align(i = 1, align = "center", part = "head") %>% 
+        hline_top(border = border2, part = "head") %>% 
+        hline_bottom(border = border2, part = "head") %>% 
+        border_inner_h(border = border2, part = "head") %>% 
+        fix_border_issues
+    
+    if (auto.fit) {
+        rtn <- autofit(rtn)
+    }
+    return(rtn)
+}
+
+
+
+#' body_add_crosstable
+#' @description \code{body_add_crosstable2} adds a table made by the cross function into an officer document
+#'
+#' @param doc a \code{rdocx} object created by \code{read_docx} function (see \code{officer} package)
+#' @param ... arguments for \code{cross_to_flextable}
+#'
+#' @export
+#' @rdname cross_to_flextable
+#' 
+#' @examples 
+#' ### body_add_crosstable
+#' #mytable <- cross(cbind(...) ~ tobgp, esoph, test = TRUE)
+#' #mytable <- cross(cbind(...) ~ Species, iris, test = TRUE)
+#' mytable <- cross(cbind(...) ~ ., esoph)
+#' doc <- read_docx() %>% 
+#'     body_add_crosstable(mytable) %>% 
+#'     body_add_break %>% 
+#'     body_add_crosstable(mytable, TRUE)
+#' 
+#' \dontrun{
+#' dfile <- "test_doc.docx"
+#' print(doc, target = dfile)
+#' shell.exec(dfile)
+#' }
+body_add_crosstable = function (doc, ...) {
+    ft = cross_to_flextable(...)
+    doc <- body_add_flextable(doc, ft)
+    return(doc)
+}
+
+
+
+
+#' OLD: Adds a table made by the cross function into an officer document
 #'
 #' @param doc a \code{rdocx} object created by \code{read_docx} function (see \code{officer} package)
 #' @param crosstable the result of \code{cross} function
@@ -124,7 +255,7 @@ compact <- function(x) {
 #' print(doc, target = dfile)
 #' shell.exec(dfile)
 #' }
-body_add_crosstable = function(doc, crosstable, compact = FALSE, auto.fit = FALSE, id = ".id", variable = "variable", label = "label", value="value", p = "p", show.test.name=F){
+body_add_crosstable_bak = function(doc, crosstable, compact = FALSE, auto.fit = FALSE, id = ".id", variable = "variable", label = "label", value="value", p = "p", show.test.name=F){
     border1 <- fp_border(color = "black", style = "solid", width = 1)
     border2 <- fp_border(color = "black", style = "solid", width = 1.5)
     
@@ -215,6 +346,7 @@ body_add_crosstable = function(doc, crosstable, compact = FALSE, auto.fit = FALS
 #' dfile <- "test_doc.docx"
 #' print(doc, target = dfile)
 #' shell.exec(dfile)
+#' }
 #' 
 as.crosstable = function(df, labs.col = "???"){
     class(df) = c("cross", "data.frame")

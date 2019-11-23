@@ -53,13 +53,7 @@ summarize.by <- function(x, by, funs = c(mean, sd, quantile, n, na), ..., showNA
   if (identical(total, 1) | identical(total, 1:2) | identical(total, TRUE)) {
         results$Total <- summarize(x, funs = funs, ..., digits = digits)[, 2]
     }
-    ## results <- sapply(results, function(x) if (is.numeric(x)) as.character(round(x, digits)) else as.character(x))
 
-    ## Si NA n'est pas dans le facteur, on met la colonne apres "Total"
-    if ((any(colnames(results) == "NA") & any(colnames(results) == "Total")) & !anyNA(levels(by))) {
-        tmp <- results[, "NA"]
-        results <- cbind(results[, colnames(results) != "NA"], "NA" = tmp)
-    }
 
     if (effect) {
         results <- cbind(results, effect = show.effect(effect.summarize(x, by, conf.level), digits = digits))
