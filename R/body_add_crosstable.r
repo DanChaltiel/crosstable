@@ -160,13 +160,13 @@ cross_to_flextable =
                 gsub(r, labs.col, .) %>% unique
             header_colwidths = ifelse(header_values==labs.col, sum(names(crosstable) %in% labs.names), 1)
             
-            body_merge = if (is_tested) c("label", p) else c("label")
+            body_merge = if (is_tested) c(label, p) else c(label)
             head_merge = header_values[!header_values %in% labs.col]
             # browser()
             rtn <- rtn %>% 
                 add_header_row(values = header_values, colwidths = header_colwidths) %>% 
                 merge_v(j = head_merge, part = "head") %>% 
-                merge_v(j = body_merge, part = "body")
+                merge_v(j = label, target=body_merge, part = "body")
         }
     }
     rtn <- rtn %>% 
