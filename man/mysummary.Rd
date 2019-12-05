@@ -4,12 +4,10 @@
 \alias{mysummary}
 \title{Summarize a numeric vector}
 \usage{
-mysummary(x, na.rm = TRUE, dig = 2)
+mysummary(x, dig = 2)
 }
 \arguments{
 \item{x}{a numeric vector}
-
-\item{na.rm}{\code{TRUE} as default}
 
 \item{dig}{number of digits}
 }

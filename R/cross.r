@@ -408,22 +408,24 @@ regroup <- function(vars, numdata, catdata, survdata) {
 ##' cross(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width, iris)
 ##' cross(cbind(Sepal.Length, Sepal.Width) ~ cbind(Petal.Length, Petal.Width), iris)
 ##' cross(... ~ ., esoph) #returns a list
-##' cross(alcgp ~ tobgp, esoph, margin="line", total="both", test = TRUE)
-##' cross(cbind(hp, mpg) ~ am, mtcars, effect=T, test = TRUE)
+##' cross(alcgp ~ tobgp, esoph, margin="line", total="both", test=TRUE)
+##' cross(cbind(hp, mpg) ~ factor(am), mtcars, effect=TRUE, test=TRUE, show.method=FALSE)
 ##' library(survival)
 ##' cross(Surv(time, status) ~ x, data = aml)
 ##' @keywords univar
 ##' @export
-##' @importFrom plyr is.formula
-##' @importFrom plyr llply
+##' @import checkmate
+##' @importFrom plyr llply is.formula
 # TODO: show.effect.details=T, 
 cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(" " = mysummary), ..., margin = c("all", "line", "column", "cell"), total = c("none", "all", "line", "column", "FALSE", "TRUE", 0, 1, 2), digits = 2, showNA = c("no", "ifany", "always"), method = c("pearson", "kendall", "spearman"), times = NULL, followup = FALSE, test = FALSE, test.summarize = test.summarize.auto, test.survival = test.survival.logrank, test.tabular = test.tabular.auto, show.test = display.test, plim = 4, show.method = TRUE, effect = FALSE, effect.summarize = diff.mean.auto, effect.tabular = or.row.by.col, effect.survival = effect.survival.coxph, conf.level = 0.95, label = FALSE, regroup = FALSE) {
   
   coll = makeAssertCollection()
-  assertCount(digits, add=coll)
+  assertFormula(formula, add=coll)
   assertDataFrame(data, add=coll)
+  assertCount(digits, add=coll)
+  assertLogical(label, add=coll)
   
-  if (plyr::is.formula(formula))
+  if (is.formula(formula))
     formula <- paste(deparse(formula, 500), collapse = "")
   
   if (!is.character(funs)) {

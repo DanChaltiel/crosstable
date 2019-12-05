@@ -5,9 +5,11 @@
 \title{Describe everything}
 \usage{
 cross(formula = cbind(...) ~ ., data = NULL, funs = c(` ` =
-  mysummary), ..., margin = 0:2, total = FALSE, digits = 2,
-  showNA = c("no", "ifany", "always"), method = c("pearson", "kendall",
-  "spearman"), times = NULL, followup = FALSE, test = FALSE,
+  mysummary), ..., margin = c("all", "line", "column", "cell"),
+  total = c("none", "all", "line", "column", "FALSE", "TRUE", 0, 1, 2),
+  digits = 2, showNA = c("no", "ifany", "always"),
+  method = c("pearson", "kendall", "spearman"), times = NULL,
+  followup = FALSE, test = FALSE,
   test.summarize = test.summarize.auto,
   test.survival = test.survival.logrank,
   test.tabular = test.tabular.auto, show.test = display.test,
@@ -153,12 +155,13 @@ group everything in the same table, but only if it is possible...
 
 library(biostat2)
 cross(data = iris)
-cross(cbind(...) ~ ., iris[, sapply(iris, is.numeric)], funs = c(median, mad, min, max))
-cross(cbind(Sepal.Length, I(Sepal.Width^2)) ~ Species, iris, funs = quantile, probs = c(1/3, 2/3))
+cross(cbind(...) ~ ., iris[, sapply(iris, is.numeric)], funs=c(median, mad, min, max))
+cross(cbind(Sepal.Length, I(Sepal.Width^2)) ~ Species, iris, funs=quantile, probs=c(1/3, 2/3), total="line") #tertiles 1 and 2 by Species
 cross(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width, iris)
 cross(cbind(Sepal.Length, Sepal.Width) ~ cbind(Petal.Length, Petal.Width), iris)
-cross(... ~ ., esoph)
-cross(alcgp ~ tobgp, esoph, test = TRUE)
+cross(... ~ ., esoph) #returns a list
+cross(alcgp ~ tobgp, esoph, margin="line", total="both", test = TRUE)
+cross(cbind(hp, mpg) ~ factor(am), mtcars, effect=T, test = TRUE, show.method=F)
 library(survival)
 cross(Surv(time, status) ~ x, data = aml)
 }

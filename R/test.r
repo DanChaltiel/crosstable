@@ -32,7 +32,7 @@ display.test <- function(test, digits = 4, method = TRUE) {
     if (method)
       paste("p value: ", p, " (", test$method, ")", sep = "")
     else
-      paste("p value: ", p, sep = "")
+      p
   }
 }
 
