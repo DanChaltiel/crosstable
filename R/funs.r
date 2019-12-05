@@ -60,7 +60,7 @@ funs2fun <- function(...) {
 ##' @param x a numeric vector
 ##' @param na.rm \code{TRUE} as default
 ##' @param dig number of digits
-#' @export
+##' @export
 minmax <- function(x, na.rm = TRUE, dig = 2) {
     mi <- ifelse(!all(is.na(x)), round(min(x, na.rm = na.rm), dig), NA)
     ma <- ifelse(!all(is.na(x)), round(max(x, na.rm = na.rm), dig), NA)
@@ -72,7 +72,7 @@ minmax <- function(x, na.rm = TRUE, dig = 2) {
 ##' @param x a numeric vector
 ##' @param na.rm \code{TRUE} as default
 ##' @param dig number of digits
-#' @export
+##' @export
 mediqr <- function(x, na.rm = TRUE, dig = 2) {
     med <- round(median(x, na.rm = na.rm), dig)
     iqr <- round(quantile(x, probs = c(0.25, 0.75), na.rm = na.rm), dig)
@@ -84,7 +84,7 @@ mediqr <- function(x, na.rm = TRUE, dig = 2) {
 ##' @param x a numeric vector
 ##' @param na.rm \code{TRUE} as default
 ##' @param dig number of digits
-#' @export
+##' @export
 moystd <- function(x, na.rm = TRUE, dig = 2) {
     moy <- round(mean(x, na.rm = na.rm), dig)
     std <- round(sd(x, na.rm = na.rm), dig)
@@ -94,7 +94,7 @@ moystd <- function(x, na.rm = TRUE, dig = 2) {
 ##' Return n and na
 ##'
 ##' @param x a numeric vector
-#' @export
+##' @export
 nna <- function(x) {
     paste(n(x), " (", na(x), ")", sep = "")
 }
@@ -102,10 +102,9 @@ nna <- function(x) {
 ##' Summarize a numeric vector
 ##'
 ##' @param x a numeric vector
-##' @param na.rm \code{TRUE} as default
 ##' @param dig number of digits
 ##' @keywords internal
-mysummary <- function(x, na.rm = TRUE, dig = 2) {
+mysummary <- function(x, dig = 2) {
     return(c("Min / Max" = minmax(x, dig=dig), "Med [IQR]" = mediqr(x, dig=dig), 
              "Moy (std)" = moystd(x, dig=dig), "N (NA)" = nna(x)))
 }

@@ -403,12 +403,13 @@ regroup <- function(vars, numdata, catdata, survdata) {
 ##'
 ##' library(biostat2)
 ##' cross(data = iris)
-##' cross(cbind(...) ~ ., iris[, sapply(iris, is.numeric)], funs = c(median, mad, min, max))
-##' cross(cbind(Sepal.Length, I(Sepal.Width^2)) ~ Species, iris, funs = quantile, probs = c(1/3, 2/3))
+##' cross(cbind(...) ~ ., iris[, sapply(iris, is.numeric)], funs=c(median, mad, min, max))
+##' cross(cbind(Sepal.Length, I(Sepal.Width^2)) ~ Species, iris, funs=quantile, probs=c(1/3, 2/3), total="line") #tertiles 1 and 2 by Species
 ##' cross(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width, iris)
 ##' cross(cbind(Sepal.Length, Sepal.Width) ~ cbind(Petal.Length, Petal.Width), iris)
-##' cross(... ~ ., esoph)
-##' cross(alcgp ~ tobgp, esoph, test = TRUE)
+##' cross(... ~ ., esoph) #returns a list
+##' cross(alcgp ~ tobgp, esoph, margin="line", total="both", test = TRUE)
+##' cross(cbind(hp, mpg) ~ am, mtcars, effect=T, test = TRUE)
 ##' library(survival)
 ##' cross(Surv(time, status) ~ x, data = aml)
 ##' @keywords univar
@@ -416,18 +417,54 @@ regroup <- function(vars, numdata, catdata, survdata) {
 ##' @importFrom plyr is.formula
 ##' @importFrom plyr llply
 # TODO: show.effect.details=T, 
-cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(" " = mysummary), ..., margin = 0:2, total = FALSE, digits = 2, showNA = c("no", "ifany", "always"), method = c("pearson", "kendall", "spearman"), times = NULL, followup = FALSE, test = FALSE, test.summarize = test.summarize.auto, test.survival = test.survival.logrank, test.tabular = test.tabular.auto, show.test = display.test, plim = 4, show.method = TRUE, effect = FALSE, effect.summarize = diff.mean.auto, effect.tabular = or.row.by.col, effect.survival = effect.survival.coxph, conf.level = 0.95, label = FALSE, regroup = FALSE) {
-
+cross <- function(formula = cbind(...) ~ ., data = NULL, funs = c(" " = mysummary), ..., margin = c("all", "line", "column", "cell"), total = c("none", "all", "line", "column", "FALSE", "TRUE", 0, 1, 2), digits = 2, showNA = c("no", "ifany", "always"), method = c("pearson", "kendall", "spearman"), times = NULL, followup = FALSE, test = FALSE, test.summarize = test.summarize.auto, test.survival = test.survival.logrank, test.tabular = test.tabular.auto, show.test = display.test, plim = 4, show.method = TRUE, effect = FALSE, effect.summarize = diff.mean.auto, effect.tabular = or.row.by.col, effect.survival = effect.survival.coxph, conf.level = 0.95, label = FALSE, regroup = FALSE) {
+  
+  coll = makeAssertCollection()
+  assertCount(digits, add=coll)
+  assertDataFrame(data, add=coll)
+  
   if (plyr::is.formula(formula))
     formula <- paste(deparse(formula, 500), collapse = "")
-
+  
   if (!is.character(funs)) {
-      nomf <- names(funs)
-      funs <- as.character(as.list(substitute(funs)))
-      funs <- funs[funs != "c" & funs != "list"]
-      names(funs) <- nomf
+    nomf <- names(funs)
+    funs <- as.character(as.list(substitute(funs)))
+    funs <- funs[funs != "c" & funs != "list"]
+    names(funs) <- nomf
   }
-
+   
+  if (missing(margin)) margin = "all"
+  if (is.character(margin)) {
+    assertSubset(margin, c("all", "line", "column", "cell"), add=coll)
+    if(is.null(margin)) {
+      margin=0:2 #defaulting 
+    } else {
+      marginopts = list(all = 0:2,
+                        line = 1,
+                        column = 2,
+                        cell = 0)
+      margin <- unname(unlist(marginopts[margin]))
+    }
+  }
+  
+  if (missing(total)) total = "none"
+  if (is.character(total)) {
+    assertChoice(total, c("none", "both", "all", "line", "column"), add=coll)
+    if(is.null(total)) {
+      total=0 #defaulting
+    } else {
+      totalopts = list(all = 1:2,
+                       both = 1:2,
+                       line = 1,
+                       column = 2,
+                       none = 0)
+      total <- unname(unlist(totalopts[total]))
+    }
+  }
+  
+  reportAssertions(coll)
+  
+  
   varnames <- names(data)
   parsed <- parse_formula(formula, varnames)
   # parsed$left = gsub("\\n *", "", parsed$left) 

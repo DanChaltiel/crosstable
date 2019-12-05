@@ -185,7 +185,6 @@ cross_to_flextable =
 }
 
 
-
 #' body_add_crosstable
 #' @description \code{body_add_crosstable2} adds a table made by the cross function into an officer document
 #'

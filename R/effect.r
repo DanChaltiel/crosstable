@@ -5,9 +5,10 @@
 #'
 #' @export
 display.effect <- function(effect, digits = 4) {
-    if (all(sapply(effect, is.null)))
-        "No effect"
-    else {
+    if (all(sapply(effect, is.null))){
+        warning("Could not calculate effect. Is there not 2 groups exactly?", immediate.=T)
+        return("No effect?")
+    }else {
         paste(paste0(effect$effect.type, " (", effect$effect.name, "): ", formatC(effect$effect, format = "f", digits = digits), " CI", effect$conf.level*100, "%[", paste(formatC(effect$ci[, 1], format = "f", digits = digits), formatC(effect$ci[, 2], format = "f", digits = digits), sep = " to "), "]"), collapse = "\n")
     }
 }
