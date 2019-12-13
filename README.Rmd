@@ -4,20 +4,23 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r setup, include = FALSE}
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-    collapse = TRUE,
-    comment = "#>",
-    fig.path = "man/figures/README-",
-    out.width = "100%"
+    collapse=TRUE,
+    comment="#>",
+    fig.path="man/figures/README-",
+    out.width="100%"
 )
 options(Encoding="UTF-8")
-```
-
-```{r packages, message=FALSE, warning=FALSE, include=FALSE}
+library(knitr)
 library(biostat2)
+library(Hmisc)
+library(officer)
+library(dplyr)
+# cross(cbind(agegp, ncases) ~ tobgp, esoph, margin="line", test = TRUE) %>% cross_to_flextable %>% autofit %>% save_as_image("img/cross_esoph.png", zoom=30)
+# cross(cbind(Sepal.Length, Sepal.Width) ~ Species, iris, test = TRUE, total="column") %>% cross_to_flextable %>% autofit %>% save_as_image("img/cross_iris.png", zoom=30)
+# cross(cbind(mpg, qsec) ~ factor(am), mtcars2, effect=T, test=TRUE, show.method=F) %>% cross_to_flextable %>% autofit %>% save_as_image("img/cross_mtcars.png", zoom=30)
 ```
-
 
 # biostat2
 
@@ -30,17 +33,19 @@ Il est centré sur la fonction `cross` qui permet de générer très facilement 
 ```{r install, eval=FALSE}
 install.packages("devtools")
 remotes::install_github("DanChaltiel/biostat2")
+library(biostat2)
 ```
 
 ## Utilisation
 
 ### Description
 
-On décrit une table avec une formule. On utilise `cbind` pour récupérer une dataframe en sortie, mais on pourrait aussi utiliser des `+` et récupérer une liste de descriptions. Par défaut, `cross` donnera la moyenne, écart-type, médiane, IQR, min, max, nombre d'observations et nombre de manquants.
+On décrit une table avec une formule. On utilise `cbind` pour récupérer une dataframe en sortie, mais on pourrait aussi utiliser des `+` et récupérer une liste de descriptions par variable. A droite du `~` on trouve la variable de groupe ou un `.` sinon. Par défaut, `cross` donnera la moyenne, écart-type, médiane, IQR, min, max, nombre d'observations et nombre de manquants.
 
 ```{r cross1, echo=TRUE}
-cross(cbind(Sepal.Length, Petal.Length) ~ Species, data = iris)
-cross(cbind(Sepal.Length, Petal.Length, Species) ~ ., data = iris) #le '.' représente l'absence de variable de groupe
+cross(cbind(Sepal.Length, Petal.Length) ~ Species, data=iris)
+
+cross(cbind(Sepal.Length, Petal.Length, Species) ~ ., data=iris)
 ```
 
 On peut spécifier des calculs spécifiques dans la formule avec la fonction `I()`, on peut utiliser n'importe quelle fonction de description (ajouter les arguments à la suite, comme l'argument `probs` de la fonction `quantile` ici) et on peut demander des totaux en ligne, en colonne ou les deux.
@@ -52,20 +57,36 @@ cross(cbind(Sepal.Length, I(Sepal.Width^2)) ~ Species, iris, funs=quantile, prob
 Les pourcentages sont donnés par défaut par ligne, colonne et cellule, mais on peut restreindre avec l'argument `margin`. L'argument `test` permet de faire le test adéquat en fonction de règles définies.
 
 ```{r cross3, echo=TRUE}
-cross(alcgp ~ tobgp, esoph, margin="line", total="both", test = TRUE)
+cross(alcgp ~ tobgp, esoph, margin="line", total="both", test=TRUE)
 ```
 
 Si le groupement n'a que deux niveau, il est possible de calculer un effet grâce à l'argument `effect`.
 ```{r cross4, echo=TRUE}
-cross(cbind(hp, mpg) ~ factor(am), mtcars, effect=T, test = TRUE, show.method=F)
+cross(cbind(mpg, qsec) ~ factor(am), mtcars, effect=T, test=TRUE, show.method=F)
 ```
 
-Enfin, si la variable de groupe est numérique, `cross` sortira les coefficients de corrélation
+Enfin, si la variable de groupe est numérique, `cross` sortira les coefficients de corrélation.
 ```{r cross5, echo=TRUE}
 cross(cbind(Sepal.Length, Sepal.Width) ~ cbind(Petal.Length, Petal.Width), iris)
 ```
 
-### Reporting
+### Labels
+
+`cross` est interfacé avec la fonction `label` du package `Hmisc`, ce qui permet d'avoir des tableaux plus clairs.
+```{r cross6, echo=TRUE}
+library(Hmisc)
+# ?mtcars
+mtcars2=mtcars
+label(mtcars2$mpg) = "Miles/(US) gallon"
+label(mtcars2$qsec) = "1/4 mile time in seconds"
+mtcars2$am = factor(mtcars2$am, levels=0:1, labels=c("automatic", "manual"))
+cross(cbind(mpg, qsec) ~ am, mtcars2)
+```
+
+
+## Reporting
+
+### Tableaux HTML
 
 Il est possible de transformer une table en HTML via la fonction `cross_to_flextable())`.
 
@@ -74,27 +95,69 @@ library(flextable)
 library(dplyr) #for the pipe operator
 ```
 
+```{r flextable1, echo=TRUE, eval=FALSE}
+cross(cbind(agegp, ncases) ~ tobgp, esoph, margin="line", test = TRUE) %>% cross_to_flextable
+```
+<center><img src="img/cross_esoph.png" height="300px"/></center>
 
-```{r flextable1, include=FALSE, echo=TRUE}
-cross(cbind(...) ~ tobgp, esoph, margin="line", test = TRUE) %>% cross_to_flextable
+```{r flextable2, echo=TRUE, eval=FALSE}
+cross(cbind(Sepal.Length, Sepal.Width) ~ Species, iris, test = TRUE, total="column") %>% cross_to_flextable
+```
+<center><img src="img/cross_iris.png" height="250px"/></center>
+
+```{r flextable3, echo=TRUE, eval=FALSE}
+cross(cbind(mpg, qsec) ~ factor(am), mtcars2, effect=T, test=TRUE, show.method=F) %>% cross_to_flextable
+```
+<center><img src="img/cross_mtcars.png" height="250px"/></center>
+
+### Intégration avec `officer`
+
+Grâce au package `officer`, il est possible de réaliser des fichiers MS Word. On peut ajouter des tableaux `cross` de cette façon :
+    
+    ```{r officer, echo=TRUE, eval=FALSE}
+    library(officer)
+    library(dplyr) #for the pipe operator
+    c1 = cross(cbind(Sepal.Length, Petal.Length) ~ Species, test=TRUE, show.method=F, data=iris)
+    c2 = cross(cbind(mpg, qsec) ~ factor(am), mtcars2, test=TRUE, show.method=F)
+    read_docx() %>% 
+        body_add_title("Cross + officer = <3", 1) %>% 
+        body_add_title("Premier exemple : iris", 2) %>% 
+        body_add_crosstable(c1) %>% 
+        body_add_title("Deuxième exemple : mtcars", 2) %>% 
+        body_add_crosstable(c2, auto.fit=T) %>% 
+        print("exemples/cross_officer.docx")
+    ```
+
+A noter toutefois que les tableaux devront être agrandis avec l'ajustement automatique de Word, l'argument `auto.fit` pouvant largement dépasser les marges de la page. Le fichier de sortie est donc disponible ici : [cross_officer.docx](exemples/cross_officer.docx)
+
+### Intégration avec `Rmarkdown`
+
+<!-- Intégration Rmd in Rmd : la coloration syntaxique RStudio est mauvaise mais le code est bon ! -->
+<!-- https://stackoverflow.com/questions/53226493/add-markdown-code-chunk-to-r-markdown-document#comment104859956_53226493 -->
+Tricoter (`knitr::knit()` ou via **RStudio**) ce code `Rmd` produit un fichier MS Word. L'avantage ici est l'utilisation de `bookdown` pour générer la numérotation automatique des tableaux.
+
+````markdown
+
+---
+title: "Iris"
+output: bookdown::word_document2
+---
+    
+`r ''````{r setup, include=FALSE}
+library(biostat2)
+library(flextable)
+library(dplyr) #pour le pipe %>% 
 ```
 
+Table iris is given in Table \@ref(tab:irisTable).
 
-```{r flextable2, include=FALSE, echo=TRUE}
-cross(cbind(...) ~ Species, iris, test = TRUE) %>% cross_to_flextable
+`r ''````{r description, echo=FALSE, results='asis'}
+cat("<caption> (\\#tab:irisTable) Table Iris </caption> \n\r ")
+cross(cbind(Sepal.Length, Sepal.Width) ~ Species, iris, test = TRUE, total="column") %>% cross_to_flextable %>% autofit
 ```
 
+````
 
-```{r flextable3, include=FALSE, echo=TRUE}
-cross(cbind(...) ~ ., esoph) %>% cross_to_flextable
-```
-
-
-
-
-
-
-
-
+Le fichier `Rmarkdown` est disponible ici : [cross_markdown.Rmd](exemples/cross_markdown.Rmd) et le fichier de sortie est disponible ici : [cross_markdown.docx](exemples/cross_markdown.docx)
 
 

@@ -3,7 +3,10 @@
 .Rproj.user
 *.RData
 *.Rhistory
-*.docx
+
+# MS Word files
+test*.docx
+~*.docx
 
 
 

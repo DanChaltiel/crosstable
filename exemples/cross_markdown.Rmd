@@ -1,0 +1,19 @@
+---
+    title: "Iris"
+    output: bookdown::word_document2
+    output_file: "cross_markdown.docx"
+---
+
+
+```{r setup, include=FALSE}
+library(biostat2)
+library(flextable)
+library(dplyr) #pour le pipe %>% 
+```
+
+Table iris is given in Table \@ref(tab:irisTable).
+
+```{r description, echo=FALSE, results='asis'}
+cat("<caption> (\\#tab:irisTable) Table Iris </caption> \n\r ")
+cross(cbind(Sepal.Length, Sepal.Width) ~ Species, iris, test = TRUE, total="column") %>% cross_to_flextable %>% autofit
+```
