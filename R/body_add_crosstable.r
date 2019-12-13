@@ -118,8 +118,8 @@ compact <- function(x) {
 #' 
 cross_to_flextable = 
     function (crosstable, compact = FALSE, auto.fit = FALSE, 
-              id = ".id", variable = "variable", label = "label", value = "value", p = "p", 
-              show.test.name = F, generic.labels=c(id, variable, label, value, p, "effect", "Total")) {
+              id = ".id", variable = "variable", label = "label", value = "value", p = "p", effect="effect", total="Total",
+              show.test.name = F, generic.labels=c(id, variable, label, value, p, effect, total)) {
     stopifnot(is.data.frame(crosstable))    
     border1 <- fp_border(color = "black", style = "solid", width = 1)
     border2 <- fp_border(color = "black", style = "solid", width = 1.5)
@@ -127,7 +127,8 @@ cross_to_flextable =
     labs.names <- crosstable %>% names %>% .[!(. %in% generic.labels)]
     is_tested = crosstable %>% names %>% grepl(p, .) %>% any
     is_multiple = crosstable %>% names %>% grepl(value, .) %>% any %>% `!`
-    has_total = crosstable %>% names %>% grepl("Total", .) %>% any
+    has_total = crosstable %>% names %>% grepl(total, .) %>% any
+    has_effect = crosstable %>% names %>% grepl(effect, .) %>% any
     rtn = crosstable
     if (is_tested && !show.test.name) {
         rtn$p = rtn$p %>% gsub(" \\(.*\\)", "", .)
@@ -160,7 +161,8 @@ cross_to_flextable =
                 gsub(r, labs.col, .) %>% unique
             header_colwidths = ifelse(header_values==labs.col, sum(names(crosstable) %in% labs.names), 1)
             
-            body_merge = if (is_tested) c(label, p) else c(label)
+            body_merge = if (is_tested) c(label, p) else label
+            body_merge = if (has_effect) c(body_merge, effect) else body_merge
             head_merge = header_values[!header_values %in% labs.col]
             # browser()
             rtn <- rtn %>% 
@@ -271,7 +273,6 @@ body_add_crosstable_bak = function(doc, crosstable, compact = FALSE, auto.fit = 
         rtn <- compact(rtn)
     }
     #TODO : si une seule fonction (funs=moystd) et compact  
-    #TODO : améliorer la fusion si plusieurs pvalues sont <0.001  
     #TODO : implémenter si compact arrive avant la fonction  
     
     if(is(rtn, "compacted")) {
