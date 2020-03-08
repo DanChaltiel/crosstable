@@ -4,14 +4,14 @@
 \alias{body_add_title}
 \title{Add a new title}
 \usage{
-body_add_title(doc, value, level)
+body_add_title(x, value, level = 1, style = "heading")
 }
 \arguments{
-\item{doc}{the doc object (created with the \code{read_docx} function of \code{officer} package)}
-
 \item{value}{a character string}
 
 \item{level}{the level of the title. See \code{styles_info(doc)} to know the possibilities.}
+
+\item{doc}{the doc object (created with the \code{read_docx} function of \code{officer} package)}
 }
 \value{
 a new doc object
@@ -21,9 +21,11 @@ Add a new title
 }
 \examples{
 \dontrun{
+library(officer)
 library(biostat2)
-library(ReporteRs)
-doc <- doc \%>\% 
+library(dplyr)
+doc = read_docx()
+doc = doc \%>\% 
    body_add_title(doc, "La table iris", 1) \%>\% 
    body_add_title(doc, "Description", 2) \%>\% 
    addNormal(doc, "La table iris a ", ncol(iris), " colonnes.")
@@ -32,4 +34,3 @@ doc <- doc \%>\%
 \author{
 Dan Chaltiel
 }
-\keyword{univar}

@@ -7,8 +7,9 @@
 \usage{
 cross_to_flextable(crosstable, compact = FALSE, auto.fit = FALSE,
   id = ".id", variable = "variable", label = "label",
-  value = "value", p = "p", show.test.name = F,
-  generic.labels = c(id, variable, label, value, p, "effect", "Total"))
+  value = "value", p = "p", effect = "effect", total = "Total",
+  show.test.name = F, generic.labels = c(id, variable, label, value, p,
+  effect, total))
 
 body_add_crosstable(doc, ...)
 }
@@ -58,7 +59,7 @@ mytable <- cross(cbind(...) ~ ., esoph)
 doc <- read_docx() \%>\% 
     body_add_crosstable(mytable) \%>\% 
     body_add_break \%>\% 
-    body_add_crosstable(mytable, TRUE)
+    body_add_crosstable(mytable, compact=TRUE)
 
 \dontrun{
 dfile <- "test_doc.docx"

@@ -1,3 +1,13 @@
+context("cross tables")
+
+library(Hmisc)
+label(iris$Species) = "Espèce"
+label(iris$Sepal.Length) = "Longueur du Sépale"
+label(iris$Sepal.Width) = "Longueur du Sépale"
+label(iris$Petal.Length) = "Longueur du Pétale"
+label(iris$Petal.Width) = "Largeur du Pétale"
+
+
 
 test_that("cross OK", {
     mytable <- cross(cbind(...) ~ tobgp, esoph, test = TRUE)
@@ -36,3 +46,11 @@ test_that("Long formula OK", {
     expect_is(mytable, c("data.frame"))
     expect_is(mytable, c("cross"))
 })
+
+
+
+# cross(cbind(Petal.Length, Species) ~ cbind(Petal.Length, Petal.Width), iris)
+# cross(Petal.Length + Species ~ Petal.Length + Petal.Width, iris)
+
+# crosstable(cbind(mpg, factor(vs)) + cbind(drat, hp) ~ cbind(cyl, factor(am)), mtcars) #boss de fin
+

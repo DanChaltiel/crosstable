@@ -1,3 +1,4 @@
+context("officer")
 
 crosstables = list(
     simple_test = cross(cbind(...) ~ ., esoph, test = TRUE),
@@ -15,8 +16,9 @@ test_that("crosstables don't throw errors in officer", {
     doc <- read_docx()
     #test with compact=F et compact=T
     for (i in names(crosstables)) {
-        print(i)
+        # print(i)
         crosstable = crosstables[[i]]
+        expect_is(crosstable, c("cross"))
         doc = doc %>% 
             body_add_title(i, 1) %>%
             body_add_title("Not compacted", 2) %>%
@@ -47,24 +49,30 @@ test_that("crosstables are OK as flextables", {
     label = T
     total = list(F,T,1,2)
     
-    #TODO, si total et (NA dans variable BY), mettre un footer "les chiffres sont pas bons"
+    #TODO: si total et (NA dans variable BY), mettre un footer "les chiffres sont pas bons"
+    #TODO: no effect for categorical variables
     mtcars2 = mtcars %>% 
         mutate(
-            gear=as.factor(gear), 
             gear=ifelse(row_number() %in% 17:18, NA, gear),
+            gear=as.factor(gear), 
             drat=ifelse(between(drat, 3.5, 3.7), NA, drat),
+            qsec=ifelse(between(qsec, 17, 17.5), NA, drat),
             am=ifelse(am==0, "automatic", "manual"),
             am=ifelse(row_number() %in% 3:4, NA, am)
         )
     label(mtcars2$drat) = "Rear axle ratio"
     label(mtcars2$gear) = "Number of forward gears"
+    label(mtcars2$qsec) = "Time for a quarter mile"
     label(mtcars2$am) = "Transmission"
     
-    x = expand.grid(showNA, test, effect, label, total, stringsAsFactors = F) %>% arrange #32 possibilités
+    x = expand.grid(showNA, test, effect, label, total, stringsAsFactors = F) %>% 
+        set_names(c("showNA", "test", "effect", "label", "total")) %>% 
+        arrange #32 possibilities
+    
     cross_tables = x %>% pmap(~{
         # print(paste(..1, ..2, ..3, ..4, ..5))
-        cross(
-            cbind(drat, gear) ~ am,
+        rtn=cross(
+            cbind(gear, qsec) ~ am,
             data=mtcars2,
             showNA = ..1,
             margin = 2,
@@ -73,6 +81,8 @@ test_that("crosstables are OK as flextables", {
             label=..4,
             total=..5
         )
+        expect_is(rtn, c("cross"))
+        rtn
     })
     
     # # Une table au hasard

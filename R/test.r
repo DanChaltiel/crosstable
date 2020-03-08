@@ -30,7 +30,7 @@ display.test <- function(test, digits = 4, method = TRUE) {
   else {
     p <- plim(test$p.value, digits = digits)
     if (method)
-      paste("p value: ", p, " (", test$method, ")", sep = "")
+      paste("p value: ", p, " \n(", test$method, ")", sep = "")
     else
       p
   }

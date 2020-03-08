@@ -87,6 +87,28 @@ compact <- function(x) {
 }
 
 
+#TODO: implement
+# compact_dataframe = function(data, name_from, name_to, rtn_flextable=T){
+#     tmp=data.frame()
+#     id=(data[[name_from]]!=lag(data[[name_from]])) %>% replace_na(TRUE)
+#     for (i in 1:sum(id)) {
+#         x1=which(id)[i]
+#         x2=which(id)[i+1]-1
+#         if(is.na(x2)) x2=nrow(data)
+#         row = data[1,] %>% mutate_all(~"") %>% mutate(!!sym(name_to):=data[x1,name_from])
+#         tmp=rbind(tmp, row, data[x1:x2,])
+#     }
+#     tmp=tmp %>% select(-!!sym(name_from))
+#     if(rtn_flextable){
+#         id2=which(id)+(0:(sum(id)-1))
+#         tmp = tmp %>% flextable %>% border(id2, border.top = fp_border()) %>% 
+#             bold(id2) %>% align(id2, align="left")
+#     }
+#     tmp
+# }
+
+
+
 
 #' Crosstables output 
 #' @description \code{cross_to_flextable} turns a table made by the cross function into a flextable.
@@ -138,12 +160,12 @@ cross_to_flextable =
     }
     if (is(rtn, "compacted")) {
         sep.rows <- which(rtn[, 1] %in% crosstable$label)[-1]
-        rtn <- rtn %>% as.data.frame %>% flextable %>% hline(i = sep.rows - 1, border = border1)
+        rtn <- rtn %>% as.data.frame %>% flextable %>% hline(i=sep.rows - 1, border=border1)
         if (is_multiple) {
             header_colwidths = if (is_tested) c(1, ncol(crosstable) - 4)
             else           c(1, ncol(crosstable) - 3)
             rtn <- rtn %>% 
-                add_header_row(values = c(variable, labs.col), colwidths = header_colwidths) %>% 
+                add_header_row(values=c(variable, labs.col), colwidths=header_colwidths) %>% 
                 merge_v(j = 1, part = "head") %>%
                 merge_h(i = c(1, sep.rows, sep.rows + 1)) %>% 
                 bold(i = c(1, sep.rows))
@@ -151,25 +173,25 @@ cross_to_flextable =
     }
     else {
         sep.rows <- which(rtn$label != lead(rtn$label))
-        rtn <- rtn %>% select(-!!sym(id)) %>% flextable %>% hline(i = sep.rows, border = border1)
+        rtn <- rtn %>% select(-!!sym(id)) %>% flextable %>% hline(i=sep.rows, border=border1)
         if (is_multiple) {
-            
             r = labs.names %>% 
                 gsub("([\\\\\\^\\$\\.\\|\\?\\*\\+\\(\\)\\[\\{])", "\\\\\\1", .) %>% 
                 paste(collapse="|")
             header_values = crosstable %>% select(-id) %>% names %>% 
                 gsub(r, labs.col, .) %>% unique
             header_colwidths = ifelse(header_values==labs.col, sum(names(crosstable) %in% labs.names), 1)
-            
-            body_merge = if (is_tested) c(label, p) else label
-            body_merge = if (has_effect) c(body_merge, effect) else body_merge
-            head_merge = header_values[!header_values %in% labs.col]
             # browser()
+            
+            head_merge = header_values[!header_values %in% labs.col]
             rtn <- rtn %>% 
                 add_header_row(values = header_values, colwidths = header_colwidths) %>% 
-                merge_v(j = head_merge, part = "head") %>% 
-                merge_v(j = label, target=body_merge, part = "body")
+                merge_v(j = head_merge, part = "head")
         }
+        body_merge = if (is_tested) c(label, p) else label
+        body_merge = if (has_effect) c(body_merge, effect) else body_merge
+        rtn <- rtn  %>% 
+            merge_v(j = label, target=body_merge, part = "body")
     }
     rtn <- rtn %>% 
         bold(part = "head") %>% 
@@ -204,7 +226,7 @@ cross_to_flextable =
 #' doc <- read_docx() %>% 
 #'     body_add_crosstable(mytable) %>% 
 #'     body_add_break %>% 
-#'     body_add_crosstable(mytable, TRUE)
+#'     body_add_crosstable(mytable, compact=TRUE)
 #' 
 #' \dontrun{
 #' dfile <- "test_doc.docx"
@@ -218,6 +240,43 @@ body_add_crosstable = function (doc, ...) {
 }
 
 
+
+
+
+
+#' Coerce to a Crosstable (for officer docx addition)
+#'
+#' @param df a data.frame
+#' @param labs.col the name of the grouping variable
+#'
+#' @return a cross
+#' @export
+#'
+#' @examples
+#' library(dplyr) #for the pipe operator
+#' library(officer)
+#' mytable = cross(cbind(Sepal.Length, I(Sepal.Width^2)) ~ Species, iris) %>% 
+#'    as.data.frame %>% #loses attributes
+#'    as.crosstable(labs.col = "Species")
+#'    
+#' doc <- read_docx() %>% 
+#'     body_add_crosstable(mytable) 
+#' 
+#' \dontrun{
+#' dfile <- "test_doc.docx"
+#' print(doc, target = dfile)
+#' shell.exec(dfile)
+#' }
+#' 
+as.crosstable = function(df, labs.col = "???"){
+    class(df) = c("cross", "data.frame")
+    attr(df, "labs.col") = labs.col
+    df
+}
+
+
+
+# LEGACY ------------------------------------------------------------------
 
 
 #' OLD: Adds a table made by the cross function into an officer document
@@ -273,7 +332,7 @@ body_add_crosstable_bak = function(doc, crosstable, compact = FALSE, auto.fit = 
         rtn <- compact(rtn)
     }
     #TODO : si une seule fonction (funs=moystd) et compact  
-    #TODO : implémenter si compact arrive avant la fonction  
+    #TODO : implÃ©menter si compact arrive avant la fonction  
     
     if(is(rtn, "compacted")) {
         sep.rows <- which(rtn[,1] %in% crosstable$label)[-1] #$label ou $.id ?
@@ -321,42 +380,6 @@ body_add_crosstable_bak = function(doc, crosstable, compact = FALSE, auto.fit = 
     doc <- body_add_flextable(doc, rtn)
     return(doc)
 }
-
-
-
-#' Coerce to a Crosstable (for officer docx addition)
-#'
-#' @param df a data.frame
-#' @param labs.col the name of the grouping variable
-#'
-#' @return a cross
-#' @export
-#'
-#' @examples
-#' library(dplyr) #for the pipe operator
-#' library(officer)
-#' mytable = cross(cbind(Sepal.Length, I(Sepal.Width^2)) ~ Species, iris) %>% 
-#'    as.data.frame %>% #loses attributes
-#'    as.crosstable(labs.col = "Species")
-#'    
-#' doc <- read_docx() %>% 
-#'     body_add_crosstable(mytable) 
-#' 
-#' \dontrun{
-#' dfile <- "test_doc.docx"
-#' print(doc, target = dfile)
-#' shell.exec(dfile)
-#' }
-#' 
-as.crosstable = function(df, labs.col = "???"){
-    class(df) = c("cross", "data.frame")
-    attr(df, "labs.col") = labs.col
-    df
-}
-
-
-
-# LEGACY ------------------------------------------------------------------
 
 #' Deprecated
 #' Create a FlexTable object from a table made by the cross function
@@ -510,10 +533,6 @@ addCrossTable <- function(doc, crosstable, compact = FALSE, id = ".id", variable
 
 
 
-
-
-
-# old ---------------------------------------------------------------------
 
 
 
