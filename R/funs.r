@@ -18,10 +18,11 @@
 #' format_fixed(x, digits=3, zero_digits=2)
 #' format_fixed(x, digits=3, zero_digits=NULL)
 #' x = iris$Sepal.Length/10000
-#' x %>% 
-#' sd(na.rm=na.rm) %>% 
-#'   format_fixed(dig=3, zero_digits=2, only_round=T)
-format_fixed = function(x, digits, zero_digits=1, only_round=FALSE){
+#' x_sd = sd(x, na.rm=TRUE)
+#' format_fixed(x_sd, dig=6)
+#' format_fixed(x_sd, dig=3, zero_digits=2, only_round=FALSE)
+#' format_fixed(x_sd, dig=3, zero_digits=2, only_round=TRUE)
+format_fixed = function(x, digits, zero_digits=1, only_round=getOption("crosstable_only_round", FALSE)){
   stopifnot(is.numeric(x), 
             is.numeric(digits), 
             is.logical(only_round), 
@@ -61,15 +62,15 @@ format_fixed = function(x, digits, zero_digits=1, only_round=FALSE){
 #' moystd(iris$Sepal.Length, dig=3)
 #' minmax(iris$Sepal.Length, dig=3)
 #' mediqr(iris$Sepal.Length, dig=3)
-#' nna(iris$Sepal.Length, dig=3)
+#' nna(iris$Sepal.Length)
 #' 
 #' x = iris$Sepal.Length/10000 #closer to zero 
 #' 
-#' moystd(x, dig=3, fixed_format=T)
-#' moystd(x, dig=3, fixed_format=T, zero_digits=NULL)
-#' options("biostat2_fixed_format"=T)
+#' moystd(x, dig=3, fixed_format=TRUE)
+#' moystd(x, dig=3, fixed_format=TRUE, zero_digits=NULL)
+#' options("crosstable_fixed_format"=TRUE)
 #' moystd(x, dig=3, zero_digits=2)
-#' options("biostat2_fixed_format"=NULL)
+#' options("crosstable_fixed_format"=NULL)
 #'
 #' @author Dan Chaltiel
 #' @author David Hajage
@@ -81,9 +82,10 @@ NULL
 
 
 #' @describeIn biostats2SummaryFunctions returns mean and std error
+#' @importFrom stats sd
 #' @export
 moystd = function(x, na.rm = TRUE, dig = 2, 
-                  fixed_format=getOption("biostat2_fixed_format", FALSE), zero_digits=1) {
+                  fixed_format=getOption("crosstable_fixed_format", TRUE), zero_digits=1) {
   moy = x %>% 
     mean(na.rm=na.rm) %>% 
     format_fixed(digits=dig, zero_digits=zero_digits, only_round=!fixed_format)
@@ -94,9 +96,10 @@ moystd = function(x, na.rm = TRUE, dig = 2,
 }
 
 #' @describeIn biostats2SummaryFunctions returns median and IQR
+#' @importFrom stats median quantile
 #' @export
 mediqr = function(x, na.rm = TRUE, dig = 2, 
-                   fixed_format=getOption("biostat2_fixed_format", FALSE), zero_digits=1) {
+                   fixed_format=getOption("crosstable_fixed_format", FALSE), zero_digits=1) {
   med = x %>% 
     median(na.rm=na.rm) %>% 
     format_fixed(digits=dig, zero_digits=zero_digits, only_round=!fixed_format)
@@ -117,81 +120,20 @@ minmax = function(x, na.rm = TRUE, dig = 2) {
 #' @describeIn biostats2SummaryFunctions returns  number of observations and number of missing values
 #' @export
 nna = function(x) {
-  paste0(n(x), " (", na(x), ")")
+  paste0(N(x), " (", na(x), ")")
 }
 
 
 #' Summarize a numeric vector
+#' 
+#' Summarize a numeric vector with min, max, mean, sd, median, IQR, n and missings.
 #'
 #' @param x a numeric vector
 #' @param dig number of digits
-#' @keywords internal
-#' @section Note: 
-#' Function \code{mysummary} is kept for compatibility with old codes. It produces the same exact object than \code{cross_summary}, which should be preferred.
+#' @export
+#' @examples 
+#' cross_summary(iris$Sepal.Length)
 cross_summary = function(x, dig=2) {
   return(c("Min / Max" = minmax(x, dig=dig), "Med [IQR]" = mediqr(x, dig=dig), 
-           "Moy (std)" = moystd(x, dig=dig), "N (NA)" = nna(x)))
-}
-#' @rdname cross_summary
-#' @deprecated
-mysummary=cross_summary
-
-# Utils functions ---------------------------------------------------------
-
-
-
-#' Remove blancks at the begining and the end
-#'
-#' @param x x
-#' @author David Hajage
-#' @keywords internal
-trim = function (x) {
-  x = sub("^ +", "", x)
-  x = sub(" +$", "", x)
-  x
-}
-
-
-#' Concatenate functions
-#'
-#' @param ... functions
-#' @author David Hajage
-#' @keywords internal
-funs2fun = function(...) {
-  fnames = as.character(match.call()[-1])
-  fs = list(...)
-  fnames2 = names(fs)
-  
-  if (!is.null(fnames2)) {
-    fnames[fnames2 != ""] = fnames2[fnames2 != ""]
-  }
-  
-  n = length(fs)
-  function(x, ...) {
-    results = NULL
-    args = list(...)
-    namesargs = names(args)
-    for (i in 1:n) {
-      func = match.fun(fs[[i]])
-      forms = formals(func) # Pour min et max (et les autres
-      # primitives), il faudrait mettre
-      # 'formals(args(func))'. Le probleme est
-      # que min et max retourne le minimum de
-      # tout ce qui n'est pas 'na.rm', donc si
-      # je met un autre argument (genre probs =
-      # 1/3), min et max prennent en compte sa
-      # valeur, d'ou surprises... Je prefere
-      # laisser comme ca.
-      namesforms = names(forms)
-      if (all(namesforms != "...")) {
-        finalargs = c(list(x = x), args[namesargs %in% namesforms])
-      } else {
-        finalargs = c(list(x = x), args)
-      }
-      tmp = do.call(func, finalargs)
-      names(tmp) = trim(paste(fnames[i], names(tmp)))
-      results = c(results, as.list(tmp))
-    }
-    data.frame(results, check.names = FALSE)
-  }
+           "Mean (std)" = moystd(x, dig=dig), "N (NA)" = nna(x)))
 }

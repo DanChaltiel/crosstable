@@ -1,0 +1,262 @@
+---
+title: "Introduction to Crosstable"
+author: "Dan Chaltiel"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{crosstable}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+```{r options, include = FALSE}
+  knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning=FALSE, 
+  message=FALSE
+  )
+  options(width = 100)
+  library(flextable)
+```
+
+```{r css, echo=FALSE, results="asis"}
+cat("
+<style>
+kbd {
+    background-color: #eee;
+    border-radius: 3px;
+    border: 1px solid #b4b4b4;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 2px 0 0 rgba(255, 255, 255, .7) inset;
+    color: #333;
+    display: inline-block;
+    font-size: .85em;
+    font-weight: 700;
+    line-height: 1;
+    padding: 2px 4px;
+    white-space: nowrap;
+}
+</style>
+")
+```
+
+
+## Crosstable
+
+Crosstable is a package centered on a single function, `crosstable`, which easily computes descriptive statistics on datasets.
+
+Before starting this vignette, here are a few points:
+
+ + Tables look better on a white background. If you are using RStudio in dark mode, borders may look blurry.
+ + If you are not familiar with `dplyr` and pipes (`%>%`, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> in RStudio), I warmly recommend you to read Julien Barnier's [tidyverse tutorial](https://juba.github.io/tidyverse/10-dplyr.html#pipe). Nevertheless, this vignette should still be somehow understandable, since `crosstable` is perfectly usable with base `R`.
+
+
+
+## Dataset: modified `mtcars`
+
+First, since it uses the power of the `label` attribute, let's start by building a labelled dataset. For convenience, this dataset is already packed into `crosstable` so don't bother re-creating it.
+
+```{r dataset}
+library(dplyr) #for the pipes
+mtcars2 = mtcars %>% 
+  mutate(vs=ifelse(vs==0, "vshaped", "straight"),
+         am=ifelse(am==0, "auto", "manual")) %>% 
+  mutate_at(c("cyl", "gear"), factor) %>% 
+  expss::apply_labels( #I also could have used `Hmisc::label`
+    mpg="Miles/(US) gallon",
+    cyl="Number of cylinders",
+    disp="Displacement (cu.in.)",
+    hp="Gross horsepower",
+    drat="Rear axle ratio",
+    wt="Weight (1000 lbs)",
+    qsec="1/4 mile time",
+    vs="Engine",
+    am="Transmission",
+    gear="Number of forward gears",
+    carb="Number of carburetors"
+  )
+
+```
+
+Here is the result when we apply `crosstable` on it:
+
+```{r crosstable-bare}
+library(crosstable)
+crosstable(mtcars2) %>% head(11)
+```
+In this vignette, I only printed the `mpg`, `cyl` and `disp` variables (the 11 first rows), but all other variables were also described. 
+
+By default, numeric variables (like `mpg` and `disp`) are described with min/max, median/IQR, mean/sd and number of observations/missing, while categorical (factor/character) variables (like `cyl`) are described with levels counts and fraction. All of this is fully customizable, as you will see hereafter.
+
+
+
+
+## Arguments
+
+This is already pretty handy, but we  can easily add some control with :
+
++ unnamed arguments, to select the columns we want to describe
++ the `by` argument, to select the column we want to group on to calculate the stats.
+
+For instance, if we wanted the statistics of `mpg` and `cyl` for both levels of `am`, we could write this:
+
+```{r crosstable-args, tidy=TRUE}
+crosstable(mtcars2, mpg, cyl, by=am)
+```
+
+The `by` column should be a factor, character or logical vector. If it is a numeric vector, then only numeric vectors can be described and correlation factors will be displayed.
+
+There are many ways to select variables: with names, character vector, `tidyselect` helpers, formula... For instance, you could write `crosstable(mtcars2, starts_with("d"))`, `crosstable(mtcars2, is.numeric)`, `crosstable(mtcars2, -c(mpg:hp))`, or `crosstable(mtcars2, mpg~am)`. This is described in details in `vignette("crosstable-selection")` ([link](crosstable-selection.html)).
+
+
+
+
+## HTML printing
+
+This might be good enough for a preview, but printing a table to the console has never been the greatest thing to visualize tables, especially in a vignette like this one.
+
+Fortunately, you can use the `cross_to_flextable` function to turn any `crosstable` into a HTML, ready-to-print table, which will be automatically displayed in the Viewer if your are using RStudio. 
+
+
+```{r crosstable-flextable}
+crosstable(mtcars2, mpg, cyl, by=am) %>% 
+  cross_to_flextable(keep_id=TRUE)
+```
+
+If you want to share your tables in a MS Word document, you can use David Gohel's [awesome package `officer`](https://davidgohel.github.io/officer/). 
+
+Here, I use the `keep_id` argument to keep the variable name, but in practice you usually drop it for the label. See `vignette("crosstable-officer")` ([link](crosstable-officer.html)) for more on `cross_to_flextable` and on how to integrate crosstables with `officer` and `Rmarkdown`.
+
+
+## Descriptive functions
+
+There may be too much information with `crosstable`'s default descriptive function. In this case, you can use any set of function that fits your need. They will be applied to all numeric variables.
+
+```{r crosstable-functions}
+crosstable(mtcars2, am, mpg, wt, by=vs, funs=c(median, mean, sd)) %>% 
+  cross_to_flextable(keep_id=TRUE)
+```
+
+You might want to use `crosstable`'s convenience functions such as `moystd`, `mediqr`, `minmax`, or `nna`. For 
+additional arguments, you can use `funs_arg` argument: `crosstable(mtcars3, c(disp, hp, am), by=vs, funs=c(moystd,quantile), funs_arg = list(dig=3, probs=c(0.25,0.75)))`.
+
+
+
+
+## Margins for percentage calculation
+
+When crossing two factor variables, like `cyl` and `am`, percentages are calculated by row. You can use the `margin` argument to change this behavior.
+ 
+```{r crosstable-percent-row}
+crosstable(mtcars2, am, mpg, by=vs, funs=moystd, margin="row") %>% 
+  cross_to_flextable(keep_id=TRUE)
+```
+```{r crosstable-percent-column}
+crosstable(mtcars2, am, mpg, by=vs, funs=moystd, margin="column") %>% 
+  cross_to_flextable(keep_id=TRUE)
+```
+```{r crosstable-percent-none}
+crosstable(mtcars2, am, mpg, by=vs, funs=moystd, margin="none") %>% 
+  cross_to_flextable(keep_id=TRUE)
+```
+```{r crosstable-percent-both}
+#I also could have used margin="all" here
+crosstable(mtcars2, am, mpg, by=vs, funs=moystd, margin=c("column","row","cell")) %>% 
+  cross_to_flextable(keep_id=TRUE) 
+```
+
+Of course, if `by` is not set, `margin` will have no effect and percentages will be calculated in column.
+
+Missing values are not taken into account when calculing percentage calculation. You can change this behaviour by using `tidyr::replace_na` or `forcats::fct_explicit_na` on your dataset before applying `crosstable`. 
+
+
+
+## Totals
+
+`crosstable` can also compute totals and display it in rows and/or columns with the `total` argument:
+
+```{r crosstable-total-row}
+crosstable(mtcars2, am, mpg, by=vs, funs=mean, total="row") %>% 
+  cross_to_flextable(keep_id=TRUE)
+```
+```{r crosstable-total-column}
+#of course, total="column" only has an effect on categorical variables.
+crosstable(mtcars2, am, mpg, by=vs, funs=mean, total="column") %>% 
+  cross_to_flextable(keep_id=TRUE)
+```
+```{r crosstable-total-both}
+crosstable(mtcars2, am, mpg, by=vs, funs=mean, total="both") %>% 
+  cross_to_flextable(keep_id=TRUE)
+```
+
+Of course, if `by` is not set, `total` will always be calculated in column. 
+
+Totals take missing values into account. Therefore, be aware that if argument `showNA="no"`, totals may be higher than the sum of the values inside the table.
+
+
+
+## Tests
+
+It is possible to perform statistical tests automatically. 
+
+```{r crosstable-tests}
+library(flextable)
+crosstable(mtcars2, vs, qsec, by=am, funs=mean, test=TRUE) %>% 
+  cross_to_flextable(keep_id=TRUE)
+```
+
+Of course, this should only be done in an exploratory context, as it would cause extensive [alpha inflation](https://en.wikipedia.org/wiki/Multiple_comparisons_problem) otherwise.
+
+Tests are chosen depending on the characteristics of the crossed variables (class, size, distribution, ...). See `?crosstable_test_args` for more details on the test choice algorithm.
+
+
+
+
+## Effects
+
+If the `by` variable has only 2 levels, it is also possible to automatically compute an effect. 
+
+```{r crosstable-effect}
+library(flextable)
+crosstable(mtcars2, vs, qsec, by=am, funs=mean, effect=TRUE) %>% 
+  cross_to_flextable(keep_id=TRUE)
+```
+
+Type of effect (method, bootstrap, etc) are also chosen depending on the characteristics of the crossed variables (class, size, distribution, ...). See `?crosstable_effect_args` for more details on the effect choice algorithm.
+
+
+
+
+## Miscellaneous
+
+### Correlations 
+
+If `by` refers to a numeric variable, correlation coefficients will be calculated. 
+
+```{r crosstable-correlation}
+library(survival)
+crosstable(mtcars2, is.numeric, by=mpg) %>% 
+  cross_to_flextable(keep_id=TRUE)
+```
+
+Note that you can use the `cor_method` argument to choose which coefficient to calculate (`"pearson"`, `"kendall"`, or `"spearman"`).
+
+### Survival data 
+
+Crosstable is also able to describe survival data on specific times: 
+
+```{r crosstable-survival}
+library(survival)
+aml$surv = Surv(aml$time, aml$status)
+crosstable(aml, surv, by=x, times=c(0,15,30,150), followup=TRUE) %>% 
+  cross_to_flextable(keep_id=TRUE)
+```
+
+Using the formula interface, you can also declare the `Surv` object directly inside the `crosstable` function: `crosstable(aml, Surv(time, status) ~ x)`.
+
+
+
+## Acknowledgement
+`crosstable` is a rewrite of the awesome [`biostat2` package](https://github.com/eusebe/biostat2) written by David Hajage. The user interface is quite different but the concept is the same.
+
+Thanks David!

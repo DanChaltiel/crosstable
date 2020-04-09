@@ -3,11 +3,12 @@
 .Rproj.user
 *.RData
 *.Rhistory
+.Rhistory
 
 # MS Word files
 test*.docx
 ~*.docx
-
+TODO.R
 
 
 # Windows image file caches
@@ -48,3 +49,6 @@ Icon
 .Spotlight-V100
 .Trashes
 *~
+inst/doc
+doc
+Meta

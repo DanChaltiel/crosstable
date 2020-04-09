@@ -1,0 +1,99 @@
+---
+title: "Crosstable interface to MS-Word"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{crosstable-report}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r init, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(crosstable)
+library(dplyr)
+```
+
+## Create reports with `officer`
+
+The real power of `crosstable` comes out when used with David Gohel's [awesome package ](https://davidgohel.github.io/officer/) `officer`, which allows to automatically create MS Word documents. 
+
+Therefore, `crosstable` has several functions to output a beautiful report:
+
+```{r officer, message=FALSE, warning=FALSE}
+library(officer)
+ct1=crosstable(iris, by=Species, test=TRUE)
+ct2=crosstable(mtcars2, mpg,cyl,disp, by=am, effect=TRUE, total="both", showNA="always")
+ct3=crosstable(esoph)
+
+doc = read_docx() %>% 
+  body_add_title("Dataset iris", 1) %>%
+  body_add_title("Not compacted", 2) %>%
+  body_add_normal("Automatic testing is bad and you should feel bad.") %>%
+  body_add_crosstable(ct1) %>%
+  body_add_title("Compacted", 2) %>%
+  body_add_normal("When compacting, you might want to remove the test names.") %>%
+  body_add_crosstable(ct1, compact=TRUE, show.test.name=FALSE) %>%
+  body_add_break %>%
+  body_add_title("Dataset mtcars2", 1) %>%
+  body_add_glued("This dataset has {nrow(ct3)} rows and {x} columns.", x=ncol(ct3)) %>%
+  body_add_normal("Look, there are labels!") %>%
+  body_add_crosstable(ct2, compact=TRUE) %>%
+  body_add_break %>%
+  body_add_title("Dataset esoph", 1) %>%
+  body_add_normal("This one was compacted beforehand.") %>%
+  body_add_crosstable(compact(ct3)) %>%
+  body_add_break 
+
+```
+
+## Output
+
+To output, just use the `print` function:
+
+```{r print, eval=FALSE}
+filename="..\\examples\\officer-vignette.docx" #`\\` are needed for shell.exec on Windows
+print(doc, filename) #write the docx file
+shell.exec(filename) #open the docx file (fails if it is already open)
+```
+
+You can check out the example [here](https://github.com/DanChaltiel/crosstable/examples/officer-vignette.docx).
+
+Unfortunately, large tables can overflow the MS Word document width. In this case (for instance for `mtcars2` in the previous example), you have to manually go to `Table Tools > Layout > AutoFit > AutoFit Window` in the ribbon to correct the width. 
+
+You can learn more on officer on [its documentation](https://davidgohel.github.io/officer/).
+
+
+
+## Create reports with `Rmarkdown`
+
+<!-- Intégration Rmd in Rmd : la coloration syntaxique RStudio est mauvaise mais le code est bon ! -->
+<!-- https://stackoverflow.com/questions/53226493/add-markdown-code-chunk-to-r-markdown-document#comment104859956_53226493 -->
+Knitting (`knitr::knit()` ou via **RStudio**) this `Rmd` code also creates a MS-Word file. Here, you can use the power of `bookdown` to generate the automatic numbering of the tables.
+
+````markdown
+
+---
+title: "Iris"
+output: bookdown::word_document2
+---
+    
+`r ''````{r setup, include=FALSE}
+library(biostat2)
+library(flextable)
+library(dplyr) #pour le pipe %>% 
+```
+
+Table iris is given in Table \@ref(tab:irisTable).
+
+`r ''````{r description, echo=FALSE, results='asis'}
+cat("<caption> (\\#tab:irisTable) Table Iris </caption> \n\r ")
+cross(cbind(Sepal.Length, Sepal.Width) ~ Species, iris, test = TRUE, total="column") %>% cross_to_flextable %>% autofit
+```
+
+````
+
+You can example files here: [cross_markdown.Rmd](examples/cross_markdown.Rmd) and [cross_markdown.docx](examples/cross_markdown.docx).
+
