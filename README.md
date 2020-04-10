@@ -31,40 +31,41 @@ devtools::install_github("DanChaltiel/biostat2")
 library(crosstable)
 library(dplyr)
 
-#whole table
+#whole table with default parameters
 crosstable(iris)
-#>             .id        label   variable          value
-#> 1  Sepal.Length Sepal.Length  Min / Max      4.3 / 7.9
-#> 2  Sepal.Length Sepal.Length  Med [IQR]  5.8 [5.1;6.4]
-#> 3  Sepal.Length Sepal.Length Mean (std)    5.84 (0.83)
-#> 4  Sepal.Length Sepal.Length     N (NA)        150 (0)
-#> 5   Sepal.Width  Sepal.Width  Min / Max        2 / 4.4
-#> 6   Sepal.Width  Sepal.Width  Med [IQR]    3 [2.8;3.3]
-#> 7   Sepal.Width  Sepal.Width Mean (std)    3.06 (0.44)
-#> 8   Sepal.Width  Sepal.Width     N (NA)        150 (0)
-#> 9  Petal.Length Petal.Length  Min / Max        1 / 6.9
-#> 10 Petal.Length Petal.Length  Med [IQR] 4.35 [1.6;5.1]
-#> 11 Petal.Length Petal.Length Mean (std)    3.76 (1.77)
-#> 12 Petal.Length Petal.Length     N (NA)        150 (0)
-#> 13  Petal.Width  Petal.Width  Min / Max      0.1 / 2.5
-#> 14  Petal.Width  Petal.Width  Med [IQR]  1.3 [0.3;1.8]
-#> 15  Petal.Width  Petal.Width Mean (std)    1.20 (0.76)
-#> 16  Petal.Width  Petal.Width     N (NA)        150 (0)
-#> 17      Species      Species     setosa    50 (33.33%)
-#> 18      Species      Species versicolor    50 (33.33%)
-#> 19      Species      Species  virginica    50 (33.33%)
+#>             .id        label   variable         value
+#> 1  Sepal.Length Sepal.Length  Min / Max     4.3 / 7.9
+#> 2  Sepal.Length Sepal.Length  Med [IQR] 5.8 [5.1;6.4]
+#> 3  Sepal.Length Sepal.Length Mean (std)     5.8 (0.8)
+#> 4  Sepal.Length Sepal.Length     N (NA)       150 (0)
+#> 5   Sepal.Width  Sepal.Width  Min / Max     2.0 / 4.4
+#> 6   Sepal.Width  Sepal.Width  Med [IQR] 3.0 [2.8;3.3]
+#> 7   Sepal.Width  Sepal.Width Mean (std)     3.1 (0.4)
+#> 8   Sepal.Width  Sepal.Width     N (NA)       150 (0)
+#> 9  Petal.Length Petal.Length  Min / Max     1.0 / 6.9
+#> 10 Petal.Length Petal.Length  Med [IQR] 4.3 [1.6;5.1]
+#> 11 Petal.Length Petal.Length Mean (std)     3.8 (1.8)
+#> 12 Petal.Length Petal.Length     N (NA)       150 (0)
+#> 13  Petal.Width  Petal.Width  Min / Max     0.1 / 2.5
+#> 14  Petal.Width  Petal.Width  Med [IQR] 1.3 [0.3;1.8]
+#> 15  Petal.Width  Petal.Width Mean (std)     1.2 (0.8)
+#> 16  Petal.Width  Petal.Width     N (NA)       150 (0)
+#> 17      Species      Species     setosa   50 (33.33%)
+#> 18      Species      Species versicolor   50 (33.33%)
+#> 19      Species      Species  virginica   50 (33.33%)
 ```
 
 ``` r
-#tidyselection, custom functions
 #using mtcars2 for labels and cross_to_flextable for HTML formatting
+
+#tidyselection, by, custom functions
 library(tidyverse)
 ct1=crosstable(mtcars2, ends_with("t"), starts_with("c"), by=vs, 
-           funs=c(mean, quantile), funs_arg = list(probs=c(.25,.75))) %>% 
+               funs=c(mean, quantile), funs_arg = list(probs=c(.25,.75))) %>% 
     cross_to_flextable
 ```
 
-[crosstable1](man/figures/ct1.png)
+![crosstable1](man/figures/ct1.png)
 
 ``` r
 #margin and totals
@@ -72,7 +73,7 @@ ct2=crosstable(mtcars2, disp, vs, by=am, margin=c("row", "col"), total = "both")
     cross_to_flextable
 ```
 
-[crosstable2](man/figures/ct2.png)
+![crosstable2](man/figures/ct2.png)
 
 ``` r
 #predicate selection, correlation, testing
@@ -80,7 +81,7 @@ ct3=crosstable(mtcars2, is.numeric, by=hp, test=TRUE)  %>%
     cross_to_flextable
 ```
 
-[crosstable3](man/figures/ct3.png)
+![crosstable3](man/figures/ct3.png)
 
 ``` r
 #lambda selection, effect calculation
@@ -88,7 +89,7 @@ ct4=crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, effect=TRUE)  %>%
     cross_to_flextable
 ```
 
-[crosstable4](man/figures/ct4.png)
+![crosstable4](man/figures/ct4.png)
 
 ``` r
 #Survival data (using formula UI)
@@ -97,7 +98,7 @@ ct5=crosstable(aml, Surv(time, status) ~ x,times=c(0,15,30,150), followup=TRUE) 
     cross_to_flextable
 ```
 
-[crosstable5](man/figures/ct5.png)
+![crosstable5](man/figures/ct5.png)
 
 ## Getting help
 
