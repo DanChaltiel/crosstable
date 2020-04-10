@@ -60,8 +60,8 @@ crosstable(iris)
 
 #tidyselection, by, custom functions
 library(tidyverse)
-ct1=crosstable(mtcars2, ends_with("t"), starts_with("c"), by=vs, 
-               funs=c(mean, quantile), funs_arg = list(probs=c(.25,.75))) %>% 
+ct1 = crosstable(mtcars2, ends_with("t"), starts_with("c"), by=vs, 
+                 funs=c(mean, quantile), funs_arg=list(probs=c(.25,.75), digits=3)) %>% 
     cross_to_flextable
 ```
 
@@ -69,7 +69,7 @@ ct1=crosstable(mtcars2, ends_with("t"), starts_with("c"), by=vs,
 
 ``` r
 #margin and totals
-ct2=crosstable(mtcars2, disp, vs, by=am, margin=c("row", "col"), total = "both") %>%
+ct2 = crosstable(mtcars2, disp, vs, by=am, margin=c("row", "col"), total="both") %>%
     cross_to_flextable
 ```
 
@@ -77,7 +77,7 @@ ct2=crosstable(mtcars2, disp, vs, by=am, margin=c("row", "col"), total = "both")
 
 ``` r
 #predicate selection, correlation, testing
-ct3=crosstable(mtcars2, is.numeric, by=hp, test=TRUE)  %>%
+ct3 = crosstable(mtcars2, is.numeric, by=hp, test=TRUE)  %>%
     cross_to_flextable
 ```
 
@@ -85,7 +85,7 @@ ct3=crosstable(mtcars2, is.numeric, by=hp, test=TRUE)  %>%
 
 ``` r
 #lambda selection, effect calculation
-ct4=crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, effect=TRUE)  %>%
+ct4 = crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, effect=TRUE)  %>%
     cross_to_flextable
 ```
 
@@ -94,7 +94,7 @@ ct4=crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, effect=TRUE)  %>%
 ``` r
 #Survival data (using formula UI)
 library(survival)
-ct5=crosstable(aml, Surv(time, status) ~ x,times=c(0,15,30,150), followup=TRUE)  %>%
+ct5 = crosstable(aml, Surv(time, status) ~ x,times=c(0,15,30,150), followup=TRUE)  %>%
     cross_to_flextable
 ```
 

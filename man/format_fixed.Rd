@@ -6,7 +6,7 @@
 \usage{
 format_fixed(
   x,
-  digits,
+  digits = 1,
   zero_digits = 1,
   only_round = getOption("crosstable_only_round", FALSE),
   ...

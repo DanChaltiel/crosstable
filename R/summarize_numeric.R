@@ -2,7 +2,7 @@
 #' Summarize numeric variables
 #' @importFrom checkmate assert_numeric assert_character
 #' @importFrom tibble rownames_to_column
-#' @importFrom dplyr rename
+#' @importFrom dplyr rename mutate_if
 #' @keywords internal
 #' @noRd
 summarize_numeric_single = function(x,funs,funs_arg){
@@ -10,9 +10,13 @@ summarize_numeric_single = function(x,funs,funs_arg){
     assert_character(funs)
     
     fun = do.call(funs2fun, as.list(funs))
-    rtn = do.call(fun, c(list(x=x), funs_arg))
+    rtn = do.call(fun, c(list(x=x), funs_arg)) %>% 
+        mutate_if(is.numeric, format_fixed, !!!funs_arg)
+    # browser()
     data.frame(value=t(rtn)) %>% rownames_to_column("variable")
 }
+
+
 
 
 #' Summarize numeric by categorial

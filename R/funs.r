@@ -27,7 +27,7 @@
 #' options("crosstable_only_round"=TRUE)
 #' format_fixed(x_sd, dig=3, zero_digits=2) #override default
 #' options("crosstable_only_round"=NULL)
-format_fixed = function(x, digits, zero_digits=1, only_round=getOption("crosstable_only_round", FALSE), ...){
+format_fixed = function(x, digits=1, zero_digits=1, only_round=getOption("crosstable_only_round", FALSE), ...){
   assert_numeric(x)
   assert_numeric(digits)
   assert_logical(only_round)
