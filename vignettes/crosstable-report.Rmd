@@ -1,6 +1,10 @@
 ---
-title: "Crosstable interface to MS-Word"
-output: rmarkdown::html_vignette
+title: "Crosstable Reporting"
+author: "Dan Chaltiel"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette: 
+    keep_md: yes
 vignette: >
   %\VignetteIndexEntry{crosstable-report}
   %\VignetteEngine{knitr::rmarkdown}

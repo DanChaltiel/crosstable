@@ -2,7 +2,9 @@
 title: "Crosstable selection patterns"
 author: "Dan Chaltiel"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette: 
+    keep_md: yes
 vignette: >
   %\VignetteIndexEntry{crosstable-selection}
   %\VignetteEngine{knitr::rmarkdown}
