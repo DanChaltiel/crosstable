@@ -1,6 +1,5 @@
 
 #' @importFrom rlang env env_has inform
-#' @importFrom crayon silver has_color
 #' @author tidyselect (https://github.com/r-lib/tidyselect/blob/2fab83639982d37fd94914210f771ab9cbd36b4b/R/utils.R#L281)
 #' @keywords internal
 #' @noRd

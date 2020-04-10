@@ -33,7 +33,6 @@ Imports:
     tibble,
     flextable,
     plyr,
-    crayon,
     nortest
 License: GPL (>= 2)
 LazyData: true
@@ -45,6 +44,7 @@ Suggests:
     sloop,
     testthat,
     DescTools,
+    crayon,
     knitr,
     rmarkdown,
     covr
