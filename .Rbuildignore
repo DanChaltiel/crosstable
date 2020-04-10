@@ -1,6 +1,7 @@
 .git
 .git/*
 examples
+man/figures/*
 examples/*
 img
 img/*
