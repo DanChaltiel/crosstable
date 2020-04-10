@@ -6,7 +6,10 @@ Authors@R:
     c(person(given="Dan", family="Chaltiel", 
              email = "dan.chaltiel@gmail.com", 
              role = c("aut", "cre"),
-             comment = c(ORCID = "0000-0003-3488-779X")))
+             comment = c(ORCID = "0000-0003-3488-779X")),
+      person(given="David", family="Hajage", 
+             email = "david.hajage@aphp.fr", 
+             role = c("ccp")))
 Description: A handy tool for description and testing.
 URL: https://github.com/DanChaltiel/crosstable
 BugReports: https://github.com/DanChaltiel/crosstable/issues
@@ -22,25 +25,23 @@ Imports:
     reshape2,
     Hmisc,
     survival,
-    methods,
     tidyr,
     glue,
     forcats,
-    gmodels,
     officer,
     expss,
     stringr,
     tibble,
     flextable,
-    plyr,
     nortest
-License: GPL (>= 2)
+License: GPL (>= 3)
 LazyData: true
 RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)
 Suggests: 
     biostat2,
     tidyverse,
+    gmodels,
     sloop,
     testthat,
     DescTools,

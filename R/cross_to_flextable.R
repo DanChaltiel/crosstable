@@ -20,7 +20,6 @@
 #' @seealso [crosstable()], [flextable::flextable()]
 #' 
 #' @importFrom dplyr select lead sym %>% setdiff
-#' @importFrom methods is
 #' @importFrom stringr str_replace str_replace_all str_remove
 #' @importFrom flextable flextable autofit add_header_row merge_v merge_h bold align hline_top hline_bottom border_inner_h hline fix_border_issues
 #' @importFrom officer fp_border
@@ -70,13 +69,13 @@ cross_to_flextable = function(crosstable, auto.fit = TRUE, compact = FALSE, show
     if (has_test && !is.null(crosstable[[test]]) && !show.test.name) {
         crosstable[[test]] = str_remove(crosstable[[test]], "\\n\\(.*\\)")
     }
-    if (compact && !is(crosstable, "compacted_crosstable")) {
+    if (compact && !inherits(crosstable, "compacted_crosstable")) {
         crosstable = compact.crosstable(crosstable)
     }
     
     rtn = crosstable %>% mutate_all(replace_na, "NA")
     
-    if(is(crosstable, "compacted_crosstable")) {
+    if(inherits(crosstable, "compacted_crosstable")) {
         rows = attr(crosstable, "title_rows")
         title_rows=which(rows)+(0:(sum(rows)-1))
         rtn = rtn %>% 
