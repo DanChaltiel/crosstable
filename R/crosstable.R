@@ -2,10 +2,10 @@
 #' Easily describe datasets
 #' 
 #' @param data a data.frame
-#' @param .vars the variables to describe. Can be a character or name vector, a tidyselect helper, a (lambda) function that returns a logical, or a formula. See examples or vignette for more details.
+#' @param .vars the variables to describe. Can be a character or name vector, a tidyselect helper, a (lambda) function that returns a logical, or a formula. See examples or `vignette("crosstable-selection")` for more details.
 #' @param ... more variables to describe. Cannot be a lambda function nor a formula.
 #' @param by the variable to group on. Character or name.
-#' @param funs functions to apply for description. Default to \code{\link{cross_summary}}.
+#' @param funs functions to apply to numeric variables. Default to \code{\link{cross_summary}}.
 #' @param funs_arg additionnal parameters for \code{funs}. With \code{cross_summary}, you can set \code{dig}, the number of decimal places.
 #' @param margin one of \["row", "column", "cell" or "all"] to indicate which proportions should be computed in frequency tables. Default to `row`.
 #' @param total one of \["none", "row", "column" or "both"] to indicate whether to add margins. Default to `none`.
@@ -28,13 +28,37 @@
 #' @importFrom checkmate makeAssertCollection
 #' @importFrom purrr map map_lgl map_chr
 #' @importFrom stringr str_detect
-#' @importFrom expss unlab set_var_lab var_lab
+#' @importFrom expss unlab set_var_lab var_lab apply_labels
 #' @importFrom glue glue
 #' @importFrom stats model.frame
 #' 
-#' @example inst/examples/crosstable.R
+#' @examples
+#' #whole table
+#' crosstable(iris)
+#' crosstable(mtcars)
+#' 
+#' #tidyselection, custom functions
+#' library(tidyverse)
+#' crosstable(mtcars2, ends_with("t"), starts_with("c"), by=vs, 
+#'            funs=c(mean, quantile), funs_arg = list(probs=c(.25,.75)))
+#' 
+#' #margin and totals
+#' crosstable(mtcars2, disp, vs, by=am, 
+#'            margin=c("row", "col"), total = "both")
+#' 
+#' #predicate selection, correlation, testing
+#' crosstable(mtcars2, is.numeric, by=hp, test=TRUE)
+#' 
+#' #lambda selection, effect calculation
+#' crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, effect=TRUE)
+#' 
+#' 
+#' #Survival data (using formula UI)
+#' library(survival)
+#' crosstable(aml, Surv(time, status) ~ x,times=c(0,15,30,150), followup=TRUE)
 crosstable = function(data, .vars=NULL, ..., by=NULL, 
-                      margin = c("row", "column", "cell", "all"), total = c("none", "row", "column", "both"),
+                      margin = c("row", "column", "cell", "all"), 
+                      total = c("none", "row", "column", "both"),
                       percent_digits = 2, showNA = c("ifany", "always", "no"), label = TRUE, 
                       funs = c(" " = cross_summary), funs_arg=list(), 
                       test = FALSE, test_args = crosstable_test_args(), 

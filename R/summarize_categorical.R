@@ -13,7 +13,7 @@ summarize_categorical_single = function(x, showNA, total, digits, margin){
         rtn = table(x, useNA = "no") %>% 
             as.data.frame() %>% 
             mutate(p=100*.data$Freq/sum(.data$Freq)) %>% 
-            mutate_at(vars("p"), round, digits=digits) %>% 
+            mutate_at(vars("p"), format_fixed, digits=digits) %>% 
             mutate(value=glue("{Freq} ({p}%)")) %>% 
             select(variable=.data$x, value=.data$value)
     }
@@ -26,7 +26,7 @@ summarize_categorical_single = function(x, showNA, total, digits, margin){
     if (2 %in% total && identical(margin,-1)) {
         rtn = rbind(rtn, data.frame(variable="Total", value=sum(table(x, useNA='always'))))
     } else if (2 %in% total && !identical(margin,-1)) {
-        value = glue("{sum(table(x, useNA='always'))} (100%)")
+        value = glue("{sum(table(x, useNA='always'))} ({format_fixed(100, digits=digits)}%)")
         rtn = rbind(rtn, data.frame(variable="Total", value=value))
     }
     
@@ -60,7 +60,7 @@ summarize_categorical_by = function(x, by, margin, showNA, total, digits,
                 else
                     .ptbl=table(x, by, useNA="no") %>% prop.table(margin=.x)
                 .ptbl %>% as.data.frame(responseName=paste0("p",.x), stringsAsFactors=FALSE) %>%
-                    mutate_at(vars(starts_with("p")), ~round(100*., digits=digits)) %>%
+                    mutate_at(vars(starts_with("p")), ~format_fixed(100*., digits=digits)) %>%
                     mutate_at(vars(starts_with("p")), ~paste0(.,"%"))
             }) %>% reduce(left_join, by=c("x", "by")) %>% 
             unite(col="p", starts_with("p"), sep=" / ")
@@ -78,8 +78,8 @@ summarize_categorical_by = function(x, by, margin, showNA, total, digits,
     } else if(2 %in% total && !identical(margin,-1)){
         mt=margin.table(nn, margin=2) %>% as.numeric
         mt2=margin.table(table(x, by, useNA="no"), margin=2) %>% as.numeric
-        pct=round(100*prop.table(mt2), digits) %>% paste0("%")
-        length(pct)=length(mt) #expand with NA
+        pct=format_fixed(100*prop.table(mt2), digits) %>% paste0("%")
+        length(pct)=length(mt) #expands with NA
         line=paste0(mt,ifelse(is.na(pct), "", glue(" ({pct})")))
         rtn=rbind(rtn, c("Total", line))
     }
@@ -99,4 +99,3 @@ summarize_categorical_by = function(x, by, margin, showNA, total, digits,
         mutate(Total=.total, effect=.effect, test=.test) %>% 
         mutate_all(as.character)
 }
-

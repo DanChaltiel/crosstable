@@ -6,8 +6,8 @@
 #' @importFrom dplyr rename select everything .data
 #' @keywords internal
 #' @noRd
-cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total, 
-                              label, cor_digits, cor_method,  test, test_args, effect, effect_args) {
+cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
+                         label, cor_digits, cor_method,  test, test_args, effect, effect_args) {
     stopifnot(ncol(data_x)==1 && (is.null(data_y) || ncol(data_y)==1))
     stopifnot(is.numeric(data_x[[1]]))
     stopifnot(is.character(funs))

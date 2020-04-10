@@ -29,7 +29,7 @@ crosstable(
 \arguments{
 \item{data}{a data.frame}
 
-\item{.vars}{the variables to describe. Can be a character or name vector, a tidyselect helper, a (lambda) function that returns a logical, or a formula. See examples or vignette for more details.}
+\item{.vars}{the variables to describe. Can be a character or name vector, a tidyselect helper, a (lambda) function that returns a logical, or a formula. See examples or \code{vignette("crosstable-selection")} for more details.}
 
 \item{...}{more variables to describe. Cannot be a lambda function nor a formula.}
 
@@ -45,7 +45,7 @@ crosstable(
 
 \item{label}{whether to show labels. Use either \code{\link[Hmisc:label]{Hmisc::label()}}, \code{\link[expss:var_lab]{expss::var_lab()}} or \code{expss::apply_labels} to add labels to the dataset columns.}
 
-\item{funs}{functions to apply for description. Default to \code{\link{cross_summary}}.}
+\item{funs}{functions to apply to numeric variables. Default to \code{\link{cross_summary}}.}
 
 \item{funs_arg}{additionnal parameters for \code{funs}. With \code{cross_summary}, you can set \code{dig}, the number of decimal places.}
 
@@ -69,7 +69,6 @@ crosstable(
 Easily describe datasets
 }
 \examples{
-
 #whole table
 crosstable(iris)
 crosstable(mtcars)

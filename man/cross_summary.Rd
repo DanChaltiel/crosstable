@@ -4,16 +4,19 @@
 \alias{cross_summary}
 \title{Summarize a numeric vector}
 \usage{
-cross_summary(x, dig = 2)
+cross_summary(x, dig = 1, ...)
 }
 \arguments{
 \item{x}{a numeric vector}
 
 \item{dig}{number of digits}
+
+\item{...}{params to pass on to \code{\link[=format_fixed]{format_fixed()}}: \code{zero_digits} and \code{only_round}}
 }
 \description{
 Summarize a numeric vector with min, max, mean, sd, median, IQR, n and missings.
 }
 \examples{
 cross_summary(iris$Sepal.Length)
+cross_summary(iris$Petal.Width, dig=3)
 }

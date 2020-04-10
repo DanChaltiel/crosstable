@@ -138,7 +138,7 @@ crosstable(mtcars2, am, mpg, wt, by=vs, funs=c(median, mean, sd)) %>%
 ```
 
 You might want to use `crosstable`'s convenience functions such as `moystd`, `mediqr`, `minmax`, or `nna`. For 
-additional arguments, you can use `funs_arg` argument: `crosstable(mtcars3, c(disp, hp, am), by=vs, funs=c(moystd,quantile), funs_arg = list(dig=3, probs=c(0.25,0.75)))`.
+additional arguments, you can use `funs_arg` argument: `crosstable(mtcars3, c(disp, hp, am), by=vs, funs=c(moystd,quantile), funs_arg = list(dig=3, probs=c(0.25,0.75)))`. Numbers are formatted to have the same number of decimal places. You might want to take a look at `?biostats2SummaryFunctions` and  `?format_fixed` to customize their behaviour.
 
 
 

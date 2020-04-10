@@ -8,23 +8,11 @@
 \alias{nna}
 \title{Summary functions}
 \usage{
-moystd(
-  x,
-  na.rm = TRUE,
-  dig = 2,
-  fixed_format = getOption("crosstable_fixed_format", FALSE),
-  zero_digits = 1
-)
+moystd(x, na.rm = TRUE, dig = 2, ...)
 
-mediqr(
-  x,
-  na.rm = TRUE,
-  dig = 2,
-  fixed_format = getOption("crosstable_fixed_format", FALSE),
-  zero_digits = 1
-)
+mediqr(x, na.rm = TRUE, dig = 2, ...)
 
-minmax(x, na.rm = TRUE, dig = 2)
+minmax(x, na.rm = TRUE, dig = 2, ...)
 
 nna(x)
 }
@@ -35,12 +23,14 @@ nna(x)
 
 \item{dig}{number of digits}
 
-\item{fixed_format}{use \code{\link{format_fixed}} instead of round (default)}
-
-\item{zero_digits}{is fixed_format==TRUE, number of significant digits for values rounded to 0 (set to NULL to keep the original 0 value)}
+\item{...}{params to pass on to \code{\link[=format_fixed]{format_fixed()}}:
+\itemize{
+\item \code{zero_digits} (default=\code{1}): the number of significant digits for values rounded to 0 (set to NULL to keep the original 0 value)
+\item \code{only_round} (default=\code{FALSE}): use \code{\link[=round]{round()}} instead of \code{\link[=format_fixed]{format_fixed()}}
+}}
 }
 \description{
-Summary functions to use with \code{\link{cross}} or anywhere else.
+Summary functions to use with \code{\link[=crosstable]{crosstable()}} or anywhere else.
 }
 \section{Functions}{
 \itemize{
@@ -55,7 +45,7 @@ Summary functions to use with \code{\link{cross}} or anywhere else.
 
 \section{Fixed format}{
 
-The use of the \code{fixed_format} argument allows to have trailing zeros after rounded values.
+These functions use \code{\link[=format_fixed]{format_fixed()}} which allows to have trailing zeros after rounded values.
 In the case when the output of rounded values is zero, the use of the \code{zero_digits} argument allows to keep some significant digits for this specific case only.
 }
 
@@ -67,15 +57,16 @@ nna(iris$Sepal.Length)
 
 x = iris$Sepal.Length/10000 #closer to zero 
 
-moystd(x, dig=3, fixed_format=TRUE)
-moystd(x, dig=3, fixed_format=TRUE, zero_digits=NULL)
-options("crosstable_fixed_format"=TRUE)
+moystd(x, dig=3)
+moystd(x, dig=3, zero_digits=NULL) #or NA
+moystd(x, dig=3, only_round=TRUE)
+options("crosstable_only_round"=TRUE)
 moystd(x, dig=3, zero_digits=2)
-options("crosstable_fixed_format"=NULL)
+options("crosstable_only_round"=NULL)
 
 }
 \seealso{
-\code{\link{format_fixed}}
+\code{\link[=format_fixed]{format_fixed()}}
 }
 \author{
 Dan Chaltiel
