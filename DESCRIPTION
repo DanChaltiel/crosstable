@@ -27,7 +27,6 @@ Imports:
     glue,
     forcats,
     gmodels,
-    DescTools,
     officer,
     expss,
     stringr,
@@ -45,6 +44,7 @@ Suggests:
     tidyverse,
     sloop,
     testthat,
+    DescTools,
     knitr,
     rmarkdown,
     covr

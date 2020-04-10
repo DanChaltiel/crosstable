@@ -2,7 +2,7 @@
 
 iris2 = iris %>%
     mutate_at("Species", factor) %>%
-    expss::apply_labels(
+    apply_labels(
         Species = "Specie",
         Sepal.Length = "Length of Sepal",
         Sepal.Width = "Width of Sepal",

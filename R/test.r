@@ -353,11 +353,11 @@ test.summarize.auto.dan = function (x, g) {
   list(p.value = p, method = method)
 }
 
-#' @importFrom DescTools CochranArmitageTest
+# @importFrom DescTools CochranArmitageTest
 #' @importFrom stats cor.test chisq.test fisher.test
 #' @keywords internal
 #' @noRd
-test.tabular.auto.dan = function (x, y) {
+test.tabular.auto2 = function (x, y) {
   tab <- table(x, y)
   if(is.ordered(x) & is.ordered(y)){
     test <- cor.test(as.numeric(x), as.numeric(y), method = "spearman", exact = FALSE)
