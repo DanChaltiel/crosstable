@@ -165,38 +165,38 @@ test_that("Funs arguments", {
 
 
 # Tests (stats) --------------------------------------------------
-test_that("Tests (stats)", {
-    #2sample ttest, fisher, welch, chi2, logrank
-    name = "test_stats.rds"
-    x = crosstable(mtcars3, -c(carb,disp), by=vs, times=c(0,100,200,400), test=T)
-    x %>% cross_to_flextable()
-    if(is_testing()){
-        expect_equivalent(x, readRDS(paste0("rds/",name)), )
-    } else {
-        if(do.save)
-            saveRDS(x, paste0("tests/testthat/rds/",name), version = 2)
-        expect_equivalent(x, readRDS(paste0("tests/testthat/rds/",name)))
-        setdiff(readRDS(paste0("tests/testthat/rds/",name)), x)
-    }
-})
-
-# Effect --------------------------------------------------
-test_that("Effects", {
-    #mean-diff, welch, bootstrap, OR, HR
-    set.seed(1234)
-    name = "test_effects.rds"
-    x = expect_warning(crosstable(mtcars3, -c(cyl,cyl3,gear), by=vs, times=c(0,100,200,400), effect=T), 
-                       "Loglik converged before variable  2 ; coefficient may be infinite")
-    x %>% cross_to_flextable()
-    if(is_testing()){
-        expect_equivalent(x, readRDS(paste0("rds/",name)))
-    } else {
-        if(do.save)
-            saveRDS(x, paste0("tests/testthat/rds/",name), version = 2)
-        expect_equivalent(x, readRDS(paste0("tests/testthat/rds/",name)))
-        setdiff(readRDS(paste0("tests/testthat/rds/",name)), x)
-    }
-})
+# test_that("Tests (stats)", {
+#     #2sample ttest, fisher, welch, chi2, logrank
+#     name = "test_stats.rds"
+#     x = crosstable(mtcars3, -c(carb,disp), by=vs, times=c(0,100,200,400), test=T)
+#     x %>% cross_to_flextable()
+#     if(is_testing()){
+#         expect_equivalent(x, readRDS(paste0("rds/",name)))
+#     } else {
+#         if(do.save)
+#             saveRDS(x, paste0("tests/testthat/rds/",name), version = 2)
+#         expect_equivalent(x, readRDS(paste0("tests/testthat/rds/",name)))
+#         setdiff(readRDS(paste0("tests/testthat/rds/",name)), x)
+#     }
+# })
+# 
+# # Effect --------------------------------------------------
+# test_that("Effects", {
+#     #mean-diff, welch, bootstrap, OR, HR
+#     set.seed(1234)
+#     name = "test_effects.rds"
+#     x = expect_warning(crosstable(mtcars3, -c(cyl,cyl3,gear), by=vs, times=c(0,100,200,400), effect=T), 
+#                        "Loglik converged before variable  2 ; coefficient may be infinite")
+#     x %>% cross_to_flextable()
+#     if(is_testing()){
+#         expect_equivalent(x, readRDS(paste0("rds/",name)))
+#     } else {
+#         if(do.save)
+#             saveRDS(x, paste0("tests/testthat/rds/",name), version = 2)
+#         expect_equivalent(x, readRDS(paste0("tests/testthat/rds/",name)))
+#         setdiff(readRDS(paste0("tests/testthat/rds/",name)), x)
+#     }
+# })
 
 
 
