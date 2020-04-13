@@ -1,5 +1,5 @@
 
-
+#' @name compact
 #' @description NULL
 #' @param data  the object to compact
 #' @param name_from name of the column to be collapsed when compacting
