@@ -53,7 +53,7 @@ get_defined_function = function(name) {
 clear_funs = function(funs){
     if (!is.character(funs)) {
         nomf = names(funs)
-        funs = as.character(as.list(substitute(funs)))
+        funs = as.character(as.list(substitute(funs, caller_env())))
         funs = funs[funs != "c" & funs != "list"]
         names(funs) = nomf
     }

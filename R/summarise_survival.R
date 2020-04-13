@@ -20,7 +20,7 @@ summarise_survival_single = function(surv, times, digits, followup) {
     
     x = summary(fit, times = times, extend = TRUE)
     counts = glue("{surv} ({event}/{risk})", surv=format_fixed(x$surv, digits), event=x$n.event, risk=x$n.risk)
-    rtn = tibble(variable=paste0("t=", times), count=as.character(counts))
+    rtn = tibble(variable=paste0("t=", times), value=as.character(counts))
     
     if (followup) {
         mediansuiv = round(summary(fit_fu)$table["median"], digits = digits)
@@ -58,7 +58,7 @@ summarise_survival_by = function(surv, by, times, followup, total, digits, showN
         cname = as.character(unique(by))
         rtn = summarise_survival_single(surv, times, digits, followup)
         rtn = rtn %>% 
-            rename(!!cname:=.data$count) %>% 
+            rename(!!cname:=.data$value) %>% 
             mutate(test=if(test) "No test" else NULL, 
                    effect=if(effect) "No Effect" else NULL) %>% 
             select(.data$variable, everything())
@@ -106,7 +106,7 @@ summarise_survival_by = function(surv, by, times, followup, total, digits, showN
     } 
     if (1 %in% total) {
         rtn_tot = summarise_survival_single(surv, times, digits, followup) %>% 
-            rename(Total=.data$count)
+            rename(Total=.data$value)
         rtn = left_join(rtn, rtn_tot, by=c("variable"))
     }
     

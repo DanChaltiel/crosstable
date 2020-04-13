@@ -76,12 +76,9 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
         assertList(funs_arg, add=coll)
         showNA = match.arg(showNA)
         cor_method = match.arg(cor_method)
-        if (!is.character(funs)) {
-            nomf = names(funs)
-            funs = as.character(as.list(substitute(funs)))
-            funs = funs[funs != "c" & funs != "list"]
-            names(funs) = nomf
-        }
+        funs = clear_funs(funs)
+        
+        
         
         if (missing(margin)) margin = "row"
         if (isTRUE(margin)) margin = c("row", "col")

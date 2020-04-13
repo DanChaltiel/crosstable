@@ -127,16 +127,21 @@ body_add_crosstable = function (doc, ...) {
 #' @param style the legend style (strnog, italic...)
 #' @param seqfield to figure this out, in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.
 #'
+#' @section Warning:
+#' Sometimes, you need to manually add a table legend in MS Word for all the legends added with `body_add_table_legend` to have a number.
 #' @importFrom officer body_add_par slip_in_text slip_in_seqfield
 #' @export
+#' @examples 
+#' library(officer)
+#' x=read_docx() %>% 
+#'     body_add_crosstable(crosstable(iris)) %>% 
+#'     body_add_table_legend("Iris dataset")
 body_add_table_legend = function(x, legend, legend_style="table title", style="strong", 
                                  seqfield="SEQ Table \\* Arabic"){
     x %>% 
         body_add_par(value=legend, style=legend_style) %>% 
         slip_in_text(str=": ", style=style, pos="before") %>% 
-        slip_in_seqfield(str=seqfield, 
-                         style=style, pos="before") %>% 
-        slip_in_text(str="Table ", style=style,
-                     pos="before") %>%
+        slip_in_seqfield(str=seqfield, style=style, pos="before") %>% 
+        slip_in_text(str="Table ", style=style, pos="before") %>%
         identity
 }

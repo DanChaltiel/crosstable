@@ -26,3 +26,14 @@ body_add_table_legend(
 \description{
 Add a table legend
 }
+\section{Warning}{
+
+Sometimes, you need to manually add a table legend in MS Word for all the legends added with \code{body_add_table_legend} to have a number.
+}
+
+\examples{
+library(officer)
+x=read_docx() \%>\% 
+    body_add_crosstable(crosstable(iris)) \%>\% 
+    body_add_table_legend("Iris dataset")
+}

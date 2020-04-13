@@ -22,11 +22,9 @@ Hmisc::label(mtcars3$surv) = "Dummy survival"
 # crosstables don't throw errors in officer -------------------------------
 crosstables = suppressWarnings(
     list(
-        simple = crosstable(esoph, test=TRUE),
-        # double_test = crosstable(mtcars, mpg,cyl,disp, by=am, test=TRUE),
-        # triple_test = crosstable(iris, by=Species, test=TRUE),
-        # double_effect = crosstable(mtcars, mpg,cyl,disp, by=am, effect=TRUE),
-        triple_effect = crosstable(iris, by=Species, effect=TRUE)
+        Simple = crosstable(esoph, test=TRUE),
+        Double_effect = crosstable(mtcars, mpg,cyl,disp, by=am, effect=TRUE),
+        Triple = crosstable(iris, by=Species, showNA="always", total="both")
     )
 )
 test_that("crosstables don't throw errors in officer", {
@@ -36,18 +34,26 @@ test_that("crosstables don't throw errors in officer", {
         expect_is(crosstable, c("crosstable"))
         doc = doc %>% 
             body_add_title(i, 1) %>%
+            body_add_glued("This dataset has {nrow(crosstable)} rows and {x} columns.", 
+                           x=ncol(crosstable)) %>%
             body_add_title("Not compacted", 2) %>%
             body_add_crosstable(crosstable, show.test.name=FALSE) %>%
+            body_add_table_legend(paste0(i, ", not compacted")) %>% 
             body_add_break %>%
             body_add_title("Compacted in function", 2) %>%
             body_add_crosstable(crosstable, compact=TRUE) %>% 
+            body_add_table_legend(paste0(i, ", compacted inside function")) %>% 
             body_add_break %>% 
+            body_add_normal("Look, there are labels!") %>%
             body_add_title("Compacted before function", 2) %>%
             body_add_crosstable(compact(crosstable), show.test.name=FALSE) %>%
+            body_add_table_legend(paste0(i, ", compacted before function")) %>% 
             body_add_break 
     }
-    if(!is_testing())
-        print(doc, "../../examples/result_test_crosstable_officer.docx")
+    if(!is_testing()){
+        print(doc, "tests/testthat/docx/result_test_crosstable_officer.docx")
+        
+    }
 })
 
 

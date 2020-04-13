@@ -15,10 +15,12 @@ mtcars3$cyl[1:5] = NA
 mtcars3$vs[5:12] = NA
 mtcars3$cyl3 = mtcars3$cyl==3
 mtcars3$cyl6 = mtcars3$cyl==6
+mtcars3$dummy = "dummy"
+mtcars3$dummy2 = mtcars3$dummy
+mtcars3$dummy2[5:12] = NA
 mtcars3$surv = Surv(mtcars3$disp, mtcars3$am=="manual")
 Hmisc::label(mtcars3$surv) = "Dummy survival"
 
-# mtcars3$vs = "dummy"
 
 do.save=FALSE
 # do.save=TRUE
@@ -66,11 +68,21 @@ test_that("by factor if numeric <= 3 levels", {
     expect_identical(x10[3,4], "14 (43.75% / 100.00% / 77.78%)")
     expect_equal(dim(x10), c(4,6))
     expect_equal(sum(is.na(x10)), 0)
-    
-    
 })
 
 
+# By Nothing ---------------------------------------------------------
+test_that("numeric+factor+surv by nothing", {
+    x1=crosstable(mtcars3, c(am,mpg,cyl,surv))
+    x1 %>% ctf
+    expect_equal(dim(x1), c(38,4))
+    expect_equal(sum(is.na(x1)), 1)
+    
+    x2=crosstable(mtcars3, c(am,mpg,cyl,surv), times=c(0,100,200,400), followup=TRUE)
+    x2 %>% ctf
+    expect_equal(dim(x2), c(16,4))
+    expect_equal(sum(is.na(x2)), 1)
+})
 
 # By factor: showNA --------------------------------------------------------
 test_that("numeric+factor+surv by factor: showNA", {
@@ -142,6 +154,20 @@ test_that("numeric+factor+surv by factor: margin", {
     expect_equal(dim(x92), c(17,7))
     expect_equal(sum(is.na(x92)), 3)
     
+})
+
+
+# By dummy ---------------------------------------------------------
+test_that("numeric+factor+surv by dummy", {
+    x1=crosstable(mtcars3, c(am,mpg,cyl,surv), by=dummy)
+    x1 %>% ctf
+    expect_equal(dim(x1), c(38,4))
+    expect_equal(sum(is.na(x1)), 1)
+    
+    x2=crosstable(mtcars3, c(am,mpg,cyl,surv), by=dummy2)
+    x2 %>% ctf
+    expect_equal(dim(x2), c(39,5))
+    expect_equal(sum(is.na(x2)), 1)
 })
 
 
