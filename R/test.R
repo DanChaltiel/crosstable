@@ -276,7 +276,6 @@ test.survival.logrank <- function(formula) {
 #' @return a list with two componments: p.value and method
 #' @author Dan Chaltiel
 #' @export
-#' @importFrom gmodels fit.contrast
 #' @importFrom stats lm
 #'
 #' @examples
@@ -287,6 +286,8 @@ test.survival.logrank <- function(formula) {
 #'   mutate(Petal.Width.qt = paste0("Q", ntile(Petal.Width, 5)) %>% ordered()) %>%
 #'   crosstable(Petal.Length ~ Petal.Width.qt, test=TRUE, test_args = my_test_args)
 test.summarize.contrasts.lin = function(x, y){
+  if(!requireNamespace("gmodels", quietly=TRUE))
+    stop("This function needs the package `gmodels` to run")
   stopifnot(is.ordered(y))
   levels_seq = 1:length(levels(y))
   contr = levels_seq - mean(levels_seq)  #centered on 0, step of 1
