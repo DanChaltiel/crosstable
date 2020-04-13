@@ -26,6 +26,7 @@ test_that("Compact method OK with purrr", {
 
 test_that("Compact method OK with crosstable", {
     ct=crosstable(mtcars2, disp+hp+cyl+am~vs)
+    expect_silent(compact(ct, name_from=".id"))
     x1=expect_silent(compact(ct))
     expect_equal(dim(x1), c(17,3))
     expect_equal(sum(x1[[1]]==""), 0)
@@ -40,6 +41,8 @@ test_that("Compact method OK with data.frame", {
     x1=expect_silent(compact(df, name_from="Species"))
     expect_equal(dim(x1), c(18,5))
     expect_equivalent(x1[1,], c("setosa", "", "", "", ""))
+    
+    expect_silent(compact(df, name_from="Species", name_to="Petal.Length", rtn_flextable=TRUE))
     x2=expect_silent(compact(df, name_from="Species", name_to="Petal.Length"))
     expect_equal(dim(x2), c(18,4))
     expect_equivalent(x2[1,], c("setosa", "", "", ""))
@@ -50,7 +53,7 @@ test_that("Compact method OK with data.frame", {
     expect_identical(x$method, c("compact.data.frame", "compact.default"))
 })
 
-test_that("compact.crosstable gives good flextables", {
+test_that("Compacting inside or outside cross_to_flextable gives the same result", {
     ct1 = crosstable(esoph, by="tobgp", test = TRUE) %>% compact
     expect_equal(dim(ct1), c(22,6))
     expect_is(ct1, c("data.frame"))

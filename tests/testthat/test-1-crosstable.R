@@ -239,3 +239,12 @@ test_that("Anything by surv = error", {
         "Crosstable only supports numeric, logical, character or factor `by` columns.*"
     )
 })
+
+test_that("X class check", {
+    mtcars3$dummy = as.Date(mtcars3$disp, origin="2020-01-01") %>% as.POSIXct
+    expect_error(
+        crosstable(mtcars3, dummy, by=vs),
+        "Variables of class \\[POSIXct, POSIXt\\] are not supported by crosstable\\."
+    )
+})
+
