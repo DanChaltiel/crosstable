@@ -26,7 +26,7 @@ cross_by = function(data_x, data_y, funs, funs_arg, margin, total, percent_digit
                                showNA=showNA, total=total, label=label, surv_digits=percent_digits,
                                test=test, test_args=test_args, effect=effect, effect_args=effect_args)
         } else {
-            stop("Variables of class ", class(data_x[[.x]]), " are not supported by crosstable")
+            stop("Variables of class [", paste(class(data_x[[.x]]), collapse=", "), "] are not supported by crosstable.")
         }
         if(is.null(rtn)){
             warning(glue("Cannot cross '{x}' ({xx}) by '{y}' ({yy})", 
