@@ -9,6 +9,8 @@
 status](https://www.r-pkg.org/badges/version/crosstable)](https://CRAN.R-project.org/package=crosstable)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Build
+Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=master)](https://travis-ci.org/DanChaltiel/crosstable)
 [![Codecov test
 coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/master/graph/badge.svg)](https://codecov.io/gh/DanChaltiel/crosstable?branch=master)
 <!-- badges: end -->
@@ -22,7 +24,7 @@ create automatized reports.
 
 ``` r
 install.packages("devtools")
-devtools::install_github("DanChaltiel/biostat2")
+devtools::install_github("DanChaltiel/crosstable")
 ```
 
 ## Usage
