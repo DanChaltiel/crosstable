@@ -24,5 +24,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Dan Chaltiel \email{dan.chaltiel@gmail.com} (\href{https://orcid.org/0000-0003-3488-779X}{ORCID})
 
+Other contributors:
+\itemize{
+  \item David Hajage \email{david.hajage@aphp.fr} [conceptor]
+}
+
 }
 \keyword{internal}
