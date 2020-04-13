@@ -22,7 +22,6 @@ Imports:
     purrr,
     checkmate,
     tidyselect,
-    reshape2,
     Hmisc,
     survival,
     tidyr,
@@ -39,7 +38,6 @@ LazyData: true
 RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)
 Suggests: 
-    biostat2,
     tidyverse,
     gmodels,
     sloop,
