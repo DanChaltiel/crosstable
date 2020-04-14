@@ -124,7 +124,7 @@ body_add_crosstable = function (doc, ...) {
 #' @param x a docx object
 #' @param legend the table legend
 #' @param legend_style may depend on the docx template
-#' @param style the legend style (strnog, italic...)
+#' @param style the legend style (strong, italic...)
 #' @param seqfield to figure this out, in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.
 #'
 #' @section Warning:
@@ -133,6 +133,7 @@ body_add_crosstable = function (doc, ...) {
 #' @export
 #' @examples 
 #' library(officer)
+#' library(magrittr) #for pipes
 #' x=read_docx() %>% 
 #'     body_add_crosstable(crosstable(iris)) %>% 
 #'     body_add_table_legend("Iris dataset")
