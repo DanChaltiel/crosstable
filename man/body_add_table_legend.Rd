@@ -19,7 +19,7 @@ body_add_table_legend(
 
 \item{legend_style}{may depend on the docx template}
 
-\item{style}{the legend style (strnog, italic...)}
+\item{style}{the legend style (strong, italic...)}
 
 \item{seqfield}{to figure this out, in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.}
 }
@@ -33,6 +33,7 @@ Sometimes, you need to manually add a table legend in MS Word for all the legend
 
 \examples{
 library(officer)
+library(magrittr) #for pipes
 x=read_docx() \%>\% 
     body_add_crosstable(crosstable(iris)) \%>\% 
     body_add_table_legend("Iris dataset")
