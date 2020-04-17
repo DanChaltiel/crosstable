@@ -35,7 +35,7 @@
 #' library(crosstable)
 #' ct=crosstable(mtcars2, by=vs)
 #' ct
-#' cross_to_flextable(ct)
+#' as_flextable(ct)
 "mtcars2"
 
 
@@ -68,5 +68,5 @@
 #' library(crosstable)
 #' ct=crosstable(iris2, by=Species)
 #' ct
-#' cross_to_flextable(ct)
+#' as_flextable(ct)
 "iris2"

@@ -53,7 +53,7 @@ test_that("Compact method OK with data.frame", {
     expect_identical(x$method, c("compact.data.frame", "compact.default"))
 })
 
-test_that("Compacting inside or outside cross_to_flextable gives the same result", {
+test_that("Compacting inside or outside as_flextable.crosstable gives the same result", {
     ct1 = crosstable(esoph, by="tobgp", test = TRUE) %>% compact
     expect_equal(dim(ct1), c(22,6))
     expect_is(ct1, c("data.frame"))

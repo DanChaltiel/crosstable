@@ -25,37 +25,37 @@
 # mtcars3$surv = Surv(mtcars3$disp, mtcars2$am=="manual")
 # mtcars3$dummy = "prout"
 # mtcars3$cyl3 = mtcars3$cyl==3
-# crosstable(mtcars3, disp+hp+cyl+am+Surv(disp, am=="manual")~vs, times=c(100,200,400), followup=TRUE) %>% cross_to_flextable()
-# crosstable(mtcars3, disp+hp+cyl3+am+surv~vs, times=c(100,200,400), followup=TRUE, funs_arg = list(dig=9)) %>% cross_to_flextable()
-# crosstable(mtcars3, disp+hp+(cyl==3)+am+surv~vs, times=c(100,200,400), followup=TRUE, funs_arg = list(dig=9), test=T, effect=T) %>% cross_to_flextable()
-# crosstable(mtcars3, disp+hp+cyl+am+surv~vs, times=c(100,200,400), followup=TRUE, funs_arg = list(dig=9), test=T, effect=T) %>% cross_to_flextable()
-# crosstable(mtcars3, disp+hp~vs, funs_arg = list(dig=9)) %>% cross_to_flextable()
+# crosstable(mtcars3, disp+hp+cyl+am+Surv(disp, am=="manual")~vs, times=c(100,200,400), followup=TRUE) %>% as_flextable()
+# crosstable(mtcars3, disp+hp+cyl3+am+surv~vs, times=c(100,200,400), followup=TRUE, funs_arg = list(dig=9)) %>% as_flextable()
+# crosstable(mtcars3, disp+hp+(cyl==3)+am+surv~vs, times=c(100,200,400), followup=TRUE, funs_arg = list(dig=9), test=T, effect=T) %>% as_flextable()
+# crosstable(mtcars3, disp+hp+cyl+am+surv~vs, times=c(100,200,400), followup=TRUE, funs_arg = list(dig=9), test=T, effect=T) %>% as_flextable()
+# crosstable(mtcars3, disp+hp~vs, funs_arg = list(dig=9)) %>% as_flextable()
 # biostat2::cross(dummy~vs, mtcars3)
 
 
-# crosstable(mtcars2, c(mpg,disp), by=NULL, label=T, test=T) %>% cross_to_flextable()
-# crosstable(mtcars2, c(mpg,disp), by=vs, label=T, test=T) %>% cross_to_flextable()
-# crosstable(mtcars2, c(mpg,disp), by=hp, label=T, test=T) %>% cross_to_flextable()
-# crosstable(mtcars3, c(mpg,surv), by=hp, label=T, test=T) %>% cross_to_flextable(T)
+# crosstable(mtcars2, c(mpg,disp), by=NULL, label=T, test=T) %>% as_flextable()
+# crosstable(mtcars2, c(mpg,disp), by=vs, label=T, test=T) %>% as_flextable()
+# crosstable(mtcars2, c(mpg,disp), by=hp, label=T, test=T) %>% as_flextable()
+# crosstable(mtcars3, c(mpg,surv), by=hp, label=T, test=T) %>% as_flextable(T)
 
 
 
-# crosstable(mtcars2, c(mpg,disp), by=vs, funs=c(mean,sd), funs_arg=list(dig=0, f=5), label=T, test=T, old=F) %>% cross_to_flextable(T)
+# crosstable(mtcars2, c(mpg,disp), by=vs, funs=c(mean,sd), funs_arg=list(dig=0, f=5), label=T, test=T, old=F) %>% as_flextable(T)
 #
-# crosstable(mtcars2, c(mpg,disp), by=NULL, funs=c(mean,sd),funs_arg=list(dig=0), label=T, test=T, old=T) %>% cross_to_flextable()
-# crosstable(mtcars2, c(mpg,disp), by=vs, funs=c(mean,sd), funs_arg=list(dig=0), label=T, test=T, effect=T, total="all", old=F) %>% cross_to_flextable(T)
-# crosstable(mtcars2, c(mpg,disp), by=NULL, funs=c(mean,sd),funs_arg=list(dig=0), label=T, test=T) %>% cross_to_flextable(T)
-# crosstable(mtcars2, c(mpg,disp), by=vs, label=T, test=T) %>% cross_to_flextable(T)
-# crosstable(mtcars2, c(mpg,disp), by=hp, label=T, test=T) %>% cross_to_flextable(T)
-# crosstable(mtcars3, c(mpg,surv), by=hp, label=T, test=T) %>% cross_to_flextable(T)
-# crosstable(mtcars2, c(mpg,disp), by=hp, label=T, test=T) %>% cross_to_flextable(T)
+# crosstable(mtcars2, c(mpg,disp), by=NULL, funs=c(mean,sd),funs_arg=list(dig=0), label=T, test=T, old=T) %>% as_flextable()
+# crosstable(mtcars2, c(mpg,disp), by=vs, funs=c(mean,sd), funs_arg=list(dig=0), label=T, test=T, effect=T, total="all", old=F) %>% as_flextable(T)
+# crosstable(mtcars2, c(mpg,disp), by=NULL, funs=c(mean,sd),funs_arg=list(dig=0), label=T, test=T) %>% as_flextable(T)
+# crosstable(mtcars2, c(mpg,disp), by=vs, label=T, test=T) %>% as_flextable(T)
+# crosstable(mtcars2, c(mpg,disp), by=hp, label=T, test=T) %>% as_flextable(T)
+# crosstable(mtcars3, c(mpg,surv), by=hp, label=T, test=T) %>% as_flextable(T)
+# crosstable(mtcars2, c(mpg,disp), by=hp, label=T, test=T) %>% as_flextable(T)
 
 
 
 
-# crosstable(mtcars3, surv, times=c(100,200,400), followup=TRUE) %>% cross_to_flextable()
-# crosstable(mtcars3, surv~vs, times=c(100,200,400), followup=TRUE, total="row") %>% cross_to_flextable()
-# crosstable(mtcars3, surv~vs, times=c(100,200,400), followup=TRUE, total="col") %>% cross_to_flextable()
+# crosstable(mtcars3, surv, times=c(100,200,400), followup=TRUE) %>% as_flextable()
+# crosstable(mtcars3, surv~vs, times=c(100,200,400), followup=TRUE, total="row") %>% as_flextable()
+# crosstable(mtcars3, surv~vs, times=c(100,200,400), followup=TRUE, total="col") %>% as_flextable()
 
 
 # crosstable_effect_args

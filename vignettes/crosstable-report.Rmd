@@ -94,7 +94,7 @@ Table iris is given in Table \@ref(tab:irisTable).
 
 `r ''````{r description, echo=FALSE, results='asis'}
 cat("<caption> (\\#tab:irisTable) Table Iris </caption> \n\r ")
-crosstable(iris, Sepal.Length, Sepal.Width, by=Species, test = TRUE, total="column") %>% cross_to_flextable
+crosstable(iris, Sepal.Length, Sepal.Width, by=Species, test = TRUE, total="column") %>% as_flextable
 ```
 
 ````

@@ -90,15 +90,16 @@ body_add_title = function(doc, value, level = 1, style = "heading") {
 #' @description [body_add_crosstable()] adds such a `flextable` an `officer` document.
 #'
 #' @param doc a \code{rdocx} object created by \code{read_docx} function (see \code{officer} package)
-#' @param ... arguments for \code{cross_to_flextable}
+#' @param x a `crosstable`
+#' @param ... further arguments for \code{as_flextable.crosstable}
 #'
 #' @export
 #' @importFrom flextable body_add_flextable
-#' @rdname cross_to_flextable
 #' 
 #' @examples 
 #' #Officer
 #' library(officer)
+#' library(dplyr)
 #' mytable = crosstable(mtcars2)
 #' doc = read_docx() %>% 
 #'     body_add_crosstable(mytable) %>% 
@@ -110,8 +111,8 @@ body_add_title = function(doc, value, level = 1, style = "heading") {
 #' print(doc, target = dfile)
 #' shell.exec(dfile)
 #' }
-body_add_crosstable = function (doc, ...) {
-    ft = cross_to_flextable(...)
+body_add_crosstable = function (doc, x, ...) {
+    ft = as_flextable(x, ...)
     doc = body_add_flextable(doc, ft)
     return(doc)
 }
@@ -133,7 +134,7 @@ body_add_crosstable = function (doc, ...) {
 #' @export
 #' @examples 
 #' library(officer)
-#' library(magrittr) #for pipes
+#' library(dplyr) #for pipes
 #' x=read_docx() %>% 
 #'     body_add_crosstable(crosstable(iris)) %>% 
 #'     body_add_table_legend("Iris dataset")

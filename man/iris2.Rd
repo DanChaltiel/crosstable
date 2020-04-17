@@ -38,6 +38,6 @@ See \code{\link{iris}} for more informations on the original "Edgar Anderson's I
 library(crosstable)
 ct=crosstable(iris2, by=Species)
 ct
-cross_to_flextable(ct)
+as_flextable(ct)
 }
 \keyword{datasets}

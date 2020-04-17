@@ -46,6 +46,6 @@ See \code{\link{mtcars}} for more informations on the original "Motor Trend Car 
 library(crosstable)
 ct=crosstable(mtcars2, by=vs)
 ct
-cross_to_flextable(ct)
+as_flextable(ct)
 }
 \keyword{datasets}

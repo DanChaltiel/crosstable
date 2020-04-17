@@ -33,7 +33,7 @@ Sometimes, you need to manually add a table legend in MS Word for all the legend
 
 \examples{
 library(officer)
-library(magrittr) #for pipes
+library(dplyr) #for pipes
 x=read_docx() \%>\% 
     body_add_crosstable(crosstable(iris)) \%>\% 
     body_add_table_legend("Iris dataset")

@@ -58,13 +58,13 @@ crosstable(iris)
 ```
 
 ``` r
-#using mtcars2 for labels and cross_to_flextable for HTML formatting
+#using mtcars2 for labels and as_flextable for HTML formatting
 
 #tidyselection, by, custom functions
 library(tidyverse)
 ct1 = crosstable(mtcars2, ends_with("t"), starts_with("c"), by=vs, 
                  funs=c(mean, quantile), funs_arg=list(probs=c(.25,.75), digits=3)) %>% 
-    cross_to_flextable
+    as_flextable
 ```
 
 ![crosstable1](man/figures/ct1.png)
@@ -72,7 +72,7 @@ ct1 = crosstable(mtcars2, ends_with("t"), starts_with("c"), by=vs,
 ``` r
 #margin and totals
 ct2 = crosstable(mtcars2, disp, vs, by=am, margin=c("row", "col"), total="both") %>%
-    cross_to_flextable
+    as_flextable
 ```
 
 ![crosstable2](man/figures/ct2.png)
@@ -80,7 +80,7 @@ ct2 = crosstable(mtcars2, disp, vs, by=am, margin=c("row", "col"), total="both")
 ``` r
 #predicate selection, correlation, testing
 ct3 = crosstable(mtcars2, is.numeric, by=hp, test=TRUE)  %>%
-    cross_to_flextable
+    as_flextable
 ```
 
 ![crosstable3](man/figures/ct3.png)
@@ -88,7 +88,7 @@ ct3 = crosstable(mtcars2, is.numeric, by=hp, test=TRUE)  %>%
 ``` r
 #lambda selection, effect calculation
 ct4 = crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, effect=TRUE)  %>%
-    cross_to_flextable
+    as_flextable
 ```
 
 ![crosstable4](man/figures/ct4.png)
@@ -97,7 +97,7 @@ ct4 = crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, effect=TRUE)  %
 #Survival data (using formula UI)
 library(survival)
 ct5 = crosstable(aml, Surv(time, status) ~ x,times=c(0,15,30,150), followup=TRUE)  %>%
-    cross_to_flextable
+    as_flextable
 ```
 
 ![crosstable5](man/figures/ct5.png)

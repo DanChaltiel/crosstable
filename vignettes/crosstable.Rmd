@@ -117,17 +117,17 @@ There are many ways to select variables: with names, character vector, `tidysele
 
 This might be good enough for a preview, but printing a table to the console has never been the greatest thing to visualize tables, especially in a vignette like this one.
 
-Fortunately, you can use the `cross_to_flextable` function to turn any `crosstable` into a HTML, ready-to-print table, which will be automatically displayed in the Viewer if your are using RStudio. 
+Fortunately, you can use the `as_flextable` function to turn any `crosstable` into a HTML, ready-to-print table, which will be automatically displayed in the Viewer if your are using RStudio. 
 
 
 ```{r crosstable-flextable}
 crosstable(mtcars2, mpg, cyl, by=am) %>% 
-  cross_to_flextable(keep_id=TRUE)
+  as_flextable(keep_id=TRUE)
 ```
 
 If you want to share your tables in a MS Word document, you can use David Gohel's [awesome package `officer`](https://davidgohel.github.io/officer/). 
 
-Here, I use the `keep_id` argument to keep the variable name, but in practice you usually drop it for the label. See `vignette("crosstable-officer")` ([link](crosstable-officer.html)) for more on `cross_to_flextable` and on how to integrate crosstables with `officer` and `Rmarkdown`.
+Here, I use the `keep_id` argument to keep the variable name, but in practice you usually drop it for the label. See `vignette("crosstable-officer")` ([link](crosstable-officer.html)) for more on `as_flextable` and on how to integrate crosstables with `officer` and `Rmarkdown`.
 
 
 ## Descriptive functions
@@ -136,7 +136,7 @@ There may be too much information with `crosstable`'s default descriptive functi
 
 ```{r crosstable-functions}
 crosstable(mtcars2, am, mpg, wt, by=vs, funs=c(median, mean, sd)) %>% 
-  cross_to_flextable(keep_id=TRUE)
+  as_flextable(keep_id=TRUE)
 ```
 
 You might want to use `crosstable`'s convenience functions such as `moystd`, `mediqr`, `minmax`, or `nna`. For 
@@ -151,20 +151,20 @@ When crossing two factor variables, like `cyl` and `am`, percentages are calcula
  
 ```{r crosstable-percent-row}
 crosstable(mtcars2, am, mpg, by=vs, funs=moystd, margin="row") %>% 
-  cross_to_flextable(keep_id=TRUE)
+  as_flextable(keep_id=TRUE)
 ```
 ```{r crosstable-percent-column}
 crosstable(mtcars2, am, mpg, by=vs, funs=moystd, margin="column") %>% 
-  cross_to_flextable(keep_id=TRUE)
+  as_flextable(keep_id=TRUE)
 ```
 ```{r crosstable-percent-none}
 crosstable(mtcars2, am, mpg, by=vs, funs=moystd, margin="none") %>% 
-  cross_to_flextable(keep_id=TRUE)
+  as_flextable(keep_id=TRUE)
 ```
 ```{r crosstable-percent-both}
 #I also could have used margin="all" here
 crosstable(mtcars2, am, mpg, by=vs, funs=moystd, margin=c("column","row","cell")) %>% 
-  cross_to_flextable(keep_id=TRUE) 
+  as_flextable(keep_id=TRUE) 
 ```
 
 Of course, if `by` is not set, `margin` will have no effect and percentages will be calculated in column.
@@ -179,16 +179,16 @@ Missing values are not taken into account when calculing percentage calculation.
 
 ```{r crosstable-total-row}
 crosstable(mtcars2, am, mpg, by=vs, funs=mean, total="row") %>% 
-  cross_to_flextable(keep_id=TRUE)
+  as_flextable(keep_id=TRUE)
 ```
 ```{r crosstable-total-column}
 #of course, total="column" only has an effect on categorical variables.
 crosstable(mtcars2, am, mpg, by=vs, funs=mean, total="column") %>% 
-  cross_to_flextable(keep_id=TRUE)
+  as_flextable(keep_id=TRUE)
 ```
 ```{r crosstable-total-both}
 crosstable(mtcars2, am, mpg, by=vs, funs=mean, total="both") %>% 
-  cross_to_flextable(keep_id=TRUE)
+  as_flextable(keep_id=TRUE)
 ```
 
 Of course, if `by` is not set, `total` will always be calculated in column. 
@@ -204,7 +204,7 @@ It is possible to perform statistical tests automatically.
 ```{r crosstable-tests}
 library(flextable)
 crosstable(mtcars2, vs, qsec, by=am, funs=mean, test=TRUE) %>% 
-  cross_to_flextable(keep_id=TRUE)
+  as_flextable(keep_id=TRUE)
 ```
 
 Of course, this should only be done in an exploratory context, as it would cause extensive [alpha inflation](https://en.wikipedia.org/wiki/Multiple_comparisons_problem) otherwise.
@@ -221,7 +221,7 @@ If the `by` variable has only 2 levels, it is also possible to automatically com
 ```{r crosstable-effect}
 library(flextable)
 crosstable(mtcars2, vs, qsec, by=am, funs=mean, effect=TRUE) %>% 
-  cross_to_flextable(keep_id=TRUE)
+  as_flextable(keep_id=TRUE)
 ```
 
 Type of effect (method, bootstrap, etc) are also chosen depending on the characteristics of the crossed variables (class, size, distribution, ...). See `?crosstable_effect_args` for more details on the effect choice algorithm.
@@ -238,7 +238,7 @@ If `by` refers to a numeric variable, correlation coefficients will be calculate
 ```{r crosstable-correlation}
 library(survival)
 crosstable(mtcars2, is.numeric, by=mpg) %>% 
-  cross_to_flextable(keep_id=TRUE)
+  as_flextable(keep_id=TRUE)
 ```
 
 Note that you can use the `cor_method` argument to choose which coefficient to calculate (`"pearson"`, `"kendall"`, or `"spearman"`).
@@ -251,7 +251,7 @@ Crosstable is also able to describe survival data on specific times:
 library(survival)
 aml$surv = Surv(aml$time, aml$status)
 crosstable(aml, surv, by=x, times=c(0,15,30,150), followup=TRUE) %>% 
-  cross_to_flextable(keep_id=TRUE)
+  as_flextable(keep_id=TRUE)
 ```
 
 Using the formula interface, you can also declare the `Surv` object directly inside the `crosstable` function: `crosstable(aml, Surv(time, status) ~ x)`.
