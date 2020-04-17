@@ -9,8 +9,7 @@ tmp
 
 TODO\.R
 
-
-^test_doc\.docx$
+.*~.*
 
 ^README.Rmd$
 ^.*\.Rproj$

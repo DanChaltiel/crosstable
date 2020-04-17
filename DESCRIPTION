@@ -32,7 +32,8 @@ Imports:
     stringr,
     tibble,
     flextable,
-    nortest
+    nortest,
+    lifecycle
 License: GPL-3 + file LICENSE
 LazyData: true
 RoxygenNote: 7.1.0
@@ -48,3 +49,4 @@ Suggests:
     rmarkdown,
     covr
 VignetteBuilder: knitr
+RdMacros: lifecycle
