@@ -205,6 +205,18 @@ test_that("Funs arguments", {
 #         setdiff(readRDS(paste0("tests/testthat/rds/",name)), x)
 #     }
 # })
+
+test_that("Tests (linear contrasts)", {
+    my_test_args=crosstable_test_args()
+    my_test_args$test.summarize = test.summarize.contrasts.lin
+    x=iris %>%
+      mutate(Petal.Width.qt = paste0("Q", ntile(Petal.Width, 5)) %>% ordered()) %>%
+      crosstable(Petal.Length ~ Petal.Width.qt, test=TRUE, test_args = my_test_args)
+    expect_equal(x$test[1], "p value: <0.0001 \n(Contrast test for linear trend)")
+    expect_equal(dim(x), c(4,9))
+    expect_equal(sum(is.na(x)), 0)
+})
+
 # 
 # # Effect --------------------------------------------------
 # test_that("Effects", {
