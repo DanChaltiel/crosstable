@@ -277,7 +277,7 @@ test_that("crosstable limit tests: warnings", {
     
     #removes unfit variables with a warning
     expect_warning(crosstable(iris, Sepal.Length, Species, by=Petal.Width),
-                   "Cannot cross 'Species' \\(factor\\) by 'Petal.Width' \\(numeric\\)")
+                   "Cannot cross column 'Species' \\(factor\\) by column 'Petal.Width' \\(numeric\\)")
 })
 
 

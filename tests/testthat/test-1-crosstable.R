@@ -51,9 +51,9 @@ test_that("numeric by numeric", {
 
 test_that("numeric+factor by numeric: ", {
     expect_warning(crosstable(mtcars3, mpg, cyl, by=disp), 
-                   "Cannot cross 'cyl' \\(factor\\) by 'disp' \\(numeric\\)")
+                   "Cannot cross column 'cyl' \\(factor\\) by column 'disp' \\(numeric\\)")
     expect_warning(crosstable(mtcars3, is.numeric, by=disp, effect=T), 
-                   "Cannot cross 'surv' \\(Surv\\) by 'disp' \\(numeric\\)")
+                   "Cannot cross column 'surv' \\(Surv\\) by column 'disp' \\(numeric\\)")
     
     x1=crosstable(mtcars3, is.numeric.and.not.surv, by=disp)
     expect_equal(dim(x1), c(6,4))
@@ -280,9 +280,9 @@ test_that("Anything by surv = error", {
 
 test_that("X class check", {
     mtcars3$dummy = as.Date(mtcars3$disp, origin="2020-01-01") %>% as.POSIXct
-    expect_error(
+    expect_warning(
         crosstable(mtcars3, dummy, by=vs),
-        "Variables of class \\[POSIXct, POSIXt\\] are not supported by crosstable\\."
+        "Cannot cross column 'dummy' \\(POSIXct, POSIXt\\) by column 'vs' \\(character\\)"
     )
 })
 
