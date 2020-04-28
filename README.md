@@ -27,6 +27,19 @@ install.packages("devtools")
 devtools::install_github("DanChaltiel/crosstable")
 ```
 
+## Getting help
+
+You can use the vignettes:
+
+  - `vignette("crosstable")` for global use and parameterization
+  - `vignette("crosstable-selection")` for variable selection
+  - `vignette("crosstable-report")` for reporting with `officer` or
+    `Rmarkdown`
+
+These vignettes are reproduced in the
+[wiki](https://github.com/DanChaltiel/crosstable/wiki). Note that the
+wiki might be a little less up-to-date than the vignettes.
+
 ## Usage
 
 ``` r
@@ -101,15 +114,6 @@ ct5 = crosstable(aml, Surv(time, status) ~ x,times=c(0,15,30,150), followup=TRUE
 ```
 
 ![crosstable5](man/figures/ct5.png)
-
-## Getting help
-
-You can use the vignettes:
-
-  - `vignette("crosstable")` for global use and parameterization  
-  - `vignette("crosstable-selection")` for variable selection
-  - `vignette("crosstable-report")` for reporting with `officer` or
-    `Rmarkdown`
 
 ## Acknowledgement
 
