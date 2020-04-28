@@ -126,6 +126,9 @@ as_flextable.crosstable = function(x, auto.fit = TRUE, compact = FALSE, show.tes
 #' @usage NULL
 #' @export
 ctf = as_flextable.crosstable
+
+#' @usage NULL
+#' @export
 cross_to_flextable = as_flextable.crosstable
 
 
