@@ -1,7 +1,7 @@
 
-#' @importFrom magrittr %>%
+#' @importFrom dplyr %>%
 #' @export
-magrittr::`%>%`
+dplyr::`%>%`
 
 #' @importFrom tidyselect everything
 #' @export
