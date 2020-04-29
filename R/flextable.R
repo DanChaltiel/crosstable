@@ -124,13 +124,15 @@ as_flextable.crosstable = function(x, auto.fit = TRUE, compact = FALSE, show.tes
 
 
 #' @usage NULL
+#' @importFrom lifecycle deprecate_warn
 #' @export
-ctf = as_flextable.crosstable
-
+cross_to_flextable = function(...){
+    deprecate_warn("0.1.0", "cross_to_flextable()", "as_flextable()")
+    as_flextable.crosstable(...)
+}
 #' @usage NULL
 #' @export
-cross_to_flextable = as_flextable.crosstable
-
+ctf = cross_to_flextable
 
 #' @name as_flextable 
 #' @rdname as_flextable 
