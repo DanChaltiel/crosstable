@@ -72,6 +72,7 @@ Easily describe datasets
 #whole table
 crosstable(iris)
 crosstable(mtcars)
+crosstable(mtcars2)
 
 #tidyselection, custom functions
 library(tidyverse)

@@ -57,7 +57,7 @@ as_flextable.crosstable = function(x, auto.fit = TRUE, compact = FALSE, show.tes
     by_levels = attr(x, "by_levels") %>% replace_na("NA")
     by = attr(x, "by")
     has_by =  !is.null(by)
-    if(has_by && by_label=="") by_label=by
+    if(has_by && is.null(by_label)) by_label=by
     showNA = attr(x, "showNA")
     if(showNA=="always") by_levels=c(by_levels, "NA")
     

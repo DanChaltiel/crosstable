@@ -1,10 +1,8 @@
 
 #' @keywords internal
-#' @importFrom Hmisc label
 #' @importFrom expss unlab
 #' @importFrom glue glue
 #' @importFrom dplyr rename select everything .data
-#' @keywords internal
 #' @noRd
 cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
                          label, cor_digits, cor_method,  test, test_args, effect, effect_args) {
@@ -12,9 +10,9 @@ cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
     stopifnot(is.numeric(data_x[[1]]))
     stopifnot(is.character(funs))
     
-    x_name = if(label) label(data_x, default=names(data_x)) else names(data_x)
-    y_name = if(label) label(data_y, default=names(data_y)) else names(data_y)
-    
+    x_name = get_label(data_x, label)
+    y_name = get_label(data_y, label)
+
     if(is.null(data_y)){
         rtn = summarize_numeric_single(data_x[[1]],funs,funs_arg)
     } else if(is.character.or.factor(data_y[[1]])) {
@@ -38,5 +36,4 @@ cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
         
     rtn
 }
-
 

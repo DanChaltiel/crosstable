@@ -36,6 +36,7 @@
 #' #whole table
 #' crosstable(iris)
 #' crosstable(mtcars)
+#' crosstable(mtcars2)
 #' 
 #' #tidyselection, custom functions
 #' library(tidyverse)
@@ -227,7 +228,7 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
         attr(rtn, "by_levels") = NULL
     } else {
         attr(rtn, "by") = byname
-        attr(rtn, "by_label") = label(data_y)
+        attr(rtn, "by_label") = var_lab(data_y)
         attr(rtn, "by_levels") = if(is.numeric(data_y[[1]])) NULL else unique(as.character(data_y[[1]]))
     }
     return(rtn)

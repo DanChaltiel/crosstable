@@ -7,8 +7,9 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
     
     stopifnot(ncol(data_x)==1 && (is.null(data_y) || ncol(data_y)==1))
     stopifnot(is.character.or.factor(data_x[[1]]))
-    x_name = if(label) label(data_x, default=names(data_x)) else names(data_x)
-    y_name = if(label) label(data_y, default=names(data_y)) else names(data_y)
+    
+    x_name = get_label(data_x, label)
+    y_name = get_label(data_y, label)
     
     if(is.null(data_y)){
         rtn=summarize_categorical_single(data_x, showNA=showNA, total=total, 

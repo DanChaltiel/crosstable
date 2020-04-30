@@ -43,6 +43,13 @@ get_defined_function = function(name) {
 }
 
 
+#' Get label if wanted and available, or name otherwise
+#' @keywords internal
+#' @importFrom expss var_lab
+#' @noRd
+get_label = function(x, label=TRUE){
+    if(label && !is.null(var_lab(x))) var_lab(x) else names(x)
+}
 
 
 #' Clean functions names to character

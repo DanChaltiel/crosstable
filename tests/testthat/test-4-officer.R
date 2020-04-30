@@ -15,7 +15,7 @@ mtcars3$vs[5:12] = NA
 mtcars3$cyl3 = mtcars3$cyl==3
 mtcars3$cyl6 = mtcars3$cyl==6
 mtcars3$surv = Surv(mtcars3$disp, mtcars3$am=="manual")
-Hmisc::label(mtcars3$surv) = "Dummy survival"
+expss::var_lab(mtcars3$surv) = "Dummy survival"
 
 
 

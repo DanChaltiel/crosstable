@@ -3,11 +3,11 @@
 # Sys.setenv("R_TESTS" = "")
 
 
-Hmisc::label(iris$Species) = "Espèce"
-Hmisc::label(iris$Sepal.Length) = "Longueur du Sépale"
-Hmisc::label(iris$Sepal.Width) = "Largeur du Sépale"
-Hmisc::label(iris$Petal.Length) = "Longueur du Pétale"
-Hmisc::label(iris$Petal.Width) = "Largeur du Pétale"
+expss::var_lab(iris$Species) = "Espèce"
+expss::var_lab(iris$Sepal.Length) = "Longueur du Sépale"
+expss::var_lab(iris$Sepal.Width) = "Largeur du Sépale"
+expss::var_lab(iris$Petal.Length) = "Longueur du Pétale"
+expss::var_lab(iris$Petal.Width) = "Largeur du Pétale"
 
 Sys.setenv(LANG = "en")
 options(warn = 1)
