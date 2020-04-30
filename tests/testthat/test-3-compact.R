@@ -61,5 +61,5 @@ test_that("Compacting inside or outside as_flextable.crosstable gives the same r
     expect_is(ct1, c("compacted_crosstable"))
     
     ct2 = crosstable(esoph, by="tobgp", test = TRUE)
-    expect_identical(ctf(ct1), ctf(ct2, compact=TRUE))
+    expect_identical(as_flextable(ct1), as_flextable(ct2, compact=TRUE))
 })
