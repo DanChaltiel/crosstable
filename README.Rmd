@@ -52,13 +52,12 @@ These vignettes are reproduced in the [wiki](https://github.com/DanChaltiel/cros
 library(crosstable)
 library(dplyr)
 
-#whole table with default parameters
+#whole table, with default parameters
 crosstable(iris)
-
 ```
 
 ```{r usage1, eval=TRUE, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
-#using mtcars2 for labels and as_flextable for HTML formatting
+#using the mtcars2 dataset (which has labels) and the `as_flextable` function (for HTML formatting)
 
 #tidyselection, by, custom functions
 library(tidyverse)
@@ -71,7 +70,11 @@ ct1 = crosstable(mtcars2, ends_with("t"), starts_with("c"), by=vs,
 save_as_image(ct1, "man/figures/ct1.png")
 ```
 
-![crosstable1](man/figures/ct1.png){height=400px}
+<p align="center">
+  <img src="man/figures/ct1.png" alt="crosstable1" height="400">
+</p>
+
+
 
 
 ```{r usage2, eval=TRUE, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
@@ -84,7 +87,9 @@ ct2 = crosstable(mtcars2, disp, vs, by=am, margin=c("row", "col"), total="both")
 save_as_image(ct2, "man/figures/ct2.png")
 ```
 
-![crosstable2](man/figures/ct2.png){height=300px}
+<p align="center">
+  <img src="man/figures/ct2.png" alt="crosstable2">
+</p>
 
 ```{r usage3, eval=TRUE, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
 #predicate selection, correlation, testing
@@ -96,7 +101,9 @@ ct3 = crosstable(mtcars2, is.numeric, by=hp, test=TRUE)  %>%
 save_as_image(ct3, "man/figures/ct3.png")
 ```
 
-![crosstable3](man/figures/ct3.png){height=350px}
+<p align="center">
+  <img src="man/figures/ct3.png" alt="crosstable3">
+</p>
 
 ```{r usage4, eval=TRUE, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
 #lambda selection, effect calculation
@@ -108,7 +115,9 @@ ct4 = crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, effect=TRUE)  %
 save_as_image(ct4, "man/figures/ct4.png")
 ```
 
-![crosstable4](man/figures/ct4.png)
+<p align="center">
+  <img src="man/figures/ct4.png" alt="crosstable4">
+</p>
 
 ```{r usage5, eval=TRUE, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
 #Survival data (using formula UI)
@@ -121,8 +130,9 @@ ct5 = crosstable(aml, Surv(time, status) ~ x,times=c(0,15,30,150), followup=TRUE
 save_as_image(ct5, "man/figures/ct5.png")
 ```
 
-![crosstable5](man/figures/ct5.png){height=250px}
-
+<p align="center">
+  <img src="man/figures/ct5.png" alt="crosstable5" height="250">
+</p>
 
 
 ## Acknowledgement
