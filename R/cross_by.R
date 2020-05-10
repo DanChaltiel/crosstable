@@ -32,7 +32,7 @@ cross_by = function(data_x, data_y, funs, funs_arg, margin, total, percent_digit
         if(is.null(rtn)){
             warning(glue("Cannot cross column '{x}' ({xx}) by column '{y}' ({yy})", 
                          x=names(data_x[.x]), xx=paste(class(unlab(data_x[[.x]])), collapse=", "), 
-                         y=names(data_y[1]), yy=paste(class(unlab(data_y[[1]])))), collapse=", ")
+                         y=names(data_y[1]),  yy=paste(class(unlab(data_y[[1]] )), collapse=", ")))
         }
         
         rtn
