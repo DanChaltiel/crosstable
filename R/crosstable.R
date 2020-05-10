@@ -7,7 +7,6 @@
 #' @param by the variable to group on. Character or name.
 #' @param funs functions to apply to numeric variables. Default to \code{\link{cross_summary}}.
 #' @param funs_arg additionnal parameters for \code{funs}. With \code{cross_summary}, you can set \code{dig}, the number of decimal places.
-#' @param margin one of \["row", "column", "cell" or "all"] to indicate which proportions should be computed in frequency tables. Default to `row`.
 #' @param margin one of \["row", "column", "cell", "none" or "all"] to indicate which proportions should be computed in frequency tables. Default to `row`.
 #' @param total one of \["none", "row", "column" or "both"] to indicate whether to add margins. Default to `none`.
 #' @param percent_digits number of digits for percentages
