@@ -9,7 +9,7 @@ crosstable(
   .vars = NULL,
   ...,
   by = NULL,
-  margin = c("row", "column", "cell", "all"),
+  margin = c("row", "column", "cell", "none", "all"),
   total = c("none", "row", "column", "both"),
   percent_digits = 2,
   showNA = c("ifany", "always", "no"),
@@ -35,7 +35,7 @@ crosstable(
 
 \item{by}{the variable to group on. Character or name.}
 
-\item{margin}{one of ["row", "column", "cell" or "all"] to indicate which proportions should be computed in frequency tables. Default to \code{row}.}
+\item{margin}{one of ["row", "column", "cell", "none" or "all"] to indicate which proportions should be computed in frequency tables. Default to \code{row}.}
 
 \item{total}{one of ["none", "row", "column" or "both"] to indicate whether to add margins. Default to \code{none}.}
 
