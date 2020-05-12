@@ -84,12 +84,16 @@ summarize_numeric_numeric = function(x, by, method, digits, test, test_args){
     assert_numeric(by)
     
     ct=cor.test(x, by, method = method)
-    
     .test=NULL
     if(test) .test=paste0(plim(ct$p.value, test_args$plim), "\n(",ct$method, ")")
     
-    value=glue("{cor} \n95%CI [{ci[1]};{ci[2]}]", 
-               cor=round(ct$estimate, digits=digits), ci=round(ct$conf.int, digits=digits))
+    cor=round(ct$estimate, digits=digits)
+    if(!is.null(ct$conf.int)){
+        ci=round(ct$conf.int, digits=digits)
+        value=glue("{cor} \n95%CI [{ci[1]};{ci[2]}]")
+    } else {
+        value=glue("{cor}")
+    }
     
     tibble(variable=method, value=as.character(value)) %>% mutate(test=.test)
 }
