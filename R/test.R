@@ -49,7 +49,6 @@ plim <- function(p, digits = 4) {
 #' @param test test
 #' @param digits number of digits
 #' @param method display method
-#' @return a character string
 #' @author David Hajage
 #' @export
 display.test <- function(test, digits = 4, method = TRUE) {
@@ -82,8 +81,6 @@ test.tabular.auto <- function(x, y) {
     test <- list(p.value = NULL, method = NULL)
   else if (all(exp >= 5))
     test <- suppressWarnings(chisq.test(x, y, correct = FALSE))
-  ## else if (all(exp >= 3))
-  ##   test <- suppressWarnings(chisq.test(x, y, correct = TRUE))
   else
     test <- fisher.test(x, y)
   
