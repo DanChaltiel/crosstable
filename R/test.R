@@ -127,31 +127,37 @@ test.summarize.auto <- function(x, g) {
   ng <- table(g)
   
   if (length(ng) <= 1) {
-    p <- NULL
-    method <- NULL
+    return(list(p.value=NULL, method=NULL))
+  } 
+  
+  if (any(ng < 50)) {
+    normg <- tapply(x, g, function(x) {
+      if(length(unique(x))==1) return(0)
+      shapiro.test(x)$p.value
+    })
   } else {
-    if (any(ng < 50)) {
-      normg <- tapply(x, g, function(x) shapiro.test(x)$p.value)
+    normg <- tapply(x, g, function(x) {
+      if(length(unique(x))==1) return(0)
+      ad.test(x)$p.value
+    })
+  }
+  
+  if (any(normg < 0.05)) {
+    if (length(ng) == 2) {
+      type <- "wilcox"
     } else {
-      normg <- tapply(x, g, function(x) ad.test(x)$p.value)
+      type <- "kruskal"
     }
-    if (any(normg < 0.05)) {
-      if (length(ng) == 2) {
-        type <- "wilcox"
-      } else {
-        type <- "kruskal"
-      }
-    } else {
-      bartlettg <- bartlett.test(x, g)$p.value
-      if (bartlettg < 0.05 & length(ng) == 2) {
-        type <- "t.unequalvar"
-      } else if (bartlettg < 0.05 & length(ng) > 2) {
-        type <- "a.unequalvar"
-      } else if (bartlettg >= 0.05 & length(ng) == 2) {
-        type <- "t.equalvar"
-      } else if (bartlettg >= 0.05 & length(ng) > 2) {
-        type <- "a.equalvar"
-      }
+  } else {
+    bartlettg <- bartlett.test(x, g)$p.value
+    if (bartlettg < 0.05 & length(ng) == 2) {
+      type <- "t.unequalvar"
+    } else if (bartlettg < 0.05 & length(ng) > 2) {
+      type <- "a.unequalvar"
+    } else if (bartlettg >= 0.05 & length(ng) == 2) {
+      type <- "t.equalvar"
+    } else if (bartlettg >= 0.05 & length(ng) > 2) {
+      type <- "a.equalvar"
     }
     test <- switch(type,
                    wilcox = wilcox.test(x ~ g, correct = FALSE),
