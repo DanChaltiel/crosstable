@@ -207,7 +207,7 @@ test_that("Funs arguments", {
 
 test_that("Tests (linear contrasts)", {
     my_test_args=crosstable_test_args()
-    my_test_args$test.summarize = test.summarize.contrasts.lin
+    my_test_args$test.summarize = test.summarize.linear.contrasts
     x=iris %>%
       mutate(Petal.Width.qt = paste0("Q", ntile(Petal.Width, 5)) %>% ordered()) %>%
       crosstable(Petal.Length ~ Petal.Width.qt, test=TRUE, test_args = my_test_args)

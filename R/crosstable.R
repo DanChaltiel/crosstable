@@ -218,6 +218,7 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
     debug$y_class = y_class
     attr(rtn, "debug") = debug
     attr(rtn, "showNA") = showNA
+    attr(rtn, "variables") = names(data_x)
     attr(rtn, "has_test") = test
     attr(rtn, "has_effect") = effect
     attr(rtn, "has_total") = total
