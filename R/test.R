@@ -3,7 +3,7 @@
 #'
 #' @return A list with testing parameters:
 #' \itemize{
-#'   \item \code{test.summarize} - a function of two arguments (continuous variable and grouping variable), used to compare continuous variable. Returns a list of two components : \code{p.value} and \code{method} (the test name). See [test.summarize.auto], [test.summarize.kruskal], [test.summarize.oneway.equalvar], [test.summarize.contrasts.lin], or [test.summarize.oneway.unequalvar] for some examples of such functions. Users can provide their own function.
+#'   \item \code{test.summarize} - a function of two arguments (continuous variable and grouping variable), used to compare continuous variable. Returns a list of two components : \code{p.value} and \code{method} (the test name). See [test.summarize.auto], [test.tabular.auto], [test.survival.logrank], or [test.summarize.linear.contrasts] for some examples of such functions. Users can provide their own function.
 #'   \item \code{test.survival} - a function of one argument (a formula), used to compare survival estimations. Returns the same components as created by \code{test.summarize}. See \code{\link{test.survival.logrank}}. Users can provide their own function. 
 #'   \item \code{test.tabular} - a function of two arguments (two categorical variables), used to test association between two factors.  Returns the same components as created by \code{test.summarize}. See \code{\link{test.tabular.auto}} and \code{\link{test.tabular.fisher}}. Users can provide their own function.
 #'   \item \code{show.test} - function used to display the test result. See \code{\link{display.test}}.
@@ -16,8 +16,8 @@
 crosstable_test_args = function(){
   list(
     test.summarize = test.summarize.auto, 
-    test.survival = test.survival.logrank, 
     test.tabular = test.tabular.auto, 
+    test.survival = test.survival.logrank, 
     show.test = display.test, 
     plim = 4, 
     show.method = TRUE
@@ -89,26 +89,6 @@ test.tabular.auto <- function(x, y) {
   list(p.value = p, method = method)
 }
 
-#' test for contingency table
-#'
-#' Compute a fisher test
-#'
-#' @param x vector
-#' @param y another vector
-#' @return a list with two componments: p.value and method
-#' @author David Hajage
-#' @importFrom stats fisher.test
-#' @export
-test.tabular.fisher <- function(x, y) {
-  if (any(dim(table(x, y)) == 1))
-    test <- list(p.value = NULL, method = NULL)
-  else
-    test <- fisher.test(x, y)
-  
-  p <- test$p.value
-  method <- test$method
-  list(p.value = p, method = method)
-}
 
 
 #' test for mean comparison
@@ -159,100 +139,19 @@ test.summarize.auto <- function(x, g) {
     } else if (bartlettg >= 0.05 & length(ng) > 2) {
       type <- "a.equalvar"
     }
-    test <- switch(type,
-                   wilcox = wilcox.test(x ~ g, correct = FALSE),
-                   kruskal = kruskal.test(x, g),
-                   t.unequalvar = t.test(x ~  g, var.equal = FALSE),
-                   t.equalvar = t.test(x ~  g, var.equal = TRUE),
-                   a.unequalvar = oneway.test(x ~  g, var.equal = FALSE),
-                   a.equalvar = oneway.test(x ~ g, var.equal = TRUE))
-    p <- test$p.value
-    method <- test$method
   }
+  test <- switch(type,
+                 wilcox = wilcox.test(x ~ g, correct = FALSE),
+                 kruskal = kruskal.test(x, g),
+                 t.unequalvar = t.test(x ~ g, var.equal = FALSE),
+                 t.equalvar = t.test(x ~ g, var.equal = TRUE),
+                 a.unequalvar = oneway.test(x ~ g, var.equal = FALSE),
+                 a.equalvar = oneway.test(x ~ g, var.equal = TRUE))
+  p <- test$p.value
+  method <- test$method
+  
   list(p.value = p, method = method)
 }
-
-#' test for mean comparison
-#'
-#' Compute a kruskal.test.
-#'
-#' @param x vector
-#' @param g another vector
-#' @return a list with two componments: p.value and method
-#' @importFrom stats wilcox.test kruskal.test
-#' @author David Hajage
-#' @export
-test.summarize.kruskal <- function(x, g) {
-  ng <- table(g)
-  if (length(ng) <= 1) {
-    p <- NULL
-    method <- NULL
-  } else if (length(ng) == 2) {
-    test <- wilcox.test(x ~ g, correct = FALSE)
-    p <- test$p.value
-    method <- test$method
-  } else if (length(ng) > 2) {
-    test <- kruskal.test(x, g)
-    p <- test$p.value
-    method <- test$method
-  }
-  list(p.value = p, method = method)
-}
-
-#' test for mean comparison
-#'
-#' Compute a oneway.test. with var.equal = TRUE
-#'
-#' @param x vector
-#' @param g another vector
-#' @return a list with two componments: p.value and method
-#' @importFrom stats t.test oneway.test
-#' @author David Hajage
-#' @export
-test.summarize.oneway.equalvar <- function(x, g) {
-  ng <- table(g)
-  if (length(ng) <= 1) {
-    p <- NULL
-    method <- NULL
-  } else if (length(ng) == 2) {
-    test <- t.test(x ~ g, var.equal = TRUE)
-    p <- test$p.value
-    method <- test$method
-  } else if (length(ng) > 2) {
-    test <- oneway.test(x ~ g, var.equal = TRUE)
-    p <- test$p.value
-    method <- test$method
-  }
-  list(p.value = p, method = method)
-}
-
-#' test for mean comparison
-#'
-#' Compute a oneway.test. with var.equal = FALSE
-#'
-#' @param x vector
-#' @param g another vector
-#' @return a list with two componments: p.value and method
-#' @importFrom stats t.test oneway.test
-#' @author David Hajage
-#' @export
-test.summarize.oneway.unequalvar <- function(x, g) {
-  ng <- table(g)
-  if (length(ng) <= 1) {
-    p <- NULL
-    method <- NULL
-  } else if (length(ng) == 2) {
-    test <- t.test(x ~  g, var.equal = FALSE)
-    p <- test$p.value
-    method <- test$method
-  } else if (length(ng) > 2) {
-    test <- oneway.test(x ~  g, var.equal = FALSE)
-    p <- test$p.value
-    method <- test$method
-  }
-  list(p.value = p, method = method)
-}
-
 
 #' test for survival comparison
 #'
@@ -284,11 +183,11 @@ test.survival.logrank <- function(formula) {
 #' @examples
 #' library(dplyr)
 #' my_test_args=crosstable_test_args()
-#' my_test_args$test.summarize = test.summarize.contrasts.lin
+#' my_test_args$test.summarize = test.summarize.linear.contrasts
 #' iris %>%
 #'   mutate(Petal.Width.qt = paste0("Q", ntile(Petal.Width, 5)) %>% ordered()) %>%
 #'   crosstable(Petal.Length ~ Petal.Width.qt, test=TRUE, test_args = my_test_args)
-test.summarize.contrasts.lin = function(x, y){
+test.summarize.linear.contrasts = function(x, y){
   if(!requireNamespace("gmodels", quietly=TRUE))
     stop("This function needs the package `gmodels` to run")
   stopifnot(is.ordered(y))
@@ -304,6 +203,7 @@ test.summarize.contrasts.lin = function(x, y){
 # DAN ---------------------------------------------------------------------
 
 #TODO faire tout ça !
+# nocov start
 
 #' @importFrom stats shapiro.test bartlett.test wilcox.test kruskal.test t.test oneway.test
 #' @keywords internal
@@ -379,3 +279,4 @@ test.tabular.auto2 = function (x, y) {
   method <- test$method
   list(p.value = p, method = method)
 }
+# nocov end
