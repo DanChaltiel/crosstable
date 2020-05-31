@@ -30,6 +30,7 @@
 #' @importFrom stringr str_detect
 #' @importFrom expss unlab set_var_lab var_lab apply_labels
 #' @importFrom glue glue
+#' @importFrom ellipsis check_dots_unnamed
 #' @importFrom stats model.frame
 #' 
 #' @examples
@@ -70,6 +71,7 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
     debug=list()
     # Arguments checks ****************************************************
     if(TRUE){
+        check_dots_unnamed()
         coll = makeAssertCollection()    
         assertDataFrame(data, null.ok=TRUE, add=coll)
         assertCount(percent_digits, add=coll)
