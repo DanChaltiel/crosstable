@@ -10,8 +10,8 @@ crosstable_test_args()
 A list with testing parameters:
 \itemize{
 \item \code{test.summarize} - a function of two arguments (continuous variable and grouping variable), used to compare continuous variable. Returns a list of two components : \code{p.value} and \code{method} (the test name). See \link{test.summarize.auto}, \link{test.tabular.auto}, \link{test.survival.logrank}, or \link{test.summarize.linear.contrasts} for some examples of such functions. Users can provide their own function.
-\item \code{test.survival} - a function of one argument (a formula), used to compare survival estimations. Returns the same components as created by \code{test.summarize}. See \code{\link{test.survival.logrank}}. Users can provide their own function.
-\item \code{test.tabular} - a function of two arguments (two categorical variables), used to test association between two factors.  Returns the same components as created by \code{test.summarize}. See \code{\link{test.tabular.auto}} and \code{\link{test.tabular.fisher}}. Users can provide their own function.
+\item \code{test.survival} - a function of one argument (a formula), used to compare survival estimations. Returns the same components as created by \code{test.summarize}. See \link{test.survival.logrank} for example. Users can provide their own function.
+\item \code{test.tabular} - a function of two arguments (two categorical variables), used to test association between two factors.  Returns the same components as created by \code{test.summarize}. See \link{test.tabular.auto} for example. Users can provide their own function.
 \item \code{show.test} - function used to display the test result. See \code{\link{display.test}}.
 \item \code{plim} - number of digits for the p value
 \item \code{show.method} - whether to display the test name (logical)

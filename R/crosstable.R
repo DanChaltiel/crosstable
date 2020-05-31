@@ -1,6 +1,10 @@
 
 #' Easily describe datasets
 #' 
+#' Generate a descriptive table of all chosen columns, as contingency tables for categorical variables and as calculation summaries for numeric variables. If the `by` argument points to a categorical variable, `crosstable` will output a description of all columns for every level. Else, if it points to a numeric variable, `crosstable` will calculate correlation coefficients with all other selected numeric columns. Finally, if it points to a `Surv` object, `crosstable` will describe the survival at different times.
+#' 
+#' Can be formatted as an HTML table using [as_flextable()].
+#' 
 #' @param data a data.frame
 #' @param .vars the variables to describe. Can be a character or name vector, a tidyselect helper, a (lambda) function that returns a logical, or a formula. See examples or `vignette("crosstable-selection")` for more details.
 #' @param ... more variables to describe. Cannot be a lambda function nor a formula.
@@ -11,7 +15,7 @@
 #' @param total one of \["none", "row", "column" or "both"] to indicate whether to add margins. Default to `none`.
 #' @param percent_digits number of digits for percentages
 #' @param showNA whether to show NA in factors (one of \code{c("ifany", "always", "no")}, like in \code{table()})
-#' @param label whether to show labels. Use either [Hmisc::label()], [expss::var_lab()] or \code{expss::apply_labels} to add labels to the dataset columns.
+#' @param label whether to show labels. Use either [import_labels], [Hmisc::label()], [expss::var_lab()] or \code{expss::apply_labels} to add labels to the dataset columns.
 #' @param test whether to perform tests
 #' @param test_args See \code{\link{crosstable_test_args}} to override default testing behaviour.
 #' @param cor_method one of \["pearson", "kendall", or "spearman"] to indicate which correlation coefficient is to be used.
@@ -20,18 +24,20 @@
 #' @param times when using formula with [survival::Surv()] objects, which times to summarize
 #' @param followup when using formula with [survival::Surv()] objects, whether to display follow-up time
 #' @param unique_numeric the number of non-missing different levels a variable should have to be considered as numeric
-#'
+#' 
 #' @export
-#' @import checkmate rlang
+#' @importFrom checkmate makeAssertCollection assertDataFrame assertCount assertLogical assertList assertSubset assertChoice reportAssertions
+#' @importFrom rlang quos enquos enquo expr quo_is_null is_null is_quosures is_formula is_string is_empty is_lambda as_function set_env quo_squash caller_env warn abort 
 #' @importFrom tidyselect vars_select eval_select everything any_of
 #' @importFrom dplyr select mutate_if n_distinct
-#' @importFrom checkmate makeAssertCollection
 #' @importFrom purrr map map_lgl map_chr
 #' @importFrom stringr str_detect
 #' @importFrom expss unlab set_var_lab var_lab apply_labels
 #' @importFrom glue glue
 #' @importFrom ellipsis check_dots_unnamed
 #' @importFrom stats model.frame
+#' 
+#' @seealso as_flextable, import_labels, var_lab
 #' 
 #' @examples
 #' #whole table
@@ -49,7 +55,7 @@
 #'            margin=c("row", "col"), total = "both")
 #' 
 #' #predicate selection, correlation, testing
-#' crosstable(mtcars2, is.numeric, by=hp, test=TRUE)
+#' crosstable(mtcars2, where(is.numeric), by=hp, test=TRUE)
 #' 
 #' #lambda selection, effect calculation
 #' crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, effect=TRUE)
@@ -72,6 +78,7 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
     # Arguments checks ****************************************************
     if(TRUE){
         check_dots_unnamed()
+        
         coll = makeAssertCollection()    
         assertDataFrame(data, null.ok=TRUE, add=coll)
         assertCount(percent_digits, add=coll)
@@ -167,11 +174,16 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
     
     
     # Data-management *****************************************************
+    # browser()
     data_x = data_x %>% 
         mutate_if(is.logical, 
                   ~.x %>% as.character() %>% set_var_lab(var_lab(.x))) %>% 
         mutate_if(~is.numeric(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric, 
-                  ~.x %>% as.character() %>% set_var_lab(var_lab(.x)))
+                  ~{
+                      .x = .x %>% as.character() %>% set_var_lab(var_lab(.x))
+                      class(.x) = c("character", "unique_numeric")
+                      .x
+                  })
     data_y = data_y %>% 
         mutate_if(is.logical, 
                   ~.x %>% as.character() %>% set_var_lab(var_lab(.x))) %>% 
@@ -236,6 +248,5 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
     }
     return(rtn)
 }
-
 
 

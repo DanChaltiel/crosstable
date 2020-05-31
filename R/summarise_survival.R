@@ -42,7 +42,7 @@ summarise_survival_single = function(surv, times, digits, followup) {
 
 #' @importFrom dplyr mutate mutate_all rename select everything tibble group_by row_number summarise pull left_join
 #' @importFrom tidyr pivot_wider
-#' @importFrom rlang set_names
+#' @importFrom rlang set_names :=
 #' @importFrom forcats fct_explicit_na
 #' @importFrom checkmate assert
 #' @importFrom glue glue

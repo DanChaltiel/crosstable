@@ -12,7 +12,6 @@ summarize_numeric_single = function(x,funs,funs_arg){
     fun = do.call(funs2fun, as.list(funs))
     rtn = do.call(fun, c(list(x=x), funs_arg)) %>% 
         mutate_if(is.numeric, format_fixed, !!!funs_arg)
-    # browser()
     data.frame(value=t(rtn)) %>% rownames_to_column("variable")
 }
 
@@ -22,13 +21,14 @@ summarize_numeric_single = function(x,funs,funs_arg){
 #' Summarize numeric by categorial
 #' @importFrom checkmate assert_numeric assert_character assert_scalar
 #' @importFrom tibble tibble
+#' @importFrom forcats fct_explicit_na
 #' @importFrom dplyr group_by mutate ungroup mutate_at vars arrange filter .data
 #' @importFrom tidyr nest unnest pivot_wider replace_na
 #' @importFrom purrr map
 #' @keywords internal
 #' @noRd
 summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total, 
-                                    cor_digits, cor_method,  test, test_args, 
+                                    cor_digits, cor_method, test, test_args, 
                                     effect, effect_args){
     assert_numeric(x)
     assert_character(funs)
@@ -50,10 +50,12 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
     }
     
     rtn = tibble(x, by) %>% 
+        # mutate_at("by", fct_explicit_na, "NA") %>% 
         group_by(by) %>% 
         nest() %>% 
         filter(.showNA | by!="no") %>%
-        mutate(data=map(.data$data, ~summarize_numeric_single(x=.x[[1]], funs=funs, funs_arg=funs_arg))) %>%
+        mutate(data=map(.data$data, 
+                        ~summarize_numeric_single(x=.x[[1]], funs=funs, funs_arg=funs_arg))) %>%
         unnest(cols=c(.data$data)) %>% 
         arrange(by) %>% 
         ungroup() %>% mutate_at(vars(by), unlab) %>% #bug in pivotwider (tidyr/issues/831)
@@ -72,7 +74,7 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
 
 
 #' Summarize numeric by numeric (correlation)
-#' @importFrom checkmate assert_numeric assert_character
+#' @importFrom checkmate assert_numeric assert_character assert_string assert_count assert_logical assert_list
 #' @importFrom tibble tibble
 #' @importFrom dplyr mutate .data
 #' @importFrom stats cor.test
@@ -82,10 +84,37 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
 summarize_numeric_numeric = function(x, by, method, digits, test, test_args){
     assert_numeric(x)
     assert_numeric(by)
+    assert_string(method)
+    assert_count(digits)
+    assert_logical(test)
+    assert_list(test_args)
+    # browser()
     
-    ct=cor.test(x, by, method = method)
+    # ct=cor.test(x, by, method = method)
+    
+    w = ""
+    ct = withCallingHandlers(
+        tryCatch(cor.test(x, by, method = method)), 
+        warning=function(m) {
+            w <<- conditionMessage(m)
+            invokeRestart("muffleWarning")
+        }
+    )
+    #TODO déplacer dans tests
+    #TODO renommer les tests
+        
     .test=NULL
-    if(test) .test=paste0(plim(ct$p.value, test_args$plim), "\n(",ct$method, ")")
+    if(test) {
+        if(method %in% c("kendall", "spearman")){
+            if(str_detect(w, "exact p-value")){
+                ct$method = paste0(ct$method, ", normal approximation")
+            } else {
+                ct$method = paste0(ct$method, ", exact test")
+            }
+        }
+        # .test=paste0(plim(ct$p.value, test_args$plim), "\n(",ct$method, ")")
+        .test=display.test(ct)
+    }
     
     cor=round(ct$estimate, digits=digits)
     if(!is.null(ct$conf.int)){
@@ -97,6 +126,4 @@ summarize_numeric_numeric = function(x, by, method, digits, test, test_args){
     
     tibble(variable=method, value=as.character(value)) %>% mutate(test=.test)
 }
-
-
 

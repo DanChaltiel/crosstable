@@ -254,18 +254,21 @@ diff_mean.auto <- function(x, g, conf.level = 0.95, R = 500) {
     ng <- table(g)
     if (length(ng) <= 1 | length(ng) > 2) {
         ## Je ne sais pas quel effet calculer par défaut quand il existe plus de 2 catégories en colonne
-        effect <- NULL
-        ci <- NULL
-        effect.name <- NULL
-        effect.type <- NULL
-        conf.level <- NULL
+        return(list(effect=NULL, ci=NULL, effect.name=NULL, 
+                    effect.type=NULL, conf.level=NULL))
     } else if (length(ng) == 2) {
         effect <- unname(diff(rev(tapply(x, g, mean, na.rm = TRUE))))
         effect.name <- paste(names(ng), collapse = " minus ")
         if (any(ng < 50)) {
-            normg <- tapply(x, g, function(x) shapiro.test(x)$p.value)
+            normg <- tapply(x, g, function(x) {
+                if(length(unique(x))==1) return(0)
+                shapiro.test(x)$p.value
+            })
         } else {
-            normg <- tapply(x, g, function(x) ad.test(x)$p.value)
+            normg <- tapply(x, g, function(x) {
+                if(length(unique(x))==1) return(0)
+                ad.test(x)$p.value
+            })
         }
         if (any(normg < 0.05)) {
             beffect <- vector("numeric", R)

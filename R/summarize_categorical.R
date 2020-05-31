@@ -47,7 +47,6 @@ summarize_categorical_by = function(x, by, margin, showNA, total, digits,
     
     nn = table(x, by, useNA = showNA)
     .tbl = nn %>% as.data.frame(responseName="Freq", stringsAsFactors=FALSE)
-    
     if(identical(margin,-1)){
         rtn = .tbl %>% 
             transmute(variable=replace_na(x, "NA"), by=.data$by, Freq=.data$Freq) %>% 

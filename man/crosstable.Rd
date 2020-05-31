@@ -43,7 +43,7 @@ crosstable(
 
 \item{showNA}{whether to show NA in factors (one of \code{c("ifany", "always", "no")}, like in \code{table()})}
 
-\item{label}{whether to show labels. Use either \code{\link[Hmisc:label]{Hmisc::label()}}, \code{\link[expss:var_lab]{expss::var_lab()}} or \code{expss::apply_labels} to add labels to the dataset columns.}
+\item{label}{whether to show labels. Use either \link{import_labels}, \code{\link[Hmisc:label]{Hmisc::label()}}, \code{\link[expss:var_lab]{expss::var_lab()}} or \code{expss::apply_labels} to add labels to the dataset columns.}
 
 \item{funs}{functions to apply to numeric variables. Default to \code{\link{cross_summary}}.}
 
@@ -66,7 +66,10 @@ crosstable(
 \item{followup}{when using formula with \code{\link[survival:Surv]{survival::Surv()}} objects, whether to display follow-up time}
 }
 \description{
-Easily describe datasets
+Generate a descriptive table of all chosen columns, as contingency tables for categorical variables and as calculation summaries for numeric variables. If the \code{by} argument points to a categorical variable, \code{crosstable} will output a description of all columns for every level. Else, if it points to a numeric variable, \code{crosstable} will calculate correlation coefficients with all other selected numeric columns. Finally, if it points to a \code{Surv} object, \code{crosstable} will describe the survival at different times.
+}
+\details{
+Can be formatted as an HTML table using \code{\link[=as_flextable]{as_flextable()}}.
 }
 \examples{
 #whole table
@@ -84,7 +87,7 @@ crosstable(mtcars2, disp, vs, by=am,
            margin=c("row", "col"), total = "both")
 
 #predicate selection, correlation, testing
-crosstable(mtcars2, is.numeric, by=hp, test=TRUE)
+crosstable(mtcars2, where(is.numeric), by=hp, test=TRUE)
 
 #lambda selection, effect calculation
 crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, effect=TRUE)
@@ -93,4 +96,7 @@ crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, effect=TRUE)
 #Survival data (using formula UI)
 library(survival)
 crosstable(aml, Surv(time, status) ~ x,times=c(0,15,30,150), followup=TRUE)
+}
+\seealso{
+as_flextable, import_labels, var_lab
 }

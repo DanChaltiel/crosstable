@@ -4,8 +4,8 @@
 #' @return A list with testing parameters:
 #' \itemize{
 #'   \item \code{test.summarize} - a function of two arguments (continuous variable and grouping variable), used to compare continuous variable. Returns a list of two components : \code{p.value} and \code{method} (the test name). See [test.summarize.auto], [test.tabular.auto], [test.survival.logrank], or [test.summarize.linear.contrasts] for some examples of such functions. Users can provide their own function.
-#'   \item \code{test.survival} - a function of one argument (a formula), used to compare survival estimations. Returns the same components as created by \code{test.summarize}. See \code{\link{test.survival.logrank}}. Users can provide their own function. 
-#'   \item \code{test.tabular} - a function of two arguments (two categorical variables), used to test association between two factors.  Returns the same components as created by \code{test.summarize}. See \code{\link{test.tabular.auto}} and \code{\link{test.tabular.fisher}}. Users can provide their own function.
+#'   \item \code{test.survival} - a function of one argument (a formula), used to compare survival estimations. Returns the same components as created by \code{test.summarize}. See [test.survival.logrank] for example. Users can provide their own function. 
+#'   \item \code{test.tabular} - a function of two arguments (two categorical variables), used to test association between two factors.  Returns the same components as created by \code{test.summarize}. See [test.tabular.auto] for example. Users can provide their own function.
 #'   \item \code{show.test} - function used to display the test result. See \code{\link{display.test}}.
 #'   \item \code{plim} - number of digits for the p value
 #'   \item \code{show.method} - whether to display the test name (logical)
@@ -49,7 +49,7 @@ plim <- function(p, digits = 4) {
 #' @param test test
 #' @param digits number of digits
 #' @param method display method
-#' @author David Hajage
+#' @importFrom stringr str_squish
 #' @export
 display.test <- function(test, digits = 4, method = TRUE) {
   if (all(sapply(test, is.null)))
@@ -57,7 +57,7 @@ display.test <- function(test, digits = 4, method = TRUE) {
   else {
     p <- plim(test$p.value, digits = digits)
     if (method)
-      paste("p value: ", p, " \n(", test$method, ")", sep = "")
+      paste0("p value: ", p, " \n(", str_squish(test$method), ")")
     else
       p
   }
@@ -80,7 +80,8 @@ test.tabular.auto <- function(x, y) {
   if (any(dim(table(x, y)) == 1))
     test <- list(p.value = NULL, method = NULL)
   else if (all(exp >= 5))
-    test <- suppressWarnings(chisq.test(x, y, correct = FALSE))
+    # test <- suppressWarnings(chisq.test(x, y, correct = FALSE))
+    test <- chisq.test(x, y, correct = FALSE)
   else
     test <- fisher.test(x, y)
   
@@ -125,6 +126,16 @@ test.summarize.auto <- function(x, g) {
   if (any(normg < 0.05)) {
     if (length(ng) == 2) {
       type <- "wilcox"
+      r = rank(c(x, g))
+      any_ties = length(r) != length(unique(r))
+      exact = (length(x) < 50) && (length(g) < 50)
+      if(exact && !any_ties){
+        test = wilcox.test(x ~ g, correct = FALSE, exact=TRUE)
+        test$method = paste0(test$method, ", exact test")
+      } else {
+        test = wilcox.test(x ~ g, correct = FALSE, exact=FALSE)
+        test$method = paste0(test$method, ", normal approximation")
+      }
     } else {
       type <- "kruskal"
     }
@@ -132,25 +143,31 @@ test.summarize.auto <- function(x, g) {
     bartlettg <- bartlett.test(x, g)$p.value
     if (bartlettg < 0.05 & length(ng) == 2) {
       type <- "t.unequalvar"
+      test = t.test(x ~ g, var.equal = FALSE)
     } else if (bartlettg < 0.05 & length(ng) > 2) {
       type <- "a.unequalvar"
+      test = oneway.test(x ~ g, var.equal = FALSE)
     } else if (bartlettg >= 0.05 & length(ng) == 2) {
       type <- "t.equalvar"
+      test = t.test(x ~ g, var.equal = TRUE)
     } else if (bartlettg >= 0.05 & length(ng) > 2) {
       type <- "a.equalvar"
+      test = oneway.test(x ~ g, var.equal = TRUE)
     }
   }
+  # print(type)
   test <- switch(type,
-                 wilcox = wilcox.test(x ~ g, correct = FALSE),
+                 # wilcox = wilcox.test(x ~ g, correct = FALSE, exact=!any_ties),
+                 wilcox = test,
                  kruskal = kruskal.test(x, g),
                  t.unequalvar = t.test(x ~ g, var.equal = FALSE),
                  t.equalvar = t.test(x ~ g, var.equal = TRUE),
                  a.unequalvar = oneway.test(x ~ g, var.equal = FALSE),
                  a.equalvar = oneway.test(x ~ g, var.equal = TRUE))
-  p <- test$p.value
-  method <- test$method
   
-  list(p.value = p, method = method)
+  
+  list(p.value = test$p.value, 
+       method = test$method)
 }
 
 #' test for survival comparison

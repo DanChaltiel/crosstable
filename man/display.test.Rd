@@ -13,12 +13,6 @@ display.test(test, digits = 4, method = TRUE)
 
 \item{method}{display method}
 }
-\value{
-a character string
-}
 \description{
 Display a test result
-}
-\author{
-David Hajage
 }

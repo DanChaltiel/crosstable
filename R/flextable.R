@@ -20,6 +20,8 @@
 #' @importFrom stringr str_replace str_replace_all str_remove
 #' @importFrom flextable flextable autofit add_header_row merge_v merge_h bold align hline_top hline_bottom border_inner_h hline fix_border_issues as_flextable
 #' @importFrom officer fp_border
+#' @importFrom tibble as_tibble
+#' @importFrom tidyr replace_na
 #' @export
 #'
 #' @examples 
@@ -42,9 +44,10 @@
 as_flextable.crosstable = function(x, auto.fit = TRUE, compact = FALSE, show.test.name = TRUE, 
                               by_header = NULL, keep_id = FALSE,
                               generic.labels=list(id = ".id", variable = "variable", value = "value", 
-                                                  total="Total", label = "label", test = "test", effect="effect"), ...) {
+                                                  total="Total", label = "label", test = "test", 
+                                                  effect="effect"), 
+                              ...) {
     stopifnot(is.data.frame(x)) 
-    # browser()
     border1 = fp_border(color = "black", style = "solid", width = 1)
     border2 = fp_border(color = "black", style = "solid", width = 1.5)
     labs.names = setdiff(names(x), generic.labels)
@@ -72,7 +75,7 @@ as_flextable.crosstable = function(x, auto.fit = TRUE, compact = FALSE, show.tes
         x = compact.crosstable(x)
     }
     
-    rtn = x %>% mutate_all(replace_na, "NA")
+    rtn = x %>% mutate_all(replace_na, replace="NA")
     
     if(inherits(x, "compacted_crosstable")) {
         rows = attr(x, "title_rows")

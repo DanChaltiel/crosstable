@@ -10,6 +10,7 @@
 #' @rdname compact
 #'
 #' @importFrom tidyr replace_na
+#' @importFrom rlang :=
 #' @importFrom tidyselect any_of everything
 #' @importFrom dplyr lag mutate mutate_at mutate_all vars
 #' @importFrom officer fp_border
@@ -62,6 +63,7 @@ compact.data.frame = function(data, name_from, name_to="variable", wrap_cols=NUL
 #'
 #' @importFrom dplyr select %>% .data intersect
 #' @importFrom stringr str_subset 
+#' @importFrom tidyselect any_of 
 #' @export
 #' 
 #' @examples 
@@ -74,23 +76,19 @@ compact.crosstable = function(data, name_from=c("label", ".id"), name_to="variab
     by_levels = attr(data, "by_levels")
     by = attr(data, "by")
     name_from = match.arg(name_from)
-    
     wrap_cols = intersect(names(data), c("test", "effect"))
-    if(name_from=="label") data = data %>% select(-.data$.id)
-    else data = data %>% select(-.data$label)
-    
-    # browser()
+    if(name_from=="label") rcol=".id" else rcol="label"
     
     rtn = data %>% 
+        select(-any_of(rcol)) %>% 
         compact.data.frame(name_from=name_from, name_to=name_to, 
                            wrap_cols=wrap_cols, rtn_flextable=FALSE)
-    new_attr_names = setdiff(names(attributes(data)),names(attributes(rtn)))
-    attributes(rtn) = c(attributes(rtn),attributes(data)[new_attr_names])
-    class(rtn) = c(class(data), "compacted_crosstable")
+    
+    new_attr_names = setdiff(names(attributes(data)), names(attributes(rtn)))
+    attributes(rtn) = c(attributes(rtn), attributes(data)[new_attr_names])
+    class(rtn) = c("crosstable", "compacted_crosstable", "data.frame")
     rtn
 }
-
-
 
 
 

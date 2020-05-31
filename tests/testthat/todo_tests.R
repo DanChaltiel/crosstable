@@ -2,7 +2,7 @@
 
 # library(survival)
 # aml$surv = Surv(aml$time, aml$status)
-# Hmisc::label(aml$surv) = "survival"
+# expss::var_lab(aml$surv) = "survival"
 # aml$dummy = "dummy"
 # aml$dummy = factor("dummy")
 # aml$dummy2 = c(rep("A",7), rep("B",8), rep(NA,8))

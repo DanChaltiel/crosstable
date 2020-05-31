@@ -1,5 +1,5 @@
 
-#' @importFrom rlang env env_has inform
+#' @importFrom rlang env env_has inform is_installed
 #' @author tidyselect (https://github.com/r-lib/tidyselect/blob/2fab83639982d37fd94914210f771ab9cbd36b4b/R/utils.R#L281)
 #' @keywords internal
 #' @noRd
@@ -17,9 +17,6 @@ warning_once = function(msg, id=msg) {
     warn(paste(msg, x, sep = "\n"))
 }
 inform_env = rlang::env()
-
-
-
 
 
 
@@ -43,6 +40,7 @@ get_defined_function = function(name) {
 }
 
 
+
 #' Get label if wanted and available, or name otherwise
 #' @keywords internal
 #' @importFrom expss var_lab
@@ -50,6 +48,7 @@ get_defined_function = function(name) {
 get_label = function(x, label=TRUE){
     if(label && !is.null(var_lab(x))) var_lab(x) else names(x)
 }
+
 
 
 #' Clean functions names to character
@@ -68,17 +67,6 @@ clear_funs = function(funs){
 }
 
 
-#' Remove blancks at the begining and the end
-#'
-#' @param x x
-#' @author David Hajage
-#' @keywords internal
-#' @noRd
-trim = function (x) {
-    x = sub("^ +", "", x)
-    x = sub(" +$", "", x)
-    x
-}
 
 ##' Return the number of non NA observations
 ##'
@@ -102,7 +90,7 @@ na = function(x, na.rm = FALSE) {
     sum(is.na(x))
 }
 
-# 
+
 #' test
 #'
 #' @param x x
@@ -133,6 +121,7 @@ is.numeric.and.not.surv = function(x) {
 #' @author David Hajage
 #' @keywords internal
 #' @noRd
+#' @importFrom  stringr str_squish
 funs2fun = function(...) {
     fnames = as.character(match.call()[-1])
     fs = list(...)
@@ -165,7 +154,7 @@ funs2fun = function(...) {
                 finalargs = c(list(x = x), args)
             }
             tmp = do.call(func, finalargs)
-            names(tmp) = trim(paste(fnames[i], names(tmp)))
+            names(tmp) = str_squish(paste(fnames[i], names(tmp)))
             results = c(results, as.list(tmp))
         }
         data.frame(results, check.names = FALSE)

@@ -2,6 +2,7 @@
 #' @keywords internal
 #' @importFrom expss unlab
 #' @importFrom glue glue
+#' @importFrom rlang :=
 #' @importFrom dplyr rename select everything .data
 #' @noRd
 cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,

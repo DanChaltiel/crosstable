@@ -42,3 +42,4 @@ cross_by = function(data_x, data_y, funs, funs_arg, margin, total, percent_digit
 }
 
 
+# crosstable(mtcars3, dummy_num, by=disp)
