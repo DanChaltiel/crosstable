@@ -44,6 +44,42 @@ format_fixed = function(x, digits=1, zero_digits=1, only_round=getOption("crosst
 }
 
 
+#' Import labels from a dataset
+#'
+#' @param .tbl the data.frame to labellize
+#' @param data_label a data.frame from which to import labels
+#' @param name_from in `data_label`, which column to get the variable name
+#' @param label_from in `data_label`, which column to get the variable label
+#' @param verbose if TRUE, displays a warning if a variable name is not found in `data_label`
+#'
+#' @export
+#' @importFrom expss var_lab var_lab<-
+#' @importFrom glue glue
+#'
+#' @examples
+#' iris_label = tibble::tibble(name=c("Sepal.Length", "Sepal.Width",
+#'                                    "Petal.Length", "Petal.Width", "Species"),
+#'                             label=c("Length of Sepals", "Width of Sepals",
+#'                                     "Length of Petals", "Width of Petals", "Specie name"))
+#' iris %>% 
+#'   import_labels(iris_label) %>% 
+#'   crosstable
+import_labels = function(.tbl, data_label, name_from = "name", label_from = "label", 
+                         verbose=TRUE){
+  data_label = as.data.frame(data_label)
+  for(i in 1:nrow(data_label)){
+    name = data_label[i, name_from]
+    label = data_label[i, label_from]
+    if(is.null(.tbl[[name]]) && verbose){
+      warning(glue("Cannot import label, variable '{name}' not found"))
+    } else {
+      var_lab(.tbl[name]) = label
+    }
+  }
+  .tbl
+}
+
+
 # summary functions --------------------------------------------------------
 
 
