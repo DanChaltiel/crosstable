@@ -2,6 +2,7 @@
 # Init --------------------------------------------------------------------
 
 Sys.setenv(LANG = "en")
+options(warn = 2)
 options(warn = 1)
 options(stringsAsFactors = FALSE)
 options(tidyselect_verbosity = "verbose")
@@ -15,6 +16,7 @@ mtcars3$vs[5:12] = NA
 mtcars3$cyl3 = mtcars3$cyl==3
 mtcars3$cyl6 = mtcars3$cyl==6
 mtcars3$dummy = "dummy"
+mtcars3$dummy_num_vs = ifelse(mtcars3$vs=="vshaped", 0, rnorm(15))
 mtcars3$dummy2 = mtcars3$dummy
 mtcars3$dummy2[5:12] = NA
 mtcars3$surv = Surv(mtcars3$disp, mtcars3$am=="manual")
@@ -36,13 +38,18 @@ test_that("Auto-testing is bad and you should feel bad.", {
 
 # By numeric --------------------------------------------------
 test_that("numeric by numeric", {
-    x1=crosstable(mtcars3, is.numeric.and.not.surv, by=disp)
-    expect_equal(dim(x1), c(6,4))
+    x1=crosstable(mtcars3, where(is.numeric.and.not.surv), by=disp)
+    expect_equal(dim(x1), c(7,4))
     expect_equal(sum(is.na(x1)), 0)
     
-    x2=crosstable(mtcars3, is.numeric.and.not.surv, by=disp, test=T) 
-    expect_equal(dim(x2), c(6,5))
+    x2=crosstable(mtcars3, where(is.numeric.and.not.surv), by=disp, test=T) 
+    expect_equal(dim(x2), c(7,5))
     expect_equal(sum(is.na(x2)), 0)
+    
+    crosstable(mtcars3, carb, by=disp, cor_method = "kendall")
+    crosstable(mtcars3, where(is.numeric.and.not.surv), by=disp, cor_method = "pearson")
+    crosstable(mtcars3, where(is.numeric.and.not.surv), by=disp, cor_method = "kendall")
+    crosstable(mtcars3, where(is.numeric.and.not.surv), by=disp, cor_method = "spearman")
     
     expect_warning(crosstable(mtcars2, disp, by=hp, funs=mean),
                    "`funs` argument will not be used if `by` is numeric.")
@@ -54,8 +61,8 @@ test_that("numeric+factor by numeric: ", {
     expect_warning(crosstable(mtcars3, is.numeric, by=disp, effect=T), 
                    "Cannot cross column 'surv' \\(Surv\\) by column 'disp' \\(numeric\\)")
     
-    x1=crosstable(mtcars3, is.numeric.and.not.surv, by=disp)
-    expect_equal(dim(x1), c(6,4))
+    x1=crosstable(mtcars3, where(is.numeric.and.not.surv), by=disp)
+    expect_equal(dim(x1), c(7,4))
     expect_equal(sum(is.na(x1)), 0)
 })
 
@@ -189,12 +196,15 @@ test_that("Funs arguments", {
 
 
 
-# Tests (stats) --------------------------------------------------
+# Statistical Tests --------------------------------------------------
 # test_that("Tests (stats)", {
 #     #2sample ttest, fisher, welch, chi2, logrank
 #     name = "test_stats.rds"
+#     mtcars3$dummy_num = 0
 #     x = crosstable(mtcars3, -c(carb,disp), by=vs, times=c(0,100,200,400), test=T)
 #     x %>% as_flextable()
+#     # crosstable(mtcars3, dummy_num_vs, by=vs, test=T)
+#     
 #     if(is_testing()){
 #         expect_equivalent(x, readRDS(paste0("rds/",name)))
 #     } else {
@@ -204,6 +214,47 @@ test_that("Funs arguments", {
 #         setdiff(readRDS(paste0("tests/testthat/rds/",name)), x)
 #     }
 # })
+
+test_that("Statistical Tests", {
+  # Fisher
+  x=crosstable(mtcars3, cyl, by=vs, test=T)
+  expect_equal(x$test[1], "p value: 0.0001 \n(Fisher's Exact Test for Count Data)")
+  # Chi Square
+  x=crosstable(iris, I(Species == "versicolor")~I(Species == "setosa"), test=T)
+  
+  # wilcox (exact=F)
+  x=crosstable(mtcars3, disp, by=vs, test=T)
+  expect_equal(x$test[1], "p value: 0.0002 \n(Wilcoxon rank sum test, normal approximation)")
+  # TODO wilcox (exact=T)
+  # t.equalvar
+  x = crosstable(mtcars3, mpg, by=vs, test=T)
+  expect_equal(x$test[1], "p value: <0.0001 \n(Two Sample t-test)")
+  # t.unequalvar
+  x=crosstable(mtcars3, hp, by=vs, test=T)
+  expect_equal(x$test[1], "p value: <0.0001 \n(Welch Two Sample t-test)")
+  # a.unequalvar
+  x=crosstable(mtcars3, mpg, by=cyl, test=T)
+  expect_equal(x$test[1], "p value: <0.0001 \n(One-way analysis of means (not assuming equal variances))")
+  # kruskal
+  x=crosstable(mtcars3, drat, by=cyl, test=T)
+  expect_equal(x$test[1], "p value: 0.0017 \n(Kruskal-Wallis rank sum test)")
+  
+  #Pearson
+  x=crosstable(mtcars3, mpg, by=disp, cor_method="pearson", test=T)
+  expect_equal(x$test[1], "p value: <0.0001 \n(Pearson's product-moment correlation)")
+  #Kendall normal
+  x=crosstable(mtcars3, mpg, by=disp, cor_method="kendall", test=T)
+  expect_equal(x$test[1], "p value: <0.0001 \n(Kendall's rank correlation tau, normal approximation)")
+  #Kendall exact
+  x=crosstable(iris, Petal.Length, by=Sepal.Length, cor_method="kendall", test=T)
+  expect_equal(x$test[1], "p value: <0.0001 \n(Kendall's rank correlation tau, exact test)")
+  #Spearman normal
+  x=crosstable(mtcars3, mpg, by=disp, cor_method="spearman", test=T)
+  expect_equal(x$test[1], "p value: <0.0001 \n(Spearman's rank correlation rho, normal approximation)")
+  #TODO Spearman exact
+  # crosstable(iris, is.numeric, by=Petal.Width, cor_method="spearman", test=T)
+})
+
 
 test_that("Tests (linear contrasts)", {
     my_test_args=crosstable_test_args()
@@ -242,16 +293,21 @@ test_that("Tests (linear contrasts)", {
 test_that("Testing everything", {
     name = "test_everything.rds"
     set.seed(1234)
-    x = expect_warning(crosstable(mtcars3, disp+hp+am+surv~vs, margin="all", total="both", times=c(0,100,200,400), followup=TRUE, 
-                   funs_arg = list(dig=9), test=T, effect=T),"cannot compute exact p-value with ties")
+    x = expect_warning(
+      crosstable(mtcars3, disp+hp+am+surv~vs, margin="all", total="both", 
+                 times=c(0,100,200,400), followup=TRUE, funs_arg = list(dig=9), 
+                 test=T, effect=T),
+      "Loglik converged before variable.*")
     x %>% as_flextable()
     if(is_testing()){
-        expect_equivalent(x, readRDS(paste0("rds/",name)))
+      expect_equivalent(x, readRDS(paste0("rds/",name)))
     } else {
-        if(do.save)
-            saveRDS(x, paste0("tests/testthat/rds/",name), version = 2)
-        expect_equivalent(x, readRDS(paste0("tests/testthat/rds/",name)))
-        setdiff(x, readRDS(paste0("tests/testthat/rds/",name)))
+      save_name = paste0("tests/testthat/rds/",name)
+      if(do.save)
+        saveRDS(x, save_name, version = 2)
+      expect_equivalent(x, readRDS(save_name))
+      setdiff(x, readRDS(save_name))$effect
+      setdiff(readRDS(save_name), x)$effect
     }
 })
 
@@ -264,7 +320,6 @@ test_that("Warnings", {
     ct_warns = function() { crosstable(mtcars3, by=vs, times=c(0,100,200,400), test=T, effect=T) }
     
     w = capture_warnings(ct_warns())
-    expect_match(w, "cannot compute exact p-value with ties", all = FALSE)
     expect_match(w, "Loglik converged before variable  2", all = FALSE)
     expect_match(w, "Could not calculate effect. Is there not 2 groups exactly?", all = FALSE)
 })
@@ -274,6 +329,13 @@ test_that("Anything by surv = error", {
     expect_error(
         crosstable(mtcars3, by=surv, times=c(0,100,200,400)),
         "Crosstable only supports numeric, logical, character or factor `by` columns.*"
+    )
+})
+
+test_that("Unnamed ellipsis", {
+    expect_error(
+        crosstable(mtcars3, foo=vs),
+        class = "rlib_error_dots_named"
     )
 })
 

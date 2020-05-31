@@ -163,10 +163,10 @@ test_that("crosstable with a single function", {
     
     #standard functions
     expect_cross(
-        crosstable(iris_num, foo),
+        crosstable(iris_num, where(foo)),
         xnames=c("SL", "PL"), byname=NULL, dim=c(8,4))
     expect_cross(
-        crosstable(iris_num, bar),
+        crosstable(iris_num, where(bar)),
         xnames=c("SL", "PW"), byname=NULL, dim=c(8,4))
     
     #lambda and anonymous functions
@@ -187,16 +187,16 @@ test_that("crosstable with multiple functions", {
     
     #standard functions
     expect_cross(
-        crosstable(iris_num, foo & bar),
+        crosstable(iris_num, where(foo) & where(bar)),
         xnames=c("SL"), byname=NULL, dim=c(4,4))
     expect_cross(
-        crosstable(iris_num, foo, bar),
+        crosstable(iris_num, where(foo), where(bar)),
         xnames=c("SL", "PL", "PW"), byname=NULL, dim=c(12,4))
     expect_cross(
-        crosstable(iris_num, bar, foo),
+        crosstable(iris_num, where(bar), where(foo)),
         xnames=c("SL", "PW", "PL"), byname=NULL, dim=c(12,4))
     expect_cross(
-        crosstable(iris_num, foo | bar),
+        crosstable(iris_num, where(foo) | where(bar)),
         xnames=c("SL", "PL", "PW"), byname=NULL, dim=c(12,4))
     
     #lambda and anonymous functions
@@ -206,16 +206,16 @@ test_that("crosstable with multiple functions", {
     
     #complex function composition
     expect_cross(
-        crosstable(iris_num, is.numeric & (foo | bar)),
+        crosstable(iris_num, where(is.numeric) & (where(foo) | where(bar))),
         xnames=c("SL", "PL", "PW"), byname=NULL, dim=c(12,4))
     expect_cross(
-        crosstable(iris_num, is.numeric | (foo & bar)),
+        crosstable(iris_num, where(is.numeric) | (where(foo) & where(bar))),
         xnames=c("SL", "SW", "PL", "PW"), byname=NULL, dim=c(16,4))
     expect_cross(
-        crosstable(iris_num, foo | bar, is.numeric, -Petal.Length),
+        crosstable(iris_num, where(foo) | where(bar), where(is.numeric), -Petal.Length),
         xnames=c("SL", "PW", "SW"), byname=NULL, dim=c(12,4))
     expect_cross(
-        crosstable(iris_num, foo | bar, -is.numeric, Petal.Length),
+        crosstable(iris_num, where(foo) | where(bar), -where(is.numeric), Petal.Length),
         xnames=c("PL"), byname=NULL, dim=c(4,4))
 })
 
@@ -259,7 +259,7 @@ test_that("crosstable ultimate selection", {
         crosstable(iris, everything()),
         xnames=c("SL", "SW", "PL", "PW", "Sp"), byname=NULL, dim=c(19,4))
     expect_cross(
-        crosstable(iris, ~is.numeric(.x), is.double, "Species", -Sepal.Width),
+        crosstable(iris, ~is.numeric(.x), where(is.double), "Species", -Sepal.Width),
         xnames=c("SL", "PL", "PW", "Sp"), byname=NULL, dim=c(15,4))
 })
 
