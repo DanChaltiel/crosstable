@@ -24,7 +24,7 @@ summarize_numeric_single = function(x,funs,funs_arg){
 #' @importFrom forcats fct_explicit_na
 #' @importFrom dplyr group_by mutate ungroup mutate_at vars arrange filter .data
 #' @importFrom tidyr nest unnest pivot_wider replace_na
-#' @importFrom purrr map
+#' @importFrom purrr map imap reduce
 #' @keywords internal
 #' @noRd
 summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total, 
@@ -33,7 +33,7 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
     assert_numeric(x)
     assert_character(funs)
     assert_scalar(showNA)
-    .=NULL #mute the R CMD Check note
+    # .=NULL #mute the R CMD Check note
     .na=.effect=.test=.total=NULL
     if(effect) 
         .effect = effect_args$show.effect(effect_args$effect.summarize(x, by, effect_args$conf.level), 
@@ -49,17 +49,12 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
         .na="no NA"
     }
     
-    rtn = tibble(x, by) %>% 
-        # mutate_at("by", fct_explicit_na, "NA") %>% 
-        group_by(by) %>% 
-        nest() %>% 
-        filter(.showNA | by!="no") %>%
-        mutate(data=map(.data$data, 
-                        ~summarize_numeric_single(x=.x[[1]], funs=funs, funs_arg=funs_arg))) %>%
-        unnest(cols=c(.data$data)) %>% 
-        arrange(by) %>% 
-        ungroup() %>% mutate_at(vars(by), unlab) %>% #bug in pivotwider (tidyr/issues/831)
-        pivot_wider(names_from="by", values_from = "value") %>% 
+    if(.showNA==FALSE) by = by[!is.na(by)]
+    by = fct_explicit_na(by, "NA")
+    rtn = unique(by) %>% sort() %>% set_names() %>% 
+        map(~summarize_numeric_single(x[by==.x], funs=funs, funs_arg=funs_arg)) %>% 
+        imap(~rename(.x, !!.y:=value)) %>% 
+        reduce(left_join, by="variable") %>%
         {if(!"NA" %in% names(.)){mutate(.,"NA"=.na)} else .} %>%
         mutate(Total=.total, effect=.effect, test=.test) %>%
         mutate_all(as.character)
