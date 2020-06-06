@@ -36,6 +36,24 @@ test_that("Auto-testing is bad and you should feel bad.", {
 
 
 
+
+# Labelling ---------------------------------------------------------------
+test_that("Labelling", {
+  iris_label = tibble::tibble(
+    name=c("Sepal.Length", "Sepal.Width",
+           "Petal.Length", "Petal.Width", "Species"),
+    label=c("Length of Sepals", "Width of Sepals",
+            "Length of Petals", "Width of Petals", "Specie name")
+  )
+  x=import_labels(iris, iris_label)
+  expect_equivalent(
+    x %>% map(attributes) %>% map("label") %>% unlist,
+    iris_label$label
+  )
+})
+
+
+
 # By numeric --------------------------------------------------
 test_that("numeric by numeric", {
     x1=crosstable(mtcars3, where(is.numeric.and.not.surv), by=disp)
@@ -216,6 +234,9 @@ test_that("Funs arguments", {
 # })
 
 test_that("Statistical Tests", {
+  set.seed(0)
+  dummy_data = tibble(x_norm=rnorm(50,0,20), x_exp=rexp(50,60), y=rnorm(50,0,20), tmt2=rep(c("A","B"), 25), tmt3=LETTERS[1:3][sample(3,50,replace=TRUE)])
+  
   # Fisher
   x=crosstable(mtcars3, cyl, by=vs, test=T)
   expect_equal(x$test[1], "p value: 0.0001 \n(Fisher's Exact Test for Count Data)")
@@ -225,7 +246,9 @@ test_that("Statistical Tests", {
   # wilcox (exact=F)
   x=crosstable(mtcars3, disp, by=vs, test=T)
   expect_equal(x$test[1], "p value: 0.0002 \n(Wilcoxon rank sum test, normal approximation)")
-  # TODO wilcox (exact=T)
+  # wilcox (exact=T)
+  x=crosstable(dummy_data, x_exp, by=tmt2, test=T)
+  expect_equal(x$test[1], "p value: 0.4185 \n(Wilcoxon rank sum test, exact test)")
   # t.equalvar
   x = crosstable(mtcars3, mpg, by=vs, test=T)
   expect_equal(x$test[1], "p value: <0.0001 \n(Two Sample t-test)")
@@ -235,6 +258,9 @@ test_that("Statistical Tests", {
   # a.unequalvar
   x=crosstable(mtcars3, mpg, by=cyl, test=T)
   expect_equal(x$test[1], "p value: <0.0001 \n(One-way analysis of means (not assuming equal variances))")
+  # a.equalvar
+  x=crosstable(dummy_data, x_norm, by=tmt3, test=T)
+  expect_equal(x$test[1], "p value: 0.1626 \n(One-way analysis of means)")
   # kruskal
   x=crosstable(mtcars3, drat, by=cyl, test=T)
   expect_equal(x$test[1], "p value: 0.0017 \n(Kruskal-Wallis rank sum test)")
@@ -251,8 +277,13 @@ test_that("Statistical Tests", {
   #Spearman normal
   x=crosstable(mtcars3, mpg, by=disp, cor_method="spearman", test=T)
   expect_equal(x$test[1], "p value: <0.0001 \n(Spearman's rank correlation rho, normal approximation)")
-  #TODO Spearman exact
-  # crosstable(iris, is.numeric, by=Petal.Width, cor_method="spearman", test=T)
+  #Spearman exact
+  x=crosstable(dummy_data, x_exp, by=y, cor_method="spearman", test=T)
+  expect_equal(x$test[1], "p value: 0.1860 \n(Spearman's rank correlation rho, exact test)")
+  
+  #Logrank
+  x=crosstable(mtcars3, surv, by=am, test=T)
+  expect_equal(x$test[1], "p value: <0.0001 \n(Logrank test)")
 })
 
 
