@@ -65,9 +65,6 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
 
 
 
-
-
-
 #' Summarize numeric by numeric (correlation)
 #' @importFrom checkmate assert_numeric assert_character assert_string assert_count assert_logical assert_list
 #' @importFrom tibble tibble
@@ -83,34 +80,9 @@ summarize_numeric_numeric = function(x, by, method, digits, test, test_args){
     assert_count(digits)
     assert_logical(test)
     assert_list(test_args)
-    # browser()
     
-    # ct=cor.test(x, by, method = method)
-    
-    w = ""
-    ct = withCallingHandlers(
-        tryCatch(cor.test(x, by, method = method)), 
-        warning=function(m) {
-            w <<- conditionMessage(m)
-            invokeRestart("muffleWarning")
-        }
-    )
-    #TODO déplacer dans tests
-    #TODO renommer les tests
-        
-    .test=NULL
-    if(test) {
-        if(method %in% c("kendall", "spearman")){
-            if(str_detect(w, "exact p-value")){
-                ct$method = paste0(ct$method, ", normal approximation")
-            } else {
-                ct$method = paste0(ct$method, ", exact test")
-            }
-        }
-        # .test=paste0(plim(ct$p.value, test_args$plim), "\n(",ct$method, ")")
-        .test=display.test(ct)
-    }
-    
+    ct=test_args$test.correlation(x, by, method=method)
+
     cor=round(ct$estimate, digits=digits)
     if(!is.null(ct$conf.int)){
         ci=round(ct$conf.int, digits=digits)
@@ -118,6 +90,8 @@ summarize_numeric_numeric = function(x, by, method, digits, test, test_args){
     } else {
         value=glue("{cor}")
     }
+    
+    if(test) .test=test_args$show.test(ct) else .test=NULL
     
     tibble(variable=method, value=as.character(value)) %>% mutate(test=.test)
 }

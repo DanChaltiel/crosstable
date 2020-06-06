@@ -1,22 +1,43 @@
 
-#' Default arguments for \code{\link{crosstable}} tests
+#' Default arguments for tests in [crosstable]
+#' 
+#' This is the starting point for refining the testing algorithm used in crosstable. Users can provide their own functions for test.~.
 #'
 #' @return A list with testing parameters:
 #' \itemize{
-#'   \item \code{test.summarize} - a function of two arguments (continuous variable and grouping variable), used to compare continuous variable. Returns a list of two components : \code{p.value} and \code{method} (the test name). See [test.summarize.auto], [test.tabular.auto], [test.survival.logrank], or [test.summarize.linear.contrasts] for some examples of such functions. Users can provide their own function.
-#'   \item \code{test.survival} - a function of one argument (a formula), used to compare survival estimations. Returns the same components as created by \code{test.summarize}. See [test.survival.logrank] for example. Users can provide their own function. 
-#'   \item \code{test.tabular} - a function of two arguments (two categorical variables), used to test association between two factors.  Returns the same components as created by \code{test.summarize}. See [test.tabular.auto] for example. Users can provide their own function.
-#'   \item \code{show.test} - function used to display the test result. See \code{\link{display.test}}.
-#'   \item \code{plim} - number of digits for the p value
-#'   \item \code{show.method} - whether to display the test name (logical)
+#'   \item `test.summarize` - a function of two arguments (continuous variable and grouping variable), used to compare continuous variable. Must return a list of two components : `p.value` and `method`. See [`test.summarize.auto`] or [`test.summarize.linear.contrasts`] for some examples of such functions.
+#'   
+#'   \item `test.tabular` - a function of two arguments (two categorical variables), used to test association between two categorical variables.  Must return a list of two components : `p.value` and `method`. See [`test.tabular.auto`] for example.
+#'   
+#'   \item `test.correlation` - a function of three arguments (two continuous variables plus the correlation method), used to test association between two continuous variables.  Like `cor.test`, it must return a list of at least `estimate`, `p.value`, and `method`, with also `conf.int` optionnaly. See [`test.correlation.auto`] for example.
+#'   
+#'   \item `test.survival` - a function of one argument (the formula `surv~by`), used to compare survival estimations. Must return a list of two components : `p.value` and `method`. See [`test.survival.logrank`] for example.
+#'   
+#'   \item `show.test` - function used to display the test result. See [`display.test`].
+#'   \item `plim` - number of digits for the p value
+#'   \item `show.method` - whether to display the test name (logical)
 #' } 
+#' 
+#' @aliases test_args
+#' 
+#' @seealso [`test.summarize.auto`], [`test.tabular.auto`], [`test.survival.logrank`], [`test.summarize.linear.contrasts`], [`display.test`]
 #' 
 #' @export
 #' @author Dan Chaltiel
+#' 
+#' 
+#' @examples
+#' library(dplyr)
+#' my_test_args=crosstable_test_args()
+#' my_test_args$test.summarize = test.summarize.linear.contrasts
+#' iris %>%
+#'   mutate(Petal.Width.qt = paste0("Q", ntile(Petal.Width, 5)) %>% ordered()) %>%
+#'   crosstable(Petal.Length ~ Petal.Width.qt, test=TRUE, test_args = my_test_args)
 crosstable_test_args = function(){
   list(
     test.summarize = test.summarize.auto, 
     test.tabular = test.tabular.auto, 
+    test.correlation = test.correlation.auto, 
     test.survival = test.survival.logrank, 
     show.test = display.test, 
     plim = 4, 
@@ -63,6 +84,40 @@ display.test <- function(test, digits = 4, method = TRUE) {
   }
 }
 
+
+
+#' test for correlation coefficients
+#'
+#' @param x vector
+#' @param by another vector
+#' @param method "pearson", "kendall", or "spearman"
+#'
+#' @return the correlation test with appropriate method
+#' @importFrom stringr str_detect
+#' @export
+test.correlation.auto <- function(x, by, method) {
+  exact=TRUE
+  ct = withCallingHandlers(
+    tryCatch(cor.test(x, by, method = method)), 
+    warning=function(m) {
+      if(str_detect(conditionMessage(m), "exact p-value"))
+        exact<<-FALSE 
+      invokeRestart("muffleWarning")
+    }
+  )
+  
+  if(method %in% c("kendall", "spearman")){
+    if(!exact){
+      ct$method = paste0(ct$method, ", normal approximation")
+    } else {
+      ct$method = paste0(ct$method, ", exact test")
+    }
+  }
+  ct
+}
+
+
+
 #' test for contingency table
 #'
 #' Compute a chisq.test, a chisq.test with correction of continuity
@@ -80,7 +135,6 @@ test.tabular.auto <- function(x, y) {
   if (any(dim(table(x, y)) == 1))
     test <- list(p.value = NULL, method = NULL)
   else if (all(exp >= 5))
-    # test <- suppressWarnings(chisq.test(x, y, correct = FALSE))
     test <- chisq.test(x, y, correct = FALSE)
   else
     test <- fisher.test(x, y)
@@ -126,16 +180,21 @@ test.summarize.auto <- function(x, g) {
   if (any(normg < 0.05)) {
     if (length(ng) == 2) {
       type <- "wilcox"
-      r = rank(c(x, g))
-      any_ties = length(r) != length(unique(r))
-      exact = (length(x) < 50) && (length(g) < 50)
-      if(exact && !any_ties){
-        test = wilcox.test(x ~ g, correct = FALSE, exact=TRUE)
+      exact=TRUE
+      test = withCallingHandlers(
+        tryCatch(wilcox.test(x ~ g, correct = FALSE, exact=TRUE)), 
+        warning=function(m) {
+          if(str_detect(conditionMessage(m), "exact p-value"))
+            exact<<-FALSE 
+          invokeRestart("muffleWarning")
+        }
+      )
+      if(exact){
         test$method = paste0(test$method, ", exact test")
       } else {
-        test = wilcox.test(x ~ g, correct = FALSE, exact=FALSE)
         test$method = paste0(test$method, ", normal approximation")
       }
+      
     } else {
       type <- "kruskal"
     }
