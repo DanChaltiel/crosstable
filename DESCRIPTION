@@ -1,7 +1,7 @@
 Package: crosstable
 Title: Crosstables for descriptive analyses
 Encoding: UTF-8
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     c(person(given="Dan", family="Chaltiel", 
              email = "dan.chaltiel@gmail.com", 
@@ -18,7 +18,7 @@ Depends:
 Imports:
     stats,
     rlang,
-    dplyr,
+    dplyr (>= 1.0.0),
     purrr,
     checkmate,
     tidyselect,

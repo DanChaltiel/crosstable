@@ -68,8 +68,8 @@ import_labels = function(.tbl, data_label, name_from = "name", label_from = "lab
                          verbose=TRUE){
   data_label = as.data.frame(data_label)
   for(i in 1:nrow(data_label)){
-    name = data_label[i, name_from]
-    label = data_label[i, label_from]
+    name = as.character(data_label[i, name_from])
+    label = as.character(data_label[i, label_from])
     if(is.null(.tbl[[name]]) && verbose){
       warning(glue("Cannot import label, variable '{name}' not found"))
     } else {
@@ -78,6 +78,7 @@ import_labels = function(.tbl, data_label, name_from = "name", label_from = "lab
   }
   .tbl
 }
+
 
 
 # summary functions --------------------------------------------------------
