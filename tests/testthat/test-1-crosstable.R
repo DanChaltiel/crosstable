@@ -19,9 +19,9 @@ mtcars3$dummy = "dummy"
 mtcars3$dummy_num_vs = ifelse(mtcars3$vs=="vshaped", 0, rnorm(15))
 mtcars3$dummy2 = mtcars3$dummy
 mtcars3$dummy2[5:12] = NA
+mtcars3$test = rbinom(nrow(mtcars3), 1, 0.5) %>% factor(labels = c("A","B"))
 mtcars3$surv = Surv(mtcars3$disp, mtcars3$am=="manual")
 expss::var_lab(mtcars3$surv) = "Dummy survival"
-
 
 do.save=FALSE
 # do.save=TRUE
@@ -296,6 +296,12 @@ test_that("Tests (linear contrasts)", {
     expect_equal(x$test[1], "p value: <0.0001 \n(Contrast test for linear trend)")
     expect_equal(dim(x), c(4,9))
     expect_equal(sum(is.na(x)), 0)
+})
+
+test_that("Tests can be a variable name", {
+    x=crosstable(mtcars3, test, by=vs, test=TRUE)
+    expect_equal(x$.id[1], "test")
+    expect_equal(dim(x), c(2,7))
 })
 
 # 

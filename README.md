@@ -27,6 +27,10 @@ install.packages("devtools")
 devtools::install_github("DanChaltiel/crosstable")
 ```
 
+In case of any installation problem, try reading [the
+wiki](https://github.com/DanChaltiel/crosstable/wiki/Installation-problems)
+or fill an [Issue](https://github.com/DanChaltiel/crosstable/issues).
+
 ## Getting help
 
 You can use the vignettes:
@@ -71,7 +75,7 @@ crosstable(iris)
 ```
 
 ``` r
-#using the dataset mtcars2 for labels and the function `as_flextable` for HTML formatting
+#using the mtcars2 dataset (which has labels) and the `as_flextable` function (for HTML formatting)
 
 #tidyselection, by, custom functions
 library(tidyverse)

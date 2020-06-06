@@ -36,6 +36,8 @@ install.packages("devtools")
 devtools::install_github("DanChaltiel/crosstable")
 ```
 
+In case of any installation problem, try reading [the wiki](https://github.com/DanChaltiel/crosstable/wiki/Installation-problems) or fill an [Issue](https://github.com/DanChaltiel/crosstable/issues).
+
 ## Getting help
 
 You can use the vignettes: 
