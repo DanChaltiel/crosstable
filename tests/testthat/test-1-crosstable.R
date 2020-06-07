@@ -248,7 +248,7 @@ test_that("Statistical Tests", {
   x=crosstable(mtcars3, disp, by=vs, test=T)
   expect_equal(x$test[1], "p value: 0.0002 \n(Wilcoxon rank sum test)")
   # wilcox (exact=T)
-  if(package_version(R.version) > package_version("3.6")) {
+  if(package_version(R.version) >= package_version("4.0")) {
     x=crosstable(dummy_data, x_exp, by=tmt2, test=T)
     expect_equal(x$test[1], "p value: 0.4185 \n(Wilcoxon rank sum exact test)")
   } else {
@@ -333,8 +333,8 @@ test_that("Testing everything", {
       if(do.save)
         saveRDS(x, save_name, version = 2)
       expect_equivalent(x, readRDS(save_name))
-      setdiff(x, readRDS(save_name))$effect
-      setdiff(readRDS(save_name), x)$effect
+      setdiff(x, readRDS(save_name))$test
+      setdiff(readRDS(save_name), x)$test
     }
 })
 
