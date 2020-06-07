@@ -33,7 +33,7 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
     assert_numeric(x)
     assert_character(funs)
     assert_scalar(showNA)
-    # .=NULL #mute the R CMD Check note
+    .=NULL #mute the R CMD Check note
     .na=.effect=.test=.total=NULL
     if(effect) 
         .effect = effect_args$show.effect(effect_args$effect.summarize(x, by, effect_args$conf.level), 
