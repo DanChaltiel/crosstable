@@ -5,6 +5,7 @@ Sys.setenv(LANG = "en")
 options(warn = 2)
 options(warn = 1)
 options(stringsAsFactors = FALSE)
+options(width = 180)
 options(tidyselect_verbosity = "verbose")
 
 library(survival)
@@ -245,10 +246,17 @@ test_that("Statistical Tests", {
   
   # wilcox (exact=F)
   x=crosstable(mtcars3, disp, by=vs, test=T)
-  expect_equal(x$test[1], "p value: 0.0002 \n(Wilcoxon rank sum test, normal approximation)")
+  expect_equal(x$test[1], "p value: 0.0002 \n(Wilcoxon rank sum test)")
   # wilcox (exact=T)
-  x=crosstable(dummy_data, x_exp, by=tmt2, test=T)
-  expect_equal(x$test[1], "p value: 0.4185 \n(Wilcoxon rank sum test, exact test)")
+  if(package_version(R.version) > package_version("3.6")) {
+    x=crosstable(dummy_data, x_exp, by=tmt2, test=T)
+    expect_equal(x$test[1], "p value: 0.4185 \n(Wilcoxon rank sum exact test)")
+  } else {
+    x=crosstable(dummy_data, x_exp, by=tmt2, test=T)
+    expect_equal(x$test[1], "p value: 0.4185 \n(Wilcoxon rank sum test)")
+  }
+  
+  
   # t.equalvar
   x = crosstable(mtcars3, mpg, by=vs, test=T)
   expect_equal(x$test[1], "p value: <0.0001 \n(Two Sample t-test)")
@@ -287,7 +295,7 @@ test_that("Statistical Tests", {
 })
 
 
-test_that("Tests (linear contrasts)", {
+test_that("Linear contrasts test)", {
     my_test_args=crosstable_test_args()
     my_test_args$test.summarize = test.summarize.linear.contrasts
     x=iris %>%
@@ -298,30 +306,12 @@ test_that("Tests (linear contrasts)", {
     expect_equal(sum(is.na(x)), 0)
 })
 
-test_that("Tests can be a variable name", {
+test_that("'Test' can be a variable name", {
     x=crosstable(mtcars3, test, by=vs, test=TRUE)
     expect_equal(x$.id[1], "test")
     expect_equal(dim(x), c(2,7))
 })
 
-# 
-# # Effect --------------------------------------------------
-# test_that("Effects", {
-#     #mean-diff, welch, bootstrap, OR, HR
-#     set.seed(1234)
-#     name = "test_effects.rds"
-#     x = expect_warning(crosstable(mtcars3, -c(cyl,cyl3,gear), by=vs, times=c(0,100,200,400), effect=T), 
-#                        "Loglik converged before variable  2 ; coefficient may be infinite")
-#     x %>% as_flextable()
-#     if(is_testing()){
-#         expect_equivalent(x, readRDS(paste0("rds/",name)))
-#     } else {
-#         if(do.save)
-#             saveRDS(x, paste0("tests/testthat/rds/",name), version = 2)
-#         expect_equivalent(x, readRDS(paste0("tests/testthat/rds/",name)))
-#         setdiff(readRDS(paste0("tests/testthat/rds/",name)), x)
-#     }
-# })
 
 
 

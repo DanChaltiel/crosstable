@@ -54,14 +54,14 @@ crosstable_test_args = function(){
 #' @return formated p values
 #' @export
 #' @author David Hajage
-plim <- function(p, digits = 4) {
-  pround <- round(p, digits)
-  lim <- 10^(-digits)
-  ptxt <- vector("character", length(p))
-  ptxt[pround < lim] <- paste("<", "0.", paste(rep("0", digits -
-                                                     1), collapse = ""), "1", sep = "")
-  ptxt[pround >= lim] <- formatC(pround[pround >= lim], format = "f",
-                                 digits = digits)
+plim = function(p, digits = 4) {
+  pround = round(p, digits)
+  lim = 10^(-digits)
+  ptxt = vector("character", length(p))
+  ptxt[pround < lim] = paste("<", "0.", paste(rep("0", digits -
+                                                    1), collapse = ""), "1", sep = "")
+  ptxt[pround >= lim] = formatC(pround[pround >= lim], format = "f",
+                                digits = digits)
   return(ptxt)
 }
 
@@ -72,11 +72,11 @@ plim <- function(p, digits = 4) {
 #' @param method display method
 #' @importFrom stringr str_squish
 #' @export
-display.test <- function(test, digits = 4, method = TRUE) {
+display.test = function(test, digits = 4, method = TRUE) {
   if (all(sapply(test, is.null)))
     "No test"
   else {
-    p <- plim(test$p.value, digits = digits)
+    p = plim(test$p.value, digits = digits)
     if (method)
       paste0("p value: ", p, " \n(", str_squish(test$method), ")")
     else
@@ -95,7 +95,7 @@ display.test <- function(test, digits = 4, method = TRUE) {
 #' @return the correlation test with appropriate method
 #' @importFrom stringr str_detect
 #' @export
-test.correlation.auto <- function(x, by, method) {
+test.correlation.auto = function(x, by, method) {
   exact=TRUE
   ct = withCallingHandlers(
     tryCatch(cor.test(x, by, method = method)), 
@@ -129,18 +129,18 @@ test.correlation.auto <- function(x, by, method) {
 #' @return a list with two componments: p.value and method
 #' @importFrom stats chisq.test fisher.test
 #' @export
-test.tabular.auto <- function(x, y) {
-  tab <- table(x, y)
-  exp <- rowSums(tab)%*%t(colSums(tab))/sum(tab)
+test.tabular.auto = function(x, y) {
+  tab = table(x, y)
+  exp = rowSums(tab)%*%t(colSums(tab))/sum(tab)
   if (any(dim(table(x, y)) == 1))
-    test <- list(p.value = NULL, method = NULL)
+    test = list(p.value = NULL, method = NULL)
   else if (all(exp >= 5))
-    test <- chisq.test(x, y, correct = FALSE)
+    test = chisq.test(x, y, correct = FALSE)
   else
-    test <- fisher.test(x, y)
+    test = fisher.test(x, y)
   
-  p <- test$p.value
-  method <- test$method
+  p = test$p.value
+  method = test$method
   list(p.value = p, method = method)
 }
 
@@ -156,22 +156,22 @@ test.tabular.auto <- function(x, y) {
 #' @return a list with two componments: p.value and method
 #' @author David Hajage, Dan Chaltiel
 #' @importFrom nortest ad.test
-#' @importFrom stats shapiro.test bartlett.test wilcox.test kruskal.test t.test oneway.test
+#' @importFrom stats shapiro.test bartlett.test kruskal.test t.test oneway.test
 #' @export
-test.summarize.auto <- function(x, g) {
-  ng <- table(g)
+test.summarize.auto = function(x, g) {
+  ng = table(g)
   
   if (length(ng) <= 1) {
     return(list(p.value=NULL, method=NULL))
   } 
   
   if (any(ng < 50)) {
-    normg <- tapply(x, g, function(x) {
+    normg = tapply(x, g, function(x) {
       if(length(unique(x))==1) return(0)
       shapiro.test(x)$p.value
     })
   } else {
-    normg <- tapply(x, g, function(x) {
+    normg = tapply(x, g, function(x) {
       if(length(unique(x))==1) return(0)
       ad.test(x)$p.value
     })
@@ -179,55 +179,41 @@ test.summarize.auto <- function(x, g) {
   
   if (any(normg < 0.05)) {
     if (length(ng) == 2) {
-      type <- "wilcox"
-      exact=TRUE
-      test = withCallingHandlers(
-        tryCatch(wilcox.test(x ~ g, correct = FALSE, exact=TRUE)), 
-        warning=function(m) {
-          if(str_detect(conditionMessage(m), "exact p-value"))
-            exact<<-FALSE 
-          invokeRestart("muffleWarning")
-        }
-      )
-      if(exact){
-        test$method = paste0(test$method, ", exact test")
-      } else {
-        test$method = paste0(test$method, ", normal approximation")
-      }
-      
+      type = "wilcox"
     } else {
-      type <- "kruskal"
+      type = "kruskal"
     }
   } else {
-    bartlettg <- bartlett.test(x, g)$p.value
+    bartlettg = bartlett.test(x, g)$p.value
     if (bartlettg < 0.05 & length(ng) == 2) {
-      type <- "t.unequalvar"
+      type = "t.unequalvar"
       test = t.test(x ~ g, var.equal = FALSE)
     } else if (bartlettg < 0.05 & length(ng) > 2) {
-      type <- "a.unequalvar"
+      type = "a.unequalvar"
       test = oneway.test(x ~ g, var.equal = FALSE)
     } else if (bartlettg >= 0.05 & length(ng) == 2) {
-      type <- "t.equalvar"
+      type = "t.equalvar"
       test = t.test(x ~ g, var.equal = TRUE)
     } else if (bartlettg >= 0.05 & length(ng) > 2) {
-      type <- "a.equalvar"
+      type = "a.equalvar"
       test = oneway.test(x ~ g, var.equal = TRUE)
     }
   }
-  # print(type)
-  test <- switch(type,
-                 # wilcox = wilcox.test(x ~ g, correct = FALSE, exact=!any_ties),
-                 wilcox = test,
-                 kruskal = kruskal.test(x, g),
-                 t.unequalvar = t.test(x ~ g, var.equal = FALSE),
-                 t.equalvar = t.test(x ~ g, var.equal = TRUE),
-                 a.unequalvar = oneway.test(x ~ g, var.equal = FALSE),
-                 a.equalvar = oneway.test(x ~ g, var.equal = TRUE))
+  test = switch(type,
+                wilcox = wilcox.test2(x, g),
+                kruskal = kruskal.test(x, g),
+                t.unequalvar = t.test(x ~ g, var.equal = FALSE),
+                t.equalvar = t.test(x ~ g, var.equal = TRUE),
+                a.unequalvar = oneway.test(x ~ g, var.equal = FALSE),
+                a.equalvar = oneway.test(x ~ g, var.equal = TRUE))
   
   
   list(p.value = test$p.value, 
        method = test$method)
 }
+
+
+
 
 #' test for survival comparison
 #'
@@ -239,12 +225,75 @@ test.summarize.auto <- function(x, g) {
 #' @export
 #' @importFrom survival survdiff
 #' @importFrom stats pchisq
-test.survival.logrank <- function(formula) {
-  survdiff.obj <- survdiff(formula)
-  p <- 1-pchisq(survdiff.obj$chisq, length(survdiff.obj$n)-1)
+test.survival.logrank = function(formula) {
+  survdiff.obj = survdiff(formula)
+  p = 1-pchisq(survdiff.obj$chisq, length(survdiff.obj$n)-1)
   list(p.value = p, method = "Logrank test")
 }
 
+
+
+
+
+#' Wilcoxon-MW test handling the "ties" warning
+#' @keywords internal
+#' @importFrom stats wilcox.test
+#' @importFrom stringr str_detect
+#' @noRd
+wilcox.test2 = function(x, g) {
+  test = withCallingHandlers(
+    tryCatch(wilcox.test(x ~ g, correct = FALSE, exact=NULL)), 
+    warning=function(m) {
+      if(!str_detect(conditionMessage(m), "exact p-value")) {
+        warning(m)
+      }
+      invokeRestart("muffleWarning")
+    }
+  )
+  test
+}
+
+# dummy_data2=dummy_data[c(1:48),]
+# dummy_data3=dummy_data[c(1:150),] %>% rbind(list(25,0.003,29,"A","C","A"))
+# dummy_data4=dummy_data[c(1:48,25),]
+# dummy_data5=dummy_data[c(1:150,25),] %>% rbind(list(25,0.003,29,"A","C","A"))
+# 
+# #n<50, no ties, exact test
+# wilcox.test(dummy_data2$x_exp ~ dummy_data2$tmt2, correct=FALSE, exact=NULL)$method
+# wilcox.test2(dummy_data2$x_exp, dummy_data2$tmt2)$method
+# #n>50, no ties, not exact test
+# wilcox.test(dummy_data3$x_exp ~ dummy_data3$tmt2, correct=FALSE, exact=NULL)$method
+# wilcox.test2(dummy_data3$x_exp, dummy_data3$tmt2)$method
+# #n<50, ties, not exact test + WARNING
+# wilcox.test(dummy_data4$x_exp ~ dummy_data4$tmt2, correct=FALSE, exact=NULL)$method
+# wilcox.test2(dummy_data4$x_exp, dummy_data4$tmt2)$method
+# #n>50, ties, not exact test
+# wilcox.test(dummy_data5$x_exp ~ dummy_data5$tmt2, correct=FALSE, exact=NULL)$method
+# wilcox.test2(dummy_data5$x_exp, dummy_data5$tmt2)$method
+# 
+# # wilcox.test(dummy_data2$x_exp ~ dummy_data2$tmt2, correct=TRUE, exact=NULL)$method
+# # wilcox.test(dummy_data2$x_exp ~ dummy_data2$tmt2, correct=TRUE, exact=TRUE)$method
+# # wilcox.test(dummy_data2$x_exp ~ dummy_data2$tmt2, correct=TRUE, exact=FALSE)$method
+# # wilcox.test(dummy_data2$x_exp ~ dummy_data2$tmt2, correct=FALSE, exact=NULL)$method
+# # wilcox.test(dummy_data2$x_exp ~ dummy_data2$tmt2, correct=FALSE, exact=TRUE)$method
+# # wilcox.test(dummy_data2$x_exp ~ dummy_data2$tmt2, correct=FALSE, exact=FALSE)$method
+# 
+# # wilcox.test(dummy_data3$x_exp ~ dummy_data3$tmt2, correct=TRUE, exact=NULL)$method
+# # wilcox.test(dummy_data3$x_exp ~ dummy_data3$tmt2, correct=TRUE, exact=TRUE)$method
+# # wilcox.test(dummy_data3$x_exp ~ dummy_data3$tmt2, correct=TRUE, exact=FALSE)$method
+# # wilcox.test(dummy_data3$x_exp ~ dummy_data3$tmt2, correct=FALSE, exact=NULL)$method
+# # wilcox.test(dummy_data3$x_exp ~ dummy_data3$tmt2, correct=FALSE, exact=TRUE)$method
+# # wilcox.test(dummy_data3$x_exp ~ dummy_data3$tmt2, correct=FALSE, exact=FALSE)$method
+# 
+# wilcox.test(mtcars3$disp ~ mtcars3$vs, correct=TRUE, exact=TRUE)$method
+# wilcox.test(mtcars3$disp ~ mtcars3$vs, correct=TRUE, exact=FALSE)$method
+# wilcox.test(mtcars3$disp ~ mtcars3$vs, correct=FALSE, exact=TRUE)$method
+# wilcox.test(mtcars3$disp ~ mtcars3$vs, correct=FALSE, exact=FALSE)$method
+# 
+# wilcox.test2(dummy_data$x_exp, dummy_data$tmt2)
+# wilcox.test2(dummy_data2$x_exp, dummy_data2$tmt2)
+# wilcox.test2(dummy_data3$x_exp, dummy_data3$tmt2)
+# wilcox.test2(mtcars3$disp, mtcars3$vs)
 
 #' Test for linear trend across ordered factor with contrasts
 #'
@@ -278,81 +327,84 @@ test.summarize.linear.contrasts = function(x, y){
 
 # DAN ---------------------------------------------------------------------
 
-#TODO faire tout ça !
 # nocov start
 
 #' @importFrom stats shapiro.test bartlett.test wilcox.test kruskal.test t.test oneway.test
 #' @keywords internal
 #' @noRd
 test.summarize.auto.dan = function (x, g) {
-  ng <- table(g)
+  ng = table(g)
   if (length(ng) <= 1) {
-    p <- NULL
-    method <- NULL
+    p = NULL
+    method = NULL
   } else {
     if(length(x)<3){ #shapiro.test throws an error if n<3
       shapirog=0
     } else if(length(x)<5000){ 
-      shapirog <- tapply(x, g, function(x) shapiro.test(x)$p.value)
+      shapirog = tapply(x, g, function(x) shapiro.test(x)$p.value)
     } else { #on large samples, shapiro.test is not relevant
       shapirog=1
     }
     
     if (any(ng < 30) | any(shapirog < 0.05)) {
       if (length(ng) == 2) {
-        type <- "wilcox"
+        type = "wilcox"
       } else {
-        type <- "kruskal"
+        type = "kruskal"
       }
     }
     else {
-      bartlettg <- bartlett.test(x, g)$p.value
+      bartlettg = bartlett.test(x, g)$p.value
       if (bartlettg < 0.05 & length(ng) == 2) {
-        type <- "t.unequalvar"
+        type = "t.unequalvar"
       }
       else if (bartlettg < 0.05 & length(ng) > 2) {
-        type <- "a.unequalvar"
+        type = "a.unequalvar"
       }
-      else if (bartlettg >= 0.05 & length(ng) == 2) {#DAN ajoute un egal au cas où bartlettg==0.05!
-        type <- "t.equalvar"
+      else if (bartlettg >= 0.05 & length(ng) == 2) {
+        type = "t.equalvar"
       }
       else if (bartlettg >= 0.05 & length(ng) > 2) {
-        type <- "a.equalvar"
+        type = "a.equalvar"
       }
     }
-    test <- switch(type, 
-                   wilcox = wilcox.test(x ~ g, correct = FALSE), 
-                   kruskal = kruskal.test(x, g), 
-                   t.unequalvar = t.test(x ~ g, var.equal = FALSE), 
-                   t.equalvar = t.test(x ~ g, var.equal = TRUE), 
-                   a.unequalvar = oneway.test(x ~ g, var.equal = FALSE), 
-                   a.equalvar = oneway.test(x ~ g, var.equal = TRUE))
-    p <- test$p.value
-    method <- test$method
+    test = switch(type, 
+                  wilcox = wilcox.test(x ~ g, correct = FALSE), 
+                  kruskal = kruskal.test(x, g), 
+                  t.unequalvar = t.test(x ~ g, var.equal = FALSE), 
+                  t.equalvar = t.test(x ~ g, var.equal = TRUE), 
+                  a.unequalvar = oneway.test(x ~ g, var.equal = FALSE), 
+                  a.equalvar = oneway.test(x ~ g, var.equal = TRUE))
+    p = test$p.value
+    method = test$method
   }
   list(p.value = p, method = method)
 }
+
+
+
+#TODO add CochranArmitageTest
 
 # @importFrom DescTools CochranArmitageTest
 #' @importFrom stats cor.test chisq.test fisher.test
 #' @keywords internal
 #' @noRd
 test.tabular.auto2 = function (x, y) {
-  tab <- table(x, y)
+  tab = table(x, y)
   if(is.ordered(x) & is.ordered(y)){
-    test <- cor.test(as.numeric(x), as.numeric(y), method = "spearman", exact = FALSE)
+    test = cor.test(as.numeric(x), as.numeric(y), method = "spearman", exact = FALSE)
   } else if((is.ordered(x) | is.ordered(y)) & any(dim(tab)==2)){
-    test <- DescTools::CochranArmitageTest(tab, alternative = "two.sided")
+    test = DescTools::CochranArmitageTest(tab, alternative = "two.sided")
   } else{
-    exp <- rowSums(tab) %*% t(colSums(tab))/sum(tab)
+    exp = rowSums(tab) %*% t(colSums(tab))/sum(tab)
     if (any(dim(table(x, y)) == 1)) 
-      test <- list(p.value = NULL, method = NULL)
+      test = list(p.value = NULL, method = NULL)
     else if (all(exp >= 5)) 
-      test <- suppressWarnings(chisq.test(x, y, correct = FALSE))
-    else test <- fisher.test(x, y)
+      test = suppressWarnings(chisq.test(x, y, correct = FALSE))
+    else test = fisher.test(x, y)
   }
-  p <- test$p.value
-  method <- test$method
+  p = test$p.value
+  method = test$method
   list(p.value = p, method = method)
 }
 # nocov end
