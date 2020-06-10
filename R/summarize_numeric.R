@@ -39,8 +39,8 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
         .effect = effect_args$show.effect(effect_args$effect.summarize(x, by, effect_args$conf.level), 
                                           digits = cor_digits)
     if(test) 
-        .test = test_args$show.test(test_args$test.summarize(x, by), digits = test_args$plim, 
-                                    method = test_args$show.method)
+        .test = test_args$display_test(test_args$test_summarize(x, by), digits = test_args$plim, 
+                                    method = test_args$show_method)
     if (identical(total, 1) | identical(total, 1:2) | identical(total, TRUE))
         .total = summarize_numeric_single(x, funs=funs, funs_arg=funs_arg)[["value"]]
     
@@ -81,7 +81,7 @@ summarize_numeric_numeric = function(x, by, method, digits, test, test_args){
     assert_logical(test)
     assert_list(test_args)
     
-    ct=test_args$test.correlation(x, by, method=method)
+    ct=test_args$test_correlation(x, by, method=method)
 
     cor=round(ct$estimate, digits=digits)
     if(!is.null(ct$conf.int)){
@@ -91,7 +91,7 @@ summarize_numeric_numeric = function(x, by, method, digits, test, test_args){
         value=glue("{cor}")
     }
     
-    if(test) .test=test_args$show.test(ct) else .test=NULL
+    if(test) .test=test_args$display_test(ct) else .test=NULL
     
     tibble(variable=method, value=as.character(value)) %>% mutate(test=.test)
 }

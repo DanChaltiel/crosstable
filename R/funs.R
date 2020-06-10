@@ -35,7 +35,8 @@ format_fixed = function(x, digits=1, zero_digits=1, only_round=getOption("crosst
   if(only_round) {
     return(round(x,digits))
   } else {
-    rtn = formatC(x, format='f', digits=digits)
+    rtn = ifelse(is.na(x), NA_character_, formatC(x, format='f', digits=digits))
+    # rtn = formatC(x, format='f', digits=digits)
     if(!is.null(zero_digits) && !is.na(zero_digits)){
       rtn = ifelse(as.numeric(rtn)==0, signif(x, digits=zero_digits), rtn)
     }

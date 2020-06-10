@@ -39,7 +39,7 @@ doc = read_docx() %>%
   body_add_crosstable(ct1) %>%
   body_add_title("Compacted", 2) %>%
   body_add_normal("When compacting, you might want to remove the test names.") %>%
-  body_add_crosstable(ct1, compact=TRUE, show.test.name=FALSE) %>%
+  body_add_crosstable(ct1, compact=TRUE, show_test_name=FALSE) %>%
   body_add_break %>%
   body_add_title("Dataset mtcars2", 1) %>%
   body_add_glued("This dataset has {nrow(ct3)} rows and {x} columns.", x=ncol(ct3)) %>%
@@ -73,7 +73,7 @@ You can learn more on officer on [its documentation](https://davidgohel.github.i
 
 ## Create reports with `Rmarkdown`
 
-<!-- Intégration Rmd in Rmd : la coloration syntaxique RStudio est mauvaise mais le code est bon ! -->
+<!-- Intégration Rmd in Rmd: la coloration syntaxique RStudio est mauvaise mais le code est bon ! -->
 <!-- https://stackoverflow.com/questions/53226493/add-markdown-code-chunk-to-r-markdown-document#comment104859956_53226493 -->
 Knitting (`knitr::knit()` ou via **RStudio**) this `Rmd` code also creates a MS-Word file. Here, you can use the power of `bookdown` to generate the automatic numbering of the tables.
 

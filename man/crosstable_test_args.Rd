@@ -10,17 +10,17 @@ crosstable_test_args()
 \value{
 A list with testing parameters:
 \itemize{
-\item \code{test.summarize} - a function of two arguments (continuous variable and grouping variable), used to compare continuous variable. Must return a list of two components : \code{p.value} and \code{method}. See \code{\link{test.summarize.auto}} or \code{\link{test.summarize.linear.contrasts}} for some examples of such functions.
+\item \code{test_summarize} - a function of two arguments (continuous variable and grouping variable), used to compare continuous variable. Must return a list of two components: \code{p.value} and \code{method}. See \code{\link{test_summarize_auto}} or \code{\link{test_summarize_linear_contrasts}} for some examples of such functions.
 
-\item \code{test.tabular} - a function of two arguments (two categorical variables), used to test association between two categorical variables.  Must return a list of two components : \code{p.value} and \code{method}. See \code{\link{test.tabular.auto}} for example.
+\item \code{test_tabular} - a function of two arguments (two categorical variables), used to test association between two categorical variables.  Must return a list of two components: \code{p.value} and \code{method}. See \code{\link{test_tabular_auto}} for example.
 
-\item \code{test.correlation} - a function of three arguments (two continuous variables plus the correlation method), used to test association between two continuous variables.  Like \code{cor.test}, it must return a list of at least \code{estimate}, \code{p.value}, and \code{method}, with also \code{conf.int} optionnaly. See \code{\link{test.correlation.auto}} for example.
+\item \code{test_correlation} - a function of three arguments (two continuous variables plus the correlation method), used to test association between two continuous variables.  Like \code{cor.test}, it must return a list of at least \code{estimate}, \code{p.value}, and \code{method}, with also \code{conf.int} optionnaly. See \code{\link{test_correlation_auto}} for example.
 
-\item \code{test.survival} - a function of one argument (the formula \code{surv~by}), used to compare survival estimations. Must return a list of two components : \code{p.value} and \code{method}. See \code{\link{test.survival.logrank}} for example.
+\item \code{test_survival} - a function of one argument (the formula \code{surv~by}), used to compare survival estimations. Must return a list of two components: \code{p.value} and \code{method}. See \code{\link{test_survival_logrank}} for example.
 
-\item \code{show.test} - function used to display the test result. See \code{\link{display.test}}.
+\item \code{display_test} - function used to display the test result. See \code{\link{display_test}}.
 \item \code{plim} - number of digits for the p value
-\item \code{show.method} - whether to display the test name (logical)
+\item \code{show_method} - whether to display the test name (logical)
 }
 }
 \description{
@@ -29,13 +29,13 @@ This is the starting point for refining the testing algorithm used in crosstable
 \examples{
 library(dplyr)
 my_test_args=crosstable_test_args()
-my_test_args$test.summarize = test.summarize.linear.contrasts
+my_test_args$test_summarize = test_summarize_linear_contrasts
 iris \%>\%
   mutate(Petal.Width.qt = paste0("Q", ntile(Petal.Width, 5)) \%>\% ordered()) \%>\%
   crosstable(Petal.Length ~ Petal.Width.qt, test=TRUE, test_args = my_test_args)
 }
 \seealso{
-\code{\link{test.summarize.auto}}, \code{\link{test.tabular.auto}}, \code{\link{test.survival.logrank}}, \code{\link{test.summarize.linear.contrasts}}, \code{\link{display.test}}
+\code{\link{test_summarize_auto}}, \code{\link{test_tabular_auto}}, \code{\link{test_survival_logrank}}, \code{\link{test_summarize_linear_contrasts}}, \code{\link{display_test}}
 }
 \author{
 Dan Chaltiel

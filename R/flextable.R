@@ -4,9 +4,9 @@
 #'
 #' @param x the result of [crosstable()]
 #' @param compact whether to compact the table
-#' @param auto.fit whether to use \code{flextable::autofit} on the table
-#' @param show.test.name in the `test` column, show the test name
-#' @param generic.labels names of the crosstable default columns 
+#' @param autofit whether to use \code{flextable::autofit} on the table
+#' @param show_test_name in the `test` column, show the test name
+#' @param generic_labels names of the crosstable default columns 
 #' @param by_header a string to override the `by` header
 #' @param keep_id whether to keep the `.id` column
 #' @param ... unused
@@ -31,26 +31,26 @@
 #' crosstable(mtcars2) %>% as_flextable()
 #' crosstable(mtcars2, by=vs, test = TRUE) %>% as_flextable()
 #' crosstable(esoph, by=tobgp, test = TRUE) %>% as_flextable()
-#' crosstable(iris, by=Species, test = TRUE) %>% as_flextable(auto.fit=FALSE)
+#' crosstable(iris, by=Species, test = TRUE) %>% as_flextable(autofit=FALSE)
 #' crosstable(iris, by=Species, test = TRUE) %>% as_flextable(compact=TRUE)
-#' crosstable(iris) %>% as_flextable(compact=TRUE, auto.fit=TRUE)
+#' crosstable(iris) %>% as_flextable(compact=TRUE, autofit=TRUE)
 #' 
 #' #Renaming
 #' crosstable(iris, by=Species, total="both", test=TRUE, effect=TRUE) %>%
 #'    rename(ID=.id, math=variable, Tot=Total, lab=label, pval=test, fx=effect) %>%
 #'    as_flextable(by_header = "The specie", 
-#'                       generic.labels=list(id = "ID", variable = "math", total="Tot", 
+#'                       generic_labels=list(id = "ID", variable = "math", total="Tot", 
 #'                                           label = "lab", test = "pval", effect="fx"))
-as_flextable.crosstable = function(x, auto.fit = TRUE, compact = FALSE, show.test.name = TRUE, 
+as_flextable.crosstable = function(x, autofit = TRUE, compact = FALSE, show_test_name = TRUE, 
                               by_header = NULL, keep_id = FALSE,
-                              generic.labels=list(id = ".id", variable = "variable", value = "value", 
+                              generic_labels=list(id = ".id", variable = "variable", value = "value", 
                                                   total="Total", label = "label", test = "test", 
                                                   effect="effect"), 
                               ...) {
     stopifnot(is.data.frame(x)) 
     border1 = fp_border(color = "black", style = "solid", width = 1)
     border2 = fp_border(color = "black", style = "solid", width = 1.5)
-    labs.names = setdiff(names(x), generic.labels)
+    labs.names = setdiff(names(x), generic_labels)
     
     has_test = attr(x, "has_test")
     has_effect = attr(x, "has_effect")
@@ -64,11 +64,11 @@ as_flextable.crosstable = function(x, auto.fit = TRUE, compact = FALSE, show.tes
     showNA = attr(x, "showNA")
     if(showNA=="always") by_levels=c(by_levels, "NA")
     
-    test=generic.labels$test
-    id=generic.labels$id
-    label=generic.labels$label
+    test=generic_labels$test
+    id=generic_labels$id
+    label=generic_labels$label
     
-    if (has_test && !is.null(x[[test]]) && !show.test.name) {
+    if (has_test && !is.null(x[[test]]) && !show_test_name) {
         x[[test]] = str_remove(x[[test]], "\\n\\(.*\\)")
     }
     if (compact && !inherits(x, "compacted_crosstable")) {
@@ -87,7 +87,7 @@ as_flextable.crosstable = function(x, auto.fit = TRUE, compact = FALSE, show.tes
             align(title_rows, align="left")
     } else {
         if(!keep_id) rtn = rtn %>% select(-any_of(id))
-        body_merge = setdiff(names(rtn), c(generic.labels[2:4],by_levels))
+        body_merge = setdiff(names(rtn), c(generic_labels[2:4],by_levels))
         sep.rows = which(rtn[[label]] != lead(rtn[[label]]))
         rtn = rtn %>% 
             flextable %>% 
@@ -118,7 +118,7 @@ as_flextable.crosstable = function(x, auto.fit = TRUE, compact = FALSE, show.tes
         border_inner_h(border = border2, part = "head") %>% 
         fix_border_issues
     
-    if (auto.fit) {
+    if (autofit) {
         rtn = autofit(rtn)
     }
     return(rtn)

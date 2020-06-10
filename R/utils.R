@@ -19,6 +19,25 @@ warning_once = function(msg, id=msg) {
 inform_env = rlang::env()
 
 
+#' @author https://stackoverflow.com/a/20578779/3888000
+#' @keywords internal
+#' @noRd
+tryCatch2 = function(expr){
+    errors <- list()
+    warnings <- list()
+    rtn = withCallingHandlers(
+        tryCatch(expr,
+                 error=function(e) {errors <<- c(errors, conditionMessage(e)); return("error")}),
+        warning=function(m){
+            warnings <<- c(warnings, conditionMessage(m))
+            invokeRestart("muffleWarning")
+        }
+    )
+    # attr(rtn, "msg") = unique(msg)
+    attr(rtn, "errors") = unique(unlist(errors))
+    attr(rtn, "warnings") = unique(unlist(warnings))
+    rtn
+}
 
 #' Used for defaulting S3 methods to loaded function
 #' @importFrom utils getAnywhere
@@ -41,16 +60,6 @@ get_defined_function = function(name) {
 
 
 
-#' Get label if wanted and available, or name otherwise
-#' @keywords internal
-#' @importFrom expss var_lab
-#' @noRd
-get_label = function(x, label=TRUE){
-    if(label && !is.null(var_lab(x))) var_lab(x) else names(x)
-}
-
-
-
 #' Clean functions names to character
 #'
 #' @param funs named vector of functions
@@ -64,6 +73,16 @@ clear_funs = function(funs){
         names(funs) = nomf
     }
     funs
+}
+
+
+
+#' Get label if wanted and available, or name otherwise
+#' @keywords internal
+#' @importFrom expss var_lab
+#' @noRd
+get_label = function(x, label=TRUE){
+    if(label && !is.null(var_lab(x))) var_lab(x) else names(x)
 }
 
 

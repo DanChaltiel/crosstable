@@ -10,12 +10,12 @@
 \usage{
 \method{as_flextable}{crosstable}(
   x,
-  auto.fit = TRUE,
+  autofit = TRUE,
   compact = FALSE,
-  show.test.name = TRUE,
+  show_test_name = TRUE,
   by_header = NULL,
   keep_id = FALSE,
-  generic.labels = list(id = ".id", variable = "variable", value = "value", total =
+  generic_labels = list(id = ".id", variable = "variable", value = "value", total =
     "Total", label = "label", test = "test", effect = "effect"),
   ...
 )
@@ -23,17 +23,17 @@
 \arguments{
 \item{x}{the result of \code{\link[=crosstable]{crosstable()}}}
 
-\item{auto.fit}{whether to use \code{flextable::autofit} on the table}
+\item{autofit}{whether to use \code{flextable::autofit} on the table}
 
 \item{compact}{whether to compact the table}
 
-\item{show.test.name}{in the \code{test} column, show the test name}
+\item{show_test_name}{in the \code{test} column, show the test name}
 
 \item{by_header}{a string to override the \code{by} header}
 
 \item{keep_id}{whether to keep the \code{.id} column}
 
-\item{generic.labels}{names of the crosstable default columns}
+\item{generic_labels}{names of the crosstable default columns}
 
 \item{...}{unused}
 }
@@ -49,15 +49,15 @@ library(dplyr)
 crosstable(mtcars2) \%>\% as_flextable()
 crosstable(mtcars2, by=vs, test = TRUE) \%>\% as_flextable()
 crosstable(esoph, by=tobgp, test = TRUE) \%>\% as_flextable()
-crosstable(iris, by=Species, test = TRUE) \%>\% as_flextable(auto.fit=FALSE)
+crosstable(iris, by=Species, test = TRUE) \%>\% as_flextable(autofit=FALSE)
 crosstable(iris, by=Species, test = TRUE) \%>\% as_flextable(compact=TRUE)
-crosstable(iris) \%>\% as_flextable(compact=TRUE, auto.fit=TRUE)
+crosstable(iris) \%>\% as_flextable(compact=TRUE, autofit=TRUE)
 
 #Renaming
 crosstable(iris, by=Species, total="both", test=TRUE, effect=TRUE) \%>\%
    rename(ID=.id, math=variable, Tot=Total, lab=label, pval=test, fx=effect) \%>\%
    as_flextable(by_header = "The specie", 
-                      generic.labels=list(id = "ID", variable = "math", total="Tot", 
+                      generic_labels=list(id = "ID", variable = "math", total="Tot", 
                                           label = "lab", test = "pval", effect="fx"))
 }
 \seealso{

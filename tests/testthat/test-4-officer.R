@@ -37,7 +37,7 @@ test_that("crosstables don't throw errors in officer", {
             body_add_glued("This dataset has {nrow(crosstable)} rows and {x} columns.", 
                            x=ncol(crosstable)) %>%
             body_add_title("Not compacted", 2) %>%
-            body_add_crosstable(crosstable, show.test.name=FALSE) %>%
+            body_add_crosstable(crosstable, show_test_name=FALSE) %>%
             body_add_table_legend(paste0(i, ", not compacted")) %>% 
             body_add_break %>%
             body_add_title("Compacted in function", 2) %>%
@@ -46,7 +46,7 @@ test_that("crosstables don't throw errors in officer", {
             body_add_break %>% 
             body_add_normal("Look, there are labels!") %>%
             body_add_title("Compacted before function", 2) %>%
-            body_add_crosstable(compact(crosstable), show.test.name=FALSE) %>%
+            body_add_crosstable(compact(crosstable), show_test_name=FALSE) %>%
             body_add_table_legend(paste0(i, ", compacted before function")) %>% 
             body_add_break 
     }

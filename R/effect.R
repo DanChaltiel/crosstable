@@ -3,9 +3,9 @@
 #'
 #' @return A list with testing parameters:
 #' \itemize{
-#'   \item `effect.summarize` - a function of three arguments (continuous variable, grouping variable and conf.level), used to compare continuous variable. Returns a list of five components : \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretiation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf.level} (the confidence interval level). See \code{diff_mean.auto}, \code{diff_mean.student} or \code{diff_mean.boot} for some examples of such functions. Users can provide their own function.
-#'   \item `effect.tabular` - a function of three arguments (two categorical variables and conf.level) used to measure the associations between two factors. Returns a list of five components : \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf.level} (the confidence interval level). See \code{or.row.by.col}, \code{rr.row.by.col}, \code{rd.row.by.col}, \code{or.col.by.row}, \code{rr.col.by.row}, or \code{rd.col.by.row} for some examples of such functions. Users can provide their own function.
-#'   \item `effect.survival` - a function of two argument (a formula and conf.level), used to measure the association between a consored and a factor. Returns the same components as created by \code{effect.summarize}. See \code{effect.survival.coxph}. Users can provide their own function.
+#'   \item `effect.summarize` - a function of three arguments (continuous variable, grouping variable and conf.level), used to compare continuous variable. Returns a list of five components: \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretiation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf.level} (the confidence interval level). See \code{diff_mean.auto}, \code{diff_mean.student} or \code{diff_mean.boot} for some examples of such functions. Users can provide their own function.
+#'   \item `effect.tabular` - a function of three arguments (two categorical variables and conf.level) used to measure the associations between two factors. Returns a list of five components: \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf.level} (the confidence interval level). See \code{effect_odd_ratio}, \code{effect_relative_risk}, \code{effect_risk_difference}, \code{effect_odd_ratio}, \code{rr.col.by.row}, or \code{rd.col.by.row} for some examples of such functions. Users can provide their own function.
+#'   \item `effect.survival` - a function of two argument (a formula and conf.level), used to measure the association between a consored and a factor. Returns the same components as created by \code{effect.summarize}. See \code{effect_survival_coxph}. Users can provide their own function.
 #'   \item `conf.level` - the desired confidence interval level
 #'   \item `digits` - the decimal places
 #'   \item `show.effect` - a function to format the effect. See [display.effect()].
@@ -16,8 +16,8 @@
 crosstable_effect_args = function(){
     list( 
         effect.summarize = diff_mean.auto, 
-        effect.tabular = or.row.by.col,
-        effect.survival = effect.survival.coxph, 
+        effect.tabular = effect_odd_ratio,
+        effect.survival = effect_survival_coxph, 
         conf.level = 0.95,
         digits = 2,
         show.effect = display.effect
@@ -29,10 +29,10 @@ crosstable_effect_args = function(){
 #'
 #' @param effect effect
 #' @param digits digits
-#'
+#' 
 #' @export
 display.effect = function(effect, digits = 4) {
-    if (is.null(effect) || all(sapply(effect, is.null))){
+    if (is.null(effect) || all(map_lgl(effect, is.null))){
         return("No effect?")
     } else if (is_string(effect)){
         return(effect)
@@ -52,7 +52,7 @@ display.effect = function(effect, digits = 4) {
 #' @return a list with five componments
 #' @importFrom stats glm binomial confint.default
 #' @export
-or.row.by.col = function (x, y, conf.level = 0.95) {
+effect_odd_ratio = function (x, y, conf.level = 0.95) {
     tab = table(x, y)
     if (ncol(tab) <= 1 | nrow(tab) > 2) {
         return(NULL)
@@ -119,8 +119,8 @@ diff_mean.auto = function(x, g, conf.level = 0.95, R = 500) {
             effect.type = "Difference in means (t-test CI)"
         }
         test = switch(type,
-                       t.unequalvar = t.test(x ~  g, var.equal = FALSE, conf.level = conf.level),
-                       t.equalvar = t.test(x ~  g, var.equal = TRUE, conf.level = conf.level))
+                      t.unequalvar = t.test(x ~  g, var.equal = FALSE, conf.level = conf.level),
+                      t.equalvar = t.test(x ~  g, var.equal = TRUE, conf.level = conf.level))
         ci = unname(test$conf.int)
         attributes(ci) = NULL
         dim(ci) = c(1, 2)
@@ -140,16 +140,26 @@ diff_mean.auto = function(x, g, conf.level = 0.95, R = 500) {
 #' @importFrom stats confint
 #' @importFrom survival coxph
 #' @export
-effect.survival.coxph = function(formula, conf.level = 0.95) {
-    # mod = coxph(formula)
-    mod = withCallingHandlers(
-        tryCatch(coxph(formula)), 
-        warning=function(m) {
-            if(str_detect(conditionMessage(m), "Loglik converged before variable"))
-                warning(call. = F, "A problem occured when calculating crosstable effects ('loglikelihood convergence'). Some coefficients may be infinite.")
-            invokeRestart("muffleWarning")
-        }
-    )
+effect_survival_coxph = function(formula, conf.level = 0.95) {
+    mod = tryCatch2(coxph(formula))
+    
+    msg = attr(mod, "warnings")
+    if(!is.null(msg)){
+        p = if(length(msg)==1) "A problem" else "Problems"
+        w = glue_collapse(msg, "', '", last="' and '")
+        warning(str_squish(glue("{p} occured when calculating 
+                crosstable effects (coxph): '{w}'.")), 
+                call. = F)
+    }
+    
+    msg = attr(mod, "errors")
+    if(!is.null(msg)) {
+        w = glue_collapse(msg, "', '", last="' and '")
+        warning(str_squish(glue("An error occured when calculating 
+                crosstable effects (coxph): '{w}'.")), 
+                call. = F)
+        return(glue("Error (coxph: {w})"))
+    }
     
     
     
@@ -173,7 +183,6 @@ effect.survival.coxph = function(formula, conf.level = 0.95) {
 
 
 
-
 #' Effect measure for association between two factors
 #'
 #' @param x vector
@@ -182,34 +191,52 @@ effect.survival.coxph = function(formula, conf.level = 0.95) {
 #'
 #' @return a list with five componments
 #' @importFrom stats glm binomial confint
-#' @importFrom stringr str_squish  
-#' @export
-rr.row.by.col = function (x, y, conf.level = 0.95) { 
+#' @importFrom stringr str_squish str_detect
+#' @importFrom rlang is_string  
+#' @importFrom glue glue glue_collapse
+#' @export 
+#' @seealso #https://stats.stackexchange.com/a/336624/81974
+effect_relative_risk = function (x, y, conf.level = 0.95) { 
     tab = table(x, y)
     if (ncol(tab) <= 1 | nrow(tab) > 2) {
         return(NULL)
     } else {
+        default_warning = "You might want to check for complete separation or extreme outliers."
         xnum = ifelse(x == rownames(tab)[1], 1, 0)
-        mod = tryCatch(glm(xnum ~ y, family = binomial(link = "log")), 
-                       error=function(e) conditionMessage(e))
-        if(is_string(mod)){
-            warning(str_squish(glue("A problem occured when calculating 
-                    crosstable effects ('{mod}'). You might want to check 
-                    for complete separation or extreme outliers.")), 
+        mod = tryCatch2(glm(xnum ~ y, family = binomial(link = "log")))
+        ci = tryCatch2(suppressMessages(exp(confint(mod)[-1, ])))
+        
+        msg = unique(c(attr(mod, "warnings"), attr(ci, "warnings")))
+        if(!is.null(msg)){
+            p = if(length(msg)==1) "A problem" else "Problems"
+            w = glue_collapse(msg, "', '", last="' and '")
+            warning(str_squish(glue("{p} occured when calculating 
+                        crosstable effects (glm): '{w}'. {default_warning}")), 
                     call. = F)
-            return(glue("Error (glm: {mod})"))
         }
         
-        effect = exp(mod$coef)[-1]
-        ci = suppressMessages(exp(confint(mod)[-1, ]))
+        msg = unique(c(attr(mod, "errors"), attr(ci, "errors")))
+        if(length(msg)>1) msg = attr(mod, "errors")
+        if(!is.null(msg)) {
+            w = glue_collapse(msg, "', '", last="' and '")
+            warning(str_squish(glue("An error occured when calculating 
+                crosstable effects (glm): '{w}'. {default_warning}")), 
+                    call. = F)
+            return(glue("Error (glm: {w})"))
+        }
+        
         if (is.null(nrow(ci))) {
             dim(ci) = c(1, length(ci))
         }
+        effect = exp(mod$coef)[-1]
         effect.name = paste0(rownames(tab)[1], ", ", paste(colnames(tab)[-1], colnames(tab)[1], sep = " vs "))
         effect.type = "Relative risk (Wald CI)"
     }    
     list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf.level = conf.level)
 }
+
+
+
 
 #' Effect measure for association between two factors
 #'
@@ -221,47 +248,39 @@ rr.row.by.col = function (x, y, conf.level = 0.95) {
 #' @importFrom stats glm binomial confint 
 #' @importFrom stringr str_squish
 #' @export
-rd.row.by.col = function (x, y, conf.level = 0.95) {
+effect_risk_difference = function (x, y, conf.level = 0.95) {
     tab = table(x, y)
     if (ncol(tab) <= 1 || nrow(tab) > 2) {
         return(NULL)
     } else {
+        default_warning = "You might want to check for complete separation or extreme outliers."
         xnum = ifelse(x == rownames(tab)[1], 1, 0)
-        mod = glm(xnum ~ y, family = binomial(link = "logit"))
+        mod = tryCatch2(glm(xnum ~ y, family = binomial(link = "logit")))
+        ci = tryCatch2(100*suppressMessages(confint(mod)[-1, ]))
+        
+        msg = unique(c(attr(mod, "warnings"), attr(ci, "warnings")))
+        if(!is.null(msg)){
+            p = if(length(msg)==1) "A problem" else "Problems"
+            w = glue_collapse(msg, "', '", last="' and '")
+            warning(str_squish(glue("{p} occured when calculating 
+                        crosstable effects (glm): '{w}'. {default_warning}")), 
+                    call. = F)
+        }
+        
+        msg = unique(c(attr(mod, "errors"), attr(ci, "errors")))
+        if(length(msg)>1) msg = attr(mod, "errors")
+        if(!is.null(msg)) {
+            w = glue_collapse(msg, "', '", last="' and '")
+            warning(str_squish(glue("An error occured when calculating 
+                crosstable effects (glm): '{w}'. {default_warning}")), 
+                    call. = F)
+            return(glue("Error (glm: {w})"))
+        }
+        
+        if (is.null(nrow(ci))) {
+            dim(ci) = c(1, length(ci))
+        }
         effect = 100*mod$coef[-1] 
-        # ci = 100*suppressMessages(confint(mod)[-1, ])
-        
-        fit_warning = FALSE
-        ci = withCallingHandlers(
-            tryCatch(100*suppressMessages(confint(mod)[-1, ]),
-                     error=function(e) {fit_warning<<-conditionMessage(e); return(NULL)}),
-            warning=function(m) {
-                if(str_detect(conditionMessage(m), "fitted probabilities numerically 0 or 1 occurred"))
-                    fit_warning<<-TRUE
-                invokeRestart("muffleWarning")
-            }
-        )
-        
-        
-        if(!isFALSE(fit_warning) || is.null(ci)) {
-            #https://stats.stackexchange.com/questions/336424/issue-with-complete-separation-in-logistic-regression-in-r
-            warning(str_squish("A problem occured when calculating crosstable 
-                    effects ('fitted probabilities numerically 0 or 1'). You might 
-                    want to check for complete separation or extreme outliers."), 
-                    call. = F)
-            
-            warning(str_squish(glue("A problem occured when calculating 
-                    crosstable effects ('{fit_warning}'). You might want to check 
-                    for complete separation or extreme outliers.")), 
-                    call. = F)
-        }
-        
-        if(is.null(ci)){
-            return(glue("Error (glm: {fit_warning})"))
-        }
-        if (is.null(nrow(ci))) {
-            dim(ci) = c(1, length(ci))
-        }
         effect.name = paste0(rownames(tab)[1], ", ", paste(colnames(tab)[-1], colnames(tab)[1], sep = " minus "))
         effect.type = "Risk difference (Wald CI)"
     }    
@@ -269,91 +288,6 @@ rd.row.by.col = function (x, y, conf.level = 0.95) {
 }
 
 
-
-
-
-#' Effect measure for association between two factors
-#'
-#' @param x vector
-#' @param y another vector
-#' @param conf.level confidence interval level
-#'
-#' @return a list with five componments
-#' @importFrom stats glm binomial confint
-#' @export
-or.col.by.row = function (x, y, conf.level = 0.95) {
-    tab = table(y, x)
-    if (ncol(tab) <= 1 | nrow(tab) > 2) {
-        return(NULL)
-    } else {
-        ynum = ifelse(y == rownames(tab)[1], 1, 0)
-        mod = glm(ynum ~ x, family = binomial(link = "logit"))
-        effect = exp(mod$coef)[-1]
-        ci = suppressMessages(exp(confint(mod)[-1, ]))
-        if (is.null(nrow(ci))) {
-            dim(ci) = c(1, length(ci))
-        }
-        effect.name = paste0(rownames(tab)[1], ", ", paste(colnames(tab)[-1], colnames(tab)[1], sep = " vs "))
-        effect.type = "Odds ratio (Wald CI)"
-    }    
-    list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf.level = conf.level)
-}
-
-
-
-#' Effect measure for association between two factors
-#'
-#' @param x vector
-#' @param y another vector
-#' @param conf.level confidence interval level
-#'
-#' @return a list with five componments
-#' @importFrom stats glm binomial confint
-#' @export
-rr.col.by.row = function (x, y, conf.level = 0.95) {
-    tab = table(y, x)
-    if (ncol(tab) <= 1 | nrow(tab) > 2) {
-        return(NULL)
-    } else {
-        ynum = ifelse(y == rownames(tab)[1], 1, 0)
-        mod = glm(ynum ~ x, family = binomial(link = "log"))
-        effect = exp(mod$coef)[-1]
-        ci = suppressMessages(exp(confint(mod)[-1, ]))
-        if (is.null(nrow(ci))) {
-            dim(ci) = c(1, length(ci))
-        }
-        effect.name = paste0(rownames(tab)[1], ", ", paste(colnames(tab)[-1], colnames(tab)[1], sep = " vs "))
-        effect.type = "Relative risk (Wald CI)"
-    }    
-    list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf.level = conf.level)
-}
-
-#' Effect measure for association between two factors
-#'
-#' @param x vector
-#' @param y another vector
-#' @param conf.level confidence interval level
-#'
-#' @return a list with five componments
-#' @importFrom stats glm binomial confint
-#' @export
-rd.col.by.row = function (x, y, conf.level = 0.95) {
-    tab = table(y, x)
-    if (ncol(tab) <= 1 | nrow(tab) > 2) {
-        return(NULL)
-    } else {
-        ynum = ifelse(y == rownames(tab)[1], 1, 0)
-        mod = glm(ynum ~ x, family = binomial(link = "logit"))
-        effect = 100*mod$coef[-1]
-        ci = 100*suppressMessages(confint(mod)[-1, ])
-        if (is.null(nrow(ci))) {
-            dim(ci) = c(1, length(ci))
-        }
-        effect.name = paste0(rownames(tab)[1], ", ", paste(colnames(tab)[-1], colnames(tab)[1], sep = " minus "))
-        effect.type = "Risk difference (Wald CI)"
-    }    
-    list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf.level = conf.level)
-}
 
 
 #' Effect measure for association between one continuous and one categorical variable
@@ -416,8 +350,8 @@ diff_mean.student = function(x, g, conf.level = 0.95) {
             effect.type = "Difference in means (t-test CI)"
         }
         test = switch(type,
-                       t.unequalvar = t.test(x ~  g, var.equal = FALSE, conf.level = conf.level),
-                       t.equalvar = t.test(x ~  g, var.equal = TRUE, conf.level = conf.level))
+                      t.unequalvar = t.test(x ~  g, var.equal = FALSE, conf.level = conf.level),
+                      t.equalvar = t.test(x ~  g, var.equal = TRUE, conf.level = conf.level))
         ci = unname(test$conf.int)
         attributes(ci) = NULL
         dim(ci) = c(1, 2)

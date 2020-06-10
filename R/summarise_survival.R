@@ -40,7 +40,7 @@ summarise_survival_single = function(surv, times, digits, followup) {
 
 
 
-#' @importFrom dplyr mutate mutate_all rename select everything tibble group_by row_number summarise pull left_join
+#' @importFrom dplyr mutate mutate_all rename select everything tibble group_by row_number summarise pull left_join %>% 
 #' @importFrom tidyr pivot_wider
 #' @importFrom rlang set_names :=
 #' @importFrom forcats fct_explicit_na
@@ -101,8 +101,8 @@ summarise_survival_by = function(surv, by, times, followup, total, digits, showN
                                           digits = effect_args$digits)
     } 
     if (test) {
-        .tests = test_args$show.test(test_args$test.survival(surv~by), 
-                                     digits = test_args$plim, method = test_args$show.method)
+        .tests = test_args$display_test(test_args$test_survival(surv~by), 
+                                     digits = test_args$plim, method = test_args$show_method)
     } 
     if (1 %in% total) {
         rtn_tot = summarise_survival_single(surv, times, digits, followup) %>% 
