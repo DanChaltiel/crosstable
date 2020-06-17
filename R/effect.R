@@ -3,24 +3,24 @@
 #'
 #' @return A list with testing parameters:
 #' \itemize{
-#'   \item `effect.summarize` - a function of three arguments (continuous variable, grouping variable and conf.level), used to compare continuous variable. Returns a list of five components: \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretiation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf.level} (the confidence interval level). See \code{diff_mean.auto}, \code{diff_mean.student} or \code{diff_mean.boot} for some examples of such functions. Users can provide their own function.
+#'   \item `effect.summarize` - a function of three arguments (continuous variable, grouping variable and conf.level), used to compare continuous variable. Returns a list of five components: \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretiation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf.level} (the confidence interval level). See \code{diff_mean_auto}, \code{diff_mean_student} or \code{diff_mean_boot} for some examples of such functions. Users can provide their own function.
 #'   \item `effect.tabular` - a function of three arguments (two categorical variables and conf.level) used to measure the associations between two factors. Returns a list of five components: \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf.level} (the confidence interval level). See \code{effect_odd_ratio}, \code{effect_relative_risk}, \code{effect_risk_difference}, \code{effect_odd_ratio}, \code{rr.col.by.row}, or \code{rd.col.by.row} for some examples of such functions. Users can provide their own function.
 #'   \item `effect.survival` - a function of two argument (a formula and conf.level), used to measure the association between a consored and a factor. Returns the same components as created by \code{effect.summarize}. See \code{effect_survival_coxph}. Users can provide their own function.
 #'   \item `conf.level` - the desired confidence interval level
 #'   \item `digits` - the decimal places
-#'   \item `show.effect` - a function to format the effect. See [display.effect()].
+#'   \item `show.effect` - a function to format the effect. See [display_effect()].
 #' }
 #' 
 #' @export
 #' @author Dan Chaltiel
 crosstable_effect_args = function(){
     list( 
-        effect.summarize = diff_mean.auto, 
+        effect.summarize = diff_mean_auto, 
         effect.tabular = effect_odd_ratio,
         effect.survival = effect_survival_coxph, 
         conf.level = 0.95,
         digits = 2,
-        show.effect = display.effect
+        show.effect = display_effect
     )
 }
 
@@ -31,7 +31,7 @@ crosstable_effect_args = function(){
 #' @param digits digits
 #' 
 #' @export
-display.effect = function(effect, digits = 4) {
+display_effect = function(effect, digits = 4) {
     if (is.null(effect) || all(map_lgl(effect, is.null))){
         return("No effect?")
     } else if (is_string(effect)){
@@ -83,7 +83,7 @@ effect_odd_ratio = function (x, y, conf.level = 0.95) {
 #' @return a list with five componments
 #' @importFrom stats sd qnorm bartlett.test t.test
 #' @export
-diff_mean.auto = function(x, g, conf.level = 0.95, R = 500) {
+diff_mean_auto = function(x, g, conf.level = 0.95, R = 500) {
     ng = table(g)
     if (length(ng) != 2) {
         # TODO find an effect to calculate for groups of more than 2
@@ -300,7 +300,7 @@ effect_risk_difference = function (x, y, conf.level = 0.95) {
 #' @return a list with five componments
 #' @importFrom stats sd qnorm 
 #' @export
-diff_mean.boot = function(x, g, conf.level = 0.95, R = 500) {
+diff_mean_boot = function(x, g, conf.level = 0.95, R = 500) {
     ng = table(g)
     if (length(ng) <= 1 | length(ng) > 2) {
         return(NULL)
@@ -334,7 +334,7 @@ diff_mean.boot = function(x, g, conf.level = 0.95, R = 500) {
 #' @return a list with five componments
 #' @importFrom stats bartlett.test t.test
 #' @export
-diff_mean.student = function(x, g, conf.level = 0.95) {
+diff_mean_student = function(x, g, conf.level = 0.95) {
     ng = table(g)
     if (length(ng) <= 1 | length(ng) > 2) {
         return(NULL)

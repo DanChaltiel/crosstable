@@ -334,13 +334,13 @@ test_that("Effects", {
   
   ##NUMERIC
   
-  #args$effect.summarize = diff_mean.auto (default)
+  #args$effect.summarize = diff_mean_auto (default)
   set.seed(1234)
   x=crosstable(mtcars3, disp, by=vs, effect=T, effect_args=args)
   expect_equal(x$effect[1], "Difference in means (bootstrap CI) (straight minus vshaped): -190.34\nCI95%[-260.78 to -119.89]")
   
   set.seed(1234)
-  args$effect.summarize = diff_mean.boot
+  args$effect.summarize = diff_mean_boot
   x=crosstable(mtcars3, disp, by=vs, effect=T, effect_args=args)
   expect_equal(x$effect[1], "Difference in means (bootstrap CI) (straight minus vshaped): -190.34\nCI95%[-260.78 to -119.89]")
   
@@ -376,7 +376,7 @@ test_that("Effects never fail", {
   
   set.seed(1234)
   args = crosstable_effect_args()
-  args$effect.summarize = diff_mean.boot
+  args$effect.summarize = diff_mean_boot
   args$effect.tabular = effect_relative_risk
   expect_warning({
     x=names(mtcars3) %>% set_names() %>% map(~{
