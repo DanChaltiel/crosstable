@@ -2,7 +2,7 @@
 % Please edit documentation in R/officer.R
 \name{body_add_crosstable}
 \alias{body_add_crosstable}
-\title{body_add_crosstable}
+\title{Add a crosstable to an \code{officer} document}
 \usage{
 body_add_crosstable(doc, x, ...)
 }

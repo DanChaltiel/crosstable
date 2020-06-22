@@ -1,5 +1,5 @@
 ---
-title: "Crosstable Reporting"
+title: "Make automatic reports"
 author: "Dan Chaltiel"
 date: "`r Sys.Date()`"
 output:
@@ -22,7 +22,7 @@ library(dplyr)
 
 ## Create reports with `officer`
 
-The real power of `crosstable` comes out when used with David Gohel's [awesome package ](https://davidgohel.github.io/officer/) `officer`, which allows to automatically create MS Word documents. 
+The real power of `crosstable` comes out when used with David Gohel's awesome package [`officer` ](https://davidgohel.github.io/officer/), which allows to automatically create MS Word documents. 
 
 Therefore, `crosstable` has several functions to output a beautiful report:
 
@@ -40,30 +40,33 @@ doc = read_docx() %>%
   body_add_title("Compacted", 2) %>%
   body_add_normal("When compacting, you might want to remove the test names.") %>%
   body_add_crosstable(ct1, compact=TRUE, show_test_name=FALSE) %>%
-  body_add_break %>%
+  body_add_break() %>%
   body_add_title("Dataset mtcars2", 1) %>%
   body_add_glued("This dataset has {nrow(ct3)} rows and {x} columns.", x=ncol(ct3)) %>%
   body_add_normal("Look, there are labels!") %>%
   body_add_crosstable(ct2, compact=TRUE) %>%
-  body_add_break %>%
+  body_add_break() %>%
   body_add_title("Dataset esoph", 1) %>%
-  body_add_normal("This one was compacted beforehand.") %>%
+  body_add_normal("This one was compacted beforehand for some reason.") %>%
   body_add_crosstable(compact(ct3)) %>%
-  body_add_break 
+  body_add_break() 
+```
 
+```{r save, include=FALSE}
+print(doc, "../examples/vignette_officer.docx")
 ```
 
 ## Output
 
-To output, just use the `print` function:
+To save the file, just use the `print` function:
 
 ```{r print, eval=FALSE}
-filename="..\\examples\\officer-vignette.docx" #`\\` are needed for shell.exec on Windows
+filename=file.path("..", "examples", "vignette_officer.docx", fsep="\\")#`\\` is needed for shell.exec on Windows
 print(doc, filename) #write the docx file
 shell.exec(filename) #open the docx file (fails if it is already open)
 ```
 
-You can check out the example [here](https://github.com/DanChaltiel/crosstable/examples/officer-vignette.docx).
+You can check out this example [here](../examples/vignette_officer.docx).
 
 Unfortunately, large tables can overflow the MS Word document width. In this case (for instance for `mtcars2` in the previous example), you have to manually go to `Table Tools > Layout > AutoFit > AutoFit Window` in the ribbon to correct the width. 
 
@@ -99,5 +102,5 @@ crosstable(iris, Sepal.Length, Sepal.Width, by=Species, test = TRUE, total="colu
 
 ````
 
-You can example files here: [cross_markdown.Rmd](examples/cross_markdown.Rmd) and [cross_markdown.docx](examples/cross_markdown.docx).
+You can example files here: [vignette_markdown.Rmd](../examples/vignette_markdown.Rmd) and [vignette_markdown.docx](../examples/vignette_markdown.docx).
 

@@ -2,32 +2,20 @@
 % Please edit documentation in R/officer.R
 \name{body_add_normal}
 \alias{body_add_normal}
-\alias{body_add_glued}
-\title{Add a new paragraph with a Normal style, inserting variables with \code{base::paste}}
+\title{Add a new paragraph with a Normal style to an \code{officer} document, inserting variables with \code{base::paste}}
 \usage{
 body_add_normal(doc, ...)
-
-body_add_glued(doc, .x, ...)
 }
 \arguments{
 \item{doc}{the doc object (created with the \code{read_docx} function of \code{officer} package)}
 
-\item{...}{parameters to be passed to \code{glue::glue}}
-
-\item{.x}{the string with \code{glue::glue} patterns (Expressions enclosed by braces will be evaluated as R code)}
+\item{...}{one or several character strings, collapsed into a paragraph with \code{base::paste}}
 }
 \value{
 a new doc object
-
-a new doc object
 }
 \description{
-Add a new paragraph with a Normal style, inserting variables with \code{base::paste}
-
-Add a new paragraph with a Normal style, inserting variables with \code{glue::glue}
-}
-\note{
-frbifhrueih
+Add a new paragraph with a Normal style to an \code{officer} document, inserting variables with \code{base::paste}
 }
 \examples{
 \dontrun{
@@ -37,18 +25,7 @@ library(dplyr)
 doc = read_docx()
 doc = doc \%>\% body_add_normal("La table iris a ", ncol(iris), " colonnes.")
 }
-\dontrun{
-library(officer)
-library(crosstable)
-library(dplyr)
-doc = read_docx()
-doc = doc \%>\%
-    body_add_glued("The iris table has {ncol(iris)} columns") \%>\%
-    body_add_glued("Actually, it also has {nrows} rows", nrows=nrow(iris))
-}
 }
 \author{
-Dan Chaltiel
-
 Dan Chaltiel
 }

@@ -1,0 +1,136 @@
+---
+    output: md_document
+    always_allow_html: true
+---
+<!-- knitr::knit("pkgdown/index.Rmd", "pkgdown/index.md") -->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+    collapse=TRUE,
+    comment="#>",
+    fig.path="man/figures/README-",
+    fig.height = 7,
+    out.width="100%"
+)
+
+library(officer)
+library(knitr)
+library(flextable)
+
+
+```
+
+
+
+
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/crosstable)](https://CRAN.R-project.org/package=crosstable)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Build Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=master)](https://travis-ci.org/DanChaltiel/crosstable)
+[![Codecov test coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/master/graph/badge.svg)](https://codecov.io/gh/DanChaltiel/crosstable?branch=master)
+<!-- badges: end -->
+
+## Overview<a href='https://DanChaltiel.github.io/crosstable/'><img src='hex_sticker_v2.png' align="right" height="175" /></a>
+
+Crosstable is a package centered on a single function, `crosstable`, which easily computes descriptive statistics on datasets. 
+
+It can use the `tidyselect` syntax for selecting variables (and more) and is interfaced with the package `officer` to create automatized reports.
+
+## Installation
+
+```{r install, eval=FALSE}
+install.packages("devtools")
+devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
+```
+
+In case of any installation problem, try reading [the wiki](https://github.com/DanChaltiel/crosstable/wiki/Installation-problems) or fill an [Issue](https://github.com/DanChaltiel/crosstable/issues).
+
+## Getting help
+
+You can use the vignettes: 
+
++ `vignette("crosstable")` for global use and parameterization 
++ `vignette("crosstable-selection")` for variable selection 
++ `vignette("crosstable-report")` for reporting with `officer` or `Rmarkdown`
+
+
+
+## Usage
+
+### Base usage
+
+Without any more argument than the dataset, the function will summarise all numeric variables with statistics (`min`+`max`, `mean`+`sd`, `median`+`IQR`, `N`+`NA`) and all categorical variables with counts and percentages.
+
+```{r usage0, warning=FALSE, message=FALSE}
+library(crosstable)
+library(dplyr)
+
+crosstable(iris)
+```
+
+### Column specification, grouping and labels
+
+You can select specific columns using names and helpers functions, and require specific summary statistics using `funs` and `funs_arg`. The `by` argument allows to specify a grouping variable. Here, as the `mtcars2` has labels, they are also included in the crosstable.
+
+The `as_flextable` function allows to output a beautiful HTML table that can be customized at will ( see the [flextable package](https://davidgohel.github.io/flextable/index.html)) and embed in a Word document (see the [officer package](https://davidgohel.github.io/officer/)). 
+
+```{r usage1, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
+library(tidyverse)
+ct1 = crosstable(mtcars2, qsec, ends_with("t"), starts_with("c"), by=vs, 
+                 funs=c(mean, quantile), funs_arg=list(probs=c(.25,.75), digits=3)) 
+
+# warning(as.character(getAnywhere("knit_print.flextable"))[3])
+# warning(capture.output(knit_print.flextable))
+ct1 %>% as_flextable(keep_id=TRUE)
+```
+
+### Margins and totals
+
+The `margin` argument changes the percentages calculation, while the `total` argument adds total rows or columns.
+
+```{r usage2, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
+#margin and totals
+ct2 = crosstable(mtcars2, disp, vs, by=am, margin=c("row", "col"), total="both")
+ct2 %>% as_flextable
+```
+
+### Predicate functions, automatic testing
+
+For the variable selection, you can use predicate functions. It is a good practice to wrap these in `where`. If the grouping variable is numeric, correlation coefficients will be calculated. 
+
+Using the `test` argument, you can perform tests with each variable and the grouping variable. Beware, automatic testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.
+
+```{r usage3, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
+ct3 = crosstable(mtcars2, where(is.numeric), by=hp, test=TRUE)
+ct3 %>% as_flextable
+```
+
+### Lambda functions, effect size calculation
+
+The predicate function can be a lambda function, using `.x` as the variable name. 
+
+Using the `effect` argument, you can calculate effect sizes for all numeric variables and for categorical variable of exactly 2 levels.
+
+```{r usage4, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
+ct4 = crosstable(mtcars2, where(~is.numeric(.x) && mean(.x)>50), by=vs, effect=TRUE) 
+ct4 %>% as_flextable
+```
+
+### Formula syntax, survival variables
+
+Finally, you can describe survival data using the `Surv` object from the package `survival`. The `times` and `followup` arguments allows for more control.
+
+This is only possible using the formula syntax of variable selection, which allows more complex selection and is written as `var1 + var2 ~ group`.
+
+```{r usage5, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
+library(survival)
+ct5 = crosstable(aml, Surv(time, status) ~ x, times=c(0,15,30,150), followup=TRUE)
+ct5 %>% as_flextable
+```
+
+
+## Acknowledgement
+
+`crosstable` is a rewrite of the awesome [`biostat2` package](https://github.com/eusebe/biostat2) written by David Hajage. The user interface is quite different but the concept is the same.
+
+Thanks David!

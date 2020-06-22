@@ -22,3 +22,6 @@ TODO\.R
 ^Meta$
 ^data-raw$
 ^codecov\.yml$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

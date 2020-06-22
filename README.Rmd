@@ -27,13 +27,13 @@ library(flextable)
 [![Codecov test coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/master/graph/badge.svg)](https://codecov.io/gh/DanChaltiel/crosstable?branch=master)
 <!-- badges: end -->
 
-Crosstable is a package centered on a single function, `crosstable`, which easily computes descriptive statistics on datasets. It is using the `tidyverse` syntax and is interfaced with the package `officer` to create automatized reports.
+Crosstable is a package centered on a single function, `crosstable`, which easily computes descriptive statistics on datasets. It can use the `tidyverse` syntax and is interfaced with the package `officer` to create automatized reports.
 
 ## Installation
 
 ```{r install, eval=FALSE}
 install.packages("devtools")
-devtools::install_github("DanChaltiel/crosstable")
+devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 ```
 
 In case of any installation problem, try reading [the wiki](https://github.com/DanChaltiel/crosstable/wiki/Installation-problems) or fill an [Issue](https://github.com/DanChaltiel/crosstable/issues).

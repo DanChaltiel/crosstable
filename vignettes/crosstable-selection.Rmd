@@ -1,5 +1,5 @@
 ---
-title: "Crosstable selection patterns"
+title: "Select variables"
 author: "Dan Chaltiel"
 date: "`r Sys.Date()`"
 output: 
@@ -22,7 +22,6 @@ options(width = 100)
 ```
 
 
-## Crosstable
 
 This vignette will review the different ways of selecting variables to describe with `crosstable`. For more general informations about `crosstable`, see `vignette("crosstable")` ([link](crosstable.html)). For more information and tips on `tidyselect`, see [tidyselect syntax](https://tidyselect.r-lib.org/articles/syntax.html)
 
@@ -51,6 +50,8 @@ ct %>% head(10) %>%
 
 ## Select by column name
 
+### Name
+
 Just like with `dplyr::select`, you can use names with or without quotes to select variables you want to describe:
 
 ```{r crosstable-names}
@@ -60,7 +61,19 @@ crosstable(mtcars2, "qsec", by="am") %>%
   as_flextable(keep_id=TRUE)
 ```
 
-You can also use negation to remove some columns:
+### External vector
+
+However, it is better to use `all_of` or `any_of` when you take your column names from an external vector. Otherwise, there would be an ambiguity as you might have wanted to select a column named like this vector.
+
+```{r crosstable-external}
+qsec=c("mpg", "cyl") #well, that's quite a bad variable name...
+crosstable(mtcars2, any_of(qsec), by=vs) %>% 
+  as_flextable(keep_id=TRUE)
+```
+
+### Negation
+
+You can also use negation to keep all but some columns:
 
 ```{r crosstable-negation}
 crosstable(mtcars2, -mpg, by=vs) %>% head %>% 
@@ -72,37 +85,46 @@ crosstable(mtcars2, -c(mpg, cyl), by=vs) %>% head %>%
 ```
 
 
+### Indice
+
+This can be useful sometimes, for instance when you want to quickly describe the 3 first columns. 
+
+```{r crosstable-indice}
+crosstable(mtcars2, 1:3, by=vs) %>% 
+  as_flextable(keep_id=TRUE)
+```
+
+You can also use negation (`-(1:3)`), concatenation (`c(1,2,3)`), or both (`crosstable(mtcars2, 1:4, -2, by=vs)`).
+
 
 
 ## Select with `tidyselect` helpers
 
-Along with `everything()`, `tidyselect` provides a large choice of helpers. You can see `?tidyselect::select_helpers` for a complete list. Some are not exported by `dplyr` though, so you might need to load `tidyselect` as well.
+Along with `everything()`, `tidyselect` provides a large choice of helpers. You can see `?tidyselect::select_helpers` for a complete list. They all have the useful `ignore.case` argument which is often very convenient.
 
-To me, the more useful are `starts_with`, `ends_with`, `contains` and `matches`. Here are some examples:
+The main are re-exported by crosstable: `starts_with`, `ends_with`, `contains` and `matches`. Here are some examples:
 
 ```{r crosstable-helpers}
-crosstable(mtcars2, contains("yl")) %>% 
+crosstable(mtcars2, starts_with("d")) %>% 
   as_flextable(keep_id=TRUE)
-crosstable(mtcars2, starts_with("d"), ends_with("p")) %>% 
+crosstable(mtcars2, ends_with("g"), contains("yl")) %>% 
   as_flextable(keep_id=TRUE)
-#for regex haters, this selects all names starting with "d" or "g", followed by exactly 3 characters
+#for regex haters, the following call selects all columns which name starts with "d" or "g", followed by exactly 3 characters
 crosstable(mtcars2, matches("^d|g.{3}$")) %>% 
   as_flextable(keep_id=TRUE)
 ```
-
-They all have the useful `ignore.case` argument which is often very convenient.
 
 
 
 
 ## Select with predicate functions
 
-Sometimes, you want to select columns if they meet a set of specifications.
+Sometimes, you want to select columns if they meet a set of specifications, for instance of type or of value. You can then use predicate functions: functions that return a single logical value. If the function is named, it is a good practice to wrap it in `where`.
 
-For instance, you might want only numeric variables:
+For instance, you might want to keep only numeric variables:
 
 ```{r crosstable-functions1}
-crosstable(mtcars2, is.numeric) %>% 
+crosstable(mtcars2, where(is.numeric)) %>% 
   as_flextable(keep_id=TRUE)
 ```
 
@@ -113,7 +135,7 @@ crosstable(mtcars2, function(x) is.numeric(x) && mean(x)>100) %>%
   as_flextable(keep_id=TRUE)
 ```
 
-Of note, crosstable support lambda-functions, so you could write `crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>100)` for the same result.
+Of note, crosstable support lambda-functions, so you could write `crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>100)` for the exact same result.
 
 The only, logical constraint is that the function should return a single logical value. Use `&&`, `||`, and parenthesis to combine functions in complex patterns.
 
@@ -125,18 +147,19 @@ The only, logical constraint is that the function should return a single logical
 If you want to mutate some variables in real-time, you can use the formula interface. The left-hand-side are the variables to describe, while the right-hand-side is the `by` variable (which can be set to `NULL`, `0` or `1` for "no variable").
 
 ```{r crosstable-formula1}
-crosstable(mtcars2, mpg+cyl~vs) %>% 
+crosstable(mtcars2, mpg+cyl ~ vs) %>% 
   as_flextable(keep_id=TRUE)
 ```
 
-This permits very complex patterns, using functions *in situ* and operations using with the `I` function.
+This permits very complex and interesting patterns, using functions *in situ* and operations using with the `I` function. Labels are inherited and make little sense though.
 
 ```{r crosstable-formula2}
-crosstable(mtcars2, sqrt(mpg)+I(qsec^2)~ifelse(mpg>20,"mpg>20","mpg<20")) %>% 
+crosstable(mtcars2, sqrt(mpg) + I(qsec^2) ~ ifelse(mpg>20,"mpg>20","mpg<20"),
+           label=FALSE) %>% 
   as_flextable(keep_id=TRUE)
 ```
 
-Please note that you cannot use `tidyselect` helpers in formulas.
+Note that you cannot use `tidyselect` helpers in formulas.
 
 
 
@@ -145,40 +168,14 @@ Please note that you cannot use `tidyselect` helpers in formulas.
 
 Lets play a little with all of this :-)
 
-I want all numeric variables that do not start by "d" or "w", but I still want `drat` finally.
+I want all numeric variables that do not start by "d" or "w", but I still want `drat` in the end.
 
 ```{r crosstable-ultimate1}
 crosstable(mtcars2, is.numeric, -matches("^d|w"), drat, label=FALSE) %>% 
-  as_flextable(keep_id=TRUE)
+  as_flextable()
 ```
 
 
-
-## More options
-
-### Select with external vector
-
-Remember to use `one_of` when you use an external vector, else there would be an ambiguity as you might have wanted to select a column named `XX`.
-
-```{r crosstable-external}
-XX=c("mpg", "cyl")
-crosstable(mtcars2, one_of(XX), by=vs) %>% 
-  as_flextable(keep_id=TRUE)
-```
-
-
-
-
-### Select with indices
-
-This can be useful sometimes, for instance when you want to quickly describe the 3 first columns. 
-
-```{r crosstable-indice}
-crosstable(mtcars2, 1:3, by=vs) %>% 
-  as_flextable(keep_id=TRUE)
-```
-
-You can also use negation (`-(1:3)`), concatenation (`c(1,2,3)`), or both (`crosstable(mtcars2, 1:4, -2, by=vs)`).
 
 
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/officer.R
 \name{body_add_title}
 \alias{body_add_title}
-\title{Add a new title}
+\title{Add a title to an \code{officer} document}
 \usage{
 body_add_title(doc, value, level = 1, style = "heading")
 }
@@ -19,7 +19,7 @@ body_add_title(doc, value, level = 1, style = "heading")
 a new doc object
 }
 \description{
-Add a new title
+Add a title to an \code{officer} document
 }
 \examples{
 \dontrun{

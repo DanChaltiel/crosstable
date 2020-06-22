@@ -2,7 +2,7 @@
 % Please edit documentation in R/officer.R
 \name{body_add_table_legend}
 \alias{body_add_table_legend}
-\title{Add a table legend}
+\title{Add a table legend to an \code{officer} document}
 \usage{
 body_add_table_legend(
   x,
@@ -24,7 +24,7 @@ body_add_table_legend(
 \item{seqfield}{to figure this out, in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.}
 }
 \description{
-Add a table legend
+Add a table legend to an \code{officer} document
 }
 \section{Warning}{
 
