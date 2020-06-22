@@ -1,8 +1,6 @@
 
 
-#' Add a new paragraph with a Normal style, inserting variables with \code{base::paste}
-#'
-#' @name body_add_normal
+#' Add a new paragraph with a Normal style to an `officer` document, inserting variables with \code{base::paste}
 #'
 #' @param doc the doc object (created with the \code{read_docx} function of \code{officer} package)
 #' @param ... one or several character strings, collapsed into a paragraph with \code{base::paste}
@@ -25,11 +23,8 @@ body_add_normal = function(doc, ...) {
     body_add_par(doc, value, style = "Normal")
 }
 
-#' Add a new paragraph with a Normal style, inserting variables with \code{glue::glue}
+#' Add a new paragraph with a Normal style to an `officer` document, inserting variables with `glue::glue`
 #'
-#' @note frbifhrueih
-#'
-#' @name body_add_normal
 #' @param doc the doc object (created with the \code{read_docx} function of \code{officer} package)
 #' @param .x the string with \code{glue::glue} patterns (Expressions enclosed by braces will be evaluated as R code)
 #' @param ... parameters to be passed to \code{glue::glue}
@@ -56,9 +51,7 @@ body_add_glued = function(doc, .x, ...) {
 
 
 
-#' Add a new title
-#'
-#' @name body_add_title
+#' Add a title to an `officer` document
 #'
 #' @param doc the doc object (created with the \code{read_docx} function of \code{officer} package)
 #' @param value a character string
@@ -86,7 +79,7 @@ body_add_title = function(doc, value, level = 1, style = "heading") {
 }
 
 
-#' body_add_crosstable
+#' Add a crosstable to an `officer` document
 #' @description [body_add_crosstable()] adds such a `flextable` an `officer` document.
 #'
 #' @param doc a \code{rdocx} object created by \code{read_docx} function (see \code{officer} package)
@@ -120,7 +113,7 @@ body_add_crosstable = function (doc, x, ...) {
 
 
 
-#' Add a table legend
+#' Add a table legend to an `officer` document
 #'
 #' @param x a docx object
 #' @param legend the table legend

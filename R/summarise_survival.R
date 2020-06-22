@@ -97,7 +97,7 @@ summarise_survival_by = function(surv, by, times, followup, total, digits, showN
     
     .tests=.effect=NULL
     if (effect) {
-        .effect = effect_args$show.effect(effect_args$effect.survival(surv~by, effect_args$conf.level), 
+        .effect = effect_args$show_effect(effect_args$effect_survival(surv~by, effect_args$conf_level), 
                                           digits = effect_args$digits)
     } 
     if (test) {

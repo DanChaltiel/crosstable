@@ -89,7 +89,7 @@ summarize_categorical_by = function(x, by, margin, showNA, total, digits,
     }
     
     if(effect) 
-        .effect = effect_args$show.effect(effect_args$effect.tabular(x, by, effect_args$conf.level), 
+        .effect = effect_args$show_effect(effect_args$effect_tabular(x, by, effect_args$conf_level), 
                                           digits = effect_args$digits)
     if(test) 
         .test = test_args$display_test(test_args$test_tabular(x, by), digits = test_args$plim, 

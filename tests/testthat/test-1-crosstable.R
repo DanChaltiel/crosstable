@@ -318,15 +318,15 @@ test_that("Effects", {
   
   ##CATEGORIAL
 
-  #args$effect.tabular = effect_odd_ratio (default)
+  #args$effect_tabular = effect_odds_ratio (default)
   x=crosstable(mtcars3, am, by=vs, effect=T, effect_args=args)
   expect_equal(x$effect[1], "Odds ratio (Wald CI) (auto, vshaped vs straight): 5.25\nCI95%[0.80 to 34.43]")
   
-  args$effect.tabular = effect_relative_risk
+  args$effect_tabular = effect_relative_risk
   x=crosstable(mtcars3, am, by=vs, effect=T, effect_args=args)
   expect_equal(x$effect[1], "Relative risk (Wald CI) (auto, vshaped vs straight): 2.70\nCI95%[0.94 to 15.21]")
   
-  args$effect.tabular = effect_risk_difference
+  args$effect_tabular = effect_risk_difference
   x=crosstable(mtcars3, am, by=vs, effect=T, effect_args=args)
   expect_equal(x$effect[1], "Risk difference (Wald CI) (auto, vshaped minus straight): 165.82\nCI95%[-10.51 to 379.13]")
   
@@ -334,18 +334,18 @@ test_that("Effects", {
   
   ##NUMERIC
   
-  #args$effect.summarize = diff_mean_auto (default)
+  #args$effect_summarize = diff_mean_auto (default)
   set.seed(1234)
   x=crosstable(mtcars3, disp, by=vs, effect=T, effect_args=args)
   expect_equal(x$effect[1], "Difference in means (bootstrap CI) (straight minus vshaped): -190.34\nCI95%[-260.78 to -119.89]")
   
   set.seed(1234)
-  args$effect.summarize = diff_mean_boot
+  args$effect_summarize = diff_mean_boot
   x=crosstable(mtcars3, disp, by=vs, effect=T, effect_args=args)
   expect_equal(x$effect[1], "Difference in means (bootstrap CI) (straight minus vshaped): -190.34\nCI95%[-260.78 to -119.89]")
   
   set.seed(1234)
-  args$effect.summarize = diff_median
+  args$effect_summarize = diff_median
   x=crosstable(mtcars3, disp, by=vs, effect=T, effect_args=args)
   expect_equal(x$effect[1], "Difference in medians (bootstrap CI) (): -208.90\nCI95%[-293.18 to -124.62]")
   
@@ -376,8 +376,8 @@ test_that("Effects never fail", {
   
   set.seed(1234)
   args = crosstable_effect_args()
-  args$effect.summarize = diff_mean_boot
-  args$effect.tabular = effect_relative_risk
+  args$effect_summarize = diff_mean_boot
+  args$effect_tabular = effect_relative_risk
   expect_warning({
     x=names(mtcars3) %>% set_names() %>% map(~{
       # print(.x)
@@ -392,8 +392,8 @@ test_that("Effects never fail", {
   
   set.seed(1234)
   args = crosstable_effect_args()
-  args$effect.summarize = diff_median
-  args$effect.tabular = effect_risk_difference
+  args$effect_summarize = diff_median
+  args$effect_tabular = effect_risk_difference
   expect_warning({
     x=names(mtcars3) %>% set_names() %>% map(~{
       # print(.x)

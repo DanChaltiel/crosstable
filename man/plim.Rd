@@ -2,7 +2,7 @@
 % Please edit documentation in R/test.R
 \name{plim}
 \alias{plim}
-\title{format p values}
+\title{Format p values (alternative to \code{\link[=format.pval]{format.pval()}})}
 \usage{
 plim(p, digits = 4)
 }
@@ -15,7 +15,10 @@ plim(p, digits = 4)
 formated p values
 }
 \description{
-format p values
+Format p values (alternative to \code{\link[=format.pval]{format.pval()}})
+}
+\seealso{
+\code{\link[=format.pval]{format.pval()}}, \link{https://stackoverflow.com/a/23018806/3888000}
 }
 \author{
 David Hajage

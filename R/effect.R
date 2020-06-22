@@ -1,31 +1,31 @@
 
-#' Default arguments for [crosstable()] effects
+#' Default arguments for calculating and displaying effects in [crosstable()]
 #'
 #' @return A list with testing parameters:
 #' \itemize{
-#'   \item `effect.summarize` - a function of three arguments (continuous variable, grouping variable and conf.level), used to compare continuous variable. Returns a list of five components: \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretiation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf.level} (the confidence interval level). See \code{diff_mean_auto}, \code{diff_mean_student} or \code{diff_mean_boot} for some examples of such functions. Users can provide their own function.
-#'   \item `effect.tabular` - a function of three arguments (two categorical variables and conf.level) used to measure the associations between two factors. Returns a list of five components: \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf.level} (the confidence interval level). See \code{effect_odd_ratio}, \code{effect_relative_risk}, \code{effect_risk_difference}, \code{effect_odd_ratio}, \code{rr.col.by.row}, or \code{rd.col.by.row} for some examples of such functions. Users can provide their own function.
-#'   \item `effect.survival` - a function of two argument (a formula and conf.level), used to measure the association between a consored and a factor. Returns the same components as created by \code{effect.summarize}. See \code{effect_survival_coxph}. Users can provide their own function.
-#'   \item `conf.level` - the desired confidence interval level
+#'   \item `effect_summarize` - a function of three arguments (continuous variable, grouping variable and conf_level), used to compare continuous variable. Returns a list of five components: \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretiation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf_level} (the confidence interval level). See \code{diff_mean_auto}, \code{diff_mean_student} or \code{diff_mean_boot} for some examples of such functions. Users can provide their own function.
+#'   \item `effect_tabular` - a function of three arguments (two categorical variables and conf_level) used to measure the associations between two factors. Returns a list of five components: \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf_level} (the confidence interval level). See \code{effect_odds_ratio}, \code{effect_relative_risk}, \code{effect_risk_difference}, \code{effect_odds_ratio}, \code{rr.col.by.row}, or \code{rd.col.by.row} for some examples of such functions. Users can provide their own function.
+#'   \item `effect_survival` - a function of two argument (a formula and conf_level), used to measure the association between a consored and a factor. Returns the same components as created by \code{effect_summarize}. See \code{effect_survival_coxph}. Users can provide their own function.
+#'   \item `conf_level` - the desired confidence interval level
 #'   \item `digits` - the decimal places
-#'   \item `show.effect` - a function to format the effect. See [display_effect()].
+#'   \item `show_effect` - a function to format the effect. See [display_effect()].
 #' }
 #' 
 #' @export
 #' @author Dan Chaltiel
 crosstable_effect_args = function(){
     list( 
-        effect.summarize = diff_mean_auto, 
-        effect.tabular = effect_odd_ratio,
-        effect.survival = effect_survival_coxph, 
-        conf.level = 0.95,
+        effect_summarize = diff_mean_auto, 
+        effect_tabular = effect_odds_ratio,
+        effect_survival = effect_survival_coxph, 
+        conf_level = 0.95,
         digits = 2,
-        show.effect = display_effect
+        show_effect = display_effect
     )
 }
 
 
-#' Display Effect
+#' Default function to display the effect
 #'
 #' @param effect effect
 #' @param digits digits
@@ -34,25 +34,41 @@ crosstable_effect_args = function(){
 display_effect = function(effect, digits = 4) {
     if (is.null(effect) || all(map_lgl(effect, is.null))){
         return("No effect?")
-    } else if (is_string(effect)){
+    } else if (is_string(effect)){ #error message
         return(effect)
     } else {
-        paste(paste0(effect$effect.type, " (", effect$effect.name, "): ", formatC(effect$effect, format = "f", digits = digits), "\nCI", effect$conf.level*100, "%[", paste(formatC(effect$ci[, 1], format = "f", digits = digits), formatC(effect$ci[, 2], format = "f", digits = digits), sep = " to "), "]"), collapse = "\n")
+        paste(paste0(effect$effect.type, " (", effect$effect.name, "): ", formatC(effect$effect, format = "f", digits = digits), "\nCI", effect$conf_level*100, "%[", paste(formatC(effect$ci[, 1], format = "f", digits = digits), formatC(effect$ci[, 2], format = "f", digits = digits), sep = " to "), "]"), collapse = "\n")
     }
 }
 
 
 
-#' Effect measure for association between two factors
+
+
+# Tabular (factor vs factor) ----------------------------------------------
+
+
+
+#' Effect measure for association between two categorial variables
+#' 
+#' User can either use or extend these functions to parametrize effect calculation.
 #'
-#' @param x vector
+#' @name effect_tabular
+#' 
+#' @param x vector (of exactly 2 unique levels)
 #' @param y another vector
-#' @param conf.level confidence interval level
+#' @param conf_level confidence interval level
 #'
-#' @return a list with five componments
+#' @return A list with five componments: effect, ci, effect.name, effect.type, and conf_level
+#' @seealso [crosstable_effect_args()] 
+NULL
+
+
+
+#' @describeIn effect_tabular (**Default**) calculate the odds ratio
 #' @importFrom stats glm binomial confint.default
 #' @export
-effect_odd_ratio = function (x, y, conf.level = 0.95) {
+effect_odds_ratio = function (x, y, conf_level = 0.95) {
     tab = table(x, y)
     if (ncol(tab) <= 1 | nrow(tab) > 2) {
         return(NULL)
@@ -69,138 +85,24 @@ effect_odd_ratio = function (x, y, conf.level = 0.95) {
         effect.name = paste0(rownames(tab)[1], ", ", paste(colnames(tab)[-1], colnames(tab)[1], sep = " vs "))
         effect.type = "Odds ratio (Wald CI)"
     }    
-    list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf.level = conf.level)
-}
-
-
-#' Effect measure for association between one continuous and one categorical variable
-#'
-#' @param x vector
-#' @param g another vector
-#' @param conf.level confidence interval level
-#' @param R number of bootstrap replication
-#'
-#' @return a list with five componments
-#' @importFrom stats sd qnorm bartlett.test t.test
-#' @export
-diff_mean_auto = function(x, g, conf.level = 0.95, R = 500) {
-    ng = table(g)
-    if (length(ng) != 2) {
-        # TODO find an effect to calculate for groups of more than 2
-        return(list(effect=NULL, ci=NULL, effect.name=NULL, effect.type=NULL, conf.level=NULL))
-    } 
-    
-    effect = unname(diff(rev(tapply(x, g, mean, na.rm = TRUE))))
-    effect.name = paste(names(ng), collapse = " minus ")
-    
-    normg = test_normality(x, g)
-    if (any(normg < 0.05)) {
-        beffect = vector("numeric", R)
-        for (i in 1:R) {
-            ib = sample(1:length(x), replace = TRUE)
-            xi = x[ib]
-            gi = g[ib]
-            if(length(table(gi))!=2)
-                beffect[i] = NA
-            else
-                beffect[i] = unname(diff(rev(tapply(xi, gi, mean, na.rm = TRUE))))
-        }
-        sd.effect = sd(beffect, na.rm=TRUE)
-        ci = effect + qnorm(c((1-conf.level)/2, 1-(1-conf.level)/2))*sd.effect
-        dim(ci) = c(1, 2)
-        effect.type = "Difference in means (bootstrap CI)"
-    } else {
-        bartlettg = bartlett.test(x, g)$p.value
-        if (bartlettg < 0.05) {
-            type = "t.unequalvar"
-            effect.type = "Difference in means (Welch CI)"
-        } else if (bartlettg > 0.05 & length(ng) == 2) {
-            type = "t.equalvar"
-            effect.type = "Difference in means (t-test CI)"
-        }
-        test = switch(type,
-                      t.unequalvar = t.test(x ~  g, var.equal = FALSE, conf.level = conf.level),
-                      t.equalvar = t.test(x ~  g, var.equal = TRUE, conf.level = conf.level))
-        ci = unname(test$conf.int)
-        attributes(ci) = NULL
-        dim(ci) = c(1, 2)
-    }
-    
-    list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf.level = conf.level)
-}
-
-
-#' Effect measure for association between one consored variable and one categorical variable
-#'
-#' @param formula a formula
-#' @param conf.level the confidence level required
-#'
-#' @return a list with two componments: p.value and method
-#' @author David Hajage
-#' @importFrom stats confint
-#' @importFrom survival coxph
-#' @export
-effect_survival_coxph = function(formula, conf.level = 0.95) {
-    mod = tryCatch2(coxph(formula))
-    
-    msg = attr(mod, "warnings")
-    if(!is.null(msg)){
-        p = if(length(msg)==1) "A problem" else "Problems"
-        w = glue_collapse(msg, "', '", last="' and '")
-        warning(str_squish(glue("{p} occured when calculating 
-                crosstable effects (coxph): '{w}'.")), 
-                call. = F)
-    }
-    
-    msg = attr(mod, "errors")
-    if(!is.null(msg)) {
-        w = glue_collapse(msg, "', '", last="' and '")
-        warning(str_squish(glue("An error occured when calculating 
-                crosstable effects (coxph): '{w}'.")), 
-                call. = F)
-        return(glue("Error (coxph: {w})"))
-    }
-    
-    
-    
-    effect = exp(mod$coef)
-    ci = suppressMessages(exp(confint(mod)))
-    if (is.null(nrow(ci))) {
-        dim(ci) = c(1, length(ci))
-    }
-    effect.name = paste(mod$xlevels[[1]][-1], mod$xlevels[[1]][1], sep = " vs ")
-    effect.type = "Hazard ratio (Wald CI)"
-    
-    list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf.level = conf.level)
+    list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf_level = conf_level)
 }
 
 
 
-
-
-
-# Additional functions ----------------------------------------------------
-
-
-
-#' Effect measure for association between two factors
+#' @describeIn effect_tabular calculate the relative risk
 #'
-#' @param x vector
-#' @param y another vector
-#' @param conf.level confidence interval level
-#'
-#' @return a list with five componments
 #' @importFrom stats glm binomial confint
 #' @importFrom stringr str_squish str_detect
 #' @importFrom rlang is_string  
 #' @importFrom glue glue glue_collapse
 #' @export 
-#' @seealso #https://stats.stackexchange.com/a/336624/81974
-effect_relative_risk = function (x, y, conf.level = 0.95) { 
+effect_relative_risk = function (x, y, conf_level = 0.95) { 
     tab = table(x, y)
     if (ncol(tab) <= 1 | nrow(tab) > 2) {
         return(NULL)
     } else {
+        # https://stats.stackexchange.com/a/336624/81974
         default_warning = "You might want to check for complete separation or extreme outliers."
         xnum = ifelse(x == rownames(tab)[1], 1, 0)
         mod = tryCatch2(glm(xnum ~ y, family = binomial(link = "log")))
@@ -232,23 +134,18 @@ effect_relative_risk = function (x, y, conf.level = 0.95) {
         effect.name = paste0(rownames(tab)[1], ", ", paste(colnames(tab)[-1], colnames(tab)[1], sep = " vs "))
         effect.type = "Relative risk (Wald CI)"
     }    
-    list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf.level = conf.level)
+    list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf_level = conf_level)
 }
 
 
 
 
-#' Effect measure for association between two factors
+#' @describeIn effect_tabular calculate the risk difference
 #'
-#' @param x vector
-#' @param y another vector
-#' @param conf.level confidence interval level
-#'
-#' @return a list with five componments
 #' @importFrom stats glm binomial confint 
 #' @importFrom stringr str_squish
 #' @export
-effect_risk_difference = function (x, y, conf.level = 0.95) {
+effect_risk_difference = function (x, y, conf_level = 0.95) {
     tab = table(x, y)
     if (ncol(tab) <= 1 || nrow(tab) > 2) {
         return(NULL)
@@ -284,23 +181,89 @@ effect_risk_difference = function (x, y, conf.level = 0.95) {
         effect.name = paste0(rownames(tab)[1], ", ", paste(colnames(tab)[-1], colnames(tab)[1], sep = " minus "))
         effect.type = "Risk difference (Wald CI)"
     }    
-    list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf.level = conf.level)
+    list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf_level = conf_level)
 }
+
+
+
+# Summary (numeric vs factor) ---------------------------------------------
+
+
 
 
 
 
 #' Effect measure for association between one continuous and one categorical variable
+#' 
+#' User can either use or extend these functions to parametrize effect calculation.
 #'
-#' @param x vector
+#' @name effect_summary
+#' 
+#' @param x vector (of exactly 2 unique levels)
 #' @param g another vector
-#' @param conf.level confidence interval level
+#' @param conf_level confidence interval level
 #' @param R number of bootstrap replication
 #'
-#' @return a list with five componments
+#' @return A list with five componments: effect, ci, effect.name, effect.type, and conf_level
+#' @seealso [crosstable_effect_args()] 
+NULL
+
+
+
+#' @describeIn effect_summary (**Default**) calculate a specific "difference in means" effect based on normality (Shapiro or Anderson test) and variance homogeneity (Bartlett test)
+#' @importFrom stats sd qnorm bartlett.test t.test
+#' @export
+diff_mean_auto = function(x, g, conf_level = 0.95, R = 500) {
+    ng = table(g)
+    if (length(ng) != 2) {
+        # TODO find an effect to calculate for groups of more than 2
+        return(list(effect=NULL, ci=NULL, effect.name=NULL, effect.type=NULL, conf_level=NULL))
+    } 
+    
+    effect = unname(diff(rev(tapply(x, g, mean, na.rm = TRUE))))
+    effect.name = paste(names(ng), collapse = " minus ")
+    
+    normg = test_normality(x, g)
+    if (any(normg < 0.05)) {
+        beffect = vector("numeric", R)
+        for (i in 1:R) {
+            ib = sample(1:length(x), replace = TRUE)
+            xi = x[ib]
+            gi = g[ib]
+            if(length(table(gi))!=2)
+                beffect[i] = NA
+            else
+                beffect[i] = unname(diff(rev(tapply(xi, gi, mean, na.rm = TRUE))))
+        }
+        sd.effect = sd(beffect, na.rm=TRUE)
+        ci = effect + qnorm(c((1-conf_level)/2, 1-(1-conf_level)/2))*sd.effect
+        dim(ci) = c(1, 2)
+        effect.type = "Difference in means (bootstrap CI)"
+    } else {
+        bartlettg = bartlett.test(x, g)$p.value
+        if (bartlettg < 0.05) {
+            type = "t.unequalvar"
+            effect.type = "Difference in means (Welch CI)"
+        } else if (bartlettg > 0.05 & length(ng) == 2) {
+            type = "t.equalvar"
+            effect.type = "Difference in means (t-test CI)"
+        }
+        test = switch(type,
+                      t.unequalvar = t.test(x ~  g, var.equal = FALSE, conf_level = conf_level),
+                      t.equalvar = t.test(x ~  g, var.equal = TRUE, conf_level = conf_level))
+        ci = unname(test$conf.int)
+        attributes(ci) = NULL
+        dim(ci) = c(1, 2)
+    }
+    
+    list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf_level = conf_level)
+}
+
+
+#' @describeIn effect_summary calculate a "difference in means" effect by bootstraping
 #' @importFrom stats sd qnorm 
 #' @export
-diff_mean_boot = function(x, g, conf.level = 0.95, R = 500) {
+diff_mean_boot = function(x, g, conf_level = 0.95, R = 500) {
     ng = table(g)
     if (length(ng) <= 1 | length(ng) > 2) {
         return(NULL)
@@ -318,58 +281,18 @@ diff_mean_boot = function(x, g, conf.level = 0.95, R = 500) {
                 beffect[i] = unname(diff(rev(tapply(xi, gi, mean, na.rm = TRUE))))
         }
         sd.effect = sd(beffect)
-        ci = effect + qnorm(c((1-conf.level)/2, 1-(1-conf.level)/2))*sd.effect
+        ci = effect + qnorm(c((1-conf_level)/2, 1-(1-conf_level)/2))*sd.effect
         dim(ci) = c(1, 2)
         effect.type = "Difference in means (bootstrap CI)"
     }            
-    list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf.level = conf.level)
+    list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf_level = conf_level)
 }
 
-#' Effect measure for association between one continuous and one categorical variable
-#'
-#' @param x vector
-#' @param g another vector
-#' @param conf.level confidence interval level
-#'
-#' @return a list with five componments
-#' @importFrom stats bartlett.test t.test
-#' @export
-diff_mean_student = function(x, g, conf.level = 0.95) {
-    ng = table(g)
-    if (length(ng) <= 1 | length(ng) > 2) {
-        return(NULL)
-    } else if (length(ng) == 2) {
-        effect = unname(diff(rev(tapply(x, g, mean, na.rm = TRUE))))
-        effect.name = paste(names(ng), collapse = " minus ")
-        bartlettg = bartlett.test(x, g)$p.value
-        if (bartlettg < 0.05) {
-            type = "t.unequalvar"
-            effect.type = "Difference in means (Welch CI)"
-        } else if (bartlettg > 0.05 & length(ng) == 2) {
-            type = "t.equalvar"
-            effect.type = "Difference in means (t-test CI)"
-        }
-        test = switch(type,
-                      t.unequalvar = t.test(x ~  g, var.equal = FALSE, conf.level = conf.level),
-                      t.equalvar = t.test(x ~  g, var.equal = TRUE, conf.level = conf.level))
-        ci = unname(test$conf.int)
-        attributes(ci) = NULL
-        dim(ci) = c(1, 2)
-    }
-    list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf.level = conf.level)
-}
 
-#' Effect measure for association between one continuous and one categorical variable
-#'
-#' @param x vector
-#' @param g another vector
-#' @param conf.level confidence interval level
-#' @param R number of bootstrap replication
-#'
-#' @return a list with five componments
+#' @describeIn effect_summary calculate a "difference in medians" effect by bootstraping
 #' @importFrom stats sd qnorm
 #' @export
-diff_median = function(x, g, conf.level = 0.95, R = 500) {
+diff_median = function(x, g, conf_level = 0.95, R = 500) {
     ng = table(g)
     if (length(ng) <= 1 | length(ng) > 2) {
         return(NULL)
@@ -387,9 +310,90 @@ diff_median = function(x, g, conf.level = 0.95, R = 500) {
                 beffect[i] = unname(diff(rev(tapply(xi, gi, median, na.rm = TRUE))))
         }
         sd.effect = sd(beffect)
-        ci = effect + qnorm(c((1-conf.level)/2, 1-(1-conf.level)/2))*sd.effect
+        ci = effect + qnorm(c((1-conf_level)/2, 1-(1-conf_level)/2))*sd.effect
         dim(ci) = c(1, 2)
         effect.type = "Difference in medians (bootstrap CI)"
     }
-    list(effect = effect, ci = ci, effect.type = effect.type, conf.level = conf.level)
+    list(effect = effect, ci = ci, effect.type = effect.type, conf_level = conf_level)
 }
+
+
+#' @describeIn effect_summary  calculate a "difference in means" effect using `t.test` confidence intervals
+#' @importFrom stats bartlett.test t.test
+#' @export
+diff_mean_student = function(x, g, conf_level = 0.95) {
+    ng = table(g)
+    if (length(ng) <= 1 | length(ng) > 2) {
+        return(NULL)
+    } else if (length(ng) == 2) {
+        effect = unname(diff(rev(tapply(x, g, mean, na.rm = TRUE))))
+        effect.name = paste(names(ng), collapse = " minus ")
+        bartlettg = bartlett.test(x, g)$p.value
+        if (bartlettg < 0.05) {
+            type = "t.unequalvar"
+            effect.type = "Difference in means (Welch CI)"
+        } else if (bartlettg > 0.05 & length(ng) == 2) {
+            type = "t.equalvar"
+            effect.type = "Difference in means (t-test CI)"
+        }
+        test = switch(type,
+                      t.unequalvar = t.test(x ~  g, var.equal = FALSE, conf_level = conf_level),
+                      t.equalvar = t.test(x ~  g, var.equal = TRUE, conf_level = conf_level))
+        ci = unname(test$conf.int)
+        attributes(ci) = NULL
+        dim(ci) = c(1, 2)
+    }
+    list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf_level = conf_level)
+}
+
+
+
+# Survival ----------------------------------------------------------------
+
+
+#' Effect measure for association between one consored variable and one categorical variable
+#'
+#' @param formula a formula
+#' @param conf_level the confidence level required
+#'
+#' @name effect_survival
+#' @return a list with two componments: p.value and method
+#' @author David Hajage
+#' @importFrom stats confint
+#' @importFrom survival coxph
+#' @export
+effect_survival_coxph = function(formula, conf_level = 0.95) {
+    mod = tryCatch2(coxph(formula))
+    
+    msg = attr(mod, "warnings")
+    if(!is.null(msg)){
+        p = if(length(msg)==1) "A problem" else "Problems"
+        w = glue_collapse(msg, "', '", last="' and '")
+        warning(str_squish(glue("{p} occured when calculating 
+                crosstable effects (coxph): '{w}'.")), 
+                call. = F)
+    }
+    
+    msg = attr(mod, "errors")
+    if(!is.null(msg)) {
+        w = glue_collapse(msg, "', '", last="' and '")
+        warning(str_squish(glue("An error occured when calculating 
+                crosstable effects (coxph): '{w}'.")), 
+                call. = F)
+        return(glue("Error (coxph: {w})"))
+    }
+    
+    
+    
+    effect = exp(mod$coef)
+    ci = suppressMessages(exp(confint(mod)))
+    if (is.null(nrow(ci))) {
+        dim(ci) = c(1, length(ci))
+    }
+    effect.name = paste(mod$xlevels[[1]][-1], mod$xlevels[[1]][1], sep = " vs ")
+    effect.type = "Hazard ratio (Wald CI)"
+    
+    list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf_level = conf_level)
+}
+
+

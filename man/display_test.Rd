@@ -2,7 +2,7 @@
 % Please edit documentation in R/test.R
 \name{display_test}
 \alias{display_test}
-\title{Display a test result}
+\title{Default function to display a test result}
 \usage{
 display_test(test, digits = 4, method = TRUE)
 }
@@ -14,5 +14,5 @@ display_test(test, digits = 4, method = TRUE)
 \item{method}{display method}
 }
 \description{
-Display a test result
+Default function to display a test result
 }

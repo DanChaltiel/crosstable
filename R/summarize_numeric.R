@@ -36,7 +36,7 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
     .=NULL #mute the R CMD Check note
     .na=.effect=.test=.total=NULL
     if(effect) 
-        .effect = effect_args$show.effect(effect_args$effect.summarize(x, by, effect_args$conf.level), 
+        .effect = effect_args$show_effect(effect_args$effect_summarize(x, by, effect_args$conf_level), 
                                           digits = cor_digits)
     if(test) 
         .test = test_args$display_test(test_args$test_summarize(x, by), digits = test_args$plim, 

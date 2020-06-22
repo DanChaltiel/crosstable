@@ -3,7 +3,7 @@
 \name{crosstable_test_args}
 \alias{crosstable_test_args}
 \alias{test_args}
-\title{Default arguments for tests in \link{crosstable}}
+\title{Default arguments for calculating and displaying tests in \code{\link[=crosstable]{crosstable()}}}
 \usage{
 crosstable_test_args()
 }

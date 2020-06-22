@@ -123,11 +123,11 @@ import_labels = function(.tbl, data_label, name_from = "name", label_from = "lab
 #' 
 #' @seealso [format_fixed()]
 #' 
-#' @name biostats2SummaryFunctions
+#' @name summaryFunctions
 NULL
 
 
-#' @describeIn biostats2SummaryFunctions returns mean and std error
+#' @describeIn summaryFunctions returns mean and std error
 #' @importFrom stats sd
 #' @export
 moystd = function(x, na.rm = TRUE, dig = 2, ...) {
@@ -141,7 +141,7 @@ moystd = function(x, na.rm = TRUE, dig = 2, ...) {
 }
 
 
-#' @describeIn biostats2SummaryFunctions returns median and IQR
+#' @describeIn summaryFunctions returns median and IQR
 #' @importFrom stats median quantile
 #' @export
 mediqr = function(x, na.rm = TRUE, dig = 2, ...) {
@@ -154,7 +154,7 @@ mediqr = function(x, na.rm = TRUE, dig = 2, ...) {
   paste0(med, " [", iqr[1], ";", iqr[2], "]")
 }
 
-#' @describeIn biostats2SummaryFunctions returns minimum and maximum
+#' @describeIn summaryFunctions returns minimum and maximum
 #' @export
 minmax = function(x, na.rm = TRUE, dig = 2, ...) {
   mi = ifelse(!all(is.na(x)), format_fixed(min(x, na.rm = na.rm), digits=dig, ...), NA)
@@ -162,7 +162,7 @@ minmax = function(x, na.rm = TRUE, dig = 2, ...) {
   paste(mi, "/", ma)
 }
 
-#' @describeIn biostats2SummaryFunctions returns  number of observations and number of missing values
+#' @describeIn summaryFunctions returns  number of observations and number of missing values
 #' @export
 nna = function(x) {
   paste0(N(x), " (", na(x), ")")

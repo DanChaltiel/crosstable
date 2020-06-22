@@ -1,5 +1,5 @@
 
-#' Default arguments for tests in [crosstable]
+#' Default arguments for calculating and displaying tests in [crosstable()]
 #' 
 #' This is the starting point for refining the testing algorithm used in crosstable. Users can provide their own functions for test.~.
 #'
@@ -47,11 +47,12 @@ crosstable_test_args = function(){
 
 
 
-#' format p values
+#' Format p values (alternative to [format.pval()])
 #'
 #' @param p p values
 #' @param digits number of digits
 #' @return formated p values
+#' @seealso [format.pval()], \link{https://stackoverflow.com/a/23018806/3888000}
 #' @export
 #' @author David Hajage
 plim = function(p, digits = 4) {
@@ -65,7 +66,9 @@ plim = function(p, digits = 4) {
   return(ptxt)
 }
 
-#' Display a test result
+
+
+#' Default function to display a test result
 #'
 #' @param test test
 #' @param digits number of digits

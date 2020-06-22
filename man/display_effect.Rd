@@ -2,7 +2,7 @@
 % Please edit documentation in R/effect.R
 \name{display_effect}
 \alias{display_effect}
-\title{Display Effect}
+\title{Default function to display the effect}
 \usage{
 display_effect(effect, digits = 4)
 }
@@ -12,5 +12,5 @@ display_effect(effect, digits = 4)
 \item{digits}{digits}
 }
 \description{
-Display Effect
+Default function to display the effect
 }
