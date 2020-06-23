@@ -13,8 +13,8 @@ knitr::opts_chunk$set(
     out.width="100%"
 )
 # options(Encoding="UTF-8")
-library(officer)
-library(flextable)
+# library(officer)
+# library(flextable)
 ```
 
 
@@ -36,7 +36,7 @@ install.packages("devtools")
 devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 ```
 
-In case of any installation problem, try reading [the wiki](https://github.com/DanChaltiel/crosstable/wiki/Installation-problems) or fill an [Issue](https://github.com/DanChaltiel/crosstable/issues).
+In case of any installation problem, try the solutions proposed in [this article](file:///F:/GITHUB/crosstable/docs/articles/crosstable-install.html) or fill an [Issue](https://github.com/DanChaltiel/crosstable/issues).
 
 ## Getting help
 
@@ -48,28 +48,40 @@ You can use the vignettes:
 
 These vignettes are reproduced in the [wiki](https://github.com/DanChaltiel/crosstable/wiki). Note that the wiki might be a little less up-to-date than the vignettes.
 
-## Usage
+## Overview
 
-```{r usage0, warning=FALSE, message=FALSE}
-library(crosstable)
-library(dplyr)
-
-#whole table, with default parameters
-crosstable(iris)
-```
 
 ```{r usage1, eval=TRUE, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
-#using the mtcars2 dataset (which has labels) and the `as_flextable` function (for HTML formatting)
+library(crosstable)
+library(dplyr)
+ct1 = crosstable(mtcars2, disp, vs, by=am, margin=c("row", "col"), total="both") %>%
+    as_flextable
+```
 
-#tidyselection, by, custom functions
-library(tidyverse)
-ct1 = crosstable(mtcars2, ends_with("t"), starts_with("c"), by=vs, 
+```{r, include=FALSE}
+flextable::save_as_image(ct1, "man/figures/ct2.png")
+```
+
+<p align="center">
+  <img src="man/figures/ct2.png" alt="crosstable2">
+</p>
+
+With a few arguments, you can select some columns to describe (`disp, vs`), define a grouping variable (`by=am`), set the percentage calculation (`margin`) and ask for totals (`total`). 
+
+`mtcars2` is a dataset which has labels, so they are displayed (see [here](https://danchaltiel.github.io/crosstable/articles/crosstable.html#dataset-modified-mtcars) for how to add some). 
+
+`crosstable` is returning a plain R object (`data.frame`), but using `as_flextable` allows to output a beautiful HTML table that can be exported to Word or web documents.
+
+Here is another example:
+
+```{r usage2, eval=TRUE, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
+ct2 = crosstable(mtcars2, ends_with("t"), starts_with("c"), by=vs, 
                  funs=c(mean, quantile), funs_arg=list(probs=c(.25,.75), digits=3)) %>% 
     as_flextable
 ```
 
 ```{r, include=FALSE}
-save_as_image(ct1, "man/figures/ct1.png")
+flextable::save_as_image(ct2, "man/figures/ct1.png")
 ```
 
 <p align="center">
@@ -77,68 +89,22 @@ save_as_image(ct1, "man/figures/ct1.png")
 </p>
 
 
+Here, the variables were selected using `tidyselect` helpers and the summary functions were specified.
 
+## More
 
-```{r usage2, eval=TRUE, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
-#margin and totals
-ct2 = crosstable(mtcars2, disp, vs, by=am, margin=c("row", "col"), total="both") %>%
-    as_flextable
-```
+There are lots of other features you can learn about on the website [https://danchaltiel.github.io/crosstable](https://danchaltiel.github.io/crosstable), for instance:
 
-```{r, include=FALSE}
-save_as_image(ct2, "man/figures/ct2.png")
-```
+ - variable selection with functions, e.g. `is.numeric` ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-predicate-functions))
+ - variable selection with mutating, e.g. `sqrt(mpg)` or `Surv(time, event)`, using a formula interface ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-a-formula))
+ - automatic computation of statistical tests ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#tests)) and of effect sizes ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#effects))
+ - description of correlation and of survival data ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#miscellaneous-1))
+ - auto-reporting with `officer` ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-report.html#create-reports-with-officer)) or with `Rmarkdown` ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-report.html#create-reports-with-rmarkdown))
 
-<p align="center">
-  <img src="man/figures/ct2.png" alt="crosstable2">
-</p>
-
-```{r usage3, eval=TRUE, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
-#predicate selection, correlation, testing
-ct3 = crosstable(mtcars2, is.numeric, by=hp, test=TRUE)  %>%
-    as_flextable
-```
-
-```{r, include=FALSE}
-save_as_image(ct3, "man/figures/ct3.png")
-```
-
-<p align="center">
-  <img src="man/figures/ct3.png" alt="crosstable3">
-</p>
-
-```{r usage4, eval=TRUE, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
-#lambda selection, effect calculation
-ct4 = crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, effect=TRUE)  %>%
-    as_flextable
-```
-
-```{r, include=FALSE}
-save_as_image(ct4, "man/figures/ct4.png")
-```
-
-<p align="center">
-  <img src="man/figures/ct4.png" alt="crosstable4">
-</p>
-
-```{r usage5, eval=TRUE, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
-#Survival data (using formula UI)
-library(survival)
-ct5 = crosstable(aml, Surv(time, status) ~ x,times=c(0,15,30,150), followup=TRUE)  %>%
-    as_flextable
-```
-
-```{r, include=FALSE}
-save_as_image(ct5, "man/figures/ct5.png")
-```
-
-<p align="center">
-  <img src="man/figures/ct5.png" alt="crosstable5" height="250">
-</p>
 
 
 ## Acknowledgement
 
-`crosstable` is a rewrite of the awesome [`biostat2` package](https://github.com/eusebe/biostat2) written by David Hajage. The user interface is quite different but the concept is the same.
+`crosstable` is a rewrite of the awesome package [`biostat2`](https://github.com/eusebe/biostat2) written by David Hajage. The user interface is quite different but the concept is the same.
 
 Thanks David!

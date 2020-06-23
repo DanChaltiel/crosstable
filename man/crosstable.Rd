@@ -45,9 +45,9 @@ crosstable(
 
 \item{label}{whether to show labels. Use either \link{import_labels}, \code{\link[Hmisc:label]{Hmisc::label()}}, \code{\link[expss:var_lab]{expss::var_lab()}} or \code{expss::apply_labels} to add labels to the dataset columns.}
 
-\item{funs}{functions to apply to numeric variables. Default to \code{\link{cross_summary}}.}
+\item{funs}{functions to apply to numeric variables. Default to \link{cross_summary}.}
 
-\item{funs_arg}{additionnal parameters for \code{funs}. With \code{cross_summary}, you can set \code{dig}, the number of decimal places.}
+\item{funs_arg}{additionnal parameters for \code{funs}, e.g. \code{digits} (the number of decimal places) for the default \link{cross_summary}. Ultimately, these arguments are passed to \link{format_fixed}.}
 
 \item{test}{whether to perform tests}
 

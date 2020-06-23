@@ -16,19 +16,19 @@ coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/master/graph/badge
 <!-- badges: end -->
 
 Crosstable is a package centered on a single function, `crosstable`,
-which easily computes descriptive statistics on datasets. It is using
-the `tidyverse` syntax and is interfaced with the package `officer` to
+which easily computes descriptive statistics on datasets. It can use the
+`tidyverse` syntax and is interfaced with the package `officer` to
 create automatized reports.
 
 ## Installation
 
 ``` r
 install.packages("devtools")
-devtools::install_github("DanChaltiel/crosstable")
+devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 ```
 
-In case of any installation problem, try reading [the
-wiki](https://github.com/DanChaltiel/crosstable/wiki/Installation-problems)
+In case of any installation problem, try the solutions proposed in [this
+article](file:///F:/GITHUB/crosstable/docs/articles/crosstable-install.html)
 or fill an [Issue](https://github.com/DanChaltiel/crosstable/issues).
 
 ## Getting help
@@ -44,42 +44,37 @@ These vignettes are reproduced in the
 [wiki](https://github.com/DanChaltiel/crosstable/wiki). Note that the
 wiki might be a little less up-to-date than the vignettes.
 
-## Usage
+## Overview
 
 ``` r
 library(crosstable)
 library(dplyr)
-
-#whole table, with default parameters
-crosstable(iris)
-#>             .id        label   variable         value
-#> 1  Sepal.Length Sepal.Length  Min / Max     4.3 / 7.9
-#> 2  Sepal.Length Sepal.Length  Med [IQR] 5.8 [5.1;6.4]
-#> 3  Sepal.Length Sepal.Length Mean (std)     5.8 (0.8)
-#> 4  Sepal.Length Sepal.Length     N (NA)       150 (0)
-#> 5   Sepal.Width  Sepal.Width  Min / Max     2.0 / 4.4
-#> 6   Sepal.Width  Sepal.Width  Med [IQR] 3.0 [2.8;3.3]
-#> 7   Sepal.Width  Sepal.Width Mean (std)     3.1 (0.4)
-#> 8   Sepal.Width  Sepal.Width     N (NA)       150 (0)
-#> 9  Petal.Length Petal.Length  Min / Max     1.0 / 6.9
-#> 10 Petal.Length Petal.Length  Med [IQR] 4.3 [1.6;5.1]
-#> 11 Petal.Length Petal.Length Mean (std)     3.8 (1.8)
-#> 12 Petal.Length Petal.Length     N (NA)       150 (0)
-#> 13  Petal.Width  Petal.Width  Min / Max     0.1 / 2.5
-#> 14  Petal.Width  Petal.Width  Med [IQR] 1.3 [0.3;1.8]
-#> 15  Petal.Width  Petal.Width Mean (std)     1.2 (0.8)
-#> 16  Petal.Width  Petal.Width     N (NA)       150 (0)
-#> 17      Species      Species     setosa   50 (33.33%)
-#> 18      Species      Species versicolor   50 (33.33%)
-#> 19      Species      Species  virginica   50 (33.33%)
+ct1 = crosstable(mtcars2, disp, vs, by=am, margin=c("row", "col"), total="both") %>%
+    as_flextable
 ```
 
-``` r
-#using the mtcars2 dataset (which has labels) and the `as_flextable` function (for HTML formatting)
+<p align="center">
 
-#tidyselection, by, custom functions
-library(tidyverse)
-ct1 = crosstable(mtcars2, ends_with("t"), starts_with("c"), by=vs, 
+<img src="man/figures/ct2.png" alt="crosstable2">
+
+</p>
+
+With a few arguments, you can select some columns to describe (`disp,
+vs`), define a grouping variable (`by=am`), set the percentage
+calculation (`margin`) and ask for totals (`total`).
+
+`mtcars2` is a dataset which has labels, so they are displayed (see
+[here](https://danchaltiel.github.io/crosstable/articles/crosstable.html#dataset-modified-mtcars)
+for how to add some).
+
+`crosstable` is returning a plain R object (`data.frame`), but using
+`as_flextable` allows to output a beautiful HTML table that can be
+exported to Word or web documents.
+
+Here is another example:
+
+``` r
+ct2 = crosstable(mtcars2, ends_with("t"), starts_with("c"), by=vs, 
                  funs=c(mean, quantile), funs_arg=list(probs=c(.25,.75), digits=3)) %>% 
     as_flextable
 ```
@@ -90,59 +85,35 @@ ct1 = crosstable(mtcars2, ends_with("t"), starts_with("c"), by=vs,
 
 </p>
 
-``` r
-#margin and totals
-ct2 = crosstable(mtcars2, disp, vs, by=am, margin=c("row", "col"), total="both") %>%
-    as_flextable
-```
+Here, the variables were selected using `tidyselect` helpers and the
+summary functions were specified.
 
-<p align="center">
+## More
 
-<img src="man/figures/ct2.png" alt="crosstable2">
+There are lots of other features you can learn about on the website
+<https://danchaltiel.github.io/crosstable>, for instance:
 
-</p>
-
-``` r
-#predicate selection, correlation, testing
-ct3 = crosstable(mtcars2, is.numeric, by=hp, test=TRUE)  %>%
-    as_flextable
-```
-
-<p align="center">
-
-<img src="man/figures/ct3.png" alt="crosstable3">
-
-</p>
-
-``` r
-#lambda selection, effect calculation
-ct4 = crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, effect=TRUE)  %>%
-    as_flextable
-```
-
-<p align="center">
-
-<img src="man/figures/ct4.png" alt="crosstable4">
-
-</p>
-
-``` r
-#Survival data (using formula UI)
-library(survival)
-ct5 = crosstable(aml, Surv(time, status) ~ x,times=c(0,15,30,150), followup=TRUE)  %>%
-    as_flextable
-```
-
-<p align="center">
-
-<img src="man/figures/ct5.png" alt="crosstable5" height="250">
-
-</p>
+  - variable selection with functions, e.g. `is.numeric`
+    ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-predicate-functions))
+  - variable selection with mutating, e.g. `sqrt(mpg)` or `Surv(time,
+    event)`, using a formula interface
+    ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-a-formula))
+  - automatic computation of statistical tests
+    ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#tests))
+    and of effect sizes
+    ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#effects))
+  - description of correlation and of survival data
+    ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#miscellaneous-1))
+  - auto-reporting with `officer`
+    ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-report.html#create-reports-with-officer))
+    or with `Rmarkdown`
+    ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-report.html#create-reports-with-rmarkdown))
 
 ## Acknowledgement
 
-`crosstable` is a rewrite of the awesome [`biostat2`
-package](https://github.com/eusebe/biostat2) written by David Hajage.
-The user interface is quite different but the concept is the same.
+`crosstable` is a rewrite of the awesome package
+[`biostat2`](https://github.com/eusebe/biostat2) written by David
+Hajage. The user interface is quite different but the concept is the
+same.
 
 Thanks David\!

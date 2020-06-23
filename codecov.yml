@@ -10,3 +10,6 @@ coverage:
       default:
         target: auto
         threshold: 1%
+
+ignore:
+  - "R/knit_print_debug.R"
