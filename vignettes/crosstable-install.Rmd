@@ -6,7 +6,7 @@ output:
   rmarkdown::html_vignette: 
     keep_md: yes
 vignette: >
-  %\VignetteIndexEntry{crosstable-selection}
+  %\VignetteIndexEntry{Installation troubleshooting}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
