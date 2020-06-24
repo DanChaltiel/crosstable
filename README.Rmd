@@ -46,7 +46,7 @@ You can use the vignettes:
 + `vignette("crosstable-selection")` for variable selection 
 + `vignette("crosstable-report")` for reporting with `officer` or `Rmarkdown`
 
-These vignettes are reproduced in the [wiki](https://github.com/DanChaltiel/crosstable/wiki). Note that the wiki might be a little less up-to-date than the vignettes.
+These vignettes are reproduced on the [documentation website](https://danchaltiel.github.io/crosstable).
 
 ## Overview
 
@@ -55,37 +55,37 @@ These vignettes are reproduced in the [wiki](https://github.com/DanChaltiel/cros
 library(crosstable)
 library(dplyr)
 ct1 = crosstable(mtcars2, disp, vs, by=am, margin=c("row", "col"), total="both") %>%
-    as_flextable
+    as_flextable()
 ```
 
 ```{r, include=FALSE}
-flextable::save_as_image(ct1, "man/figures/ct2.png")
+flextable::save_as_image(ct1, "man/figures/ct1.png")
 ```
 
 <p align="center">
-  <img src="man/figures/ct2.png" alt="crosstable2">
+  <img src="man/figures/ct1.png" alt="crosstable1">
 </p>
 
 With a few arguments, you can select some columns to describe (`disp, vs`), define a grouping variable (`by=am`), set the percentage calculation (`margin`) and ask for totals (`total`). 
 
-`mtcars2` is a dataset which has labels, so they are displayed (see [here](https://danchaltiel.github.io/crosstable/articles/crosstable.html#dataset-modified-mtcars) for how to add some). 
+`mtcars2` is a dataset which has labels, so they are displayed instead of the variable name (see [here](https://danchaltiel.github.io/crosstable/articles/crosstable.html#dataset-modified-mtcars) for how to add some). 
 
-`crosstable` is returning a plain R object (`data.frame`), but using `as_flextable` allows to output a beautiful HTML table that can be exported to Word or web documents.
+`crosstable` is returning a plain R object (`data.frame`), but using `as_flextable` allows to output a beautiful HTML table that can be exported to Word with a few more lines of code (see [here](https://danchaltiel.github.io/crosstable/articles/crosstable-report.html) to learn how).
 
 Here is another example:
 
 ```{r usage2, eval=TRUE, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
 ct2 = crosstable(mtcars2, ends_with("t"), starts_with("c"), by=vs, 
                  funs=c(mean, quantile), funs_arg=list(probs=c(.25,.75), digits=3)) %>% 
-    as_flextable
+    as_flextable(keep_id=TRUE)
 ```
 
 ```{r, include=FALSE}
-flextable::save_as_image(ct2, "man/figures/ct1.png")
+flextable::save_as_image(ct2, "man/figures/ct2.png")
 ```
 
 <p align="center">
-  <img src="man/figures/ct1.png" alt="crosstable1" height="400">
+  <img src="man/figures/ct2.png" alt="crosstable2" height="400">
 </p>
 
 
