@@ -8,6 +8,7 @@ format_fixed(
   x,
   digits = 1,
   zero_digits = 1,
+  date_format = NULL,
   only_round = getOption("crosstable_only_round", FALSE),
   ...
 )
@@ -18,6 +19,8 @@ format_fixed(
 \item{digits}{number of decimals}
 
 \item{zero_digits}{number of significant digits for values rounded to 0 (can be set to NULL to keep the original 0 value)}
+
+\item{date_format}{if \code{x} is a vector of Date or POSIXt, the format to apply (see \link{strptime} for formats)}
 
 \item{only_round}{if TRUE, \code{format_fixed} simply returns the rounded value. Can be set globally with \code{options("crosstable_only_round"=TRUE)}.}
 

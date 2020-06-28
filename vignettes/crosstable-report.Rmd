@@ -53,7 +53,9 @@ doc = read_docx() %>%
 ```
 
 ```{r save, include=FALSE}
-print(doc, "../examples/vignette_officer.docx")
+# stop("Working directory = ", getwd())
+if(file.exists("../examples"))
+  print(doc, "../examples/vignette_officer.docx")
 ```
 
 ## Output

@@ -9,8 +9,13 @@ cross_survival=function(data_x, data_y, showNA, total, label, surv_digits, times
     stopifnot(ncol(data_x)==1 && (is.null(data_y) || ncol(data_y)==1))
     stopifnot(is.Surv(data_x[[1]]))
     
-    x_name = get_label(data_x, label)
-    y_name = get_label(data_y, label)
+    if(label){
+        x_name = get_label(data_x)
+        y_name = get_label(data_y)
+    } else {
+        x_name = names(data_x)
+        y_name = names(data_y)
+    }
     
     if(is.null(data_y)){
         rtn=summarise_survival_single(data_x[[1]], times=times, followup=followup, 

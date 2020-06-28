@@ -12,7 +12,7 @@ A data frame with 150 observations on 5 variables with labels.
 library(dplyr)
 iris2 = iris \%>\% 
     mutate_at("Species", factor) \%>\% 
-    expss::apply_labels(
+    expss::apply_labels( #I also could have used [import_labels] or even `Hmisc::label`
         Species = "Specie",
         Sepal.Length = "Length of Sepal",
         Sepal.Width = "Width of Sepal",

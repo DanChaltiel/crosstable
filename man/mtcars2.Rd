@@ -14,7 +14,7 @@ mtcars2 = mtcars \%>\%
     mutate(vs=ifelse(vs==0, "vshaped", "straight"),
        am=ifelse(am==0, "auto", "manual")) \%>\% 
     mutate_at(c("cyl", "gear"), factor) \%>\% 
-    expss::apply_labels( #I also could have used `Hmisc::label`
+    expss::apply_labels( #I also could have used [import_labels] or even `Hmisc::label`
         mpg="Miles/(US) gallon",
         cyl="Number of cylinders",
         disp="Displacement (cu.in.)",

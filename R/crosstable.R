@@ -11,14 +11,14 @@
 #' @param by the variable to group on. Character or name.
 #' @param funs functions to apply to numeric variables. Default to [cross_summary].
 #' @param funs_arg additionnal parameters for `funs`, e.g. `digits` (the number of decimal places) for the default [cross_summary]. Ultimately, these arguments are passed to [format_fixed].
+#' @param total one of \["none", "row", "column" or "both"] to indicate whether to add total rows and/or columns. Default to `none`.
 #' @param margin one of \["row", "column", "cell", "none" or "all"] to indicate which proportions should be computed in frequency tables. Default to `row`.
-#' @param total one of \["none", "row", "column" or "both"] to indicate whether to add margins. Default to `none`.
 #' @param percent_digits number of digits for percentages
-#' @param showNA whether to show NA in factors (one of \code{c("ifany", "always", "no")}, like in \code{table()})
-#' @param label whether to show labels. Use either [import_labels], [Hmisc::label()], [expss::var_lab()] or \code{expss::apply_labels} to add labels to the dataset columns.
+#' @param showNA whether to show NA in categorial variables (one of \code{c("ifany", "always", "no")}, like in \code{table()})
+#' @param label whether to show labels. See [import_labels] or [set_label]for how to add labels to the dataset columns.
+#' @param cor_method one of \["pearson", "kendall", or "spearman"] to indicate which correlation coefficient is to be used.
 #' @param test whether to perform tests
 #' @param test_args See \code{\link{crosstable_test_args}} to override default testing behaviour.
-#' @param cor_method one of \["pearson", "kendall", or "spearman"] to indicate which correlation coefficient is to be used.
 #' @param effect whether to compute a effect measure
 #' @param effect_args See \code{\link{crosstable_effect_args}} to override default behaviour.
 #' @param times when using formula with [survival::Surv()] objects, which times to summarize
@@ -32,12 +32,11 @@
 #' @importFrom dplyr select mutate_if n_distinct
 #' @importFrom purrr map map_lgl map_chr
 #' @importFrom stringr str_detect
-#' @importFrom expss unlab set_var_lab var_lab apply_labels
 #' @importFrom glue glue
 #' @importFrom ellipsis check_dots_unnamed
 #' @importFrom stats model.frame
 #' 
-#' @seealso as_flextable, import_labels, var_lab
+#' @seealso as_flextable, import_labels
 #' 
 #' @examples
 #' #whole table
@@ -46,7 +45,7 @@
 #' crosstable(mtcars2)
 #' 
 #' #tidyselection, custom functions
-#' library(tidyverse)
+#' library(dplyr)
 #' crosstable(mtcars2, ends_with("t"), starts_with("c"), by=vs, 
 #'            funs=c(mean, quantile), funs_arg = list(probs=c(.25,.75)))
 #' 
@@ -65,12 +64,12 @@
 #' library(survival)
 #' crosstable(aml, Surv(time, status) ~ x,times=c(0,15,30,150), followup=TRUE)
 crosstable = function(data, .vars=NULL, ..., by=NULL, 
-                      margin = c("row", "column", "cell", "none", "all"), 
                       total = c("none", "row", "column", "both"),
+                      margin = c("row", "column", "cell", "none", "all"), 
                       percent_digits = 2, showNA = c("ifany", "always", "no"), label = TRUE, 
                       funs = c(" " = cross_summary), funs_arg=list(), 
-                      test = FALSE, test_args = crosstable_test_args(), 
                       cor_method = c("pearson", "kendall", "spearman"), 
+                      test = FALSE, test_args = crosstable_test_args(), 
                       unique_numeric = 3,
                       effect = FALSE, effect_args = crosstable_effect_args(), 
                       times = NULL, followup = FALSE) {
@@ -141,9 +140,9 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
     if(is_form && !is_lamb){
         debug$interface="formula"
         if(length(enquos(...))>0) 
-            abort("You cannot use additional arguments through `...` when using formulas with crosstable. Please include them in the formula or use another pattern.")
+            abort("You cannot use additional arguments through `...` when using formulas with crosstable. Please include them in the formula or use another syntax.")
         if(!is_empty(byname))
-            abort(c("`by` argument is ignored when using formula. Please include it in the formula or use another pattern.",
+            abort(c("`by` argument is ignored when using formula. Please include it in the formula or use another syntax.",
                    i=paste("formula = ", format(.vars)),
                    i=paste("by = ", paste(as.character(byname), collapse=", "))))
         
@@ -177,25 +176,25 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
     # browser()
     data_x = data_x %>% 
         mutate_if(is.logical, 
-                  ~.x %>% as.character() %>% set_var_lab(var_lab(.x))) %>% 
+                  ~.x %>% as.character() %>% set_label(get_label(.x))) %>% 
         mutate_if(~is.numeric(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric, 
                   ~{
-                      .x = .x %>% as.character() %>% set_var_lab(var_lab(.x))
+                      .x = .x %>% as.character() %>% set_label(get_label(.x))
                       class(.x) = c("character", "unique_numeric")
                       .x
                   })
     data_y = data_y %>% 
         mutate_if(is.logical, 
-                  ~.x %>% as.character() %>% set_var_lab(var_lab(.x))) %>% 
+                  ~.x %>% as.character() %>% set_label(get_label(.x))) %>% 
         mutate_if(~is.numeric(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric, 
-                  ~.x %>% as.character() %>% set_var_lab(var_lab(.x)))
+                  ~.x %>% as.character() %>% set_label(get_label(.x)))
     
     
     
     # Return checks *******************************************************
     if(ncol(data_y)>1) stop("Crosstable does not support multiple `by` columns.")
     if(ncol(data_y)==0) {
-        test=FALSE;effect=FALSE
+        test=effect=FALSE
         data_y=NULL
     }
     
@@ -210,11 +209,11 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
     if(!is.null(data_y) && !is.numeric.and.not.surv(data_y[[1]]) && !is.character.or.factor(data_y[[1]])){
         abort(c("Crosstable only supports numeric, logical, character or factor `by` columns.",
                 i=glue("`by` was pointing to the column '{y}' ({yy})", 
-                       y=names(data_y[1]), yy=class(unlab(data_y[[1]]))[1]))
+                       y=names(data_y[1]), yy=class(remove_label(data_y[[1]]))[1])) #TODO paste collapse
         )
     }
     
-    x_class = map_chr(data_x, ~paste0(class(unlab(.x)), collapse=', '))
+    x_class = map_chr(data_x, ~paste0(class(remove_label(.x)), collapse=', '))
     y_class = class(data_y[[1]])
 
     # Function call *******************************************************
@@ -243,7 +242,7 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
         attr(rtn, "by_levels") = NULL
     } else {
         attr(rtn, "by") = byname
-        attr(rtn, "by_label") = var_lab(data_y)
+        attr(rtn, "by_label") = get_label(data_y)
         attr(rtn, "by_levels") = if(is.numeric(data_y[[1]])) NULL else unique(as.character(data_y[[1]]))
     }
     return(rtn)

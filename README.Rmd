@@ -75,7 +75,7 @@ With a few arguments, you can select some columns to describe (`disp, vs`), defi
 Here is another example:
 
 ```{r usage2, eval=TRUE, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
-ct2 = crosstable(mtcars2, ends_with("t"), starts_with("c"), by=vs, 
+ct2 = crosstable(mtcars2, starts_with("c"), ends_with("t"), by=vs, 
                  funs=c(mean, quantile), funs_arg=list(probs=c(.25,.75), digits=3)) %>% 
     as_flextable(keep_id=TRUE)
 ```

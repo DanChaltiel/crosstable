@@ -18,7 +18,7 @@ formated p values
 Format p values (alternative to \code{\link[=format.pval]{format.pval()}})
 }
 \seealso{
-\code{\link[=format.pval]{format.pval()}}, \link{https://stackoverflow.com/a/23018806/3888000}
+\code{\link[=format.pval]{format.pval()}}, https://stackoverflow.com/a/23018806/3888000
 }
 \author{
 David Hajage

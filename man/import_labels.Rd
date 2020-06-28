@@ -35,3 +35,6 @@ iris \%>\%
   import_labels(iris_label) \%>\% 
   crosstable
 }
+\seealso{
+\link{get_label}, \link{set_label}, \link{remove_label}
+}

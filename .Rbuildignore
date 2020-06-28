@@ -8,6 +8,7 @@ img/*
 tmp
 
 TODO\.R
+R/knit_print_debug\.R
 
 .*~.*
 

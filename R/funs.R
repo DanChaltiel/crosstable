@@ -1,4 +1,5 @@
 
+# Formatting --------------------------------------------------------------
 
 
 #' Format numbers with the exact same number of decimals, including trailing zeros
@@ -51,44 +52,9 @@ format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL, only_round
 }
 
 
-#' Import labels from a dataset
-#'
-#' @param .tbl the data.frame to labellize
-#' @param data_label a data.frame from which to import labels
-#' @param name_from in `data_label`, which column to get the variable name
-#' @param label_from in `data_label`, which column to get the variable label
-#' @param verbose if TRUE, displays a warning if a variable name is not found in `data_label`
-#'
-#' @export
-#' @importFrom expss var_lab var_lab<-
-#' @importFrom glue glue
-#'
-#' @examples
-#' iris_label = tibble::tibble(name=c("Sepal.Length", "Sepal.Width",
-#'                                    "Petal.Length", "Petal.Width", "Species"),
-#'                             label=c("Length of Sepals", "Width of Sepals",
-#'                                     "Length of Petals", "Width of Petals", "Specie name"))
-#' iris %>% 
-#'   import_labels(iris_label) %>% 
-#'   crosstable
-import_labels = function(.tbl, data_label, name_from = "name", label_from = "label", 
-                         verbose=TRUE){
-  data_label = as.data.frame(data_label)
-  for(i in 1:nrow(data_label)){
-    name = as.character(data_label[i, name_from])
-    label = as.character(data_label[i, label_from])
-    if(is.null(.tbl[[name]]) && verbose){
-      warning(glue("Cannot import label, variable '{name}' not found"))
-    } else {
-      var_lab(.tbl[name]) = label
-    }
-  }
-  .tbl
-}
 
 
-
-# summary functions --------------------------------------------------------
+# Summary functions --------------------------------------------------------
 
 
 #' Summary functions
@@ -202,3 +168,122 @@ cross_summary = function(x, dig=1, ...) {
 }
 
 
+# Labels ------------------------------------------------------------------
+
+
+#' Get label if wanted and available, or default (name) otherwise
+#'
+#' @param x labelled object
+#' @param default value returned if there is no label. Default to `names(x)`.
+#'
+#' @export
+#' @seealso [set_label], [import_labels], [remove_label], [Hmisc::label], [expss::var_lab]
+#' @examples 
+#' #vectors
+#' get_label(mtcars2$mpg)
+#' get_label(mtcars$mpg)
+#' get_label(mtcars$mpg, default="foo")
+#' get_label(list(bar=mtcars$mpg)) #default to names
+#' 
+#' #data.frames
+#' get_label(mtcars2["mpg"])
+#' get_label(mtcars["mpg"]) #default to names
+#' get_label(mtcars["mpg"], default="bar")
+get_label = function(x, default=names(x)){
+  if(is.list(x)){#df
+    lab = sapply(x, attr, which="label", exact=TRUE, simplify=FALSE)
+    lab = unlist(lab)
+  } else {
+    lab = attr(x, "label", exact=TRUE)
+  }
+  if(is_null(lab)) return(default)
+  lab
+}
+
+
+#' Set the "label" attribute of an object
+#'
+#' @param x object to labelise
+#' @param value value of the label
+#'
+#' @importFrom checkmate assert_string
+#' @export
+#' @seealso [get_label], [import_labels], [remove_label]
+#' @examples 
+#' library(dplyr)
+#' mtcars %>% 
+#'    mutate(mpg2=set_label(mpg, "Foo, bar and foobar")) %>% 
+#'    crosstable(mpg, mpg2)
+set_label = function(x, value){
+  assert_string(value, null.ok=TRUE)
+  if(is.list(x)){
+    for (each in seq_along(x)) 
+      x[[each]] = set_label(x[[each]], value)
+    return(x)
+  }
+  attr(x, "label") <- value
+  if (!"labelled" %in% class(x)) {
+    class(x) <- c("labelled", class(x))
+  }
+  return(x)
+}
+
+
+
+#' Remove all label attributes.
+#'
+#' @param x object to unlabel
+#'
+#' @export
+#' @seealso [get_label], [set_label], [import_labels], [expss::unlab]
+#' @examples 
+#' crosstable(remove_label(mtcars2))
+#' crosstable(mtcars2)
+remove_label = function(x){
+  if (is.null(x)) 
+    return(x)
+  if (is.list(x)) {
+    for (each in seq_along(x)) 
+      x[[each]] = remove_label(x[[each]])
+    return(x)
+  }
+  attr(x, "label") = NULL
+  attr(x, "labels") = NULL
+  class(x) = setdiff(class(x), c("labelled", "labelled_spss"))
+  x
+}
+
+#' Import labels from a dataset
+#'
+#' @param .tbl the data.frame to labellize
+#' @param data_label a data.frame from which to import labels
+#' @param name_from in `data_label`, which column to get the variable name
+#' @param label_from in `data_label`, which column to get the variable label
+#' @param verbose if TRUE, displays a warning if a variable name is not found in `data_label`
+#'
+#' @export
+#' @importFrom glue glue
+#'
+#' @seealso [get_label], [set_label], [remove_label]
+#' @examples
+#' iris_label = tibble::tibble(name=c("Sepal.Length", "Sepal.Width",
+#'                                    "Petal.Length", "Petal.Width", "Species"),
+#'                             label=c("Length of Sepals", "Width of Sepals",
+#'                                     "Length of Petals", "Width of Petals", "Specie name"))
+#' iris %>% 
+#'   import_labels(iris_label) %>% 
+#'   crosstable
+import_labels = function(.tbl, data_label, name_from = "name", label_from = "label", 
+                         verbose=TRUE){
+  data_label = as.data.frame(data_label)
+  for(i in 1:nrow(data_label)){
+    name = as.character(data_label[i, name_from])
+    label = as.character(data_label[i, label_from])
+    if(is.null(.tbl[[name]]) && verbose){
+      warning(glue("Cannot import label, variable '{name}' not found"))
+    } else {
+      .tbl[name] = set_label(.tbl[name], label)
+    }
+  }
+  .tbl
+}

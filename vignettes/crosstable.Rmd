@@ -111,7 +111,7 @@ crosstable(mtcars2, mpg, cyl, by=am)
 
 The `by` column should be a factor, character or logical vector. If it is a numeric vector, then only numeric vectors can be described and correlation factors will be displayed.
 
-There are many ways to select variables: with names, character vector, `tidyselect` helpers, formula... For instance, you could write `crosstable(mtcars2, starts_with("d"))`, `crosstable(mtcars2, is.numeric)`, `crosstable(mtcars2, -c(mpg:hp))`, or `crosstable(mtcars2, mpg~am)`. This is described in details in `vignette("crosstable-selection")` ([link](crosstable-selection.html)).
+There are many ways to select variables: with names, character vector, `tidyselect` helpers, formula... For instance, you could write `crosstable(mtcars2, starts_with("d"))`, `crosstable(mtcars2, where(is.numeric))`, `crosstable(mtcars2, -c(mpg:hp))`, or `crosstable(mtcars2, mpg~am)`. This is described in details in `vignette("crosstable-selection")` ([link](crosstable-selection.html)).
 
 
 
@@ -240,7 +240,7 @@ If `by` refers to a numeric variable, correlation coefficients will be calculate
 
 ```{r crosstable-correlation}
 library(survival)
-crosstable(mtcars2, is.numeric, by=mpg) %>% 
+crosstable(mtcars2, where(is.numeric), by=mpg) %>% 
   as_flextable(keep_id=TRUE)
 ```
 

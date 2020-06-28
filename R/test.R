@@ -52,7 +52,7 @@ crosstable_test_args = function(){
 #' @param p p values
 #' @param digits number of digits
 #' @return formated p values
-#' @seealso [format.pval()], \link{https://stackoverflow.com/a/23018806/3888000}
+#' @seealso [format.pval()], https://stackoverflow.com/a/23018806/3888000
 #' @export
 #' @author David Hajage
 plim = function(p, digits = 4) {

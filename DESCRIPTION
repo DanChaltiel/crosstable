@@ -21,12 +21,12 @@ Imports:
     checkmate,
     dplyr (>= 1.0.0),
     ellipsis,
-    expss,
     flextable,
     glue,
     lifecycle,
     nortest,
     officer,
+    methods,   
     purrr,
     rlang,
     stats,
@@ -45,7 +45,6 @@ Suggests:
     rmarkdown,
     sloop,
     testthat,
-    tidyverse
 VignetteBuilder: 
     knitr
 RdMacros: 

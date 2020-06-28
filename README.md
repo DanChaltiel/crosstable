@@ -76,7 +76,7 @@ to learn how).
 Here is another example:
 
 ``` r
-ct2 = crosstable(mtcars2, ends_with("t"), starts_with("c"), by=vs, 
+ct2 = crosstable(mtcars2, starts_with("c"), ends_with("t"), by=vs, 
                  funs=c(mean, quantile), funs_arg=list(probs=c(.25,.75), digits=3)) %>% 
     as_flextable(keep_id=TRUE)
 ```

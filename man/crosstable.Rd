@@ -9,16 +9,16 @@ crosstable(
   .vars = NULL,
   ...,
   by = NULL,
-  margin = c("row", "column", "cell", "none", "all"),
   total = c("none", "row", "column", "both"),
+  margin = c("row", "column", "cell", "none", "all"),
   percent_digits = 2,
   showNA = c("ifany", "always", "no"),
   label = TRUE,
   funs = c(` ` = cross_summary),
   funs_arg = list(),
+  cor_method = c("pearson", "kendall", "spearman"),
   test = FALSE,
   test_args = crosstable_test_args(),
-  cor_method = c("pearson", "kendall", "spearman"),
   unique_numeric = 3,
   effect = FALSE,
   effect_args = crosstable_effect_args(),
@@ -35,25 +35,25 @@ crosstable(
 
 \item{by}{the variable to group on. Character or name.}
 
-\item{margin}{one of ["row", "column", "cell", "none" or "all"] to indicate which proportions should be computed in frequency tables. Default to \code{row}.}
+\item{total}{one of ["none", "row", "column" or "both"] to indicate whether to add total rows and/or columns. Default to \code{none}.}
 
-\item{total}{one of ["none", "row", "column" or "both"] to indicate whether to add margins. Default to \code{none}.}
+\item{margin}{one of ["row", "column", "cell", "none" or "all"] to indicate which proportions should be computed in frequency tables. Default to \code{row}.}
 
 \item{percent_digits}{number of digits for percentages}
 
-\item{showNA}{whether to show NA in factors (one of \code{c("ifany", "always", "no")}, like in \code{table()})}
+\item{showNA}{whether to show NA in categorial variables (one of \code{c("ifany", "always", "no")}, like in \code{table()})}
 
-\item{label}{whether to show labels. Use either \link{import_labels}, \code{\link[Hmisc:label]{Hmisc::label()}}, \code{\link[expss:var_lab]{expss::var_lab()}} or \code{expss::apply_labels} to add labels to the dataset columns.}
+\item{label}{whether to show labels. See \link{import_labels} or \link{set_label}for how to add labels to the dataset columns.}
 
 \item{funs}{functions to apply to numeric variables. Default to \link{cross_summary}.}
 
 \item{funs_arg}{additionnal parameters for \code{funs}, e.g. \code{digits} (the number of decimal places) for the default \link{cross_summary}. Ultimately, these arguments are passed to \link{format_fixed}.}
 
+\item{cor_method}{one of ["pearson", "kendall", or "spearman"] to indicate which correlation coefficient is to be used.}
+
 \item{test}{whether to perform tests}
 
 \item{test_args}{See \code{\link{crosstable_test_args}} to override default testing behaviour.}
-
-\item{cor_method}{one of ["pearson", "kendall", or "spearman"] to indicate which correlation coefficient is to be used.}
 
 \item{unique_numeric}{the number of non-missing different levels a variable should have to be considered as numeric}
 
@@ -78,7 +78,7 @@ crosstable(mtcars)
 crosstable(mtcars2)
 
 #tidyselection, custom functions
-library(tidyverse)
+library(dplyr)
 crosstable(mtcars2, ends_with("t"), starts_with("c"), by=vs, 
            funs=c(mean, quantile), funs_arg = list(probs=c(.25,.75)))
 
@@ -98,5 +98,5 @@ library(survival)
 crosstable(aml, Surv(time, status) ~ x,times=c(0,15,30,150), followup=TRUE)
 }
 \seealso{
-as_flextable, import_labels, var_lab
+as_flextable, import_labels
 }

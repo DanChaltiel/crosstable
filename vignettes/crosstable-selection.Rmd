@@ -171,7 +171,7 @@ Lets play a little with all of this :-)
 I want all numeric variables that do not start by "d" or "w", but I still want `drat` in the end.
 
 ```{r crosstable-ultimate1}
-crosstable(mtcars2, is.numeric, -matches("^d|w"), drat, label=FALSE) %>% 
+crosstable(mtcars2, where(is.numeric), -matches("^d|w"), drat, label=FALSE) %>% 
   as_flextable()
 ```
 

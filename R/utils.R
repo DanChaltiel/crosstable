@@ -1,4 +1,9 @@
 
+
+
+# Error and warning handling ----------------------------------------------
+
+
 #' @importFrom rlang env env_has inform is_installed
 #' @author tidyselect (https://github.com/r-lib/tidyselect/blob/2fab83639982d37fd94914210f771ab9cbd36b4b/R/utils.R#L281)
 #' @keywords internal
@@ -39,6 +44,12 @@ tryCatch2 = function(expr){
     rtn
 }
 
+
+
+
+# Function handling --------------------------------------------------------
+
+
 #' Used for defaulting S3 methods to loaded function
 #' @importFrom utils getAnywhere
 #' @keywords internal
@@ -74,63 +85,6 @@ clear_funs = function(funs){
     }
     funs
 }
-
-
-
-#' Get label if wanted and available, or name otherwise
-#' @keywords internal
-#' @importFrom expss var_lab
-#' @noRd
-get_label = function(x, label=TRUE){
-    if(label && !is.null(var_lab(x))) var_lab(x) else names(x)
-}
-
-
-
-##' Return the number of non NA observations
-##'
-##' @export
-##' @param x a vector
-##' @param na.rm not used
-##' @author David Hajage
-##' @keywords univar
-N = function(x, na.rm = FALSE) {
-    sum(!is.na(x))
-}
-
-##' Return the number of NA observations
-##'
-##' @export
-##' @param x a vector
-##' @param na.rm not used
-##' @author David Hajage
-##' @keywords univar
-na = function(x, na.rm = FALSE) {
-    sum(is.na(x))
-}
-
-
-#' test
-#'
-#' @param x x
-#' @author David Hajage
-#' @keywords internal
-#' @noRd
-is.character.or.factor = function(x) {
-    is.character(x) | is.factor(x)
-}
-
-#' test
-#'
-#' @param x x
-#' @author David Hajage
-#' @keywords internal
-#' @noRd
-#' @importFrom  survival is.Surv
-is.numeric.and.not.surv = function(x) {
-    is.numeric(x) & !is.Surv(x)
-}
-
 
 
 
@@ -178,7 +132,69 @@ funs2fun = function(...) {
         }
         data.frame(results, check.names = FALSE)
     }
+}
+
+
+
+# Class checking ----------------------------------------------------------
+
+
+
+#' test
+#'
+#' @param x x
+#' @author David Hajage
+#' @keywords internal
+#' @noRd
+is.character.or.factor = function(x) {
+    is.character(x) | is.factor(x)
+}
+
+#' test
+#'
+#' @param x x
+#' @author David Hajage
+#' @keywords internal
+#' @noRd
+#' @importFrom  survival is.Surv
+is.numeric.and.not.surv = function(x) {
+    is.numeric(x) & !is.Surv(x)
+}
+
+#' test
+#'
+#' @param x x
+#' @keywords internal
+#' @noRd
+#' @importFrom  methods is
 is.date = function(x){
     is(x, "Date") || is(x, "POSIXct") || is(x, "POSIXt")
 }
+
+
+
+# Misc --------------------------------------------------------------------
+
+
+
+#' Return the number of non NA observations
+#'
+#' @export
+#' @param x a vector
+#' @param na.rm not used
+#' @author David Hajage
+#' @keywords univar
+N = function(x, na.rm = FALSE) {
+    sum(!is.na(x))
+}
+
+#' Return the number of NA observations
+#'
+#' @export
+#' @param x a vector
+#' @param na.rm not used
+#' @author David Hajage
+#' @keywords univar
+na = function(x, na.rm = FALSE) {
+    sum(is.na(x))
 }

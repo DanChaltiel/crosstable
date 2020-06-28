@@ -14,8 +14,7 @@ mtcars3$cyl[1:5] = NA
 mtcars3$vs[5:12] = NA
 mtcars3$cyl3 = mtcars3$cyl==3
 mtcars3$cyl6 = mtcars3$cyl==6
-mtcars3$surv = Surv(mtcars3$disp, mtcars3$am=="manual")
-expss::var_lab(mtcars3$surv) = "Dummy survival"
+mtcars3$surv = Surv(mtcars3$disp, mtcars3$am=="manual") %>% set_label("Dummy survival")
 
 
 

@@ -16,7 +16,7 @@
 #'     mutate(vs=ifelse(vs==0, "vshaped", "straight"),
 #'        am=ifelse(am==0, "auto", "manual")) \%>\% 
 #'     mutate_at(c("cyl", "gear"), factor) \%>\% 
-#'     expss::apply_labels( #I also could have used `Hmisc::label`
+#'     expss::apply_labels( #I also could have used [import_labels] or even `Hmisc::label`
 #'         mpg="Miles/(US) gallon",
 #'         cyl="Number of cylinders",
 #'         disp="Displacement (cu.in.)",
@@ -54,7 +54,7 @@
 #' library(dplyr)
 #' iris2 = iris \%>\% 
 #'     mutate_at("Species", factor) \%>\% 
-#'     expss::apply_labels(
+#'     expss::apply_labels( #I also could have used [import_labels] or even `Hmisc::label`
 #'         Species = "Specie",
 #'         Sepal.Length = "Length of Sepal",
 #'         Sepal.Width = "Width of Sepal",
