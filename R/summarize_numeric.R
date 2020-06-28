@@ -5,7 +5,7 @@
 #' @importFrom dplyr rename mutate_if
 #' @keywords internal
 #' @noRd
-summarize_numeric_single = function(x,funs,funs_arg){
+summarize_numeric_single = function(x, funs, funs_arg){
     assert_numeric(x)
     assert_character(funs)
     
@@ -21,7 +21,6 @@ summarize_numeric_single = function(x,funs,funs_arg){
 #' Summarize numeric by categorial
 #' @importFrom checkmate assert_numeric assert_character assert_scalar
 #' @importFrom tibble tibble
-#' @importFrom forcats fct_explicit_na
 #' @importFrom dplyr group_by mutate ungroup mutate_at vars arrange filter .data
 #' @importFrom tidyr nest unnest pivot_wider replace_na
 #' @importFrom purrr map imap reduce
@@ -50,7 +49,8 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
     }
     
     if(.showNA==FALSE) by = by[!is.na(by)]
-    by = fct_explicit_na(by, "NA")
+    by = replace_na(as.character(by), "NA")
+    
     rtn = unique(by) %>% sort() %>% set_names() %>% 
         map(~summarize_numeric_single(x[by==.x], funs=funs, funs_arg=funs_arg)) %>% 
         imap(~rename(.x, !!.y:=value)) %>% 

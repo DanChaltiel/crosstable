@@ -43,7 +43,6 @@ summarise_survival_single = function(surv, times, digits, followup) {
 #' @importFrom dplyr mutate mutate_all rename select everything tibble group_by row_number summarise pull left_join %>% 
 #' @importFrom tidyr pivot_wider
 #' @importFrom rlang set_names :=
-#' @importFrom forcats fct_explicit_na
 #' @importFrom checkmate assert
 #' @importFrom glue glue
 #' @importFrom survival is.Surv survfit
@@ -52,7 +51,7 @@ summarise_survival_single = function(surv, times, digits, followup) {
 summarise_survival_by = function(surv, by, times, followup, total, digits, showNA,
                                  test, test_args, effect, effect_args) {
     assert(is.Surv(surv))
-    if(showNA!="no") by = fct_explicit_na(by, "NA")
+    if(showNA!="no") by = replace_na(as.character(by), "NA")
     
     if(length(unique(by))==1){
         cname = as.character(unique(by))

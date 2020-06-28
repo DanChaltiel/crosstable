@@ -23,7 +23,6 @@ Imports:
     ellipsis,
     expss,
     flextable,
-    forcats,
     glue,
     lifecycle,
     nortest,
