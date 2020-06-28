@@ -16,6 +16,7 @@ cross_by = function(data_x, data_y, funs, funs_arg, margin, total, percent_digit
     
     rtn_tbl = map_dfr(names(data_x), ~{
         if(is.numeric.and.not.surv(data_x[[.x]])){
+        if(is.numeric.and.not.surv(data_x[[.x]]) || is.date(data_x[[.x]])){
             rtn=cross_numeric(data_x[.x], data_y, funs=funs, funs_arg=funs_arg, 
                               showNA=showNA, total=total, label=label, 
                               cor_digits=percent_digits, cor_method=cor_method,

@@ -178,4 +178,7 @@ funs2fun = function(...) {
         }
         data.frame(results, check.names = FALSE)
     }
+is.date = function(x){
+    is(x, "Date") || is(x, "POSIXct") || is(x, "POSIXt")
+}
 }

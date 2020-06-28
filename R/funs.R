@@ -6,6 +6,7 @@
 #' @param x a numeric vector to format
 #' @param digits number of decimals
 #' @param zero_digits number of significant digits for values rounded to 0 (can be set to NULL to keep the original 0 value)
+#' @param date_format if `x` is a vector of Date or POSIXt, the format to apply (see [strptime] for formats)
 #' @param only_round if TRUE, `format_fixed` simply returns the rounded value. Can be set globally with `options("crosstable_only_round"=TRUE)`.
 #' @param ... unused
 #'
@@ -27,12 +28,17 @@
 #' options("crosstable_only_round"=TRUE)
 #' format_fixed(x_sd, dig=3, zero_digits=2) #override default
 #' options("crosstable_only_round"=NULL)
-format_fixed = function(x, digits=1, zero_digits=1, only_round=getOption("crosstable_only_round", FALSE), ...){
+format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL, only_round=getOption("crosstable_only_round", FALSE), ...){
   assert_numeric(x)
   assert_numeric(digits)
   assert_logical(only_round)
   assert(is.null(zero_digits)||is.na(zero_digits)||is.numeric(zero_digits))
-  if(only_round) {
+  if(is.date(x)){
+    if(!is.null(date_format)) 
+      return(format(x, date_format))
+    else 
+      return(x)
+  } else if(only_round) {
     return(round(x,digits))
   } else {
     rtn = ifelse(is.na(x), NA_character_, formatC(x, format='f', digits=digits))
@@ -131,12 +137,16 @@ NULL
 #' @importFrom stats sd
 #' @export
 moystd = function(x, na.rm = TRUE, dig = 2, ...) {
-  moy = x %>% 
-    mean(na.rm=na.rm) %>% 
+  moy = mean(x, na.rm=na.rm) %>% 
     format_fixed(digits=dig, ...)
-  std = x %>% 
-    sd(na.rm=na.rm) %>% 
+  std = sd(x, na.rm=na.rm) %>% 
     format_fixed(digits=dig, ...)
+  if(is.date(x)){
+    
+    #TODO dans sd deviner l'unité: si s>60, /60 et minutes etc
+    unit = c("Date"="days", "POSIXct"="seconds", "POSIXlt"="seconds", "POSIXt"="seconds")
+    std = paste(std, unit[class(x)][1])
+  }
   paste0(moy, " (", std, ")")
 }
 
@@ -145,11 +155,12 @@ moystd = function(x, na.rm = TRUE, dig = 2, ...) {
 #' @importFrom stats median quantile
 #' @export
 mediqr = function(x, na.rm = TRUE, dig = 2, ...) {
+  if(is.date(x)) type=1 else type=7
   med = x %>% 
     median(na.rm=na.rm) %>% 
     format_fixed(digits=dig, ...)
   iqr = x %>% 
-    quantile(probs=c(0.25, 0.75), na.rm=na.rm) %>% 
+    quantile(probs=c(0.25, 0.75), na.rm=na.rm, type=type) %>% 
     format_fixed(digits=dig, ...)
   paste0(med, " [", iqr[1], ";", iqr[2], "]")
 }
@@ -157,8 +168,12 @@ mediqr = function(x, na.rm = TRUE, dig = 2, ...) {
 #' @describeIn summaryFunctions returns minimum and maximum
 #' @export
 minmax = function(x, na.rm = TRUE, dig = 2, ...) {
-  mi = ifelse(!all(is.na(x)), format_fixed(min(x, na.rm = na.rm), digits=dig, ...), NA)
-  ma = ifelse(!all(is.na(x)), format_fixed(max(x, na.rm = na.rm), digits=dig, ...), NA)
+  if(all(is.na(x))){
+    mi=ma=NA
+  } else {
+    mi = format_fixed(min(x, na.rm = na.rm), digits=dig, ...)
+    ma = format_fixed(max(x, na.rm = na.rm), digits=dig, ...)
+  }
   paste(mi, "/", ma)
 }
 
