@@ -10,21 +10,6 @@ options(tidyselect_verbosity = "verbose")
 
 library(survival)
 library(dplyr)
-# mtcars2 %>% map(class)
-
-# mtcars3 = tibble(.rows = nrow(mtcars2))
-# mtcars3$x_char = mtcars2$am
-# mtcars3$x_char_na = mtcars2$vs
-# mtcars3$x_num = mtcars2$mpg
-# mtcars3$x_num_na = mtcars2$drat
-# mtcars3$x_fact_num = mtcars2$cyl
-# mtcars3$x_fact_char = as.factor(mtcars2$vs)
-# mtcars3$x_date = as.Date(mtcars2$hp , origin="2010-01-01")
-# mtcars3$x_posix = as.POSIXct(mtcars2$qsec*3600*24 , origin="2010-01-01")
-# mtcars3$dummy = "dummy"
-# mtcars3$surv = Surv(mtcars2$disp, mtcars2$am=="manual") %>% set_label("Survival")
-
-
 
 mtcars3 = as_tibble(mtcars2)
 mtcars3$cyl[1:5] = NA

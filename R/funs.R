@@ -81,7 +81,6 @@ format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL, only_round
 #' mediqr(iris$Sepal.Length, dig=3)
 #' nna(iris$Sepal.Length)
 #' 
-#' #arguments for format_fixed
 #' x = iris$Sepal.Length/10000 #closer to zero 
 #' 
 #' moystd(x, dig=3)
@@ -90,11 +89,6 @@ format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL, only_round
 #' options("crosstable_only_round"=TRUE)
 #' moystd(x, dig=3, zero_digits=2)
 #' options("crosstable_only_round"=NULL)
-#' 
-#' #dates
-#' x = as.POSIXct(mtcars$qsec*3600*24 , origin="2010-01-01")
-#' moystd(x)
-#' minmax(x, date_format="%d/%m/%Y")
 #'
 #' @author Dan Chaltiel
 #' @author David Hajage
@@ -105,22 +99,19 @@ format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL, only_round
 NULL
 
 
-
 #' @describeIn summaryFunctions returns mean and std error
 #' @importFrom stats sd
 #' @export
-#' @examples
 moystd = function(x, na.rm = TRUE, dig = 2, ...) {
   moy = mean(x, na.rm=na.rm) %>% 
     format_fixed(digits=dig, ...)
+  std = sd(x, na.rm=na.rm) %>% 
+    format_fixed(digits=dig, ...)
   if(is.date(x)){
-    std = sd_date(x)
-    std = std$value %>% 
-      format_fixed(digits=dig, ...) %>% 
-      paste(std$unit)
-  } else {
-    std = sd(x, na.rm=na.rm) %>% 
-      format_fixed(digits=dig, ...)
+    
+    #TODO dans sd deviner l'unité: si s>60, /60 et minutes etc
+    unit = c("Date"="days", "POSIXct"="seconds", "POSIXlt"="seconds", "POSIXt"="seconds")
+    std = paste(std, unit[class(x)][1])
   }
   paste0(moy, " (", std, ")")
 }
@@ -149,11 +140,7 @@ minmax = function(x, na.rm = TRUE, dig = 2, ...) {
     mi = format_fixed(min(x, na.rm = na.rm), digits=dig, ...)
     ma = format_fixed(max(x, na.rm = na.rm), digits=dig, ...)
   }
-  if(is.date(x)){
-    paste(mi, "-", ma)
-  } else {
-    paste(mi, "/", ma)
-  }
+  paste(mi, "/", ma)
 }
 
 #' @describeIn summaryFunctions returns  number of observations and number of missing values
