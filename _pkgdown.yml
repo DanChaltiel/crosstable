@@ -1,23 +1,13 @@
-url: https://pkgdown.r-lib.org
 destination: docs
   
 template:
   params:
     bootswatch: flatly
     # bootswatch: litera
-    docsearch:
-      api_key: ad0c2995de46e5fb23bc55da3b13faf7
-      index_name: crosstable
+    # docsearch:
+    #   api_key: API_KEY
+    #   index_name: INDEX_NAME
     # https://docsearch.algolia.com/apply/
-  opengraph:
-    image:
-      src: docs/hex_sticker_v2.png
-      alt: "Crosstable: easy dataset description"
-    twitter:
-      creator: "@DanChaltiel"
-      card: summary_large_image
-
-
 
 articles:
 - title: Main verbs
@@ -26,7 +16,6 @@ articles:
   - crosstable-selection
   - crosstable-report
   - crosstable-install
-
 
 
 reference:
@@ -72,8 +61,6 @@ reference:
 - contents:
   - display_test
   - starts_with("test_")
- 
- 
  
 navbar:
   structure:
