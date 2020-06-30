@@ -1,6 +1,6 @@
 Package: crosstable
 Title: Crosstables for descriptive analyses
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: 
     c(person(given = "Dan",
              family = "Chaltiel",
@@ -26,7 +26,6 @@ Imports:
     lifecycle,
     nortest,
     officer,
-    methods,   
     purrr,
     rlang,
     stats,

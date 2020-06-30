@@ -166,15 +166,35 @@ is.numeric.and.not.surv = function(x) {
 #' @param x x
 #' @keywords internal
 #' @noRd
-#' @importFrom  methods is
 is.date = function(x){
-    is(x, "Date") || is(x, "POSIXct") || is(x, "POSIXt")
+    inherits(x, "Date") || inherits(x, "POSIXt") || 
+        inherits(x, "POSIXct") || inherits(x, "POSIXlt")
 }
 
 
 
 # Misc --------------------------------------------------------------------
 
+
+#' Computes the standard deviation of a date/datetime with the appropriate unit
+#' 
+#' @param x 
+#'
+#' @examples 
+#' sd_date(mtcars3$x_date)
+#' sd_date(as.POSIXct(mtcars3$x_date))
+#' sd_date(mtcars3$x_posix)
+sd_date = function(x){
+    assert(is.date(x))
+    if(inherits(x, "Date")) x = as.numeric(x) * 3600 * 24 #days to seconds
+    x_sd = sd(x, na.rm=TRUE)
+    limits = c("seconds"=-Inf, "minutes"=60, "hours"=3600, 
+               "days"=3600*24, "months"=3600*24*30.4, "years"=3600*24*365)
+    lim = limits[x_sd>limits][length(limits[x_sd>limits])]
+    rtn =sd(as.numeric(x)/lim, na.rm=TRUE)
+    
+    list(value=rtn, unit=names(lim))
+}
 
 
 #' Return the number of non NA observations
