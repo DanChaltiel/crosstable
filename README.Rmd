@@ -18,8 +18,7 @@ knitr::opts_chunk$set(
 ```
 
 
-
-# crosstable
+# crosstable <a href='https://DanChaltiel.github.io/crosstable/'><img src='docs/hex_sticker_v2.png' align="right" height="175" /></a>
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/crosstable)](https://CRAN.R-project.org/package=crosstable)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
