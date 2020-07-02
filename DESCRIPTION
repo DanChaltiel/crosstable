@@ -13,7 +13,7 @@ Authors@R:
              email = "david.hajage@aphp.fr"))
 Description: A handy tool for description and testing.
 License: GPL-3 + file LICENSE
-URL: https://github.com/DanChaltiel/crosstable
+URL: https://danchaltiel.github.io/crosstable/, https://github.com/DanChaltiel/crosstable
 BugReports: https://github.com/DanChaltiel/crosstable/issues
 Depends:
     R (>= 3.1.0)

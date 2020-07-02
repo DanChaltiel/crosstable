@@ -78,7 +78,8 @@ reference:
 navbar:
   structure:
     left:  [home, intro, articles, news, reference]
-    right: [twitter, github]
+    # right: [algolia, search, docsearch, twitter, github]
+    right: [docsearch, twitter, github]
   components:
     twitter:
         icon: "fab fa-twitter fa-lg"

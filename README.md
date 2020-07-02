@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# crosstable
+# crosstable <a href='https://DanChaltiel.github.io/crosstable/'><img src='docs/hex_sticker_v2.png' align="right" height="175" /></a>
 
 <!-- badges: start -->
 
