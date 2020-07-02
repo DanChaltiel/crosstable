@@ -17,4 +17,3 @@ Return the number of NA observations
 \author{
 David Hajage
 }
-\keyword{univar}

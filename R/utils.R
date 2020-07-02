@@ -178,7 +178,9 @@ is.date = function(x){
 
 #' Computes the standard deviation of a date/datetime with the appropriate unit
 #' 
-#' @param x 
+#' @param x a Date or Posix time
+#' @keywords internal
+#' @noRd
 #'
 #' @examples 
 #' sd_date(mtcars3$x_date)
@@ -203,7 +205,6 @@ sd_date = function(x){
 #' @param x a vector
 #' @param na.rm not used
 #' @author David Hajage
-#' @keywords univar
 N = function(x, na.rm = FALSE) {
     sum(!is.na(x))
 }
@@ -214,7 +215,6 @@ N = function(x, na.rm = FALSE) {
 #' @param x a vector
 #' @param na.rm not used
 #' @author David Hajage
-#' @keywords univar
 na = function(x, na.rm = FALSE) {
     sum(is.na(x))
 }

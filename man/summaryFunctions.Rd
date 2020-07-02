@@ -55,6 +55,7 @@ minmax(iris$Sepal.Length, dig=3)
 mediqr(iris$Sepal.Length, dig=3)
 nna(iris$Sepal.Length)
 
+#arguments for format_fixed
 x = iris$Sepal.Length/10000 #closer to zero 
 
 moystd(x, dig=3)
@@ -63,6 +64,11 @@ moystd(x, dig=3, only_round=TRUE)
 options("crosstable_only_round"=TRUE)
 moystd(x, dig=3, zero_digits=2)
 options("crosstable_only_round"=NULL)
+
+#dates
+x = as.POSIXct(mtcars$qsec*3600*24 , origin="2010-01-01")
+moystd(x)
+minmax(x, date_format="\%d/\%m/\%Y")
 
 }
 \seealso{

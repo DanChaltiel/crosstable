@@ -109,7 +109,6 @@ NULL
 #' @describeIn summaryFunctions returns mean and std error
 #' @importFrom stats sd
 #' @export
-#' @examples
 moystd = function(x, na.rm = TRUE, dig = 2, ...) {
   moy = mean(x, na.rm=na.rm) %>% 
     format_fixed(digits=dig, ...)
