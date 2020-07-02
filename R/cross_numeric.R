@@ -26,9 +26,9 @@ cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
         rtn = summarize_numeric_factor(data_x[[1]], data_y[[1]], funs, funs_arg, showNA, total, 
                                        cor_digits, cor_method,  test, test_args, 
                                        effect, effect_args)
-    } else if(is.numeric.and.not.surv(data_y[[1]])){
-        if(!identical(funs,c(` `="cross_summary")))
-            warning("`funs` argument will not be used if `by` is numeric.")
+    } else if(!is.date(data_x[[1]]) && is.numeric.and.not.surv(data_y[[1]])){
+        if(!identical(funs,c(` `="cross_summary")) || length(funs_arg)>0)
+            warning("`funs`  and `funs_arg` arguments will not be used if `by` is numeric.")
         rtn = summarize_numeric_numeric(data_x[[1]], data_y[[1]], method=cor_method, 
                                         digits=cor_digits, test=test, test_args) %>% 
             rename(!!y_name:=.data$value)
