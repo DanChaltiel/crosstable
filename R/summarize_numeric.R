@@ -66,7 +66,7 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
 
 
 #' Summarize numeric by numeric (correlation)
-#' @importFrom checkmate assert_numeric assert_character assert_string assert_count assert_logical assert_list
+#' @importFrom checkmate assert_numeric assert_string assert_count assert_logical assert_list
 #' @importFrom tibble tibble
 #' @importFrom dplyr mutate .data
 #' @importFrom stats cor.test

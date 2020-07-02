@@ -5,11 +5,12 @@
 
 
 #' @importFrom rlang env env_has inform is_installed
+#' @importFrom checkmate assert_string
 #' @author tidyselect (https://github.com/r-lib/tidyselect/blob/2fab83639982d37fd94914210f771ab9cbd36b4b/R/utils.R#L281)
 #' @keywords internal
 #' @noRd
 warning_once = function(msg, id=msg) {
-    stopifnot(is_string(id))
+    assert_string(id)
     
     if (env_has(inform_env, id)) {
         return(invisible(NULL))
@@ -181,6 +182,7 @@ is.date = function(x){
 #' @param x a Date or Posix time
 #' @keywords internal
 #' @noRd
+#' @importFrom checkmate assert
 #'
 #' @examples 
 #' sd_date(mtcars3$x_date)
