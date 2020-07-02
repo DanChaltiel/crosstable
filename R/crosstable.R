@@ -59,6 +59,9 @@
 #' #lambda selection, effect calculation
 #' crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, effect=TRUE)
 #' 
+#' #Dates
+#' mtcars2$my_date = as.Date(mtcars2$hp , origin="2010-01-01") %>% set_label("Some nonsense date")
+#' crosstable(mtcars2, my_date, by=vs, date_format="%d/%m/%Y")
 #' 
 #' #Survival data (using formula UI)
 #' library(survival)
@@ -70,7 +73,7 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
                       funs = c(" " = cross_summary), funs_arg=list(), 
                       cor_method = c("pearson", "kendall", "spearman"), 
                       test = FALSE, test_args = crosstable_test_args(), 
-                      unique_numeric = 3,
+                      unique_numeric = 3, date_format=NULL, 
                       effect = FALSE, effect_args = crosstable_effect_args(), 
                       times = NULL, followup = FALSE) {
     debug=list()
@@ -79,7 +82,7 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
         check_dots_unnamed()
         
         coll = makeAssertCollection()    
-        assertDataFrame(data, null.ok=TRUE, add=coll)
+        assertDataFrame(data, null.ok=FALSE, add=coll)
         assertCount(percent_digits, add=coll)
         assertLogical(label, add=coll)
         assertList(funs_arg, add=coll)
@@ -123,6 +126,8 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
             }
         }
         reportAssertions(coll)
+        
+        if(!is.null(date_format)) funs_arg = c(funs_arg, list(date_format=date_format))
     }
     
     

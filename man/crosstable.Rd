@@ -20,6 +20,7 @@ crosstable(
   test = FALSE,
   test_args = crosstable_test_args(),
   unique_numeric = 3,
+  date_format = NULL,
   effect = FALSE,
   effect_args = crosstable_effect_args(),
   times = NULL,
@@ -92,6 +93,9 @@ crosstable(mtcars2, where(is.numeric), by=hp, test=TRUE)
 #lambda selection, effect calculation
 crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, effect=TRUE)
 
+#Dates
+mtcars2$my_date = as.Date(mtcars2$hp , origin="2010-01-01") \%>\% set_label("Some nonsense date")
+crosstable(mtcars2, my_date, by=vs, date_format="\%d/\%m/\%Y")
 
 #Survival data (using formula UI)
 library(survival)
