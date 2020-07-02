@@ -16,6 +16,7 @@ See vignettes for more information.
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://danchaltiel.github.io/crosstable/}
   \item \url{https://github.com/DanChaltiel/crosstable}
   \item Report bugs at \url{https://github.com/DanChaltiel/crosstable/issues}
 }

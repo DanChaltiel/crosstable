@@ -38,9 +38,15 @@ reference:
 - contents: 
   - iris2
   - mtcars2
+- title: "Labelling"
+  desc: "Handle label attributes (compatible with Hmisc, expss, haven...)"
+- contents: 
   - import_labels
+  - set_label
+  - get_label
+  - remove_label
 - title: "Summary functions"
-  desc: "Functions used to summarise numeric functions"
+  desc: "Summarise numeric variables"
 - contents: 
   - summaryFunctions
   - cross_summary
@@ -78,7 +84,6 @@ reference:
 navbar:
   structure:
     left:  [home, intro, articles, news, reference]
-    # right: [algolia, search, docsearch, twitter, github]
     right: [docsearch, twitter, github]
   components:
     twitter:

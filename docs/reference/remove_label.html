@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Effect measure for association between one consored variable and one categorical variable — effect_survival • crosstable</title>
+<title>Remove all label attributes. — remove_label • crosstable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -54,8 +54,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Effect measure for association between one consored variable and one categorical variable — effect_survival" />
-<meta property="og:description" content="Effect measure for association between one consored variable and one categorical variable" />
+<meta property="og:title" content="Remove all label attributes. — remove_label" />
+<meta property="og:description" content="Remove all label attributes." />
 <meta property="og:image" content="https://pkgdown.r-lib.org/docs/hex_sticker_v2.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -164,34 +164,108 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Effect measure for association between one consored variable and one categorical variable</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/effect.R'><code>R/effect.R</code></a></small>
-    <div class="hidden name"><code>effect_survival.Rd</code></div>
+    <h1>Remove all label attributes.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/funs.R'><code>R/funs.R</code></a></small>
+    <div class="hidden name"><code>remove_label.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Effect measure for association between one consored variable and one categorical variable</p>
+    <p>Remove all label attributes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>effect_survival_coxph</span>(<span class='no'>formula</span>, <span class='kw'>conf_level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>)</pre>
+    <pre class="usage"><span class='fu'>remove_label</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>formula</th>
-      <td><p>a formula</p></td>
-    </tr>
-    <tr>
-      <th>conf_level</th>
-      <td><p>the confidence level required</p></td>
+      <th>x</th>
+      <td><p>object to unlabel</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>a list with two componments: p.value and method</p>
+    <div class='dont-index'><p><a href='get_label.html'>get_label</a>, <a href='set_label.html'>set_label</a>, <a href='import_labels.html'>import_labels</a>, <a href='https://rdrr.io/pkg/expss/man/unlab.html'>expss::unlab</a></p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='crosstable.html'>crosstable</a></span>(<span class='fu'>remove_label</span>(<span class='no'>mtcars2</span>))</div><div class='output co'>#&gt;     .id label   variable               value
+#&gt; 1   mpg   mpg  Min / Max         10.4 / 33.9
+#&gt; 2   mpg   mpg  Med [IQR]    19.2 [15.4;22.8]
+#&gt; 3   mpg   mpg Mean (std)          20.1 (6.0)
+#&gt; 4   mpg   mpg     N (NA)              32 (0)
+#&gt; 5   cyl   cyl          4         11 (34.38%)
+#&gt; 6   cyl   cyl          6          7 (21.88%)
+#&gt; 7   cyl   cyl          8         14 (43.75%)
+#&gt; 8  disp  disp  Min / Max        71.1 / 472.0
+#&gt; 9  disp  disp  Med [IQR] 196.3 [120.8;326.0]
+#&gt; 10 disp  disp Mean (std)       230.7 (123.9)
+#&gt; 11 disp  disp     N (NA)              32 (0)
+#&gt; 12   hp    hp  Min / Max        52.0 / 335.0
+#&gt; 13   hp    hp  Med [IQR]  123.0 [96.5;180.0]
+#&gt; 14   hp    hp Mean (std)        146.7 (68.6)
+#&gt; 15   hp    hp     N (NA)              32 (0)
+#&gt; 16 drat  drat  Min / Max           2.8 / 4.9
+#&gt; 17 drat  drat  Med [IQR]       3.7 [3.1;3.9]
+#&gt; 18 drat  drat Mean (std)           3.6 (0.5)
+#&gt; 19 drat  drat     N (NA)              32 (0)
+#&gt; 20   wt    wt  Min / Max           1.5 / 5.4
+#&gt; 21   wt    wt  Med [IQR]       3.3 [2.6;3.6]
+#&gt; 22   wt    wt Mean (std)           3.2 (1.0)
+#&gt; 23   wt    wt     N (NA)              32 (0)
+#&gt; 24 qsec  qsec  Min / Max         14.5 / 22.9
+#&gt; 25 qsec  qsec  Med [IQR]    17.7 [16.9;18.9]
+#&gt; 26 qsec  qsec Mean (std)          17.8 (1.8)
+#&gt; 27 qsec  qsec     N (NA)              32 (0)
+#&gt; 28   vs    vs   straight         14 (43.75%)
+#&gt; 29   vs    vs    vshaped         18 (56.25%)
+#&gt; 30   am    am       auto         19 (59.38%)
+#&gt; 31   am    am     manual         13 (40.62%)
+#&gt; 32 gear  gear          3         15 (46.88%)
+#&gt; 33 gear  gear          4         12 (37.50%)
+#&gt; 34 gear  gear          5          5 (15.62%)
+#&gt; 35 carb  carb  Min / Max           1.0 / 8.0
+#&gt; 36 carb  carb  Med [IQR]       2.0 [2.0;4.0]
+#&gt; 37 carb  carb Mean (std)           2.8 (1.6)
+#&gt; 38 carb  carb     N (NA)              32 (0)</div><div class='input'><span class='fu'><a href='crosstable.html'>crosstable</a></span>(<span class='no'>mtcars2</span>)</div><div class='output co'>#&gt;     .id                   label   variable               value
+#&gt; 1   mpg       Miles/(US) gallon  Min / Max         10.4 / 33.9
+#&gt; 2   mpg       Miles/(US) gallon  Med [IQR]    19.2 [15.4;22.8]
+#&gt; 3   mpg       Miles/(US) gallon Mean (std)          20.1 (6.0)
+#&gt; 4   mpg       Miles/(US) gallon     N (NA)              32 (0)
+#&gt; 5   cyl     Number of cylinders          4         11 (34.38%)
+#&gt; 6   cyl     Number of cylinders          6          7 (21.88%)
+#&gt; 7   cyl     Number of cylinders          8         14 (43.75%)
+#&gt; 8  disp   Displacement (cu.in.)  Min / Max        71.1 / 472.0
+#&gt; 9  disp   Displacement (cu.in.)  Med [IQR] 196.3 [120.8;326.0]
+#&gt; 10 disp   Displacement (cu.in.) Mean (std)       230.7 (123.9)
+#&gt; 11 disp   Displacement (cu.in.)     N (NA)              32 (0)
+#&gt; 12   hp        Gross horsepower  Min / Max        52.0 / 335.0
+#&gt; 13   hp        Gross horsepower  Med [IQR]  123.0 [96.5;180.0]
+#&gt; 14   hp        Gross horsepower Mean (std)        146.7 (68.6)
+#&gt; 15   hp        Gross horsepower     N (NA)              32 (0)
+#&gt; 16 drat         Rear axle ratio  Min / Max           2.8 / 4.9
+#&gt; 17 drat         Rear axle ratio  Med [IQR]       3.7 [3.1;3.9]
+#&gt; 18 drat         Rear axle ratio Mean (std)           3.6 (0.5)
+#&gt; 19 drat         Rear axle ratio     N (NA)              32 (0)
+#&gt; 20   wt       Weight (1000 lbs)  Min / Max           1.5 / 5.4
+#&gt; 21   wt       Weight (1000 lbs)  Med [IQR]       3.3 [2.6;3.6]
+#&gt; 22   wt       Weight (1000 lbs) Mean (std)           3.2 (1.0)
+#&gt; 23   wt       Weight (1000 lbs)     N (NA)              32 (0)
+#&gt; 24 qsec           1/4 mile time  Min / Max         14.5 / 22.9
+#&gt; 25 qsec           1/4 mile time  Med [IQR]    17.7 [16.9;18.9]
+#&gt; 26 qsec           1/4 mile time Mean (std)          17.8 (1.8)
+#&gt; 27 qsec           1/4 mile time     N (NA)              32 (0)
+#&gt; 28   vs                  Engine   straight         14 (43.75%)
+#&gt; 29   vs                  Engine    vshaped         18 (56.25%)
+#&gt; 30   am            Transmission       auto         19 (59.38%)
+#&gt; 31   am            Transmission     manual         13 (40.62%)
+#&gt; 32 gear Number of forward gears          3         15 (46.88%)
+#&gt; 33 gear Number of forward gears          4         12 (37.50%)
+#&gt; 34 gear Number of forward gears          5          5 (15.62%)
+#&gt; 35 carb   Number of carburetors  Min / Max           1.0 / 8.0
+#&gt; 36 carb   Number of carburetors  Med [IQR]       2.0 [2.0;4.0]
+#&gt; 37 carb   Number of carburetors Mean (std)           2.8 (1.6)
+#&gt; 38 carb   Number of carburetors     N (NA)              32 (0)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -48,12 +48,11 @@ In case of any installation problem, try reading [the wiki](https://github.com/D
 
 ## Getting help
 
-You can use the vignettes: 
+You can use the vignettes (click on the links): 
 
 + `vignette("crosstable")` for global use and parameterization 
 + `vignette("crosstable-selection")` for variable selection 
 + `vignette("crosstable-report")` for reporting with `officer` or `Rmarkdown`
-
 
 
 ## Usage

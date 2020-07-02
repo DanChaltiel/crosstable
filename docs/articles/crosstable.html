@@ -17,9 +17,16 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Introduction to Crosstable">
 <meta property="og:description" content="crosstable">
+<meta property="og:image" content="https://pkgdown.r-lib.org/docs/hex_sticker_v2.png">
+<meta property="og:image:alt" content="Crosstable: easy dataset description">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@DanChaltiel">
+<meta name="twitter:site" content="@DanChaltiel">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -38,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
       </span>
     </div>
 
@@ -72,6 +79,9 @@
   </ul>
 </li>
 <li>
+  <a href="../news/index.html">Changelog</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -89,7 +99,13 @@
   </a>
 </li>
       </ul>
+<form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
+      </form>
+      
+    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
@@ -105,7 +121,7 @@
       <h1 data-toc-skip>Introduction to Crosstable</h1>
                         <h4 class="author">Dan Chaltiel</h4>
             
-            <h4 class="date">2020-06-22</h4>
+            <h4 class="date">2020-07-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/DanChaltiel/crosstable/blob/master/vignettes/crosstable.Rmd"><code>vignettes/crosstable.Rmd</code></a></small>
       <div class="hidden name"><code>crosstable.Rmd</code></div>
@@ -193,7 +209,7 @@ kbd {
 <li>the <code>by</code> argument, to select the column we want to group on to calculate the stats.</li>
 </ul>
 <p>For instance, if we wanted the statistics of <code>mpg</code> and <code>cyl</code> for both levels of <code>am</code>, we could write this:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/crosstable.html">crosstable</a></span>(<span class="no">mtcars2</span>, <span class="no">mpg</span>, <span class="no">cyl</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="no">am</span>)
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/crosstable.html">crosstable</a></span>(<span class="no">mtcars2</span>, <span class="no">mpg</span>, <span class="no">cyl</span>, <span class="kw">by</span><span class="kw">=</span><span class="no">am</span>)
 <span class="co">#&gt;   .id               label   variable             auto           manual</span>
 <span class="co">#&gt; 1 mpg   Miles/(US) gallon  Min / Max      10.4 / 24.4      15.0 / 33.9</span>
 <span class="co">#&gt; 2 mpg   Miles/(US) gallon  Med [IQR] 17.3 [14.9;19.2] 22.8 [21.0;30.4]</span>
@@ -203,7 +219,7 @@ kbd {
 <span class="co">#&gt; 6 cyl Number of cylinders          6       4 (57.14%)       3 (42.86%)</span>
 <span class="co">#&gt; 7 cyl Number of cylinders          8      12 (85.71%)       2 (14.29%)</span></pre></body></html></div>
 <p>The <code>by</code> column should be a factor, character or logical vector. If it is a numeric vector, then only numeric vectors can be described and correlation factors will be displayed.</p>
-<p>There are many ways to select variables: with names, character vector, <code>tidyselect</code> helpers, formula… For instance, you could write <code><a href="../reference/crosstable.html">crosstable(mtcars2, starts_with("d"))</a></code>, <code><a href="../reference/crosstable.html">crosstable(mtcars2, is.numeric)</a></code>, <code><a href="../reference/crosstable.html">crosstable(mtcars2, -c(mpg:hp))</a></code>, or <code><a href="../reference/crosstable.html">crosstable(mtcars2, mpg~am)</a></code>. This is described in details in <code><a href="../articles/crosstable-selection.html">vignette("crosstable-selection")</a></code> (<a href="crosstable-selection.html">link</a>).</p>
+<p>There are many ways to select variables: with names, character vector, <code>tidyselect</code> helpers, formula… For instance, you could write <code><a href="../reference/crosstable.html">crosstable(mtcars2, starts_with("d"))</a></code>, <code><a href="../reference/crosstable.html">crosstable(mtcars2, where(is.numeric))</a></code>, <code><a href="../reference/crosstable.html">crosstable(mtcars2, -c(mpg:hp))</a></code>, or <code><a href="../reference/crosstable.html">crosstable(mtcars2, mpg~am)</a></code>. This is described in details in <code><a href="../articles/crosstable-selection.html">vignette("crosstable-selection")</a></code> (<a href="crosstable-selection.html">link</a>).</p>
 </div>
 <div id="html-printing" class="section level2">
 <h2 class="hasAnchor">
@@ -737,7 +753,7 @@ kbd {
 <a href="#correlations" class="anchor"></a>Correlations</h3>
 <p>If <code>by</code> refers to a numeric variable, correlation coefficients will be calculated.</p>
 <div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">survival</span>)
-<span class="fu"><a href="../reference/crosstable.html">crosstable</a></span>(<span class="no">mtcars2</span>, <span class="no">is.numeric</span>, <span class="kw">by</span><span class="kw">=</span><span class="no">mpg</span>) <span class="kw">%&gt;%</span>
+<span class="fu"><a href="../reference/crosstable.html">crosstable</a></span>(<span class="no">mtcars2</span>, <span class="fu">where</span>(<span class="no">is.numeric</span>), <span class="kw">by</span><span class="kw">=</span><span class="no">mpg</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/as_flextable.html">as_flextable</a></span>(<span class="kw">keep_id</span><span class="kw">=</span><span class="fl">TRUE</span>)</pre></body></html></div>
 <div class="tabwid"><table class="table">
 <thead>
@@ -879,7 +895,20 @@ kbd {
 </div>
 
   
-
-
-  </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
+  docsearch({
+    
+    
+    apiKey: 'ad0c2995de46e5fb23bc55da3b13faf7',
+    indexName: 'crosstable',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+</body>
 </html>

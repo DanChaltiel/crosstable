@@ -44,12 +44,23 @@
 <script src="../pkgdown.js"></script>
 
 
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
 
   <link href="../extra.css" rel="stylesheet">
   
 
 <meta property="og:title" content="Easily describe datasets — crosstable" />
 <meta property="og:description" content="Generate a descriptive table of all chosen columns, as contingency tables for categorical variables and as calculation summaries for numeric variables. If the by argument points to a categorical variable, crosstable will output a description of all columns for every level. Else, if it points to a numeric variable, crosstable will calculate correlation coefficients with all other selected numeric columns. Finally, if it points to a Surv object, crosstable will describe the survival at different times." />
+<meta property="og:image" content="https://pkgdown.r-lib.org/docs/hex_sticker_v2.png" />
+<meta property="og:image:alt" content="Crosstable: easy dataset description" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content="@DanChaltiel" />
+<meta name="twitter:site" content="@DanChaltiel" />
 
 
 
@@ -81,7 +92,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
       </span>
     </div>
 
@@ -115,6 +126,9 @@
   </ul>
 </li>
 <li>
+  <a href="../news/index.html">Changelog</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -132,6 +146,12 @@
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -158,16 +178,16 @@
   <span class='kw'>.vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='no'>...</span>,
   <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>margin</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"row"</span>, <span class='st'>"column"</span>, <span class='st'>"cell"</span>, <span class='st'>"none"</span>, <span class='st'>"all"</span>),
   <span class='kw'>total</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"row"</span>, <span class='st'>"column"</span>, <span class='st'>"both"</span>),
+  <span class='kw'>margin</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"row"</span>, <span class='st'>"column"</span>, <span class='st'>"cell"</span>, <span class='st'>"none"</span>, <span class='st'>"all"</span>),
   <span class='kw'>percent_digits</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>showNA</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ifany"</span>, <span class='st'>"always"</span>, <span class='st'>"no"</span>),
   <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>funs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>` `</span> <span class='kw'>=</span> <span class='no'>cross_summary</span>),
   <span class='kw'>funs_arg</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>cor_method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"pearson"</span>, <span class='st'>"kendall"</span>, <span class='st'>"spearman"</span>),
   <span class='kw'>test</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>test_args</span> <span class='kw'>=</span> <span class='fu'><a href='crosstable_test_args.html'>crosstable_test_args</a></span>(),
-  <span class='kw'>cor_method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"pearson"</span>, <span class='st'>"kendall"</span>, <span class='st'>"spearman"</span>),
   <span class='kw'>unique_numeric</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>effect</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>effect_args</span> <span class='kw'>=</span> <span class='fu'><a href='crosstable_effect_args.html'>crosstable_effect_args</a></span>(),
@@ -195,12 +215,12 @@
       <td><p>the variable to group on. Character or name.</p></td>
     </tr>
     <tr>
-      <th>margin</th>
-      <td><p>one of ["row", "column", "cell", "none" or "all"] to indicate which proportions should be computed in frequency tables. Default to <code>row</code>.</p></td>
+      <th>total</th>
+      <td><p>one of ["none", "row", "column" or "both"] to indicate whether to add total rows and/or columns. Default to <code>none</code>.</p></td>
     </tr>
     <tr>
-      <th>total</th>
-      <td><p>one of ["none", "row", "column" or "both"] to indicate whether to add margins. Default to <code>none</code>.</p></td>
+      <th>margin</th>
+      <td><p>one of ["row", "column", "cell", "none" or "all"] to indicate which proportions should be computed in frequency tables. Default to <code>row</code>.</p></td>
     </tr>
     <tr>
       <th>percent_digits</th>
@@ -208,19 +228,23 @@
     </tr>
     <tr>
       <th>showNA</th>
-      <td><p>whether to show NA in factors (one of <code><a href='https://rdrr.io/r/base/c.html'>c("ifany", "always", "no")</a></code>, like in <code><a href='https://rdrr.io/r/base/table.html'>table()</a></code>)</p></td>
+      <td><p>whether to show NA in categorial variables (one of <code><a href='https://rdrr.io/r/base/c.html'>c("ifany", "always", "no")</a></code>, like in <code><a href='https://rdrr.io/r/base/table.html'>table()</a></code>)</p></td>
     </tr>
     <tr>
       <th>label</th>
-      <td><p>whether to show labels. Use either <a href='import_labels.html'>import_labels</a>, <code><a href='https://rdrr.io/pkg/Hmisc/man/label.html'>Hmisc::label()</a></code>, <code><a href='https://rdrr.io/pkg/expss/man/var_lab.html'>expss::var_lab()</a></code> or <code><a href='https://rdrr.io/pkg/expss/man/apply_labels.html'>expss::apply_labels</a></code> to add labels to the dataset columns.</p></td>
+      <td><p>whether to show labels. See <a href='import_labels.html'>import_labels</a> or <a href='set_label.html'>set_label</a>for how to add labels to the dataset columns.</p></td>
     </tr>
     <tr>
       <th>funs</th>
-      <td><p>functions to apply to numeric variables. Default to <code><a href='cross_summary.html'>cross_summary</a></code>.</p></td>
+      <td><p>functions to apply to numeric variables. Default to <a href='cross_summary.html'>cross_summary</a>.</p></td>
     </tr>
     <tr>
       <th>funs_arg</th>
-      <td><p>additionnal parameters for <code>funs</code>. With <code>cross_summary</code>, you can set <code>dig</code>, the number of decimal places.</p></td>
+      <td><p>additionnal parameters for <code>funs</code>, e.g. <code>digits</code> (the number of decimal places) for the default <a href='cross_summary.html'>cross_summary</a>. Ultimately, these arguments are passed to <a href='format_fixed.html'>format_fixed</a>.</p></td>
+    </tr>
+    <tr>
+      <th>cor_method</th>
+      <td><p>one of ["pearson", "kendall", or "spearman"] to indicate which correlation coefficient is to be used.</p></td>
     </tr>
     <tr>
       <th>test</th>
@@ -229,10 +253,6 @@
     <tr>
       <th>test_args</th>
       <td><p>See <code><a href='crosstable_test_args.html'>crosstable_test_args</a></code> to override default testing behaviour.</p></td>
-    </tr>
-    <tr>
-      <th>cor_method</th>
-      <td><p>one of ["pearson", "kendall", or "spearman"] to indicate which correlation coefficient is to be used.</p></td>
     </tr>
     <tr>
       <th>unique_numeric</th>
@@ -261,7 +281,7 @@
     <p>Can be formatted as an HTML table using <code><a href='as_flextable.html'>as_flextable()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>as_flextable, import_labels, var_lab</p></div>
+    <div class='dont-index'><p>as_flextable, import_labels</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>#whole table</span>
@@ -364,13 +384,8 @@
 #&gt; 37 carb   Number of carburetors Mean (std)           2.8 (1.6)
 #&gt; 38 carb   Number of carburetors     N (NA)              32 (0)</div><div class='input'>
 <span class='co'>#tidyselection, custom functions</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidyverse</span>)</div><div class='output co'>#&gt; <span class='message'>-- <span style='font-weight: bold;'>Attaching packages</span><span> ------------------------------------------------------------------------------ tidyverse 1.3.0 --</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>ggplot2</span><span> 3.3.0     </span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>purrr  </span><span> 0.3.3</span>
-#&gt; <span class='message'></span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>tibble </span><span> 3.0.0     </span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>stringr</span><span> 1.4.0</span>
-#&gt; <span class='message'></span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>tidyr  </span><span> 1.0.2     </span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>forcats</span><span> 0.5.0</span>
-#&gt; <span class='message'></span><span style='color: #00BB00;'>v</span><span> </span><span style='color: #0000BB;'>readr  </span><span> 1.3.1     </span></div><div class='output co'>#&gt; <span class='message'>-- </span><span style='font-weight: bold;'>Conflicts</span><span> --------------------------------------------------------------------------------- tidyverse_conflicts() --</span>
-#&gt; <span class='message'></span><span style='color: #BB0000;'>x</span><span> </span><span style='color: #0000BB;'>purrr</span><span>::</span><span style='color: #00BB00;'>compact()</span><span> masks </span><span style='color: #0000BB;'>crosstable</span><span>::compact()</span>
-#&gt; <span class='message'></span><span style='color: #BB0000;'>x</span><span> </span><span style='color: #0000BB;'>dplyr</span><span>::</span><span style='color: #00BB00;'>filter()</span><span>  masks </span><span style='color: #0000BB;'>stats</span><span>::filter()</span>
-#&gt; <span class='message'></span><span style='color: #BB0000;'>x</span><span> </span><span style='color: #0000BB;'>dplyr</span><span>::</span><span style='color: #00BB00;'>lag()</span><span>     masks </span><span style='color: #0000BB;'>stats</span><span>::lag()</span></div><div class='input'><span class='fu'>crosstable</span>(<span class='no'>mtcars2</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>ends_with</a></span>(<span class='st'>"t"</span>), <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span>(<span class='st'>"c"</span>), <span class='kw'>by</span><span class='kw'>=</span><span class='no'>vs</span>,
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+<span class='fu'>crosstable</span>(<span class='no'>mtcars2</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>ends_with</a></span>(<span class='st'>"t"</span>), <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span>(<span class='st'>"c"</span>), <span class='kw'>by</span><span class='kw'>=</span><span class='no'>vs</span>,
            <span class='kw'>funs</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>mean</span>, <span class='no'>quantile</span>), <span class='kw'>funs_arg</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>probs</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.25</span>,<span class='fl'>.75</span>)))</div><div class='output co'>#&gt;     .id                 label     variable    straight      vshaped
 #&gt; 1  drat       Rear axle ratio         mean         3.9          3.4
 #&gt; 2  drat       Rear axle ratio quantile 25%         3.7          3.1
@@ -452,7 +467,7 @@
 #&gt; 3     0.61 (2/5)    0.29 (3/4)
 #&gt; 4     0.18 (3/1)       0 (3/0)
 #&gt; 5 103 [13 ; 161]  NA [16 ; 45]
-#&gt; 6             31            23</div></span></pre>
+#&gt; 6             31            23</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -475,6 +490,23 @@
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'ad0c2995de46e5fb23bc55da3b13faf7',
+    indexName: 'crosstable',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

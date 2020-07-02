@@ -17,14 +17,15 @@ Overview<a href='https://DanChaltiel.github.io/crosstable/'><img src='hex_sticke
 Crosstable is a package centered on a single function, `crosstable`,
 which easily computes descriptive statistics on datasets.
 
-It can use the `tidyverse` syntax for selecting variables and is
-interfaced with the package `officer` to create automatized reports.
+It can use the `tidyselect` syntax for selecting variables (and more)
+and is interfaced with the package `officer` to create automatized
+reports.
 
 Installation
 ------------
 
     install.packages("devtools")
-    devtools::install_github("DanChaltiel/crosstable")
+    devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 
 In case of any installation problem, try reading [the
 wiki](https://github.com/DanChaltiel/crosstable/wiki/Installation-problems)
@@ -33,7 +34,7 @@ or fill an [Issue](https://github.com/DanChaltiel/crosstable/issues).
 Getting help
 ------------
 
-You can use the vignettes:
+You can use the vignettes (click on the links):
 
 -   `vignette("crosstable")` for global use and parameterization
 -   `vignette("crosstable-selection")` for variable selection
@@ -46,8 +47,9 @@ Usage
 ### Base usage
 
 Without any more argument than the dataset, the function will summarise
-all numeric variables with statistics (min+max, mean+sd, median+IQR,
-N+NA) and all categorical variables with counts and percentages.
+all numeric variables with statistics (`min`+`max`, `mean`+`sd`,
+`median`+`IQR`, `N`+`NA`) and all categorical variables with counts and
+percentages.
 
     library(crosstable)
     library(dplyr)

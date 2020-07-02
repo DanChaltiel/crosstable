@@ -33,15 +33,15 @@ or fill an [Issue](https://github.com/DanChaltiel/crosstable/issues).
 
 ## Getting help
 
-You can use the vignettes:
+You can find the whole documentation on the the [dedicated
+website](https://danchaltiel.github.io/crosstable).
+
+Otherwise, you can also use the vignettes:
 
   - `vignette("crosstable")` for global use and parameterization
   - `vignette("crosstable-selection")` for variable selection
   - `vignette("crosstable-report")` for reporting with `officer` or
     `Rmarkdown`
-
-These vignettes are reproduced on the [documentation
-website](https://danchaltiel.github.io/crosstable).
 
 ## Overview
 
