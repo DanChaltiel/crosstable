@@ -133,6 +133,7 @@ test_tabular_auto = function(x, y) {
 #' @export
 test_summarize_auto = function(x, g) {
   ng = table(g)
+  x = as.numeric(x)
   
   if (length(ng) <= 1) {
     return(list(p.value=NULL, method=NULL))
@@ -249,6 +250,7 @@ test_survival_logrank = function(formula) {
 test_summarize_linear_contrasts = function(x, y){
   if(!requireNamespace("gmodels", quietly=TRUE))
     stop("This function needs the package `gmodels` to run")
+  x = as.numeric(x)
   stopifnot(is.ordered(y))
   levels_seq = 1:length(levels(y))
   contr = levels_seq - mean(levels_seq)  #centered on 0, step of 1
