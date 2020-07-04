@@ -27,6 +27,13 @@ install.packages("devtools")
 devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 ```
 
+For reproducibility purpose, you might want to install a specific
+version:
+
+``` r
+devtools::install_github("DanChaltiel/crosstable@v0.1.3", build_vignettes=TRUE)
+```
+
 In case of any installation problem, try the solutions proposed in [this
 article](file:///F:/GITHUB/crosstable/docs/articles/crosstable-install.html)
 or fill an [Issue](https://github.com/DanChaltiel/crosstable/issues).
@@ -104,7 +111,7 @@ There are lots of other features you can learn about on the website
     ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#tests))
     and of effect sizes
     ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#effects))
-  - description of correlation and of survival data
+  - description of correlation, dates, and survival data
     ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#miscellaneous-1))
   - auto-reporting with `officer`
     ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-report.html#create-reports-with-officer))

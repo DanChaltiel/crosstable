@@ -113,7 +113,11 @@ moystd = function(x, na.rm = TRUE, dig = 2, ...) {
   moy = mean(x, na.rm=na.rm) %>% 
     format_fixed(digits=dig, ...)
   if(is.date(x)){
-    std = sd_date(x)
+    if("date_unit" %in% names(list(...))) 
+      date_unit=list(...)$date_unit 
+    else 
+      date_unit="auto"
+    std = sd_date(x, date_unit)
     std = std$value %>% 
       format_fixed(digits=dig, ...) %>% 
       paste(std$unit)

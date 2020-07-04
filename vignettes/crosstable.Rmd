@@ -234,6 +234,25 @@ Type of effect (method, bootstrap, etc) are also chosen depending on the charact
 
 ## Miscellaneous
 
+### Dates 
+
+You can describe `Dates` and `POSIXt` variables with `crosstable`. 
+
+```{r crosstable-dates}
+mtcars2$x_date = as.Date(mtcars2$hp , origin="2010-01-01") %>% set_label("Date")
+mtcars2$x_posix = as.POSIXct(mtcars2$qsec*3600*24 , origin="2010-01-01") %>% set_label("Date+time")
+crosstable(mtcars2, x_date, x_posix) %>% 
+  as_flextable(keep_id=TRUE)
+```
+
+The format can be set using `date_format` and the date unit can be set globally in `funs_arg` using the `date_unit` key. This latter can come handy when two groups have different date unit.
+
+```{r crosstable-dates2}
+crosstable(mtcars2, x_date, x_posix, by=vs, date_format="%d/%m/%Y", funs_arg = list(date_unit="days")) %>% 
+  as_flextable(keep_id=TRUE)
+```
+
+
 ### Correlations 
 
 If `by` refers to a numeric variable, correlation coefficients will be calculated. 

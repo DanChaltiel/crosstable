@@ -214,6 +214,7 @@ NULL
 #' @importFrom stats sd qnorm bartlett.test t.test
 #' @export
 diff_mean_auto = function(x, g, conf_level = 0.95, R = 500) {
+    x=as.numeric(x)
     ng = table(g)
     if (length(ng) != 2) {
         # TODO find an effect to calculate for groups of more than 2
@@ -264,6 +265,7 @@ diff_mean_auto = function(x, g, conf_level = 0.95, R = 500) {
 #' @importFrom stats sd qnorm 
 #' @export
 diff_mean_boot = function(x, g, conf_level = 0.95, R = 500) {
+    x=as.numeric(x)
     ng = table(g)
     if (length(ng) <= 1 | length(ng) > 2) {
         return(NULL)
@@ -293,6 +295,7 @@ diff_mean_boot = function(x, g, conf_level = 0.95, R = 500) {
 #' @importFrom stats sd qnorm
 #' @export
 diff_median = function(x, g, conf_level = 0.95, R = 500) {
+    x=as.numeric(x)
     ng = table(g)
     if (length(ng) <= 1 | length(ng) > 2) {
         return(NULL)
@@ -322,6 +325,7 @@ diff_median = function(x, g, conf_level = 0.95, R = 500) {
 #' @importFrom stats bartlett.test t.test
 #' @export
 diff_mean_student = function(x, g, conf_level = 0.95) {
+    x=as.numeric(x)
     ng = table(g)
     if (length(ng) <= 1 | length(ng) > 2) {
         return(NULL)

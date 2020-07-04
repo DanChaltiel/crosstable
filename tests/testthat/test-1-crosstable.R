@@ -37,6 +37,8 @@ mtcars3$dummy2 = mtcars3$dummy
 mtcars3$dummy2[5:12] = NA
 mtcars3$test = rbinom(nrow(mtcars3), 1, 0.5) %>% factor(labels = c("A","B"))
 mtcars3$surv = Surv(mtcars3$disp, mtcars3$am=="manual") %>% set_label("Dummy survival")
+mtcars3$my_date = as.Date(mtcars2$hp , origin="2010-01-01") %>% set_label("Some nonsense date")
+mtcars3$my_posix = as.POSIXct(mtcars2$qsec*3600*24 , origin="2010-01-01") %>% set_label("Date+time")
 
 do_save=FALSE
 # do_save=TRUE
@@ -85,7 +87,7 @@ test_that("numeric by numeric", {
   crosstable(mtcars3, where(is.numeric.and.not.surv), by=disp, cor_method = "spearman")
   
   expect_warning(crosstable(mtcars2, disp, by=hp, funs=mean),
-                 "`funs` argument will not be used if `by` is numeric.")
+                 "`funs`  and `funs_arg` arguments will not be used if `by` is numeric.")
 })
 
 test_that("numeric+factor by numeric: ", {
@@ -379,8 +381,7 @@ test_that("Effects never fail", {
   args = crosstable_effect_args()
   expect_warning({
     x=names(mtcars3) %>% set_names() %>% map(~{
-      # print(.x)
-      if(!is.Surv(mtcars3[[.x]])) {
+      if(!is.Surv(mtcars3[[.x]]) && !is.date(mtcars3[[.x]])) {
         crosstable(mtcars3, by=any_of(.x), effect=T, effect_args=args)$effect %>% 
           table %>% as.data.frame()
       }
@@ -396,7 +397,7 @@ test_that("Effects never fail", {
   expect_warning({
     x=names(mtcars3) %>% set_names() %>% map(~{
       # print(.x)
-      if(!is.Surv(mtcars3[[.x]])) {
+      if(!is.Surv(mtcars3[[.x]]) && !is.date(mtcars3[[.x]])) {
         crosstable(mtcars3, by=any_of(.x), effect=T, effect_args=args)$effect %>% 
           table %>% as.data.frame()
       }
@@ -412,7 +413,7 @@ test_that("Effects never fail", {
   expect_warning({
     x=names(mtcars3) %>% set_names() %>% map(~{
       # print(.x)
-      if(!is.Surv(mtcars3[[.x]])) {
+      if(!is.Surv(mtcars3[[.x]]) && !is.date(mtcars3[[.x]])) {
         crosstable(mtcars3, by=any_of(.x), effect=T, effect_args=args)$effect %>% 
           table %>% as.data.frame()
       }

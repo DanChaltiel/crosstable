@@ -103,7 +103,7 @@ There are lots of other features you can learn about on the website [https://dan
  - variable selection with functions, e.g. `is.numeric` ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-predicate-functions))
  - variable selection with mutating, e.g. `sqrt(mpg)` or `Surv(time, event)`, using a formula interface ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-a-formula))
  - automatic computation of statistical tests ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#tests)) and of effect sizes ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#effects))
- - description of correlation and of survival data ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#miscellaneous-1))
+ - description of correlation, dates, and survival data ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#miscellaneous-1))
  - auto-reporting with `officer` ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-report.html#create-reports-with-officer)) or with `Rmarkdown` ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-report.html#create-reports-with-rmarkdown))
 
 

@@ -12,7 +12,7 @@
 warning_once = function(msg, id=msg) {
     assert_string(id)
     
-    if (env_has(inform_env, id)) {
+    if (env_has(inform_env, id) && getOption("tidyselect_verbosity")!="verbose") {
         return(invisible(NULL))
     }
     inform_env[[id]] = TRUE
@@ -180,21 +180,31 @@ is.date = function(x){
 #' Computes the standard deviation of a date/datetime with the appropriate unit
 #' 
 #' @param x a Date or Posix time
+#' @param date_unit one of `c("auto", "seconds", "minutes", "hours", "days", "months", "years")`. `"auto"` will set it to the highest time unit, but it can differ in grouped analysis.
+#'
 #' @keywords internal
 #' @noRd
 #' @importFrom checkmate assert
 #'
 #' @examples 
-#' sd_date(mtcars3$x_date)
-#' sd_date(as.POSIXct(mtcars3$x_date))
-#' sd_date(mtcars3$x_posix)
-sd_date = function(x){
+#' x_date = as.Date(mtcars2$hp , origin="2010-01-01") %>% set_label("Date")
+#' x_posix = as.POSIXct(mtcars2$qsec*3600*24 , origin="2010-01-01") %>% set_label("Date+time")
+#' sd_date(x_date)
+#' sd_date(as.POSIXct(x_date))
+#' sd_date(x_date, date_unit="days")
+#' sd_date(x_posix)
+sd_date = function(x, date_unit=c("auto", "seconds", "minutes", "hours", "days", "months", "years")){
     assert(is.date(x))
+    unit=match.arg(date_unit)
     if(inherits(x, "Date")) x = as.numeric(x) * 3600 * 24 #days to seconds
     x_sd = sd(x, na.rm=TRUE)
     limits = c("seconds"=-Inf, "minutes"=60, "hours"=3600, 
-               "days"=3600*24, "months"=3600*24*30.4, "years"=3600*24*365)
-    lim = limits[x_sd>limits][length(limits[x_sd>limits])]
+               "days"=3600*24, "months"=3600*24*365/12, "years"=3600*24*365)
+    if(unit=="auto"){
+        lim = limits[x_sd>limits][length(limits[x_sd>limits])]
+    } else {
+        lim = limits[unit][length(limits[unit])]
+    }
     rtn =sd(as.numeric(x)/lim, na.rm=TRUE)
     
     list(value=rtn, unit=names(lim))

@@ -271,6 +271,7 @@ test_summarize_linear_contrasts = function(x, y){
 #' @importFrom nortest ad.test
 #' @noRd
 test_normality = function(x, g){
+  x=as.numeric(x)
   if (any(table(g) < 50)) {
     normg = tapply(x, g, function(x) {
       if(length(na.omit(x))<3 || length(unique(x))==1) return(0)
