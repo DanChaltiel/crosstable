@@ -2,10 +2,10 @@
 
 language: R
 R: 
-  - 3.6.1
-  - 3.6.3
-  - oldrel
   - release
+  - oldrel
+  - 3.6.3
+  - 3.6.1
 cache: packages
 warnings_are_errors: false
 

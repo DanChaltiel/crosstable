@@ -12,7 +12,7 @@
 warning_once = function(msg, id=msg) {
     assert_string(id)
     
-    if (env_has(inform_env, id) && getOption("tidyselect_verbosity")!="verbose") {
+    if (env_has(inform_env, id) && getOption("tidyselect_verbosity", FALSE)!="verbose") {
         return(invisible(NULL))
     }
     inform_env[[id]] = TRUE
