@@ -189,6 +189,7 @@
   <span class='kw'>test</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>test_args</span> <span class='kw'>=</span> <span class='fu'><a href='crosstable_test_args.html'>crosstable_test_args</a></span>(),
   <span class='kw'>unique_numeric</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>date_format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>effect</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>effect_args</span> <span class='kw'>=</span> <span class='fu'><a href='crosstable_effect_args.html'>crosstable_effect_args</a></span>(),
   <span class='kw'>times</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -418,20 +419,7 @@
 #&gt; 6 6 (33.33% / 46.15%)         18 (56.25%)
 #&gt; 7         13 (40.62%)        32 (100.00%)</div><div class='input'>
 <span class='co'>#predicate selection, correlation, testing</span>
-<span class='fu'>crosstable</span>(<span class='no'>mtcars2</span>, <span class='fu'>where</span>(<span class='no'>is.numeric</span>), <span class='kw'>by</span><span class='kw'>=</span><span class='no'>hp</span>, <span class='kw'>test</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;    .id                 label variable            Gross horsepower
-#&gt; 1  mpg     Miles/(US) gallon  pearson -0.78 \n95%CI [-0.89;-0.59]
-#&gt; 2 disp Displacement (cu.in.)  pearson    0.79 \n95%CI [0.61;0.89]
-#&gt; 3 drat       Rear axle ratio  pearson -0.45 \n95%CI [-0.69;-0.12]
-#&gt; 4   wt     Weight (1000 lbs)  pearson     0.66 \n95%CI [0.4;0.82]
-#&gt; 5 qsec         1/4 mile time  pearson -0.71 \n95%CI [-0.85;-0.48]
-#&gt; 6 carb Number of carburetors  pearson    0.75 \n95%CI [0.54;0.87]
-#&gt;                                                        test
-#&gt; 1 p value: &lt;0.0001 \n(Pearson's product-moment correlation)
-#&gt; 2 p value: &lt;0.0001 \n(Pearson's product-moment correlation)
-#&gt; 3  p value: 0.0100 \n(Pearson's product-moment correlation)
-#&gt; 4 p value: &lt;0.0001 \n(Pearson's product-moment correlation)
-#&gt; 5 p value: &lt;0.0001 \n(Pearson's product-moment correlation)
-#&gt; 6 p value: &lt;0.0001 \n(Pearson's product-moment correlation)</div><div class='input'>
+<span class='fu'>crosstable</span>(<span class='no'>mtcars2</span>, <span class='fu'>where</span>(<span class='no'>is.numeric</span>), <span class='kw'>by</span><span class='kw'>=</span><span class='no'>hp</span>, <span class='kw'>test</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in if (env_has(inform_env, id) &amp;&amp; getOption("tidyselect_verbosity") !=     "verbose") {    return(invisible(NULL))}: missing value where TRUE/FALSE needed</span></div><div class='input'>
 <span class='co'>#lambda selection, effect calculation</span>
 <span class='fu'>crosstable</span>(<span class='no'>mtcars2</span>, ~<span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>is.numeric</a></span>(<span class='no'>.x</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>.x</span>)<span class='kw'>&gt;</span><span class='fl'>50</span>, <span class='kw'>by</span><span class='kw'>=</span><span class='no'>vs</span>, <span class='kw'>effect</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;    .id                 label   variable           straight             vshaped
 #&gt; 1 disp Displacement (cu.in.)  Min / Max       71.1 / 258.0       120.3 / 472.0
@@ -451,7 +439,18 @@
 #&gt; 6   Difference in means (Welch CI) (straight minus vshaped): -98.37\nCI95%[-130.67 to -66.06]
 #&gt; 7   Difference in means (Welch CI) (straight minus vshaped): -98.37\nCI95%[-130.67 to -66.06]
 #&gt; 8   Difference in means (Welch CI) (straight minus vshaped): -98.37\nCI95%[-130.67 to -66.06]</div><div class='input'>
-
+<span class='co'>#Dates</span>
+<span class='no'>mtcars2</span>$<span class='no'>my_date</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='no'>mtcars2</span>$<span class='no'>hp</span> , <span class='kw'>origin</span><span class='kw'>=</span><span class='st'>"2010-01-01"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='set_label.html'>set_label</a></span>(<span class='st'>"Some nonsense date"</span>)
+<span class='fu'>crosstable</span>(<span class='no'>mtcars2</span>, <span class='no'>my_date</span>, <span class='kw'>by</span><span class='kw'>=</span><span class='no'>vs</span>, <span class='kw'>date_format</span><span class='kw'>=</span><span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt;       .id              label   variable                           straight
+#&gt; 1 my_date Some nonsense date  Min / Max            22/02/2010 - 04/05/2010
+#&gt; 2 my_date Some nonsense date  Med [IQR] 07/04/2010 [08/03/2010;21/04/2010]
+#&gt; 3 my_date Some nonsense date Mean (std)             02/04/2010 (24.4 days)
+#&gt; 4 my_date Some nonsense date     N (NA)                             14 (0)
+#&gt;                              vshaped
+#&gt; 1            02/04/2010 - 02/12/2010
+#&gt; 2 30/06/2010 [31/05/2010;19/08/2010]
+#&gt; 3            09/07/2010 (2.0 months)
+#&gt; 4                             18 (0)</div><div class='input'>
 <span class='co'>#Survival data (using formula UI)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>survival</span>)
 <span class='fu'>crosstable</span>(<span class='no'>aml</span>, <span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span>(<span class='no'>time</span>, <span class='no'>status</span>) ~ <span class='no'>x</span>,<span class='kw'>times</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>15</span>,<span class='fl'>30</span>,<span class='fl'>150</span>), <span class='kw'>followup</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;                  .id              label                     variable
