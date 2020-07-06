@@ -5,6 +5,7 @@ template:
   params:
     bootswatch: flatly
     # bootswatch: litera
+    ganalytics: UA-171705639-1
     docsearch:
       api_key: ad0c2995de46e5fb23bc55da3b13faf7
       index_name: crosstable
