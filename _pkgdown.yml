@@ -1,15 +1,19 @@
-url: https://pkgdown.r-lib.org
+url: https://danchaltiel.github.io/crosstable/
 destination: docs
-  
+
+
+home:
+  title: An R package Crosstables for descriptive analyses
+  description: Thoroughly describe all your datasets with useful metrics, using only a few lines of code.
+
+
 template:
   params:
     bootswatch: flatly
-    # bootswatch: litera
     ganalytics: UA-171705639-1
     docsearch:
       api_key: ad0c2995de46e5fb23bc55da3b13faf7
       index_name: crosstable
-    # https://docsearch.algolia.com/apply/
   opengraph:
     image:
       src: docs/hex_sticker_v2.png
@@ -17,6 +21,7 @@ template:
     twitter:
       creator: "@DanChaltiel"
       card: summary_large_image
+      # https://cards-dev.twitter.com/validator
 
 
 
