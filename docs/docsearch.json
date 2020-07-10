@@ -2,21 +2,21 @@
   "index_name": "crosstable",
   "start_urls": [
     {
-      "url": "https://pkgdown.r-lib.org/index.html",
+      "url": "https://danchaltiel.github.io/crosstable//index.html",
       "selectors_key": "homepage",
       "tags": [
         "homepage"
       ]
     },
     {
-      "url": "https://pkgdown.r-lib.org/reference",
+      "url": "https://danchaltiel.github.io/crosstable//reference",
       "selectors_key": "reference",
       "tags": [
         "reference"
       ]
     },
     {
-      "url": "https://pkgdown.r-lib.org/articles",
+      "url": "https://danchaltiel.github.io/crosstable//articles",
       "selectors_key": "articles",
       "tags": [
         "articles"
@@ -30,7 +30,7 @@
     "/articles/index.html"
   ],
   "sitemap_urls": [
-    "https://pkgdown.r-lib.org/sitemap.xml"
+    "https://danchaltiel.github.io/crosstable//sitemap.xml"
   ],
   "selectors": {
     "homepage": {

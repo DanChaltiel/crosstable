@@ -6,8 +6,8 @@ articles:
   crosstable-report: crosstable-report.html
   crosstable-selection: crosstable-selection.html
   crosstable: crosstable.html
-last_built: 2020-07-03T08:16Z
+last_built: 2020-07-10T17:18Z
 urls:
-  reference: https://pkgdown.r-lib.org/reference
-  article: https://pkgdown.r-lib.org/articles
+  reference: https://danchaltiel.github.io/crosstable//reference
+  article: https://danchaltiel.github.io/crosstable//articles
 

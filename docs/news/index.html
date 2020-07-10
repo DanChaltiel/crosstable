@@ -55,7 +55,7 @@
   
 
 <meta property="og:title" content="Changelog" />
-<meta property="og:image" content="https://pkgdown.r-lib.org/docs/hex_sticker_v2.png" />
+<meta property="og:image" content="https://danchaltiel.github.io/crosstable/docs/hex_sticker_v2.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@DanChaltiel" />
@@ -73,6 +73,16 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-171705639-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-171705639-1');
+</script>
 
 
   </head>
@@ -171,16 +181,16 @@
 <h1 class="page-header" data-toc-text="0.1.3">
 <a href="#crosstable-013-2020-06-29" class="anchor"></a>crosstable 0.1.3 <sub><sup>(2020-06-29)</sup></sub>
 </h1>
-<div id="new-feature" class="section level2">
-<h2 class="hasAnchor">
-<a href="#new-feature" class="anchor"></a>New feature</h2>
+<div id="new-feature" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-feature" class="anchor"></a>New feature</h3>
 <ul>
 <li>Added support for description of <code>Date</code> variables. Format can be specified in <code>funs_arg</code> with the <code>date_format</code> key.</li>
 </ul>
 </div>
-<div id="misc" class="section level2">
-<h2 class="hasAnchor">
-<a href="#misc" class="anchor"></a>Misc</h2>
+<div id="misc" class="section level3">
+<h3 class="hasAnchor">
+<a href="#misc" class="anchor"></a>Misc</h3>
 <ul>
 <li>Removed some dependencies to ease installation</li>
 </ul>
@@ -201,9 +211,9 @@
 <h1 class="page-header" data-toc-text="0.1.1">
 <a href="#crosstable-011-2020-06-07" class="anchor"></a>crosstable 0.1.1 <sub><sup>(2020-06-07)</sup></sub>
 </h1>
-<div id="new-features-and-behaviors" class="section level2">
-<h2 class="hasAnchor">
-<a href="#new-features-and-behaviors" class="anchor"></a>New features and behaviors</h2>
+<div id="new-features-and-behaviors" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-features-and-behaviors" class="anchor"></a>New features and behaviors</h3>
 <ul>
 <li>Added <code><a href="../reference/format_fixed.html">format_fixed()</a></code>, rounding with the right number of decimals (including zeros)</li>
 <li>Added <code><a href="../reference/import_labels.html">import_labels()</a></code>, which apply labels taken from a source dataframe (name, label) to another dataframe</li>
@@ -211,9 +221,9 @@
 <li>Columns of unsupported class are dropped with a warning instead of failing with an error</li>
 </ul>
 </div>
-<div id="misc-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#misc-1" class="anchor"></a>Misc</h2>
+<div id="misc-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#misc-1" class="anchor"></a>Misc</h3>
 <ul>
 <li>Method <code><a href="../reference/as_flextable.html">cross_to_flextable()</a></code> was deprecated and renamed <code><a href="../reference/as_flextable.html">as_flextable()</a></code> (<a href=""><a href='https://github.com/DanChaltiel/crosstable/issues/207'>#207</a></a> <a href="https://github.com/davidgohel/flextable/issues/207" class="uri">https://github.com/davidgohel/flextable/issues/207</a>))</li>
 <li>Reexporting pipes and tidyselect helpers so that user does not have to load these libraries</li>

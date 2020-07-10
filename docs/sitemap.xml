@@ -1,120 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://pkgdown.r-lib.org/index.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//index.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/as_flextable.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/as_flextable.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/body_add_crosstable.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/body_add_crosstable.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/body_add_glued.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/body_add_glued.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/body_add_normal.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/body_add_normal.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/body_add_table_legend.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/body_add_table_legend.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/body_add_title.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/body_add_title.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/compact.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/compact.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/crosstable-package.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/crosstable-package.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/crosstable.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/crosstable.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/crosstable_effect_args.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/crosstable_effect_args.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/crosstable_test_args.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/crosstable_test_args.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/cross_summary.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/cross_summary.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/display_effect.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/display_effect.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/display_test.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/display_test.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/effect_summary.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/effect_summary.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/effect_survival.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/effect_survival.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/effect_tabular.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/effect_tabular.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/format_fixed.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/format_fixed.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/get_label.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/get_label.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/import_labels.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/import_labels.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/iris2.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/iris2.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/mtcars2.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/mtcars2.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/N.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/N.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/na.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/na.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/plim.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/plim.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/reexports.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/reexports.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/remove_label.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/remove_label.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/set_label.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/set_label.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/summaryFunctions.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/summaryFunctions.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/test_correlation_auto.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/test_correlation_auto.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/test_summarize_auto.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/test_summarize_auto.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/test_summarize_linear_contrasts.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/test_summarize_linear_contrasts.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/test_survival_logrank.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/test_survival_logrank.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/reference/test_tabular_auto.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//reference/test_tabular_auto.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/articles/crosstable-install.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//articles/crosstable-install.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/articles/crosstable-report.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//articles/crosstable-report.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/articles/crosstable-selection.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//articles/crosstable-selection.html</loc>
   </url>
   <url>
-    <loc>https://pkgdown.r-lib.org/articles/crosstable.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable//articles/crosstable.html</loc>
   </url>
 </urlset>
