@@ -44,14 +44,14 @@ summarize_categorical_single = function(x, showNA, total, digits, margin){
 #' @noRd
 summarize_categorical_by = function(x, by, margin, showNA, total, digits, 
                                     test, test_args, effect, effect_args){
-    
     nn = table(x, by, useNA = showNA)
-    .tbl = nn %>% as.data.frame(responseName="Freq", stringsAsFactors=FALSE)
+    .tbl = as.data.frame(nn, responseName="Freq", stringsAsFactors=FALSE)
     if(identical(margin,-1)){
         rtn = .tbl %>% 
             transmute(variable=replace_na(x, "NA"), by=.data$by, Freq=.data$Freq) %>% 
             pivot_wider(names_from="by", values_from = "Freq")
     } else {
+        if(length(unique(by))==1) margin=2
         .ptbl = margin %>% 
             map(~{
                 if(.x==0)
