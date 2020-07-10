@@ -217,7 +217,7 @@ sd_date = function(x, date_unit=c("auto", "seconds", "minutes", "hours", "days",
 #' @param x a vector
 #' @param na.rm not used
 #' @author David Hajage
-N = function(x, na.rm = FALSE) {
+N = function(x) {
     sum(!is.na(x))
 }
 
@@ -227,6 +227,6 @@ N = function(x, na.rm = FALSE) {
 #' @param x a vector
 #' @param na.rm not used
 #' @author David Hajage
-na = function(x, na.rm = FALSE) {
+na = function(x) {
     sum(is.na(x))
 }
