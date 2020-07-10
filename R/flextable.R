@@ -86,13 +86,20 @@ as_flextable.crosstable = function(x, autofit = TRUE, compact = FALSE, show_test
             bold(title_rows) %>% 
             align(title_rows, align="left")
     } else {
-        if(!keep_id) rtn = rtn %>% select(-any_of(id))
-        body_merge = setdiff(names(rtn), c(generic_labels[2:4],by_levels))
-        sep.rows = which(rtn[[label]] != lead(rtn[[label]]))
-        rtn = rtn %>% 
-            flextable %>% 
+        sep.rows = which(rtn[[id]] != lead(rtn[[id]]))
+        if(keep_id) {
+            cols = rtn %>% names()
+            body_merge = setdiff(names(rtn), 
+                                 c(generic_labels[c("variable", "value", "total")], by_levels))
+        } else {
+            cols = rtn %>% select(-any_of(id)) %>% names()
+            body_merge = setdiff(names(rtn), 
+                                 c(generic_labels[c("variable", "value", "total", "id")], by_levels))
+        }
+        rtn = rtn  %>% 
+            flextable(col_keys=cols) %>% 
             hline(i=sep.rows, border=border1) %>% 
-            merge_v(j = label, target=body_merge, part = "body")
+            merge_v(j=id, target=body_merge, part = "body")
     }
     
     if(has_by) {
