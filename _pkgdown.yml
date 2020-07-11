@@ -16,7 +16,8 @@ template:
       index_name: crosstable
   opengraph:
     image:
-      src: man/figures/hex_sticker_v2.png
+      # src: man/figures/hex_sticker_v2.png
+      src: apple-touch-icon-180x180.png
       alt: "Crosstable: easy dataset description"
     twitter:
       creator: "@DanChaltiel"
