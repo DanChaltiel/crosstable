@@ -11,15 +11,14 @@
 #' @noRd
 warning_once = function(msg, id=msg) {
     assert_string(id)
-    
-    if (env_has(inform_env, id) && getOption("tidyselect_verbosity", FALSE)!="verbose") {
+    verbosity = getOption("tidyselect_verbosity", FALSE)
+    if(verbosity=="silent" || (env_has(inform_env, id) && verbosity!="verbose")) {
         return(invisible(NULL))
     }
     inform_env[[id]] = TRUE
-    
     x = "This message is displayed once per session."
     if(is_installed("crayon") && crayon::has_color())
-        x=crayon::silver(x)
+        x = crayon::silver(x)
     warn(paste(msg, x, sep = "\n"))
 }
 inform_env = rlang::env()
@@ -168,7 +167,7 @@ is.numeric.and.not.surv = function(x) {
 #' @keywords internal
 #' @noRd
 is.date = function(x){
-    inherits(x, "Date") || inherits(x, "POSIXt") || 
+    inherits(x, "Date") || inherits(x, "POSIXt") ||
         inherits(x, "POSIXct") || inherits(x, "POSIXlt")
 }
 
@@ -178,7 +177,7 @@ is.date = function(x){
 
 
 #' Computes the standard deviation of a date/datetime with the appropriate unit
-#' 
+#'
 #' @param x a Date or Posix time
 #' @param date_unit one of `c("auto", "seconds", "minutes", "hours", "days", "months", "years")`. `"auto"` will set it to the highest time unit, but it can differ in grouped analysis.
 #'
@@ -186,7 +185,7 @@ is.date = function(x){
 #' @noRd
 #' @importFrom checkmate assert
 #'
-#' @examples 
+#' @examples
 #' x_date = as.Date(mtcars2$hp , origin="2010-01-01") %>% set_label("Date")
 #' x_posix = as.POSIXct(mtcars2$qsec*3600*24 , origin="2010-01-01") %>% set_label("Date+time")
 #' sd_date(x_date)
@@ -198,7 +197,7 @@ sd_date = function(x, date_unit=c("auto", "seconds", "minutes", "hours", "days",
     unit=match.arg(date_unit)
     if(inherits(x, "Date")) x = as.numeric(x) * 3600 * 24 #days to seconds
     x_sd = sd(x, na.rm=TRUE)
-    limits = c("seconds"=-Inf, "minutes"=60, "hours"=3600, 
+    limits = c("seconds"=-Inf, "minutes"=60, "hours"=3600,
                "days"=3600*24, "months"=3600*24*365/12, "years"=3600*24*365)
     if(unit=="auto"){
         lim = limits[x_sd>limits][length(limits[x_sd>limits])]
@@ -212,17 +211,17 @@ sd_date = function(x, date_unit=c("auto", "seconds", "minutes", "hours", "days",
 
 
 #' Confidence interval of a numeric vector
-#' 
+#'
 #' Not an S3 method which might conflict with [stats::confint].
-#' 
+#'
 #' @param object a vector, numeric or equivalent (date, logical...)
 #' @param level the confidence level required
-#' 
-#' @return 
+#'
+#' @return
 #'
 #' @export
-#' 
-#' @examples 
+#'
+#' @examples
 #' confint_numeric(iris$Sepal.Length)
 #' confint_numeric(mtcars2$hp_date)
 #' confint_numeric(mtcars2$hp_date, level=0.99)
