@@ -108,8 +108,9 @@ NULL
 
 #' @describeIn summaryFunctions returns mean and std error
 #' @importFrom stats sd
+#' @aliases moystd
 #' @export
-moystd = function(x, na.rm = TRUE, dig = 2, ...) {
+meansd = function(x, na.rm = TRUE, dig = 2, ...) {
   moy = mean(x, na.rm=na.rm) %>% 
     format_fixed(digits=dig, ...)
   if(is.date(x)){
@@ -128,6 +129,8 @@ moystd = function(x, na.rm = TRUE, dig = 2, ...) {
   paste0(moy, " (", std, ")")
 }
 
+#' @export
+moystd=meansd
 
 #' @describeIn summaryFunctions returns median and IQR
 #' @importFrom stats median quantile
@@ -178,9 +181,11 @@ nna = function(x) {
 #' @examples 
 #' cross_summary(iris$Sepal.Length)
 #' cross_summary(iris$Petal.Width, dig=3)
+#' cross_summary(mtcars2$hp_date)
+#' cross_summary(mtcars2$qsec_posix, date_format="%d/%m %H:%M")
 cross_summary = function(x, dig=1, ...) {
   return(c("Min / Max" = minmax(x, dig=dig, ...), "Med [IQR]" = mediqr(x, dig=dig, ...), 
-           "Mean (std)" = moystd(x, dig=dig, ...), "N (NA)" = nna(x)))
+           "Mean (std)" = meansd(x, dig=dig, ...), "N (NA)" = nna(x)))
 }
 
 
@@ -206,7 +211,7 @@ cross_summary = function(x, dig=1, ...) {
 #' get_label(mtcars["mpg"]) #default to names
 #' get_label(mtcars["mpg"], default="bar")
 get_label = function(x, default=names(x)){
-  if(is.list(x)){#df
+  if(is.list(x)){
     lab = sapply(x, attr, which="label", exact=TRUE, simplify=FALSE)
     lab = unlist(lab)
   } else {
@@ -228,7 +233,7 @@ get_label = function(x, default=names(x)){
 #' @examples 
 #' library(dplyr)
 #' mtcars %>% 
-#'    mutate(mpg2=set_label(mpg, "Foo, bar and foobar")) %>% 
+#'    mutate(mpg2=set_label(mpg, "Miles per gallon")) %>% 
 #'    crosstable(mpg, mpg2)
 set_label = function(x, value){
   assert_string(value, null.ok=TRUE)
@@ -237,9 +242,9 @@ set_label = function(x, value){
       x[[each]] = set_label(x[[each]], value)
     return(x)
   }
-  attr(x, "label") <- value
+  attr(x, "label") = value
   if (!"labelled" %in% class(x)) {
-    class(x) <- c("labelled", class(x))
+    class(x) = c("labelled", class(x))
   }
   return(x)
 }

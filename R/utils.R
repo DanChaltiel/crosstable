@@ -211,6 +211,33 @@ sd_date = function(x, date_unit=c("auto", "seconds", "minutes", "hours", "days",
 }
 
 
+#' Confidence interval of a numeric vector
+#' 
+#' Not an S3 method which might conflict with [stats::confint].
+#' 
+#' @param object a vector, numeric or equivalent (date, logical...)
+#' @param level the confidence level required
+#' 
+#' @return 
+#'
+#' @export
+#' 
+#' @examples 
+#' confint_numeric(iris$Sepal.Length)
+#' confint_numeric(mtcars2$hp_date)
+#' confint_numeric(mtcars2$hp_date, level=0.99)
+confint_numeric = function(object, level=0.95){
+    a = (1-level)/2
+    ua = qnorm(1-a)
+    .mean = mean(object, na.rm=TRUE)
+    .sd = sd(object, na.rm=TRUE)
+    rtn = .mean+c(-1,1)*ua*.sd
+    nm = format_fixed(c(a, 1-a)*100, 1)
+    names(rtn) = paste(nm, "%")
+    rtn
+}
+
+
 #' Return the number of non NA observations
 #'
 #' @export
