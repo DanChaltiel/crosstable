@@ -1,15 +1,6 @@
 
 # Init --------------------------------------------------------------------
 
-Sys.setenv(LANG = "en")
-options(warn = 2)
-options(warn = 1)
-options(stringsAsFactors = FALSE)
-options(width = 200)
-options(tidyselect_verbosity = "verbose")
-
-library(survival)
-library(dplyr)
 # mtcars2 %>% map(class)
 
 # mtcars3 = tibble(.rows = nrow(mtcars2))
@@ -24,21 +15,6 @@ library(dplyr)
 # mtcars3$dummy = "dummy"
 # mtcars3$surv = Surv(mtcars2$disp, mtcars2$am=="manual") %>% set_label("Survival")
 
-
-
-mtcars3 = as_tibble(mtcars2)
-mtcars3$cyl[1:5] = NA
-mtcars3$vs[5:12] = NA
-mtcars3$cyl3 = mtcars3$cyl==3
-mtcars3$cyl6 = mtcars3$cyl==6
-mtcars3$dummy = "dummy"
-mtcars3$dummy_num_vs = ifelse(mtcars3$vs=="vshaped", 0, rnorm(15))
-mtcars3$dummy2 = mtcars3$dummy
-mtcars3$dummy2[5:12] = NA
-mtcars3$test = rbinom(nrow(mtcars3), 1, 0.5) %>% factor(labels = c("A","B"))
-mtcars3$surv = Surv(mtcars3$disp, mtcars3$am=="manual") %>% set_label("Dummy survival")
-mtcars3$my_date = as.Date(mtcars2$hp , origin="2010-01-01") %>% set_label("Some nonsense date")
-mtcars3$my_posix = as.POSIXct(mtcars2$qsec*3600*24 , origin="2010-01-01") %>% set_label("Date+time")
 
 do_save=FALSE
 # do_save=TRUE
@@ -337,15 +313,15 @@ test_that("Effects", {
   
   #args$effect_tabular = effect_odds_ratio (default)
   x=crosstable(mtcars3, am, by=vs, effect=T, effect_args=args)
-  expect_equal(x$effect[1], "Odds ratio (Wald CI) (auto, vshaped vs straight): 5.25\nCI95%[0.80 to 34.43]")
+  expect_equal(x$effect[1], "Odds ratio (Wald CI) (auto, vshaped vs straight): 5.25\n95%CI [0.80 to 34.43]")
   
   args$effect_tabular = effect_relative_risk
   x=crosstable(mtcars3, am, by=vs, effect=T, effect_args=args)
-  expect_equal(x$effect[1], "Relative risk (Wald CI) (auto, vshaped vs straight): 2.70\nCI95%[0.94 to 15.21]")
+  expect_equal(x$effect[1], "Relative risk (Wald CI) (auto, vshaped vs straight): 2.70\n95%CI [0.94 to 15.21]")
   
   args$effect_tabular = effect_risk_difference
   x=crosstable(mtcars3, am, by=vs, effect=T, effect_args=args)
-  expect_equal(x$effect[1], "Risk difference (Wald CI) (auto, vshaped minus straight): 165.82\nCI95%[-10.51 to 379.13]")
+  expect_equal(x$effect[1], "Risk difference (Wald CI) (auto, vshaped minus straight): 165.82\n95%CI [-10.51 to 379.13]")
   
   
   
@@ -354,22 +330,22 @@ test_that("Effects", {
   #args$effect_summarize = diff_mean_auto (default)
   set.seed(1234)
   x=crosstable(mtcars3, disp, by=vs, effect=T, effect_args=args)
-  expect_equal(x$effect[1], "Difference in means (bootstrap CI) (straight minus vshaped): -190.34\nCI95%[-260.78 to -119.89]")
+  expect_equal(x$effect[1], "Difference in means (bootstrap CI) (straight minus vshaped): -190.34\n95%CI [-260.78 to -119.89]")
   
   set.seed(1234)
   args$effect_summarize = diff_mean_boot
   x=crosstable(mtcars3, disp, by=vs, effect=T, effect_args=args)
-  expect_equal(x$effect[1], "Difference in means (bootstrap CI) (straight minus vshaped): -190.34\nCI95%[-260.78 to -119.89]")
+  expect_equal(x$effect[1], "Difference in means (bootstrap CI) (straight minus vshaped): -190.34\n95%CI [-260.78 to -119.89]")
   
   set.seed(1234)
   args$effect_summarize = diff_median
   x=crosstable(mtcars3, disp, by=vs, effect=T, effect_args=args)
-  expect_equal(x$effect[1], "Difference in medians (bootstrap CI) (): -208.90\nCI95%[-293.18 to -124.62]")
+  expect_equal(x$effect[1], "Difference in medians (bootstrap CI) (): -208.90\n95%CI [-293.18 to -124.62]")
   
   
   ##SURVIVAL
   x=crosstable(mtcars3, surv, by=cyl3, effect=T, effect_args=args)
-  expect_equal(x$effect[1], "Hazard ratio (Wald CI) (NA vs FALSE): 1.54\nCI95%[0.42 to 5.63]")
+  expect_equal(x$effect[1], "Hazard ratio (Wald CI) (NA vs FALSE): 1.54\n95%CI [0.42 to 5.63]")
 })
 
 
