@@ -2,13 +2,17 @@
 % Please edit documentation in R/funs.R
 \name{summaryFunctions}
 \alias{summaryFunctions}
+\alias{meansd}
 \alias{moystd}
+\alias{meanCI}
 \alias{mediqr}
 \alias{minmax}
 \alias{nna}
 \title{Summary functions}
 \usage{
-moystd(x, na.rm = TRUE, dig = 2, ...)
+meansd(x, na.rm = TRUE, dig = 2, ...)
+
+meanCI(x, na.rm = TRUE, dig = 2, level = 0.95, ...)
 
 mediqr(x, na.rm = TRUE, dig = 2, ...)
 
@@ -34,7 +38,9 @@ Summary functions to use with \code{\link[=crosstable]{crosstable()}} or anywher
 }
 \section{Functions}{
 \itemize{
-\item \code{moystd}: returns mean and std error
+\item \code{meansd}: returns mean and std error
+
+\item \code{meanCI}: returns mean and confidence interval
 
 \item \code{mediqr}: returns median and IQR
 
@@ -70,6 +76,8 @@ x = as.POSIXct(mtcars$qsec*3600*24 , origin="2010-01-01")
 moystd(x)
 minmax(x, date_format="\%d/\%m/\%Y")
 
+meanCI(iris$Sepal.Length)
+meanCI(mtcars2$x_date)
 }
 \seealso{
 \code{\link[=format_fixed]{format_fixed()}}

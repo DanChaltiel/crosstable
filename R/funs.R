@@ -132,6 +132,26 @@ meansd = function(x, na.rm = TRUE, dig = 2, ...) {
 #' @export
 moystd=meansd
 
+
+
+#' @describeIn summaryFunctions returns mean and confidence interval
+#' @export
+#' @examples 
+#' meanCI(iris$Sepal.Length)
+#' meanCI(mtcars2$x_date)
+meanCI = function(x, na.rm = TRUE, dig = 2, level=0.95, ...) {
+  .mean = mean(x, na.rm=na.rm) %>% 
+    format_fixed(digits=dig, ...)
+  conf = confint_numeric(x, na.rm=na.rm, level=level) %>% 
+    format_fixed(digits=dig, ...)
+  paste0(.mean, " [", conf[1], ";", conf[2],  "]")
+}
+
+
+
+
+
+
 #' @describeIn summaryFunctions returns median and IQR
 #' @importFrom stats median quantile
 #' @export

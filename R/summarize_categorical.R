@@ -93,7 +93,7 @@ summarize_categorical_by = function(x, by, margin, showNA, total, digits,
                                           digits = effect_args$digits)
     if(test) 
         .test = test_args$display_test(test_args$test_tabular(x, by), digits = test_args$plim, 
-                                    method = test_args$show_method)
+                                       method = test_args$show_method)
     rtn %>%
         mutate(Total=.total, effect=.effect, test=.test) %>% 
         mutate_all(as.character)
