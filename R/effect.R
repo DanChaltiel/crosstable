@@ -37,7 +37,7 @@ display_effect = function(effect, digits = 4) {
     } else if (is_string(effect)){ #error message
         return(effect)
     } else {
-        paste(paste0(effect$effect.type, " (", effect$effect.name, "): ", formatC(effect$effect, format = "f", digits = digits), "\nCI", effect$conf_level*100, "%[", paste(formatC(effect$ci[, 1], format = "f", digits = digits), formatC(effect$ci[, 2], format = "f", digits = digits), sep = " to "), "]"), collapse = "\n")
+        paste(paste0(effect$effect.type, " (", effect$effect.name, "): ", formatC(effect$effect, format = "f", digits = digits), "\n", effect$conf_level*100, "%CI [", paste(formatC(effect$ci[, 1], format = "f", digits = digits), formatC(effect$ci[, 2], format = "f", digits = digits), sep = " to "), "]"), collapse = "\n")
     }
 }
 
