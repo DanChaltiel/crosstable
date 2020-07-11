@@ -22,7 +22,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="An R package Crosstables for descriptive analyses">
 <meta property="og:description" content="Thoroughly describe all your datasets with useful metrics, using only a few lines of code.">
-<meta property="og:image" content="https://danchaltiel.github.io/crosstable/docs/hex_sticker_v2.png">
+<meta property="og:image" content="https://danchaltiel.github.io/crosstable/reference/figures/hex_sticker_v2.png">
 <meta property="og:image:alt" content="Crosstable: easy dataset description">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@DanChaltiel">
@@ -85,10 +85,10 @@
   </ul>
 </li>
 <li>
-  <a href="news/index.html">Changelog</a>
+  <a href="reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -160,7 +160,7 @@
 <a href="#base-usage" class="anchor"></a>Base usage</h3>
 <p>Without any more argument than the dataset, the function will summarise all numeric variables with statistics (<code>min</code>+<code>max</code>, <code>mean</code>+<code>sd</code>, <code>median</code>+<code>IQR</code>, <code>N</code>+<code>NA</code>) and all categorical variables with counts and percentages.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(crosstable)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">library</span>(dplyr) <span class="co">#for the pipe</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
 <span id="cb2-4"><a href="#cb2-4"></a><span class="kw">crosstable</span>(iris)</span>
 <span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt;             .id        label   variable         value</span></span>
@@ -190,12 +190,9 @@
 <p>You can select specific columns using names and helpers functions, and require specific summary statistics using <code>funs</code> and <code>funs_arg</code>. The <code>by</code> argument allows to specify a grouping variable. Here, as the <code>mtcars2</code> has labels, they are also included in the crosstable.</p>
 <p>The <code>as_flextable</code> function allows to output a beautiful HTML table that can be customized at will ( see the <a href="https://davidgohel.github.io/flextable/index.html">flextable package</a>) and embed in a Word document (see the <a href="https://davidgohel.github.io/officer/">officer package</a>).</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb3-2"><a href="#cb3-2"></a>ct1 =<span class="st"> </span><span class="kw">crosstable</span>(mtcars2, qsec, <span class="kw">ends_with</span>(<span class="st">"t"</span>), <span class="kw">starts_with</span>(<span class="st">"c"</span>), <span class="dt">by=</span>vs, </span>
-<span id="cb3-3"><a href="#cb3-3"></a>                 <span class="dt">funs=</span><span class="kw">c</span>(mean, quantile), <span class="dt">funs_arg=</span><span class="kw">list</span>(<span class="dt">probs=</span><span class="kw">c</span>(.<span class="dv">25</span>,.<span class="dv">75</span>), <span class="dt">digits=</span><span class="dv">3</span>)) </span>
-<span id="cb3-4"><a href="#cb3-4"></a></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co"># warning(as.character(getAnywhere("knit_print.flextable"))[3])</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="co"># warning(capture.output(knit_print.flextable))</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a>ct1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_flextable</span>(<span class="dt">keep_id=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<span id="cb3-2"><a href="#cb3-2"></a>ct1 =<span class="st"> </span><span class="kw">crosstable</span>(mtcars2, qsec, <span class="kw">ends_with</span>(<span class="st">"t"</span>), <span class="kw">starts_with</span>(<span class="st">"c"</span>), <span class="dt">by=</span>vs,</span>
+<span id="cb3-3"><a href="#cb3-3"></a>                 <span class="dt">funs=</span><span class="kw">c</span>(mean, quantile), <span class="dt">funs_arg=</span><span class="kw">list</span>(<span class="dt">probs=</span><span class="kw">c</span>(.<span class="dv">25</span>,.<span class="dv">75</span>), <span class="dt">digits=</span><span class="dv">3</span>))</span>
+<span id="cb3-4"><a href="#cb3-4"></a>ct1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_flextable</span>(<span class="dt">keep_id=</span><span class="ot">TRUE</span>)</span></code></pre></div>
 <!--html_preserve-->
 <table class="table">
 <thead>
@@ -806,7 +803,7 @@
 </td>
 <td style="width:152px;background-color:transparent;vertical-align: middle;border-bottom: 1.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
 <p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;">
-<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">-0.78 <br>95%CI <br><span class="math display"> − 0.89;  − 0.59</span><br></span>
+<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">-0.78 <br>95%CI [-0.89;-0.59]</span>
 </p>
 </td>
 <td style="width:307px;background-color:transparent;vertical-align: middle;border-bottom: 1.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
@@ -828,7 +825,7 @@
 </td>
 <td style="width:152px;background-color:transparent;vertical-align: middle;border-bottom: 1.00px solid rgba(0, 0, 0, 1.00);border-top: 1.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
 <p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;">
-<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">0.79 <br>95%CI <br><span class="math display">0.61; 0.89</span><br></span>
+<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">0.79 <br>95%CI [0.61;0.89]</span>
 </p>
 </td>
 <td style="width:307px;background-color:transparent;vertical-align: middle;border-bottom: 1.00px solid rgba(0, 0, 0, 1.00);border-top: 1.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
@@ -850,7 +847,7 @@
 </td>
 <td style="width:152px;background-color:transparent;vertical-align: middle;border-bottom: 1.00px solid rgba(0, 0, 0, 1.00);border-top: 1.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
 <p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;">
-<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">-0.45 <br>95%CI <br><span class="math display"> − 0.69;  − 0.12</span><br></span>
+<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">-0.45 <br>95%CI [-0.69;-0.12]</span>
 </p>
 </td>
 <td style="width:307px;background-color:transparent;vertical-align: middle;border-bottom: 1.00px solid rgba(0, 0, 0, 1.00);border-top: 1.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
@@ -872,7 +869,7 @@
 </td>
 <td style="width:152px;background-color:transparent;vertical-align: middle;border-bottom: 1.00px solid rgba(0, 0, 0, 1.00);border-top: 1.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
 <p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;">
-<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">0.66 <br>95%CI <br><span class="math display">0.4; 0.82</span><br></span>
+<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">0.66 <br>95%CI [0.4;0.82]</span>
 </p>
 </td>
 <td style="width:307px;background-color:transparent;vertical-align: middle;border-bottom: 1.00px solid rgba(0, 0, 0, 1.00);border-top: 1.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
@@ -894,7 +891,7 @@
 </td>
 <td style="width:152px;background-color:transparent;vertical-align: middle;border-bottom: 1.00px solid rgba(0, 0, 0, 1.00);border-top: 1.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
 <p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;">
-<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">-0.71 <br>95%CI <br><span class="math display"> − 0.85;  − 0.48</span><br></span>
+<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">-0.71 <br>95%CI [-0.85;-0.48]</span>
 </p>
 </td>
 <td style="width:307px;background-color:transparent;vertical-align: middle;border-bottom: 1.00px solid rgba(0, 0, 0, 1.00);border-top: 1.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
@@ -916,7 +913,7 @@
 </td>
 <td style="width:152px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 1.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
 <p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;">
-<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">0.75 <br>95%CI <br><span class="math display">0.54; 0.87</span><br></span>
+<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">0.75 <br>95%CI [0.54;0.87]</span>
 </p>
 </td>
 <td style="width:307px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 1.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
@@ -934,7 +931,7 @@
 <a href="#lambda-functions-effect-size-calculation" class="anchor"></a>Lambda functions, effect size calculation</h3>
 <p>The predicate function can be a lambda function, using <code>.x</code> as the variable name.</p>
 <p>Using the <code>effect</code> argument, you can calculate effect sizes for all numeric variables and for categorical variable of exactly 2 levels.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>ct4 =<span class="st"> </span><span class="kw">crosstable</span>(mtcars2, <span class="kw">where</span>(<span class="op">~</span><span class="kw">is.numeric</span>(.x) <span class="op">&amp;&amp;</span><span class="st"> </span><span class="kw">mean</span>(.x)<span class="op">&gt;</span><span class="dv">50</span>), <span class="dt">by=</span>vs, <span class="dt">effect=</span><span class="ot">TRUE</span>) </span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>ct4 =<span class="st"> </span><span class="kw">crosstable</span>(mtcars2, <span class="kw">where</span>(<span class="op">~</span><span class="kw">is.numeric</span>(.x) <span class="op">&amp;&amp;</span><span class="st"> </span><span class="kw">mean</span>(.x)<span class="op">&gt;</span><span class="dv">50</span>), <span class="dt">by=</span>vs, <span class="dt">effect=</span><span class="ot">TRUE</span>)</span>
 <span id="cb6-2"><a href="#cb6-2"></a>ct4 <span class="op">%&gt;%</span><span class="st"> </span>as_flextable</span></code></pre></div>
 <!--html_preserve-->
 <table class="table">
@@ -998,24 +995,24 @@
 </td>
 <td rowspan="4" style="width:478px;background-color:transparent;vertical-align: middle;border-bottom: 1.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
 <p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;">
-<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Difference in means (Welch CI) (straight minus vshaped): -174.69<br>CI95%<br><span class="math display"> − 235.02<em>t</em><em>o</em> − 114.36</span><br></span>
+<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Difference in means (Welch CI) (straight minus vshaped): -174.69<br>CI95%[-235.02 to -114.36]</span>
 </p>
 </td>
 </tr>
 <tr style="overflow-wrap:break-word;">
 <td style="width:73px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
 <p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;">
-<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Med <br><span class="math display"><em>I</em><em>Q</em><em>R</em></span><br></span>
+<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Med [IQR]</span>
 </p>
 </td>
 <td style="width:109px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
 <p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;">
-<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">120.5 <br><span class="math display">83.0; 162.4</span><br></span>
+<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">120.5 [83.0;162.4]</span>
 </p>
 </td>
 <td style="width:115px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
 <p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;">
-<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">311.0 <br><span class="math display">275.8; 360.0</span><br></span>
+<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">311.0 [275.8;360.0]</span>
 </p>
 </td>
 </tr>
@@ -1076,24 +1073,24 @@
 </td>
 <td rowspan="4" style="width:478px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 1.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
 <p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;">
-<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Difference in means (Welch CI) (straight minus vshaped): -98.37<br>CI95%<br><span class="math display"> − 130.67<em>t</em><em>o</em> − 66.06</span><br></span>
+<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Difference in means (Welch CI) (straight minus vshaped): -98.37<br>CI95%[-130.67 to -66.06]</span>
 </p>
 </td>
 </tr>
 <tr style="overflow-wrap:break-word;">
 <td style="width:73px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
 <p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;">
-<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Med <br><span class="math display"><em>I</em><em>Q</em><em>R</em></span><br></span>
+<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Med [IQR]</span>
 </p>
 </td>
 <td style="width:109px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
 <p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;">
-<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">96.0 <br><span class="math display">66.0; 109.8</span><br></span>
+<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">96.0 [66.0;109.8]</span>
 </p>
 </td>
 <td style="width:115px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
 <p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;">
-<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">180.0 <br><span class="math display">156.2; 226.2</span><br></span>
+<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">180.0 [156.2;226.2]</span>
 </p>
 </td>
 </tr>
@@ -1253,17 +1250,17 @@
 <tr style="overflow-wrap:break-word;">
 <td style="width:160px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
 <p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;">
-<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Median follow up <br><span class="math display"><em>m</em><em>i</em><em>n</em>; <em>m</em><em>a</em><em>x</em></span><br></span>
+<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">Median follow up [min ; max]</span>
 </p>
 </td>
 <td style="width:88px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
 <p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;">
-<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">103 <br><span class="math display">13; 161</span><br></span>
+<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">103 [13 ; 161]</span>
 </p>
 </td>
 <td style="width:100px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;">
 <p style="margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;background-color:transparent;">
-<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">NA <br><span class="math display">16; 45</span><br></span>
+<span style="font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;">NA [16 ; 45]</span>
 </p>
 </td>
 </tr>

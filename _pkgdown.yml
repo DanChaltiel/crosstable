@@ -1,4 +1,4 @@
-url: https://danchaltiel.github.io/crosstable/
+url: https://danchaltiel.github.io/crosstable
 destination: docs
 
 
@@ -16,7 +16,7 @@ template:
       index_name: crosstable
   opengraph:
     image:
-      src: docs/hex_sticker_v2.png
+      src: man/figures/hex_sticker_v2.png
       alt: "Crosstable: easy dataset description"
     twitter:
       creator: "@DanChaltiel"
@@ -89,7 +89,7 @@ reference:
  
 navbar:
   structure:
-    left:  [home, intro, articles, news, reference]
+    left:  [home, intro, articles, reference, news]
     right: [docsearch, twitter, github]
   components:
     twitter:

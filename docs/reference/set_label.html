@@ -56,7 +56,7 @@
 
 <meta property="og:title" content="Set the "label" attribute of an object — set_label" />
 <meta property="og:description" content="Set the &quot;label&quot; attribute of an object" />
-<meta property="og:image" content="https://danchaltiel.github.io/crosstable/docs/hex_sticker_v2.png" />
+<meta property="og:image" content="https://danchaltiel.github.io/crosstable/reference/figures/hex_sticker_v2.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@DanChaltiel" />
@@ -136,10 +136,10 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -205,16 +205,16 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='no'>mtcars</span> <span class='kw'>%&gt;%</span>
-   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>mpg2</span><span class='kw'>=</span><span class='fu'>set_label</span>(<span class='no'>mpg</span>, <span class='st'>"Foo, bar and foobar"</span>)) <span class='kw'>%&gt;%</span>
-   <span class='fu'><a href='crosstable.html'>crosstable</a></span>(<span class='no'>mpg</span>, <span class='no'>mpg2</span>)</div><div class='output co'>#&gt;    .id               label   variable            value
-#&gt; 1  mpg                 mpg  Min / Max      10.4 / 33.9
-#&gt; 2  mpg                 mpg  Med [IQR] 19.2 [15.4;22.8]
-#&gt; 3  mpg                 mpg Mean (std)       20.1 (6.0)
-#&gt; 4  mpg                 mpg     N (NA)           32 (0)
-#&gt; 5 mpg2 Foo, bar and foobar  Min / Max      10.4 / 33.9
-#&gt; 6 mpg2 Foo, bar and foobar  Med [IQR] 19.2 [15.4;22.8]
-#&gt; 7 mpg2 Foo, bar and foobar Mean (std)       20.1 (6.0)
-#&gt; 8 mpg2 Foo, bar and foobar     N (NA)           32 (0)</div></pre>
+   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>mpg2</span><span class='kw'>=</span><span class='fu'>set_label</span>(<span class='no'>mpg</span>, <span class='st'>"Miles per gallon"</span>)) <span class='kw'>%&gt;%</span>
+   <span class='fu'><a href='crosstable.html'>crosstable</a></span>(<span class='no'>mpg</span>, <span class='no'>mpg2</span>)</div><div class='output co'>#&gt;    .id            label   variable            value
+#&gt; 1  mpg              mpg  Min / Max      10.4 / 33.9
+#&gt; 2  mpg              mpg  Med [IQR] 19.2 [15.4;22.8]
+#&gt; 3  mpg              mpg Mean (std)       20.1 (6.0)
+#&gt; 4  mpg              mpg     N (NA)           32 (0)
+#&gt; 5 mpg2 Miles per gallon  Min / Max      10.4 / 33.9
+#&gt; 6 mpg2 Miles per gallon  Med [IQR] 19.2 [15.4;22.8]
+#&gt; 7 mpg2 Miles per gallon Mean (std)       20.1 (6.0)
+#&gt; 8 mpg2 Miles per gallon     N (NA)           32 (0)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

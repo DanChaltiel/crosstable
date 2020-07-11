@@ -56,7 +56,7 @@
 
 <meta property="og:title" content="Easily describe datasets — crosstable" />
 <meta property="og:description" content="Generate a descriptive table of all chosen columns, as contingency tables for categorical variables and as calculation summaries for numeric variables. If the by argument points to a categorical variable, crosstable will output a description of all columns for every level. Else, if it points to a numeric variable, crosstable will calculate correlation coefficients with all other selected numeric columns. Finally, if it points to a Surv object, crosstable will describe the survival at different times." />
-<meta property="og:image" content="https://danchaltiel.github.io/crosstable/docs/hex_sticker_v2.png" />
+<meta property="og:image" content="https://danchaltiel.github.io/crosstable/reference/figures/hex_sticker_v2.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@DanChaltiel" />
@@ -136,10 +136,10 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -355,45 +355,100 @@
 #&gt; 37 carb  carb  Min / Max           1.0 / 8.0
 #&gt; 38 carb  carb  Med [IQR]       2.0 [2.0;4.0]
 #&gt; 39 carb  carb Mean (std)           2.8 (1.6)
-#&gt; 40 carb  carb     N (NA)              32 (0)</div><div class='input'><span class='fu'>crosstable</span>(<span class='no'>mtcars2</span>)</div><div class='output co'>#&gt;     .id                   label   variable               value
-#&gt; 1   mpg       Miles/(US) gallon  Min / Max         10.4 / 33.9
-#&gt; 2   mpg       Miles/(US) gallon  Med [IQR]    19.2 [15.4;22.8]
-#&gt; 3   mpg       Miles/(US) gallon Mean (std)          20.1 (6.0)
-#&gt; 4   mpg       Miles/(US) gallon     N (NA)              32 (0)
-#&gt; 5   cyl     Number of cylinders          4         11 (34.38%)
-#&gt; 6   cyl     Number of cylinders          6          7 (21.88%)
-#&gt; 7   cyl     Number of cylinders          8         14 (43.75%)
-#&gt; 8  disp   Displacement (cu.in.)  Min / Max        71.1 / 472.0
-#&gt; 9  disp   Displacement (cu.in.)  Med [IQR] 196.3 [120.8;326.0]
-#&gt; 10 disp   Displacement (cu.in.) Mean (std)       230.7 (123.9)
-#&gt; 11 disp   Displacement (cu.in.)     N (NA)              32 (0)
-#&gt; 12   hp        Gross horsepower  Min / Max        52.0 / 335.0
-#&gt; 13   hp        Gross horsepower  Med [IQR]  123.0 [96.5;180.0]
-#&gt; 14   hp        Gross horsepower Mean (std)        146.7 (68.6)
-#&gt; 15   hp        Gross horsepower     N (NA)              32 (0)
-#&gt; 16 drat         Rear axle ratio  Min / Max           2.8 / 4.9
-#&gt; 17 drat         Rear axle ratio  Med [IQR]       3.7 [3.1;3.9]
-#&gt; 18 drat         Rear axle ratio Mean (std)           3.6 (0.5)
-#&gt; 19 drat         Rear axle ratio     N (NA)              32 (0)
-#&gt; 20   wt       Weight (1000 lbs)  Min / Max           1.5 / 5.4
-#&gt; 21   wt       Weight (1000 lbs)  Med [IQR]       3.3 [2.6;3.6]
-#&gt; 22   wt       Weight (1000 lbs) Mean (std)           3.2 (1.0)
-#&gt; 23   wt       Weight (1000 lbs)     N (NA)              32 (0)
-#&gt; 24 qsec           1/4 mile time  Min / Max         14.5 / 22.9
-#&gt; 25 qsec           1/4 mile time  Med [IQR]    17.7 [16.9;18.9]
-#&gt; 26 qsec           1/4 mile time Mean (std)          17.8 (1.8)
-#&gt; 27 qsec           1/4 mile time     N (NA)              32 (0)
-#&gt; 28   vs                  Engine   straight         14 (43.75%)
-#&gt; 29   vs                  Engine    vshaped         18 (56.25%)
-#&gt; 30   am            Transmission       auto         19 (59.38%)
-#&gt; 31   am            Transmission     manual         13 (40.62%)
-#&gt; 32 gear Number of forward gears          3         15 (46.88%)
-#&gt; 33 gear Number of forward gears          4         12 (37.50%)
-#&gt; 34 gear Number of forward gears          5          5 (15.62%)
-#&gt; 35 carb   Number of carburetors  Min / Max           1.0 / 8.0
-#&gt; 36 carb   Number of carburetors  Med [IQR]       2.0 [2.0;4.0]
-#&gt; 37 carb   Number of carburetors Mean (std)           2.8 (1.6)
-#&gt; 38 carb   Number of carburetors     N (NA)              32 (0)</div><div class='input'>
+#&gt; 40 carb  carb     N (NA)              32 (0)</div><div class='input'><span class='fu'>crosstable</span>(<span class='no'>mtcars2</span>)</div><div class='output co'>#&gt;           .id                   label   variable
+#&gt; 1         mpg       Miles/(US) gallon  Min / Max
+#&gt; 2         mpg       Miles/(US) gallon  Med [IQR]
+#&gt; 3         mpg       Miles/(US) gallon Mean (std)
+#&gt; 4         mpg       Miles/(US) gallon     N (NA)
+#&gt; 5         cyl     Number of cylinders          4
+#&gt; 6         cyl     Number of cylinders          6
+#&gt; 7         cyl     Number of cylinders          8
+#&gt; 8        disp   Displacement (cu.in.)  Min / Max
+#&gt; 9        disp   Displacement (cu.in.)  Med [IQR]
+#&gt; 10       disp   Displacement (cu.in.) Mean (std)
+#&gt; 11       disp   Displacement (cu.in.)     N (NA)
+#&gt; 12         hp        Gross horsepower  Min / Max
+#&gt; 13         hp        Gross horsepower  Med [IQR]
+#&gt; 14         hp        Gross horsepower Mean (std)
+#&gt; 15         hp        Gross horsepower     N (NA)
+#&gt; 16       drat         Rear axle ratio  Min / Max
+#&gt; 17       drat         Rear axle ratio  Med [IQR]
+#&gt; 18       drat         Rear axle ratio Mean (std)
+#&gt; 19       drat         Rear axle ratio     N (NA)
+#&gt; 20         wt       Weight (1000 lbs)  Min / Max
+#&gt; 21         wt       Weight (1000 lbs)  Med [IQR]
+#&gt; 22         wt       Weight (1000 lbs) Mean (std)
+#&gt; 23         wt       Weight (1000 lbs)     N (NA)
+#&gt; 24       qsec           1/4 mile time  Min / Max
+#&gt; 25       qsec           1/4 mile time  Med [IQR]
+#&gt; 26       qsec           1/4 mile time Mean (std)
+#&gt; 27       qsec           1/4 mile time     N (NA)
+#&gt; 28         vs                  Engine   straight
+#&gt; 29         vs                  Engine    vshaped
+#&gt; 30         am            Transmission       auto
+#&gt; 31         am            Transmission     manual
+#&gt; 32       gear Number of forward gears          3
+#&gt; 33       gear Number of forward gears          4
+#&gt; 34       gear Number of forward gears          5
+#&gt; 35       carb   Number of carburetors  Min / Max
+#&gt; 36       carb   Number of carburetors  Med [IQR]
+#&gt; 37       carb   Number of carburetors Mean (std)
+#&gt; 38       carb   Number of carburetors     N (NA)
+#&gt; 39    hp_date      Some nonsense date  Min / Max
+#&gt; 40    hp_date      Some nonsense date  Med [IQR]
+#&gt; 41    hp_date      Some nonsense date Mean (std)
+#&gt; 42    hp_date      Some nonsense date     N (NA)
+#&gt; 43 qsec_posix               Date+time  Min / Max
+#&gt; 44 qsec_posix               Date+time  Med [IQR]
+#&gt; 45 qsec_posix               Date+time Mean (std)
+#&gt; 46 qsec_posix               Date+time     N (NA)
+#&gt;                                                            value
+#&gt; 1                                                    10.4 / 33.9
+#&gt; 2                                               19.2 [15.4;22.8]
+#&gt; 3                                                     20.1 (6.0)
+#&gt; 4                                                         32 (0)
+#&gt; 5                                                    11 (34.38%)
+#&gt; 6                                                     7 (21.88%)
+#&gt; 7                                                    14 (43.75%)
+#&gt; 8                                                   71.1 / 472.0
+#&gt; 9                                            196.3 [120.8;326.0]
+#&gt; 10                                                 230.7 (123.9)
+#&gt; 11                                                        32 (0)
+#&gt; 12                                                  52.0 / 335.0
+#&gt; 13                                            123.0 [96.5;180.0]
+#&gt; 14                                                  146.7 (68.6)
+#&gt; 15                                                        32 (0)
+#&gt; 16                                                     2.8 / 4.9
+#&gt; 17                                                 3.7 [3.1;3.9]
+#&gt; 18                                                     3.6 (0.5)
+#&gt; 19                                                        32 (0)
+#&gt; 20                                                     1.5 / 5.4
+#&gt; 21                                                 3.3 [2.6;3.6]
+#&gt; 22                                                     3.2 (1.0)
+#&gt; 23                                                        32 (0)
+#&gt; 24                                                   14.5 / 22.9
+#&gt; 25                                              17.7 [16.9;18.9]
+#&gt; 26                                                    17.8 (1.8)
+#&gt; 27                                                        32 (0)
+#&gt; 28                                                   14 (43.75%)
+#&gt; 29                                                   18 (56.25%)
+#&gt; 30                                                   19 (59.38%)
+#&gt; 31                                                   13 (40.62%)
+#&gt; 32                                                   15 (46.88%)
+#&gt; 33                                                   12 (37.50%)
+#&gt; 34                                                    5 (15.62%)
+#&gt; 35                                                     1.0 / 8.0
+#&gt; 36                                                 2.0 [2.0;4.0]
+#&gt; 37                                                     2.8 (1.6)
+#&gt; 38                                                        32 (0)
+#&gt; 39                                       2010-02-22 - 2010-12-02
+#&gt; 40                            2010-05-04 [2010-04-06;2010-06-30]
+#&gt; 41                                       2010-05-27 (2.3 months)
+#&gt; 42                                                        32 (0)
+#&gt; 43                     2010-01-15 13:00:00 - 2010-01-23 22:36:00
+#&gt; 44 2010-01-18 18:02:24 [2010-01-17 21:52:48;2010-01-19 22:36:00]
+#&gt; 45                                2010-01-18 21:22:12 (1.8 days)
+#&gt; 46                                                        32 (0)</div><div class='input'>
 <span class='co'>#tidyselection, custom functions</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='fu'>crosstable</span>(<span class='no'>mtcars2</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>ends_with</a></span>(<span class='st'>"t"</span>), <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span>(<span class='st'>"c"</span>), <span class='kw'>by</span><span class='kw'>=</span><span class='no'>vs</span>,
@@ -429,7 +484,20 @@
 #&gt; 6 6 (33.33% / 46.15%)         18 (56.25%)
 #&gt; 7         13 (40.62%)        32 (100.00%)</div><div class='input'>
 <span class='co'>#predicate selection, correlation, testing</span>
-<span class='fu'>crosstable</span>(<span class='no'>mtcars2</span>, <span class='fu'>where</span>(<span class='no'>is.numeric</span>), <span class='kw'>by</span><span class='kw'>=</span><span class='no'>hp</span>, <span class='kw'>test</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in if (env_has(inform_env, id) &amp;&amp; getOption("tidyselect_verbosity") !=     "verbose") {    return(invisible(NULL))}: missing value where TRUE/FALSE needed</span></div><div class='input'>
+<span class='fu'>crosstable</span>(<span class='no'>mtcars2</span>, <span class='fu'>where</span>(<span class='no'>is.numeric</span>), <span class='kw'>by</span><span class='kw'>=</span><span class='no'>hp</span>, <span class='kw'>test</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;    .id                 label variable            Gross horsepower
+#&gt; 1  mpg     Miles/(US) gallon  pearson -0.78 \n95%CI [-0.89;-0.59]
+#&gt; 2 disp Displacement (cu.in.)  pearson    0.79 \n95%CI [0.61;0.89]
+#&gt; 3 drat       Rear axle ratio  pearson -0.45 \n95%CI [-0.69;-0.12]
+#&gt; 4   wt     Weight (1000 lbs)  pearson     0.66 \n95%CI [0.4;0.82]
+#&gt; 5 qsec         1/4 mile time  pearson -0.71 \n95%CI [-0.85;-0.48]
+#&gt; 6 carb Number of carburetors  pearson    0.75 \n95%CI [0.54;0.87]
+#&gt;                                                        test
+#&gt; 1 p value: &lt;0.0001 \n(Pearson's product-moment correlation)
+#&gt; 2 p value: &lt;0.0001 \n(Pearson's product-moment correlation)
+#&gt; 3  p value: 0.0100 \n(Pearson's product-moment correlation)
+#&gt; 4 p value: &lt;0.0001 \n(Pearson's product-moment correlation)
+#&gt; 5 p value: &lt;0.0001 \n(Pearson's product-moment correlation)
+#&gt; 6 p value: &lt;0.0001 \n(Pearson's product-moment correlation)</div><div class='input'>
 <span class='co'>#lambda selection, effect calculation</span>
 <span class='fu'>crosstable</span>(<span class='no'>mtcars2</span>, ~<span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>is.numeric</a></span>(<span class='no'>.x</span>) <span class='kw'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>.x</span>)<span class='kw'>&gt;</span><span class='fl'>50</span>, <span class='kw'>by</span><span class='kw'>=</span><span class='no'>vs</span>, <span class='kw'>effect</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;    .id                 label   variable           straight             vshaped
 #&gt; 1 disp Displacement (cu.in.)  Min / Max       71.1 / 258.0       120.3 / 472.0
@@ -440,15 +508,15 @@
 #&gt; 6   hp      Gross horsepower  Med [IQR]  96.0 [66.0;109.8] 180.0 [156.2;226.2]
 #&gt; 7   hp      Gross horsepower Mean (std)        91.4 (24.4)        189.7 (60.3)
 #&gt; 8   hp      Gross horsepower     N (NA)             14 (0)              18 (0)
-#&gt;                                                                                        effect
-#&gt; 1 Difference in means (Welch CI) (straight minus vshaped): -174.69\nCI95%[-235.02 to -114.36]
-#&gt; 2 Difference in means (Welch CI) (straight minus vshaped): -174.69\nCI95%[-235.02 to -114.36]
-#&gt; 3 Difference in means (Welch CI) (straight minus vshaped): -174.69\nCI95%[-235.02 to -114.36]
-#&gt; 4 Difference in means (Welch CI) (straight minus vshaped): -174.69\nCI95%[-235.02 to -114.36]
-#&gt; 5   Difference in means (Welch CI) (straight minus vshaped): -98.37\nCI95%[-130.67 to -66.06]
-#&gt; 6   Difference in means (Welch CI) (straight minus vshaped): -98.37\nCI95%[-130.67 to -66.06]
-#&gt; 7   Difference in means (Welch CI) (straight minus vshaped): -98.37\nCI95%[-130.67 to -66.06]
-#&gt; 8   Difference in means (Welch CI) (straight minus vshaped): -98.37\nCI95%[-130.67 to -66.06]</div><div class='input'>
+#&gt;                                                                                         effect
+#&gt; 1 Difference in means (Welch CI) (straight minus vshaped): -174.69\n95%CI [-235.02 to -114.36]
+#&gt; 2 Difference in means (Welch CI) (straight minus vshaped): -174.69\n95%CI [-235.02 to -114.36]
+#&gt; 3 Difference in means (Welch CI) (straight minus vshaped): -174.69\n95%CI [-235.02 to -114.36]
+#&gt; 4 Difference in means (Welch CI) (straight minus vshaped): -174.69\n95%CI [-235.02 to -114.36]
+#&gt; 5   Difference in means (Welch CI) (straight minus vshaped): -98.37\n95%CI [-130.67 to -66.06]
+#&gt; 6   Difference in means (Welch CI) (straight minus vshaped): -98.37\n95%CI [-130.67 to -66.06]
+#&gt; 7   Difference in means (Welch CI) (straight minus vshaped): -98.37\n95%CI [-130.67 to -66.06]
+#&gt; 8   Difference in means (Welch CI) (straight minus vshaped): -98.37\n95%CI [-130.67 to -66.06]</div><div class='input'>
 <span class='co'>#Dates</span>
 <span class='no'>mtcars2</span>$<span class='no'>my_date</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='no'>mtcars2</span>$<span class='no'>hp</span> , <span class='kw'>origin</span><span class='kw'>=</span><span class='st'>"2010-01-01"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='set_label.html'>set_label</a></span>(<span class='st'>"Some nonsense date"</span>)
 <span class='fu'>crosstable</span>(<span class='no'>mtcars2</span>, <span class='no'>my_date</span>, <span class='kw'>by</span><span class='kw'>=</span><span class='no'>vs</span>, <span class='kw'>date_format</span><span class='kw'>=</span><span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt;       .id              label   variable                           straight

@@ -22,8 +22,6 @@ assignInNamespace("knit_print.flextable", crosstable:::knit_print.flextable, ns=
 ```
 
 
-
-
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/crosstable)](https://CRAN.R-project.org/package=crosstable)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
@@ -31,11 +29,13 @@ assignInNamespace("knit_print.flextable", crosstable:::knit_print.flextable, ns=
 [![Codecov test coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/master/graph/badge.svg)](https://codecov.io/gh/DanChaltiel/crosstable?branch=master)
 <!-- badges: end -->
 
+
 ## Overview<a href='https://DanChaltiel.github.io/crosstable/'><img src='hex_sticker_v2.png' align="right" height="175" /></a>
 
-Crosstable is a package centered on a single function, `crosstable`, which easily computes descriptive statistics on datasets. 
+Crosstable is a package centered on a single function, `crosstable`, which easily computes descriptive statistics on datasets.
 
 It can use the `tidyselect` syntax for selecting variables (and more) and is interfaced with the package `officer` to create automatized reports.
+
 
 ## Installation
 
@@ -46,12 +46,13 @@ devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 
 In case of any installation problem, try reading [the wiki](https://github.com/DanChaltiel/crosstable/wiki/Installation-problems) or fill an [Issue](https://github.com/DanChaltiel/crosstable/issues).
 
+
 ## Getting help
 
-You can use the vignettes (click on the links): 
+You can use the vignettes (click on the links):
 
-+ `vignette("crosstable")` for global use and parameterization 
-+ `vignette("crosstable-selection")` for variable selection 
++ `vignette("crosstable")` for global use and parameterization
++ `vignette("crosstable-selection")` for variable selection
 + `vignette("crosstable-report")` for reporting with `officer` or `Rmarkdown`
 
 
@@ -63,24 +64,22 @@ Without any more argument than the dataset, the function will summarise all nume
 
 ```{r usage0, warning=FALSE, message=FALSE}
 library(crosstable)
-library(dplyr)
+library(dplyr) #for the pipe
 
 crosstable(iris)
 ```
+
 
 ### Column specification, grouping and labels
 
 You can select specific columns using names and helpers functions, and require specific summary statistics using `funs` and `funs_arg`. The `by` argument allows to specify a grouping variable. Here, as the `mtcars2` has labels, they are also included in the crosstable.
 
-The `as_flextable` function allows to output a beautiful HTML table that can be customized at will ( see the [flextable package](https://davidgohel.github.io/flextable/index.html)) and embed in a Word document (see the [officer package](https://davidgohel.github.io/officer/)). 
+The `as_flextable` function allows to output a beautiful HTML table that can be customized at will ( see the [flextable package](https://davidgohel.github.io/flextable/index.html)) and embed in a Word document (see the [officer package](https://davidgohel.github.io/officer/)).
 
 ```{r usage1, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
 library(tidyverse)
-ct1 = crosstable(mtcars2, qsec, ends_with("t"), starts_with("c"), by=vs, 
-                 funs=c(mean, quantile), funs_arg=list(probs=c(.25,.75), digits=3)) 
-
-# warning(as.character(getAnywhere("knit_print.flextable"))[3])
-# warning(capture.output(knit_print.flextable))
+ct1 = crosstable(mtcars2, qsec, ends_with("t"), starts_with("c"), by=vs,
+                 funs=c(mean, quantile), funs_arg=list(probs=c(.25,.75), digits=3))
 ct1 %>% as_flextable(keep_id=TRUE)
 ```
 
@@ -96,7 +95,7 @@ ct2 %>% as_flextable
 
 ### Predicate functions, automatic testing
 
-For the variable selection, you can use predicate functions. It is a good practice to wrap these in `where`. If the grouping variable is numeric, correlation coefficients will be calculated. 
+For the variable selection, you can use predicate functions. It is a good practice to wrap these in `where`. If the grouping variable is numeric, correlation coefficients will be calculated.
 
 Using the `test` argument, you can perform tests with each variable and the grouping variable. Beware, automatic testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.
 
@@ -107,12 +106,12 @@ ct3 %>% as_flextable
 
 ### Lambda functions, effect size calculation
 
-The predicate function can be a lambda function, using `.x` as the variable name. 
+The predicate function can be a lambda function, using `.x` as the variable name.
 
 Using the `effect` argument, you can calculate effect sizes for all numeric variables and for categorical variable of exactly 2 levels.
 
 ```{r usage4, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
-ct4 = crosstable(mtcars2, where(~is.numeric(.x) && mean(.x)>50), by=vs, effect=TRUE) 
+ct4 = crosstable(mtcars2, where(~is.numeric(.x) && mean(.x)>50), by=vs, effect=TRUE)
 ct4 %>% as_flextable
 ```
 

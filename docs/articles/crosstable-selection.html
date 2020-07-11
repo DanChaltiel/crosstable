@@ -22,7 +22,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Select variables">
 <meta property="og:description" content="crosstable">
-<meta property="og:image" content="https://danchaltiel.github.io/crosstable/docs/hex_sticker_v2.png">
+<meta property="og:image" content="https://danchaltiel.github.io/crosstable/reference/figures/hex_sticker_v2.png">
 <meta property="og:image:alt" content="Crosstable: easy dataset description">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@DanChaltiel">
@@ -85,10 +85,10 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -120,14 +120,14 @@
 
       
 
-      </header><link href="crosstable-selection_files/tabwid-1.0.0/tabwid.css" rel="stylesheet">
+      </header><script src="crosstable-selection_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="crosstable-selection_files/tabwid-1.0.0/tabwid.css" rel="stylesheet">
 <script src="crosstable-selection_files/tabwid-1.0.0/tabwid.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Select variables</h1>
                         <h4 class="author">Dan Chaltiel</h4>
             
-            <h4 class="date">2020-07-10</h4>
+            <h4 class="date">2020-07-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/DanChaltiel/crosstable/blob/master/vignettes/crosstable-selection.Rmd"><code>vignettes/crosstable-selection.Rmd</code></a></small>
       <div class="hidden name"><code>crosstable-selection.Rmd</code></div>
@@ -147,7 +147,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
 <span class="no">ct</span><span class="kw">=</span><span class="fu"><a href="../reference/crosstable.html">crosstable</a></span>(<span class="no">mtcars2</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span>())
 <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">ct</span>)
-<span class="co">#&gt; [1] 38  4</span>
+<span class="co">#&gt; [1] 46  4</span>
 <span class="no">ct</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fl">10</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/as_flextable.html">as_flextable</a></span>(<span class="kw">keep_id</span><span class="kw">=</span><span class="fl">TRUE</span>)</pre></body></html></div>
 <div class="tabwid"><table class="table">

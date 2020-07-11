@@ -2,21 +2,21 @@
   "index_name": "crosstable",
   "start_urls": [
     {
-      "url": "https://danchaltiel.github.io/crosstable//index.html",
+      "url": "https://danchaltiel.github.io/crosstable/index.html",
       "selectors_key": "homepage",
       "tags": [
         "homepage"
       ]
     },
     {
-      "url": "https://danchaltiel.github.io/crosstable//reference",
+      "url": "https://danchaltiel.github.io/crosstable/reference",
       "selectors_key": "reference",
       "tags": [
         "reference"
       ]
     },
     {
-      "url": "https://danchaltiel.github.io/crosstable//articles",
+      "url": "https://danchaltiel.github.io/crosstable/articles",
       "selectors_key": "articles",
       "tags": [
         "articles"
@@ -30,7 +30,7 @@
     "/articles/index.html"
   ],
   "sitemap_urls": [
-    "https://danchaltiel.github.io/crosstable//sitemap.xml"
+    "https://danchaltiel.github.io/crosstable/sitemap.xml"
   ],
   "selectors": {
     "homepage": {

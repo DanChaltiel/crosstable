@@ -56,7 +56,7 @@
 
 <meta property="og:title" content="Summarize a numeric vector — cross_summary" />
 <meta property="og:description" content="Summarize a numeric vector with min, max, mean, sd, median, IQR, n and missings." />
-<meta property="og:image" content="https://danchaltiel.github.io/crosstable/docs/hex_sticker_v2.png" />
+<meta property="og:image" content="https://danchaltiel.github.io/crosstable/reference/figures/hex_sticker_v2.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@DanChaltiel" />
@@ -136,10 +136,10 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -208,7 +208,13 @@
 #&gt;     "4.3 / 7.9" "5.8 [5.1;6.4]"     "5.8 (0.8)"       "150 (0)" </div><div class='input'><span class='fu'>cross_summary</span>(<span class='no'>iris</span>$<span class='no'>Petal.Width</span>, <span class='kw'>dig</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;             Min / Max             Med [IQR]            Mean (std) 
 #&gt;       "0.100 / 2.500" "1.300 [0.300;1.800]"       "1.199 (0.762)" 
 #&gt;                N (NA) 
-#&gt;             "150 (0)" </div></pre>
+#&gt;             "150 (0)" </div><div class='input'><span class='fu'>cross_summary</span>(<span class='no'>mtcars2</span>$<span class='no'>hp_date</span>)</div><div class='output co'>#&gt;                            Min / Max                            Med [IQR] 
+#&gt;            "2010-02-22 - 2010-12-02" "2010-05-04 [2010-04-06;2010-06-30]" 
+#&gt;                           Mean (std)                               N (NA) 
+#&gt;            "2010-05-27 (2.3 months)"                             "32 (0)" </div><div class='input'><span class='fu'>cross_summary</span>(<span class='no'>mtcars2</span>$<span class='no'>qsec_posix</span>, <span class='kw'>date_format</span><span class='kw'>=</span><span class='st'>"%d/%m %H:%M"</span>)</div><div class='output co'>#&gt;                               Min / Max                               Med [IQR] 
+#&gt;             "15/01 13:00 - 23/01 22:36" "18/01 18:02 [17/01 21:52;19/01 22:36]" 
+#&gt;                              Mean (std)                                  N (NA) 
+#&gt;                "18/01 21:22 (1.8 days)"                                "32 (0)" </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

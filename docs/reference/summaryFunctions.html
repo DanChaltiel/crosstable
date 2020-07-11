@@ -56,7 +56,7 @@
 
 <meta property="og:title" content="Summary functions — summaryFunctions" />
 <meta property="og:description" content="Summary functions to use with crosstable() or anywhere else." />
-<meta property="og:image" content="https://danchaltiel.github.io/crosstable/docs/hex_sticker_v2.png" />
+<meta property="og:image" content="https://danchaltiel.github.io/crosstable/reference/figures/hex_sticker_v2.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@DanChaltiel" />
@@ -136,10 +136,10 @@
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -183,7 +183,9 @@
     <p>Summary functions to use with <code><a href='crosstable.html'>crosstable()</a></code> or anywhere else.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>moystd</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>dig</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>meansd</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>dig</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='no'>...</span>)
+
+<span class='fu'>meanCI</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>dig</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
 
 <span class='fu'>mediqr</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>dig</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='no'>...</span>)
 
@@ -219,7 +221,8 @@
 
     
 <ul>
-<li><p><code>moystd</code>: returns mean and std error</p></li>
+<li><p><code>meansd</code>: returns mean and std error</p></li>
+<li><p><code>meanCI</code>: returns mean and confidence interval</p></li>
 <li><p><code>mediqr</code>: returns median and IQR</p></li>
 <li><p><code>minmax</code>: returns minimum and maximum</p></li>
 <li><p><code>nna</code>: returns  number of observations and number of missing values</p></li>
@@ -245,7 +248,7 @@ In the case when the output of rounded values is zero, the use of the <code>zero
 <span class='co'>#dates</span>
 <span class='no'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span>(<span class='no'>mtcars</span>$<span class='no'>qsec</span>*<span class='fl'>3600</span>*<span class='fl'>24</span> , <span class='kw'>origin</span><span class='kw'>=</span><span class='st'>"2010-01-01"</span>)
 <span class='fu'>moystd</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "2010-01-18 21:22:12 (1.79 days)"</div><div class='input'><span class='fu'>minmax</span>(<span class='no'>x</span>, <span class='kw'>date_format</span><span class='kw'>=</span><span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt; [1] "15/01/2010 - 23/01/2010"</div><div class='input'>
-</div></pre>
+<span class='fu'>meanCI</span>(<span class='no'>iris</span>$<span class='no'>Sepal.Length</span>)</div><div class='output co'>#&gt; <span class='error'>Error in confint_numeric(x, na.rm = na.rm, level = level): unused argument (na.rm = na.rm)</span></div><div class='input'><span class='fu'>meanCI</span>(<span class='no'>mtcars2</span>$<span class='no'>x_date</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='error'>Error in confint_numeric(x, na.rm = na.rm, level = level): unused argument (na.rm = na.rm)</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
