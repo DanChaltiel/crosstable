@@ -4,7 +4,7 @@
 \alias{N}
 \title{Return the number of non NA observations}
 \usage{
-N(x, na.rm = FALSE)
+N(x)
 }
 \arguments{
 \item{x}{a vector}

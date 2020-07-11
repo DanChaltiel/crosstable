@@ -19,4 +19,6 @@ Summarize a numeric vector with min, max, mean, sd, median, IQR, n and missings.
 \examples{
 cross_summary(iris$Sepal.Length)
 cross_summary(iris$Petal.Width, dig=3)
+cross_summary(mtcars2$hp_date)
+cross_summary(mtcars2$qsec_posix, date_format="\%d/\%m \%H:\%M")
 }

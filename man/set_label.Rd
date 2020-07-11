@@ -17,7 +17,7 @@ Set the "label" attribute of an object
 \examples{
 library(dplyr)
 mtcars \%>\% 
-   mutate(mpg2=set_label(mpg, "Foo, bar and foobar")) \%>\% 
+   mutate(mpg2=set_label(mpg, "Miles per gallon")) \%>\% 
    crosstable(mpg, mpg2)
 }
 \seealso{
