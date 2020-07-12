@@ -21,7 +21,7 @@ template:
       alt: "Crosstable: easy dataset description"
     twitter:
       creator: "@DanChaltiel"
-      card: summary_large_image
+      card: summary
       # https://cards-dev.twitter.com/validator
 
 
