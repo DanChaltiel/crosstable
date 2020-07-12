@@ -135,6 +135,7 @@ moystd=meansd
 
 
 #' @describeIn summaryFunctions returns mean and confidence interval
+#' @param level the confidence level required
 #' @export
 #' @examples 
 #' meanCI(iris$Sepal.Length)
@@ -142,7 +143,7 @@ moystd=meansd
 meanCI = function(x, na.rm = TRUE, dig = 2, level=0.95, ...) {
   .mean = mean(x, na.rm=na.rm) %>% 
     format_fixed(digits=dig, ...)
-  conf = confint_numeric(x, na.rm=na.rm, level=level) %>% 
+  conf = confint_numeric(x, level=level) %>% 
     format_fixed(digits=dig, ...)
   paste0(.mean, " [", conf[1], ";", conf[2],  "]")
 }

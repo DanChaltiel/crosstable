@@ -8,8 +8,6 @@ N(x)
 }
 \arguments{
 \item{x}{a vector}
-
-\item{na.rm}{not used}
 }
 \description{
 Return the number of non NA observations

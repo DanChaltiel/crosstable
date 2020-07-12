@@ -42,11 +42,11 @@
 #'                       generic_labels=list(id = "ID", variable = "math", total="Tot", 
 #'                                           label = "lab", test = "pval", effect="fx"))
 as_flextable.crosstable = function(x, autofit = TRUE, compact = FALSE, show_test_name = TRUE, 
-                              by_header = NULL, keep_id = FALSE,
-                              generic_labels=list(id = ".id", variable = "variable", value = "value", 
-                                                  total="Total", label = "label", test = "test", 
-                                                  effect="effect"), 
-                              ...) {
+                                   by_header = NULL, keep_id = FALSE,
+                                   generic_labels=list(id = ".id", variable = "variable", value = "value", 
+                                                       total="Total", label = "label", test = "test", 
+                                                       effect="effect"), 
+                                   ...) {
     stopifnot(is.data.frame(x)) 
     border1 = fp_border(color = "black", style = "solid", width = 1)
     border2 = fp_border(color = "black", style = "solid", width = 1.5)

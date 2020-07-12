@@ -12,10 +12,10 @@ confint_numeric(object, level = 0.95)
 \item{level}{the confidence level required}
 }
 \value{
-
+the vector [conf_inf, conf_sup]
 }
 \description{
-Not an S3 method which might conflict with \link[stats:confint]{stats::confint}.
+Not an S3 method, which might have conflicted with \link[stats:confint]{stats::confint}.
 }
 \examples{
 confint_numeric(iris$Sepal.Length)

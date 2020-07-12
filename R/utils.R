@@ -212,12 +212,12 @@ sd_date = function(x, date_unit=c("auto", "seconds", "minutes", "hours", "days",
 
 #' Confidence interval of a numeric vector
 #'
-#' Not an S3 method which might conflict with [stats::confint].
+#' Not an S3 method, which might have conflicted with [stats::confint].
 #'
 #' @param object a vector, numeric or equivalent (date, logical...)
 #' @param level the confidence level required
 #'
-#' @return
+#' @return the vector \[conf_inf, conf_sup\]
 #'
 #' @export
 #'
@@ -241,7 +241,6 @@ confint_numeric = function(object, level=0.95){
 #'
 #' @export
 #' @param x a vector
-#' @param na.rm not used
 #' @author David Hajage
 N = function(x) {
     sum(!is.na(x))
@@ -251,7 +250,6 @@ N = function(x) {
 #'
 #' @export
 #' @param x a vector
-#' @param na.rm not used
 #' @author David Hajage
 na = function(x) {
     sum(is.na(x))

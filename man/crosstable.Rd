@@ -58,6 +58,8 @@ crosstable(
 
 \item{unique_numeric}{the number of non-missing different levels a variable should have to be considered as numeric}
 
+\item{date_format}{if \code{x} is a vector of Date or POSIXt, the format to apply (see \link{strptime} for formats)}
+
 \item{effect}{whether to compute a effect measure}
 
 \item{effect_args}{See \code{\link{crosstable_effect_args}} to override default behaviour.}

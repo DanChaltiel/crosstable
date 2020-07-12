@@ -24,6 +24,7 @@
 #' @param times when using formula with [survival::Surv()] objects, which times to summarize
 #' @param followup when using formula with [survival::Surv()] objects, whether to display follow-up time
 #' @param unique_numeric the number of non-missing different levels a variable should have to be considered as numeric
+#' @inheritParams format_fixed
 #' 
 #' @export
 #' @importFrom checkmate makeAssertCollection assertDataFrame assertCount assertLogical assertList assertSubset assertChoice reportAssertions

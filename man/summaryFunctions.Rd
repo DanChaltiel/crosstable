@@ -32,6 +32,8 @@ nna(x)
 \item \code{zero_digits} (default=\code{1}): the number of significant digits for values rounded to 0 (set to NULL to keep the original 0 value)
 \item \code{only_round} (default=\code{FALSE}): use \code{\link[=round]{round()}} instead of \code{\link[=format_fixed]{format_fixed()}}
 }}
+
+\item{level}{the confidence level required}
 }
 \description{
 Summary functions to use with \code{\link[=crosstable]{crosstable()}} or anywhere else.

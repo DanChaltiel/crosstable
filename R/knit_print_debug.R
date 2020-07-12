@@ -1,4 +1,6 @@
 
+
+
 #' For makrdown compatibility, cf https://github.com/davidgohel/flextable/issues/216
 #' @keywords internal
 #' @noRd
@@ -11,7 +13,7 @@ knit_print.flextable = function (x, ...) {
     library(htmltools)
     library(graphics)
     
-    is_bookdown <- isTRUE(knitr::opts_knit$get("bookdown.internal.label"))
+    is_bookdown <- isTRUE(opts_knit$get("bookdown.internal.label"))
     if (is.null(opts_knit$get("rmarkdown.pandoc.to"))) {
         knit_print(asis_output(html_str(x)))
     }
@@ -23,6 +25,7 @@ knit_print.flextable = function (x, ...) {
             else if (align == "right") 
                 tab_class <- "tabwid tabwid_right"
         }
+        # knit_print(asis_output(htmltools_value(x, class = tab_class, bookdown = is_bookdown)))
         knit_print(htmltools_value(x, class = tab_class, bookdown = is_bookdown))
     }
     else if (grepl("(latex|beamer)", opts_knit$get("rmarkdown.pandoc.to"))) {
