@@ -230,12 +230,12 @@ confint_numeric = function(object, level=0.95){
     ua = qnorm(1-a)
     .mean = mean(object, na.rm=TRUE)
     .sd = sd(object, na.rm=TRUE)
-    rtn = .mean+c(-1,1)*ua*.sd
+    rtn = .mean+c(-1,1)*ua*.sd/sqrt(length(object))
     nm = format_fixed(c(a, 1-a)*100, 1)
     names(rtn) = paste(nm, "%")
     rtn
 }
-
+ 
 
 #' Return the number of non NA observations
 #'
