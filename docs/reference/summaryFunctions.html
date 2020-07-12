@@ -215,6 +215,10 @@
 <li><p><code>only_round</code> (default=<code>FALSE</code>): use <code><a href='https://rdrr.io/r/base/Round.html'>round()</a></code> instead of <code><a href='format_fixed.html'>format_fixed()</a></code></p></li>
 </ul></td>
     </tr>
+    <tr>
+      <th>level</th>
+      <td><p>the confidence level required</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
@@ -248,7 +252,7 @@ In the case when the output of rounded values is zero, the use of the <code>zero
 <span class='co'>#dates</span>
 <span class='no'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span>(<span class='no'>mtcars</span>$<span class='no'>qsec</span>*<span class='fl'>3600</span>*<span class='fl'>24</span> , <span class='kw'>origin</span><span class='kw'>=</span><span class='st'>"2010-01-01"</span>)
 <span class='fu'>moystd</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "2010-01-18 21:22:12 (1.79 days)"</div><div class='input'><span class='fu'>minmax</span>(<span class='no'>x</span>, <span class='kw'>date_format</span><span class='kw'>=</span><span class='st'>"%d/%m/%Y"</span>)</div><div class='output co'>#&gt; [1] "15/01/2010 - 23/01/2010"</div><div class='input'>
-<span class='fu'>meanCI</span>(<span class='no'>iris</span>$<span class='no'>Sepal.Length</span>)</div><div class='output co'>#&gt; <span class='error'>Error in confint_numeric(x, na.rm = na.rm, level = level): unused argument (na.rm = na.rm)</span></div><div class='input'><span class='fu'>meanCI</span>(<span class='no'>mtcars2</span>$<span class='no'>x_date</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='error'>Error in confint_numeric(x, na.rm = na.rm, level = level): unused argument (na.rm = na.rm)</span></div></pre>
+<span class='fu'>meanCI</span>(<span class='no'>iris</span>$<span class='no'>Sepal.Length</span>)</div><div class='output co'>#&gt; [1] "5.84 [4.22;7.47]"</div><div class='input'><span class='fu'>meanCI</span>(<span class='no'>mtcars2</span>$<span class='no'>x_date</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; <span class='warning'>Warning: argument is not numeric or logical: returning NA</span></div><div class='output co'>#&gt; [1] "NA [NA;NA]"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

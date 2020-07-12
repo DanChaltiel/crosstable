@@ -30,6 +30,7 @@ articles:
 - title: Main verbs
   navbar: ~
   contents:
+  - crosstable
   - crosstable-selection
   - crosstable-report
   - crosstable-install
@@ -59,17 +60,18 @@ reference:
   - cross_summary
   - na
   - "N"
-  - plim
-  - format_fixed
 - title: "Officer helpers"
-  desc: "..."
+  desc: "Used in cooperation with the `officer` package"
 - contents: 
   - starts_with("body_add_")
 - title: "Utils"
-  desc: "..."
+  desc: "Practical functions for various purposes"
 - contents: 
-  - compact
+  - format_fixed
   - as_flextable
+  - compact
+  - plim
+  - confint_numeric
 - title: "Effects and tests"
 - subtitle: "Default parameters"
 - contents: 

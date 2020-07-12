@@ -55,7 +55,7 @@
   
 
 <meta property="og:title" content="Confidence interval of a numeric vector — confint_numeric" />
-<meta property="og:description" content="Not an S3 method which might conflict with stats::confint." />
+<meta property="og:description" content="Not an S3 method, which might have conflicted with stats::confint." />
 <meta property="og:image" content="https://danchaltiel.github.io/crosstable/apple-touch-icon-180x180.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -180,7 +180,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Not an S3 method which might conflict with <a href='https://rdrr.io/r/stats/confint.html'>stats::confint</a>.</p>
+    <p>Not an S3 method, which might have conflicted with <a href='https://rdrr.io/r/stats/confint.html'>stats::confint</a>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>confint_numeric</span>(<span class='no'>object</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>)</pre>
@@ -200,9 +200,7 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
-
-
+    <p>the vector [conf_inf, conf_sup]</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>confint_numeric</span>(<span class='no'>iris</span>$<span class='no'>Sepal.Length</span>)</div><div class='output co'>#&gt;    2.5 %   97.5 % 
