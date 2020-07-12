@@ -189,8 +189,15 @@ test_that("numeric+factor+surv by dummy", {
 })
 
 
-# Funs arguments --------------------------------------------------
-test_that("Funs arguments", {
+
+# Functions ---------------------------------------------------------------
+test_that("Functions work", {
+  x = crosstable(mtcars3, c(disp, hp, am), by=vs, funs=c(meanCI), 
+                 funs_arg = list(level=0.99))
+  x %>% as_flextable()
+})
+
+test_that("Function arguments work", {
   name = "test_funs_arg.Rds"
   x = crosstable(mtcars3, c(disp, hp, am), by=vs, funs=c(moystd,quantile), 
                  funs_arg = list(dig=3, probs=c(0.25,0.75)), 
