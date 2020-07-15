@@ -30,7 +30,7 @@
 #' @importFrom checkmate makeAssertCollection assertDataFrame assertCount assertLogical assertList assertSubset assertChoice reportAssertions
 #' @importFrom rlang quos enquos enquo expr quo_is_null is_null is_quosures is_formula is_string is_empty is_lambda as_function set_env quo_squash caller_env warn abort 
 #' @importFrom tidyselect vars_select eval_select everything any_of
-#' @importFrom dplyr select mutate_if n_distinct
+#' @importFrom dplyr select mutate_if n_distinct across
 #' @importFrom purrr map map_lgl map_chr
 #' @importFrom stringr str_detect
 #' @importFrom glue glue
@@ -180,21 +180,27 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
     
     # Data-management *****************************************************
     # browser()
-    data_x = data_x %>% 
-        mutate_if(is.logical, 
-                  ~.x %>% as.character() %>% set_label(get_label(.x))) %>% 
-        mutate_if(~is.numeric(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric, 
-                  ~{
-                      .x = .x %>% as.character() %>% set_label(get_label(.x))
-                      class(.x) = c("character", "unique_numeric")
-                      .x
-                  })
-    data_y = data_y %>% 
-        mutate_if(is.logical, 
-                  ~.x %>% as.character() %>% set_label(get_label(.x))) %>% 
-        mutate_if(~is.numeric(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric, 
-                  ~.x %>% as.character() %>% set_label(get_label(.x)))
+    data_x = data_x %>% mutate(
+        across(where(is.logical), 
+               ~.x %>% as.character() %>% set_label(get_label(.x))),
+        across(where(~is.numeric(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric), 
+               ~{
+                   .x = as.character(.x) %>% set_label(get_label(.x))
+                   class(.x) = c("character", "unique_numeric")
+                   .x
+               })
+    )
     
+    data_y = data_y %>% mutate(
+        across(where(is.logical), 
+               ~.x %>% as.character() %>% set_label(get_label(.x))),
+        across(where(~is.numeric(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric), 
+               ~{
+                   .x = as.character(.x) %>% set_label(get_label(.x))
+                   class(.x) = c("character", "unique_numeric")
+                   .x
+               })
+    )
     
     
     # Return checks *******************************************************
@@ -229,7 +235,7 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
                    cor_method=cor_method, times=times, followup=followup, test=test, test_args=test_args,
                    effect=effect, effect_args=effect_args, label=label)
         
-    
+    # browser()
     
     # Attributes and return ***********************************************
     class(rtn) = c("crosstable", "data.frame")
