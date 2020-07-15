@@ -12,6 +12,7 @@ cross_by = function(data_x, data_y, funs, funs_arg, margin, total, percent_digit
     errors = data.frame(name=character(0), class=character(0))
     
     rtn_tbl = map_dfr(names(data_x), ~{
+        if(all(is.na(data_x[[.x]]))) data_x[[.x]] = "NA"
         if(is.numeric.and.not.surv(data_x[[.x]]) || is.date(data_x[[.x]])){
             rtn=cross_numeric(data_x[.x], data_y, funs=funs, funs_arg=funs_arg, 
                               showNA=showNA, total=total, label=label, 
