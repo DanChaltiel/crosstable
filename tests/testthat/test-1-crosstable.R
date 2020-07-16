@@ -1,21 +1,6 @@
 
 # Init --------------------------------------------------------------------
 
-# mtcars2 %>% map(class)
-
-# mtcars3 = tibble(.rows = nrow(mtcars2))
-# mtcars3$x_char = mtcars2$am
-# mtcars3$x_char_na = mtcars2$vs
-# mtcars3$x_num = mtcars2$mpg
-# mtcars3$x_num_na = mtcars2$drat
-# mtcars3$x_fact_num = mtcars2$cyl
-# mtcars3$x_fact_char = as.factor(mtcars2$vs)
-# mtcars3$x_date = as.Date(mtcars2$hp , origin="2010-01-01")
-# mtcars3$x_posix = as.POSIXct(mtcars2$qsec*3600*24 , origin="2010-01-01")
-# mtcars3$dummy = "dummy"
-# mtcars3$surv = Surv(mtcars2$disp, mtcars2$am=="manual") %>% set_label("Survival")
-
-
 do_save=FALSE
 # do_save=TRUE
 
@@ -195,6 +180,8 @@ test_that("Functions work", {
   x = crosstable(mtcars3, c(disp, hp, am), by=vs, funs=c(meanCI), 
                  funs_arg = list(level=0.99))
   x %>% as_flextable()
+  expect_equal(dim(x), c(4,6))
+  expect_equal(sum(is.na(x)), 0)
 })
 
 test_that("Function arguments work", {
@@ -355,16 +342,15 @@ test_that("Effects", {
   expect_equal(x$effect[1], "Hazard ratio (Wald CI) (NA vs FALSE): 1.54\n95%CI [0.42 to 5.63]")
 })
 
-
-
-
 test_that("Effects never fail", {
   
   set.seed(1234)
   args = crosstable_effect_args()
+  can_be_by = function(x) !is.Surv(x) && !is.date(x) && !all(is.na(x))
+  
   expect_warning({
     x=names(mtcars3) %>% set_names() %>% map(~{
-      if(!is.Surv(mtcars3[[.x]]) && !is.date(mtcars3[[.x]])) {
+      if(can_be_by(mtcars3[[.x]])) {
         crosstable(mtcars3, by=any_of(.x), effect=T, effect_args=args)$effect %>% 
           table %>% as.data.frame()
       }
@@ -380,7 +366,7 @@ test_that("Effects never fail", {
   expect_warning({
     x=names(mtcars3) %>% set_names() %>% map(~{
       # print(.x)
-      if(!is.Surv(mtcars3[[.x]]) && !is.date(mtcars3[[.x]])) {
+      if(can_be_by(mtcars3[[.x]])) {
         crosstable(mtcars3, by=any_of(.x), effect=T, effect_args=args)$effect %>% 
           table %>% as.data.frame()
       }
@@ -396,7 +382,7 @@ test_that("Effects never fail", {
   expect_warning({
     x=names(mtcars3) %>% set_names() %>% map(~{
       # print(.x)
-      if(!is.Surv(mtcars3[[.x]]) && !is.date(mtcars3[[.x]])) {
+      if(can_be_by(mtcars3[[.x]])) {
         crosstable(mtcars3, by=any_of(.x), effect=T, effect_args=args)$effect %>% 
           table %>% as.data.frame()
       }
