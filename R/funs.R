@@ -257,7 +257,8 @@ get_label = function(x, default=names(x)){
 #'    mutate(mpg2=set_label(mpg, "Miles per gallon")) %>% 
 #'    crosstable(mpg, mpg2)
 set_label = function(x, value){
-  assert_string(value, null.ok=TRUE)
+  if(is.null(value) || is.na(value)) return(x)
+  assert_string(value)
   if(is.list(x)){
     for (each in seq_along(x)) 
       x[[each]] = set_label(x[[each]], value)
@@ -296,6 +297,7 @@ remove_label = function(x){
 }
 
 #' Import labels from a dataset
+#' @description `import_labels` imports labels from a data.frame (`data_label`) to another one (`.tbl`).
 #'
 #' @param .tbl the data.frame to labellize
 #' @param data_label a data.frame from which to import labels
@@ -308,24 +310,56 @@ remove_label = function(x){
 #'
 #' @seealso [get_label], [set_label], [remove_label]
 #' @examples
-#' iris_label = tibble::tibble(name=c("Sepal.Length", "Sepal.Width",
-#'                                    "Petal.Length", "Petal.Width", "Species"),
-#'                             label=c("Length of Sepals", "Width of Sepals",
-#'                                     "Length of Petals", "Width of Petals", "Specie name"))
+#' #import the labels from a data.frame to another
+#' iris_label = data.frame(
+#'   name=c("Sepal.Length", "Sepal.Width",
+#'          "Petal.Length", "Petal.Width", "Species"),
+#'   label=c("Length of Sepals", "Width of Sepals",
+#'           "Length of Petals", "Width of Petals", "Specie name")
+#' )
 #' iris %>% 
 #'   import_labels(iris_label) %>% 
 #'   crosstable
-import_labels = function(.tbl, data_label, name_from = "name", label_from = "label", 
+#'   
+import_labels = function(.tbl, data_label = get_last_save(), 
+                         name_from = "name", label_from = "label", 
                          verbose=TRUE){
   data_label = as.data.frame(data_label)
   for(i in 1:nrow(data_label)){
     name = as.character(data_label[i, name_from])
     label = as.character(data_label[i, label_from])
-    if(is.null(.tbl[[name]]) && verbose){
-      warning(glue("Cannot import label, variable '{name}' not found"))
-    } else {
+    if(!is.null(.tbl[[name]])){
       .tbl[name] = set_label(.tbl[name], label)
+    } else if(verbose){
+      warning(glue("Cannot import label, variable '{name}' not found"))
     }
   }
   .tbl
+}
+
+#' @rdname import_labels
+#' @description `save_labels` saves the labels from a data.frame in a temporary variable that can be retrieve by `import_labels`.
+#' @export
+#' @examples 
+#' #save the labels, use some dplyr label-removing function, then retrieve the labels
+#' mtcars2 %>%
+#'   save_labels() %>% 
+#'   transmute(disp=as.numeric(disp)+1) %>%
+#'   import_labels(verbose=FALSE) %>% #
+#'   crosstable(disp)
+save_labels = function(.tbl){
+  labels_env$last_save = tibble(
+    name=names(.tbl),
+    label=get_label(.tbl)[name]
+  )
+  .tbl
+}
+
+labels_env = rlang::new_environment()
+# ls(envir=labels_env)
+
+#' @keywords internal
+#' @noRd
+get_last_save = function(){
+  labels_env$last_save
 }

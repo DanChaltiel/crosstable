@@ -2,15 +2,18 @@
 % Please edit documentation in R/funs.R
 \name{import_labels}
 \alias{import_labels}
+\alias{save_labels}
 \title{Import labels from a dataset}
 \usage{
 import_labels(
   .tbl,
-  data_label,
+  data_label = get_last_save(),
   name_from = "name",
   label_from = "label",
   verbose = TRUE
 )
+
+save_labels(.tbl)
 }
 \arguments{
 \item{.tbl}{the data.frame to labellize}
@@ -24,16 +27,28 @@ import_labels(
 \item{verbose}{if TRUE, displays a warning if a variable name is not found in \code{data_label}}
 }
 \description{
-Import labels from a dataset
+\code{import_labels} imports labels from a data.frame (\code{data_label}) to another one (\code{.tbl}).
+
+\code{save_labels} saves the labels from a data.frame in a temporary variable that can be retrieve by \code{import_labels}.
 }
 \examples{
-iris_label = tibble::tibble(name=c("Sepal.Length", "Sepal.Width",
-                                   "Petal.Length", "Petal.Width", "Species"),
-                            label=c("Length of Sepals", "Width of Sepals",
-                                    "Length of Petals", "Width of Petals", "Specie name"))
+#import the labels from a data.frame to another
+iris_label = data.frame(
+  name=c("Sepal.Length", "Sepal.Width",
+         "Petal.Length", "Petal.Width", "Species"),
+  label=c("Length of Sepals", "Width of Sepals",
+          "Length of Petals", "Width of Petals", "Specie name")
+)
 iris \%>\% 
   import_labels(iris_label) \%>\% 
   crosstable
+  
+#save the labels, use some dplyr label-removing function, then retrieve the labels
+mtcars2 \%>\%
+  save_labels() \%>\% 
+  transmute(disp=as.numeric(disp)+1) \%>\%
+  import_labels(verbose=FALSE) \%>\% #
+  crosstable(disp)
 }
 \seealso{
 \link{get_label}, \link{set_label}, \link{remove_label}
