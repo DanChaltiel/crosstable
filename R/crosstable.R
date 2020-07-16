@@ -84,6 +84,7 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
         
         coll = makeAssertCollection()    
         assertDataFrame(data, null.ok=FALSE, add=coll)
+        data=as.data.frame(data)
         assertCount(percent_digits, add=coll)
         assertLogical(label, add=coll)
         assertList(funs_arg, add=coll)
@@ -179,7 +180,6 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
     
     
     # Data-management *****************************************************
-    # browser()
     data_x = data_x %>% mutate(
         across(where(is.logical), 
                ~.x %>% as.character() %>% set_label(get_label(.x))),
@@ -201,7 +201,6 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
                    .x
                })
     )
-    
     
     # Return checks *******************************************************
     if(ncol(data_y)>1) stop("Crosstable does not support multiple `by` columns.")
@@ -234,8 +233,6 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
                    margin=margin, total=total, percent_digits=percent_digits, showNA=showNA,
                    cor_method=cor_method, times=times, followup=followup, test=test, test_args=test_args,
                    effect=effect, effect_args=effect_args, label=label)
-        
-    # browser()
     
     # Attributes and return ***********************************************
     class(rtn) = c("crosstable", "data.frame")
