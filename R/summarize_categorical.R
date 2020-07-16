@@ -46,6 +46,7 @@ summarize_categorical_by = function(x, by, margin, showNA, total, digits,
                                     test, test_args, effect, effect_args){
     nn = table(x, by, useNA = showNA)
     .tbl = as.data.frame(nn, responseName="Freq", stringsAsFactors=FALSE)
+    
     if(identical(margin,-1)){
         rtn = .tbl %>% 
             transmute(variable=replace_na(x, "NA"), by=.data$by, Freq=.data$Freq) %>% 
@@ -55,13 +56,15 @@ summarize_categorical_by = function(x, by, margin, showNA, total, digits,
         .ptbl = margin %>% 
             map(~{
                 if(.x==0)
-                    .ptbl=table(x, by, useNA="no") %>% {./sum(.)}
+                    tmp=table(x, by, useNA="no") %>% {./sum(.)}
                 else
-                    .ptbl=table(x, by, useNA="no") %>% prop.table(margin=.x)
-                .ptbl %>% as.data.frame(responseName=paste0("p",.x), stringsAsFactors=FALSE) %>%
-                    mutate_at(vars(starts_with("p")), ~format_fixed(100*., digits=digits)) %>%
-                    mutate_at(vars(starts_with("p")), ~paste0(.,"%"))
-            }) %>% reduce(left_join, by=c("x", "by")) %>% 
+                    tmp=table(x, by, useNA="no") %>% prop.table(margin=.x)
+                tmp %>% 
+                    as.data.frame(responseName=paste0("p",.x), stringsAsFactors=FALSE) %>%
+                    mutate(across(starts_with("p"), 
+                                  ~format_fixed(100*., digits=digits) %>% paste0("%")))
+            }) %>% 
+            reduce(left_join, by=c("x", "by")) %>% 
             unite(col="p", starts_with("p"), sep=" / ")
         rtn = .tbl %>% 
             left_join(.ptbl, by=c("x", "by")) %>% 
