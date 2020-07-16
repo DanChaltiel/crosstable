@@ -204,6 +204,8 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
     
     # Return checks *******************************************************
     if(ncol(data_y)>1) stop("Crosstable does not support multiple `by` columns.")
+    if(ncol(data_y)>0 && all(is.na(data_y))) stop("The `by` column contains only missing values")
+    
     if(ncol(data_y)==0) {
         test=effect=FALSE
         data_y=NULL
