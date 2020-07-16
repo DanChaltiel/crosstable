@@ -52,6 +52,8 @@ doc = read_docx() %>%
   body_add_break() 
 ```
 
+Beware when using the whole `tidyverse`, as `crosstable::compact` conflicts with `purrr::compact`. You can solve this using an alias (`my_compact=crosstable::compact`) or using the `conflicted` package.
+
 ```{r save, include=FALSE}
 # stop("Working directory = ", getwd())
 if(file.exists("../examples"))

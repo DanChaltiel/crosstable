@@ -55,7 +55,8 @@
   
 
 <meta property="og:title" content="Import labels from a dataset — import_labels" />
-<meta property="og:description" content="Import labels from a dataset" />
+<meta property="og:description" content="import_labels imports labels from a data.frame (data_label) to another one (.tbl).
+save_labels saves the labels from a data.frame in a temporary variable that can be retrieve by import_labels." />
 <meta property="og:image" content="https://danchaltiel.github.io/crosstable/apple-touch-icon-180x180.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary" />
@@ -102,7 +103,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4</span>
       </span>
     </div>
 
@@ -180,16 +181,19 @@
     </div>
 
     <div class="ref-description">
-    <p>Import labels from a dataset</p>
+    <p><code>import_labels</code> imports labels from a data.frame (<code>data_label</code>) to another one (<code>.tbl</code>).</p>
+<p><code>save_labels</code> saves the labels from a data.frame in a temporary variable that can be retrieve by <code>import_labels</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>import_labels</span>(
   <span class='no'>.tbl</span>,
-  <span class='no'>data_label</span>,
+  <span class='kw'>data_label</span> <span class='kw'>=</span> <span class='fu'>get_last_save</span>(),
   <span class='kw'>name_from</span> <span class='kw'>=</span> <span class='st'>"name"</span>,
   <span class='kw'>label_from</span> <span class='kw'>=</span> <span class='st'>"label"</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+)
+
+<span class='fu'>save_labels</span>(<span class='no'>.tbl</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -221,10 +225,13 @@
     <div class='dont-index'><p><a href='get_label.html'>get_label</a>, <a href='set_label.html'>set_label</a>, <a href='remove_label.html'>remove_label</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>iris_label</span> <span class='kw'>=</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>,
-                                   <span class='st'>"Petal.Length"</span>, <span class='st'>"Petal.Width"</span>, <span class='st'>"Species"</span>),
-                            <span class='kw'>label</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Length of Sepals"</span>, <span class='st'>"Width of Sepals"</span>,
-                                    <span class='st'>"Length of Petals"</span>, <span class='st'>"Width of Petals"</span>, <span class='st'>"Specie name"</span>))
+    <pre class="examples"><div class='input'><span class='co'>#import the labels from a data.frame to another</span>
+<span class='no'>iris_label</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  <span class='kw'>name</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>,
+         <span class='st'>"Petal.Length"</span>, <span class='st'>"Petal.Width"</span>, <span class='st'>"Species"</span>),
+  <span class='kw'>label</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Length of Sepals"</span>, <span class='st'>"Width of Sepals"</span>,
+          <span class='st'>"Length of Petals"</span>, <span class='st'>"Width of Petals"</span>, <span class='st'>"Specie name"</span>)
+)
 <span class='no'>iris</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>import_labels</span>(<span class='no'>iris_label</span>) <span class='kw'>%&gt;%</span>
   <span class='no'>crosstable</span></div><div class='output co'>#&gt;             .id            label   variable         value
@@ -246,7 +253,17 @@
 #&gt; 16  Petal.Width  Width of Petals     N (NA)       150 (0)
 #&gt; 17      Species      Specie name     setosa   50 (33.33%)
 #&gt; 18      Species      Specie name versicolor   50 (33.33%)
-#&gt; 19      Species      Specie name  virginica   50 (33.33%)</div></pre>
+#&gt; 19      Species      Specie name  virginica   50 (33.33%)</div><div class='input'>
+<span class='co'>#save the labels, use some dplyr label-removing function, then retrieve the labels</span>
+<span class='no'>mtcars2</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>save_labels</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>transmute</span>(<span class='kw'>disp</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>disp</span>)+<span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>import_labels</span>(<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span> <span class='co'>#</span>
+  <span class='fu'><a href='crosstable.html'>crosstable</a></span>(<span class='no'>disp</span>)</div><div class='output co'>#&gt;    .id                 label   variable               value
+#&gt; 1 disp Displacement (cu.in.)  Min / Max        72.1 / 473.0
+#&gt; 2 disp Displacement (cu.in.)  Med [IQR] 197.3 [121.8;327.0]
+#&gt; 3 disp Displacement (cu.in.) Mean (std)       231.7 (123.9)
+#&gt; 4 disp Displacement (cu.in.)     N (NA)              32 (0)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
