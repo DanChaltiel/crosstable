@@ -342,6 +342,7 @@ import_labels = function(.tbl, data_label = get_last_save(),
 #' @export
 #' @examples 
 #' #save the labels, use some dplyr label-removing function, then retrieve the labels
+#' library(dplyr)
 #' mtcars2 %>%
 #'   save_labels() %>% 
 #'   transmute(disp=as.numeric(disp)+1) %>%
