@@ -21,7 +21,7 @@ Imports:
     checkmate,
     dplyr (>= 1.0.0),
     ellipsis,
-    flextable,
+    flextable (>= 0.5.8),
     glue,
     lifecycle,
     nortest,
