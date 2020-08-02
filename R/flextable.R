@@ -20,7 +20,7 @@
 #' @importFrom stringr str_replace str_replace_all str_remove
 #' @importFrom flextable flextable autofit add_header_row merge_v merge_h bold align hline_top hline_bottom border_inner_h hline fix_border_issues as_flextable
 #' @importFrom officer fp_border
-#' @importFrom checkmate expect_class vname
+#' @importFrom checkmate assert_class vname
 #' @importFrom tibble as_tibble
 #' @importFrom tidyr replace_na
 #' @export
@@ -48,7 +48,7 @@ as_flextable.crosstable = function(x, autofit = TRUE, compact = FALSE, show_test
                                                        total="Total", label = "label", test = "test", 
                                                        effect="effect"), 
                                    ...) {
-    expect_class(x, "crosstable", label=vname(x))
+    assert_class(x, "crosstable", .var.name=vname(x))
     border1 = fp_border(color = "black", style = "solid", width = 1)
     border2 = fp_border(color = "black", style = "solid", width = 1.5)
     labs.names = setdiff(names(x), generic_labels)

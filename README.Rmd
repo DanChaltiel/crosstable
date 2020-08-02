@@ -64,6 +64,7 @@ library(crosstable)
 library(dplyr)
 ct1 = crosstable(mtcars2, disp, vs, by=am, margin=c("row", "col"), total="both") %>%
     as_flextable()
+ct1
 ```
 
 ```{r, include=FALSE}
@@ -74,13 +75,13 @@ flextable::save_as_image(ct1, "man/figures/ct1.png")
   <img src="man/figures/ct1.png" alt="crosstable1">
 </p>
 
-With a few arguments, you can select some columns to describe (`disp, vs`), define a grouping variable (`by=am`), set the percentage calculation (`margin`) and ask for totals (`total`). 
+With a few arguments, you can select which column to describe (`disp, vs`), define a grouping variable (`by=am`), set the percentage calculation (`margin`) and ask for totals (`total`). 
 
 `mtcars2` is a dataset which has labels, so they are displayed instead of the variable name (see [here](https://danchaltiel.github.io/crosstable/articles/crosstable.html#dataset-modified-mtcars) for how to add some). 
 
 `crosstable` is returning a plain R object (`data.frame`), but using `as_flextable` allows to output a beautiful HTML table that can be exported to Word with a few more lines of code (see [here](https://danchaltiel.github.io/crosstable/articles/crosstable-report.html) to learn how).
 
-Here is another example:
+Here is a more advanced example:
 
 ```{r usage2, eval=TRUE, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
 ct2 = crosstable(mtcars2, starts_with("c"), ends_with("t"), by=vs, 
@@ -97,7 +98,7 @@ flextable::save_as_image(ct2, "man/figures/ct2.png")
 </p>
 
 
-Here, the variables were selected using `tidyselect` helpers and the summary functions were specified.
+Here, the variables were selected using `tidyselect` helpers and the summary functions were specified with argument.
 
 ## More
 

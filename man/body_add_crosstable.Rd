@@ -13,11 +13,15 @@ body_add_crosstable(
 )
 }
 \arguments{
-\item{doc}{a \code{rdocx} object created by \code{read_docx} function (see \code{officer} package)}
+\item{doc}{a \code{rdocx} object, created by \code{\link[officer:read_docx]{officer::read_docx()}}}
 
-\item{x}{a \code{crosstable}}
+\item{x}{a \code{crosstable} object}
 
-\item{...}{further arguments for \code{as_flextable.crosstable}}
+\item{body_fontsize}{fontsize of the body}
+
+\item{header_fontsize}{fontsize of the header}
+
+\item{...}{further arguments passed to \code{\link[=as_flextable.crosstable]{as_flextable.crosstable()}}}
 }
 \description{
 \code{\link[=body_add_crosstable]{body_add_crosstable()}} adds such a \code{flextable} an \code{officer} document.

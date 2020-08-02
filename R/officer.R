@@ -82,13 +82,15 @@ body_add_title = function(doc, value, level = 1, style = "heading") {
 #' Add a crosstable to an `officer` document
 #' @description [body_add_crosstable()] adds such a `flextable` an `officer` document.
 #'
-#' @param doc a \code{rdocx} object created by \code{read_docx} function (see \code{officer} package)
-#' @param x a `crosstable`
-#' @param ... further arguments for \code{as_flextable.crosstable}
+#' @param doc a `rdocx` object, created by [officer::read_docx()]
+#' @param x a `crosstable` object
+#' @param body_fontsize fontsize of the body
+#' @param header_fontsize fontsize of the header
+#' @param ... further arguments passed to [as_flextable.crosstable()]
 #'
 #' @export
 #' @importFrom flextable body_add_flextable fontsize
-#' @importFrom checkmate expect_class vname
+#' @importFrom checkmate assert_class vname
 #' 
 #' @examples 
 #' #Officer
@@ -107,7 +109,7 @@ body_add_title = function(doc, value, level = 1, style = "heading") {
 #' }
 body_add_crosstable = function (doc, x, body_fontsize=NULL, 
                                 header_fontsize=ceiling(body_fontsize*1.2), ...) {
-    expect_class(x, "crosstable", label=vname(x))
+    assert_class(x, "crosstable", .var.name=vname(x))
     ft = as_flextable(x, ...)
     if(length(body_fontsize)!=0)
         fontsize(ft, size = body_fontsize, part = "body")

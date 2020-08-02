@@ -29,7 +29,7 @@
 #' @export
 #' @importFrom checkmate makeAssertCollection assertDataFrame assertCount assertLogical assertList assertSubset assertChoice reportAssertions
 #' @importFrom rlang quos enquos enquo expr quo_is_null is_null is_quosures is_formula is_string is_empty is_lambda as_function set_env quo_squash caller_env warn abort 
-#' @importFrom tidyselect vars_select eval_select everything any_of
+#' @importFrom tidyselect vars_select eval_select everything any_of 
 #' @importFrom dplyr select mutate_if n_distinct across
 #' @importFrom purrr map map_lgl map_chr
 #' @importFrom stringr str_detect

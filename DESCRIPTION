@@ -39,6 +39,7 @@ Suggests:
     crayon,
     DescTools,
     gt,
+    ggplot2,
     gmodels,
     Hmisc,
     knitr,

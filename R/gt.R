@@ -1,7 +1,6 @@
-
-#' Turns a `crosstable` object into a formatted `gt` table
-#'
-#' @param data the result of [crosstable()]
+#' Converts a `crosstable` object into a formatted `gt` table.
+#' 
+#' @param x the result of [crosstable()]
 #' @param show_test_name in the `test` column, show the test name
 #' @param by_header a string to override the `by` header
 #' @param keep_id whether to keep the `.id` column
@@ -9,49 +8,44 @@
 #' @param ... unused
 #'
 #' @author Dan Chaltiel
-#' @describeIn as_gt Turns a `crosstable` object into a formatted `gt` table.
 #' @family as_gt methods
 #' @seealso [as_flextable.crosstable()]
 #' 
-#' @importFrom checkmate expect_class vname
+#' @importFrom checkmate assert_class vname
 #' @importFrom stringr str_remove
 #' @importFrom dplyr %>% mutate across everything any_of lag select
 #' @importFrom glue glue
-#' @importFrom gt gt tab_spanner
 #' @export
 #'
 #' @examples
-#' xx = mtcars2 %>% select(1:9)
+#' xx = mtcars2 %>% dplyr::select(1:9)
 #' crosstable(xx) %>% as_gt
 #' crosstable(xx, by=am) %>% as_gt
-#' crosstable(xx, by=am, test=T, total=T, effect=T) %>% as_gt(keep_id=TRUE)
-as_gt.crosstable = function(data, show_test_name = TRUE, 
+#' crosstable(xx, by=am, test=TRUE, total=TRUE, effect=TRUE) %>% as_gt(keep_id=TRUE)
+as_gt.crosstable = function(x, show_test_name = TRUE, 
                             by_header = NULL, keep_id = FALSE,
                             generic_labels=list(id = ".id", variable = "variable", value = "value", 
                                                 total="Total", label = "label", test = "test", 
                                                 effect="effect"), 
                             ...) {
     
-    expect_class(data, "crosstable", label=vname(data))
-    if (inherits(data, "compacted_crosstable")) {
+    assert_class(x, "crosstable", .var.name=vname(x))
+    if (inherits(x, "compacted_crosstable")) {
         stop("`as_gt` is not implemented for compacted crosstable yet.")
     }
     
-    # has_effect = attr(data, "has_effect")
-    # has_total = attr(data, "has_total")
-    # has_label = attr(data, "has_label")
-    by_label = attr(data, "by_label")
-    by_levels = attr(data, "by_levels") %>% replace_na("NA")
-    by = attr(data, "by")
+    by_label = attr(x, "by_label")
+    by_levels = attr(x, "by_levels") %>% replace_na("NA")
+    by = attr(x, "by")
     has_by =  !is.null(by)
     if(has_by && is.null(by_label)) by_label=by
-    showNA = attr(data, "showNA")
+    showNA = attr(x, "showNA")
     if(showNA=="always") by_levels=c(by_levels, "NA")
     
-    has_test = attr(data, "has_test")
+    has_test = attr(x, "has_test")
     test=generic_labels$test
-    if (has_test && !is.null(data[[test]]) && !show_test_name) {
-        data[[test]] = str_remove(data[[test]], "\\n\\(.*\\)")
+    if (has_test && !is.null(x[[test]]) && !show_test_name) {
+        x[[test]] = str_remove(x[[test]], "\\n\\(.*\\)")
     }
     
     if(keep_id) {
@@ -60,36 +54,34 @@ as_gt.crosstable = function(data, show_test_name = TRUE,
         group_glue="{label}"
     }
     
-    rtn = data %>% 
+    rtn = x %>% 
         mutate(
             across(everything(), replace_na, replace="NA"), 
             across(any_of(c("test", "effect")), 
                    ~ifelse(is.na(lag(.x)) | .x!=lag(.x), .x, "")), 
             groupname=glue(group_glue)) %>% 
-        select(-.id, -label) %>% 
-        gt(groupname_col="groupname", rowname_col="variable")
+        select(-.data$.id, -.data$label) %>% 
+        gt::gt(groupname_col="groupname", rowname_col="variable")
     
     if(has_by){
         if(!is.null(by_header)) by_label=by_header
         rtn = rtn %>%
-            tab_spanner(label=by_label, columns=any_of(by_levels))
+            gt::tab_spanner(label=by_label, columns=any_of(by_levels))
     }
     
     rtn
 }
 
 
-#' Generic method
-#' 
-#' @param data 
-#' @param ... 
+#' Method to convert an object to a `gt` table
 #'
-#' @name as_gt 
-#' @rdname as_gt 
+#' @param x object to be converted
+#' @param ... arguments for custom methods
+#'
 #' @family as_gt methods
 #' @seealso [gt::gt()]
 #' @export
-as_gt = function(data, ...){
+as_gt = function(x, ...){
     if (!requireNamespace("gt", quietly = TRUE)) {
         stop("Package \"gt\" is obviously needed for this function to work. Please install it.",
              call. = FALSE)
@@ -98,11 +90,16 @@ as_gt = function(data, ...){
 }
 
 
-#' @importFrom gt gt
+#' Default method to convert an object to a `gt` table
+#'
+#' @param x object to be converted
+#' @param ... arguments for custom methods
+#'
 #' @family as_gt methods
 #' @export
-as_gt.default = function(data, ...){
-    gt(data, ...)
+as_gt.default = function(x, ...){
+    gt::gt(data=x, ...)
 }
+
 
 

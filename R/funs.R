@@ -365,7 +365,7 @@ import_labels = function(.tbl, data_label = get_last_save(),
 save_labels = function(.tbl){
   labels_env$last_save = tibble(
     name=names(.tbl),
-    label=get_label(.tbl)[name]
+    label=get_label(.tbl)[.data$name]
   )
   .tbl
 }
