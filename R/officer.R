@@ -127,9 +127,10 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #' @param seqfield to figure this out, in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.
 #'
 #' @section Warning:
-#' Sometimes, the legends added with `body_add_table_legend` have no numbers. In this case, you have to manualy update the references: select all (\kbd{Ctrl+\kbd{A}), then update (\kbd{F9}).
+#' Sometimes, the legends added with `body_add_table_legend` have no numbers. In this case, you have to manualy update the references: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}).
 #' @importFrom officer body_add_par slip_in_text slip_in_seqfield
 #' @export
+#' 
 #' @examples 
 #' library(officer)
 #' library(dplyr) #for pipes

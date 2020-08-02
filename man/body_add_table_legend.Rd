@@ -37,7 +37,7 @@ Add a table legend to an \code{officer} document
 }
 \section{Warning}{
 
-Sometimes, the legends added with \code{body_add_table_legend} have no numbers. In this case, you have to manualy update the references: select all (\kbd{Ctrl+\kbd{A}), then update (\kbd{F9}).
+Sometimes, the legends added with \code{body_add_table_legend} have no numbers. In this case, you have to manualy update the references: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}).
 }
 
 \examples{
