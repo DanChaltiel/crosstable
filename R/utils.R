@@ -262,3 +262,10 @@ N = function(x) {
 na = function(x) {
     sum(is.na(x))
 }
+
+
+
+
+# Check silencing ---------------------------------------------------------
+
+utils::globalVariables("where")
