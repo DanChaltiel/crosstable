@@ -1,25 +1,26 @@
 
 
-#' Turns a `crosstable` object into a `flextable`
+#' Turns a `crosstable` object into a formatted `flextable`
 #'
 #' @param x the result of [crosstable()]
+#' @param autofit whether to use [flextable::autofit()] on the table
 #' @param compact whether to compact the table
-#' @param autofit whether to use \code{flextable::autofit} on the table
 #' @param show_test_name in the `test` column, show the test name
-#' @param generic_labels names of the crosstable default columns 
 #' @param by_header a string to override the `by` header
 #' @param keep_id whether to keep the `.id` column
+#' @param generic_labels names of the crosstable default columns 
 #' @param ... unused
 #'
 #' @author Dan Chaltiel
 #' @aliases ctf cross_to_flextable
-#' @describeIn as_flextable Turns a `crosstable` object into a formatted `flextable`.\cr You can also use the alias `cross_to_flextable` or its shortcut `ctf()` which has the same arguments.
-#' @seealso [crosstable()], [flextable::flextable()]
+#' @describeIn as_flextable Turns a `crosstable` object into a formatted `flextable`.
+#' @seealso [crosstable()], [flextable::flextable()], [as_gt.crosstable()]
 #' 
-#' @importFrom dplyr select lead sym %>% setdiff
+#' @importFrom dplyr select lead sym %>%
 #' @importFrom stringr str_replace str_replace_all str_remove
 #' @importFrom flextable flextable autofit add_header_row merge_v merge_h bold align hline_top hline_bottom border_inner_h hline fix_border_issues as_flextable
 #' @importFrom officer fp_border
+#' @importFrom checkmate expect_class vname
 #' @importFrom tibble as_tibble
 #' @importFrom tidyr replace_na
 #' @export
@@ -35,19 +36,19 @@
 #' crosstable(iris, by=Species, test = TRUE) %>% as_flextable(compact=TRUE)
 #' crosstable(iris) %>% as_flextable(compact=TRUE, autofit=TRUE)
 #' 
-#' #Renaming
+#' #Renaming (because why not?)
 #' crosstable(iris, by=Species, total="both", test=TRUE, effect=TRUE) %>%
 #'    rename(ID=.id, math=variable, Tot=Total, lab=label, pval=test, fx=effect) %>%
 #'    as_flextable(by_header = "The specie", 
-#'                       generic_labels=list(id = "ID", variable = "math", total="Tot", 
-#'                                           label = "lab", test = "pval", effect="fx"))
+#'                 generic_labels=list(id = "ID", variable = "math", total="Tot", 
+#'                                     label = "lab", test = "pval", effect="fx"))
 as_flextable.crosstable = function(x, autofit = TRUE, compact = FALSE, show_test_name = TRUE, 
                                    by_header = NULL, keep_id = FALSE,
                                    generic_labels=list(id = ".id", variable = "variable", value = "value", 
                                                        total="Total", label = "label", test = "test", 
                                                        effect="effect"), 
                                    ...) {
-    stopifnot(is.data.frame(x)) 
+    expect_class(x, "crosstable", label=vname(x))
     border1 = fp_border(color = "black", style = "solid", width = 1)
     border2 = fp_border(color = "black", style = "solid", width = 1.5)
     labs.names = setdiff(names(x), generic_labels)
@@ -147,8 +148,5 @@ ctf = cross_to_flextable
 #' @name as_flextable 
 #' @rdname as_flextable 
 #' @importFrom flextable as_flextable
-#' @aliases as_flextable.crosstable
 #' @export
 flextable::as_flextable
-
-
