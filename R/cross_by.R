@@ -13,6 +13,12 @@ cross_by = function(data_x, data_y, funs, funs_arg, margin, total, percent_digit
     
     rtn_tbl = map_dfr(names(data_x), ~{
         if(all(is.na(data_x[[.x]]))) data_x[[.x]] = "NA"
+        
+        if(inherits(data_x[[.x]], "difftime")){ 
+            lab=get_label(data_x[[.x]])
+            data_x[[.x]] =  as.numeric(data_x[[.x]]) %>% set_label(lab)
+        }
+        
         if(is.numeric.and.not.surv(data_x[[.x]]) || is.date(data_x[[.x]])){
             rtn=cross_numeric(data_x[.x], data_y, funs=funs, funs_arg=funs_arg, 
                               showNA=showNA, total=total, label=label, 
