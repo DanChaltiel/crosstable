@@ -51,7 +51,7 @@ reference:
   - import_labels
   - set_label
   - get_label
-  - remove_label
+  - remove_labels
 - title: "Summary functions"
   desc: "Summarise numeric variables"
 - contents: 
@@ -68,6 +68,7 @@ reference:
 - contents: 
   - format_fixed
   - as_flextable
+  - as_gt.crosstable
   - compact
   - plim
   - confint_numeric
