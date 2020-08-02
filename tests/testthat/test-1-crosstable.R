@@ -62,6 +62,22 @@ test_that("numeric+factor by numeric: ", {
   expect_equal(sum(is.na(x1)), 0)
 })
 
+test_that("difftime is OK: ", {
+  x1=crosstable(mtcars3, diff)
+  expect_equal(dim(x1), c(4,4))
+  expect_equal(sum(is.na(x1)), 0)
+  x2=crosstable(mtcars3, diff, by=disp)
+  expect_equal(dim(x2), c(1,4))
+  expect_equal(sum(is.na(x2)), 0)
+  x3=crosstable(mtcars3, diff, by=cyl)
+  expect_equal(dim(x3), c(4,7))
+  expect_equal(sum(is.na(x3)), 0)
+})
+
+
+
+
+
 
 # By numeric=factor minimum of unique levels  ---------------------------------------
 test_that("by factor if numeric <= 3 levels", {
@@ -346,7 +362,7 @@ test_that("Effects never fail", {
   
   set.seed(1234)
   args = crosstable_effect_args()
-  can_be_by = function(x) !is.Surv(x) && !is.date(x) && !all(is.na(x))
+  can_be_by = function(x) !is.Surv(x) && !is.date(x) && !all(is.na(x)) && !inherits(x, "difftime")
   
   expect_warning({
     x=names(mtcars3) %>% set_names() %>% map(~{
