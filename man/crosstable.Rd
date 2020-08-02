@@ -104,5 +104,5 @@ library(survival)
 crosstable(aml, Surv(time, status) ~ x,times=c(0,15,30,150), followup=TRUE)
 }
 \seealso{
-as_flextable, import_labels
+https://danchaltiel.github.io/crosstable/, as_flextable, import_labels
 }

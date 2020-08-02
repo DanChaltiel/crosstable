@@ -31,7 +31,7 @@ cross_by = function(data_x, data_y, funs, funs_arg, margin, total, percent_digit
         }
         
         if(is.null(rtn)){
-            errors <<- rbind(errors, data.frame(name=.x, class=paste(class(remove_label(data_x[[.x]])), collapse=", ")))
+            errors <<- rbind(errors, data.frame(name=.x, class=paste_classes(data_x[[.x]]))
         }
         
         rtn
@@ -46,7 +46,7 @@ cross_by = function(data_x, data_y, funs, funs_arg, margin, total, percent_digit
         } else {
             warning(call. = FALSE, 
                     glue("Cannot cross column{s} {errors_s} by column '{y}' ({yy})", 
-                         y=names(data_y[1]),  yy=paste(class(remove_label(data_y[[1]] )), collapse=", ")))
+                         y=names(data_y[1]),  yy=paste_classes(data_y[[1]])
         }
     }
     

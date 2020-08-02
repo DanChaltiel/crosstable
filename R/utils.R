@@ -171,6 +171,14 @@ is.date = function(x){
         inherits(x, "POSIXct") || inherits(x, "POSIXlt")
 }
 
+#' paste all classes (minus "labelled")
+#'
+#' @param x x
+#' @keywords internal
+#' @noRd
+paste_classes = function(x){
+    paste(class(remove_labels(x)), collapse=", ")
+}
 
 
 # Misc --------------------------------------------------------------------

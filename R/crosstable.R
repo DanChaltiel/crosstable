@@ -37,7 +37,7 @@
 #' @importFrom ellipsis check_dots_unnamed
 #' @importFrom stats model.frame
 #' 
-#' @seealso as_flextable, import_labels
+#' @seealso https://danchaltiel.github.io/crosstable/, as_flextable, import_labels
 #' 
 #' @examples
 #' #whole table
@@ -84,7 +84,7 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
         
         coll = makeAssertCollection()    
         assertDataFrame(data, null.ok=FALSE, add=coll)
-        data=as.data.frame(data)
+        data = as.data.frame(data)
         assertCount(percent_digits, add=coll)
         assertLogical(label, add=coll)
         assertList(funs_arg, add=coll)
@@ -222,11 +222,11 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
     if(!is.null(data_y) && !is.numeric.and.not.surv(data_y[[1]]) && !is.character.or.factor(data_y[[1]])){
         abort(c("Crosstable only supports numeric, logical, character or factor `by` columns.",
                 i=glue("`by` was pointing to the column '{y}' ({yy})", 
-                       y=names(data_y[1]), yy=class(remove_label(data_y[[1]]))[1])) #TODO paste collapse
+                       y=names(data_y[1]), yy=paste_classes(data_y[[1]])))
         )
     }
     
-    x_class = map_chr(data_x, ~paste0(class(remove_label(.x)), collapse=', '))
+    x_class = map_chr(data_x, ~paste_classes(.x))
     y_class = class(data_y[[1]])
 
     # Function call *******************************************************
