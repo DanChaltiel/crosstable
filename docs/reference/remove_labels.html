@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>test for correlation coefficients — test_correlation_auto • crosstable</title>
+<title>Remove all label attributes. — remove_labels • crosstable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -54,8 +54,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="test for correlation coefficients — test_correlation_auto" />
-<meta property="og:description" content="test for correlation coefficients" />
+<meta property="og:title" content="Remove all label attributes. — remove_labels" />
+<meta property="og:description" content="Use remove_labels() to remove the label from an object or to recursively remove all the labels from a collection of objects (such as a list or a data.frame).   This can be useful with functions reacting badly to labelled objects." />
 <meta property="og:image" content="https://danchaltiel.github.io/crosstable/apple-touch-icon-180x180.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary" />
@@ -174,38 +174,39 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>test for correlation coefficients</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/test.R'><code>R/test.R</code></a></small>
-    <div class="hidden name"><code>test_correlation_auto.Rd</code></div>
+    <h1>Remove all label attributes.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/funs.R'><code>R/funs.R</code></a></small>
+    <div class="hidden name"><code>remove_labels.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>test for correlation coefficients</p>
+    <p>Use <code>remove_labels()</code> to remove the label from an object or to recursively remove all the labels from a collection of objects (such as a list or a data.frame). <br /> <br /> This can be useful with functions reacting badly to labelled objects.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>test_correlation_auto</span>(<span class='no'>x</span>, <span class='no'>by</span>, <span class='no'>method</span>)</pre>
+    <pre class="usage"><span class='fu'>remove_labels</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>vector</p></td>
-    </tr>
-    <tr>
-      <th>by</th>
-      <td><p>another vector</p></td>
-    </tr>
-    <tr>
-      <th>method</th>
-      <td><p>"pearson", "kendall", or "spearman"</p></td>
+      <td><p>object to unlabel</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>the correlation test with appropriate method</p>
+    <div class='dont-index'><p><a href='get_label.html'>get_label</a>, <a href='set_label.html'>set_label</a>, <a href='import_labels.html'>import_labels</a>, <a href='https://rdrr.io/pkg/expss/man/unlab.html'>expss::unlab</a></p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>mtcars2</span> <span class='kw'>%&gt;%</span> <span class='no'>remove_labels</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='crosstable.html'>crosstable</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>) <span class='co'>#no labels</span></div><div class='output co'>#&gt;   .id label   variable            value
+#&gt; 1 mpg   mpg  Min / Max      10.4 / 33.9
+#&gt; 2 mpg   mpg  Med [IQR] 19.2 [15.4;22.8]
+#&gt; 3 mpg   mpg Mean (std)       20.1 (6.0)
+#&gt; 4 mpg   mpg     N (NA)           32 (0)
+#&gt; 5 cyl   cyl          4      11 (34.38%)
+#&gt; 6 cyl   cyl          6       7 (21.88%)
+#&gt; 7 cyl   cyl          8      14 (43.75%)</div><div class='input'><span class='no'>mtcars2</span>$<span class='no'>hp</span> <span class='kw'>%&gt;%</span> <span class='no'>remove_labels</span> <span class='kw'>%&gt;%</span> <span class='no'>get_label</span> <span class='co'>#numeric</span></div><div class='output co'>#&gt; NULL</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

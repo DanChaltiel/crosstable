@@ -7,6 +7,9 @@
     <loc>https://danchaltiel.github.io/crosstable/reference/as_flextable.html</loc>
   </url>
   <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/as_gt.html</loc>
+  </url>
+  <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/body_add_crosstable.html</loc>
   </url>
   <url>
@@ -85,7 +88,7 @@
     <loc>https://danchaltiel.github.io/crosstable/reference/reexports.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable/reference/remove_label.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/remove_labels.html</loc>
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/set_label.html</loc>

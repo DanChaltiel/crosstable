@@ -255,9 +255,10 @@ save_labels saves the labels from a data.frame in a temporary variable that can 
 #&gt; 18      Species      Specie name versicolor   50 (33.33%)
 #&gt; 19      Species      Specie name  virginica   50 (33.33%)</div><div class='input'>
 <span class='co'>#save the labels, use some dplyr label-removing function, then retrieve the labels</span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 <span class='no'>mtcars2</span> <span class='kw'>%&gt;%</span>
   <span class='fu'>save_labels</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>transmute</span>(<span class='kw'>disp</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>disp</span>)+<span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>transmute</a></span>(<span class='kw'>disp</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>disp</span>)+<span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>import_labels</span>(<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span> <span class='co'>#</span>
   <span class='fu'><a href='crosstable.html'>crosstable</a></span>(<span class='no'>disp</span>)</div><div class='output co'>#&gt;    .id                 label   variable               value
 #&gt; 1 disp Displacement (cu.in.)  Min / Max        72.1 / 473.0

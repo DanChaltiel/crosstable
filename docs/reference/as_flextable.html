@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Turns a <code>crosstable</code> object into a <code>flextable</code> — as_flextable.crosstable • crosstable</title>
+<title>Turns a <code>crosstable</code> object into a formatted <code>flextable</code> — as_flextable.crosstable • crosstable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -54,7 +54,7 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Turns a <code>crosstable</code> object into a <code>flextable</code> — as_flextable.crosstable" />
+<meta property="og:title" content="Turns a <code>crosstable</code> object into a formatted <code>flextable</code> — as_flextable.crosstable" />
 <meta property="og:description" content="These objects are imported from other packages. Follow the links
 below to see their documentation.
 
@@ -179,7 +179,7 @@ below to see their documentation.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Turns a <code>crosstable</code> object into a <code>flextable</code></h1>
+    <h1>Turns a <code>crosstable</code> object into a formatted <code>flextable</code></h1>
     <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/flextable.R'><code>R/flextable.R</code></a></small>
     <div class="hidden name"><code>as_flextable.Rd</code></div>
     </div>
@@ -215,7 +215,7 @@ below to see their documentation.</p>
     </tr>
     <tr>
       <th>autofit</th>
-      <td><p>whether to use <code><a href='https://rdrr.io/pkg/flextable/man/autofit.html'>flextable::autofit</a></code> on the table</p></td>
+      <td><p>whether to use <code><a href='https://rdrr.io/pkg/flextable/man/autofit.html'>flextable::autofit()</a></code> on the table</p></td>
     </tr>
     <tr>
       <th>compact</th>
@@ -247,11 +247,11 @@ below to see their documentation.</p>
 
     
 <ul>
-<li><p><code>crosstable</code>: Turns a <code>crosstable</code> object into a formatted <code>flextable</code>.<br /> You can also use the alias <code>cross_to_flextable</code> or its shortcut <code>ctf()</code> which has the same arguments.</p></li>
+<li><p><code>crosstable</code>: Turns a <code>crosstable</code> object into a formatted <code>flextable</code>.</p></li>
 </ul>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='crosstable.html'>crosstable()</a></code>, <code><a href='https://rdrr.io/pkg/flextable/man/flextable.html'>flextable::flextable()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='crosstable.html'>crosstable()</a></code>, <code><a href='https://rdrr.io/pkg/flextable/man/flextable.html'>flextable::flextable()</a></code>, <code><a href='as_gt.html'>as_gt.crosstable()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>#Crosstables</span>
@@ -261,7 +261,7 @@ below to see their documentation.</p>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from 'package:base':</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='crosstable.html'>crosstable</a></span>(<span class='no'>mtcars2</span>) <span class='kw'>%&gt;%</span> <span class='fu'>as_flextable</span>()</div><div class='output co'>#&gt; a flextable object.
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='crosstable.html'>crosstable</a></span>(<span class='no'>mtcars2</span>) <span class='kw'>%&gt;%</span> <span class='fu'>as_flextable</span>()</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: testthat</span></div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `label`, `variable`, `value` 
 #&gt; header has 1 row(s) 
 #&gt; body has 46 row(s) 
@@ -353,12 +353,12 @@ below to see their documentation.</p>
 #&gt; 3    Med [IQR] 5.8 [5.1;6.4]
 #&gt; 4   Mean (std)     5.8 (0.8)
 #&gt; 5       N (NA)       150 (0)</div><div class='input'>
-<span class='co'>#Renaming</span>
+<span class='co'>#Renaming (because why not?)</span>
 <span class='fu'><a href='crosstable.html'>crosstable</a></span>(<span class='no'>iris</span>, <span class='kw'>by</span><span class='kw'>=</span><span class='no'>Species</span>, <span class='kw'>total</span><span class='kw'>=</span><span class='st'>"both"</span>, <span class='kw'>test</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>effect</span><span class='kw'>=</span><span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span>
    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span>(<span class='kw'>ID</span><span class='kw'>=</span><span class='no'>.id</span>, <span class='kw'>math</span><span class='kw'>=</span><span class='no'>variable</span>, <span class='kw'>Tot</span><span class='kw'>=</span><span class='no'>Total</span>, <span class='kw'>lab</span><span class='kw'>=</span><span class='no'>label</span>, <span class='kw'>pval</span><span class='kw'>=</span><span class='no'>test</span>, <span class='kw'>fx</span><span class='kw'>=</span><span class='no'>effect</span>) <span class='kw'>%&gt;%</span>
    <span class='fu'>as_flextable</span>(<span class='kw'>by_header</span> <span class='kw'>=</span> <span class='st'>"The specie"</span>,
-                      <span class='kw'>generic_labels</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"ID"</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='st'>"math"</span>, <span class='kw'>total</span><span class='kw'>=</span><span class='st'>"Tot"</span>,
-                                          <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"lab"</span>, <span class='kw'>test</span> <span class='kw'>=</span> <span class='st'>"pval"</span>, <span class='kw'>effect</span><span class='kw'>=</span><span class='st'>"fx"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Could not calculate crosstable effects for variables 'Sepal.Length', 'Sepal.Width', 'Petal.Length' and 'Petal.Width'. Aren't there 2 groups exactly?</span></div><div class='output co'>#&gt; a flextable object.
+                <span class='kw'>generic_labels</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"ID"</span>, <span class='kw'>variable</span> <span class='kw'>=</span> <span class='st'>"math"</span>, <span class='kw'>total</span><span class='kw'>=</span><span class='st'>"Tot"</span>,
+                                    <span class='kw'>label</span> <span class='kw'>=</span> <span class='st'>"lab"</span>, <span class='kw'>test</span> <span class='kw'>=</span> <span class='st'>"pval"</span>, <span class='kw'>effect</span><span class='kw'>=</span><span class='st'>"fx"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Could not calculate crosstable effects for variables 'Sepal.Length', 'Sepal.Width', 'Petal.Length' and 'Petal.Width'. Aren't there 2 groups exactly?</span></div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `lab`, `math`, `setosa`, `versicolor`, `virginica`, `Tot`, `fx`, `pval` 
 #&gt; header has 2 row(s) 
 #&gt; body has 16 row(s) 
