@@ -364,3 +364,29 @@ labels_env = rlang::new_environment()
 get_last_save = function(){
   labels_env$last_save
 }
+
+#' Removes all labels
+#' 
+#' Removes the label of a vector and all labels of a data.frame
+#' 
+#' Can be useful with functions reacting badly to labelled objects.
+#'
+#' @param x 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' mtcars2 %>% clear_labels %>% crosstable(1:2) #no labels
+#' mtcars2$hp %>% clear_labels %>% get_label #numeric
+clear_labels = function(x){
+  if (is.list(x)) {
+    for (i in 1:length(x)) class(x[[i]]) = setdiff(class(x[[i]]), "labelled")
+    for (i in 1:length(x)) attr(x[[i]], "label") <- NULL
+  }
+  else {
+    class(x) <- setdiff(class(x), "labelled")
+    attr(x, "label") <- NULL
+  }
+  return(x)
+}
