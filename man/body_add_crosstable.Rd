@@ -4,7 +4,13 @@
 \alias{body_add_crosstable}
 \title{Add a crosstable to an \code{officer} document}
 \usage{
-body_add_crosstable(doc, x, ...)
+body_add_crosstable(
+  doc,
+  x,
+  body_fontsize = NULL,
+  header_fontsize = ceiling(body_fontsize * 1.2),
+  ...
+)
 }
 \arguments{
 \item{doc}{a \code{rdocx} object created by \code{read_docx} function (see \code{officer} package)}
