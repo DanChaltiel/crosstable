@@ -122,15 +122,20 @@ body_add_crosstable = function (doc, x, ...) {
 #' @param seqfield to figure this out, in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.
 #'
 #' @section Warning:
-#' Sometimes, you need to manually add a table legend in MS Word for all the legends added with `body_add_table_legend` to have a number.
+#' Sometimes, the legends added with `body_add_table_legend` have no numbers. In this case, you have to manualy update the references: select all (\kbd{Ctrl+\kbd{A}), then update (\kbd{F9}).
 #' @importFrom officer body_add_par slip_in_text slip_in_seqfield
 #' @export
 #' @examples 
 #' library(officer)
 #' library(dplyr) #for pipes
+#' library(ggplot2)
+#' p=quickplot(x=Sepal.Length, y=Sepal.Width, color=Species, data=iris)
 #' x=read_docx() %>% 
+#'     body_add_table_legend("Iris dataset") %>% 
 #'     body_add_crosstable(crosstable(iris)) %>% 
-#'     body_add_table_legend("Iris dataset")
+#'     body_add_gg(p) %>% 
+#'     body_add_figure_legend("Iris plot")
+#' #print(x, "example.docx")
 body_add_table_legend = function(x, legend, legend_style="table title", style="strong", 
                                  seqfield="SEQ Table \\* Arabic"){
     x %>% 
@@ -138,5 +143,16 @@ body_add_table_legend = function(x, legend, legend_style="table title", style="s
         slip_in_text(str=": ", style=style, pos="before") %>% 
         slip_in_seqfield(str=seqfield, style=style, pos="before") %>% 
         slip_in_text(str="Table ", style=style, pos="before") %>%
+        identity
+}
+
+#' @rdname body_add_table_legend
+#' @export
+body_add_figure_legend = function (x, legend, legend_style = "graphic title", style = "strong", 
+                                   seqfield = "SEQ Figure \\* Arabic") {
+    x %>% body_add_par(value = legend, style = legend_style) %>% 
+        slip_in_text(str = ": ", style = style, pos = "before") %>% 
+        slip_in_seqfield(str = seqfield, style = style, pos = "before") %>% 
+        slip_in_text(str = "Figure ", style = style, pos = "before") %>% 
         identity
 }

@@ -2,6 +2,7 @@
 % Please edit documentation in R/officer.R
 \name{body_add_table_legend}
 \alias{body_add_table_legend}
+\alias{body_add_figure_legend}
 \title{Add a table legend to an \code{officer} document}
 \usage{
 body_add_table_legend(
@@ -10,6 +11,14 @@ body_add_table_legend(
   legend_style = "table title",
   style = "strong",
   seqfield = "SEQ Table \\\\* Arabic"
+)
+
+body_add_figure_legend(
+  x,
+  legend,
+  legend_style = "graphic title",
+  style = "strong",
+  seqfield = "SEQ Figure \\\\* Arabic"
 )
 }
 \arguments{
@@ -28,13 +37,18 @@ Add a table legend to an \code{officer} document
 }
 \section{Warning}{
 
-Sometimes, you need to manually add a table legend in MS Word for all the legends added with \code{body_add_table_legend} to have a number.
+Sometimes, the legends added with \code{body_add_table_legend} have no numbers. In this case, you have to manualy update the references: select all (\kbd{Ctrl+\kbd{A}), then update (\kbd{F9}).
 }
 
 \examples{
 library(officer)
 library(dplyr) #for pipes
+library(ggplot2)
+p=quickplot(x=Sepal.Length, y=Sepal.Width, color=Species, data=iris)
 x=read_docx() \%>\% 
+    body_add_table_legend("Iris dataset") \%>\% 
     body_add_crosstable(crosstable(iris)) \%>\% 
-    body_add_table_legend("Iris dataset")
+    body_add_gg(p) \%>\% 
+    body_add_figure_legend("Iris plot")
+#print(x, "example.docx")
 }
