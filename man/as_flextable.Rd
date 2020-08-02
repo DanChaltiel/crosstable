@@ -6,7 +6,7 @@
 \alias{ctf}
 \alias{cross_to_flextable}
 \alias{as_flextable}
-\title{Turns a \code{crosstable} object into a \code{flextable}}
+\title{Turns a \code{crosstable} object into a formatted \code{flextable}}
 \usage{
 \method{as_flextable}{crosstable}(
   x,
@@ -23,7 +23,7 @@
 \arguments{
 \item{x}{the result of \code{\link[=crosstable]{crosstable()}}}
 
-\item{autofit}{whether to use \code{flextable::autofit} on the table}
+\item{autofit}{whether to use \code{\link[flextable:autofit]{flextable::autofit()}} on the table}
 
 \item{compact}{whether to compact the table}
 
@@ -39,7 +39,7 @@
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{crosstable}: Turns a \code{crosstable} object into a formatted \code{flextable}.\cr You can also use the alias \code{cross_to_flextable} or its shortcut \code{ctf()} which has the same arguments.
+\item \code{crosstable}: Turns a \code{crosstable} object into a formatted \code{flextable}.
 }}
 
 \examples{
@@ -53,15 +53,15 @@ crosstable(iris, by=Species, test = TRUE) \%>\% as_flextable(autofit=FALSE)
 crosstable(iris, by=Species, test = TRUE) \%>\% as_flextable(compact=TRUE)
 crosstable(iris) \%>\% as_flextable(compact=TRUE, autofit=TRUE)
 
-#Renaming
+#Renaming (because why not?)
 crosstable(iris, by=Species, total="both", test=TRUE, effect=TRUE) \%>\%
    rename(ID=.id, math=variable, Tot=Total, lab=label, pval=test, fx=effect) \%>\%
    as_flextable(by_header = "The specie", 
-                      generic_labels=list(id = "ID", variable = "math", total="Tot", 
-                                          label = "lab", test = "pval", effect="fx"))
+                generic_labels=list(id = "ID", variable = "math", total="Tot", 
+                                    label = "lab", test = "pval", effect="fx"))
 }
 \seealso{
-\code{\link[=crosstable]{crosstable()}}, \code{\link[flextable:flextable]{flextable::flextable()}}
+\code{\link[=crosstable]{crosstable()}}, \code{\link[flextable:flextable]{flextable::flextable()}}, \code{\link[=as_gt.crosstable]{as_gt.crosstable()}}
 }
 \author{
 Dan Chaltiel

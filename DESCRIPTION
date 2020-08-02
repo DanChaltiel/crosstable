@@ -38,6 +38,7 @@ Suggests:
     covr,
     crayon,
     DescTools,
+    gt,
     gmodels,
     Hmisc,
     knitr,
