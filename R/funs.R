@@ -130,7 +130,10 @@ meansd = function(x, na.rm = TRUE, dig = 2, ...) {
 }
 
 #' @export
-moystd=meansd
+moystd=function(...){
+  deprecate_warn("0.1.4", "moystd()", "meansd()")
+  meansd(...)
+}
 
 
 
