@@ -1,13 +1,21 @@
 <!-- https://style.tidyverse.org/news.html -->
 
+# crosstable 0.1.5 <sub><sup>(2020-08-02)</sup></sub>
+
+* added minimal support for `gt` tables (with `as_gt()`) for those who like them better than `flextable`s
+* improved working with `officer`: added `body_add_figure_legend()` and `fontsize` options for `body_add_crosstable()`
+
+# crosstable 0.1.4 <sub><sup>(2020-07-16)</sup></sub>
+
+* added `save_labels()` to ease working with `dplyr`
+* added `meanCI()` an additional summary function to use in `crosstable()`'s `funs` argument
+* improved support for `Date` variables
+* multiple, numerous bug fixes
+* renamed `moystd()` to `meansd()`
+
 # crosstable 0.1.3 <sub><sup>(2020-06-29)</sup></sub>
 
-### New feature
-
 * Added support for description of `Date` variables. Format can be specified in `funs_arg` with the `date_format` key. 
-
-### Misc
-
 * Removed some dependencies to ease installation
 
 # crosstable 0.1.2 <sub><sup>(2020-06-10)</sup></sub>
@@ -28,7 +36,7 @@
 
 ### Misc
 
-* Method `cross_to_flextable()` was deprecated and renamed `as_flextable()` ([#207]() https://github.com/davidgohel/flextable/issues/207))
+* Method `cross_to_flextable()` was deprecated and renamed `as_flextable()` ([#207](https://github.com/davidgohel/flextable/issues/207))
 * Reexporting pipes and tidyselect helpers so that user does not have to load these libraries
 * Computing time optimization (speed x2.6!)
 * Fixed bug in normality testing
