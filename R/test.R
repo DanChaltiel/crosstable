@@ -423,6 +423,10 @@ test_tabular_auto2 = function (x, y) {
   if(is.ordered(x) & is.ordered(y)){
     test = cor.test(as.numeric(x), as.numeric(y), method = "spearman", exact = FALSE)
   } else if((is.ordered(x) | is.ordered(y)) & any(dim(tab)==2)){
+    if (!requireNamespace("DescTools", quietly = TRUE)) {
+      stop("Package \"DescTools\" needed for this function to work. Please install it.",
+           call. = FALSE)
+    }
     test = DescTools::CochranArmitageTest(tab, alternative = "two.sided")
   } else{
     exp = rowSums(tab) %*% t(colSums(tab))/sum(tab)
