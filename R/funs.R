@@ -275,14 +275,18 @@ set_label = function(x, value){
 
 #' Remove all label attributes.
 #'
+#' Use `remove_labels()` to remove the label from an object or to recursively remove all the labels from a collection of objects (such as a list or a data.frame). \cr \cr This can be useful with functions reacting badly to labelled objects.
+#' 
 #' @param x object to unlabel
 #'
 #' @export
+#' @rdname remove_labels
+#' @aliases remove_label
 #' @seealso [get_label], [set_label], [import_labels], [expss::unlab]
 #' @examples 
-#' crosstable(remove_label(mtcars2))
-#' crosstable(mtcars2)
-remove_label = function(x){
+#' mtcars2 %>% remove_labels %>% crosstable(1:2) #no labels
+#' mtcars2$hp %>% remove_labels %>% get_label #numeric
+remove_labels = function(x){
   if (is.null(x)) 
     return(x)
   if (is.list(x)) {
@@ -291,10 +295,17 @@ remove_label = function(x){
     return(x)
   }
   attr(x, "label") = NULL
-  attr(x, "labels") = NULL
-  class(x) = setdiff(class(x), c("labelled", "labelled_spss"))
+  class(x) = setdiff(class(x), c("labelled"))
   x
 }
+
+#' @rdname remove_labels
+#' @aliases remove_labels
+#' @param x object to unlabel
+#' @usage NULL
+#' @export
+remove_label = remove_labels
+
 
 #' Import labels from a dataset
 #' @description `import_labels` imports labels from a data.frame (`data_label`) to another one (`.tbl`).
