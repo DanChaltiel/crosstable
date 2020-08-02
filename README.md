@@ -5,20 +5,23 @@
 
 <!-- badges: start -->
 
-[![CRAN
-status](https://www.r-pkg.org/badges/version/crosstable)](https://CRAN.R-project.org/package=crosstable)
+[![Package-License](http://img.shields.io/badge/license-GPL--3-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/crosstable)](https://CRAN.R-project.org/package=crosstable)
+<!-- [![Downloads](http://cranlogs.r-pkg.org/badges/crosstable?color=brightgreen)](http://www.r-pkg.org/pkg/crosstable) -->
+[![Last
+Commit](https://img.shields.io/github/last-commit/DanChaltiel/crosstable)](https://github.com/DanChaltiel/crosstable)
 [![Build
 Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=master)](https://travis-ci.org/DanChaltiel/crosstable)
 [![Codecov test
 coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/master/graph/badge.svg)](https://codecov.io/gh/DanChaltiel/crosstable?branch=master)
-<!-- badges: end -->
-
-Crosstable is a package centered on a single function, `crosstable`,
-which easily computes descriptive statistics on datasets. It can use the
-`tidyverse` syntax and is interfaced with the package `officer` to
-create automatized reports.
+<!-- [![Dependencies](https://tinyverse.netlify.com/badge/crosstable)](https://cran.r-project.org/package=crosstable)  -->
+<!-- badges: end --> Crosstable is a package centered on a single
+function, `crosstable`, which easily computes descriptive statistics on
+datasets. It can use the `tidyverse` syntax and is interfaced with the
+package `officer` to create automatized reports.
 
 ## Installation
 
@@ -35,7 +38,7 @@ devtools::install_github("DanChaltiel/crosstable@v0.1.3", build_vignettes=TRUE)
 ```
 
 In case of any installation problem, try the solutions proposed in [this
-article](file:///F:/GITHUB/crosstable/docs/articles/crosstable-install.html)
+article](https://danchaltiel.github.io/crosstable/articles/crosstable-install.html)
 or fill an [Issue](https://github.com/DanChaltiel/crosstable/issues).
 
 ## Getting help
