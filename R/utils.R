@@ -28,8 +28,8 @@ inform_env = rlang::env()
 #' @keywords internal
 #' @noRd
 tryCatch2 = function(expr){
-    errors <- list()
-    warnings <- list()
+    errors = list()
+    warnings = list()
     rtn = withCallingHandlers(
         tryCatch(expr,
                  error=function(e) {errors <<- c(errors, conditionMessage(e)); return("error")}),
@@ -264,6 +264,25 @@ na = function(x) {
 }
 
 
+#' Small improvement around stringr::str_wrap in case there is no whitespace
+#'
+#' @param x character vector of strings to reformat
+#' @param width target line width
+#' @param ... passed on to stringr::str_wrap
+#'
+#' @keywords internal
+#' @importFrom stringr str_wrap str_replace_all
+#'
+#' @examples
+#' set.seed(0)
+#' x=sample(iris$Species, 10)
+#' x %>% paste(collapse="") %>% str_wrap2(20) %>% cat
+#' x %>% paste(collapse=" ") %>% str_wrap2(20) %>% cat
+str_wrap2 = function(x, width, ...){
+    ifelse(str_detect(x, " "),
+           str_wrap(x, width, ...),
+           str_replace_all(x, paste0("(.{",width,"})"), "\\1\n"))
+}
 
 
 # Check silencing ---------------------------------------------------------

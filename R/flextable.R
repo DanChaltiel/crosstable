@@ -76,7 +76,11 @@ as_flextable.crosstable = function(x, autofit = TRUE, compact = FALSE, show_test
         x = compact.crosstable(x)
     }
     
-    rtn = x %>% mutate_all(replace_na, replace="NA")
+    rtn = x %>% 
+        mutate(
+            across(everything(), replace_na, replace="NA"),
+            .id=str_wrap2(.id, width = getOption("crosstable_wrap_id", 70))
+        )
     
     if(inherits(x, "compacted_crosstable")) {
         rows = attr(x, "title_rows")
