@@ -59,6 +59,7 @@ In the case when the output of rounded values is zero, the use of the \code{zero
 
 \examples{
 moystd(iris$Sepal.Length, dig=3)
+meanCI(iris$Sepal.Length)
 minmax(iris$Sepal.Length, dig=3)
 mediqr(iris$Sepal.Length, dig=3)
 nna(iris$Sepal.Length)
@@ -72,14 +73,13 @@ moystd(x, dig=3, only_round=TRUE)
 options("crosstable_only_round"=TRUE)
 moystd(x, dig=3, zero_digits=2)
 options("crosstable_only_round"=NULL)
+meanCI(mtcars2$x_date)
 
 #dates
 x = as.POSIXct(mtcars$qsec*3600*24 , origin="2010-01-01")
 moystd(x)
 minmax(x, date_format="\%d/\%m/\%Y")
 
-meanCI(iris$Sepal.Length)
-meanCI(mtcars2$x_date)
 }
 \seealso{
 \code{\link[=format_fixed]{format_fixed()}}

@@ -4,28 +4,38 @@
 \alias{get_label}
 \title{Get label if wanted and available, or default (name) otherwise}
 \usage{
-get_label(x, default = names(x))
+get_label(x, default = names(x), object = FALSE)
 }
 \arguments{
-\item{x}{labelled object}
+\item{x}{labelled object. If \code{x} is a list/data.frame, \code{get_label()} will return the labels of all children recursively}
 
 \item{default}{value returned if there is no label. Default to \code{names(x)}.}
+
+\item{object}{if \code{x} is a list/data.frame, \code{object=TRUE} will force getting the labels of the object instead of the children}
 }
 \description{
 Get label if wanted and available, or default (name) otherwise
 }
 \examples{
+xx=mtcars2 \%>\% 
+  set_label("The mtcars2 dataset", object=TRUE)
+xx$cyl=remove_label(xx$cyl)
+
 #vectors
-get_label(mtcars2$mpg)
-get_label(mtcars$mpg)
-get_label(mtcars$mpg, default="foo")
-get_label(list(bar=mtcars$mpg)) #default to names
+get_label(xx$mpg) #label="Miles/(US) gallon"
+get_label(xx$cyl) #default to NULL (as names(xx$cyl)==NULL)
+get_label(xx$cyl, default="Default value")
 
 #data.frames
-get_label(mtcars2["mpg"])
-get_label(mtcars["mpg"]) #default to names
-get_label(mtcars["mpg"], default="bar")
+get_label(xx)
+get_label(xx, object=TRUE)
+data.frame(name=names(xx), label=get_label(xx, default=NA)) #cyl is NA
+
+#lists
+get_label(list(xx$cyl, xx$mpg))
+get_label(list(foo=xx$cyl, bar=xx$mpg))
+get_label(list(foo=xx$cyl, bar=xx$mpg), default="Default value")
 }
 \seealso{
-\link{set_label}, \link{import_labels}, \link{remove_label}, \link[Hmisc:label]{Hmisc::label}, \link[expss:var_lab]{expss::var_lab}
+\code{\link[=set_label]{set_label()}}, \code{\link[=import_labels]{import_labels()}}, \code{\link[=remove_label]{remove_label()}}, \code{\link[Hmisc:label]{Hmisc::label()}}, \code{\link[expss:var_lab]{expss::var_lab()}}
 }

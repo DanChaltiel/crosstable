@@ -4,12 +4,14 @@
 \alias{set_label}
 \title{Set the "label" attribute of an object}
 \usage{
-set_label(x, value)
+set_label(x, value, object = FALSE)
 }
 \arguments{
-\item{x}{object to labelise}
+\item{x}{object to labelise. If \code{x} is a list/data.frame, \code{set_label()} will return the labels of all children recursively}
 
 \item{value}{value of the label}
+
+\item{object}{if \code{x} is a list/data.frame, \code{object=TRUE} will force setting the labels of the object instead of the children}
 }
 \description{
 Set the "label" attribute of an object
@@ -21,5 +23,5 @@ mtcars \%>\%
    crosstable(mpg, mpg2)
 }
 \seealso{
-\link{get_label}, \link{import_labels}, \link{remove_label}
+\code{\link[=get_label]{get_label()}}, \code{\link[=import_labels]{import_labels()}}, \code{\link[=remove_label]{remove_label()}}
 }

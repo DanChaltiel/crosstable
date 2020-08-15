@@ -77,6 +77,7 @@ format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL, only_round
 #' 
 #' @examples 
 #' moystd(iris$Sepal.Length, dig=3)
+#' meanCI(iris$Sepal.Length)
 #' minmax(iris$Sepal.Length, dig=3)
 #' mediqr(iris$Sepal.Length, dig=3)
 #' nna(iris$Sepal.Length)
@@ -90,6 +91,7 @@ format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL, only_round
 #' options("crosstable_only_round"=TRUE)
 #' moystd(x, dig=3, zero_digits=2)
 #' options("crosstable_only_round"=NULL)
+#' meanCI(mtcars2$x_date)
 #' 
 #' #dates
 #' x = as.POSIXct(mtcars$qsec*3600*24 , origin="2010-01-01")
@@ -140,9 +142,6 @@ moystd=function(...){
 #' @describeIn summaryFunctions returns mean and confidence interval
 #' @param level the confidence level required
 #' @export
-#' @examples 
-#' meanCI(iris$Sepal.Length)
-#' meanCI(mtcars2$x_date)
 meanCI = function(x, na.rm = TRUE, dig = 2, level=0.95, ...) {
   .mean = mean(x, na.rm=na.rm) %>% 
     format_fixed(digits=dig, ...)
@@ -218,51 +217,69 @@ cross_summary = function(x, dig=1, ...) {
 
 #' Get label if wanted and available, or default (name) otherwise
 #'
-#' @param x labelled object
+#' @param x labelled object. If `x` is a list/data.frame, `get_label()` will return the labels of all children recursively
 #' @param default value returned if there is no label. Default to `names(x)`.
+#' @param object if `x` is a list/data.frame, `object=TRUE` will force getting the labels of the object instead of the children
 #'
 #' @export
-#' @seealso [set_label], [import_labels], [remove_label], [Hmisc::label], [expss::var_lab]
+#' @importFrom purrr map map2
+#' @seealso [set_label()], [import_labels()], [remove_label()], [Hmisc::label()], [expss::var_lab()]
 #' @examples 
+#' xx=mtcars2 %>% 
+#'   set_label("The mtcars2 dataset", object=TRUE)
+#' xx$cyl=remove_label(xx$cyl)
+#' 
 #' #vectors
-#' get_label(mtcars2$mpg)
-#' get_label(mtcars$mpg)
-#' get_label(mtcars$mpg, default="foo")
-#' get_label(list(bar=mtcars$mpg)) #default to names
+#' get_label(xx$mpg) #label="Miles/(US) gallon"
+#' get_label(xx$cyl) #default to NULL (as names(xx$cyl)==NULL)
+#' get_label(xx$cyl, default="Default value")
 #' 
 #' #data.frames
-#' get_label(mtcars2["mpg"])
-#' get_label(mtcars["mpg"]) #default to names
-#' get_label(mtcars["mpg"], default="bar")
-get_label = function(x, default=names(x)){
-  if(is.list(x)){
-    lab = sapply(x, attr, which="label", exact=TRUE, simplify=FALSE)
-    lab = unlist(lab)
+#' get_label(xx)
+#' get_label(xx, object=TRUE)
+#' data.frame(name=names(xx), label=get_label(xx, default=NA)) #cyl is NA
+#' 
+#' #lists
+#' get_label(list(xx$cyl, xx$mpg))
+#' get_label(list(foo=xx$cyl, bar=xx$mpg))
+#' get_label(list(foo=xx$cyl, bar=xx$mpg), default="Default value")
+get_label = function(x, default=names(x), object=FALSE){
+  if(is.list(x) && !object){
+    # browser()
+    if(is.null(default)) default=rep(NA, length(x))
+    if(length(default)>1 && length(x)!=length(default)) warning("prout")
+    lab = x %>% 
+      map(get_label) %>% 
+      map2(default, ~{if(is.null(.x)) .y else .x}) %>%
+      unlist()
   } else {
     lab = attr(x, "label", exact=TRUE)
+    if(is_null(lab)) lab=default
   }
-  if(is_null(lab)) return(default)
+  # stop("TODO")
   lab
 }
 
 
+
 #' Set the "label" attribute of an object
 #'
-#' @param x object to labelise
+#' @param x object to labelise. If `x` is a list/data.frame, `set_label()` will return the labels of all children recursively
 #' @param value value of the label
+#' @param object if `x` is a list/data.frame, `object=TRUE` will force setting the labels of the object instead of the children
 #'
 #' @importFrom checkmate assert_string
 #' @export
-#' @seealso [get_label], [import_labels], [remove_label]
+#' @seealso [get_label()], [import_labels()], [remove_label()]
 #' @examples 
 #' library(dplyr)
 #' mtcars %>% 
 #'    mutate(mpg2=set_label(mpg, "Miles per gallon")) %>% 
 #'    crosstable(mpg, mpg2)
-set_label = function(x, value){
+set_label = function(x, value, object=FALSE){
   if(is.null(value) || is.na(value)) return(x)
   assert_string(value)
-  if(is.list(x)){
+  if(is.list(x) && !object){
     for (each in seq_along(x)) 
       x[[each]] = set_label(x[[each]], value)
     return(x)
