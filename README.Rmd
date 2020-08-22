@@ -28,6 +28,7 @@ knitr::opts_chunk$set(
 [![Build Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=master)](https://travis-ci.org/DanChaltiel/crosstable)
 [![Codecov test coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/master/graph/badge.svg)](https://codecov.io/gh/DanChaltiel/crosstable?branch=master)
 <!-- [![Dependencies](https://tinyverse.netlify.com/badge/crosstable)](https://cran.r-project.org/package=crosstable)  -->
+[![R build status](https://github.com/DanChaltiel/crosstable/workflows/R-CMD-check/badge.svg)](https://github.com/DanChaltiel/crosstable/actions)
 <!-- badges: end -->
 Crosstable is a package centered on a single function, `crosstable`, which easily computes descriptive statistics on datasets. It can use the `tidyverse` syntax and is interfaced with the package `officer` to create automatized reports.
 
@@ -64,7 +65,6 @@ library(crosstable)
 library(dplyr)
 ct1 = crosstable(mtcars2, disp, vs, by=am, margin=c("row", "col"), total="both") %>%
     as_flextable()
-ct1
 ```
 
 ```{r, include=FALSE}

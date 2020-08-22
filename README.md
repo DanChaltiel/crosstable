@@ -18,6 +18,8 @@ Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=master)](https:/
 [![Codecov test
 coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/master/graph/badge.svg)](https://codecov.io/gh/DanChaltiel/crosstable?branch=master)
 <!-- [![Dependencies](https://tinyverse.netlify.com/badge/crosstable)](https://cran.r-project.org/package=crosstable)  -->
+[![R build
+status](https://github.com/DanChaltiel/crosstable/workflows/R-CMD-check/badge.svg)](https://github.com/DanChaltiel/crosstable/actions)
 <!-- badges: end --> Crosstable is a package centered on a single
 function, `crosstable`, which easily computes descriptive statistics on
 datasets. It can use the `tidyverse` syntax and is interfaced with the
@@ -68,7 +70,7 @@ ct1 = crosstable(mtcars2, disp, vs, by=am, margin=c("row", "col"), total="both")
 
 </p>
 
-With a few arguments, you can select some columns to describe (`disp,
+With a few arguments, you can select which column to describe (`disp,
 vs`), define a grouping variable (`by=am`), set the percentage
 calculation (`margin`) and ask for totals (`total`).
 
@@ -83,7 +85,7 @@ exported to Word with a few more lines of code (see
 [here](https://danchaltiel.github.io/crosstable/articles/crosstable-report.html)
 to learn how).
 
-Here is another example:
+Here is a more advanced example:
 
 ``` r
 ct2 = crosstable(mtcars2, starts_with("c"), ends_with("t"), by=vs, 
@@ -98,7 +100,7 @@ ct2 = crosstable(mtcars2, starts_with("c"), ends_with("t"), by=vs,
 </p>
 
 Here, the variables were selected using `tidyselect` helpers and the
-summary functions were specified.
+summary functions were specified with argument.
 
 ## More
 
