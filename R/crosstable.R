@@ -88,6 +88,8 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
         assertCount(percent_digits, add=coll)
         assertLogical(label, add=coll)
         assertList(funs_arg, add=coll)
+        if(isFALSE(showNA)) showNA="no"
+        if(isTRUE(showNA)) showNA="always"
         showNA = match.arg(showNA)
         cor_method = match.arg(cor_method)
         funs = clear_funs(funs)
