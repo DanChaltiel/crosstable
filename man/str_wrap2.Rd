@@ -4,7 +4,7 @@
 \alias{str_wrap2}
 \title{Small improvement around stringr::str_wrap in case there is no whitespace}
 \usage{
-str_wrap2(x, width = getOption("crosstable_wrap", 70), ...)
+str_wrap2(x, width, ...)
 }
 \arguments{
 \item{x}{character vector of strings to reformat}

@@ -78,8 +78,7 @@ as_flextable.crosstable = function(x, autofit = TRUE, compact = FALSE, show_test
     
     rtn = x %>% 
         mutate(
-            across(everything(), replace_na, replace="NA"),
-            .id=str_wrap2(.id, width = getOption("crosstable_wrap_id", 70))
+            across(everything(), replace_na, replace="NA")
         )
     
     if(inherits(x, "compacted_crosstable")) {
@@ -101,7 +100,10 @@ as_flextable.crosstable = function(x, autofit = TRUE, compact = FALSE, show_test
             body_merge = setdiff(names(rtn), 
                                  c(generic_labels[c("variable", "value", "total", "id")], by_levels))
         }
-        rtn = rtn  %>% 
+        rtn = rtn %>% 
+            mutate(
+                !!id:=str_wrap2(!!id, width = getOption("crosstable_wrap_id", 70))
+            )  %>% 
             flextable(col_keys=cols) %>% 
             hline(i=sep.rows, border=border1) %>% 
             merge_v(j=id, target=body_merge, part = "body")
