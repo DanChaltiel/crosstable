@@ -17,9 +17,11 @@ str_wrap2(x, width, ...)
 Small improvement around stringr::str_wrap in case there is no whitespace
 }
 \examples{
+\dontrun{
 set.seed(0)
 x=sample(iris$Species, 10)
 x \%>\% paste(collapse="") \%>\% str_wrap2(20) \%>\% cat
 x \%>\% paste(collapse=" ") \%>\% str_wrap2(20) \%>\% cat
+}
 }
 \keyword{internal}
