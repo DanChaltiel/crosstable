@@ -202,7 +202,7 @@ test_that("Functions work", {
 
 test_that("Function arguments work", {
   name = "test_funs_arg.Rds"
-  x = crosstable(mtcars3, c(disp, hp, am), by=vs, funs=c(moystd,quantile), 
+  x = crosstable(mtcars3, c(disp, hp, am), by=vs, funs=c(meansd, quantile), 
                  funs_arg = list(dig=3, probs=c(0.25,0.75)), 
                  total=T, showNA="always")
   x %>% as_flextable()
@@ -212,7 +212,7 @@ test_that("Function arguments work", {
     if(do_save)
       saveRDS(x, paste0("tests/testthat/rds/",name), version = 2)
     expect_equivalent(x, readRDS(paste0("tests/testthat/rds/",name)))
-    setdiff(readRDS(paste0("tests/testthat/rds/",name)), x)
+    waldo::compare(x, readRDS(paste0("tests/testthat/rds/",name)))
   }
 })
 
@@ -381,7 +381,7 @@ test_that("Effects never fail", {
   args$effect_tabular = effect_relative_risk
   expect_warning({
     x=names(mtcars3) %>% set_names() %>% map(~{
-      # print(.x)
+      if(!is_testing()) print(.x)
       if(can_be_by(mtcars3[[.x]])) {
         crosstable(mtcars3, by=any_of(.x), effect=T, effect_args=args)$effect %>% 
           table %>% as.data.frame()
@@ -428,8 +428,7 @@ test_that("Testing everything", {
     if(do_save)
       saveRDS(x, save_name, version = 2)
     expect_equivalent(x, readRDS(save_name))
-    setdiff(x, readRDS(save_name))$effect
-    setdiff(readRDS(save_name), x)$effect
+    waldo::compare(x, readRDS(save_name))
   }
 })
 
