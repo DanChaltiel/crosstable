@@ -8,8 +8,10 @@
 # MS Word files
 test*.docx
 ~*.docx
-TODO.R
 
+#test files
+TODO.R
+dev-*.R
 
 # Windows image file caches
 Thumbs.db
