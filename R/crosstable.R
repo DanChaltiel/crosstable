@@ -180,24 +180,25 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
     }
     
     
-    
     # Data-management *****************************************************
-    data_x = data_x %>% mutate(
-        across(where(is.logical), 
-               ~.x %>% as.character() %>% set_label(get_label(.x))),
-        across(where(~is.numeric(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric), 
-               ~{
-                   .x = as.character(.x) %>% set_label(get_label(.x))
-                   class(.x) = c("character", "unique_numeric")
-                   .x
-               })
-    )
+    if(ncol(data_x)>0){
+        data_x = data_x %>% mutate(
+            across(where(is.logical),
+                   ~.x %>% as.character() %>% set_label(get_label(.x))),
+            across(where(~is.numeric.and.not.surv(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric),
+                   ~{
+                       .x = as.character(.x) %>% set_label(get_label(.x))
+                       class(.x) = c("character", "unique_numeric")
+                       .x
+                   }),
+        )
+    }
     
     if(ncol(data_y)>0){
         data_y = data_y %>% mutate(
             across(where(is.logical), 
                    ~.x %>% as.character() %>% set_label(get_label(.x))),
-            across(where(~is.numeric(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric), 
+            across(where(~is.numeric.and.not.surv(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric), 
                    ~{
                        .x = as.character(.x) %>% set_label(get_label(.x))
                        class(.x) = c("character", "unique_numeric")

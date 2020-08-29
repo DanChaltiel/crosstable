@@ -263,7 +263,7 @@ test_that("crosstable ultimate selection", {
 # Warnings ------------------------------------------------------------------
 test_that("crosstable limit tests: warnings", {
     #no selection
-    expect_warning(crosstable(iris2, function(x) FALSE),
+    expect_warning(crosstable(iris2, where(function(x) FALSE)),
                    "Variable selection in crosstable ended with no variable to describe")
     expect_warning(crosstable(iris2, 0),
                    "Variable selection in crosstable ended with no variable to describe")
