@@ -366,11 +366,12 @@ test_that("Effects never fail", {
   
   expect_warning({
     x=names(mtcars3) %>% set_names() %>% map(~{
+      if(!is_testing()) print(.x)
       if(can_be_by(mtcars3[[.x]])) {
         crosstable(mtcars3, by=any_of(.x), effect=T, effect_args=args)$effect %>% 
           table %>% as.data.frame()
       }
-      expect_equal(1,1)
+      expect_equal(1,1, info = .x)
       return(0)
     })
   })
@@ -386,7 +387,7 @@ test_that("Effects never fail", {
         crosstable(mtcars3, by=any_of(.x), effect=T, effect_args=args)$effect %>% 
           table %>% as.data.frame()
       }
-      expect_equal(1,1)
+      expect_equal(1,1, info = .x)
       return(0)
     })
   })
