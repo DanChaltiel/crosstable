@@ -193,16 +193,18 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
                })
     )
     
-    data_y = data_y %>% mutate(
-        across(where(is.logical), 
-               ~.x %>% as.character() %>% set_label(get_label(.x))),
-        across(where(~is.numeric(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric), 
-               ~{
-                   .x = as.character(.x) %>% set_label(get_label(.x))
-                   class(.x) = c("character", "unique_numeric")
-                   .x
-               })
-    )
+    if(ncol(data_y)>0){
+        data_y = data_y %>% mutate(
+            across(where(is.logical), 
+                   ~.x %>% as.character() %>% set_label(get_label(.x))),
+            across(where(~is.numeric(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric), 
+                   ~{
+                       .x = as.character(.x) %>% set_label(get_label(.x))
+                       class(.x) = c("character", "unique_numeric")
+                       .x
+                   })
+        )
+    }
     
     # Return checks *******************************************************
     if(ncol(data_y)>1) stop("Crosstable does not support multiple `by` columns.")
