@@ -1,0 +1,10 @@
+.table td {
+    padding: 0 !important;
+}
+
+.table {
+    display: table !important;
+	margin: 0 auto 40px auto !important;
+	width: auto !important;
+}
+
