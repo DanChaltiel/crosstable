@@ -142,8 +142,8 @@ crosstable(mtcars2, am, mpg, wt, by=vs, funs=c(median, mean, sd)) %>%
   as_flextable(keep_id=TRUE)
 ```
 
-You might want to use `crosstable`'s convenience functions such as `moystd`, `mediqr`, `minmax`, or `nna`. For 
-additional arguments, you can use `funs_arg` argument: `crosstable(mtcars3, c(disp, hp, am), by=vs, funs=c(moystd,quantile), funs_arg = list(dig=3, probs=c(0.25,0.75)))`. Numbers are formatted to have the same number of decimal places. You might want to take a look at `?summaryFunctions` and  `?format_fixed` to customize their behaviour.
+You might want to use `crosstable`'s convenience functions such as `meansd`, `mediqr`, `minmax`, or `nna`. For 
+additional arguments, you can use `funs_arg` argument: `crosstable(mtcars3, c(disp, hp, am), by=vs, funs=c(meansd,quantile), funs_arg = list(dig=3, probs=c(0.25,0.75)))`. Numbers are formatted to have the same number of decimal places. You might want to take a look at `?summaryFunctions` and  `?format_fixed` to customize their behaviour.
 
 
 
@@ -153,20 +153,20 @@ additional arguments, you can use `funs_arg` argument: `crosstable(mtcars3, c(di
 When crossing two factor variables, like `cyl` and `am`, percentages are calculated by row. You can use the `margin` argument to change this behavior.
  
 ```{r crosstable-percent-row}
-crosstable(mtcars2, am, mpg, by=vs, funs=moystd, margin="row") %>% 
+crosstable(mtcars2, am, mpg, by=vs, funs=meansd, margin="row") %>% 
   as_flextable(keep_id=TRUE)
 ```
 ```{r crosstable-percent-column}
-crosstable(mtcars2, am, mpg, by=vs, funs=moystd, margin="column") %>% 
+crosstable(mtcars2, am, mpg, by=vs, funs=meansd, margin="column") %>% 
   as_flextable(keep_id=TRUE)
 ```
 ```{r crosstable-percent-none}
-crosstable(mtcars2, am, mpg, by=vs, funs=moystd, margin="none") %>% 
+crosstable(mtcars2, am, mpg, by=vs, funs=meansd, margin="none") %>% 
   as_flextable(keep_id=TRUE)
 ```
 ```{r crosstable-percent-both}
 #I also could have used margin="all" here
-crosstable(mtcars2, am, mpg, by=vs, funs=moystd, margin=c("column","row","cell")) %>% 
+crosstable(mtcars2, am, mpg, by=vs, funs=meansd, margin=c("column","row","cell")) %>% 
   as_flextable(keep_id=TRUE) 
 ```
 
