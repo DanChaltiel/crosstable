@@ -38,16 +38,16 @@ test_that("crosstables don't throw errors in officer", {
             body_add_title("Not compacted", 2) %>%
             body_add_crosstable(crosstable, show_test_name=FALSE) %>%
             body_add_table_legend(paste0(i, ", not compacted")) %>% 
-            body_add_break %>%
+            body_add_break() %>%
             body_add_title("Compacted in function", 2) %>%
             body_add_crosstable(crosstable, compact=TRUE) %>% 
             body_add_table_legend(paste0(i, ", compacted inside function")) %>% 
-            body_add_break %>% 
+            body_add_break() %>% 
             body_add_normal("Look, there are labels!") %>%
             body_add_title("Compacted before function", 2) %>%
             body_add_crosstable(compact(crosstable), show_test_name=FALSE) %>%
             body_add_table_legend(paste0(i, ", compacted before function")) %>% 
-            body_add_break 
+            body_add_break()
     }
     if(!is_testing()){
         print(doc, "tests/testthat/docx/result_test_crosstable_officer.docx")
@@ -56,6 +56,14 @@ test_that("crosstables don't throw errors in officer", {
 })
 
 
+test_that("Utils functions are OK too", {
+    doc = read_docx() %>% 
+        body_add_title("Tests", 1) %>% 
+        body_add_figure_legend("This is a figure legend") %>% 
+        body_add_crosstable(crosstables[[2]], show_test_name=FALSE, 
+                            body_fontsize = 8, header_fontsize = 10)
+    
+})
 
 
 
