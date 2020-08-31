@@ -28,6 +28,20 @@ test_that("Labelling", {
     x %>% map(attributes) %>% map("label") %>% unlist,
     iris_label$label
   )
+  
+  xx=set_label(mtcars2, "The mtcars2 dataset", object=TRUE) %>% 
+    mutate(cyl=remove_label(cyl))
+  
+  expect_null(get_label(xx$cyl))
+  expect_equal(get_label(xx$mpg), "Miles/(US) gallon")
+  expect_equal(get_label(xx$cyl, default="foobar"), "foobar")
+  expect_equal(get_label(xx, object=TRUE), "The mtcars2 dataset")
+  expect_equal(get_label(xx), #TODO snapshot testthat v3
+               c(mpg = "Miles/(US) gallon", cyl = "cyl", disp = "Displacement (cu.in.)", 
+                 hp = "Gross horsepower", drat = "Rear axle ratio", wt = "Weight (1000 lbs)", 
+                 qsec = "1/4 mile time", vs = "Engine", am = "Transmission", 
+                 gear = "Number of forward gears", carb = "Number of carburetors", 
+                 hp_date = "Some nonsense date", qsec_posix = "Date+time"))
 })
 
 

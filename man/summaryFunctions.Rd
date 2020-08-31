@@ -12,7 +12,7 @@
 \usage{
 meansd(x, na.rm = TRUE, dig = 2, ...)
 
-meanCI(x, na.rm = TRUE, dig = 2, level = 0.95, ...)
+meanCI(x, na.rm = TRUE, dig = 2, level = 0.95, format = TRUE, ...)
 
 mediqr(x, na.rm = TRUE, dig = 2, ...)
 
