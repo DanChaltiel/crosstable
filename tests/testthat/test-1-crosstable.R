@@ -12,6 +12,11 @@ test_that("Auto-testing is bad and you should feel bad.", {
                  "Be aware that automatic global testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.")
 })
 
+test_that("Auto-testing is bad and you should feel bad.", {
+  expect_warning(crosstable(mtcars2, disp, by=vs, funs=moystd),
+                 "Warning: `moystd()` is deprecated")
+})
+
 
 
 
