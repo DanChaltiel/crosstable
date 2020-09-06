@@ -185,7 +185,6 @@
 
     <pre class="usage"><span class='fu'>as_workbook</span>(
   <span class='no'>x</span>,
-  <span class='kw'>compact</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show_test_name</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>by_header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>keep_id</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -225,13 +224,13 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>{
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>openxlsx</span>)
 <span class='no'>x</span><span class='kw'>=</span><span class='fu'><a href='crosstable.html'>crosstable</a></span>(<span class='no'>mtcars2</span>, <span class='no'>mpg</span>, <span class='no'>vs</span>, <span class='no'>gear</span>, <span class='kw'>total</span><span class='kw'>=</span><span class='no'>T</span>, <span class='kw'>test</span><span class='kw'>=</span><span class='no'>T</span>)
 <span class='no'>x</span> <span class='kw'>%&gt;%</span>
     <span class='fu'>as_workbook</span>(<span class='kw'>keep_id</span><span class='kw'>=</span><span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>saveWorkbook</span>(<span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>"test_openxlsx.xlsx"</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-}</div><div class='output co'>#&gt; <span class='error'>Error in library(openxlsx): there is no package called ‘openxlsx’</span></div></pre>
+    <span class='fu'><a href='https://rdrr.io/pkg/openxlsx/man/saveWorkbook.html'>saveWorkbook</a></span>(<span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>"test_openxlsx.xlsx"</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
