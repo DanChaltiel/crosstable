@@ -14,7 +14,7 @@ meansd(x, na.rm = TRUE, dig = 2, ...)
 
 meanCI(x, na.rm = TRUE, dig = 2, level = 0.95, format = TRUE, ...)
 
-mediqr(x, na.rm = TRUE, dig = 2, ...)
+mediqr(x, na.rm = TRUE, dig = 2, format = TRUE, ...)
 
 minmax(x, na.rm = TRUE, dig = 2, ...)
 
@@ -34,6 +34,8 @@ nna(x)
 }}
 
 \item{level}{the confidence level required}
+
+\item{format}{a sugary argument, so that the function returns a list instead of a string}
 }
 \description{
 Summary functions to use with \code{\link[=crosstable]{crosstable()}} or anywhere else.

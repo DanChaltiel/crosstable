@@ -6,7 +6,6 @@
 \usage{
 as_workbook(
   x,
-  compact = FALSE,
   show_test_name = TRUE,
   by_header = NULL,
   keep_id = FALSE,
@@ -32,7 +31,7 @@ as_workbook(
 Converts a \code{crosstable} object into a formatted, savable \code{openxlsx} workbook.
 }
 \examples{
-\notrun{
+\dontrun{
 library(openxlsx)
 x=crosstable(mtcars2, mpg, vs, gear, total=T, test=T)
 x \%>\% 
@@ -43,4 +42,3 @@ x \%>\%
 \author{
 Dan Chaltiel
 }
-\concept{as_workbook methods}

@@ -14,7 +14,7 @@ test_that("Auto-testing is bad and you should feel bad.", {
 
 test_that("Auto-testing is bad and you should feel bad.", {
   expect_warning(crosstable(mtcars2, disp, by=vs, funs=moystd),
-                 "Warning: `moystd()` is deprecated")
+                 ".*`moystd\\(\\)` is deprecated.*")
 })
 
 

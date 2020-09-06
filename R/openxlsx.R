@@ -19,21 +19,25 @@
 #' @export
 #'
 #' @examples
-#' \notrun{
+#' \dontrun{
 #' library(openxlsx)
 #' x=crosstable(mtcars2, mpg, vs, gear, total=T, test=T)
 #' x %>% 
 #'     as_workbook(keep_id=TRUE) %>% 
 #'     saveWorkbook(file = "test_openxlsx.xlsx", overwrite = TRUE)
 #' }
-as_workbook = function(x, compact = FALSE, show_test_name = TRUE, 
-                                  by_header = NULL, keep_id = FALSE,
-                                  generic_labels=list(id = ".id", variable = "variable", value = "value",
-                                                      total="Total", label = "label", test = "test",
-                                                      effect="effect"),
-                                  ...){
+as_workbook = function(x, show_test_name = TRUE, 
+                       by_header = NULL, keep_id = FALSE,
+                       generic_labels=list(id = ".id", variable = "variable", value = "value",
+                                           total="Total", label = "label", test = "test",
+                                           effect="effect"),
+                       ...){
     
     assert_class(x, "crosstable", .var.name=vname(x))
+    if (inherits(x, "compacted_crosstable")) {
+        stop("`as_gt` is not implemented for compacted crosstable yet.")
+    }
+    
     border1 = fp_border(color = "black", style = "solid", width = 1)
     border2 = fp_border(color = "black", style = "solid", width = 1.5)
     labs.names = setdiff(names(x), generic_labels)
@@ -56,9 +60,6 @@ as_workbook = function(x, compact = FALSE, show_test_name = TRUE,
     
     if (has_test && !is.null(x[[test]]) && !show_test_name) {
         x[[test]] = str_remove(x[[test]], "\\n\\(.*\\)")
-    }
-    if (compact && !inherits(x, "compacted_crosstable")) {
-        x = compact.crosstable(x)
     }
     
     rtn = x %>% mutate(across(everything(), replace_na, replace="NA"))

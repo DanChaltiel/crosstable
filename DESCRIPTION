@@ -40,6 +40,7 @@ Suggests:
     DescTools,
     gt,
     ggplot2,
+    openxlsx,
     waldo,
     gmodels,
     Hmisc,
