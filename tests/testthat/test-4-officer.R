@@ -70,6 +70,27 @@ test_that("Utils functions are OK too", {
 
 
 
+# openxlsx ----------------------------------------------------------------
+
+
+test_that("openxlsx is working", {
+    x=crosstable(mtcars2, mpg, vs, gear, total=T, test=T)
+    wb1=as_workbook(x, keep_id=FALSE)
+    wb2=as_workbook(x, keep_id=TRUE)
+    expect_true(TRUE)
+    
+    x=crosstable(mtcars2, mpg, vs, gear, by=cyl, total=T, test=T)
+    wb3=as_workbook(x, keep_id=FALSE)
+    wb4=as_workbook(x, keep_id=TRUE)
+    
+    if(!is_testing()){
+        openxlsx::saveWorkbook(wb1, file = "tests/testthat/xlsx/test_openxlsx1.xlsx", overwrite = TRUE)
+        openxlsx::saveWorkbook(wb2, file = "tests/testthat/xlsx/test_openxlsx2.xlsx", overwrite = TRUE)
+        openxlsx::saveWorkbook(wb3, file = "tests/testthat/xlsx/test_openxlsx3.xlsx", overwrite = TRUE)
+        openxlsx::saveWorkbook(wb4, file = "tests/testthat/xlsx/test_openxlsx4.xlsx", overwrite = TRUE)
+    }
+})
+
 
 
 
