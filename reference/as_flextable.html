@@ -267,22 +267,22 @@ below to see their documentation.</p>
 #&gt; body has 46 row(s) 
 #&gt; original dataset sample: 
 #&gt;   .id               label   variable            value
-#&gt; 1 .id   Miles/(US) gallon  Min / Max      10.4 / 33.9
-#&gt; 2 .id   Miles/(US) gallon  Med [IQR] 19.2 [15.4;22.8]
-#&gt; 3 .id   Miles/(US) gallon Mean (std)       20.1 (6.0)
-#&gt; 4 .id   Miles/(US) gallon     N (NA)           32 (0)
-#&gt; 5 .id Number of cylinders          4      11 (34.38%)</div><div class='input'><span class='fu'><a href='crosstable.html'>crosstable</a></span>(<span class='no'>mtcars2</span>, <span class='kw'>by</span><span class='kw'>=</span><span class='no'>vs</span>, <span class='kw'>test</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>as_flextable</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Be aware that automatic global testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.</span>
+#&gt; 1 mpg   Miles/(US) gallon  Min / Max      10.4 / 33.9
+#&gt; 2 mpg   Miles/(US) gallon  Med [IQR] 19.2 [15.4;22.8]
+#&gt; 3 mpg   Miles/(US) gallon Mean (std)       20.1 (6.0)
+#&gt; 4 mpg   Miles/(US) gallon     N (NA)           32 (0)
+#&gt; 5 cyl Number of cylinders          4      11 (34.38%)</div><div class='input'><span class='fu'><a href='crosstable.html'>crosstable</a></span>(<span class='no'>mtcars2</span>, <span class='kw'>by</span><span class='kw'>=</span><span class='no'>vs</span>, <span class='kw'>test</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='fu'>as_flextable</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Be aware that automatic global testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.</span>
 #&gt; <span class='warning'><span style='color: #555555;'>This message is displayed once per session.</span><span></span></div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `label`, `variable`, `straight`, `vshaped`, `test` 
 #&gt; header has 2 row(s) 
 #&gt; body has 44 row(s) 
 #&gt; original dataset sample: 
 #&gt;   .id               label   variable         straight          vshaped
-#&gt; 1 .id   Miles/(US) gallon  Min / Max      17.8 / 33.9      10.4 / 26.0
-#&gt; 2 .id   Miles/(US) gallon  Med [IQR] 22.8 [21.4;29.6] 15.7 [14.8;19.1]
-#&gt; 3 .id   Miles/(US) gallon Mean (std)       24.6 (5.4)       16.6 (3.9)
-#&gt; 4 .id   Miles/(US) gallon     N (NA)           14 (0)           18 (0)
-#&gt; 5 .id Number of cylinders          4      10 (90.91%)        1 (9.09%)
+#&gt; 1 mpg   Miles/(US) gallon  Min / Max      17.8 / 33.9      10.4 / 26.0
+#&gt; 2 mpg   Miles/(US) gallon  Med [IQR] 22.8 [21.4;29.6] 15.7 [14.8;19.1]
+#&gt; 3 mpg   Miles/(US) gallon Mean (std)       24.6 (5.4)       16.6 (3.9)
+#&gt; 4 mpg   Miles/(US) gallon     N (NA)           14 (0)           18 (0)
+#&gt; 5 cyl Number of cylinders          4      10 (90.91%)        1 (9.09%)
 #&gt;                                                      test
 #&gt; 1                  p value: &lt;0.0001 \n(Two Sample t-test)
 #&gt; 2                  p value: &lt;0.0001 \n(Two Sample t-test)
@@ -293,12 +293,12 @@ below to see their documentation.</p>
 #&gt; header has 2 row(s) 
 #&gt; body has 18 row(s) 
 #&gt; original dataset sample: 
-#&gt;   .id label variable   0-9g/day      10-19      20-29        30+
-#&gt; 1 .id agegp    25-34 4 (26.67%) 4 (26.67%) 3 (20.00%) 4 (26.67%)
-#&gt; 2 .id agegp    35-44 4 (26.67%) 4 (26.67%) 4 (26.67%) 3 (20.00%)
-#&gt; 3 .id agegp    45-54 4 (25.00%) 4 (25.00%) 4 (25.00%) 4 (25.00%)
-#&gt; 4 .id agegp    55-64 4 (25.00%) 4 (25.00%) 4 (25.00%) 4 (25.00%)
-#&gt; 5 .id agegp    65-74 4 (26.67%) 4 (26.67%) 4 (26.67%) 3 (20.00%)
+#&gt;     .id label variable   0-9g/day      10-19      20-29        30+
+#&gt; 1 agegp agegp    25-34 4 (26.67%) 4 (26.67%) 3 (20.00%) 4 (26.67%)
+#&gt; 2 agegp agegp    35-44 4 (26.67%) 4 (26.67%) 4 (26.67%) 3 (20.00%)
+#&gt; 3 agegp agegp    45-54 4 (25.00%) 4 (25.00%) 4 (25.00%) 4 (25.00%)
+#&gt; 4 agegp agegp    55-64 4 (25.00%) 4 (25.00%) 4 (25.00%) 4 (25.00%)
+#&gt; 5 agegp agegp    65-74 4 (26.67%) 4 (26.67%) 4 (26.67%) 3 (20.00%)
 #&gt;                                                     test
 #&gt; 1 p value: 0.9999 \n(Fisher's Exact Test for Count Data)
 #&gt; 2 p value: 0.9999 \n(Fisher's Exact Test for Count Data)
@@ -309,12 +309,18 @@ below to see their documentation.</p>
 #&gt; header has 2 row(s) 
 #&gt; body has 16 row(s) 
 #&gt; original dataset sample: 
-#&gt;   .id        label   variable        setosa    versicolor     virginica
-#&gt; 1 .id Sepal.Length  Min / Max     4.3 / 5.8     4.9 / 7.0     4.9 / 7.9
-#&gt; 2 .id Sepal.Length  Med [IQR] 5.0 [4.8;5.2] 5.9 [5.6;6.3] 6.5 [6.2;6.9]
-#&gt; 3 .id Sepal.Length Mean (std)     5.0 (0.4)     5.9 (0.5)     6.6 (0.6)
-#&gt; 4 .id Sepal.Length     N (NA)        50 (0)        50 (0)        50 (0)
-#&gt; 5 .id  Sepal.Width  Min / Max     2.3 / 4.4     2.0 / 3.4     2.2 / 3.8
+#&gt;            .id        label   variable        setosa    versicolor
+#&gt; 1 Sepal.Length Sepal.Length  Min / Max     4.3 / 5.8     4.9 / 7.0
+#&gt; 2 Sepal.Length Sepal.Length  Med [IQR] 5.0 [4.8;5.2] 5.9 [5.6;6.3]
+#&gt; 3 Sepal.Length Sepal.Length Mean (std)     5.0 (0.4)     5.9 (0.5)
+#&gt; 4 Sepal.Length Sepal.Length     N (NA)        50 (0)        50 (0)
+#&gt; 5  Sepal.Width  Sepal.Width  Min / Max     2.3 / 4.4     2.0 / 3.4
+#&gt;       virginica
+#&gt; 1     4.9 / 7.9
+#&gt; 2 6.5 [6.2;6.9]
+#&gt; 3     6.6 (0.6)
+#&gt; 4        50 (0)
+#&gt; 5     2.2 / 3.8
 #&gt;                                                                            test
 #&gt; 1 p value: &lt;0.0001 \n(One-way analysis of means (not assuming equal variances))
 #&gt; 2 p value: &lt;0.0001 \n(One-way analysis of means (not assuming equal variances))
@@ -357,18 +363,18 @@ below to see their documentation.</p>
 #&gt; header has 2 row(s) 
 #&gt; body has 16 row(s) 
 #&gt; original dataset sample: 
-#&gt;   ID          lab       math        setosa    versicolor     virginica
-#&gt; 1 ID Sepal.Length  Min / Max     4.3 / 5.8     4.9 / 7.0     4.9 / 7.9
-#&gt; 2 ID Sepal.Length  Med [IQR] 5.0 [4.8;5.2] 5.9 [5.6;6.3] 6.5 [6.2;6.9]
-#&gt; 3 ID Sepal.Length Mean (std)     5.0 (0.4)     5.9 (0.5)     6.6 (0.6)
-#&gt; 4 ID Sepal.Length     N (NA)        50 (0)        50 (0)        50 (0)
-#&gt; 5 ID  Sepal.Width  Min / Max     2.3 / 4.4     2.0 / 3.4     2.2 / 3.8
-#&gt;             Tot         fx
-#&gt; 1     4.3 / 7.9 No effect?
-#&gt; 2 5.8 [5.1;6.4] No effect?
-#&gt; 3     5.8 (0.8) No effect?
-#&gt; 4       150 (0) No effect?
-#&gt; 5     2.0 / 4.4 No effect?
+#&gt;             ID          lab       math        setosa    versicolor
+#&gt; 1 Sepal.Length Sepal.Length  Min / Max     4.3 / 5.8     4.9 / 7.0
+#&gt; 2 Sepal.Length Sepal.Length  Med [IQR] 5.0 [4.8;5.2] 5.9 [5.6;6.3]
+#&gt; 3 Sepal.Length Sepal.Length Mean (std)     5.0 (0.4)     5.9 (0.5)
+#&gt; 4 Sepal.Length Sepal.Length     N (NA)        50 (0)        50 (0)
+#&gt; 5  Sepal.Width  Sepal.Width  Min / Max     2.3 / 4.4     2.0 / 3.4
+#&gt;       virginica           Tot         fx
+#&gt; 1     4.9 / 7.9     4.3 / 7.9 No effect?
+#&gt; 2 6.5 [6.2;6.9] 5.8 [5.1;6.4] No effect?
+#&gt; 3     6.6 (0.6)     5.8 (0.8) No effect?
+#&gt; 4        50 (0)       150 (0) No effect?
+#&gt; 5     2.2 / 3.8     2.0 / 4.4 No effect?
 #&gt;                                                                            pval
 #&gt; 1 p value: &lt;0.0001 \n(One-way analysis of means (not assuming equal variances))
 #&gt; 2 p value: &lt;0.0001 \n(One-way analysis of means (not assuming equal variances))
