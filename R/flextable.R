@@ -102,7 +102,7 @@ as_flextable.crosstable = function(x, autofit = TRUE, compact = FALSE, show_test
         }
         rtn = rtn %>% 
             mutate(
-                !!id:=str_wrap2(!!id, width = getOption("crosstable_wrap_id", 70))
+                !!id:=str_wrap2(.data[[id]], width = getOption("crosstable_wrap_id", 70))
             )  %>% 
             flextable(col_keys=cols) %>% 
             hline(i=sep.rows, border=border1) %>% 
