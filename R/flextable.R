@@ -18,7 +18,7 @@
 #' 
 #' @importFrom dplyr select lead sym %>%
 #' @importFrom stringr str_replace str_replace_all str_remove
-#' @importFrom flextable flextable autofit add_header_row merge_v merge_h bold align hline_top hline_bottom border_inner_h hline fix_border_issues as_flextable
+#' @importFrom flextable flextable autofit add_header_row merge_v merge_h bold align hline_top hline_bottom border_inner_h hline fix_border_issues padding as_flextable
 #' @importFrom officer fp_border
 #' @importFrom checkmate assert_class vname
 #' @importFrom tibble as_tibble
@@ -76,19 +76,19 @@ as_flextable.crosstable = function(x, autofit = TRUE, compact = FALSE, show_test
         x = compact.crosstable(x)
     }
     
-    rtn = x %>% 
-        mutate(
-            across(everything(), replace_na, replace="NA")
-        )
+    rtn = replace(x, is.na(x), "NA")
     
     if(inherits(x, "compacted_crosstable")) {
         rows = attr(x, "title_rows")
-        title_rows=which(rows)+(0:(sum(rows)-1))
+        title_rows = which(rows)+(0:(sum(rows)-1))
+        padded_rows = 1:nrow(rtn)
+        padded_rows = padded_rows[!padded_rows %in% title_rows]
         rtn = rtn %>% 
             flextable %>% 
             border(title_rows, border.top = fp_border()) %>%
             bold(title_rows) %>% 
-            align(title_rows, align="left")
+            align(title_rows, align="left") %>% 
+            padding(i=padded_rows, j=1, padding.left=25)
     } else {
         sep.rows = which(rtn[[id]] != lead(rtn[[id]]))
         if(keep_id) {
