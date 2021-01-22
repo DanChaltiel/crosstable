@@ -42,8 +42,10 @@
 #'    as_flextable(by_header = "The specie", 
 #'                 generic_labels=list(id = "ID", variable = "math", total="Tot", 
 #'                                     label = "lab", test = "pval", effect="fx"))
-as_flextable.crosstable = function(x, autofit = TRUE, compact = FALSE, show_test_name = TRUE, 
-                                   by_header = NULL, keep_id = FALSE,
+as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL, 
+                                   autofit = getOption('crosstable_autofit', TRUE), 
+                                   compact = getOption('crosstable_compact', FALSE), 
+                                   show_test_name = getOption('crosstable_show_test_name', TRUE), 
                                    generic_labels=list(id = ".id", variable = "variable", value = "value", 
                                                        total="Total", label = "label", test = "test", 
                                                        effect="effect"), 
@@ -88,7 +90,7 @@ as_flextable.crosstable = function(x, autofit = TRUE, compact = FALSE, show_test
             border(title_rows, border.top = fp_border()) %>%
             bold(title_rows) %>% 
             align(title_rows, align="left") %>% 
-            padding(i=padded_rows, j=1, padding.left=25)
+            padding(i=padded_rows, j=1, padding.left=getOption('crosstable__compact_padding', 25))
     } else {
         sep.rows = which(rtn[[id]] != lead(rtn[[id]]))
         if(keep_id) {
@@ -144,8 +146,8 @@ as_flextable.crosstable = function(x, autofit = TRUE, compact = FALSE, show_test
 #' @importFrom lifecycle deprecate_warn
 #' @export
 cross_to_flextable = function(...){
-    deprecate_warn("0.1.0", "cross_to_flextable()", "as_flextable()")
-    as_flextable.crosstable(...)
+    deprecate_warn("0.1.0", "cross_to_flextable()", "as_flextable()")# nocov
+    as_flextable.crosstable(...)# nocov
 }
 #' @usage NULL
 #' @export
