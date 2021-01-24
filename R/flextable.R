@@ -3,11 +3,11 @@
 #' Turns a `crosstable` object into a formatted `flextable`
 #'
 #' @param x the result of [crosstable()]
+#' @param keep_id whether to keep the `.id` column
+#' @param by_header a string to override the `by` header
 #' @param autofit whether to use [flextable::autofit()] on the table
 #' @param compact whether to compact the table
 #' @param show_test_name in the `test` column, show the test name
-#' @param by_header a string to override the `by` header
-#' @param keep_id whether to keep the `.id` column
 #' @param generic_labels names of the crosstable default columns 
 #' @param ... unused
 #'
@@ -90,7 +90,7 @@ as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL,
             border(title_rows, border.top = fp_border()) %>%
             bold(title_rows) %>% 
             align(title_rows, align="left") %>% 
-            padding(i=padded_rows, j=1, padding.left=getOption('crosstable__compact_padding', 25))
+            padding(i=padded_rows, j=1, padding.left=getOption('crosstable_compact_padding', 25))
     } else {
         sep.rows = which(rtn[[id]] != lead(rtn[[id]]))
         if(keep_id) {
