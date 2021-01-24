@@ -78,6 +78,8 @@ body_add_normal = function(doc, ...) {
     }
 }
 
+
+
 #' Add a new paragraph with a Normal style to an `officer` document, inserting variables with `glue::glue`
 #'
 #' @param doc the doc object (created with the \code{read_docx} function of \code{officer} package)
@@ -105,7 +107,6 @@ body_add_glued = function(doc, .x, ...) {
 
 
 
-
 #' Add a title to an `officer` document
 #'
 #' @param doc the doc object (created with the \code{read_docx} function of \code{officer} package)
@@ -128,7 +129,8 @@ body_add_glued = function(doc, .x, ...) {
 #'    body_add_title("Description", 2) %>% 
 #'    body_add_normal("La table iris a ", ncol(iris), " colonnes.")
 #' }
-body_add_title = function(doc, value, level = 1, style = "heading") {
+body_add_title = function(doc, value, level = 1, 
+                          style = getOption('crosstable_style_heading', "heading")) {
     style = paste(style, level)
     body_add_par(doc, value, style = style)
 }
