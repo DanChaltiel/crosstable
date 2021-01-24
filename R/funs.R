@@ -141,12 +141,14 @@ moystd=function(...){
 
 #' @describeIn summaryFunctions returns mean and confidence interval
 #' @param level the confidence level required
+#' @param format a sugar argument. If FALSE, the function returns a list instead of a formatted string
 #' @export
-meanCI = function(x, na.rm = TRUE, dig = 2, level=0.95, ...) {
+meanCI = function(x, na.rm = TRUE, dig = 2, level=0.95, format=TRUE, ...) {
   .mean = mean(x, na.rm=na.rm) %>% 
     format_fixed(digits=dig, ...)
   conf = confint_numeric(x, level=level) %>% 
     format_fixed(digits=dig, ...)
+  if(!format) return(list(mean=.mean, conf_low=conf[1], conf_high=conf[2]))
   paste0(.mean, " [", conf[1], ";", conf[2],  "]")
 }
 
@@ -158,7 +160,7 @@ meanCI = function(x, na.rm = TRUE, dig = 2, level=0.95, ...) {
 #' @describeIn summaryFunctions returns median and IQR
 #' @importFrom stats median quantile
 #' @export
-mediqr = function(x, na.rm = TRUE, dig = 2, ...) {
+mediqr = function(x, na.rm = TRUE, dig = 2, format=TRUE, ...) {
   if(is.date(x)) type=1 else type=7
   med = x %>% 
     median(na.rm=na.rm) %>% 
@@ -166,6 +168,7 @@ mediqr = function(x, na.rm = TRUE, dig = 2, ...) {
   iqr = x %>% 
     quantile(probs=c(0.25, 0.75), na.rm=na.rm, type=type) %>% 
     format_fixed(digits=dig, ...)
+  if(!format) return(list(med=med, iqr_low=iqr[1], iqr_high=iqr[2]))
   paste0(med, " [", iqr[1], ";", iqr[2], "]")
 }
 
