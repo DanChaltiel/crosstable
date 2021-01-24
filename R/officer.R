@@ -191,3 +191,33 @@ docx_bookmarks2 = function(x, return_vector=FALSE) {
     
     list(header=unname(unlist(head_)), body=unname(unlist(doc_)), footer=unname(unlist(foot_)))
 }
+
+
+#' Alternative to default `officer` print() function. Write the file and try to open it right away.
+#'
+#' @param doc the docx object
+#' @param docx.file the name of the target file
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' write_and_open(x, "example.docx")
+write_and_open = function(doc, docx.file){
+    tryCatch({
+        if(file.exists(docx.file)) {
+            file.remove(docx.file )
+        }
+        print(doc, target=docx.file)
+        dfile = paste("\"", sub("(^.+)(/$)", "\\", getwd()), "/", docx.file, "\"", sep = "")
+        # browseURL(dfile)
+        shell.exec(dfile)
+    }, error=function(e) {
+        message("Error : file is probably already open")
+        message(e)
+    }, warning=function(w) {
+        message("Warning : Le fichier est déjà ouvert !")
+        message(w)
+    }, finally={}
+    )
+}
