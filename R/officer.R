@@ -136,12 +136,57 @@ body_add_title = function(doc, value, level = 1,
 }
 
 
+
+#' Add a list to an `officer` document
 #'
+#' @param doc a docx object
+#' @param value a character (`body_add_list()`) or a string (`body_add_list_item`) 
+#' @param ordered if TRUE, adds an ordered list, if FALSE, adds a bullet list
+#' @param style specify the style manually, overriding `ordered`. A better way is to set options `crosstable_style_list_ordered` and `crosstable_style_list_unordered` globally. 
+#' @param ... passed on to [officer::body_add_par()]
 #'
+#' @details Ordered lists and bullet lists are not supported by the default officer template (see [https://github.com/davidgohel/officer/issues/262](#262)). You have to manually set custom styles matching thos list in a custom Word template file. Then, you can use either the `style` argument or crosstable options. See examples for more details.
+#'
+#' @return
 #' @export
+#'
+#' @examples
 #' \dontrun{
+#' library(officer)
+#' library(crosstable)
+#' options(crosstable_style_list_ordered="ordered_list")
+#' options(crosstable_style_list_unordered="unordered_list")
+#' # of course, my_template.docx should have these styles
+#' read_docx("my_template.docx") %>%
+#'  body_add_list(c("Numbered item 1", "Numbered item 2"), ordered = TRUE) %>%
+#'  body_add_list_item("Numbered item 3", ordered = TRUE) %>%
+#'  body_add_list(c("Bullet item 1", "Bullet item 2"), ordered = FALSE) %>%
+#'  body_add_list_item("Bullet item 3", ordered = FALSE) %>%
+#'  write_and_open("result.docx")
 #' }
+body_add_list = function(doc, value, ordered=FALSE, style=NULL, ...){
+    for(i in value){
+        doc = body_add_list_item(doc, i, ordered=ordered, style=style, ...)
+    }
+    doc
 }
+
+#' @rdname body_add_list
+#' @export
+body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
+    if(is.null(style)){
+        if(ordered){
+            style = getOption('crosstable_style_list_ordered', NULL)
+        } else {
+            style = getOption('crosstable_style_list_unordered', NULL)
+        }
+        if(is.null(style)){
+            abort("Ordered lists and bullet lists are not supported by the default officer template. You have to set them in a custom template and use either the `style` argument or crosstable options. See `?body_add_list` examples for more details.")
+        }
+    }
+    body_add_par(doc, value, style=style, ...)
+}
+
 
 
 #' Add a table legend to an `officer` document
