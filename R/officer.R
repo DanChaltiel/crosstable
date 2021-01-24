@@ -1,4 +1,52 @@
 
+# Crosstable --------------------------------------------------------------
+
+
+#' Add a crosstable to an `officer` document
+#' @description [body_add_crosstable()] adds such a `flextable` an `officer` document.
+#'
+#' @param doc a `rdocx` object, created by [officer::read_docx()]
+#' @param x a `crosstable` object
+#' @param body_fontsize fontsize of the body
+#' @param header_fontsize fontsize of the header
+#' @param ... further arguments passed to [as_flextable.crosstable()]
+#'
+#' @export
+#' @importFrom flextable body_add_flextable fontsize
+#' @importFrom checkmate assert_class vname
+#' 
+#' @examples 
+#' #Officer
+#' library(officer)
+#' library(dplyr)
+#' mytable = crosstable(mtcars2)
+#' doc = read_docx() %>% 
+#'     body_add_crosstable(mytable) %>% 
+#'     body_add_break %>% 
+#'     body_add_crosstable(mytable, compact=TRUE)
+#' 
+#' \dontrun{
+#' dfile = "examples\\example_doc.docx"
+#' print(doc, target = dfile)
+#' shell.exec(dfile)
+#' }
+body_add_crosstable = function (doc, x, body_fontsize=NULL, 
+                                header_fontsize=ceiling(body_fontsize*1.2), ...) {
+    assert_class(x, "crosstable", .var.name=vname(x))
+    ft = as_flextable(x, ...)
+    if(length(body_fontsize)!=0)
+        fontsize(ft, size = body_fontsize, part = "body")
+    if(length(header_fontsize)!=0)
+        fontsize(ft, size = header_fontsize, part = "header")
+    doc = body_add_flextable(doc, ft)
+    return(doc)
+}
+
+
+
+# Officer helpers ---------------------------------------------------------
+
+
 
 #' Add a new paragraph with a Normal style to an `officer` document, inserting variables with \code{base::paste}
 #'
@@ -20,7 +68,14 @@
 #' }
 body_add_normal = function(doc, ...) {
     value = paste0(..., collapse = "")
-    body_add_par(doc, value, style = "Normal")
+    if(str_detect(value, "\\\\@ref\\((.*?)\\)")){
+        doc %>% 
+            body_add_par("") %>% 
+            parse_reference(value)
+    } else{
+        doc %>% 
+            body_add_par(value, style = getOption('crosstable_style_normal', doc$default_styles$paragraph))
+    }
 }
 
 #' Add a new paragraph with a Normal style to an `officer` document, inserting variables with `glue::glue`
@@ -79,57 +134,24 @@ body_add_title = function(doc, value, level = 1, style = "heading") {
 }
 
 
-#' Add a crosstable to an `officer` document
-#' @description [body_add_crosstable()] adds such a `flextable` an `officer` document.
 #'
-#' @param doc a `rdocx` object, created by [officer::read_docx()]
-#' @param x a `crosstable` object
-#' @param body_fontsize fontsize of the body
-#' @param header_fontsize fontsize of the header
-#' @param ... further arguments passed to [as_flextable.crosstable()]
 #'
 #' @export
-#' @importFrom flextable body_add_flextable fontsize
-#' @importFrom checkmate assert_class vname
-#' 
-#' @examples 
-#' #Officer
-#' library(officer)
-#' library(dplyr)
-#' mytable = crosstable(mtcars2)
-#' doc = read_docx() %>% 
-#'     body_add_crosstable(mytable) %>% 
-#'     body_add_break %>% 
-#'     body_add_crosstable(mytable, compact=TRUE)
-#' 
 #' \dontrun{
-#' dfile = "examples\\example_doc.docx"
-#' print(doc, target = dfile)
-#' shell.exec(dfile)
 #' }
-body_add_crosstable = function (doc, x, body_fontsize=NULL, 
-                                header_fontsize=ceiling(body_fontsize*1.2), ...) {
-    assert_class(x, "crosstable", .var.name=vname(x))
-    ft = as_flextable(x, ...)
-    if(length(body_fontsize)!=0)
-        fontsize(ft, size = body_fontsize, part = "body")
-    if(length(header_fontsize)!=0)
-        fontsize(ft, size = header_fontsize, part = "header")
-    doc = body_add_flextable(doc, ft)
-    return(doc)
 }
 
 
 #' Add a table legend to an `officer` document
 #'
-#' @param x a docx object
+#' @param doc a docx object
 #' @param legend the table legend
 #' @param legend_style may depend on the docx template
 #' @param style the legend style (strong, italic...)
 #' @param seqfield to figure this out, in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.
 #'
 #' @section Warning:
-#' Sometimes, the legends added with `body_add_table_legend` have no numbers. In this case, you have to manualy update the references: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}).
+#' At first, the legends added with [body_add_table_legend()] or [body_add_figure_legend()] have no numbers. You have to manualy update the references in MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}). You might have to do this several times. More info on [https://ardata-fr.github.io/officeverse/faq.html#update-fields].
 #' @importFrom officer body_add_par slip_in_text slip_in_seqfield
 #' @export
 #' 
@@ -144,26 +166,42 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #'     body_add_gg(p) %>% 
 #'     body_add_figure_legend("Iris plot")
 #' #print(x, "example.docx")
-body_add_table_legend = function(x, legend, legend_style="table title", style="strong", 
+body_add_table_legend = function(doc, legend, bookmark=NULL, 
+                                 legend_style=getOption('crosstable_style_legend', "caption"), 
+                                 style=getOption('crosstable_style_strong', "strong"), 
                                  seqfield="SEQ Table \\* Arabic"){
-    x %>% 
+    rtn = doc %>% 
         body_add_par(value=legend, style=legend_style) %>% 
         slip_in_text(str=": ", style=style, pos="before") %>% 
-        slip_in_seqfield(str=seqfield, style=style, pos="before") %>% 
-        slip_in_text(str="Table ", style=style, pos="before") %>%
-        identity
+        slip_in_seqfield(str=seqfield, style=style, pos="before")
+    if(!is.null(bookmark)){
+        rtn = body_bookmark(rtn, bookmark)
+    }
+    rtn %>% 
+        slip_in_text(str="Table ", style=style, pos="before")
 }
 
 #' @rdname body_add_table_legend
 #' @export
-body_add_figure_legend = function (x, legend, legend_style = "graphic title", style = "strong", 
-                                   seqfield = "SEQ Figure \\* Arabic") {
-    x %>% body_add_par(value = legend, style = legend_style) %>% 
-        slip_in_text(str = ": ", style = style, pos = "before") %>% 
-        slip_in_seqfield(str = seqfield, style = style, pos = "before") %>% 
-        slip_in_text(str = "Figure ", style = style, pos = "before") %>% 
-        identity
-}#' List Word bookmarks, including the ones in header and footer
+body_add_figure_legend = function(doc, legend, bookmark=NULL, 
+                                  legend_style=getOption('crosstable_style_legend', "caption"), 
+                                  style=getOption('crosstable_style_strong', "strong"), 
+                                  seqfield="SEQ Figure \\* Arabic"){
+    rtn = doc %>% 
+        body_add_par(value=legend, style=legend_style) %>% 
+        slip_in_text(str=": ", style=style, pos="before") %>% 
+        slip_in_seqfield(str=seqfield, style=style, pos="before")
+    if(!is.null(bookmark)){
+        rtn = body_bookmark(rtn, bookmark)
+    }
+    rtn %>% 
+        slip_in_text(str="Figure ", style=style, pos="before")
+}
+
+
+
+
+#' List Word bookmarks, including the ones in header and footer
 #' 
 #' This is a correction of [officer::docx_bookmarks()]. See [this PR](https://github.com/davidgohel/officer/pull/313).
 #'
@@ -221,3 +259,42 @@ write_and_open = function(doc, docx.file){
     }, finally={}
     )
 }
+
+
+
+# Internal utils ---------------------------------------------------------
+
+
+#' Recursive helper function 
+#' Replace every string containing a reference to a table/figure by the 
+#' docx-formatted cross-reference
+#' 
+#' @keywords internal
+#' @noRd
+parse_reference = function(doc, value){
+    if(!str_detect(value, "\\\\@ref\\((.*?)\\)")){ #recursion out
+        doc = doc %>% 
+            slip_in_text(value, 
+                         style = 'Default Paragraph Font', 
+                         pos = 'after')
+        return(doc)
+    }
+    
+    x = str_match_all(value, "(.*?)\\\\@ref\\((.*?)\\)(.*)")
+    x = unlist(x[[1]][-1])
+    if(length(x)!=3) #1rd (.*) is not greedy
+        abort(c("This error should not have happened, please report a bug.", 
+                i="function = crosstable:::parse_reference"), x=x) 
+    doc = doc %>% 
+        slip_in_text(x[1], 
+                     style = 'Default Paragraph Font', 
+                     pos = 'after') %>% 
+        slip_in_seqfield(str = glue(' REF {x[2]} \\h '),  
+                         style = 'Default Paragraph Font', 
+                         pos = 'after') %>%
+        parse_reference(x[3])
+}
+
+
+
+
