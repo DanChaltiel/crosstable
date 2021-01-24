@@ -158,3 +158,19 @@ ctf = cross_to_flextable
 #' @importFrom flextable as_flextable
 #' @export
 flextable::as_flextable
+
+
+
+#' Export a `crosstable` in a temporary Word document
+#' 
+#' This eases copy-pasting
+#'
+#' @param x a crosstable
+#' @param ... passed on to `as_flextable.crosstable()`
+#'
+#' @export
+peek = function(x, ...) {
+    x=as_flextable.crosstable(x, ...)
+    print(x, preview="docx")
+    invisible()
+}
