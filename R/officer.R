@@ -163,4 +163,31 @@ body_add_figure_legend = function (x, legend, legend_style = "graphic title", st
         slip_in_seqfield(str = seqfield, style = style, pos = "before") %>% 
         slip_in_text(str = "Figure ", style = style, pos = "before") %>% 
         identity
+}#' List Word bookmarks, including the ones in header and footer
+#' 
+#' This is a correction of [officer::docx_bookmarks()]. See [this PR](https://github.com/davidgohel/officer/pull/313).
+#'
+#' @param x an `rdocx` object
+#' @param return_vector use `TRUE` for compatibility with [officer::docx_bookmarks()]
+#'
+#' @export
+docx_bookmarks2 = function(x, return_vector=FALSE) {
+    #cannot add examples as there is officer::body_bookmark() but no officer::head_bookmark()
+    stopifnot(inherits(x, "rdocx"))
+    checkmate::assert_class("rdocx")  
+    doc_ <- xml_find_all(x$doc_obj$get(), "//w:bookmarkStart[@w:name]")
+    doc_ <- setdiff(xml_attr(doc_, "name"), "_GoBack")
+    head_ <- sapply(x$headers, function(h) {
+        tmp <- xml_find_all(h$get(), "//w:bookmarkStart[@w:name]")
+        setdiff(xml_attr(tmp, "name"), "_GoBack")
+    })
+    foot_ <- sapply(x$footers, function(f) {
+        tmp <- xml_find_all(f$get(), "//w:bookmarkStart[@w:name]")
+        setdiff(xml_attr(tmp, "name"), "_GoBack")
+    })
+    if(return_vector){
+        return(unname(unlist(c(doc_, head_, foot_)))) #alternative return
+    }
+    
+    list(header=unname(unlist(head_)), body=unname(unlist(doc_)), footer=unname(unlist(foot_)))
 }
