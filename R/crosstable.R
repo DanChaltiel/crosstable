@@ -188,7 +188,7 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
             across(where(~is.numeric.and.not.surv(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric),
                    ~{
                        .x = as.character(.x) %>% set_label(get_label(.x))
-                       class(.x) = c("character", "unique_numeric")
+                       class(.x) = c("unique_numeric", "character")
                        .x
                    }),
         )
@@ -201,7 +201,7 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
             across(where(~is.numeric.and.not.surv(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric), 
                    ~{
                        .x = as.character(.x) %>% set_label(get_label(.x))
-                       class(.x) = c("character", "unique_numeric")
+                       class(.x) = c("unique_numeric", "character")
                        .x
                    })
         )
