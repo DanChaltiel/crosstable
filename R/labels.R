@@ -58,8 +58,9 @@ get_label = function(x, default=names(x), object=FALSE){
 #' @examples 
 #' library(dplyr)
 #' mtcars %>% 
-#'    mutate(mpg2=set_label(mpg, "Miles per gallon")) %>% 
-#'    crosstable(mpg, mpg2)
+#'    mutate(mpg2=set_label(mpg, "Miles per gallon"),
+#'           mpg3=mpg %>% copy_label_from(mpg2)) %>% 
+#'    crosstable(mpg, mpg2, mpg3)
 set_label = function(x, value, object=FALSE){
     if(is.null(value) || is.na(value)) return(x)
     assert_string(value)
@@ -76,6 +77,12 @@ set_label = function(x, value, object=FALSE){
 }
 
 
+#' @param target the variable whose label must be copied
+#' @rdname set_label
+#' @export
+copy_label_from = function(x, target){
+    set_label(x, get_label(target))
+}
 
 #' Remove all label attributes.
 #'
@@ -178,4 +185,22 @@ labels_env = rlang::new_environment()
 #' @noRd
 get_last_save = function(){
     labels_env$last_save
+}
+
+
+#' Changes
+#'
+#' @param df a data.frame
+#'
+#' @export
+#'
+#' @examples
+#' library(dplyr)
+#' mtcars2 %>% 
+#'   select(1:5) %>% 
+#'   rename_dataframe_with_labels()
+rename_dataframe_with_labels = function(df){
+    assertDataFrame(df, null.ok=FALSE)
+    names(df) = get_label(df)
+    df
 }
