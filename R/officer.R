@@ -84,31 +84,12 @@ body_add_normal = function(doc, ..., .sep="") {
     }
 }
 
-
-
-#' Add a new paragraph with a Normal style to an `officer` document, inserting variables with `glue::glue`
-#'
-#' @param doc the doc object (created with the \code{read_docx} function of \code{officer} package)
-#' @param .x the string with \code{glue::glue} patterns (Expressions enclosed by braces will be evaluated as R code)
-#' @param ... parameters to be passed to \code{glue::glue}
-#' @return a new doc object
-#' @author Dan Chaltiel
-#' @importFrom glue glue
-#' @importFrom officer body_add_par
-#' @examples
-#' \dontrun{
-#' library(officer)
-#' library(crosstable)
-#' library(dplyr)
-#' doc = read_docx()
-#' doc = doc %>%
-#'     body_add_glued("The iris table has {ncol(iris)} columns") %>%
-#'     body_add_glued("Actually, it also has {nrows} rows", nrows=nrow(iris))
-#' }
+#' @usage NULL
+#' @importFrom lifecycle deprecate_warn
 #' @export
-body_add_glued = function(doc, .x, ...) {
-    value = glue::glue(.x, ..., .envir = parent.frame())
-    body_add_normal(doc, value)
+body_add_glued = function(...){
+    deprecate_warn("0.1.6", "body_add_glued()", "body_add_normal()")# nocov
+    body_add_normal(...)# nocov
 }
 
 
