@@ -2,7 +2,7 @@
 % Please edit documentation in R/labels.R
 \name{rename_dataframe_with_labels}
 \alias{rename_dataframe_with_labels}
-\title{Changes}
+\title{Rename every column of a dataframe with its label}
 \usage{
 rename_dataframe_with_labels(df)
 }
@@ -10,7 +10,7 @@ rename_dataframe_with_labels(df)
 \item{df}{a data.frame}
 }
 \description{
-Changes
+Rename every column of a dataframe with its label
 }
 \examples{
 library(dplyr)

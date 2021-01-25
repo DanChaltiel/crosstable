@@ -188,7 +188,7 @@ get_last_save = function(){
 }
 
 
-#' Changes
+#' Rename every column of a dataframe with its label
 #'
 #' @param df a data.frame
 #'
@@ -200,7 +200,39 @@ get_last_save = function(){
 #'   select(1:5) %>% 
 #'   rename_dataframe_with_labels()
 rename_dataframe_with_labels = function(df){
-    assertDataFrame(df, null.ok=FALSE)
+    assertDataFrame(df, null.ok=TRUE)
     names(df) = get_label(df)
     df
+}
+
+
+#' Batch set variable labels 
+#' 
+#' This function is a copycat of from expss package v0.10.7 (slightly modified) to avoid having to depend on expss. See [expss::apply_labels()] for more documentation. Note that this version is not compatible with `data.table`.
+#'
+#' @param data data.frame/list
+#' @param ... named arguments
+#'
+#' @importFrom purrr imap_dfr
+#' @export
+#' 
+#' @examples 
+#' library(crosstable)
+#' cars %>%
+#'   apply_labels(speed="Speed (mph)",
+#'              dist="Stopping distance (ft)") %>% 
+#'   crosstable()
+apply_labels = function (data, ..., warn_missing=FALSE) {
+    args = list(...)
+    unknowns = setdiff(names(args), names(data))
+    if (length(unknowns) && warn_missing) {
+        warning("Some names don't exist in `data`: ", paste(unknowns, collapse = ", "))
+    }
+    
+    purrr::imap_dfr(args, ~{
+        if (.y %in% names(data)) {
+            data[[.y]] = set_label(data[[.y]], .x)
+        }
+        data[[.y]]
+    })
 }
