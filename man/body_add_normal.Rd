@@ -2,28 +2,33 @@
 % Please edit documentation in R/officer.R
 \name{body_add_normal}
 \alias{body_add_normal}
-\title{Add a new paragraph with a Normal style to an \code{officer} document, inserting variables with \code{base::paste}}
+\title{Add a new paragraph with default style}
 \usage{
-body_add_normal(doc, ...)
+body_add_normal(doc, ..., .sep = "")
 }
 \arguments{
 \item{doc}{the doc object (created with the \code{read_docx} function of \code{officer} package)}
 
-\item{...}{one or several character strings, collapsed into a paragraph with \code{base::paste}}
+\item{...}{one or several character strings, pasted using \code{.sep}. As with \code{glue::glue()}, expressions enclosed by braces will be evaluated as R code.}
+
+\item{.sep}{Separator used to separate elements.}
 }
 \value{
 a new doc object
 }
 \description{
-Add a new paragraph with a Normal style to an \code{officer} document, inserting variables with \code{base::paste}
+Add a new paragraph in an \code{officer} document with default style. Variables can be inserted as multiple strings (\code{paste()} style) or enclosed by braces (\code{glue()} style).
+References to any bookmark can be inserted using the syntax "\\@ref(bookmark)". See an example in \code{\link[=body_add_table_legend]{body_add_table_legend()}}.
 }
 \examples{
 \dontrun{
 library(officer)
 library(crosstable)
-library(dplyr)
-doc = read_docx()
-doc = doc \%>\% body_add_normal("La table iris a ", ncol(iris), " colonnes.")
+doc=NULL
+doc = read_docx() \%>\% 
+  body_add_normal("Table iris has", ncol(iris), "columns.", .sep=" ") \%>\% #paste style
+  body_add_normal("However, table mtcars has {ncol(mtcars)} columns")     #glue style
+write_and_open(doc, "example.docx")
 }
 }
 \author{

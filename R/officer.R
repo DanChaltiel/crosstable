@@ -47,26 +47,33 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 
 
 
-#' Add a new paragraph with a Normal style to an `officer` document, inserting variables with \code{base::paste}
+#' Add a new paragraph with default style 
+#' 
+#' Add a new paragraph in an `officer` document with default style. Variables can be inserted as multiple strings (`paste()` style) or enclosed by braces (`glue()` style). 
+#' References to any bookmark can be inserted using the syntax "\\@ref(bookmark)". See an example in [body_add_table_legend()].
 #'
-#' @param doc the doc object (created with the \code{read_docx} function of \code{officer} package)
-#' @param ... one or several character strings, collapsed into a paragraph with \code{base::paste}
+#' @param doc the doc object (created with the `read_docx` function of `officer` package)
+#' @param ... one or several character strings, pasted using `.sep`. As with `glue::glue()`, expressions enclosed by braces will be evaluated as R code.
+#' @param .sep Separator used to separate elements.
 #'
 #' @return a new doc object
 #' @author Dan Chaltiel
 #' @export
+#' @importFrom glue glue glue_collapse
 #' @importFrom officer body_add_par
 #' 
 #' @examples
 #' \dontrun{
 #' library(officer)
 #' library(crosstable)
-#' library(dplyr)
-#' doc = read_docx()
-#' doc = doc %>% body_add_normal("La table iris a ", ncol(iris), " colonnes.")
+#' doc=NULL
+#' doc = read_docx() %>% 
+#'   body_add_normal("Table iris has", ncol(iris), "columns.", .sep=" ") %>% #paste style
+#'   body_add_normal("However, table mtcars has {ncol(mtcars)} columns")     #glue style
+#' write_and_open(doc, "example.docx")
 #' }
-body_add_normal = function(doc, ...) {
-    value = paste0(..., collapse = "")
+body_add_normal = function(doc, ..., .sep="") {
+    value = glue(..., .sep=.sep, .envir = parent.frame())
     if(str_detect(value, "\\\\@ref\\((.*?)\\)")){
         doc %>% 
             body_add_par("") %>% 
@@ -103,6 +110,7 @@ body_add_glued = function(doc, .x, ...) {
     value = glue::glue(.x, ..., .envir = parent.frame())
     body_add_normal(doc, value)
 }
+
 
 
 
@@ -204,18 +212,20 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #' @examples 
 #' \dontrun{
 #' library(officer)
-#' library(dplyr) #for pipes
 #' library(ggplot2)
 #' p=quickplot(x=Sepal.Length, y=Sepal.Width, color=Species, data=iris)
 #' x=read_docx() %>% 
-#'     body_add_table_legend("Iris dataset") %>% 
-#'     body_add_crosstable(crosstable(iris)) %>% 
-#'     body_add_gg(p) %>% 
-#'     body_add_figure_legend("Iris plot")
-#' #print(x, "example.docx")
+#'   body_add_normal("As you can see in Table \\@ref(tab1) and in Figure \\@ref(fig1), the iris dataset is about flowers.") %>% 
+#'   body_add_normal() %>% 
+#'   body_add_table_legend("Iris dataset", bookmark="tab1") %>% 
+#'   body_add_crosstable(crosstable(iris)) %>% 
+#'   body_add_gg(p) %>% 
+#'   body_add_figure_legend("Iris plot", bookmark="fig1")
+#' write_and_open(x, "example.docx")
+#' #press Ctrl+A then F9 twice for the reference to appear.
 #' }
 body_add_table_legend = function(doc, legend, bookmark=NULL, 
-                                 legend_style=getOption('crosstable_style_legend', "caption"), 
+                                 legend_style=getOption('crosstable_style_legend', "Table Caption"), 
                                  style=getOption('crosstable_style_strong', "strong"), 
                                  seqfield="SEQ Table \\* Arabic"){
     rtn = doc %>% 
@@ -232,7 +242,7 @@ body_add_table_legend = function(doc, legend, bookmark=NULL,
 #' @rdname body_add_table_legend
 #' @export
 body_add_figure_legend = function(doc, legend, bookmark=NULL, 
-                                  legend_style=getOption('crosstable_style_legend', "caption"), 
+                                  legend_style=getOption('crosstable_style_legend', "Image Caption"), 
                                   style=getOption('crosstable_style_strong', "strong"), 
                                   seqfield="SEQ Figure \\* Arabic"){
     rtn = doc %>% 
@@ -286,7 +296,7 @@ body_add_img2 = function(doc, src, width, height, units = c("in", "cm", "mm"), .
 #'     body_add_normal("Text before") %>% 
 #'     body_add_gg2(p, w=14, h=10, units="cm") %>%
 #'     body_add_normal("Text after")
-#'   write_and_open(doc, "test.docx")
+#'   write_and_open(doc, "example.docx")
 #' }
 #' }
 body_add_gg2 = function(doc, value, width = 6, height = 5, units = c("in", "cm", "mm"), res = 300, 
@@ -404,6 +414,11 @@ write_and_open = function(doc, docx.file){
 #' Recursive helper function 
 #' Replace every string containing a reference to a table/figure by the 
 #' docx-formatted cross-reference
+#' 
+#' @importFrom stringr str_detect str_match_all
+#' @importFrom glue glue
+#' @importFrom rlang abort
+#' @importFrom officer slip_in_text slip_in_seqfield
 #' 
 #' @keywords internal
 #' @noRd
