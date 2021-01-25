@@ -18,7 +18,6 @@
 #' @examples 
 #' #Officer
 #' library(officer)
-#' library(dplyr)
 #' mytable = crosstable(mtcars2)
 #' doc = read_docx() %>% 
 #'     body_add_crosstable(mytable) %>% 
@@ -44,7 +43,7 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 
 
 
-# Officer helpers ---------------------------------------------------------
+# Officer add_xxx ---------------------------------------------------------
 
 
 
@@ -114,7 +113,6 @@ body_add_glued = function(doc, .x, ...) {
 #' @param level the level of the title. See \code{styles_info(doc)} to know the possibilities.
 #' @param style the name of the title style. See \code{styles_info(doc)} to know the possibilities.
 #'
-#' @return a new doc object
 #' @author Dan Chaltiel
 #' @importFrom officer body_add_par
 #' @export
@@ -147,7 +145,7 @@ body_add_title = function(doc, value, level = 1,
 #'
 #' @details Ordered lists and bullet lists are not supported by the default officer template (see [https://github.com/davidgohel/officer/issues/262](#262)). You have to manually set custom styles matching thos list in a custom Word template file. Then, you can use either the `style` argument or crosstable options. See examples for more details.
 #'
-#' @return
+#' @author Dan Chaltiel
 #' @export
 #'
 #' @examples
@@ -199,10 +197,12 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #'
 #' @section Warning:
 #' At first, the legends added with [body_add_table_legend()] or [body_add_figure_legend()] have no numbers. You have to manualy update the references in MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}). You might have to do this several times. More info on [https://ardata-fr.github.io/officeverse/faq.html#update-fields].
-#' @importFrom officer body_add_par slip_in_text slip_in_seqfield
+#' @author Dan Chaltiel
+#' @importFrom officer body_add_par slip_in_text slip_in_seqfield body_bookmark
 #' @export
 #' 
 #' @examples 
+#' \dontrun{
 #' library(officer)
 #' library(dplyr) #for pipes
 #' library(ggplot2)
@@ -213,6 +213,7 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #'     body_add_gg(p) %>% 
 #'     body_add_figure_legend("Iris plot")
 #' #print(x, "example.docx")
+#' }
 body_add_table_legend = function(doc, legend, bookmark=NULL, 
                                  legend_style=getOption('crosstable_style_legend', "caption"), 
                                  style=getOption('crosstable_style_strong', "strong"), 
@@ -301,6 +302,21 @@ body_add_gg2 = function(doc, value, width = 6, height = 5, units = c("in", "cm",
 }
 
 
+# Officer helpers ---------------------------------------------------------
+
+
+#' Adds a standard footnote explaining the abreviations used in a crosstable
+#' 
+#' Use it below [body_add_crosstable()].
+#' Footnote: Med: median, IQR: interquartile range, Std: standard deviation. Percentages are expressed in column.
+#'
+#' @param doc a `rdocx` object
+#'
+#' @export
+body_add_crosstable_footnote = function(doc){
+    body_add_normal(doc, "Med: median, IQR: interquartile range, Std: standard deviation. Percentages are expressed in column.")    
+}
+
 
 #' List Word bookmarks, including the ones in header and footer
 #' 
@@ -309,6 +325,7 @@ body_add_gg2 = function(doc, value, width = 6, height = 5, units = c("in", "cm",
 #' @param x an `rdocx` object
 #' @param return_vector use `TRUE` for compatibility with [officer::docx_bookmarks()]
 #'
+#' @author Dan Chaltiel
 #' @export
 docx_bookmarks2 = function(x, return_vector=FALSE) {
     #cannot add examples as there is officer::body_bookmark() but no officer::head_bookmark()
@@ -333,30 +350,48 @@ docx_bookmarks2 = function(x, return_vector=FALSE) {
 
 
 #' Alternative to default `officer` print() function. Write the file and try to open it right away.
+#' 
+#' As it tests if the file is writable, this function also prevents [officer:::print.rdocx()] to abort the RStudio session.
 #'
 #' @param doc the docx object
 #' @param docx.file the name of the target file
 #'
-#' @return
+#' @author Dan Chaltiel
 #' @export
 #'
 #' @examples
-#' write_and_open(x, "example.docx")
+#' \dontrun{
+#' library(officer)
+#' library(crosstable)
+#' mytable = crosstable(mtcars2)
+#' doc = read_docx() %>% 
+#'     body_add_crosstable(mytable)
+#' write_and_open(doc, "example.docx")
+#' }
 write_and_open = function(doc, docx.file){
+    #checking if the file is already open... by removing it
     tryCatch({
         if(file.exists(docx.file)) {
-            file.remove(docx.file )
+            file.remove(docx.file)
         }
+    }, warning=function(w) {
+        message(w)
+        if(str_detect(w$message, "Permission denied")){
+            abort(c("Permission denied. Is the file already open?", glue("File: {docx.file}")))
+        }
+    })
+    
+    tryCatch({
         print(doc, target=docx.file)
         dfile = paste("\"", sub("(^.+)(/$)", "\\", getwd()), "/", docx.file, "\"", sep = "")
-        # browseURL(dfile)
-        shell.exec(dfile)
+        shell.exec(dfile) # browseURL(dfile)
     }, error=function(e) {
-        message("Error : file is probably already open")
-        message(e)
+        if(str_detect(e$message, "Permission denied")){
+            abort(c("Permission denied. Is the file already open?", glue("File: {docx.file}")))
+        }
+        stop(e)
     }, warning=function(w) {
-        message("Warning : Le fichier est déjà ouvert !")
-        message(w)
+        warning(w)
     }, finally={}
     )
 }
