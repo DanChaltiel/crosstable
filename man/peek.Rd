@@ -2,7 +2,7 @@
 % Please edit documentation in R/flextable.R
 \name{peek}
 \alias{peek}
-\title{Export a \code{crosstable} in a temporary Word document}
+\title{Open a \code{crosstable} in a temporary Word document}
 \usage{
 peek(x, ...)
 }

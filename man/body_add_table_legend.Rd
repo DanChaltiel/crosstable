@@ -6,23 +6,25 @@
 \title{Add a table legend to an \code{officer} document}
 \usage{
 body_add_table_legend(
-  x,
+  doc,
   legend,
-  legend_style = "table title",
-  style = "strong",
+  bookmark = NULL,
+  legend_style = getOption("crosstable_style_legend", "Table Caption"),
+  style = getOption("crosstable_style_strong", "strong"),
   seqfield = "SEQ Table \\\\* Arabic"
 )
 
 body_add_figure_legend(
-  x,
+  doc,
   legend,
-  legend_style = "graphic title",
-  style = "strong",
+  bookmark = NULL,
+  legend_style = getOption("crosstable_style_legend", "Image Caption"),
+  style = getOption("crosstable_style_strong", "strong"),
   seqfield = "SEQ Figure \\\\* Arabic"
 )
 }
 \arguments{
-\item{x}{a docx object}
+\item{doc}{a docx object}
 
 \item{legend}{the table legend}
 
@@ -37,18 +39,25 @@ Add a table legend to an \code{officer} document
 }
 \section{Warning}{
 
-Sometimes, the legends added with \code{body_add_table_legend} have no numbers. In this case, you have to manualy update the references: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}).
+At first, the legends added with \code{\link[=body_add_table_legend]{body_add_table_legend()}} or \code{\link[=body_add_figure_legend]{body_add_figure_legend()}} have no numbers. You have to manualy update the references in MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}). You might have to do this several times. More info on \link{https://ardata-fr.github.io/officeverse/faq.html#update-fields}.
 }
 
 \examples{
+\dontrun{
 library(officer)
-library(dplyr) #for pipes
 library(ggplot2)
 p=quickplot(x=Sepal.Length, y=Sepal.Width, color=Species, data=iris)
 x=read_docx() \%>\% 
-    body_add_table_legend("Iris dataset") \%>\% 
-    body_add_crosstable(crosstable(iris)) \%>\% 
-    body_add_gg(p) \%>\% 
-    body_add_figure_legend("Iris plot")
-#print(x, "example.docx")
+  body_add_normal("As you can see in Table \\\\@ref(tab1) and in Figure \\\\@ref(fig1), the iris dataset is about flowers.") \%>\% 
+  body_add_normal() \%>\% 
+  body_add_table_legend("Iris dataset", bookmark="tab1") \%>\% 
+  body_add_crosstable(crosstable(iris)) \%>\% 
+  body_add_gg(p) \%>\% 
+  body_add_figure_legend("Iris plot", bookmark="fig1")
+write_and_open(x, "example.docx")
+#press Ctrl+A then F9 twice for the reference to appear.
+}
+}
+\author{
+Dan Chaltiel
 }

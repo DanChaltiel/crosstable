@@ -10,11 +10,11 @@
 \usage{
 \method{as_flextable}{crosstable}(
   x,
-  autofit = TRUE,
-  compact = FALSE,
-  show_test_name = TRUE,
-  by_header = NULL,
   keep_id = FALSE,
+  by_header = NULL,
+  autofit = getOption("crosstable_autofit", TRUE),
+  compact = getOption("crosstable_compact", FALSE),
+  show_test_name = getOption("crosstable_show_test_name", TRUE),
   generic_labels = list(id = ".id", variable = "variable", value = "value", total =
     "Total", label = "label", test = "test", effect = "effect"),
   ...
@@ -23,15 +23,15 @@
 \arguments{
 \item{x}{the result of \code{\link[=crosstable]{crosstable()}}}
 
+\item{keep_id}{whether to keep the \code{.id} column}
+
+\item{by_header}{a string to override the \code{by} header}
+
 \item{autofit}{whether to use \code{\link[flextable:autofit]{flextable::autofit()}} on the table}
 
 \item{compact}{whether to compact the table}
 
 \item{show_test_name}{in the \code{test} column, show the test name}
-
-\item{by_header}{a string to override the \code{by} header}
-
-\item{keep_id}{whether to keep the \code{.id} column}
 
 \item{generic_labels}{names of the crosstable default columns}
 

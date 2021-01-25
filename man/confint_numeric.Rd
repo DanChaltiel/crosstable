@@ -4,12 +4,14 @@
 \alias{confint_numeric}
 \title{Confidence interval of a numeric vector}
 \usage{
-confint_numeric(object, level = 0.95)
+confint_numeric(object, level = 0.95, B = 0)
 }
 \arguments{
 \item{object}{a vector, numeric or equivalent (date, logical...)}
 
 \item{level}{the confidence level required}
+
+\item{B}{if >0, the number of bootstraps}
 }
 \value{
 the vector [conf_inf, conf_sup]

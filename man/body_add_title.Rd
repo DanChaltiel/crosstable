@@ -4,7 +4,12 @@
 \alias{body_add_title}
 \title{Add a title to an \code{officer} document}
 \usage{
-body_add_title(doc, value, level = 1, style = "heading")
+body_add_title(
+  doc,
+  value,
+  level = 1,
+  style = getOption("crosstable_style_heading", "heading")
+)
 }
 \arguments{
 \item{doc}{the doc object (created with the \code{read_docx} function of \code{officer} package)}
@@ -14,9 +19,6 @@ body_add_title(doc, value, level = 1, style = "heading")
 \item{level}{the level of the title. See \code{styles_info(doc)} to know the possibilities.}
 
 \item{style}{the name of the title style. See \code{styles_info(doc)} to know the possibilities.}
-}
-\value{
-a new doc object
 }
 \description{
 Add a title to an \code{officer} document

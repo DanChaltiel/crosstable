@@ -29,7 +29,6 @@ body_add_crosstable(
 \examples{
 #Officer
 library(officer)
-library(dplyr)
 mytable = crosstable(mtcars2)
 doc = read_docx() \%>\% 
     body_add_crosstable(mytable) \%>\% 
