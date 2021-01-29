@@ -6,7 +6,7 @@
 #' Can be formatted as an HTML table using [as_flextable()].
 #' 
 #' @param data a data.frame
-#' @param .vars the variables to describe. Can be a character or name vector, a tidyselect helper, a (lambda) function that returns a logical, or a formula. See examples or `vignette("crosstable-selection")` for more details.
+#' @param cols the variables to describe. Can be a character or name vector, a tidyselect helper, a (lambda) function that returns a logical, or a formula. See examples or `vignette("crosstable-selection")` for more details.
 #' @param ... more variables to describe. Cannot be a lambda function nor a formula.
 #' @param by the variable to group on. Character or name.
 #' @param funs functions to apply to numeric variables. Default to [cross_summary].
@@ -24,17 +24,19 @@
 #' @param times when using formula with [survival::Surv()] objects, which times to summarize
 #' @param followup when using formula with [survival::Surv()] objects, whether to display follow-up time
 #' @param unique_numeric the number of non-missing different levels a variable should have to be considered as numeric
+#' @param .vars deprecated
 #' @inheritParams format_fixed
 #' 
 #' @export
 #' @importFrom checkmate makeAssertCollection assertDataFrame assertCount assertLogical assertList assertSubset assertChoice reportAssertions
-#' @importFrom rlang quos enquos enquo expr quo_is_null is_null is_quosures is_formula is_string is_empty is_lambda as_function set_env quo_squash caller_env warn abort 
+#' @importFrom rlang quos enquos enquo expr quo_is_null is_null is_quosures is_formula is_string is_empty is_lambda as_function set_env quo_squash caller_env warn abort quo_is_missing
 #' @importFrom tidyselect vars_select eval_select everything any_of 
 #' @importFrom dplyr select mutate_if n_distinct across
 #' @importFrom purrr map map_lgl map_chr
 #' @importFrom stringr str_detect
 #' @importFrom glue glue
 #' @importFrom ellipsis check_dots_unnamed
+#' @importFrom lifecycle deprecated is_present deprecate_warn deprecate_stop
 #' @importFrom stats model.frame
 #' 
 #' @seealso https://danchaltiel.github.io/crosstable/, as_flextable, import_labels
@@ -67,7 +69,7 @@
 #' #Survival data (using formula UI)
 #' library(survival)
 #' crosstable(aml, Surv(time, status) ~ x,times=c(0,15,30,150), followup=TRUE)
-crosstable = function(data, .vars=NULL, ..., by=NULL, 
+crosstable = function(data, cols=NULL, ..., by=NULL, 
                       total = c("none", "row", "column", "both"),
                       margin = c("row", "column", "cell", "none", "all"), 
                       percent_digits = 2, showNA = c("ifany", "always", "no"), label = TRUE, 
@@ -76,7 +78,8 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
                       test = FALSE, test_args = crosstable_test_args(), 
                       unique_numeric = 3, date_format=NULL, 
                       effect = FALSE, effect_args = crosstable_effect_args(), 
-                      times = NULL, followup = FALSE) {
+                      times = NULL, followup = FALSE, 
+                      .vars) {
     debug=list()
     # Arguments checks ****************************************************
     if(TRUE){
@@ -138,26 +141,37 @@ crosstable = function(data, .vars=NULL, ..., by=NULL,
     if(test==T){
         warning_once("Be aware that automatic global testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.")
     }
+
+    # Deprecations ********************************************************
+    
+    if (!missing(...)) {
+        deprecate_warn("0.1.6", "crosstable(...=)", "crosstable(cols=)", details="NB: The `...` argument might even be reused in other usages in later versions (breaking change).")
+    }
+    if (!missing(.vars)) {
+        deprecate_stop("0.1.6", "crosstable(.vars=)", "crosstable(cols=)")
+        vardots= c(enquos(.vars), enquos(...))
+    }
     
     # Logic handle ********************************************************
     byname = vars_select(names(data), !!!enquos(by))
-    vardots= c(enquos(.vars), enquos(...))
+    if(!exists("vardots"))
+        vardots= c(enquos(cols), enquos(...))
     
-    is_form = tryCatch(suppressWarnings(is_formula(.vars)),error=function(e) FALSE)
-    is_lamb = tryCatch(suppressWarnings(is_lambda(as_function(.vars))), error=function(e) FALSE)
+    is_form = tryCatch(suppressWarnings(is_formula(cols)),error=function(e) FALSE)
+    is_lamb = tryCatch(suppressWarnings(is_lambda(as_function(cols))), error=function(e) FALSE)
     
     if(is_form && !is_lamb){
         debug$interface="formula"
         if(length(enquos(...))>0) 
-            abort("You cannot use additional arguments through `...` when using formulas with crosstable. Please include them in the formula or use another syntax.")
+            abort("You cannot use additional arguments through ellipsis (`...`) when using formulas with crosstable. Please include them in the formula or use another syntax.")
         if(!is_empty(byname))
             abort(c("`by` argument is ignored when using formula. Please include it in the formula or use another syntax.",
-                   i=paste("formula = ", format(.vars)),
+                   i=paste("formula = ", format(cols)),
                    i=paste("by = ", paste(as.character(byname), collapse=", "))))
         
-        data_y = model.frame(.vars[-2], data, na.action = NULL)
+        data_y = model.frame(cols[-2], data, na.action = NULL)
         byname = names(data_y)
-        data_x = model.frame(.vars[-3], data, na.action = NULL) %>% 
+        data_x = model.frame(cols[-3], data, na.action = NULL) %>% 
             select(-any_of(byname))
     } else {
         debug$interface="quosure"
