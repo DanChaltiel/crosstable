@@ -184,7 +184,7 @@ save_labels = function(.tbl){
         name=names(.tbl),
         label=get_label(.tbl)[.data$name]
     )
-    .tbl
+    invisible(.tbl)
 }
 
 
