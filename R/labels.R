@@ -178,15 +178,6 @@ save_labels = function(.tbl){
     .tbl
 }
 
-labels_env = rlang::new_environment()
-# ls(envir=labels_env)
-
-#' @keywords internal
-#' @noRd
-get_last_save = function(){
-    labels_env$last_save
-}
-
 
 #' Rename every column of a dataframe with its label
 #'
@@ -235,4 +226,24 @@ apply_labels = function (data, ..., warn_missing=FALSE) {
         }
         data[[.y]]
     })
+}
+
+
+
+# utils -------------------------------------------------------------------
+
+
+labels_env = rlang::new_environment()
+
+#' @keywords internal
+#' @noRd
+get_last_save = function(){
+    labels_env$last_save
+}
+
+#' @keywords internal
+#' @noRd
+remove_last_save = function(){
+    labels_env$last_save = NULL
+    invisible()
 }
