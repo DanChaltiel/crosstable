@@ -118,11 +118,12 @@ remove_labels = function(x){
 remove_label = remove_labels
 
 
-#' Import labels from a dataset
-#' @description `import_labels` imports labels from a data.frame (`data_label`) to another one (`.tbl`).
+#' Import labels
+#' 
+#' `import_labels` imports labels from a data.frame (`data_label`) to another one (`.tbl`). Works in synergy with [save_labels()].
 #'
 #' @param .tbl the data.frame to labellize
-#' @param data_label a data.frame from which to import labels
+#' @param data_label a data.frame from which to import labels. If missing, the function will take the labels from the last dataframe on which [save_labels()] was called.
 #' @param name_from in `data_label`, which column to get the variable name
 #' @param label_from in `data_label`, which column to get the variable label
 #' @param verbose if TRUE, displays a warning if a variable name is not found in `data_label`
@@ -143,9 +144,17 @@ remove_label = remove_labels
 #'   import_labels(iris_label) %>% 
 #'   crosstable
 #'   
-import_labels = function(.tbl, data_label = get_last_save(), 
+import_labels = function(.tbl, data_label, 
                          name_from = "name", label_from = "label", 
                          verbose=TRUE){
+    
+    if(missing(data_label)){
+        data_label = get_last_save()
+        if(is.null(data_label)) 
+            abort(c("There is no saved labels. Did you forget `data_label` or calling `import_labels()`?", 
+                    i="Beware that, for now, `save_labels()` and `import_labels()` must absolutely be in 2 different pipelines"))
+    } 
+    
     data_label = as.data.frame(data_label)
     for(i in 1:nrow(data_label)){
         name = as.character(data_label[i, name_from])
@@ -211,7 +220,7 @@ rename_dataframe_with_labels = function(df){
 #' library(crosstable)
 #' cars %>%
 #'   apply_labels(speed="Speed (mph)",
-#'              dist="Stopping distance (ft)") %>% 
+#'                dist="Stopping distance (ft)") %>% 
 #'   crosstable()
 apply_labels = function (data, ..., warn_missing=FALSE) {
     args = list(...)
