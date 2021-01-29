@@ -179,22 +179,22 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #' Add a table legend to an `officer` document
 #'
 #' @param doc a docx object
-#' @param legend the table legend
-#' @param legend_style may depend on the docx template
-#' @param style the legend style (strong, italic...)
-#' @param seqfield to figure this out, in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.
+#' @param legend the table legend. As with [glue::glue()], expressions enclosed by braces will be evaluated as R code.
+#' @param bookmark 
+#' @param legend_style style of of the whole legend. May depend on the docx template
+#' @param style style of the number. May depend on the docx template (default to strong)
+#' @param legend_name name before the numbering. Useful for translation
+#' @param seqfield Keep default. Otherwise, you may figure it out doing this: in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.
 #'
 #' @section Warning:
 #' At first, the legends added with [body_add_table_legend()] or [body_add_figure_legend()] have no numbers. You have to manualy update the references in MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}). You might have to do this several times. More info on [https://ardata-fr.github.io/officeverse/faq.html#update-fields].
 #' @author Dan Chaltiel
-#' @importFrom officer body_add_par slip_in_text slip_in_seqfield body_bookmark
 #' @export
 #' 
 #' @examples 
 #' \dontrun{
 #' library(officer)
-#' library(ggplot2)
-#' p=quickplot(x=Sepal.Length, y=Sepal.Width, color=Species, data=iris)
+#' p=ggplot2::quickplot(x=Sepal.Length, y=Sepal.Width, color=Species, data=iris)
 #' x=read_docx() %>% 
 #'   body_add_normal("As you can see in Table \\@ref(tab1) and in Figure \\@ref(fig1), the iris dataset is about flowers.") %>% 
 #'   body_add_normal() %>% 
@@ -208,16 +208,11 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 body_add_table_legend = function(doc, legend, bookmark=NULL, 
                                  legend_style=getOption('crosstable_style_legend', "Table Caption"), 
                                  style=getOption('crosstable_style_strong', "strong"), 
+                                 legend_name="Table",
                                  seqfield="SEQ Table \\* Arabic"){
-    rtn = doc %>% 
-        body_add_par(value=legend, style=legend_style) %>% 
-        slip_in_text(str=": ", style=style, pos="before") %>% 
-        slip_in_seqfield(str=seqfield, style=style, pos="before")
-    if(!is.null(bookmark)){
-        rtn = body_bookmark(rtn, bookmark)
-    }
-    rtn %>% 
-        slip_in_text(str="Table ", style=style, pos="before")
+    body_add_legend(doc=doc, legend=legend, legend_name=legend_name, 
+                    bookmark=bookmark, legend_style=legend_style, 
+                    style=style, seqfield=seqfield)
 }
 
 #' @rdname body_add_table_legend
@@ -225,7 +220,21 @@ body_add_table_legend = function(doc, legend, bookmark=NULL,
 body_add_figure_legend = function(doc, legend, bookmark=NULL, 
                                   legend_style=getOption('crosstable_style_legend', "Image Caption"), 
                                   style=getOption('crosstable_style_strong', "strong"), 
+                                  legend_name="Figure",
                                   seqfield="SEQ Figure \\* Arabic"){
+    body_add_legend(doc=doc, legend=legend, legend_name=legend_name, 
+                    bookmark=bookmark, legend_style=legend_style, 
+                    style=style, seqfield=seqfield)
+}
+
+#' @importFrom stringr str_detect str_match_all
+#' @importFrom glue glue
+#' @importFrom rlang abort
+#' @importFrom officer slip_in_text slip_in_seqfield
+#' @keywords internal
+#' @noRd
+body_add_legend = function(doc, legend, legend_name, bookmark, legend_style, style, seqfield){
+    legend = glue(legend, .envir = parent.frame())
     rtn = doc %>% 
         body_add_par(value=legend, style=legend_style) %>% 
         slip_in_text(str=": ", style=style, pos="before") %>% 
@@ -234,9 +243,8 @@ body_add_figure_legend = function(doc, legend, bookmark=NULL,
         rtn = body_bookmark(rtn, bookmark)
     }
     rtn %>% 
-        slip_in_text(str="Figure ", style=style, pos="before")
+        slip_in_text(str=glue("{legend_name} "), style=style, pos="before")
 }
-
 
 
 #' Alternative to [officer::body_add_img()] which adds a `units` choice
@@ -342,7 +350,7 @@ docx_bookmarks2 = function(x, return_vector=FALSE) {
 
 #' Alternative to default `officer` print() function. Write the file and try to open it right away.
 #' 
-#' As it tests if the file is writable, this function also prevents [officer:::print.rdocx()] to abort the RStudio session.
+#' As it tests if the file is writable, this function also prevents `officer:::print.rdocx()` to abort the RStudio session.
 #'
 #' @param doc the docx object
 #' @param docx.file the name of the target file
