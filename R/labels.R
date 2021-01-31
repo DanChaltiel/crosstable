@@ -118,76 +118,6 @@ remove_labels = function(x){
 remove_label = remove_labels
 
 
-#' Import labels
-#' 
-#' `import_labels` imports labels from a data.frame (`data_label`) to another one (`.tbl`). Works in synergy with [save_labels()].
-#'
-#' @param .tbl the data.frame to labellize
-#' @param data_label a data.frame from which to import labels. If missing, the function will take the labels from the last dataframe on which [save_labels()] was called.
-#' @param name_from in `data_label`, which column to get the variable name
-#' @param label_from in `data_label`, which column to get the variable label
-#' @param verbose if TRUE, displays a warning if a variable name is not found in `data_label`
-#'
-#' @export
-#' @importFrom glue glue
-#'
-#' @seealso [get_label], [set_label], [remove_label]
-#' @examples
-#' #import the labels from a data.frame to another
-#' iris_label = data.frame(
-#'   name=c("Sepal.Length", "Sepal.Width",
-#'          "Petal.Length", "Petal.Width", "Species"),
-#'   label=c("Length of Sepals", "Width of Sepals",
-#'           "Length of Petals", "Width of Petals", "Specie name")
-#' )
-#' iris %>% 
-#'   import_labels(iris_label) %>% 
-#'   crosstable
-#'   
-import_labels = function(.tbl, data_label, 
-                         name_from = "name", label_from = "label", 
-                         verbose=TRUE){
-    
-    if(missing(data_label)){
-        data_label = get_last_save()
-        if(is.null(data_label)) 
-            abort(c("There is no saved labels. Did you forget `data_label` or calling `import_labels()`?", 
-                    i="Beware that, for now, `save_labels()` and `import_labels()` must absolutely be in 2 different pipelines"))
-    } 
-    
-    data_label = as.data.frame(data_label)
-    for(i in 1:nrow(data_label)){
-        name = as.character(data_label[i, name_from])
-        label = as.character(data_label[i, label_from])
-        if(!is.null(.tbl[[name]])){
-            .tbl[name] = set_label(.tbl[name], label)
-        } else if(verbose){
-            warning(glue("Cannot import label, variable '{name}' not found"))
-        }
-    }
-    .tbl
-}
-
-#' @rdname import_labels
-#' @description `save_labels` saves the labels from a data.frame in a temporary variable that can be retrieve by `import_labels`.
-#' @export
-#' @examples 
-#' #save the labels, use some dplyr label-removing function, then retrieve the labels
-#' library(dplyr)
-#' mtcars2 %>%
-#'   save_labels() %>% 
-#'   transmute(disp=as.numeric(disp)+1) %>%
-#'   import_labels(verbose=FALSE) %>% #
-#'   crosstable(disp)
-save_labels = function(.tbl){
-    labels_env$last_save = tibble(
-        name=names(.tbl),
-        label=get_label(.tbl)[.data$name]
-    )
-    invisible(.tbl)
-}
-
-
 #' Rename every column of a dataframe with its label
 #'
 #' @param df a data.frame
@@ -238,11 +168,102 @@ apply_labels = function (data, ..., warn_missing=FALSE) {
 }
 
 
+#' Import labels
+#' 
+#' `import_labels` imports labels from a data.frame (`data_label`) to another one (`.tbl`). Works in synergy with [save_labels()].
+#'
+#' @param .tbl the data.frame to labellize
+#' @param data_label a data.frame from which to import labels. If missing, the function will take the labels from the last dataframe on which [save_labels()] was called.
+#' @param name_from in `data_label`, which column to get the variable name (default to `name`)
+#' @param label_from in `data_label`, which column to get the variable label (default to `label`)
+#' @param verbose if TRUE, displays a warning if a variable name is not found in `data_label`
+#'
+#' @export
+#' @importFrom glue glue
+#' @importFrom tibble column_to_rownames
+#' @importFrom rlang abort warn
+#'
+#' @seealso [get_label()], [set_label()], [remove_label()], [save_label()]
+#' @examples
+#' #import the labels from a data.frame to another
+#' iris_label = data.frame(
+#'   name=c("Sepal.Length", "Sepal.Width",
+#'          "Petal.Length", "Petal.Width", "Species"),
+#'   label=c("Length of Sepals", "Width of Sepals",
+#'           "Length of Petals", "Width of Petals", "Specie name")
+#' )
+#' iris %>% 
+#'   import_labels(iris_label) %>% 
+#'   crosstable
+#'   
+import_labels = function(.tbl, data_label, 
+                         name_from = "name", label_from = "label", 
+                         verbose_name = FALSE, verbose_label = FALSE){
+    
+    if(missing(data_label)){
+        data_label = get_last_save()
+        if(is.null(data_label)) 
+            abort(c("There is no saved labels. Did you forget `data_label` or calling `import_labels()`?", 
+                    i="Beware that, with magrittr v2+, `save_labels()` and `import_labels()` must absolutely be in 2 different pipelines"))
+    } 
+    
+    duplicates = data_label$name[duplicated(data_label$name)]
+    s = if(length(duplicates)>1) "s" else ""
+    if(length(duplicates)>0){
+        abort(c(glue('Duplicated column name{s} in `data_label`, cannot identify a label uniquely'), 
+                i=glue("Duplicates name{s}: {glue_collapse(duplicates, ', ')}")), 
+              data=list(.tbl=.tbl, data_label=data_label))
+    }
+
+    no_label = names(.tbl)[!names(.tbl) %in% data_label$name]
+    s = if(length(no_label)>1) "s" else ""
+    if(length(no_label)>0 && verbose_name){
+        warn(c(glue('Variable{s} in `.tbl` did not have any label'), 
+                i=glue("Variable{s} without label: {glue_collapse(no_label, ', ')}")), 
+              data=list(.tbl=.tbl, data_label=data_label))
+    }
+    
+    not_found = data_label$name[!data_label$name %in% names(.tbl)]
+    s = if(length(not_found)>1) "s" else ""
+    if(length(not_found)>0 && verbose_label){
+        warn(c(glue('Name{s} in `data_label` not found in `.tbl`'), 
+                i=glue("Name{s} unused: {glue_collapse(not_found, ', ')}")), 
+              data=list(.tbl=.tbl, data_label=data_label))
+    }
+    
+    data_label = as.data.frame(data_label) %>% column_to_rownames(name_from)
+    .tbl %>% imap_dfr(~{
+        label = data_label[.y, label_from]
+        set_label(.x, label)
+    })
+    
+}
+
+#' @rdname import_labels
+#' @description `save_labels` saves the labels from a data.frame in a temporary variable that can be retrieve by `import_labels`.
+#' @export
+#' @examples 
+#' #save the labels, use some dplyr label-removing function, then retrieve the labels
+#' library(dplyr)
+#' mtcars2 %>%
+#'   save_labels() %>% 
+#'   transmute(disp=as.numeric(disp)+1) %>%
+#'   import_labels(verbose=FALSE) %>% #
+#'   crosstable(disp)
+save_labels = function(.tbl){
+    labels_env$last_save = tibble(
+        name=names(.tbl),
+        label=get_label(.tbl)[.data$name]
+    )
+    invisible(.tbl)
+}
+
 
 # utils -------------------------------------------------------------------
 
 
-labels_env = rlang::new_environment()
+# labels_env = rlang::new_environment()
+labels_env = rlang::env()
 
 #' @keywords internal
 #' @noRd
