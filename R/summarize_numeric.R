@@ -40,13 +40,13 @@ summarize_numeric_single = function(x, funs, funs_arg){
 #' @importFrom dplyr group_by mutate ungroup mutate_at vars arrange filter .data
 #' @importFrom tidyr nest unnest pivot_wider replace_na
 #' @importFrom purrr map imap reduce
+#' @importFrom forcats fct_explicit_na
 #' @keywords internal
 #' @noRd
 summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total, 
                                     cor_digits, cor_method, test, test_args, 
                                     effect, effect_args){
     assert_numeric(x)
-    assert_character(funs)
     assert_scalar(showNA)
     .=NULL #mute the R CMD Check note
     .na=.effect=.test=.total=NULL
@@ -55,29 +55,32 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
                                           digits = cor_digits)
     if(test) 
         .test = test_args$display_test(test_args$test_summarize(x, by), digits = test_args$plim, 
-                                    method = test_args$show_method)
+                                       method = test_args$show_method)
     if (identical(total, 1) | identical(total, 1:2) | identical(total, TRUE))
         .total = summarize_numeric_single(x, funs=funs, funs_arg=funs_arg)[["value"]]
     
     .showNA = showNA == "always" | (showNA == "ifany" && anyNA(by))
-    if(showNA == "always" && !anyNA(by)){
-        .na="no NA"
+    
+    
+    if(.showNA==TRUE) {
+        if(!anyNA(by)) .na="no NA"
+        by_filter=TRUE
+        by = fct_explicit_na(by, "NA")
+    } else{
+        by_filter = !is.na(by) 
     }
     
-    if(.showNA==FALSE) by = by[!is.na(by)]
-    by = replace_na(as.character(by), "NA")
-    
-    rtn = unique(by) %>% sort() %>% set_names() %>% 
-        map(~summarize_numeric_single(x[by==.x], funs=funs, funs_arg=funs_arg)) %>% 
-        imap(~rename(.x, !!.y:=value)) %>% 
-        reduce(left_join, by="variable") %>%
-        {if(!"NA" %in% names(.)){mutate(.,"NA"=.na)} else .} %>%
-        mutate(Total=.total, effect=.effect, test=.test) %>%
-        mutate_all(as.character)
-    
-    rtn
+    tibble(x, by) %>%
+        filter(by_filter) %>%
+        group_by(by) %>%
+        summarise(x=list(summarize_numeric_single(x, funs=funs, funs_arg=funs_arg))) %>%
+        unnest(cols="x") %>%
+        pivot_wider(names_from = "by") %>%
+        {if(!is.null(.na)){mutate(.,"NA"=.na)} else .} %>%
+        mutate(Total=.total, effect=.effect, test=.test, 
+               across(everything(), as.character)) %>%
+        ungroup()
 }
-
 
 
 
@@ -98,7 +101,7 @@ summarize_numeric_numeric = function(x, by, method, digits, test, test_args){
     assert_list(test_args)
     
     ct=test_args$test_correlation(x, by, method=method)
-
+    
     cor=round(ct$estimate, digits=digits)
     if(!is.null(ct$conf.int)){
         ci=round(ct$conf.int, digits=digits)
