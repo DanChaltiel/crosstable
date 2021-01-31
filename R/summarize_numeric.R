@@ -6,19 +6,35 @@
 #' @keywords internal
 #' @noRd
 summarize_numeric_single = function(x, funs, funs_arg){
-    assert_numeric(x)
-    assert_character(funs)
-    
-    fun = do.call(funs2fun, as.list(funs))
-    rtn = do.call(fun, c(list(x=x), funs_arg)) %>% 
-        mutate_if(is.numeric, format_fixed, !!!funs_arg)
-    data.frame(value=t(rtn)) %>% rownames_to_column("variable")
+    imap_dfr(funs, ~{
+        v = do.call(.x, c(list(x), funs_arg))
+        if(length(v)<2){
+            v=data.frame(variable=.y, value=v)
+        } else {
+            if(is.null(names(v))){
+                names(v) = paste0("fun", seq_along(v))
+                i=glue_collapse(names(v), "', '", last="', and '")
+                warn(glue("`funs` member {.y} had unnamed functions. They have been named '{i}' in the crosstable."))
+            } else if("" %in% names(v)){
+                newnames = paste0("fun", seq_along(names(v)[names(v)==""]))
+                i=glue_collapse(newnames, "', '", last="', and '")
+                names(v)[names(v)==""] = newnames
+                warn(glue("`funs` member {.y} had unnamed functions. They have been named '{i}' in the crosstable."))
+            }
+            v2 = data.frame(variable=names(v), value=v)
+            
+            
+            v = data.frame(variable=names(v), value=v)
+            if(.y!=" "){
+                v$variable = paste(.y, v$variable)
+            }
+        }
+        mutate_if(v, is.numeric, format_fixed, !!!funs_arg)
+    })
 }
 
 
-
-
-#' Summarize numeric by categorial
+#' Summarize numeric by categorical
 #' @importFrom checkmate assert_numeric assert_character assert_scalar
 #' @importFrom tibble tibble
 #' @importFrom dplyr group_by mutate ungroup mutate_at vars arrange filter .data

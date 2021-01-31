@@ -10,7 +10,6 @@ cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
     assert(ncol(data_x)==1)
     assert(is.null(data_y) || ncol(data_y)==1)
     assert_numeric(data_x[[1]])
-    assert_character(funs)
     
     if(label){
         x_name = get_label(data_x)
@@ -27,7 +26,7 @@ cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
                                        cor_digits, cor_method,  test, test_args, 
                                        effect, effect_args)
     } else if(!is.date(data_x[[1]]) && is.numeric.and.not.surv(data_y[[1]])){
-        if(!identical(funs,c(` `="cross_summary")) || length(funs_arg)>0)
+        if(!identical(funs,c(` `=cross_summary)) || length(funs_arg)>0)
             warning("`funs`  and `funs_arg` arguments will not be used if `by` is numeric.")
         rtn = summarize_numeric_numeric(data_x[[1]], data_y[[1]], method=cor_method, 
                                         digits=cor_digits, test=test, test_args) %>% 

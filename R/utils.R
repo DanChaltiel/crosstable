@@ -71,67 +71,30 @@ get_defined_function = function(name) {
 
 
 
-#' Clean functions names to character
-#'
-#' @param funs named vector of functions
 #' @keywords internal
 #' @noRd
-clear_funs = function(funs){
-    if (!is.character(funs)) {
-        nomf = names(funs)
-        funs = as.character(as.list(substitute(funs, caller_env())))
-        funs = funs[funs != "c" & funs != "list"]
-        names(funs) = nomf
-    }
-    funs
-}
-
-
-
-#' Concatenate functions
-#'
-#' @param ... functions
-#' @author David Hajage
-#' @keywords internal
-#' @noRd
-#' @importFrom  stringr str_squish
-funs2fun = function(...) {
-    fnames = as.character(match.call()[-1])
-    fs = list(...)
-    fnames2 = names(fs)
-    
-    if (!is.null(fnames2)) {
-        fnames[fnames2 != ""] = fnames2[fnames2 != ""]
-    }
-    
-    n = length(fs)
-    function(x, ...) {
-        results = NULL
-        args = list(...)
-        namesargs = names(args)
-        for (i in 1:n) {
-            func = match.fun(fs[[i]])
-            forms = formals(func) # Pour min et max (et les autres
-            # primitives), il faudrait mettre
-            # 'formals(args(func))'. Le probleme est
-            # que min et max retourne le minimum de
-            # tout ce qui n'est pas 'na.rm', donc si
-            # je met un autre argument (genre probs =
-            # 1/3), min et max prennent en compte sa
-            # valeur, d'ou surprises... Je prefere
-            # laisser comme ca.
-            namesforms = names(forms)
-            if (all(namesforms != "...")) {
-                finalargs = c(list(x = x), args[namesargs %in% namesforms])
-            } else {
-                finalargs = c(list(x = x), args)
-            }
-            tmp = do.call(func, finalargs)
-            names(tmp) = str_squish(paste(fnames[i], names(tmp)))
-            results = c(results, as.list(tmp))
+parse_funs = function(funs){
+    fun_call = as.character(as.list(substitute(funs, caller_env())))
+    fun_call = fun_call[fun_call != "c" & fun_call != "list"]
+    funs = c(funs)
+    if(is.null(names(funs))) {
+        if(fun_call[1]=="`function`"){
+            names(funs)= "anonymous function"
+            warn(c("Anonymous function should have a name.", 
+                   i=paste0("Instead of: funs=function(...)", fun_call[3]), 
+                   i=paste0('Write: funs=c("Some calculation"=function(...)', fun_call[3])))
+        } else if(fun_call[1]=="`~`"){
+            names(funs)= "lambda function"
+            warn(c("Anonymous function should have a name.", 
+                   i=paste0("Instead of: funs=~", fun_call[2]), 
+                   i=paste0('Write: funs=c("Some calculation"=~', fun_call[2])))
+        } else {
+            names(funs)= fun_call
         }
-        data.frame(results, check.names = FALSE)
+        names(funs)[names(funs)==""] = fun_call[names(funs)==""]
     }
+    
+    funs
 }
 
 

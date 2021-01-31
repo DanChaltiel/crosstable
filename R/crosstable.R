@@ -95,8 +95,6 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
         if(isTRUE(showNA)) showNA="always"
         showNA = match.arg(showNA)
         cor_method = match.arg(cor_method)
-        funs = clear_funs(funs)
-        
         
         
         if (missing(margin)) margin = "row"
@@ -250,6 +248,7 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
 
     # Function call *******************************************************
     
+    funs = parse_funs(funs)
     rtn = cross_by(data_x=data_x, data_y=data_y, funs=funs, funs_arg=funs_arg,
                    margin=margin, total=total, percent_digits=percent_digits, showNA=showNA,
                    cor_method=cor_method, times=times, followup=followup, test=test, test_args=test_args,
