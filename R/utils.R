@@ -4,26 +4,6 @@
 # Error and warning handling ----------------------------------------------
 
 
-#' @importFrom rlang env env_has inform is_installed
-#' @importFrom checkmate assert_string
-#' @author tidyselect (https://github.com/r-lib/tidyselect/blob/2fab83639982d37fd94914210f771ab9cbd36b4b/R/utils.R#L281)
-#' @keywords internal
-#' @noRd
-warning_once = function(msg, id=msg) {
-    assert_string(id)
-    verbosity = getOption("tidyselect_verbosity", FALSE)
-    if(verbosity=="silent" || (env_has(inform_env, id) && verbosity!="verbose")) {
-        return(invisible(NULL))
-    }
-    inform_env[[id]] = TRUE
-    x = "This message is displayed once per session."
-    if(is_installed("crayon") && crayon::has_color())
-        x = crayon::silver(x)
-    warn(paste(msg, x, sep = "\n"))
-}
-inform_env = rlang::env()
-
-
 #' @author https://stackoverflow.com/a/20578779/3888000
 #' @keywords internal
 #' @noRd
@@ -91,9 +71,11 @@ parse_funs = function(funs){
         } else {
             names(funs)= fun_call
         }
+    } else {
         names(funs)[names(funs)==""] = fun_call[names(funs)==""]
     }
     
+    funs = map(funs, as_function)
     funs
 }
 

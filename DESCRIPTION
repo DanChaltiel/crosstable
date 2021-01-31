@@ -27,7 +27,7 @@ Imports:
     nortest,
     officer,
     purrr,
-    rlang,
+    rlang (>= 0.4.7),
     stats,
     stringr,
     survival,

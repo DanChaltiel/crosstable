@@ -137,13 +137,15 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     
     
     if(test==T){
-        warning_once("Be aware that automatic global testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.")
+        warn("Be aware that automatic global testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.", 
+             .frequency = "regularly", .frequency_id="crosstable_global_testing")
     }
 
     # Deprecations ********************************************************
     
     if (!missing(...)) {
-        deprecate_warn("0.1.6", "crosstable(...=)", "crosstable(cols=)", details="NB: The `...` argument might even be reused in other usages in later versions (breaking change).")
+        deprecate_warn("0.1.6", "crosstable(...=)", "crosstable(cols=)", 
+                       details="NB: The `...` argument might even be reused in other usages in later versions (breaking change).")
     }
     if (!missing(.vars)) {
         deprecate_stop("0.1.6", "crosstable(.vars=)", "crosstable(cols=)")
