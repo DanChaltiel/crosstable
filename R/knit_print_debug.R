@@ -1,39 +1,69 @@
 
 
 
-#' For makrdown compatibility, cf https://github.com/davidgohel/flextable/issues/216
+#' For markdown compatibility, cf https://github.com/davidgohel/flextable/issues/216
+#' View(flextable:::knit_print.flextable)
 #' @keywords internal
 #' @noRd
 knit_print.flextable = function (x, ...) {
-    #debug version2 for markdown documents
+    is_bookdown <- isTRUE(opts_knit$get("bookdown.internal.label"))
+    pandoc2 <- rmarkdown::pandoc_version() >= numeric_version("2.0")
+    str <- flextable_to_rmd(x, bookdown = is_bookdown, pandoc2 = pandoc2, 
+                            print = FALSE)
+    knit_print(asis_output(str))
+    
+}
+
+flextable_to_rmd = function (x, ft.align = opts_current$get("ft.align"), ft.split = opts_current$get("ft.split"), 
+          ft.tabcolsep = opts_current$get("ft.tabcolsep"), ft.arraystretch = opts_current$get("ft.arraystretch"), 
+          ft.left = opts_current$get("ft.left"), ft.top = opts_current$get("ft.top"), 
+          webshot = opts_current$get("webshot"), bookdown = FALSE, 
+          pandoc2 = TRUE, print = TRUE) {
     library(knitr)
-    html_str=flextable:::html_str
-    html_str.flextable=flextable:::html_str.flextable
-    pandoc_version=rmarkdown::pandoc_version
     library(htmltools)
     library(graphics)
+    html_value=flextable:::html_value
+    pandoc_version=rmarkdown::pandoc_version
     
-    is_bookdown <- isTRUE(opts_knit$get("bookdown.internal.label"))
+    str <- ""
+    is_xaringan <- !is.null(getOption("xaringan.page_number.offset"))
     if (is.null(opts_knit$get("rmarkdown.pandoc.to"))) {
-        knit_print(asis_output(html_str(x)))
+        str <- html_value(x, ft.align = ft.align, bookdown = FALSE, 
+                          pandoc2 = FALSE, ft.shadow = FALSE)
+    }
+    else if (is_xaringan) {
+        str <- html_value(x, ft.align = ft.align, bookdown = FALSE, 
+                          pandoc2 = FALSE, ft.shadow = TRUE)
     }
     else if (grepl("(html|slidy|gfm|markdown_strict)", opts_knit$get("rmarkdown.pandoc.to"))) {
-        tab_class <- "tabwid"
-        if (!is.null(align <- opts_current$get("ft.align"))) {
-            if (align == "left") 
-                tab_class <- "tabwid tabwid_left"
-            else if (align == "right") 
-                tab_class <- "tabwid tabwid_right"
-        }
-        # knit_print(asis_output(htmltools_value(x, class = tab_class, bookdown = is_bookdown)))
-        knit_print(htmltools_value(x, class = tab_class, bookdown = is_bookdown))
+        str <- html_value(x, ft.align = ft.align, bookdown = bookdown, 
+                          pandoc2 = pandoc2)
     }
-    else if (grepl("(latex|beamer)", opts_knit$get("rmarkdown.pandoc.to"))) {
-        if (is.null(webshot_package <- opts_current$get("webshot"))) {
+    else if (grepl("latex", opts_knit$get("rmarkdown.pandoc.to"))) {
+        str <- latex_value(x, ft.tabcolsep = ft.tabcolsep, ft.align = ft.align, 
+                           ft.arraystretch = ft.arraystretch, bookdown = bookdown)
+    }
+    else if (grepl("docx", opts_knit$get("rmarkdown.pandoc.to"))) {
+        if (pandoc2) {
+            str <- docx_value(x, bookdown = bookdown, ft.align = ft.align, 
+                              ft.split = ft.split)
+        }
+        else {
+            stop("pandoc version >= 2.0 required for flextable rendering in docx")
+        }
+    }
+    else if (grepl("pptx", opts_knit$get("rmarkdown.pandoc.to"))) {
+        if (pandoc_version() < numeric_version("2.4")) {
+            stop("pandoc version >= 2.4 required for printing flextable in pptx")
+        }
+        str <- pptx_value(x, ft.left = ft.left, ft.top = ft.top, 
+                          bookdown = bookdown)
+    }
+    else {
+        if (is.null(webshot_package <- webshot)) {
             webshot_package <- "webshot"
         }
         if (requireNamespace(webshot_package, quietly = TRUE)) {
-            webshot_fun <- getFromNamespace("webshot", webshot_package)
             plot_counter <- getFromNamespace("plot_counter", 
                                              "knitr")
             in_base_dir <- getFromNamespace("in_base_dir", "knitr")
@@ -43,43 +73,15 @@ knit_print.flextable = function (x, ...) {
             in_base_dir({
                 dir.create(dirname(tmp), showWarnings = FALSE, 
                            recursive = TRUE)
-                tf <- tempfile(fileext = ".html", tmpdir = ".")
-                save_as_html(x = x, path = tf)
-                webshot_fun(url = basename(tf), file = tmp, 
-                            selector = "body > table", zoom = 3, expand = 0)
-                unlink(tf)
+                save_as_image(x, path = tmp, zoom = 3, expand = 0, 
+                              webshot = webshot_package)
             })
-            knit_print(asis_output(sprintf("\\includegraphics[width=%.02fin,height=%.02fin,keepaspectratio]{%s}\n", 
-                                           width, height, tmp)))
+            str <- sprintf("\\includegraphics[width=%.02fin,height=%.02fin,keepaspectratio]{%s}\n", 
+                           width, height, tmp)
         }
     }
-    else if (grepl("docx", opts_knit$get("rmarkdown.pandoc.to"))) {
-        if (pandoc_version() >= 2) {
-            str <- docx_value(x, print = FALSE, bookdown = is_bookdown)
-            knit_print(asis_output(str))
-        }
-        else {
-            stop("pandoc version >= 2.0 required for flextable rendering in docx")
-        }
+    if (print) {
+        cat(str, "\n", sep = "")
     }
-    else if (grepl("pptx", opts_knit$get("rmarkdown.pandoc.to"))) {
-        if (pandoc_version() < 2.4) {
-            stop("pandoc version >= 2.4 required for printing flextable in pptx")
-        }
-        if (is.null(left <- opts_current$get("ft.left"))) 
-            left <- 1
-        if (is.null(top <- opts_current$get("ft.top"))) 
-            top <- 2
-        uid <- as.integer(runif(n = 1) * 10^9)
-        str <- pml_flextable(x, uid = uid, offx = left, offy = top, 
-                             cx = 10, cy = 6)
-        knit_print(asis_output(paste("```{=openxml}", str, "```", 
-                                     sep = "\n")))
-    }
-    else {
-        stop("unsupported format for flextable rendering:", 
-             opts_knit$get("rmarkdown.pandoc.to"))
-    }
+    invisible(str)
 }
-
-
