@@ -69,7 +69,7 @@ compact.data.frame = function(data, name_from, name_to="variable", wrap_cols=NUL
 #' @examples 
 #' 
 #' #crosstables
-#' x=crosstable(mtcars2, disp,hp,am, by=vs, test=TRUE, effect=TRUE)
+#' x=crosstable(mtcars2, c(disp,hp,am), by=vs, test=TRUE, effect=TRUE)
 #' compact(x)
 #' compact(x, name_from=".id")
 compact.crosstable = function(data, name_from=c("label", ".id"), name_to="variable", ...){
