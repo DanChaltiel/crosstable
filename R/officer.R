@@ -53,39 +53,58 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #' References to any bookmark can be inserted using the syntax "\\@ref(bookmark)". See an example in [body_add_table_legend()].
 #'
 #' @param doc the doc object (created with the `read_docx` function of `officer` package)
-#' @param ... one or several character strings, pasted using `.sep`. As with `glue::glue()`, expressions enclosed by braces will be evaluated as R code.
+#' @param ... one or several character strings, pasted using `.sep`. As with `glue::glue()`, expressions enclosed by braces will be evaluated as R code. If more than one variable is passed, all should be of length 1.
 #' @param .sep Separator used to separate elements.
 #'
 #' @return a new doc object
 #' @author Dan Chaltiel
+#' 
 #' @export
 #' @importFrom glue glue glue_collapse
 #' @importFrom officer body_add_par
+#' @importFrom purrr map_dbl
+#' @importFrom ellipsis check_dots_unnamed
 #' 
 #' @examples
 #' \dontrun{
 #' library(officer)
 #' library(crosstable)
-#' doc=NULL
-#' doc = read_docx() %>% 
-#'   body_add_normal("Table iris has", ncol(iris), "columns.", .sep=" ") %>% #paste style
-#'   body_add_normal("However, table mtcars has {ncol(mtcars)} columns")     #glue style
-#' write_and_open(doc, "example.docx")
+#' 
+#' info_rows = c("Also, table iris has {nrow(iris)} rows.", "And table mtcars has {nrow(mtcars)} rows.")
+#' doc = read_docx()  %>% 
+#'     body_add_normal("Table iris has", ncol(iris), "columns.", .sep=" ") %>% #paste style
+#'     body_add_normal("However, table mtcars has {ncol(mtcars)} columns") %>% #glue style
+#'     body_add_normal(info_rows)                                              #vector style
+#' write_and_open(doc)
 #' }
 body_add_normal = function(doc, ..., .sep="") {
-    value = glue(..., .sep=.sep, .envir = parent.frame())
-    if(str_detect(value, "\\\\@ref\\((.*?)\\)")){
-        doc %>% 
-            body_add_par("") %>% 
-            parse_reference(value)
-    } else{
-        doc %>% 
-            body_add_par(value, style = getOption('crosstable_style_normal', doc$default_styles$paragraph))
+    check_dots_unnamed()
+    dots = list(...)
+    normal_style = getOption('crosstable_style_normal', doc$default_styles$paragraph)
+    lengths = map_dbl(dots, length)
+    
+    if(all(lengths==1)){ #one or several vectors of length 1
+        value = glue(..., .sep=.sep, .envir = parent.frame())
+        if(str_detect(value, "\\\\@ref\\((.*?)\\)")){
+            doc = body_add_par(doc, "") %>% parse_reference(value)
+        } else{
+            doc = body_add_par(doc, value, style=normal_style)
+        }
+    } else if(length(dots)==1) { #one vector (of 1 or more) -> recursive call
+        for(i in dots[[1]]){
+            doc = body_add_normal(doc, i, .sep=.sep)
+        }
+    } else { #several vectors of which at least one is length 2+
+        abort(c("body_add_normal() only accepts either one vector of any length or several vectors of length 1", 
+                i=glue("Length of vectors passed: {glue_collapse(lengths, ', ')}")))
     }
+    
+    doc
 }
 
 #' @usage NULL
 #' @importFrom lifecycle deprecate_warn
+#' @rdname body_add_normal
 #' @export
 body_add_glued = function(...){
     deprecate_warn("0.2.0", "body_add_glued()", "body_add_normal()")# nocov
@@ -132,7 +151,7 @@ body_add_title = function(doc, value, level = 1,
 #' @param style specify the style manually, overriding `ordered`. A better way is to set options `crosstable_style_list_ordered` and `crosstable_style_list_unordered` globally. 
 #' @param ... passed on to [officer::body_add_par()]
 #'
-#' @details Ordered lists and bullet lists are not supported by the default officer template (see [https://github.com/davidgohel/officer/issues/262](#262)). You have to manually set custom styles matching thos list in a custom Word template file. Then, you can use either the `style` argument or crosstable options. See examples for more details.
+#' @details Ordered lists and bullet lists are not supported by the default officer template (see [https://github.com/davidgohel/officer/issues/262](#262)). You have to manually set custom styles matching those list in a custom Word template file. Then, you can use either the `style` argument or crosstable options. See examples for more details.
 #'
 #' @author Dan Chaltiel
 #' @export
@@ -180,14 +199,14 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #'
 #' @param doc a docx object
 #' @param legend the table legend. As with [glue::glue()], expressions enclosed by braces will be evaluated as R code.
-#' @param bookmark 
+#' @param bookmark the id of the bookmark. This is the id that should then be called in [body_add_normal()] using `"\\@ref(id)"`.
 #' @param legend_style style of of the whole legend. May depend on the docx template
 #' @param style style of the number. May depend on the docx template (default to strong)
 #' @param legend_name name before the numbering. Useful for translation
 #' @param seqfield Keep default. Otherwise, you may figure it out doing this: in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.
 #'
 #' @section Warning:
-#' At first, the legends added with [body_add_table_legend()] or [body_add_figure_legend()] have no numbers. You have to manualy update the references in MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}). You might have to do this several times. More info on [https://ardata-fr.github.io/officeverse/faq.html#update-fields].
+#' At first, the legends added with [body_add_table_legend()] or [body_add_figure_legend()] have no numbers. You have to manualy update the references in MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}). You might have to do this several times. More info on [https://ardata-fr.github.io/officeverse/faq.html#update-fields](https://ardata-fr.github.io/officeverse/faq.html#update-fields).
 #' @author Dan Chaltiel
 #' @export
 #' 
@@ -196,7 +215,8 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #' library(officer)
 #' p=ggplot2::quickplot(x=Sepal.Length, y=Sepal.Width, color=Species, data=iris)
 #' x=read_docx() %>% 
-#'   body_add_normal("As you can see in Table \\@ref(tab1) and in Figure \\@ref(fig1), the iris dataset is about flowers.") %>% 
+#'   body_add_normal("As you can see in Table \\@ref(tab1) and in Figure \\@ref(fig1), ", 
+#'                   "the iris dataset is about flowers.") %>% 
 #'   body_add_normal() %>% 
 #'   body_add_table_legend("Iris dataset", bookmark="tab1") %>% 
 #'   body_add_crosstable(crosstable(iris)) %>% 
@@ -230,7 +250,7 @@ body_add_figure_legend = function(doc, legend, bookmark=NULL,
 #' @importFrom stringr str_detect str_match_all
 #' @importFrom glue glue
 #' @importFrom rlang abort
-#' @importFrom officer slip_in_text slip_in_seqfield
+#' @importFrom officer slip_in_text slip_in_seqfield body_bookmark
 #' @keywords internal
 #' @noRd
 body_add_legend = function(doc, legend, legend_name, bookmark, legend_style, style, seqfield){
@@ -245,6 +265,7 @@ body_add_legend = function(doc, legend, legend_name, bookmark, legend_style, sty
     rtn %>% 
         slip_in_text(str=glue("{legend_name} "), style=style, pos="before")
 }
+
 
 
 #' Alternative to [officer::body_add_img()] which adds a `units` choice
