@@ -461,11 +461,11 @@ write_and_open = function(doc, docx.file){
 #' @keywords internal
 #' @noRd
 parse_reference = function(doc, value){
+    normal_style_character = getOption('crosstable_style_character', doc$default_styles$character)
+    
     if(!str_detect(value, "\\\\@ref\\((.*?)\\)")){ #recursion out
         doc = doc %>% 
-            slip_in_text(value, 
-                         style = 'Default Paragraph Font', 
-                         pos = 'after')
+            slip_in_text(value, style=normal_style_character, pos='after')
         return(doc)
     }
     
@@ -475,15 +475,8 @@ parse_reference = function(doc, value){
         abort(c("This error should not have happened, please report a bug.", 
                 i="function = crosstable:::parse_reference"), x=x) 
     doc = doc %>% 
-        slip_in_text(x[1], 
-                     style = 'Default Paragraph Font', 
-                     pos = 'after') %>% 
+        slip_in_text(x[1], style=normal_style_character, pos='after') %>% 
         slip_in_seqfield(str = glue(' REF {x[2]} \\h '),  
-                         style = 'Default Paragraph Font', 
-                         pos = 'after') %>%
+                         style=normal_style_character, pos='after') %>%
         parse_reference(x[3])
 }
-
-
-
-
