@@ -13,7 +13,7 @@
 #' @param ... unused
 #'
 #' @author Dan Chaltiel
-#' @aliases ctf cross_to_flextable
+#' @aliases ctf cross_to_flextable to_flextable
 #' @describeIn as_flextable Turns a `crosstable` object into a formatted `flextable`.
 #' @seealso [crosstable()], [flextable::flextable()], [as_gt.crosstable()]
 #' 
@@ -152,17 +152,22 @@ as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL,
     return(rtn)
 }
 
+#' @export
+#' @rdname as_flextable
+to_flextable = as_flextable.crosstable
 
 
 #' @usage NULL
 #' @importFrom lifecycle deprecate_warn
 #' @export
+#' @rdname as_flextable
 cross_to_flextable = function(...){
     deprecate_warn("0.1.0", "cross_to_flextable()", "as_flextable()")# nocov
     as_flextable.crosstable(...)# nocov
 }
 #' @usage NULL
 #' @export
+#' @rdname as_flextable
 ctf = cross_to_flextable
 
 #' @name as_flextable 
