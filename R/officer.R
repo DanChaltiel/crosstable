@@ -292,7 +292,7 @@ body_add_legend = function(doc, legend, legend_name, bookmark, legend_style, sty
 #'   }
 #' }
 body_add_img2 = function(doc, src, width, height, 
-                         units = getOption('crosstable_units'), 
+                         units = getOption("crosstable_units", "in"), 
                          ...){
     units = match.arg(units, c("in", "cm", "mm"))
     to_units = function(x) x/c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units] 
@@ -330,8 +330,8 @@ body_add_img2 = function(doc, src, width, height,
 #' }
 #' }
 body_add_gg2 = function(doc, value, width = 6, height = 5, 
-                        units = getOption('crosstable_units'), 
-                        style = getOption('crosstable_style_image', doc$default_styles$paragraph), 
+                        units = getOption("crosstable_units", "in"), 
+                        style = getOption("crosstable_style_image", doc$default_styles$paragraph), 
                         res = 300, ... ){
     if(!requireNamespace("ggplot2") )
         abort("package ggplot2 is required to use this function")
