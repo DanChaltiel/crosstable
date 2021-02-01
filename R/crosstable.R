@@ -144,11 +144,11 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     # Deprecations ********************************************************
     
     if (!missing(...)) {
-        deprecate_warn("0.1.6", "crosstable(...=)", "crosstable(cols=)", 
+        deprecate_warn("0.2.0", "crosstable(...=)", "crosstable(cols=)", 
                        details="NB: The `...` argument might even be reused in other usages in later versions (breaking change).")
     }
     if (!missing(.vars)) {
-        deprecate_stop("0.1.6", "crosstable(.vars=)", "crosstable(cols=)")
+        deprecate_stop("0.2.0", "crosstable(.vars=)", "crosstable(cols=)")
         vardots= c(enquos(.vars), enquos(...))
     }
     

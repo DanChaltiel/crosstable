@@ -88,7 +88,7 @@ body_add_normal = function(doc, ..., .sep="") {
 #' @importFrom lifecycle deprecate_warn
 #' @export
 body_add_glued = function(...){
-    deprecate_warn("0.1.6", "body_add_glued()", "body_add_normal()")# nocov
+    deprecate_warn("0.2.0", "body_add_glued()", "body_add_normal()")# nocov
     body_add_normal(...)# nocov
 }
 
