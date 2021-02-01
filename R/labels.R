@@ -198,8 +198,15 @@ apply_labels = function (data, ..., warn_missing=FALSE) {
 #'   
 import_labels = function(.tbl, data_label, 
                          name_from = "name", label_from = "label", 
-                         verbose_name = FALSE, verbose_label = FALSE){
+                         verbose_name = FALSE, verbose_label = FALSE, 
+                         verbose=deprecated()){
     force(.tbl)
+    
+    if(is_present(verbose)) {
+        deprecate_warn("0.2.0", "import_labels(verbose=)", 
+                       details = "Please use the `verbose_name` or the `verbose_label` argument instead.")
+        if(isTRUE(verbose)) verbose_name=verbose_label=TRUE
+    }
     
     if(missing(data_label)){
         data_label = get_last_save()
