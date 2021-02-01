@@ -199,12 +199,12 @@ apply_labels = function (data, ..., warn_missing=FALSE) {
 import_labels = function(.tbl, data_label, 
                          name_from = "name", label_from = "label", 
                          verbose_name = FALSE, verbose_label = FALSE){
+    force(.tbl)
     
     if(missing(data_label)){
         data_label = get_last_save()
         if(is.null(data_label)) 
-            abort(c("There is no saved labels. Did you forget `data_label` or calling `import_labels()`?", 
-                    i="Beware that, with magrittr v2+, `save_labels()` and `import_labels()` must absolutely be in 2 different pipelines"))
+            abort("There is no saved labels. Did you forget `data_label` or calling `save_labels()`?")
     } 
     
     duplicates = data_label$name[duplicated(data_label$name)]
