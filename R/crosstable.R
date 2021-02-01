@@ -28,7 +28,7 @@
 #' @inheritParams format_fixed
 #' 
 #' @export
-#' @importFrom checkmate makeAssertCollection assertDataFrame assertCount assertLogical assertList assertSubset assertChoice reportAssertions
+#' @importFrom checkmate makeAssertCollection reportAssertions assert_data_frame assert_count assert_logical assert_list assert_subset assert_choice
 #' @importFrom rlang quos enquos enquo expr quo_is_null is_null is_quosures is_formula is_string is_empty is_lambda as_function set_env quo_squash caller_env warn abort quo_is_missing
 #' @importFrom tidyselect vars_select eval_select everything any_of 
 #' @importFrom dplyr select mutate_if n_distinct across
@@ -86,11 +86,11 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
         check_dots_unnamed()
         
         coll = makeAssertCollection()    
-        assertDataFrame(data, null.ok=FALSE, add=coll)
+        assert_data_frame(data, null.ok=FALSE, add=coll)
         data = as.data.frame(data)
-        assertCount(percent_digits, add=coll)
-        assertLogical(label, add=coll)
-        assertList(funs_arg, add=coll)
+        assert_count(percent_digits, add=coll)
+        assert_logical(label, add=coll)
+        assert_list(funs_arg, add=coll)
         if(isFALSE(showNA)) showNA="no"
         if(isTRUE(showNA)) showNA="always"
         showNA = match.arg(showNA)
@@ -100,7 +100,7 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
         if (missing(margin)) margin = "row"
         if (isTRUE(margin)) margin = c("row", "col")
         if (is.character(margin)) {
-            assertSubset(margin, c("all", "row", "col", "column", "cell", "none"), add=coll)
+            assert_subset(margin, c("all", "row", "col", "column", "cell", "none"), add=coll)
             if(is.null(margin)) {
                 margin=0:2 #defaulting 
             } else {
@@ -117,7 +117,7 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
         if (missing(total)) total = "none"
         if (isTRUE(total)) total = "both"
         if (is.character(total)) {
-            assertChoice(total, c("none", "both", "all", "row", "col", "column"), add=coll)
+            assert_choice(total, c("none", "both", "all", "row", "col", "column"), add=coll)
             if(is.null(total)) {
                 total=0 #defaulting
             } else {
