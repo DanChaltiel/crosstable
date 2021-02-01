@@ -400,7 +400,7 @@ docx_bookmarks2 = function(x, return_vector=FALSE) {
 #' As it tests if the file is writable, this function also prevents `officer:::print.rdocx()` to abort the RStudio session.
 #'
 #' @param doc the docx object
-#' @param docx.file the name of the target file
+#' @param docx.file the name of the target file. If missing or NULL, the doc will open in a temporary file.
 #'
 #' @author Dan Chaltiel
 #' @export
@@ -413,11 +413,14 @@ docx_bookmarks2 = function(x, return_vector=FALSE) {
 #' doc = read_docx() %>% 
 #'     body_add_crosstable(mytable)
 #' write_and_open(doc, "example.docx")
+#' write_and_open(doc)
 #' }
 write_and_open = function(doc, docx.file){
     #checking if the file is already open... by removing it
     tryCatch({
-        if(file.exists(docx.file)) {
+        if(missing(docx.file) || is.null(docx.file)){
+            docx.file = tempfile(fileext=".docx")
+        } else if(file.exists(docx.file)) {
             file.remove(docx.file)
         }
     }, warning=function(w) {
@@ -429,8 +432,7 @@ write_and_open = function(doc, docx.file){
     
     tryCatch({
         print(doc, target=docx.file)
-        dfile = paste("\"", sub("(^.+)(/$)", "\\", getwd()), "/", docx.file, "\"", sep = "")
-        shell.exec(dfile) # browseURL(dfile)
+        browseURL(docx.file)
     }, error=function(e) {
         if(str_detect(e$message, "Permission denied")){
             abort(c("Permission denied. Is the file already open?", glue("File: {docx.file}")))
