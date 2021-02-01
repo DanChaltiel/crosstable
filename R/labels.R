@@ -142,15 +142,16 @@ rename_dataframe_with_labels = function(df){
 #'
 #' @param data data.frame/list
 #' @param ... named arguments
+#' @param warn_missing if TRUE, throw a warning if some names are missing
 #'
 #' @importFrom purrr imap_dfr
 #' @export
 #' 
 #' @examples 
 #' library(crosstable)
-#' cars %>%
-#'   apply_labels(speed="Speed (mph)",
-#'                dist="Stopping distance (ft)") %>% 
+#' iris %>%
+#'   apply_labels(Sepal.Length="Length of Sepal",
+#'                Sepal.Width="Width of Sepal") %>% 
 #'   crosstable()
 apply_labels = function (data, ..., warn_missing=FALSE) {
     args = list(...)
@@ -159,11 +160,11 @@ apply_labels = function (data, ..., warn_missing=FALSE) {
         warning("Some names don't exist in `data`: ", paste(unknowns, collapse = ", "))
     }
     
-    purrr::imap_dfr(args, ~{
+    imap_dfr(data, ~{
         if (.y %in% names(data)) {
-            data[[.y]] = set_label(data[[.y]], .x)
+            .x = set_label(.x, args[[.y]])
         }
-        data[[.y]]
+        .x
     })
 }
 
@@ -176,14 +177,16 @@ apply_labels = function (data, ..., warn_missing=FALSE) {
 #' @param data_label a data.frame from which to import labels. If missing, the function will take the labels from the last dataframe on which [save_labels()] was called.
 #' @param name_from in `data_label`, which column to get the variable name (default to `name`)
 #' @param label_from in `data_label`, which column to get the variable label (default to `label`)
-#' @param verbose if TRUE, displays a warning if a variable name is not found in `data_label`
+#' @param verbose_name if TRUE, displays a warning if a variable name is not found in `data_label`
+#' @param verbose_label if TRUE, displays a warning if a label is not found in `.tbl`
+#' @param verbose deprecated
 #'
 #' @export
 #' @importFrom glue glue
 #' @importFrom tibble column_to_rownames
 #' @importFrom rlang abort warn
 #'
-#' @seealso [get_label()], [set_label()], [remove_label()], [save_label()]
+#' @seealso [get_label()], [set_label()], [remove_label()], [save_labels()]
 #' @examples
 #' #import the labels from a data.frame to another
 #' iris_label = data.frame(
