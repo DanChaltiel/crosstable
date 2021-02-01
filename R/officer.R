@@ -368,21 +368,24 @@ body_add_crosstable_footnote = function(doc){
 #' @param x an `rdocx` object
 #' @param return_vector use `TRUE` for compatibility with [officer::docx_bookmarks()]
 #'
+#' @importFrom checkmate assert_class
 #' @author Dan Chaltiel
 #' @export
 docx_bookmarks2 = function(x, return_vector=FALSE) {
-    #cannot add examples as there is officer::body_bookmark() but no officer::head_bookmark()
-    stopifnot(inherits(x, "rdocx"))
-    checkmate::assert_class("rdocx")  
-    doc_ <- xml_find_all(x$doc_obj$get(), "//w:bookmarkStart[@w:name]")
-    doc_ <- setdiff(xml_attr(doc_, "name"), "_GoBack")
-    head_ <- sapply(x$headers, function(h) {
-        tmp <- xml_find_all(h$get(), "//w:bookmarkStart[@w:name]")
-        setdiff(xml_attr(tmp, "name"), "_GoBack")
+    #cannot test nor add examples as there is officer::body_bookmark() but no officer::head_bookmark()
+    assert_class(x, "rdocx")  
+    if(!requireNamespace("xml2"))
+        abort("Package `xml2` is needed for docx_bookmarks2() to work.")
+    
+    doc_ = xml2::xml_find_all(x$doc_obj$get(), "//w:bookmarkStart[@w:name]")
+    doc_ = setdiff(xml2::xml_attr(doc_, "name"), "_GoBack")
+    head_ = sapply(x$headers, function(h) {
+        tmp = xml2::xml_find_all(h$get(), "//w:bookmarkStart[@w:name]")
+        setdiff(xml2::xml_attr(tmp, "name"), "_GoBack")
     })
-    foot_ <- sapply(x$footers, function(f) {
-        tmp <- xml_find_all(f$get(), "//w:bookmarkStart[@w:name]")
-        setdiff(xml_attr(tmp, "name"), "_GoBack")
+    foot_ = sapply(x$footers, function(f) {
+        tmp = xml2::xml_find_all(f$get(), "//w:bookmarkStart[@w:name]")
+        setdiff(xml2::xml_attr(tmp, "name"), "_GoBack")
     })
     if(return_vector){
         return(unname(unlist(c(doc_, head_, foot_)))) #alternative return
