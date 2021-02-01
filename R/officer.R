@@ -272,28 +272,46 @@ body_add_legend = function(doc, legend, legend_name, bookmark, legend_style, sty
 #' 
 #' @param doc an `rdocx` object
 #' @param src image filename, the basename of the file must not contain any blank.
-#' @param width,height width and height
+#' @param width,height width and height. Can be abbreviated to w and h.
 #' @param units units for width and height
 #' @param ... other arguments to be passed to [officer::body_add_img()]
+#' 
+#' @seealso [body_add_gg2()]
 #'
 #' @export
 #' @importFrom officer body_add_img
-body_add_img2 = function(doc, src, width, height, units = c("in", "cm", "mm"), ...){
-    units = match.arg(units)
-    to_units <- function(x) x/c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units] 
+#' @examples
+#' \dontrun{
+#'   img.file = file.path( R.home("doc"), "html", "logo.jpg" )
+#'   if( file.exists(img.file) ){
+#'       options(crosstable_units="cm")
+#'       doc = read_docx() %>%
+#'           body_add_normal("This is the R logo.") %>% 
+#'           body_add_img2(img.file, h=7.6, w=10, style="centered") #or units="cm" instead of using options
+#'       write_and_open(doc)
+#'   }
+#' }
+body_add_img2 = function(doc, src, width, height, 
+                         units = getOption('crosstable_units'), 
+                         ...){
+    units = match.arg(units, c("in", "cm", "mm"))
+    to_units = function(x) x/c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units] 
     body_add_img(x=doc, src=src, width=to_units(width), height=to_units(height), ...)
 }
+
+
 
 #' Alternative to [officer::body_add_gg()] which uses `ggplot` syntax
 #'  
 #' @param doc an `rdocx` object
 #' @param value ggplot object
-#' @param width,height width and height. Can be abbreviated.
+#' @param width,height width and height. Can be abbreviated to w and h.
 #' @param style paragraph style
 #' @param res resolution of the png image in ppi (passed to the argument `dpi` of [ggplot2::ggsave()])
-#' @param units 
+#' @param units units for width and height
 #' @param ... other arguments to be passed to [ggplot2::ggsave()]
-#'
+#' 
+#' @importFrom checkmate assert_class
 #' @export
 #' @examples
 #' \dontrun{
@@ -301,25 +319,30 @@ body_add_img2 = function(doc, src, width, height, units = c("in", "cm", "mm"), .
 #'   library(officer)
 #'   p = ggplot(data = iris ) +
 #'     geom_point(mapping = aes(Sepal.Length, Petal.Length))
+#'   
+#'   options(crosstable_units="cm")
 #'   options(crosstable_style_image="centered")
 #'   doc = read_docx() %>%
 #'     body_add_normal("Text before") %>% 
-#'     body_add_gg2(p, w=14, h=10, units="cm") %>%
+#'     body_add_gg2(p, w=14, h=10, scale=1.5) %>% #or units="cm" instead of using options
 #'     body_add_normal("Text after")
-#'   write_and_open(doc, "example.docx")
+#'   write_and_open(doc)
 #' }
 #' }
-body_add_gg2 = function(doc, value, width = 6, height = 5, units = c("in", "cm", "mm"), res = 300, 
-                        style = getOption('crosstable_style_image', doc$default_styles$paragraph), ... ){
-    if( !requireNamespace("ggplot2") )
+body_add_gg2 = function(doc, value, width = 6, height = 5, 
+                        units = getOption('crosstable_units'), 
+                        style = getOption('crosstable_style_image', doc$default_styles$paragraph), 
+                        res = 300, ... ){
+    if(!requireNamespace("ggplot2") )
         abort("package ggplot2 is required to use this function")
-    
-    stopifnot(inherits(value, "gg") )
+    assert_class(value, "ggplot")
+    units = match.arg(units, c("in", "cm", "mm"))
     file = tempfile(fileext=".png")
     ggplot2::ggsave(file, value, width=width, height=height, units=units, dpi=res, ...)
     on.exit(unlink(file))
     body_add_img2(doc, src=file, style=style, width=width, height=height, units=units)
 }
+
 
 
 # Officer helpers ---------------------------------------------------------
