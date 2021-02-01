@@ -8,6 +8,7 @@
 #' @param autofit whether to use [flextable::autofit()] on the table
 #' @param compact whether to compact the table
 #' @param show_test_name in the `test` column, show the test name
+#' @param fontsizes font sizes as a list of keys \[body, subheaders, header\]. If set through arguments, all needed names should be mentioned.
 #' @param generic_labels names of the crosstable default columns 
 #' @param ... unused
 #'
@@ -18,7 +19,7 @@
 #' 
 #' @importFrom dplyr select lead sym %>%
 #' @importFrom stringr str_replace str_replace_all str_remove
-#' @importFrom flextable flextable autofit add_header_row merge_v merge_h bold align hline_top hline_bottom border_inner_h hline fix_border_issues padding as_flextable
+#' @importFrom flextable flextable autofit add_header_row merge_v merge_h bold align hline_top hline_bottom border_inner_h hline fix_border_issues padding as_flextable fontsize
 #' @importFrom officer fp_border
 #' @importFrom checkmate assert_class vname
 #' @importFrom tibble as_tibble
@@ -29,6 +30,9 @@
 #' #Crosstables
 #' library(crosstable)
 #' library(dplyr)
+#' options(crosstable_fontsize_header=14)
+#' options(crosstable_fontsize_subheaders=10)
+#' options(crosstable_fontsize_body=8)
 #' crosstable(mtcars2) %>% as_flextable()
 #' crosstable(mtcars2, by=vs, test = TRUE) %>% as_flextable()
 #' crosstable(esoph, by=tobgp, test = TRUE) %>% as_flextable()
@@ -46,6 +50,11 @@ as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL,
                                    autofit = getOption('crosstable_autofit', TRUE), 
                                    compact = getOption('crosstable_compact', FALSE), 
                                    show_test_name = getOption('crosstable_show_test_name', TRUE), 
+                                   fontsizes = list(
+                                       body=getOption('crosstable_fontsize_body', 11),
+                                       subheaders=getOption('crosstable_fontsize_subheaders', 11),
+                                       header=getOption('crosstable_fontsize_header', 11)
+                                   ), 
                                    generic_labels=list(id = ".id", variable = "variable", value = "value", 
                                                        total="Total", label = "label", test = "test", 
                                                        effect="effect"), 
@@ -86,7 +95,9 @@ as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL,
         padded_rows = 1:nrow(rtn)
         padded_rows = padded_rows[!padded_rows %in% title_rows]
         rtn = rtn %>% 
-            flextable %>% 
+            flextable() %>% 
+            fontsize(size=fontsizes$body) %>%
+            fontsize(i=title_rows, size=fontsizes$subheaders) %>%
             border(title_rows, border.top = fp_border()) %>%
             bold(title_rows) %>% 
             align(title_rows, align="left") %>% 
@@ -107,6 +118,7 @@ as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL,
                 !!id:=str_wrap2(.data[[id]], width = getOption("crosstable_wrap_id", 70))
             )  %>% 
             flextable(col_keys=cols) %>% 
+            fontsize(size=fontsizes$body) %>%
             hline(i=sep.rows, border=border1) %>% 
             merge_v(j=id, target=body_merge, part = "body")
     }
@@ -124,9 +136,9 @@ as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL,
             merge_v(part = "head")
     }
     
-    
     rtn = rtn %>% 
         bold(part = "head") %>% 
+        fontsize(part="head", size=fontsizes$header) %>%
         align(align = "left", part = "all") %>% 
         align(i = 1, align = "center", part = "head") %>% 
         hline_top(border = border2, part = "head") %>% 
@@ -161,7 +173,7 @@ flextable::as_flextable
 
 
 
-#' Export a `crosstable` in a temporary Word document
+#' Open a `crosstable` in a temporary Word document
 #' 
 #' This eases copy-pasting
 #'
