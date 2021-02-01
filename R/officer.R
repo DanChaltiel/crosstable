@@ -63,7 +63,6 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #' @importFrom glue glue glue_collapse
 #' @importFrom officer body_add_par
 #' @importFrom purrr map_dbl
-#' @importFrom ellipsis check_dots_unnamed
 #' 
 #' @examples
 #' \dontrun{
@@ -78,13 +77,12 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #' write_and_open(doc)
 #' }
 body_add_normal = function(doc, ..., .sep="") {
-    check_dots_unnamed()
     dots = list(...)
     normal_style = getOption('crosstable_style_normal', doc$default_styles$paragraph)
     lengths = map_dbl(dots, length)
     
     if(all(lengths==1)){ #one or several vectors of length 1
-        value = glue(..., .sep=.sep, .envir = parent.frame())
+        value = glue(..., .sep=.sep, .envir=parent.frame())
         if(str_detect(value, "\\\\@ref\\((.*?)\\)")){
             doc = body_add_par(doc, "") %>% parse_reference(value)
         } else{
