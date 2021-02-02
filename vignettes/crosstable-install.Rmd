@@ -21,40 +21,34 @@ devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 
 If none of the solutions described here worked, please create an [Issue](https://github.com/DanChaltiel/crosstable/issues) with the error message and the maximum of information.
 
-### Asking for source compilation 
-
-If the installer asks:
-
-> Do you want to install from sources the package which needs compilation? (Yes/no/cancel)
-
-Try first with "no", and then with "yes" if it fails.
-
 ### Asking for updates
 
 This code will probably ask for updates: 
-> `These packages have more recent versions available.`
-> `It is recommended to update all of them.`
-> `Which would you like to update?`
 
-> `1: All                                `
-> `2: CRAN packages only                 `
-> `3: None                               `
-> `4: vctrs       (0.3.0 -> 0.3.1) [CRAN]`
-> `5: systemfonts (0.2.2 -> 0.2.3) [CRAN]`
+>     These packages have more recent versions available.
+>     It is recommended to update all of them.
+>     Which would you like to update?
+>     
+>     1: All                                
+>     2: CRAN packages only                 
+>     3: None                               
+>     4: vctrs       (0.3.0 -> 0.3.1) [CRAN]
+>     5: systemfonts (0.2.2 -> 0.2.3) [CRAN]
 
 While it is a good idea to update all packages frequently, this update routine might fail. If it does fail, try to choose `3: None` so it will install `crosstable` without updating dependencies.
 
-If the package still does not work, you can try installing/updating dependencies manually. First, install/update `dplyr` as version 1.0.0+ is mandatory:
+If the package still does not work, you can try installing/updating dependencies manually. First, install/update `dplyr`, `flextable`, and `rlang` as newer versions are mandatory:
 
 ```r
 install.packages("dplyr")
+install.packages("flextable")
+install.packages("rlang")
+
 ```
 
 This should do, but if it is still failing, you can try installing the other dependencies:
 
 ```r
-install.packages("rlang")
-install.packages("dplyr")
 install.packages("purrr")
 install.packages("checkmate")
 install.packages("tidyselect")
@@ -65,17 +59,25 @@ install.packages("ellipsis")
 install.packages("officer")
 install.packages("stringr")
 install.packages("tibble")
-install.packages("flextable")
 install.packages("nortest")
 install.packages("lifecycle")
 ```
+
+### Asking for source compilation 
+
+If the installer asks:
+
+> Do you want to install from sources the package which needs compilation? (Yes/no/cancel)
+
+Try first with "no", and then with "yes" if it fails.
+
 
 ### On Mac
 
 This error can happen on Mac. I have no clue on how to correct it. If you experience it, please create an [Issue](https://github.com/DanChaltiel/crosstable/issues) with the actual error message and the result of `sessionInfo()`.
 
-> `ERROR: configuration failed for package ‘systemfonts’`
-> `* removing ‘/Library/Frameworks/R.framework/Versions/3.6/Resources/library/systemfonts’`
-> `* restoring previous ‘/Library/Frameworks/R.framework/Versions/3.6/Resources/library/systemfonts’`
-> `Error: Failed to install 'crosstable' from GitHub:`
->   `(converted from warning) installation of package ‘systemfonts’ had non-zero exit status`
+>     ERROR: configuration failed for package ‘systemfonts’
+>     * removing ‘/Library/Frameworks/R.framework/Versions/3.6/Resources/library/systemfonts’
+>     * restoring previous ‘/Library/Frameworks/R.framework/Versions/3.6/Resources/library/systemfonts’
+>     Error: Failed to install 'crosstable' from GitHub:
+>     (converted from warning) installation of package ‘systemfonts’ had non-zero exit status

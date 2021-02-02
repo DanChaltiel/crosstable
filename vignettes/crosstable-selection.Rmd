@@ -76,11 +76,11 @@ crosstable(mtcars2, any_of(qsec), by=vs) %>%
 You can also use negation to keep all but some columns:
 
 ```{r crosstable-negation}
-crosstable(mtcars2, -mpg, by=vs) %>% head %>% 
+crosstable(mtcars2, -mpg, by=vs) %>% head(7) %>% 
   as_flextable(keep_id=TRUE)
-crosstable(mtcars2, -mpg, -cyl, by=vs) %>% head %>% 
+crosstable(mtcars2, -mpg, -cyl, by=vs) %>% head(8) %>% 
   as_flextable(keep_id=TRUE)
-crosstable(mtcars2, -c(mpg, cyl), by=vs) %>% head %>% 
+crosstable(mtcars2, -c(mpg, cyl), by=vs) %>% head(8) %>% 
   as_flextable(keep_id=TRUE)
 ```
 
