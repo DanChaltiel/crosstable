@@ -8,26 +8,26 @@ Here is a comprehensive list of all options that you can set globally.
 
 For flextables:
 \itemize{
-\item \code{crosstable_autofit}:
-\item \code{crosstable_compact}:
-\item \code{crosstable_show_test_name}:
-\item \code{crosstable_compact_padding}:
-\item \code{crosstable_wrap_id}: if id contains no spaces, wrap it with this maximum number of characters
-}
-
-For rounding:
-\itemize{
-\item \code{crosstable_only_round}:
+\item \code{crosstable_autofit}, \code{crosstable_compact}, and \code{crosstable_show_test_name}: default arguments for \code{\link[=as_flextable]{as_flextable()}}.
+\item \code{crosstable_compact_padding}: left-padding for non-headers rows when \code{compact=TRUE}.
+\item \code{crosstable_fontsize_body}, \code{crosstable_fontsize_header}, and \code{crosstable_fontsize_subheaders}: font sizes for, respectively for normal, header and subheader rows. Subheaders are only considered when \code{compact=TRUE}.
+\item \code{crosstable_wrap_id}: if \code{id} contains no spaces, wrap it with this maximum number of characters.
 }
 
 For specifying styles in officer docx output:
 \itemize{
-\item \code{crosstable_style_normal}:
-\item \code{crosstable_style_heading}:
-\item \code{crosstable_style_strong}:
-\item \code{crosstable_style_image}:
-\item \code{crosstable_style_legend}:
-\item \code{crosstable_style_list_ordered}:
-\item \code{crosstable_style_list_unordered}:
+\item \code{crosstable_style_normal}
+\item \code{crosstable_style_character}: used in cross-references
+\item \code{crosstable_style_heading}
+\item \code{crosstable_style_strong}
+\item \code{crosstable_style_image}
+\item \code{crosstable_style_legend}
+\item \code{crosstable_style_list_ordered} and \code{crosstable_style_list_unordered}, mandatory for \code{\link[=body_add_list]{body_add_list()}} to work.
+}
+
+Misc:
+\itemize{
+\item \code{crosstable_only_round}: default argument for \code{\link[=format_fixed]{format_fixed()}}
+\item \code{crosstable_units}: default units in \code{\link[=body_add_gg2]{body_add_gg2()}} and \code{\link[=body_add_img2]{body_add_img2()}}
 }
 }

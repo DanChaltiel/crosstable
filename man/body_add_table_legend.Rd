@@ -11,6 +11,7 @@ body_add_table_legend(
   bookmark = NULL,
   legend_style = getOption("crosstable_style_legend", "Table Caption"),
   style = getOption("crosstable_style_strong", "strong"),
+  legend_name = "Table",
   seqfield = "SEQ Table \\\\* Arabic"
 )
 
@@ -20,35 +21,40 @@ body_add_figure_legend(
   bookmark = NULL,
   legend_style = getOption("crosstable_style_legend", "Image Caption"),
   style = getOption("crosstable_style_strong", "strong"),
+  legend_name = "Figure",
   seqfield = "SEQ Figure \\\\* Arabic"
 )
 }
 \arguments{
 \item{doc}{a docx object}
 
-\item{legend}{the table legend}
+\item{legend}{the table legend. As with \code{\link[glue:glue]{glue::glue()}}, expressions enclosed by braces will be evaluated as R code.}
 
-\item{legend_style}{may depend on the docx template}
+\item{bookmark}{the id of the bookmark. This is the id that should then be called in \code{\link[=body_add_normal]{body_add_normal()}} using \code{"\\\\@ref(id)"}.}
 
-\item{style}{the legend style (strong, italic...)}
+\item{legend_style}{style of of the whole legend. May depend on the docx template}
 
-\item{seqfield}{to figure this out, in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.}
+\item{style}{style of the number. May depend on the docx template (default to strong)}
+
+\item{legend_name}{name before the numbering. Useful for translation}
+
+\item{seqfield}{Keep default. Otherwise, you may figure it out doing this: in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.}
 }
 \description{
 Add a table legend to an \code{officer} document
 }
 \section{Warning}{
 
-At first, the legends added with \code{\link[=body_add_table_legend]{body_add_table_legend()}} or \code{\link[=body_add_figure_legend]{body_add_figure_legend()}} have no numbers. You have to manualy update the references in MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}). You might have to do this several times. More info on \link{https://ardata-fr.github.io/officeverse/faq.html#update-fields}.
+At first, the legends added with \code{\link[=body_add_table_legend]{body_add_table_legend()}} or \code{\link[=body_add_figure_legend]{body_add_figure_legend()}} have no numbers. You have to manualy update the references in MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}). You might have to do this several times. More info on \url{https://ardata-fr.github.io/officeverse/faq.html#update-fields}.
 }
 
 \examples{
 \dontrun{
 library(officer)
-library(ggplot2)
-p=quickplot(x=Sepal.Length, y=Sepal.Width, color=Species, data=iris)
+p=ggplot2::quickplot(x=Sepal.Length, y=Sepal.Width, color=Species, data=iris)
 x=read_docx() \%>\% 
-  body_add_normal("As you can see in Table \\\\@ref(tab1) and in Figure \\\\@ref(fig1), the iris dataset is about flowers.") \%>\% 
+  body_add_normal("As you can see in Table \\\\@ref(tab1) and in Figure \\\\@ref(fig1), ", 
+                  "the iris dataset is about flowers.") \%>\% 
   body_add_normal() \%>\% 
   body_add_table_legend("Iris dataset", bookmark="tab1") \%>\% 
   body_add_crosstable(crosstable(iris)) \%>\% 

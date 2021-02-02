@@ -5,6 +5,7 @@
 \alias{as_flextable.crosstable}
 \alias{ctf}
 \alias{cross_to_flextable}
+\alias{to_flextable}
 \alias{as_flextable}
 \title{Turns a \code{crosstable} object into a formatted \code{flextable}}
 \usage{
@@ -15,6 +16,24 @@
   autofit = getOption("crosstable_autofit", TRUE),
   compact = getOption("crosstable_compact", FALSE),
   show_test_name = getOption("crosstable_show_test_name", TRUE),
+  fontsizes = list(body = getOption("crosstable_fontsize_body", 11), subheaders =
+    getOption("crosstable_fontsize_subheaders", 11), header =
+    getOption("crosstable_fontsize_header", 11)),
+  generic_labels = list(id = ".id", variable = "variable", value = "value", total =
+    "Total", label = "label", test = "test", effect = "effect"),
+  ...
+)
+
+to_flextable(
+  x,
+  keep_id = FALSE,
+  by_header = NULL,
+  autofit = getOption("crosstable_autofit", TRUE),
+  compact = getOption("crosstable_compact", FALSE),
+  show_test_name = getOption("crosstable_show_test_name", TRUE),
+  fontsizes = list(body = getOption("crosstable_fontsize_body", 11), subheaders =
+    getOption("crosstable_fontsize_subheaders", 11), header =
+    getOption("crosstable_fontsize_header", 11)),
   generic_labels = list(id = ".id", variable = "variable", value = "value", total =
     "Total", label = "label", test = "test", effect = "effect"),
   ...
@@ -33,6 +52,8 @@
 
 \item{show_test_name}{in the \code{test} column, show the test name}
 
+\item{fontsizes}{font sizes as a list of keys [body, subheaders, header]. If set through arguments, all needed names should be mentioned.}
+
 \item{generic_labels}{names of the crosstable default columns}
 
 \item{...}{unused}
@@ -46,6 +67,9 @@
 #Crosstables
 library(crosstable)
 library(dplyr)
+options(crosstable_fontsize_header=14)
+options(crosstable_fontsize_subheaders=10)
+options(crosstable_fontsize_body=8)
 crosstable(mtcars2) \%>\% as_flextable()
 crosstable(mtcars2, by=vs, test = TRUE) \%>\% as_flextable()
 crosstable(esoph, by=tobgp, test = TRUE) \%>\% as_flextable()

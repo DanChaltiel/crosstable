@@ -9,9 +9,9 @@ body_add_gg2(
   value,
   width = 6,
   height = 5,
-  units = c("in", "cm", "mm"),
-  res = 300,
+  units = getOption("crosstable_units", "in"),
   style = getOption("crosstable_style_image", doc$default_styles$paragraph),
+  res = 300,
   ...
 )
 }
@@ -20,13 +20,13 @@ body_add_gg2(
 
 \item{value}{ggplot object}
 
-\item{width, height}{width and height. Can be abbreviated.}
+\item{width, height}{width and height. Can be abbreviated to w and h.}
 
-\item{units}{}
-
-\item{res}{resolution of the png image in ppi (passed to the argument \code{dpi} of \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}})}
+\item{units}{units for width and height}
 
 \item{style}{paragraph style}
+
+\item{res}{resolution of the png image in ppi (passed to the argument \code{dpi} of \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}})}
 
 \item{...}{other arguments to be passed to \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}}}
 }
@@ -39,12 +39,14 @@ if(require("ggplot2") && capabilities(what = "png")){
   library(officer)
   p = ggplot(data = iris ) +
     geom_point(mapping = aes(Sepal.Length, Petal.Length))
+  
+  options(crosstable_units="cm")
   options(crosstable_style_image="centered")
   doc = read_docx() \%>\%
     body_add_normal("Text before") \%>\% 
-    body_add_gg2(p, w=14, h=10, units="cm") \%>\%
+    body_add_gg2(p, w=14, h=10, scale=1.5) \%>\% #or units="cm" instead of using options
     body_add_normal("Text after")
-  write_and_open(doc, "example.docx")
+  write_and_open(doc)
 }
 }
 }

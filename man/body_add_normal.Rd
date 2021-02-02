@@ -2,6 +2,7 @@
 % Please edit documentation in R/officer.R
 \name{body_add_normal}
 \alias{body_add_normal}
+\alias{body_add_glued}
 \title{Add a new paragraph with default style}
 \usage{
 body_add_normal(doc, ..., .sep = "")
@@ -9,7 +10,7 @@ body_add_normal(doc, ..., .sep = "")
 \arguments{
 \item{doc}{the doc object (created with the \code{read_docx} function of \code{officer} package)}
 
-\item{...}{one or several character strings, pasted using \code{.sep}. As with \code{glue::glue()}, expressions enclosed by braces will be evaluated as R code.}
+\item{...}{one or several character strings, pasted using \code{.sep}. As with \code{glue::glue()}, expressions enclosed by braces will be evaluated as R code. If more than one variable is passed, all should be of length 1.}
 
 \item{.sep}{Separator used to separate elements.}
 }
@@ -24,11 +25,13 @@ References to any bookmark can be inserted using the syntax "\\@ref(bookmark)". 
 \dontrun{
 library(officer)
 library(crosstable)
-doc=NULL
-doc = read_docx() \%>\% 
-  body_add_normal("Table iris has", ncol(iris), "columns.", .sep=" ") \%>\% #paste style
-  body_add_normal("However, table mtcars has {ncol(mtcars)} columns")     #glue style
-write_and_open(doc, "example.docx")
+
+info_rows = c("Also, table iris has {nrow(iris)} rows.", "And table mtcars has {nrow(mtcars)} rows.")
+doc = read_docx()  \%>\% 
+    body_add_normal("Table iris has", ncol(iris), "columns.", .sep=" ") \%>\% #paste style
+    body_add_normal("However, table mtcars has {ncol(mtcars)} columns") \%>\% #glue style
+    body_add_normal(info_rows)                                              #vector style
+write_and_open(doc)
 }
 }
 \author{

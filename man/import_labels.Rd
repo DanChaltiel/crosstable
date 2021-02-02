@@ -3,14 +3,16 @@
 \name{import_labels}
 \alias{import_labels}
 \alias{save_labels}
-\title{Import labels from a dataset}
+\title{Import labels}
 \usage{
 import_labels(
   .tbl,
-  data_label = get_last_save(),
+  data_label,
   name_from = "name",
   label_from = "label",
-  verbose = TRUE
+  verbose_name = FALSE,
+  verbose_label = FALSE,
+  verbose = deprecated()
 )
 
 save_labels(.tbl)
@@ -18,16 +20,20 @@ save_labels(.tbl)
 \arguments{
 \item{.tbl}{the data.frame to labellize}
 
-\item{data_label}{a data.frame from which to import labels}
+\item{data_label}{a data.frame from which to import labels. If missing, the function will take the labels from the last dataframe on which \code{\link[=save_labels]{save_labels()}} was called.}
 
-\item{name_from}{in \code{data_label}, which column to get the variable name}
+\item{name_from}{in \code{data_label}, which column to get the variable name (default to \code{name})}
 
-\item{label_from}{in \code{data_label}, which column to get the variable label}
+\item{label_from}{in \code{data_label}, which column to get the variable label (default to \code{label})}
 
-\item{verbose}{if TRUE, displays a warning if a variable name is not found in \code{data_label}}
+\item{verbose_name}{if TRUE, displays a warning if a variable name is not found in \code{data_label}}
+
+\item{verbose_label}{if TRUE, displays a warning if a label is not found in \code{.tbl}}
+
+\item{verbose}{deprecated}
 }
 \description{
-\code{import_labels} imports labels from a data.frame (\code{data_label}) to another one (\code{.tbl}).
+\code{import_labels} imports labels from a data.frame (\code{data_label}) to another one (\code{.tbl}). Works in synergy with \code{\link[=save_labels]{save_labels()}}.
 
 \code{save_labels} saves the labels from a data.frame in a temporary variable that can be retrieve by \code{import_labels}.
 }
@@ -52,5 +58,5 @@ mtcars2 \%>\%
   crosstable(disp)
 }
 \seealso{
-\link{get_label}, \link{set_label}, \link{remove_label}
+\code{\link[=get_label]{get_label()}}, \code{\link[=set_label]{set_label()}}, \code{\link[=remove_label]{remove_label()}}, \code{\link[=save_labels]{save_labels()}}
 }

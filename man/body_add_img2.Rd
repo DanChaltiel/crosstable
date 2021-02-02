@@ -4,14 +4,21 @@
 \alias{body_add_img2}
 \title{Alternative to \code{\link[officer:body_add_img]{officer::body_add_img()}} which adds a \code{units} choice}
 \usage{
-body_add_img2(doc, src, width, height, units = c("in", "cm", "mm"), ...)
+body_add_img2(
+  doc,
+  src,
+  width,
+  height,
+  units = getOption("crosstable_units", "in"),
+  ...
+)
 }
 \arguments{
 \item{doc}{an \code{rdocx} object}
 
 \item{src}{image filename, the basename of the file must not contain any blank.}
 
-\item{width, height}{width and height}
+\item{width, height}{width and height. Can be abbreviated to w and h.}
 
 \item{units}{units for width and height}
 
@@ -19,4 +26,19 @@ body_add_img2(doc, src, width, height, units = c("in", "cm", "mm"), ...)
 }
 \description{
 Alternative to \code{\link[officer:body_add_img]{officer::body_add_img()}} which adds a \code{units} choice
+}
+\examples{
+\dontrun{
+  img.file = file.path( R.home("doc"), "html", "logo.jpg" )
+  if( file.exists(img.file) ){
+      options(crosstable_units="cm")
+      doc = read_docx() \%>\%
+          body_add_normal("This is the R logo.") \%>\% 
+          body_add_img2(img.file, h=7.6, w=10, style="centered") #or units="cm" instead of using options
+      write_and_open(doc)
+  }
+}
+}
+\seealso{
+\code{\link[=body_add_gg2]{body_add_gg2()}}
 }

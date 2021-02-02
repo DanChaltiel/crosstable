@@ -41,7 +41,7 @@ compact(x, name_from="Species")
 compact(x, name_from="Species", name_to="Petal.Length")
 
 #crosstables
-x=crosstable(mtcars2, disp,hp,am, by=vs, test=TRUE, effect=TRUE)
+x=crosstable(mtcars2, c(disp,hp,am), by=vs, test=TRUE, effect=TRUE)
 compact(x)
 compact(x, name_from=".id")
 }

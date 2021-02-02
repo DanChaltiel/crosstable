@@ -24,7 +24,7 @@ body_add_list_item(doc, value, ordered = FALSE, style = NULL, ...)
 Add a list to an \code{officer} document
 }
 \details{
-Ordered lists and bullet lists are not supported by the default officer template (see \href{#262}{https://github.com/davidgohel/officer/issues/262}). You have to manually set custom styles matching thos list in a custom Word template file. Then, you can use either the \code{style} argument or crosstable options. See examples for more details.
+Ordered lists and bullet lists are not supported by the default officer template (see \href{#262}{https://github.com/davidgohel/officer/issues/262}). You have to manually set custom styles matching those list in a custom Word template file. Then, you can use either the \code{style} argument or crosstable options. See examples for more details.
 }
 \examples{
 \dontrun{

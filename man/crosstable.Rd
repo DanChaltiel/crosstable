@@ -6,7 +6,7 @@
 \usage{
 crosstable(
   data,
-  .vars = NULL,
+  cols = NULL,
   ...,
   by = NULL,
   total = c("none", "row", "column", "both"),
@@ -24,13 +24,14 @@ crosstable(
   effect = FALSE,
   effect_args = crosstable_effect_args(),
   times = NULL,
-  followup = FALSE
+  followup = FALSE,
+  .vars
 )
 }
 \arguments{
 \item{data}{a data.frame}
 
-\item{.vars}{the variables to describe. Can be a character or name vector, a tidyselect helper, a (lambda) function that returns a logical, or a formula. See examples or \code{vignette("crosstable-selection")} for more details.}
+\item{cols}{the variables to describe. Can be a character or name vector, a tidyselect helper, a (lambda) function that returns a logical, or a formula. See examples or \code{vignette("crosstable-selection")} for more details.}
 
 \item{...}{more variables to describe. Cannot be a lambda function nor a formula.}
 
@@ -67,6 +68,8 @@ crosstable(
 \item{times}{when using formula with \code{\link[survival:Surv]{survival::Surv()}} objects, which times to summarize}
 
 \item{followup}{when using formula with \code{\link[survival:Surv]{survival::Surv()}} objects, whether to display follow-up time}
+
+\item{.vars}{deprecated}
 }
 \description{
 Generate a descriptive table of all chosen columns, as contingency tables for categorical variables and as calculation summaries for numeric variables. If the \code{by} argument points to a categorical variable, \code{crosstable} will output a description of all columns for every level. Else, if it points to a numeric variable, \code{crosstable} will calculate correlation coefficients with all other selected numeric columns. Finally, if it points to a \code{Surv} object, \code{crosstable} will describe the survival at different times.

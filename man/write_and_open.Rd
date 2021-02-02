@@ -9,10 +9,10 @@ write_and_open(doc, docx.file)
 \arguments{
 \item{doc}{the docx object}
 
-\item{docx.file}{the name of the target file}
+\item{docx.file}{the name of the target file. If missing or NULL, the doc will open in a temporary file.}
 }
 \description{
-As it tests if the file is writable, this function also prevents \code{\link[officer:::print.rdocx]{officer::::print.rdocx()}} to abort the RStudio session.
+As it tests if the file is writable, this function also prevents \code{officer:::print.rdocx()} to abort the RStudio session.
 }
 \examples{
 \dontrun{
@@ -22,6 +22,7 @@ mytable = crosstable(mtcars2)
 doc = read_docx() \%>\% 
     body_add_crosstable(mytable)
 write_and_open(doc, "example.docx")
+write_and_open(doc)
 }
 }
 \author{
