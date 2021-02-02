@@ -1,11 +1,8 @@
 .git
 .git/*
-examples
 man/figures/*
 examples/*
-img
-img/*
-tmp
+
 
 TODO\.R
 ^R/dev-.*\.R$
@@ -16,15 +13,15 @@ TODO\.R
 ^README.Rmd$
 ^.*\.Rproj$
 ^.*\.RData$
+^\.github$
 ^\.Rproj\.user$
 ^\.travis\.yml$
+^_pkgdown\.yml$
+^codecov\.yml$
 ^cran-comments\.md$
 ^NEWS\.md$
 ^doc$
 ^Meta$
 ^data-raw$
-^codecov\.yml$
-^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
-^\.github$
