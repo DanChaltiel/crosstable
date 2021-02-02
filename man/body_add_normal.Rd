@@ -26,7 +26,8 @@ References to any bookmark can be inserted using the syntax "\\@ref(bookmark)". 
 library(officer)
 library(crosstable)
 
-info_rows = c("Also, table iris has {nrow(iris)} rows.", "And table mtcars has {nrow(mtcars)} rows.")
+info_rows = c("Also, table iris has {nrow(iris)} rows.", 
+              "And table mtcars has {nrow(mtcars)} rows.")
 doc = read_docx()  \%>\% 
     body_add_normal("Table iris has", ncol(iris), "columns.", .sep=" ") \%>\% #paste style
     body_add_normal("However, table mtcars has {ncol(mtcars)} columns") \%>\% #glue style
