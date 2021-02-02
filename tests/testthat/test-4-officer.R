@@ -62,7 +62,7 @@ test_that("Utils functions are OK too", {
     info_rows = c("Also, table iris has {nrow(iris)} rows.", "And table mtcars has {nrow(mtcars)} rows.")
     img.file = file.path( R.home("doc"), "html", "logo.jpg" )
     p = ggplot2::ggplot(data = iris ) +
-        ggplot2::geom_point(mapping = aes(Sepal.Length, Petal.Length))
+        ggplot2::geom_point(mapping = ggplot2::aes(Sepal.Length, Petal.Length))
     
     doc = read_docx() %>% 
         body_add_title("Tests", 1)  %>%
