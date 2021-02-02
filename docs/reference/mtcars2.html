@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Modified <code>mtcars</code> dataset — mtcars2 • crosstable</title>
+<title>Modified mtcars dataset — mtcars2 • crosstable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -54,7 +54,7 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Modified <code>mtcars</code> dataset — mtcars2" />
+<meta property="og:title" content="Modified mtcars dataset — mtcars2" />
 <meta property="og:description" content="Modified mtcars dataset so:
 every column is labelled (using label attribute from expss package, compatible with Hmisc package)
 gear and cyl columns are considered as numerical factors
@@ -108,7 +108,7 @@ See mtcars for more informations on the original &quot;Motor Trend Car Road Test
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -116,7 +116,7 @@ See mtcars for more informations on the original &quot;Motor Trend Car Road Test
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -151,13 +151,13 @@ See mtcars for more informations on the original &quot;Motor Trend Car Road Test
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="http://twitter.com/DanChaltiel">
-    <span class="fab fa fab fa-twitter fa-lg"></span>
+    <span class="fab fa-twitter fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/DanChaltiel/crosstable/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -195,7 +195,7 @@ See mtcars for more informations on the original &quot;Motor Trend Car Road Test
 <p>See <code><a href='https://rdrr.io/r/datasets/mtcars.html'>mtcars</a></code> for more informations on the original "Motor Trend Car Road Tests" dataset.</p>
     </div>
 
-    <pre class="usage"><span class='no'>mtcars2</span></pre>
+    <pre class="usage"><span class='va'>mtcars2</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
@@ -205,30 +205,32 @@ See mtcars for more informations on the original &quot;Motor Trend Car Road Test
 
     
 <pre>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='no'>mtcars2</span> <span class='kw'>=</span> <span class='no'>mtcars</span> <span class='kw'>%&amp;gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>vs</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>vs</span><span class='kw'>==</span><span class='fl'>0</span>, <span class='st'>"vshaped"</span>, <span class='st'>"straight"</span>),
-       <span class='kw'>am</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>am</span><span class='kw'>==</span><span class='fl'>0</span>, <span class='st'>"auto"</span>, <span class='st'>"manual"</span>)) <span class='kw'>%&amp;gt;%</span>
-    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>mutate_at</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"cyl"</span>, <span class='st'>"gear"</span>), <span class='no'>factor</span>) <span class='kw'>%&amp;gt;%</span>
-    <span class='kw pkg'>expss</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/expss/man/apply_labels.html'>apply_labels</a></span>( <span class='co'>#I also could have used [import_labels] or even `Hmisc::label`</span>
-        <span class='kw'>mpg</span><span class='kw'>=</span><span class='st'>"Miles/(US) gallon"</span>,
-        <span class='kw'>cyl</span><span class='kw'>=</span><span class='st'>"Number of cylinders"</span>,
-        <span class='kw'>disp</span><span class='kw'>=</span><span class='st'>"Displacement (cu.in.)"</span>,
-        <span class='kw'>hp</span><span class='kw'>=</span><span class='st'>"Gross horsepower"</span>,
-        <span class='kw'>drat</span><span class='kw'>=</span><span class='st'>"Rear axle ratio"</span>,
-        <span class='kw'>wt</span><span class='kw'>=</span><span class='st'>"Weight (1000 lbs)"</span>,
-        <span class='kw'>qsec</span><span class='kw'>=</span><span class='st'>"1/4 mile time"</span>,
-        <span class='kw'>vs</span><span class='kw'>=</span><span class='st'>"Engine"</span>,
-        <span class='kw'>am</span><span class='kw'>=</span><span class='st'>"Transmission"</span>,
-        <span class='kw'>gear</span><span class='kw'>=</span><span class='st'>"Number of forward gears"</span>,
-       <span class='kw'>carb</span><span class='kw'>=</span><span class='st'>"Number of carburetors"</span>
-    )</pre>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+<span class='va'>mtcars2</span> <span class='op'>=</span> <span class='va'>mtcars</span> <span class='op'>%&gt;%</span> 
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>vs<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>vs</span><span class='op'>==</span><span class='fl'>0</span>, <span class='st'>"vshaped"</span>, <span class='st'>"straight"</span><span class='op'>)</span>,
+       am<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>am</span><span class='op'>==</span><span class='fl'>0</span>, <span class='st'>"auto"</span>, <span class='st'>"manual"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>mutate_at</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cyl"</span>, <span class='st'>"gear"</span><span class='op'>)</span>, <span class='va'>factor</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+    <span class='fu'>expss</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/expss/man/apply_labels.html'>apply_labels</a></span><span class='op'>(</span> <span class='co'>#I also could have used [import_labels] or even `Hmisc::label`</span>
+        mpg<span class='op'>=</span><span class='st'>"Miles/(US) gallon"</span>,
+        cyl<span class='op'>=</span><span class='st'>"Number of cylinders"</span>,
+        disp<span class='op'>=</span><span class='st'>"Displacement (cu.in.)"</span>,
+        hp<span class='op'>=</span><span class='st'>"Gross horsepower"</span>,
+        drat<span class='op'>=</span><span class='st'>"Rear axle ratio"</span>,
+        wt<span class='op'>=</span><span class='st'>"Weight (1000 lbs)"</span>,
+        qsec<span class='op'>=</span><span class='st'>"1/4 mile time"</span>,
+        vs<span class='op'>=</span><span class='st'>"Engine"</span>,
+        am<span class='op'>=</span><span class='st'>"Transmission"</span>,
+        gear<span class='op'>=</span><span class='st'>"Number of forward gears"</span>,
+       carb<span class='op'>=</span><span class='st'>"Number of carburetors"</span>
+    <span class='op'>)</span>
+</pre>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>crosstable</span>)
-<span class='no'>ct</span><span class='kw'>=</span><span class='fu'><a href='crosstable.html'>crosstable</a></span>(<span class='no'>mtcars2</span>, <span class='kw'>by</span><span class='kw'>=</span><span class='no'>vs</span>)
-<span class='no'>ct</span></div><div class='output co'>#&gt;           .id                   label   variable
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://danchaltiel.github.io/crosstable/'>crosstable</a></span><span class='op'>)</span>
+<span class='va'>ct</span><span class='op'>=</span><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span>, by<span class='op'>=</span><span class='va'>vs</span><span class='op'>)</span>
+<span class='va'>ct</span>
+</div><div class='output co'>#&gt;           .id                   label   variable
 #&gt; 1         mpg       Miles/(US) gallon  Min / Max
 #&gt; 2         mpg       Miles/(US) gallon  Med [IQR]
 #&gt; 3         mpg       Miles/(US) gallon Mean (std)
@@ -362,7 +364,8 @@ See mtcars for more informations on the original &quot;Motor Trend Car Road Test
 #&gt; 41                     2010-01-15 13:00:00 - 2010-01-19 01:00:00
 #&gt; 42 2010-01-18 01:28:48 [2010-01-16 21:09:36;2010-01-18 11:04:48]
 #&gt; 43                                2010-01-17 17:39:12 (1.1 days)
-#&gt; 44                                                        18 (0)</div><div class='input'><span class='fu'><a href='as_flextable.html'>as_flextable</a></span>(<span class='no'>ct</span>)</div><div class='output co'>#&gt; a flextable object.
+#&gt; 44                                                        18 (0)</div><div class='input'><span class='fu'><a href='as_flextable.crosstable.html'>as_flextable</a></span><span class='op'>(</span><span class='va'>ct</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `label`, `variable`, `straight`, `vshaped` 
 #&gt; header has 2 row(s) 
 #&gt; body has 44 row(s) 
@@ -388,7 +391,7 @@ See mtcars for more informations on the original &quot;Motor Trend Car Road Test
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

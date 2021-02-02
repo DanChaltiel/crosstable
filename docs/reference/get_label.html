@@ -102,7 +102,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -145,13 +145,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="http://twitter.com/DanChaltiel">
-    <span class="fab fa fab fa-twitter fa-lg"></span>
+    <span class="fab fa-twitter fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/DanChaltiel/crosstable/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -175,7 +175,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Get label if wanted and available, or default (name) otherwise</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/funs.R'><code>R/funs.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/labels.R'><code>R/labels.R</code></a></small>
     <div class="hidden name"><code>get_label.Rd</code></div>
     </div>
 
@@ -183,31 +183,73 @@
     <p>Get label if wanted and available, or default (name) otherwise</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_label</span>(<span class='no'>x</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>x</span>))</pre>
+    <pre class="usage"><span class='fu'>get_label</span><span class='op'>(</span><span class='va'>x</span>, default <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/openxlsx/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, object <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>labelled object</p></td>
+      <td><p>labelled object. If <code>x</code> is a list/data.frame, <code>get_label()</code> will return the labels of all children recursively</p></td>
     </tr>
     <tr>
       <th>default</th>
-      <td><p>value returned if there is no label. Default to <code><a href='https://rdrr.io/r/base/names.html'>names(x)</a></code>.</p></td>
+      <td><p>value returned if there is no label. Default to <code><a href='https://rdrr.io/pkg/openxlsx/man/names.html'>names(x)</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>object</th>
+      <td><p>if <code>x</code> is a list/data.frame, <code>object=TRUE</code> will force getting the labels of the object instead of the children</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='set_label.html'>set_label</a>, <a href='import_labels.html'>import_labels</a>, <a href='remove_label.html'>remove_label</a>, <a href='https://rdrr.io/pkg/Hmisc/man/label.html'>Hmisc::label</a>, <a href='https://rdrr.io/pkg/expss/man/var_lab.html'>expss::var_lab</a></p></div>
+    <div class='dont-index'><p><code><a href='set_label.html'>set_label()</a></code>, <code><a href='import_labels.html'>import_labels()</a></code>, <code><a href='remove_labels.html'>remove_label()</a></code>, <code><a href='https://rdrr.io/pkg/Hmisc/man/label.html'>Hmisc::label()</a></code>, <code><a href='https://rdrr.io/pkg/expss/man/var_lab.html'>expss::var_lab()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>#vectors</span>
-<span class='fu'>get_label</span>(<span class='no'>mtcars2</span>$<span class='no'>mpg</span>)</div><div class='output co'>#&gt; [1] "Miles/(US) gallon"</div><div class='input'><span class='fu'>get_label</span>(<span class='no'>mtcars</span>$<span class='no'>mpg</span>)</div><div class='output co'>#&gt; NULL</div><div class='input'><span class='fu'>get_label</span>(<span class='no'>mtcars</span>$<span class='no'>mpg</span>, <span class='kw'>default</span><span class='kw'>=</span><span class='st'>"foo"</span>)</div><div class='output co'>#&gt; [1] "foo"</div><div class='input'><span class='fu'>get_label</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>bar</span><span class='kw'>=</span><span class='no'>mtcars</span>$<span class='no'>mpg</span>)) <span class='co'>#default to names</span></div><div class='output co'>#&gt; [1] "bar"</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='va'>xx</span><span class='op'>=</span><span class='va'>mtcars2</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='set_label.html'>set_label</a></span><span class='op'>(</span><span class='st'>"The mtcars2 dataset"</span>, object<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span><span class='op'>=</span><span class='fu'><a href='remove_labels.html'>remove_label</a></span><span class='op'>(</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span><span class='op'>)</span>
+
+<span class='co'>#vectors</span>
+<span class='fu'>get_label</span><span class='op'>(</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>)</span> <span class='co'>#label="Miles/(US) gallon"</span>
+</div><div class='output co'>#&gt; [1] "Miles/(US) gallon"</div><div class='input'><span class='fu'>get_label</span><span class='op'>(</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span><span class='op'>)</span> <span class='co'>#default to NULL (as names(xx$cyl)==NULL)</span>
+</div><div class='output co'>#&gt; NULL</div><div class='input'><span class='fu'>get_label</span><span class='op'>(</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span>, default<span class='op'>=</span><span class='st'>"Default value"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Default value"</div><div class='input'>
 <span class='co'>#data.frames</span>
-<span class='fu'>get_label</span>(<span class='no'>mtcars2</span>[<span class='st'>"mpg"</span>])</div><div class='output co'>#&gt;                 mpg 
-#&gt; "Miles/(US) gallon" </div><div class='input'><span class='fu'>get_label</span>(<span class='no'>mtcars</span>[<span class='st'>"mpg"</span>]) <span class='co'>#default to names</span></div><div class='output co'>#&gt; [1] "mpg"</div><div class='input'><span class='fu'>get_label</span>(<span class='no'>mtcars</span>[<span class='st'>"mpg"</span>], <span class='kw'>default</span><span class='kw'>=</span><span class='st'>"bar"</span>)</div><div class='output co'>#&gt; [1] "bar"</div></pre>
+<span class='fu'>get_label</span><span class='op'>(</span><span class='va'>xx</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                       mpg                       cyl                      disp 
+#&gt;       "Miles/(US) gallon"                     "cyl"   "Displacement (cu.in.)" 
+#&gt;                        hp                      drat                        wt 
+#&gt;        "Gross horsepower"         "Rear axle ratio"       "Weight (1000 lbs)" 
+#&gt;                      qsec                        vs                        am 
+#&gt;           "1/4 mile time"                  "Engine"            "Transmission" 
+#&gt;                      gear                      carb                   hp_date 
+#&gt; "Number of forward gears"   "Number of carburetors"      "Some nonsense date" 
+#&gt;                qsec_posix 
+#&gt;               "Date+time" </div><div class='input'><span class='fu'>get_label</span><span class='op'>(</span><span class='va'>xx</span>, object<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "The mtcars2 dataset"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>name<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/pkg/openxlsx/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>xx</span><span class='op'>)</span>, label<span class='op'>=</span><span class='fu'>get_label</span><span class='op'>(</span><span class='va'>xx</span>, default<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span><span class='op'>)</span> <span class='co'>#cyl is NA</span>
+</div><div class='output co'>#&gt;                  name                   label
+#&gt; mpg               mpg       Miles/(US) gallon
+#&gt; cyl               cyl                    &lt;NA&gt;
+#&gt; disp             disp   Displacement (cu.in.)
+#&gt; hp                 hp        Gross horsepower
+#&gt; drat             drat         Rear axle ratio
+#&gt; wt                 wt       Weight (1000 lbs)
+#&gt; qsec             qsec           1/4 mile time
+#&gt; vs                 vs                  Engine
+#&gt; am                 am            Transmission
+#&gt; gear             gear Number of forward gears
+#&gt; carb             carb   Number of carburetors
+#&gt; hp_date       hp_date      Some nonsense date
+#&gt; qsec_posix qsec_posix               Date+time</div><div class='input'>
+<span class='co'>#lists</span>
+<span class='fu'>get_label</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span>, <span class='va'>xx</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] NA                  "Miles/(US) gallon"</div><div class='input'><span class='fu'>get_label</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>foo<span class='op'>=</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span>, bar<span class='op'>=</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                 foo                 bar 
+#&gt;               "foo" "Miles/(US) gallon" </div><div class='input'><span class='fu'>get_label</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>foo<span class='op'>=</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span>, bar<span class='op'>=</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>)</span>, default<span class='op'>=</span><span class='st'>"Default value"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                 foo                 bar 
+#&gt;     "Default value" "Miles/(US) gallon" </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -223,7 +265,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

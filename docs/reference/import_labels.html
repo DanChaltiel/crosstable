@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Import labels from a dataset — import_labels • crosstable</title>
+<title>Import labels — import_labels • crosstable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -54,8 +54,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Import labels from a dataset — import_labels" />
-<meta property="og:description" content="import_labels imports labels from a data.frame (data_label) to another one (.tbl).
+<meta property="og:title" content="Import labels — import_labels" />
+<meta property="og:description" content="import_labels imports labels from a data.frame (data_label) to another one (.tbl). Works in synergy with save_labels().
 save_labels saves the labels from a data.frame in a temporary variable that can be retrieve by import_labels." />
 <meta property="og:image" content="https://danchaltiel.github.io/crosstable/apple-touch-icon-180x180.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
@@ -103,7 +103,7 @@ save_labels saves the labels from a data.frame in a temporary variable that can 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -111,7 +111,7 @@ save_labels saves the labels from a data.frame in a temporary variable that can 
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -146,13 +146,13 @@ save_labels saves the labels from a data.frame in a temporary variable that can 
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="http://twitter.com/DanChaltiel">
-    <span class="fab fa fab fa-twitter fa-lg"></span>
+    <span class="fab fa-twitter fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/DanChaltiel/crosstable/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -175,25 +175,27 @@ save_labels saves the labels from a data.frame in a temporary variable that can 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Import labels from a dataset</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/funs.R'><code>R/funs.R</code></a></small>
+    <h1>Import labels</h1>
+    <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/labels.R'><code>R/labels.R</code></a></small>
     <div class="hidden name"><code>import_labels.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>import_labels</code> imports labels from a data.frame (<code>data_label</code>) to another one (<code>.tbl</code>).</p>
+    <p><code>import_labels</code> imports labels from a data.frame (<code>data_label</code>) to another one (<code>.tbl</code>). Works in synergy with <code>save_labels()</code>.</p>
 <p><code>save_labels</code> saves the labels from a data.frame in a temporary variable that can be retrieve by <code>import_labels</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>import_labels</span>(
-  <span class='no'>.tbl</span>,
-  <span class='kw'>data_label</span> <span class='kw'>=</span> <span class='fu'>get_last_save</span>(),
-  <span class='kw'>name_from</span> <span class='kw'>=</span> <span class='st'>"name"</span>,
-  <span class='kw'>label_from</span> <span class='kw'>=</span> <span class='st'>"label"</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>import_labels</span><span class='op'>(</span>
+  <span class='va'>.tbl</span>,
+  <span class='va'>data_label</span>,
+  name_from <span class='op'>=</span> <span class='st'>"name"</span>,
+  label_from <span class='op'>=</span> <span class='st'>"label"</span>,
+  verbose_name <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  verbose_label <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>save_labels</span>(<span class='no'>.tbl</span>)</pre>
+<span class='fu'>save_labels</span><span class='op'>(</span><span class='va'>.tbl</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,37 +206,46 @@ save_labels saves the labels from a data.frame in a temporary variable that can 
     </tr>
     <tr>
       <th>data_label</th>
-      <td><p>a data.frame from which to import labels</p></td>
+      <td><p>a data.frame from which to import labels. If missing, the function will take the labels from the last dataframe on which <code>save_labels()</code> was called.</p></td>
     </tr>
     <tr>
       <th>name_from</th>
-      <td><p>in <code>data_label</code>, which column to get the variable name</p></td>
+      <td><p>in <code>data_label</code>, which column to get the variable name (default to <code>name</code>)</p></td>
     </tr>
     <tr>
       <th>label_from</th>
-      <td><p>in <code>data_label</code>, which column to get the variable label</p></td>
+      <td><p>in <code>data_label</code>, which column to get the variable label (default to <code>label</code>)</p></td>
+    </tr>
+    <tr>
+      <th>verbose_name</th>
+      <td><p>if TRUE, displays a warning if a variable name is not found in <code>data_label</code></p></td>
+    </tr>
+    <tr>
+      <th>verbose_label</th>
+      <td><p>if TRUE, displays a warning if a label is not found in <code>.tbl</code></p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>if TRUE, displays a warning if a variable name is not found in <code>data_label</code></p></td>
+      <td><p>deprecated</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='get_label.html'>get_label</a>, <a href='set_label.html'>set_label</a>, <a href='remove_label.html'>remove_label</a></p></div>
+    <div class='dont-index'><p><code><a href='get_label.html'>get_label()</a></code>, <code><a href='set_label.html'>set_label()</a></code>, <code><a href='remove_labels.html'>remove_label()</a></code>, <code>save_labels()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>#import the labels from a data.frame to another</span>
-<span class='no'>iris_label</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>name</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>,
-         <span class='st'>"Petal.Length"</span>, <span class='st'>"Petal.Width"</span>, <span class='st'>"Species"</span>),
-  <span class='kw'>label</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Length of Sepals"</span>, <span class='st'>"Width of Sepals"</span>,
-          <span class='st'>"Length of Petals"</span>, <span class='st'>"Width of Petals"</span>, <span class='st'>"Specie name"</span>)
-)
-<span class='no'>iris</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>import_labels</span>(<span class='no'>iris_label</span>) <span class='kw'>%&gt;%</span>
-  <span class='no'>crosstable</span></div><div class='output co'>#&gt;             .id            label   variable         value
+<span class='va'>iris_label</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  name<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span>,
+         <span class='st'>"Petal.Length"</span>, <span class='st'>"Petal.Width"</span>, <span class='st'>"Species"</span><span class='op'>)</span>,
+  label<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Length of Sepals"</span>, <span class='st'>"Width of Sepals"</span>,
+          <span class='st'>"Length of Petals"</span>, <span class='st'>"Width of Petals"</span>, <span class='st'>"Specie name"</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='va'>iris</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>import_labels</span><span class='op'>(</span><span class='va'>iris_label</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='va'>crosstable</span>
+</div><div class='output co'>#&gt;             .id            label   variable         value
 #&gt; 1  Sepal.Length Length of Sepals  Min / Max     4.3 / 7.9
 #&gt; 2  Sepal.Length Length of Sepals  Med [IQR] 5.8 [5.1;6.4]
 #&gt; 3  Sepal.Length Length of Sepals Mean (std)     5.8 (0.8)
@@ -253,18 +264,22 @@ save_labels saves the labels from a data.frame in a temporary variable that can 
 #&gt; 16  Petal.Width  Width of Petals     N (NA)       150 (0)
 #&gt; 17      Species      Specie name     setosa   50 (33.33%)
 #&gt; 18      Species      Specie name versicolor   50 (33.33%)
-#&gt; 19      Species      Specie name  virginica   50 (33.33%)</div><div class='input'>
+#&gt; 19      Species      Specie name  virginica   50 (33.33%)</div><div class='input'>  
 <span class='co'>#save the labels, use some dplyr label-removing function, then retrieve the labels</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='no'>mtcars2</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>save_labels</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>transmute</a></span>(<span class='kw'>disp</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>disp</span>)+<span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>import_labels</span>(<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span> <span class='co'>#</span>
-  <span class='fu'><a href='crosstable.html'>crosstable</a></span>(<span class='no'>disp</span>)</div><div class='output co'>#&gt;    .id                 label   variable               value
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+<span class='va'>mtcars2</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>save_labels</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>transmute</a></span><span class='op'>(</span>disp<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>disp</span><span class='op'>)</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>import_labels</span><span class='op'>(</span>verbose<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'>#</span>
+  <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>disp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: The `verbose` argument of `import_labels()` is deprecated as of crosstable 0.2.0.</span>
+#&gt; <span class='warning'>Please use the `verbose_name` or the `verbose_label` argument instead.</span>
+#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span>
+#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='output co'>#&gt;    .id                 label   variable               value
 #&gt; 1 disp Displacement (cu.in.)  Min / Max        72.1 / 473.0
 #&gt; 2 disp Displacement (cu.in.)  Med [IQR] 197.3 [121.8;327.0]
 #&gt; 3 disp Displacement (cu.in.) Mean (std)       231.7 (123.9)
-#&gt; 4 disp Displacement (cu.in.)     N (NA)              32 (0)</div></pre>
+#&gt; 4 disp Displacement (cu.in.)     N (NA)              32 (0)</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -280,7 +295,7 @@ save_labels saves the labels from a data.frame in a temporary variable that can 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

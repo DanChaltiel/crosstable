@@ -40,6 +40,7 @@ reference:
 - title: "Main function"
 - contents: 
   - crosstable
+  - crosstable_options
 - title: "Datasets"
   desc: "Standard datasets, modified to have labels, characters, and factors"
 - contents: 
@@ -52,6 +53,7 @@ reference:
   - set_label
   - get_label
   - remove_labels
+  - apply_labels
 - title: "Summary functions"
   desc: "Summarise numeric variables"
 - contents: 
@@ -63,15 +65,20 @@ reference:
   desc: "Used in cooperation with the `officer` package"
 - contents: 
   - starts_with("body_add_")
+  - docx_bookmarks2 
+  - write_and_open 
 - title: "Utils"
   desc: "Practical functions for various purposes"
 - contents: 
   - format_fixed
-  - as_flextable
-  - as_gt.crosstable
   - compact
   - plim
   - confint_numeric
+  - rename_dataframe_with_labels
+  - as_gt.crosstable
+  - as_workbook
+  - as_flextable
+  - peek 
 - title: "Effects and tests"
 - subtitle: "Default parameters"
 - contents: 
@@ -80,9 +87,7 @@ reference:
 - subtitle: "Effects"
 - contents:
   - display_effect
-  - effect_summary
-  - effect_tabular
-  - effect_survival
+  - starts_with("effect_")
 - subtitle: "Tests"
 - contents:
   - display_test

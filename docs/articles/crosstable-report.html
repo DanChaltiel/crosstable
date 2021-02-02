@@ -51,7 +51,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -59,7 +59,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -94,13 +94,13 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="http://twitter.com/DanChaltiel">
-    <span class="fab fa fab fa-twitter fa-lg"></span>
+    <span class="fab fa-twitter fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/DanChaltiel/crosstable/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -120,13 +120,13 @@
 
       
 
-      </header><script src="crosstable-report_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="crosstable-report_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Make automatic reports</h1>
                         <h4 class="author">Dan Chaltiel</h4>
             
-            <h4 class="date">2020-08-02</h4>
+            <h4 class="date">2021-02-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/DanChaltiel/crosstable/blob/master/vignettes/crosstable-report.Rmd"><code>vignettes/crosstable-report.Rmd</code></a></small>
       <div class="hidden name"><code>crosstable-report.Rmd</code></div>
@@ -140,40 +140,50 @@
 <a href="#create-reports-with-officer" class="anchor"></a>Create reports with <code>officer</code>
 </h2>
 <p>The real power of <code>crosstable</code> comes out when used with David Gohel’s awesome package <a href="https://davidgohel.github.io/officer/"><code>officer</code></a>, which allows to automatically create MS Word documents.</p>
-<p>Therefore, <code>crosstable</code> has several functions to output a beautiful report:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">officer</span>)
-<span class="no">ct1</span><span class="kw">=</span><span class="fu"><a href="../reference/crosstable.html">crosstable</a></span>(<span class="no">iris</span>, <span class="kw">by</span><span class="kw">=</span><span class="no">Species</span>, <span class="kw">test</span><span class="kw">=</span><span class="fl">TRUE</span>)
-<span class="no">ct2</span><span class="kw">=</span><span class="fu"><a href="../reference/crosstable.html">crosstable</a></span>(<span class="no">mtcars2</span>, <span class="no">mpg</span>,<span class="no">cyl</span>,<span class="no">disp</span>, <span class="kw">by</span><span class="kw">=</span><span class="no">am</span>, <span class="kw">effect</span><span class="kw">=</span><span class="fl">TRUE</span>, <span class="kw">total</span><span class="kw">=</span><span class="st">"both"</span>, <span class="kw">showNA</span><span class="kw">=</span><span class="st">"always"</span>)
-<span class="no">ct3</span><span class="kw">=</span><span class="fu"><a href="../reference/crosstable.html">crosstable</a></span>(<span class="no">esoph</span>)
+<p>Therefore, <code>crosstable</code> has several helper functions to output a beautiful report:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/">officer</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="va">ct1</span><span class="op">=</span><span class="fu"><a href="../reference/crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">iris</span>, by<span class="op">=</span><span class="va">Species</span>, test<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">ct2</span><span class="op">=</span><span class="fu"><a href="../reference/crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">mpg</span>,<span class="va">cyl</span>,<span class="va">disp</span><span class="op">)</span>, by<span class="op">=</span><span class="va">am</span>, effect<span class="op">=</span><span class="cn">TRUE</span>, total<span class="op">=</span><span class="st">"both"</span>, showNA<span class="op">=</span><span class="st">"always"</span><span class="op">)</span>
+<span class="va">ct3</span><span class="op">=</span><span class="fu"><a href="../reference/crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">esoph</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>crosstable_units<span class="op">=</span><span class="st">"cm"</span><span class="op">)</span>
 
-<span class="no">doc</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/officer/man/read_docx.html">read_docx</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span>(<span class="st">"Dataset iris"</span>, <span class="fl">1</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span>(<span class="st">"Not compacted"</span>, <span class="fl">2</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span>(<span class="st">"Automatic testing is bad and you should feel bad."</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_crosstable.html">body_add_crosstable</a></span>(<span class="no">ct1</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span>(<span class="st">"Compacted"</span>, <span class="fl">2</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span>(<span class="st">"When compacting, you might want to remove the test names."</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_crosstable.html">body_add_crosstable</a></span>(<span class="no">ct1</span>, <span class="kw">compact</span><span class="kw">=</span><span class="fl">TRUE</span>, <span class="kw">show_test_name</span><span class="kw">=</span><span class="fl">FALSE</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/officer/man/body_add_break.html">body_add_break</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span>(<span class="st">"Dataset mtcars2"</span>, <span class="fl">1</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_glued.html">body_add_glued</a></span>(<span class="st">"This dataset has {nrow(ct3)} rows and {x} columns."</span>, <span class="kw">x</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(<span class="no">ct3</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span>(<span class="st">"Look, there are labels!"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_crosstable.html">body_add_crosstable</a></span>(<span class="no">ct2</span>, <span class="kw">compact</span><span class="kw">=</span><span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/officer/man/body_add_break.html">body_add_break</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span>(<span class="st">"Dataset esoph"</span>, <span class="fl">1</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span>(<span class="st">"This one was compacted beforehand for some reason."</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_crosstable.html">body_add_crosstable</a></span>(<span class="fu"><a href="../reference/compact.html">compact</a></span>(<span class="no">ct3</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/officer/man/body_add_break.html">body_add_break</a></span>()</pre></body></html></div>
+<span class="va">my_plot</span> <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">iris</span> <span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">Sepal.Length</span>, <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">doc</span> <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Dataset iris"</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Not compacted"</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"Table \\@ref(table_autotest) is an example. However, automatic testing is bad and I should feel bad."</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/body_add_crosstable.html">body_add_crosstable</a></span><span class="op">(</span><span class="va">ct1</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/body_add_table_legend.html">body_add_table_legend</a></span><span class="op">(</span><span class="st">"Automatic testing is bad"</span>, bookmark<span class="op">=</span><span class="st">"table_autotest"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"Let's add a figure as well. You can see in Figure \\@ref(fig_iris) that sepal length is somehow correlated with petal length."</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/body_add_table_legend.html">body_add_figure_legend</a></span><span class="op">(</span><span class="st">"Relation between Petal length and Sepal length"</span>, bookmark<span class="op">=</span><span class="st">"fig_iris"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/body_add_gg2.html">body_add_gg2</a></span><span class="op">(</span><span class="va">my_plot</span>, w<span class="op">=</span><span class="fl">14</span>, h<span class="op">=</span><span class="fl">10</span>, scale<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Compacted"</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"When compacting, you might want to remove the test names."</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/body_add_crosstable.html">body_add_crosstable</a></span><span class="op">(</span><span class="va">ct1</span>, compact<span class="op">=</span><span class="cn">TRUE</span>, show_test_name<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://davidgohel.github.io/officer/reference/body_add_break.html">body_add_break</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Dataset mtcars2"</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"This dataset has {nrow(ct3)} rows and {x} columns."</span>, x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">ct3</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"Look, there are labels!"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/body_add_crosstable.html">body_add_crosstable</a></span><span class="op">(</span><span class="va">ct2</span>, compact<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://davidgohel.github.io/officer/reference/body_add_break.html">body_add_break</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Dataset esoph"</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"This one was compacted beforehand for some reason."</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/body_add_crosstable.html">body_add_crosstable</a></span><span class="op">(</span><span class="fu"><a href="../reference/compact.html">compact</a></span><span class="op">(</span><span class="va">ct3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Beware when using the whole <code>tidyverse</code>, as <code><a href="../reference/compact.html">crosstable::compact</a></code> conflicts with <code><a href="https://purrr.tidyverse.org/reference/keep.html">purrr::compact</a></code>. You can solve this using an alias (<code>my_compact=crosstable::compact</code>) or using the <code>conflicted</code> package.</p>
 </div>
 <div id="output" class="section level2">
 <h2 class="hasAnchor">
 <a href="#output" class="anchor"></a>Output</h2>
 <p>To save the file, just use the <code>print</code> function:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">filename</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">".."</span>, <span class="st">"examples"</span>, <span class="st">"vignette_officer.docx"</span>, <span class="kw">fsep</span><span class="kw">=</span><span class="st">"\\"</span>)<span class="co">#`\\` is needed for shell.exec on Windows</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">doc</span>, <span class="no">filename</span>) <span class="co">#write the docx file</span>
-<span class="fu"><a href="https://rdrr.io/r/base/shell.exec.html">shell.exec</a></span>(<span class="no">filename</span>) <span class="co">#open the docx file (fails if it is already open)</span></pre></body></html></div>
-<p>You can check out this example <a href="../examples/vignette_officer.docx">here</a>.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">filename</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">".."</span>, <span class="st">"examples"</span>, <span class="st">"vignette_officer.docx"</span>, fsep<span class="op">=</span><span class="st">"\\"</span><span class="op">)</span><span class="co">#`\\` is needed for shell.exec on Windows</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">doc</span>, <span class="va">filename</span><span class="op">)</span> <span class="co">#write the docx file</span>
+<span class="fu"><a href="https://rdrr.io/r/base/shell.exec.html">shell.exec</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span> <span class="co">#open the docx file (fails if it is already open)</span></code></pre></div>
+<p>You can check out this example <a href="https://github.com/DanChaltiel/crosstable/raw/master/examples/vignette_officer.docx">here</a>.</p>
 <p>Unfortunately, large tables can overflow the MS Word document width. In this case (for instance for <code>mtcars2</code> in the previous example), you have to manually go to <code>Table Tools &gt; Layout &gt; AutoFit &gt; AutoFit Window</code> in the ribbon to correct the width.</p>
 <p>You can learn more on officer on <a href="https://davidgohel.github.io/officer/">its documentation</a>.</p>
 </div>
@@ -184,24 +194,24 @@
 <!-- Intégration Rmd in Rmd: la coloration syntaxique RStudio est mauvaise mais le code est bon ! -->
 <!-- https://stackoverflow.com/questions/53226493/add-markdown-code-chunk-to-r-markdown-document#comment104859956_53226493 -->
 <p>Knitting (<code><a href="https://rdrr.io/pkg/knitr/man/knit.html">knitr::knit()</a></code> ou via <strong>RStudio</strong>) this <code>Rmd</code> code also creates a MS-Word file. Here, you can use the power of <code>bookdown</code> to generate the automatic numbering of the tables.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1"></a></span>
-<span id="cb3-2"><a href="#cb3-2"></a>---</span>
-<span id="cb3-3"><a href="#cb3-3"></a>title: "Iris"</span>
-<span id="cb3-4"><a href="#cb3-4"></a>output: bookdown::word_document2</span>
-<span id="cb3-5"><a href="#cb3-5"></a>---</span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="bn">    </span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="bn">```{r setup, include=FALSE}</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="bn">library(crosstable)</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="bn">library(flextable)</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="bn">library(dplyr) #pour le pipe %&gt;% </span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="bn">```</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a></span>
-<span id="cb3-13"><a href="#cb3-13"></a>Table iris is given in Table \@ref(tab:irisTable).</span>
-<span id="cb3-14"><a href="#cb3-14"></a></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="bn">```{r description, echo=FALSE, results='asis'}</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="bn">cat("&lt;caption&gt; (\\#tab:irisTable) Table Iris &lt;/caption&gt; \n\r ")</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="bn">crosstable(iris, Sepal.Length, Sepal.Width, by=Species, test = TRUE, total="column") %&gt;% as_flextable</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="bn">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>title: "Iris"</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>output: bookdown::word_document2</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="in">library(crosstable)</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="in">library(flextable)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="in">library(dplyr) #pour le pipe %&gt;% </span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>Table iris is given in Table \@ref(tab:irisTable).</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="in">```{r description, echo=FALSE, results='asis'}</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="in">cat("&lt;caption&gt; (\\#tab:irisTable) Table Iris &lt;/caption&gt; \n\r ")</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="in">crosstable(iris, Sepal.Length, Sepal.Width, by=Species, test = TRUE, total="column") %&gt;% as_flextable</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <p>You can example files here: <a href="../examples/vignette_markdown.Rmd">vignette_markdown.Rmd</a> and <a href="../examples/vignette_markdown.docx">vignette_markdown.docx</a>.</p>
 </div>
   </div>
@@ -221,7 +231,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

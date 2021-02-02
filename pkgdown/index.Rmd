@@ -19,6 +19,7 @@ library(knitr)
 library(flextable)
 
 assignInNamespace("knit_print.flextable", crosstable:::knit_print.flextable, ns="flextable")
+assignInNamespace("flextable_to_rmd", crosstable:::flextable_to_rmd, ns="flextable")
 
 ```
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add a new paragraph with a Normal style to an <code>officer</code> document, inserting variables with <code>base::paste</code> — body_add_normal • crosstable</title>
+<title>Add a new paragraph with default style — body_add_normal • crosstable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -54,8 +54,9 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Add a new paragraph with a Normal style to an <code>officer</code> document, inserting variables with <code>base::paste</code> — body_add_normal" />
-<meta property="og:description" content="Add a new paragraph with a Normal style to an officer document, inserting variables with base::paste" />
+<meta property="og:title" content="Add a new paragraph with default style — body_add_normal" />
+<meta property="og:description" content="Add a new paragraph in an officer document with default style. Variables can be inserted as multiple strings (paste() style) or enclosed by braces (glue() style).
+References to any bookmark can be inserted using the syntax &quot;\@ref(bookmark)&quot;. See an example in body_add_table_legend()." />
 <meta property="og:image" content="https://danchaltiel.github.io/crosstable/apple-touch-icon-180x180.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary" />
@@ -102,7 +103,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -110,7 +111,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -145,13 +146,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="http://twitter.com/DanChaltiel">
-    <span class="fab fa fab fa-twitter fa-lg"></span>
+    <span class="fab fa-twitter fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/DanChaltiel/crosstable/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -174,16 +175,17 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add a new paragraph with a Normal style to an <code>officer</code> document, inserting variables with <code>base::paste</code></h1>
+    <h1>Add a new paragraph with default style</h1>
     <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/officer.R'><code>R/officer.R</code></a></small>
     <div class="hidden name"><code>body_add_normal.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Add a new paragraph with a Normal style to an <code>officer</code> document, inserting variables with <code><a href='https://rdrr.io/r/base/paste.html'>base::paste</a></code></p>
+    <p>Add a new paragraph in an <code>officer</code> document with default style. Variables can be inserted as multiple strings (<code><a href='https://rdrr.io/r/base/paste.html'>paste()</a></code> style) or enclosed by braces (<code>glue()</code> style).
+References to any bookmark can be inserted using the syntax "\@ref(bookmark)". See an example in <code><a href='body_add_table_legend.html'>body_add_table_legend()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>body_add_normal</span>(<span class='no'>doc</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>body_add_normal</span><span class='op'>(</span><span class='va'>doc</span>, <span class='va'>...</span>, .sep <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,22 +196,34 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>one or several character strings, collapsed into a paragraph with <code><a href='https://rdrr.io/r/base/paste.html'>base::paste</a></code></p></td>
+      <td><p>one or several character strings, pasted using <code>.sep</code>. As with <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue::glue()</a></code>, expressions enclosed by braces will be evaluated as R code. If more than one variable is passed, all should be of length 1.</p></td>
+    </tr>
+    <tr>
+      <th>.sep</th>
+      <td><p>Separator used to separate elements.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a new doc object</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Dan Chaltiel</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>officer</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>crosstable</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='no'>doc</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/officer/man/read_docx.html'>read_docx</a></span>()
-<span class='no'>doc</span> <span class='kw'>=</span> <span class='no'>doc</span> <span class='kw'>%&gt;%</span> <span class='fu'>body_add_normal</span>(<span class='st'>"La table iris a "</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>iris</span>), <span class='st'>" colonnes."</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://danchaltiel.github.io/crosstable/'>crosstable</a></span><span class='op'>)</span>
+
+<span class='va'>info_rows</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Also, table iris has {nrow(iris)} rows."</span>, <span class='st'>"And table mtcars has {nrow(mtcars)} rows."</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='op'>)</span>  <span class='op'>%&gt;%</span> 
+    <span class='fu'>body_add_normal</span><span class='op'>(</span><span class='st'>"Table iris has"</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span>, <span class='st'>"columns."</span>, .sep<span class='op'>=</span><span class='st'>" "</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'>#paste style</span>
+    <span class='fu'>body_add_normal</span><span class='op'>(</span><span class='st'>"However, table mtcars has {ncol(mtcars)} columns"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'>#glue style</span>
+    <span class='fu'>body_add_normal</span><span class='op'>(</span><span class='va'>info_rows</span><span class='op'>)</span>                                              <span class='co'>#vector style</span>
+<span class='fu'><a href='write_and_open.html'>write_and_open</a></span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -225,7 +239,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

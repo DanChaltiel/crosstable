@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add a table legend to an <code>officer</code> document — body_add_table_legend • crosstable</title>
+<title>Add a table legend to an officer document — body_add_table_legend • crosstable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -54,7 +54,7 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Add a table legend to an <code>officer</code> document — body_add_table_legend" />
+<meta property="og:title" content="Add a table legend to an officer document — body_add_table_legend" />
 <meta property="og:description" content="Add a table legend to an officer document" />
 <meta property="og:image" content="https://danchaltiel.github.io/crosstable/apple-touch-icon-180x180.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
@@ -102,7 +102,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -145,13 +145,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="http://twitter.com/DanChaltiel">
-    <span class="fab fa fab fa-twitter fa-lg"></span>
+    <span class="fab fa-twitter fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/DanChaltiel/crosstable/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -183,44 +183,56 @@
     <p>Add a table legend to an <code>officer</code> document</p>
     </div>
 
-    <pre class="usage"><span class='fu'>body_add_table_legend</span>(
-  <span class='no'>x</span>,
-  <span class='no'>legend</span>,
-  <span class='kw'>legend_style</span> <span class='kw'>=</span> <span class='st'>"table title"</span>,
-  <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"strong"</span>,
-  <span class='kw'>seqfield</span> <span class='kw'>=</span> <span class='st'>"SEQ Table \\* Arabic"</span>
-)
+    <pre class="usage"><span class='fu'>body_add_table_legend</span><span class='op'>(</span>
+  <span class='va'>doc</span>,
+  <span class='va'>legend</span>,
+  bookmark <span class='op'>=</span> <span class='cn'>NULL</span>,
+  legend_style <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_style_legend"</span>, <span class='st'>"Table Caption"</span><span class='op'>)</span>,
+  style <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_style_strong"</span>, <span class='st'>"strong"</span><span class='op'>)</span>,
+  legend_name <span class='op'>=</span> <span class='st'>"Table"</span>,
+  seqfield <span class='op'>=</span> <span class='st'>"SEQ Table \\* Arabic"</span>
+<span class='op'>)</span>
 
-<span class='fu'>body_add_figure_legend</span>(
-  <span class='no'>x</span>,
-  <span class='no'>legend</span>,
-  <span class='kw'>legend_style</span> <span class='kw'>=</span> <span class='st'>"graphic title"</span>,
-  <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"strong"</span>,
-  <span class='kw'>seqfield</span> <span class='kw'>=</span> <span class='st'>"SEQ Figure \\* Arabic"</span>
-)</pre>
+<span class='fu'>body_add_figure_legend</span><span class='op'>(</span>
+  <span class='va'>doc</span>,
+  <span class='va'>legend</span>,
+  bookmark <span class='op'>=</span> <span class='cn'>NULL</span>,
+  legend_style <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_style_legend"</span>, <span class='st'>"Image Caption"</span><span class='op'>)</span>,
+  style <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_style_strong"</span>, <span class='st'>"strong"</span><span class='op'>)</span>,
+  legend_name <span class='op'>=</span> <span class='st'>"Figure"</span>,
+  seqfield <span class='op'>=</span> <span class='st'>"SEQ Figure \\* Arabic"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
+      <th>doc</th>
       <td><p>a docx object</p></td>
     </tr>
     <tr>
       <th>legend</th>
-      <td><p>the table legend</p></td>
+      <td><p>the table legend. As with <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue::glue()</a></code>, expressions enclosed by braces will be evaluated as R code.</p></td>
+    </tr>
+    <tr>
+      <th>bookmark</th>
+      <td><p>the id of the bookmark. This is the id that should then be called in <code><a href='body_add_normal.html'>body_add_normal()</a></code> using <code>"\\@ref(id)"</code>.</p></td>
     </tr>
     <tr>
       <th>legend_style</th>
-      <td><p>may depend on the docx template</p></td>
+      <td><p>style of of the whole legend. May depend on the docx template</p></td>
     </tr>
     <tr>
       <th>style</th>
-      <td><p>the legend style (strong, italic...)</p></td>
+      <td><p>style of the number. May depend on the docx template (default to strong)</p></td>
+    </tr>
+    <tr>
+      <th>legend_name</th>
+      <td><p>name before the numbering. Useful for translation</p></td>
     </tr>
     <tr>
       <th>seqfield</th>
-      <td><p>to figure this out, in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.</p></td>
+      <td><p>Keep default. Otherwise, you may figure it out doing this: in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.</p></td>
     </tr>
     </table>
 
@@ -228,19 +240,27 @@
 
     
 
-<p>Sometimes, the legends added with <code>body_add_table_legend</code> have no numbers. In this case, you have to manualy update the references: select all (<kbd>Ctrl</kbd>+<kbd>A</kbd>), then update (<kbd>F9</kbd>).</p>
+<p>At first, the legends added with <code>body_add_table_legend()</code> or <code>body_add_figure_legend()</code> have no numbers. You have to manualy update the references in MS Word: select all (<kbd>Ctrl</kbd>+<kbd>A</kbd>), then update (<kbd>F9</kbd>). You might have to do this several times. More info on <a href='https://ardata-fr.github.io/officeverse/faq.html#update-fields'>https://ardata-fr.github.io/officeverse/faq.html#update-fields</a>.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Dan Chaltiel</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>officer</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>) <span class='co'>#for pipes</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)
-<span class='no'>p</span><span class='kw'>=</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>quickplot</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>Sepal.Length</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='no'>Sepal.Width</span>, <span class='kw'>color</span><span class='kw'>=</span><span class='no'>Species</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>)
-<span class='no'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/pkg/officer/man/read_docx.html'>read_docx</a></span>() <span class='kw'>%&gt;%</span>
-    <span class='fu'>body_add_table_legend</span>(<span class='st'>"Iris dataset"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='body_add_crosstable.html'>body_add_crosstable</a></span>(<span class='fu'><a href='crosstable.html'>crosstable</a></span>(<span class='no'>iris</span>)) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='https://rdrr.io/pkg/officer/man/body_add_gg.html'>body_add_gg</a></span>(<span class='no'>p</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>body_add_figure_legend</span>(<span class='st'>"Iris plot"</span>)
-<span class='co'>#print(x, "example.docx")</span></div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
+<span class='va'>p</span><span class='op'>=</span><span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>quickplot</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>Sepal.Length</span>, y<span class='op'>=</span><span class='va'>Sepal.Width</span>, color<span class='op'>=</span><span class='va'>Species</span>, data<span class='op'>=</span><span class='va'>iris</span><span class='op'>)</span>
+<span class='va'>x</span><span class='op'>=</span><span class='fu'><a href='https://davidgohel.github.io/officer/reference/read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='body_add_normal.html'>body_add_normal</a></span><span class='op'>(</span><span class='st'>"As you can see in Table \\@ref(tab1) and in Figure \\@ref(fig1), "</span>, 
+                  <span class='st'>"the iris dataset is about flowers."</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='body_add_normal.html'>body_add_normal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>body_add_table_legend</span><span class='op'>(</span><span class='st'>"Iris dataset"</span>, bookmark<span class='op'>=</span><span class='st'>"tab1"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='body_add_crosstable.html'>body_add_crosstable</a></span><span class='op'>(</span><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://davidgohel.github.io/officer/reference/body_add_gg.html'>body_add_gg</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>body_add_figure_legend</span><span class='op'>(</span><span class='st'>"Iris plot"</span>, bookmark<span class='op'>=</span><span class='st'>"fig1"</span><span class='op'>)</span>
+<span class='fu'><a href='write_and_open.html'>write_and_open</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"example.docx"</span><span class='op'>)</span>
+<span class='co'>#press Ctrl+A then F9 twice for the reference to appear.</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -256,7 +276,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
