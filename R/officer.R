@@ -69,7 +69,8 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #' library(officer)
 #' library(crosstable)
 #' 
-#' info_rows = c("Also, table iris has {nrow(iris)} rows.", "And table mtcars has {nrow(mtcars)} rows.")
+#' info_rows = c("Also, table iris has {nrow(iris)} rows.", 
+#'               "And table mtcars has {nrow(mtcars)} rows.")
 #' doc = read_docx()  %>% 
 #'     body_add_normal("Table iris has", ncol(iris), "columns.", .sep=" ") %>% #paste style
 #'     body_add_normal("However, table mtcars has {ncol(mtcars)} columns") %>% #glue style
@@ -285,7 +286,7 @@ body_add_legend = function(doc, legend, legend_name, bookmark, legend_style, sty
 #'       options(crosstable_units="cm")
 #'       doc = read_docx() %>%
 #'           body_add_normal("This is the R logo.") %>% 
-#'           body_add_img2(img.file, h=7.6, w=10, style="centered") #or units="cm" instead of using options
+#'           body_add_img2(img.file, h=7.6, w=10, style="centered") #or units="cm" without options
 #'       write_and_open(doc)
 #'   }
 #' }
@@ -296,6 +297,7 @@ body_add_img2 = function(doc, src, width, height,
     to_units = function(x) x/c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units] 
     body_add_img(x=doc, src=src, width=to_units(width), height=to_units(height), ...)
 }
+
 
 
 
@@ -340,7 +342,6 @@ body_add_gg2 = function(doc, value, width = 6, height = 5,
     on.exit(unlink(file))
     body_add_img2(doc, src=file, style=style, width=width, height=height, units=units)
 }
-
 
 
 # Officer helpers ---------------------------------------------------------
@@ -401,6 +402,10 @@ docx_bookmarks2 = function(x, return_vector=FALSE) {
 #' @param docx.file the name of the target file. If missing or NULL, the doc will open in a temporary file.
 #'
 #' @author Dan Chaltiel
+#' @importFrom utils browseURL
+#' @importFrom rlang abort
+#' @importFrom stringr str_detect
+#' @importFrom glue glue
 #' @export
 #'
 #' @examples

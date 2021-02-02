@@ -9,6 +9,7 @@
 #'
 #' @author Dan Chaltiel
 #' @family as_gt methods
+#' @describeIn as_gt For crosstables
 #' @seealso [as_flextable.crosstable()]
 #' 
 #' @importFrom checkmate assert_class vname
@@ -94,6 +95,8 @@ as_gt = function(x, ...){
 #'
 #' @param x object to be converted
 #' @param ... arguments for custom methods
+#' 
+#' @describeIn as_gt default function
 #'
 #' @family as_gt methods
 #' @export

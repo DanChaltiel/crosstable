@@ -29,7 +29,6 @@
 #' get_label(list(foo=xx$cyl, bar=xx$mpg), default="Default value")
 get_label = function(x, default=names(x), object=FALSE){
     if(is.list(x) && !object){
-        # browser()
         if(is.null(default)) default=rep(NA, length(x))
         if(length(default)>1 && length(x)!=length(default)) warning("prout")
         lab = x %>% 
@@ -122,6 +121,7 @@ remove_label = remove_labels
 #'
 #' @param df a data.frame
 #'
+#' @importFrom checkmate assert_data_frame
 #' @export
 #'
 #' @examples
@@ -130,7 +130,7 @@ remove_label = remove_labels
 #'   select(1:5) %>% 
 #'   rename_dataframe_with_labels()
 rename_dataframe_with_labels = function(df){
-    assertDataFrame(df, null.ok=TRUE)
+    assert_data_frame(df, null.ok=TRUE)
     names(df) = get_label(df)
     df
 }
