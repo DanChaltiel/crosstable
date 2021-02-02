@@ -1,6 +1,6 @@
 Package: crosstable
 Title: Crosstables for descriptive analyses
-Version: 0.1.5
+Version: 0.2.0
 Authors@R: 
     c(person(given = "Dan",
              family = "Chaltiel",
@@ -22,6 +22,7 @@ Imports:
     dplyr (>= 1.0.0),
     ellipsis,
     flextable (>= 0.5.8),
+    forcats,
     glue,
     lifecycle,
     nortest,
@@ -37,6 +38,7 @@ Imports:
 Suggests: 
     covr,
     crayon,
+    xml2,
     DescTools,
     gt,
     ggplot2,
@@ -48,6 +50,7 @@ Suggests:
     rmarkdown,
     sloop,
     testthat,
+    withr,
 VignetteBuilder: 
     knitr
 RdMacros: 
