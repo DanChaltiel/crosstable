@@ -101,7 +101,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -109,7 +109,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -144,13 +144,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="http://twitter.com/DanChaltiel">
-    <span class="fab fa fab fa-twitter fa-lg"></span>
+    <span class="fab fa-twitter fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/DanChaltiel/crosstable/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -202,6 +202,12 @@
           <p><code><a href="crosstable.html">crosstable()</a></code> </p>
         </td>
         <td><p>Easily describe datasets</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="crosstable_options.html">crosstable_options</a></code> </p>
+        </td>
+        <td><p>Options for the package <code>crosstable</code></p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -245,11 +251,11 @@
         <td>
           <p><code><a href="import_labels.html">import_labels()</a></code> <code><a href="import_labels.html">save_labels()</a></code> </p>
         </td>
-        <td><p>Import labels from a dataset</p></td>
+        <td><p>Import labels</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="set_label.html">set_label()</a></code> </p>
+          <p><code><a href="set_label.html">set_label()</a></code> <code><a href="set_label.html">copy_label_from()</a></code> </p>
         </td>
         <td><p>Set the "label" attribute of an object</p></td>
       </tr><tr>
@@ -264,6 +270,12 @@
           <p><code><a href="remove_labels.html">remove_labels()</a></code> </p>
         </td>
         <td><p>Remove all label attributes.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="apply_labels.html">apply_labels()</a></code> </p>
+        </td>
+        <td><p>Batch set variable labels</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -323,15 +335,33 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="body_add_glued.html">body_add_glued()</a></code> </p>
+          <p><code><a href="body_add_crosstable_footnote.html">body_add_crosstable_footnote()</a></code> </p>
         </td>
-        <td><p>Add a new paragraph with a Normal style to an <code>officer</code> document, inserting variables with <code>glue::glue</code></p></td>
+        <td><p>Adds a standard footnote explaining the abreviations used in a crosstable</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="body_add_gg2.html">body_add_gg2()</a></code> </p>
+        </td>
+        <td><p>Alternative to <code><a href='https://davidgohel.github.io/officer/reference/body_add_gg.html'>officer::body_add_gg()</a></code> which uses <code>ggplot</code> syntax</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="body_add_img2.html">body_add_img2()</a></code> </p>
+        </td>
+        <td><p>Alternative to <code><a href='https://davidgohel.github.io/officer/reference/body_add_img.html'>officer::body_add_img()</a></code> which adds a <code>units</code> choice</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="body_add_list.html">body_add_list()</a></code> <code><a href="body_add_list.html">body_add_list_item()</a></code> </p>
+        </td>
+        <td><p>Add a list to an <code>officer</code> document</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="body_add_normal.html">body_add_normal()</a></code> </p>
         </td>
-        <td><p>Add a new paragraph with a Normal style to an <code>officer</code> document, inserting variables with <code>base::paste</code></p></td>
+        <td><p>Add a new paragraph with default style</p></td>
       </tr><tr>
         
         <td>
@@ -344,6 +374,18 @@
           <p><code><a href="body_add_title.html">body_add_title()</a></code> </p>
         </td>
         <td><p>Add a title to an <code>officer</code> document</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="docx_bookmarks2.html">docx_bookmarks2()</a></code> </p>
+        </td>
+        <td><p>List Word bookmarks, including the ones in header and footer</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="write_and_open.html">write_and_open()</a></code> </p>
+        </td>
+        <td><p>Alternative to default <code>officer</code> print() function. Write the file and try to open it right away.</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -366,18 +408,6 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="as_flextable.html">as_flextable(<i>&lt;crosstable&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Turns a <code>crosstable</code> object into a formatted <code>flextable</code></p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="as_gt.crosstable.html">as_gt(<i>&lt;crosstable&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Converts a <code>crosstable</code> object into a formatted <code>gt</code> table.</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="compact.html">compact(<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="compact.html">compact(<i>&lt;crosstable&gt;</i>)</a></code> </p>
         </td>
         <td><p>Generic function to compact a table (publication formatting)</p></td>
@@ -393,6 +423,36 @@
           <p><code><a href="confint_numeric.html">confint_numeric()</a></code> </p>
         </td>
         <td><p>Confidence interval of a numeric vector</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="rename_dataframe_with_labels.html">rename_dataframe_with_labels()</a></code> </p>
+        </td>
+        <td><p>Rename every column of a dataframe with its label</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="as_gt.html">as_gt()</a></code> </p>
+        </td>
+        <td><p>Converts a <code>crosstable</code> object into a formatted <code>gt</code> table.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="as_workbook.html">as_workbook()</a></code> </p>
+        </td>
+        <td><p>Converts a <code>crosstable</code> object into a formatted, savable <code>openxlsx</code> workbook.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="as_flextable.html">as_flextable(<i>&lt;crosstable&gt;</i>)</a></code> <code><a href="as_flextable.html">to_flextable()</a></code> </p>
+        </td>
+        <td><p>Turns a <code>crosstable</code> object into a formatted <code>flextable</code></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="peek.html">peek()</a></code> </p>
+        </td>
+        <td><p>Open a <code>crosstable</code> in a temporary Word document</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -455,15 +515,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="effect_tabular.html">effect_odds_ratio()</a></code> <code><a href="effect_tabular.html">effect_relative_risk()</a></code> <code><a href="effect_tabular.html">effect_risk_difference()</a></code> </p>
-        </td>
-        <td><p>Effect measure for association between two categorial variables</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="effect_survival.html">effect_survival_coxph()</a></code> </p>
         </td>
         <td><p>Effect measure for association between one consored variable and one categorical variable</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="effect_tabular.html">effect_odds_ratio()</a></code> <code><a href="effect_tabular.html">effect_relative_risk()</a></code> <code><a href="effect_tabular.html">effect_risk_difference()</a></code> </p>
+        </td>
+        <td><p>Effect measure for association between two categorial variables</p></td>
       </tr>
     </tbody><tbody>
       
@@ -538,7 +598,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

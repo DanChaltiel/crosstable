@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set the "label" attribute of an object — set_label • crosstable</title>
+<title>Rename every column of a dataframe with its label — rename_dataframe_with_labels • crosstable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -54,8 +54,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Set the "label" attribute of an object — set_label" />
-<meta property="og:description" content="Set the &quot;label&quot; attribute of an object" />
+<meta property="og:title" content="Rename every column of a dataframe with its label — rename_dataframe_with_labels" />
+<meta property="og:description" content="Rename every column of a dataframe with its label" />
 <meta property="og:image" content="https://danchaltiel.github.io/crosstable/apple-touch-icon-180x180.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary" />
@@ -174,63 +174,98 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set the "label" attribute of an object</h1>
+    <h1>Rename every column of a dataframe with its label</h1>
     <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/labels.R'><code>R/labels.R</code></a></small>
-    <div class="hidden name"><code>set_label.Rd</code></div>
+    <div class="hidden name"><code>rename_dataframe_with_labels.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Set the "label" attribute of an object</p>
+    <p>Rename every column of a dataframe with its label</p>
     </div>
 
-    <pre class="usage"><span class='fu'>set_label</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>value</span>, object <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>copy_label_from</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>target</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>rename_dataframe_with_labels</span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>object to labelise. If <code>x</code> is a list/data.frame, <code>set_label()</code> will return the labels of all children recursively</p></td>
-    </tr>
-    <tr>
-      <th>value</th>
-      <td><p>value of the label</p></td>
-    </tr>
-    <tr>
-      <th>object</th>
-      <td><p>if <code>x</code> is a list/data.frame, <code>object=TRUE</code> will force setting the labels of the object instead of the children</p></td>
-    </tr>
-    <tr>
-      <th>target</th>
-      <td><p>the variable whose label must be copied</p></td>
+      <th>df</th>
+      <td><p>a data.frame</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='get_label.html'>get_label()</a></code>, <code><a href='import_labels.html'>import_labels()</a></code>, <code><a href='remove_labels.html'>remove_label()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-<span class='va'>mtcars</span> <span class='op'>%&gt;%</span> 
-   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>mpg2<span class='op'>=</span><span class='fu'>set_label</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='st'>"Miles per gallon"</span><span class='op'>)</span>,
-          mpg3<span class='op'>=</span><span class='va'>mpg</span> <span class='op'>%&gt;%</span> <span class='fu'>copy_label_from</span><span class='op'>(</span><span class='va'>mpg2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-   <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>mpg2</span>, <span class='va'>mpg3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     .id            label   variable            value
-#&gt; 1   mpg              mpg  Min / Max      10.4 / 33.9
-#&gt; 2   mpg              mpg  Med [IQR] 19.2 [15.4;22.8]
-#&gt; 3   mpg              mpg Mean (std)       20.1 (6.0)
-#&gt; 4   mpg              mpg     N (NA)           32 (0)
-#&gt; 5  mpg2 Miles per gallon  Min / Max      10.4 / 33.9
-#&gt; 6  mpg2 Miles per gallon  Med [IQR] 19.2 [15.4;22.8]
-#&gt; 7  mpg2 Miles per gallon Mean (std)       20.1 (6.0)
-#&gt; 8  mpg2 Miles per gallon     N (NA)           32 (0)
-#&gt; 9  mpg3 Miles per gallon  Min / Max      10.4 / 33.9
-#&gt; 10 mpg3 Miles per gallon  Med [IQR] 19.2 [15.4;22.8]
-#&gt; 11 mpg3 Miles per gallon Mean (std)       20.1 (6.0)
-#&gt; 12 mpg3 Miles per gallon     N (NA)           32 (0)</div></pre>
+<span class='va'>mtcars2</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>rename_dataframe_with_labels</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    Miles/(US) gallon Number of cylinders Displacement (cu.in.) Gross horsepower
+#&gt; 1               21.0                   6                 160.0              110
+#&gt; 2               21.0                   6                 160.0              110
+#&gt; 3               22.8                   4                 108.0               93
+#&gt; 4               21.4                   6                 258.0              110
+#&gt; 5               18.7                   8                 360.0              175
+#&gt; 6               18.1                   6                 225.0              105
+#&gt; 7               14.3                   8                 360.0              245
+#&gt; 8               24.4                   4                 146.7               62
+#&gt; 9               22.8                   4                 140.8               95
+#&gt; 10              19.2                   6                 167.6              123
+#&gt; 11              17.8                   6                 167.6              123
+#&gt; 12              16.4                   8                 275.8              180
+#&gt; 13              17.3                   8                 275.8              180
+#&gt; 14              15.2                   8                 275.8              180
+#&gt; 15              10.4                   8                 472.0              205
+#&gt; 16              10.4                   8                 460.0              215
+#&gt; 17              14.7                   8                 440.0              230
+#&gt; 18              32.4                   4                  78.7               66
+#&gt; 19              30.4                   4                  75.7               52
+#&gt; 20              33.9                   4                  71.1               65
+#&gt; 21              21.5                   4                 120.1               97
+#&gt; 22              15.5                   8                 318.0              150
+#&gt; 23              15.2                   8                 304.0              150
+#&gt; 24              13.3                   8                 350.0              245
+#&gt; 25              19.2                   8                 400.0              175
+#&gt; 26              27.3                   4                  79.0               66
+#&gt; 27              26.0                   4                 120.3               91
+#&gt; 28              30.4                   4                  95.1              113
+#&gt; 29              15.8                   8                 351.0              264
+#&gt; 30              19.7                   6                 145.0              175
+#&gt; 31              15.0                   8                 301.0              335
+#&gt; 32              21.4                   4                 121.0              109
+#&gt;    Rear axle ratio
+#&gt; 1             3.90
+#&gt; 2             3.90
+#&gt; 3             3.85
+#&gt; 4             3.08
+#&gt; 5             3.15
+#&gt; 6             2.76
+#&gt; 7             3.21
+#&gt; 8             3.69
+#&gt; 9             3.92
+#&gt; 10            3.92
+#&gt; 11            3.92
+#&gt; 12            3.07
+#&gt; 13            3.07
+#&gt; 14            3.07
+#&gt; 15            2.93
+#&gt; 16            3.00
+#&gt; 17            3.23
+#&gt; 18            4.08
+#&gt; 19            4.93
+#&gt; 20            4.22
+#&gt; 21            3.70
+#&gt; 22            2.76
+#&gt; 23            3.15
+#&gt; 24            3.73
+#&gt; 25            3.08
+#&gt; 26            4.08
+#&gt; 27            4.43
+#&gt; 28            3.77
+#&gt; 29            4.22
+#&gt; 30            3.62
+#&gt; 31            3.54
+#&gt; 32            4.11</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

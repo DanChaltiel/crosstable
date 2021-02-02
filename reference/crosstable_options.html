@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set the "label" attribute of an object — set_label • crosstable</title>
+<title>Options for the package crosstable — crosstable_options • crosstable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -54,8 +54,30 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Set the "label" attribute of an object — set_label" />
-<meta property="og:description" content="Set the &quot;label&quot; attribute of an object" />
+<meta property="og:title" content="Options for the package crosstable — crosstable_options" />
+<meta property="og:description" content="Here is a comprehensive list of all options that you can set globally.
+For flextables:
+crosstable_autofit, crosstable_compact, and crosstable_show_test_name: default arguments for as_flextable().
+crosstable_compact_padding: left-padding for non-headers rows when compact=TRUE.
+crosstable_fontsize_body, crosstable_fontsize_header, and crosstable_fontsize_subheaders: font sizes for, respectively for normal, header and subheader rows. Subheaders are only considered when compact=TRUE.
+crosstable_wrap_id: if id contains no spaces, wrap it with this maximum number of characters.
+
+
+For specifying styles in officer docx output:
+crosstable_style_normal
+crosstable_style_character: used in cross-references
+crosstable_style_heading
+crosstable_style_strong
+crosstable_style_image
+crosstable_style_legend
+crosstable_style_list_ordered and crosstable_style_list_unordered, mandatory for body_add_list() to work.
+
+
+Misc:
+crosstable_only_round: default argument for format_fixed()
+crosstable_units: default units in body_add_gg2() and body_add_img2()
+
+" />
 <meta property="og:image" content="https://danchaltiel.github.io/crosstable/apple-touch-icon-180x180.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary" />
@@ -174,63 +196,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set the "label" attribute of an object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/labels.R'><code>R/labels.R</code></a></small>
-    <div class="hidden name"><code>set_label.Rd</code></div>
+    <h1>Options for the package <code>crosstable</code></h1>
+    <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/crosstable-package.R'><code>R/crosstable-package.R</code></a></small>
+    <div class="hidden name"><code>crosstable_options.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Set the "label" attribute of an object</p>
+    <p>Here is a comprehensive list of all options that you can set globally.</p>
+<p>For flextables:</p><ul>
+<li><p><code>crosstable_autofit</code>, <code>crosstable_compact</code>, and <code>crosstable_show_test_name</code>: default arguments for <code><a href='as_flextable.crosstable.html'>as_flextable()</a></code>.</p></li>
+<li><p><code>crosstable_compact_padding</code>: left-padding for non-headers rows when <code>compact=TRUE</code>.</p></li>
+<li><p><code>crosstable_fontsize_body</code>, <code>crosstable_fontsize_header</code>, and <code>crosstable_fontsize_subheaders</code>: font sizes for, respectively for normal, header and subheader rows. Subheaders are only considered when <code>compact=TRUE</code>.</p></li>
+<li><p><code>crosstable_wrap_id</code>: if <code>id</code> contains no spaces, wrap it with this maximum number of characters.</p></li>
+</ul>
+
+<p>For specifying styles in officer docx output:</p><ul>
+<li><p><code>crosstable_style_normal</code></p></li>
+<li><p><code>crosstable_style_character</code>: used in cross-references</p></li>
+<li><p><code>crosstable_style_heading</code></p></li>
+<li><p><code>crosstable_style_strong</code></p></li>
+<li><p><code>crosstable_style_image</code></p></li>
+<li><p><code>crosstable_style_legend</code></p></li>
+<li><p><code>crosstable_style_list_ordered</code> and <code>crosstable_style_list_unordered</code>, mandatory for <code><a href='body_add_list.html'>body_add_list()</a></code> to work.</p></li>
+</ul>
+
+<p>Misc:</p><ul>
+<li><p><code>crosstable_only_round</code>: default argument for <code><a href='format_fixed.html'>format_fixed()</a></code></p></li>
+<li><p><code>crosstable_units</code>: default units in <code><a href='body_add_gg2.html'>body_add_gg2()</a></code> and <code><a href='body_add_img2.html'>body_add_img2()</a></code></p></li>
+</ul>
+
     </div>
 
-    <pre class="usage"><span class='fu'>set_label</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>value</span>, object <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>copy_label_from</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>target</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>object to labelise. If <code>x</code> is a list/data.frame, <code>set_label()</code> will return the labels of all children recursively</p></td>
-    </tr>
-    <tr>
-      <th>value</th>
-      <td><p>value of the label</p></td>
-    </tr>
-    <tr>
-      <th>object</th>
-      <td><p>if <code>x</code> is a list/data.frame, <code>object=TRUE</code> will force setting the labels of the object instead of the children</p></td>
-    </tr>
-    <tr>
-      <th>target</th>
-      <td><p>the variable whose label must be copied</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='get_label.html'>get_label()</a></code>, <code><a href='import_labels.html'>import_labels()</a></code>, <code><a href='remove_labels.html'>remove_label()</a></code></p></div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-<span class='va'>mtcars</span> <span class='op'>%&gt;%</span> 
-   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>mpg2<span class='op'>=</span><span class='fu'>set_label</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='st'>"Miles per gallon"</span><span class='op'>)</span>,
-          mpg3<span class='op'>=</span><span class='va'>mpg</span> <span class='op'>%&gt;%</span> <span class='fu'>copy_label_from</span><span class='op'>(</span><span class='va'>mpg2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-   <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>mpg2</span>, <span class='va'>mpg3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     .id            label   variable            value
-#&gt; 1   mpg              mpg  Min / Max      10.4 / 33.9
-#&gt; 2   mpg              mpg  Med [IQR] 19.2 [15.4;22.8]
-#&gt; 3   mpg              mpg Mean (std)       20.1 (6.0)
-#&gt; 4   mpg              mpg     N (NA)           32 (0)
-#&gt; 5  mpg2 Miles per gallon  Min / Max      10.4 / 33.9
-#&gt; 6  mpg2 Miles per gallon  Med [IQR] 19.2 [15.4;22.8]
-#&gt; 7  mpg2 Miles per gallon Mean (std)       20.1 (6.0)
-#&gt; 8  mpg2 Miles per gallon     N (NA)           32 (0)
-#&gt; 9  mpg3 Miles per gallon  Min / Max      10.4 / 33.9
-#&gt; 10 mpg3 Miles per gallon  Med [IQR] 19.2 [15.4;22.8]
-#&gt; 11 mpg3 Miles per gallon Mean (std)       20.1 (6.0)
-#&gt; 12 mpg3 Miles per gallon     N (NA)           32 (0)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

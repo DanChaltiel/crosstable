@@ -102,7 +102,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -145,13 +145,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="http://twitter.com/DanChaltiel">
-    <span class="fab fa fab fa-twitter fa-lg"></span>
+    <span class="fab fa-twitter fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/DanChaltiel/crosstable/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -183,7 +183,7 @@
     <p>Not an S3 method, which might have conflicted with <a href='https://rdrr.io/r/stats/confint.html'>stats::confint</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>confint_numeric</span>(<span class='no'>object</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>)</pre>
+    <pre class="usage"><span class='fu'>confint_numeric</span><span class='op'>(</span><span class='va'>object</span>, level <span class='op'>=</span> <span class='fl'>0.95</span>, B <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -196,6 +196,10 @@
       <th>level</th>
       <td><p>the confidence level required</p></td>
     </tr>
+    <tr>
+      <th>B</th>
+      <td><p>if &gt;0, the number of bootstraps</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -203,9 +207,12 @@
     <p>the vector [conf_inf, conf_sup]</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>confint_numeric</span>(<span class='no'>iris</span>$<span class='no'>Sepal.Length</span>)</div><div class='output co'>#&gt;    2.5 %   97.5 % 
-#&gt; 5.710818 5.975849 </div><div class='input'><span class='fu'>confint_numeric</span>(<span class='no'>mtcars2</span>$<span class='no'>hp_date</span>)</div><div class='output co'>#&gt;        2.5 %       97.5 % 
-#&gt; "2010-05-03" "2010-06-20" </div><div class='input'><span class='fu'>confint_numeric</span>(<span class='no'>mtcars2</span>$<span class='no'>hp_date</span>, <span class='kw'>level</span><span class='kw'>=</span><span class='fl'>0.99</span>)</div><div class='output co'>#&gt;        0.5 %       99.5 % 
+    <pre class="examples"><div class='input'><span class='fu'>confint_numeric</span><span class='op'>(</span><span class='va'>iris</span><span class='op'>$</span><span class='va'>Sepal.Length</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    2.5 %   97.5 % 
+#&gt; 5.710818 5.975849 </div><div class='input'><span class='fu'>confint_numeric</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>$</span><span class='va'>hp_date</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        2.5 %       97.5 % 
+#&gt; "2010-05-03" "2010-06-20" </div><div class='input'><span class='fu'>confint_numeric</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>$</span><span class='va'>hp_date</span>, level<span class='op'>=</span><span class='fl'>0.99</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        0.5 %       99.5 % 
 #&gt; "2010-04-26" "2010-06-27" </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -222,7 +229,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

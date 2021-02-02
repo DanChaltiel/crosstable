@@ -1,12 +1,12 @@
 pandoc: 2.7.3
-pkgdown: 1.5.1
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   crosstable-install: crosstable-install.html
   crosstable-report: crosstable-report.html
   crosstable-selection: crosstable-selection.html
   crosstable: crosstable.html
-last_built: 2020-09-06T19:12Z
+last_built: 2021-02-02T01:24Z
 urls:
   reference: https://danchaltiel.github.io/crosstable/reference
   article: https://danchaltiel.github.io/crosstable/articles

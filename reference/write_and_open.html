@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set the "label" attribute of an object — set_label • crosstable</title>
+<title>Alternative to default officer print() function. Write the file and try to open it right away. — write_and_open • crosstable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -54,8 +54,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Set the "label" attribute of an object — set_label" />
-<meta property="og:description" content="Set the &quot;label&quot; attribute of an object" />
+<meta property="og:title" content="Alternative to default officer print() function. Write the file and try to open it right away. — write_and_open" />
+<meta property="og:description" content="As it tests if the file is writable, this function also prevents officer:::print.rdocx() to abort the RStudio session." />
 <meta property="og:image" content="https://danchaltiel.github.io/crosstable/apple-touch-icon-180x180.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary" />
@@ -174,63 +174,45 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set the "label" attribute of an object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/labels.R'><code>R/labels.R</code></a></small>
-    <div class="hidden name"><code>set_label.Rd</code></div>
+    <h1>Alternative to default <code>officer</code> print() function. Write the file and try to open it right away.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/officer.R'><code>R/officer.R</code></a></small>
+    <div class="hidden name"><code>write_and_open.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Set the "label" attribute of an object</p>
+    <p>As it tests if the file is writable, this function also prevents <code>officer:::print.rdocx()</code> to abort the RStudio session.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>set_label</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>value</span>, object <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>copy_label_from</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>target</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>write_and_open</span><span class='op'>(</span><span class='va'>doc</span>, <span class='va'>docx.file</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>object to labelise. If <code>x</code> is a list/data.frame, <code>set_label()</code> will return the labels of all children recursively</p></td>
+      <th>doc</th>
+      <td><p>the docx object</p></td>
     </tr>
     <tr>
-      <th>value</th>
-      <td><p>value of the label</p></td>
-    </tr>
-    <tr>
-      <th>object</th>
-      <td><p>if <code>x</code> is a list/data.frame, <code>object=TRUE</code> will force setting the labels of the object instead of the children</p></td>
-    </tr>
-    <tr>
-      <th>target</th>
-      <td><p>the variable whose label must be copied</p></td>
+      <th>docx.file</th>
+      <td><p>the name of the target file. If missing or NULL, the doc will open in a temporary file.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <div class='dont-index'><p><code><a href='get_label.html'>get_label()</a></code>, <code><a href='import_labels.html'>import_labels()</a></code>, <code><a href='remove_labels.html'>remove_label()</a></code></p></div>
+    <p>Dan Chaltiel</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-<span class='va'>mtcars</span> <span class='op'>%&gt;%</span> 
-   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>mpg2<span class='op'>=</span><span class='fu'>set_label</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='st'>"Miles per gallon"</span><span class='op'>)</span>,
-          mpg3<span class='op'>=</span><span class='va'>mpg</span> <span class='op'>%&gt;%</span> <span class='fu'>copy_label_from</span><span class='op'>(</span><span class='va'>mpg2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-   <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>mpg2</span>, <span class='va'>mpg3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     .id            label   variable            value
-#&gt; 1   mpg              mpg  Min / Max      10.4 / 33.9
-#&gt; 2   mpg              mpg  Med [IQR] 19.2 [15.4;22.8]
-#&gt; 3   mpg              mpg Mean (std)       20.1 (6.0)
-#&gt; 4   mpg              mpg     N (NA)           32 (0)
-#&gt; 5  mpg2 Miles per gallon  Min / Max      10.4 / 33.9
-#&gt; 6  mpg2 Miles per gallon  Med [IQR] 19.2 [15.4;22.8]
-#&gt; 7  mpg2 Miles per gallon Mean (std)       20.1 (6.0)
-#&gt; 8  mpg2 Miles per gallon     N (NA)           32 (0)
-#&gt; 9  mpg3 Miles per gallon  Min / Max      10.4 / 33.9
-#&gt; 10 mpg3 Miles per gallon  Med [IQR] 19.2 [15.4;22.8]
-#&gt; 11 mpg3 Miles per gallon Mean (std)       20.1 (6.0)
-#&gt; 12 mpg3 Miles per gallon     N (NA)           32 (0)</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://danchaltiel.github.io/crosstable/'>crosstable</a></span><span class='op'>)</span>
+<span class='va'>mytable</span> <span class='op'>=</span> <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/read_docx.html'>read_docx</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+    <span class='fu'><a href='body_add_crosstable.html'>body_add_crosstable</a></span><span class='op'>(</span><span class='va'>mytable</span><span class='op'>)</span>
+<span class='fu'>write_and_open</span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>"example.docx"</span><span class='op'>)</span>
+<span class='fu'>write_and_open</span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

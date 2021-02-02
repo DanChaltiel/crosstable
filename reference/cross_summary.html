@@ -102,7 +102,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -145,13 +145,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="http://twitter.com/DanChaltiel">
-    <span class="fab fa fab fa-twitter fa-lg"></span>
+    <span class="fab fa-twitter fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/DanChaltiel/crosstable/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -183,7 +183,7 @@
     <p>Summarize a numeric vector with min, max, mean, sd, median, IQR, n and missings.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cross_summary</span>(<span class='no'>x</span>, <span class='kw'>dig</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>cross_summary</span><span class='op'>(</span><span class='va'>x</span>, dig <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,14 +204,18 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>cross_summary</span>(<span class='no'>iris</span>$<span class='no'>Sepal.Length</span>)</div><div class='output co'>#&gt;       Min / Max       Med [IQR]      Mean (std)          N (NA) 
-#&gt;     "4.3 / 7.9" "5.8 [5.1;6.4]"     "5.8 (0.8)"       "150 (0)" </div><div class='input'><span class='fu'>cross_summary</span>(<span class='no'>iris</span>$<span class='no'>Petal.Width</span>, <span class='kw'>dig</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;             Min / Max             Med [IQR]            Mean (std) 
+    <pre class="examples"><div class='input'><span class='fu'>cross_summary</span><span class='op'>(</span><span class='va'>iris</span><span class='op'>$</span><span class='va'>Sepal.Length</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       Min / Max       Med [IQR]      Mean (std)          N (NA) 
+#&gt;     "4.3 / 7.9" "5.8 [5.1;6.4]"     "5.8 (0.8)"       "150 (0)" </div><div class='input'><span class='fu'>cross_summary</span><span class='op'>(</span><span class='va'>iris</span><span class='op'>$</span><span class='va'>Petal.Width</span>, dig<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;             Min / Max             Med [IQR]            Mean (std) 
 #&gt;       "0.100 / 2.500" "1.300 [0.300;1.800]"       "1.199 (0.762)" 
 #&gt;                N (NA) 
-#&gt;             "150 (0)" </div><div class='input'><span class='fu'>cross_summary</span>(<span class='no'>mtcars2</span>$<span class='no'>hp_date</span>)</div><div class='output co'>#&gt;                            Min / Max                            Med [IQR] 
+#&gt;             "150 (0)" </div><div class='input'><span class='fu'>cross_summary</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>$</span><span class='va'>hp_date</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                            Min / Max                            Med [IQR] 
 #&gt;            "2010-02-22 - 2010-12-02" "2010-05-04 [2010-04-06;2010-06-30]" 
 #&gt;                           Mean (std)                               N (NA) 
-#&gt;            "2010-05-27 (2.3 months)"                             "32 (0)" </div><div class='input'><span class='fu'>cross_summary</span>(<span class='no'>mtcars2</span>$<span class='no'>qsec_posix</span>, <span class='kw'>date_format</span><span class='kw'>=</span><span class='st'>"%d/%m %H:%M"</span>)</div><div class='output co'>#&gt;                               Min / Max                               Med [IQR] 
+#&gt;            "2010-05-27 (2.3 months)"                             "32 (0)" </div><div class='input'><span class='fu'>cross_summary</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>$</span><span class='va'>qsec_posix</span>, date_format<span class='op'>=</span><span class='st'>"%d/%m %H:%M"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                               Min / Max                               Med [IQR] 
 #&gt;             "15/01 12:00 - 23/01 21:36" "18/01 17:02 [17/01 20:52;19/01 21:36]" 
 #&gt;                              Mean (std)                                  N (NA) 
 #&gt;                "18/01 20:22 (1.8 days)"                                "32 (0)" </div></pre>
@@ -230,7 +234,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

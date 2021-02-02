@@ -4,16 +4,13 @@
     <loc>https://danchaltiel.github.io/crosstable/index.html</loc>
   </url>
   <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/apply_labels.html</loc>
+  </url>
+  <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/as_flextable.html</loc>
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/as_gt.html</loc>
-  </url>
-  <url>
-    <loc>https://danchaltiel.github.io/crosstable/reference/as_gt.crosstable.html</loc>
-  </url>
-  <url>
-    <loc>https://danchaltiel.github.io/crosstable/reference/as_gt.default.html</loc>
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/as_workbook.html</loc>
@@ -22,7 +19,16 @@
     <loc>https://danchaltiel.github.io/crosstable/reference/body_add_crosstable.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable/reference/body_add_glued.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/body_add_crosstable_footnote.html</loc>
+  </url>
+  <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/body_add_gg2.html</loc>
+  </url>
+  <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/body_add_img2.html</loc>
+  </url>
+  <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/body_add_list.html</loc>
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/body_add_normal.html</loc>
@@ -52,6 +58,9 @@
     <loc>https://danchaltiel.github.io/crosstable/reference/crosstable_effect_args.html</loc>
   </url>
   <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/crosstable_options.html</loc>
+  </url>
+  <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/crosstable_test_args.html</loc>
   </url>
   <url>
@@ -59,6 +68,9 @@
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/display_test.html</loc>
+  </url>
+  <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/docx_bookmarks2.html</loc>
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/effect_summary.html</loc>
@@ -91,6 +103,9 @@
     <loc>https://danchaltiel.github.io/crosstable/reference/na.html</loc>
   </url>
   <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/peek.html</loc>
+  </url>
+  <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/plim.html</loc>
   </url>
   <url>
@@ -98,6 +113,9 @@
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/remove_labels.html</loc>
+  </url>
+  <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/rename_dataframe_with_labels.html</loc>
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/set_label.html</loc>
@@ -122,6 +140,9 @@
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/test_tabular_auto.html</loc>
+  </url>
+  <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/write_and_open.html</loc>
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/articles/crosstable-install.html</loc>
