@@ -8,33 +8,8 @@ Sys.setenv(LANG = "en")
 options(warn = 1)
 options(stringsAsFactors = FALSE)
 options(tidyselect_verbosity = "verbose")
+options(lifecycle_verbosity = "error")
 
-iris2names = c(SL="Sepal.Length", SW="Sepal.Width", PL="Petal.Length", PW="Petal.Width", Sp="Species")
-iris2_num = iris2 %>% select(-Species)
-debug=list()
-# debug %>% map_dfr(identity) %>% table
-
-expect_cross = function(expr, xnames, byname, dim, expect=c("nothing", "silent", "warning", "error"), regex){
-    expect=match.arg(expect)
-    if(expect=="nothing"){
-        x=eval(expr, envir=caller_env())
-    }
-    else if(expect=="silent")
-        x=expect_silent(expr)
-    else if(expect=="warning")
-        x=expect_warning(expr, regex)
-    else
-        x=expect_error(expr, regex)
-    expect_is(x, c("data.frame", "crosstable"))
-    expect_equal(dim, dim(x))
-    expect_equal(byname, unname(attr(x, "by")))
-    
-    if(all(xnames %in% names(iris2names)))
-        expect_equal(unname(iris2names[xnames]), unique(as.character(x$.id)))
-    else
-        expect_equal(unname(xnames), unique(x$.id))
-    debug <<- c(debug, list(attr(x, "debug")))
-}
 
 
 
@@ -58,36 +33,25 @@ test_that("crosstable with unquoted name", {
     expect_cross(
         crosstable(iris2, c(Sepal.Length, Sepal.Width), by=Species),
         xnames=c("SL", "SW"), byname="Species", dim=c(8,6))
-    expect_cross(
-        crosstable(iris2, Sepal.Length, Sepal.Width, by=Species),
-        xnames=c("SL", "SW"), byname="Species", dim=c(8,6))
+    
     #negation
     expect_cross(
         crosstable(iris2, -c(Sepal.Length, Sepal.Width), by="Species"),
-        xnames=c("PL", "PW"), byname="Species", dim=c(8,6))
-    expect_cross(
-        crosstable(iris2, -Sepal.Length, -Sepal.Width, by="Species"),
         xnames=c("PL", "PW"), byname="Species", dim=c(8,6))
 })
 
 
 # Character vector ----------------------------------------
-test_that("crosstable with character vector", {#TODO: expect warning for all_of ?
+test_that("crosstable with character vector", {
     expect_cross(
         crosstable(iris2, "Sepal.Length", by="Species"),
         xnames=c("SL"), byname="Species", dim=c(4,6))
     expect_cross(
         crosstable(iris2, c("Sepal.Length", "Sepal.Width"), by="Species"),
         xnames=c("SL", "SW"), byname="Species", dim=c(8,6))
-    expect_cross(
-        crosstable(iris2, "Sepal.Length", "Sepal.Width", by="Species"),
-        xnames=c("SL", "SW"), byname="Species", dim=c(8,6))
     #negation
     expect_cross(
         crosstable(iris2, -c("Sepal.Length", "Sepal.Width"), by="Species"),
-        xnames=c("PL", "PW"), byname="Species", dim=c(8,6))
-    expect_cross(
-        crosstable(iris2, -"Sepal.Length", -"Sepal.Width", by="Species"),
         xnames=c("PL", "PW"), byname="Species", dim=c(8,6))
 })
 
@@ -100,12 +64,8 @@ test_that("crosstable with external character vector", {
         crosstable(iris2, all_of(XX), by="Species"),
         xnames=c("SL", "SW"), byname="Species", dim=c(8,6))
     
-    expect_cross(#0 to remove .vars effect
-        crosstable(iris2, 0, all_of(XX), by="Species"),
-        xnames=c("SL", "SW"), byname="Species", dim=c(8,6))
-    
     expect_cross(
-        crosstable(iris2, all_of(XX), -Sepal.Width, by="Species"),
+        crosstable(iris2, c(all_of(XX), -Sepal.Width), by="Species"),
         xnames=c("SL"), byname="Species", dim=c(4,6))
     
     expect_cross(#expect warning, but only once a session
@@ -137,7 +97,7 @@ test_that("crosstable with tidyselect helpers", {
         crosstable(iris2, starts_with("S")),
         xnames=c("SL", "SW", "Sp"), byname=NULL, dim=c(11,4))
     expect_cross(
-        crosstable(iris2, starts_with("S"), ends_with("idth")),
+        crosstable(iris2, c(starts_with("S"), ends_with("idth"))),
         xnames=c("SL", "SW", "Sp", "PW"), byname=NULL, dim=c(15,4))
 })
 
@@ -185,32 +145,29 @@ test_that("crosstable with multiple functions", {
         crosstable(iris2_num, where(foo) & where(bar)),
         xnames=c("SL"), byname=NULL, dim=c(4,4))
     expect_cross(
-        crosstable(iris2_num, where(foo), where(bar)),
+        crosstable(iris2_num, where(foo) | where(bar)),
         xnames=c("SL", "PL", "PW"), byname=NULL, dim=c(12,4))
     expect_cross(
-        crosstable(iris2_num, where(bar), where(foo)),
-        xnames=c("SL", "PW", "PL"), byname=NULL, dim=c(12,4))
-    expect_cross(
-        crosstable(iris2_num, where(foo) | where(bar)),
+        crosstable(iris2_num, c(where(foo), where(bar))),
         xnames=c("SL", "PL", "PW"), byname=NULL, dim=c(12,4))
     
     #lambda and anonymous functions
     expect_cross(
-        crosstable(iris2_num, ~mean(.x)>3.5, ~sd(.x)>1),
+        crosstable(iris2_num, c(where(~mean(.x)>3.5), where(~sd(.x)>1))),
         xnames=c("SL", "PL"), byname=NULL, dim=c(8,4))
     
     #complex function composition
     expect_cross(
-        crosstable(iris2_num, where(is.numeric) & (where(foo) | where(bar))),
+        crosstable(iris2_num, c(where(is.numeric) & (where(foo) | where(bar)))),
         xnames=c("SL", "PL", "PW"), byname=NULL, dim=c(12,4))
     expect_cross(
-        crosstable(iris2_num, where(is.numeric) | (where(foo) & where(bar))),
+        crosstable(iris2_num, c(where(is.numeric) | (where(foo) & where(bar)))),
         xnames=c("SL", "SW", "PL", "PW"), byname=NULL, dim=c(16,4))
     expect_cross(
-        crosstable(iris2_num, where(foo) | where(bar), where(is.numeric), -Petal.Length),
+        crosstable(iris2_num, c(where(foo) | where(bar), where(is.numeric), -Petal.Length)),
         xnames=c("SL", "PW", "SW"), byname=NULL, dim=c(12,4))
     expect_cross(
-        crosstable(iris2_num, where(foo) | where(bar), -where(is.numeric), Petal.Length),
+        crosstable(iris2_num, c(where(foo) | where(bar), -where(is.numeric), Petal.Length)),
         xnames=c("PL"), byname=NULL, dim=c(4,4))
 })
 
@@ -254,7 +211,7 @@ test_that("crosstable ultimate selection", {
         crosstable(iris2, everything()),
         xnames=c("SL", "SW", "PL", "PW", "Sp"), byname=NULL, dim=c(19,4))
     expect_cross(
-        crosstable(iris2, ~is.numeric(.x), where(is.double), "Species", -Sepal.Width),
+        crosstable(iris2, c(where(~is.numeric(.x)), where(is.double), "Species", -Sepal.Width)),
         xnames=c("SL", "PL", "PW", "Sp"), byname=NULL, dim=c(15,4))
 })
 
@@ -271,10 +228,22 @@ test_that("crosstable limit tests: warnings", {
                    "Variable selection in crosstable ended with no variable to describe")
     
     #removes unfit variables with a warning
-    expect_warning(crosstable(iris2, Sepal.Length, Species, by=Petal.Width),
+    expect_warning(crosstable(iris2, c(Sepal.Length, Species), by=Petal.Width),
                    "Cannot cross column .* by column .*")
+    
+    x = iris2 %>% mutate(xx=list(1))
+    expect_warning(crosstable(x, c(xx, Species)),
+                   "Cannot describe column '.*' \\(list\\)")
 })
 
+test_that("crosstable limit tests: deprecated features", {
+    #dont use ellipsis
+    lifecycle::expect_deprecated(crosstable(iris2, Sepal.Length, Sepal.Width, by=Species))
+    
+    #dont use .vars
+    lifecycle::expect_defunct(crosstable(iris2, .vars=c(Sepal.Length, Sepal.Width), by=Species))
+    lifecycle::expect_defunct(crosstable(iris2, Sepal.Length, .vars=c(Sepal.Length, Sepal.Width), by=Species))
+})
 
 # Errors ------------------------------------------------------------------
 test_that("crosstable limit tests: errors", {
