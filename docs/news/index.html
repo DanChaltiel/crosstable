@@ -177,21 +177,22 @@
       <small>Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="crosstable-020-2021-xx-xx" class="section level1">
+    <div id="crosstable-020-2021-02-02" class="section level1">
 <h1 class="page-header" data-toc-text="0.2.0">
-<a href="#crosstable-020-2021-xx-xx" class="anchor"></a>crosstable 0.2.0 <sub><sup>(2021-xx-xx)</sup></sub>
+<a href="#crosstable-020-2021-02-02" class="anchor"></a>crosstable 0.2.0 <sub><sup>(2021-02-02)</sup></sub>
 </h1>
-<div id="deprecations" class="section level4">
+<div id="misc" class="section level4">
 <h4 class="hasAnchor">
-<a href="#deprecations" class="anchor"></a>Deprecations</h4>
+<a href="#misc" class="anchor"></a>Misc</h4>
 <ul>
-<li>Ellipsis (<code>...</code>) use in <code>crosstable</code> has been deprecated for a more <code>tidy</code> syntax. Write <code><a href="../reference/crosstable.html">crosstable(mtcars2, c(disp, vs))</a></code> instead of <code><a href="../reference/crosstable.html">crosstable(mtcars2, disp, vs)</a></code>. Ellipsis will be defunct in future v1.0.0.</li>
-<li>
-<code><a href="../reference/crosstable.html">crosstable(.vars=)</a></code> has been renamed to <code><a href="../reference/crosstable.html">crosstable(cols=)</a></code>.</li>
-<li>
-<code><a href="../reference/summaryFunctions.html">moystd()</a></code> has been renamed to <code><a href="../reference/summaryFunctions.html">meansd()</a></code>.</li>
-<li>
-<code><a href="../reference/body_add_normal.html">body_add_glued()</a></code> has been superded by <code><a href="../reference/body_add_normal.html">body_add_normal()</a></code>, which inherits all functionalities and more.</li>
+<li>added lots of global options for easier implementation. See <code><a href="../reference/crosstable_options.html">?crosstable_options</a></code> for the comprehensive list.</li>
+<li>added label helpers: <code><a href="../reference/apply_labels.html">apply_labels()</a></code> (inspired by <code>expss</code>’s), <code><a href="../reference/set_label.html">copy_label_from()</a></code> and <code><a href="../reference/rename_dataframe_with_labels.html">rename_dataframe_with_labels()</a></code>
+</li>
+<li>added <code><a href="../reference/as_workbook.html">as_workbook()</a></code> to export a crosstable as a formatted <code>openxlsx</code> Excel workbook, for copypasting purpose.</li>
+<li>added <code><a href="../reference/peek.html">peek()</a></code> to open a crosstable in a temporary Word document, as copy-pasting in RStudio’s viewer is very limited.</li>
+<li>fixed the bug when a columns contained both “NA” (string) and <code>&lt;NA&gt;</code> (missing).</li>
+<li>fixed the bug where function in <code>funs</code> was not found if declared in another environment.</li>
+<li>numerous other minor bugfixes and internal improvements.</li>
 </ul>
 </div>
 <div id="officer" class="section level4">
@@ -199,7 +200,7 @@
 <a href="#officer" class="anchor"></a>Officer</h4>
 <ul>
 <li>added <strong>cross-reference functionality</strong> to <code><a href="../reference/body_add_table_legend.html">body_add_figure_legend()</a></code> and <code><a href="../reference/body_add_table_legend.html">body_add_table_legend()</a></code>.<br>
-Use the <code>bookmark</code> argument to set a reference, then use <code><a href="../reference/body_add_normal.html">body_add_normal()</a></code> with a <code>"\\@ref(my_bkm)"</code> to call it.</li>
+Use the <code>bookmark</code> argument to set a reference, then write <code>"\\@ref(my_bkm)"</code> inside <code><a href="../reference/body_add_normal.html">body_add_normal()</a></code> to call it.</li>
 <li>added docx helpers to add lists: <code><a href="../reference/body_add_list.html">body_add_list()</a></code> and <code><a href="../reference/body_add_list.html">body_add_list_item()</a></code>. These will unfortunately not work with the default <code>officer</code> template.</li>
 <li>added some alternatives for some <code>officer</code> functions:
 <ul>
@@ -213,18 +214,17 @@ Use the <code>bookmark</code> argument to set a reference, then use <code><a hre
 </li>
 </ul>
 </div>
-<div id="misc" class="section level4">
+<div id="deprecations" class="section level4">
 <h4 class="hasAnchor">
-<a href="#misc" class="anchor"></a>Misc</h4>
+<a href="#deprecations" class="anchor"></a>Deprecations</h4>
 <ul>
-<li>added lots of global options for easier implementation. See <code><a href="../reference/crosstable_options.html">?crosstable_options</a></code> for the comprehensive list.</li>
-<li>added label helpers: <code><a href="../reference/apply_labels.html">apply_labels()</a></code> (inspired by <code>expss</code>’s), <code><a href="../reference/set_label.html">copy_label_from()</a></code> and <code><a href="../reference/rename_dataframe_with_labels.html">rename_dataframe_with_labels()</a></code>
-</li>
-<li>added <code><a href="../reference/as_workbook.html">as_workbook()</a></code> to export a crosstable as a formatted <code>openxlsx</code> Excel workbook, for copypasting purpose.</li>
-<li>added <code><a href="../reference/peek.html">peek()</a></code> to open a crosstable in a temporary Word document, as copy-pasting in RStudio’s viewer is very limited.</li>
-<li>fixed the bug when a columns contained both “NA” (string) and <code>&lt;NA&gt;</code> (missing).</li>
-<li>fixed the bug where function in <code>funs</code> was not found if declared in another environment.</li>
-<li>numerous other minor bugfixes and internal improvements.</li>
+<li>Ellipsis (<code>...</code>) use in <code><a href="../reference/crosstable.html">crosstable()</a></code> has been deprecated for a more “tidy” syntax. Write <code><a href="../reference/crosstable.html">crosstable(mtcars2, c(disp, vs))</a></code> instead of <code><a href="../reference/crosstable.html">crosstable(mtcars2, disp, vs)</a></code>. Ellipsis will be defunct in future v1.0.</li>
+<li>
+<code><a href="../reference/crosstable.html">crosstable(.vars=)</a></code> has been renamed to <code><a href="../reference/crosstable.html">crosstable(cols=)</a></code>.</li>
+<li>
+<code><a href="../reference/summaryFunctions.html">moystd()</a></code> has been renamed to <code><a href="../reference/summaryFunctions.html">meansd()</a></code>.</li>
+<li>
+<code><a href="../reference/body_add_normal.html">body_add_glued()</a></code> has been superded by <code><a href="../reference/body_add_normal.html">body_add_normal()</a></code>, which inherits all functionalities and more.</li>
 </ul>
 </div>
 </div>

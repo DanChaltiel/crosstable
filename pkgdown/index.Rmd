@@ -84,7 +84,7 @@ The `as_flextable` function allows to output a beautiful HTML table that can be 
 
 ```{r usage1, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
 library(tidyverse)
-ct1 = crosstable(mtcars2, qsec, ends_with("t"), starts_with("c"), by=vs,
+ct1 = crosstable(mtcars2, c(qsec, ends_with("t"), starts_with("c")), by=vs,
                  funs=c(mean, quantile), funs_arg=list(probs=c(.25,.75), digits=3))
 ct1 %>% as_flextable(keep_id=TRUE)
 ```
@@ -95,7 +95,7 @@ The `margin` argument changes the percentages calculation, while the `total` arg
 
 ```{r usage2, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
 #margin and totals
-ct2 = crosstable(mtcars2, disp, vs, by=am, margin=c("row", "col"), total="both")
+ct2 = crosstable(mtcars2, c(disp, vs), by=am, margin=c("row", "col"), total="both")
 ct2 %>% as_flextable
 ```
 
