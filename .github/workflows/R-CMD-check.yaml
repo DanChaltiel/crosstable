@@ -70,7 +70,7 @@ jobs:
       - name: Install X11 dependencies on MacOS
         if: runner.os == 'macOS'
         run: |
-          brew cask install xquartz
+          brew install xquartz --cask
 
       - name: Install dependencies
         run: |
