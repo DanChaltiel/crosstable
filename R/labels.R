@@ -62,6 +62,7 @@ get_label = function(x, default=names(x), object=FALSE){
 #'    crosstable(mpg, mpg2, mpg3)
 set_label = function(x, value, object=FALSE){
     if(is.null(value) || is.na(value)) return(x)
+    value = as.character(value)
     assert_string(value)
     if(is.list(x) && !object){
         for (each in seq_along(x)) 
