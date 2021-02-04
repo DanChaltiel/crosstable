@@ -42,15 +42,37 @@ Crosstable is a package centered on a single function, `crosstable`, which easil
 
 It can use the `tidyselect` syntax for selecting variables (and more) and is interfaced with the package `officer` to create automatized reports.
 
-
 ## Installation
+
+This will install the very last version, which should contains the fewest bugs and the most features:
 
 ```{r install, eval=FALSE}
 install.packages("devtools")
 devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 ```
 
-In case of any installation problem, try reading [the wiki](https://github.com/DanChaltiel/crosstable/wiki/Installation-problems) or fill an [Issue](https://github.com/DanChaltiel/crosstable/issues).
+
+However, for reproducibility purpose, you might want to install a specific version in your projects (even better would be to use [`renv`](https://rstudio.github.io/renv/articles/renv.html)`):
+
+```{r run-numeric-md, include=FALSE}
+git_head = git2r::revparse_single(git2r::repository(),"HEAD") #sapply(git_head, print)
+last_commit = substr(git_head$sha, 1,7)
+last_tag = dplyr::last(names(git2r::tags()))
+out = c(
+  "```{r install2, eval=FALSE}",
+  knit_expand(text='devtools::install_github("DanChaltiel/crosstable@{{last_tag}}", build_vignettes=TRUE) #last version'),
+  knit_expand(text='devtools::install_github("DanChaltiel/crosstable@{{last_commit}}", build_vignettes=TRUE) #last commit
+'),
+"```"
+)
+```
+
+`r paste(knit(text = out), collapse = '\n')`
+
+
+In case of any installation problem, try the solutions proposed in [this article](https://danchaltiel.github.io/crosstable/articles/crosstable-install.html) or fill an [Issue](https://github.com/DanChaltiel/crosstable/issues).
+
+
 
 
 ## Getting help
