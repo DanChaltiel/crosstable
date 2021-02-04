@@ -49,6 +49,7 @@ Suggests:
     knitr,
     rmarkdown,
     sloop,
+    systemfonts,
     testthat,
     withr,
 VignetteBuilder: 
