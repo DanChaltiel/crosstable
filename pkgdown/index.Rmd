@@ -52,7 +52,7 @@ devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 ```
 
 
-However, for reproducibility purpose, you might want to install a specific version in your projects (even better would be to use [`renv`](https://rstudio.github.io/renv/articles/renv.html)`):
+However, for reproducibility purpose, you might want to install a specific version in your projects (even better would be to use [`renv`](https://rstudio.github.io/renv/articles/renv.html)):
 
 ```{r run-numeric-md, include=FALSE}
 git_head = git2r::revparse_single(git2r::repository(),"HEAD") #sapply(git_head, print)
