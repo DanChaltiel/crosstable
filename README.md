@@ -32,11 +32,16 @@ install.packages("devtools")
 devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 ```
 
-For reproducibility purpose, you might want to install a specific
-version:
+This will install the very last version, which should contains the
+fewest bugs and the most features.
+
+However, for reproducibility purpose, you might want to install a
+specific version (even better would be to use
+[`renv`](https://rstudio.github.io/renv/articles/renv.html)\`):
 
 ``` r
-devtools::install_github("DanChaltiel/crosstable@v0.1.3", build_vignettes=TRUE)
+devtools::install_github("DanChaltiel/crosstable@v0.2.0", build_vignettes=TRUE) #last version
+devtools::install_github("DanChaltiel/crosstable@4058877", build_vignettes=TRUE) #last commit
 ```
 
 In case of any installation problem, try the solutions proposed in [this
@@ -50,9 +55,9 @@ website](https://danchaltiel.github.io/crosstable).
 
 Otherwise, you can also use the vignettes:
 
-  - `vignette("crosstable")` for global use and parameterization
-  - `vignette("crosstable-selection")` for variable selection
-  - `vignette("crosstable-report")` for reporting with `officer` or
+-   `vignette("crosstable")` for global use and parameterization
+-   `vignette("crosstable-selection")` for variable selection
+-   `vignette("crosstable-report")` for reporting with `officer` or
     `Rmarkdown`
 
 ## Overview
@@ -60,18 +65,16 @@ Otherwise, you can also use the vignettes:
 ``` r
 library(crosstable)
 library(dplyr)
-ct1 = crosstable(mtcars2, disp, vs, by=am, margin=c("row", "col"), total="both") %>%
-    as_flextable()
+ct1 = crosstable(mtcars2, c(disp, vs), by=am, margin=c("row", "col"), total="both") %>%
+  as_flextable()
 ```
 
 <p align="center">
-
 <img src="man/figures/ct1.png" alt="crosstable1">
-
 </p>
 
-With a few arguments, you can select which column to describe (`disp,
-vs`), define a grouping variable (`by=am`), set the percentage
+With a few arguments, you can select which column to describe
+(`disp, vs`), define a grouping variable (`by=am`), set the percentage
 calculation (`margin`) and ask for totals (`total`).
 
 `mtcars2` is a dataset which has labels, so they are displayed instead
@@ -88,37 +91,40 @@ to learn how).
 Here is a more advanced example:
 
 ``` r
-ct2 = crosstable(mtcars2, starts_with("c"), ends_with("t"), by=vs, 
+ct2 = crosstable(mtcars2, c(starts_with("c"), ends_with("t")), by=vs, label=FALSE,
                  funs=c(mean, quantile), funs_arg=list(probs=c(.25,.75), digits=3)) %>% 
-    as_flextable(keep_id=TRUE)
+  as_flextable(compact=TRUE)
 ```
 
 <p align="center">
-
 <img src="man/figures/ct2.png" alt="crosstable2" height="400">
-
 </p>
 
 Here, the variables were selected using `tidyselect` helpers and the
-summary functions were specified with argument.
+summary functions `mean` and `quantile` were specified, with arguments
+for this latter. Using `label=FALSE` allowed to see which variables were
+selected but it is best to keep the labels in the final table. In
+`as_flextable()`, the `compact=TRUE` option yields an alternative
+output, which may be more suited in some contexts, for instance for
+publication.
 
 ## More
 
 There are lots of other features you can learn about on the website
 <https://danchaltiel.github.io/crosstable>, for instance:
 
-  - variable selection with functions, e.g. `is.numeric`
+-   variable selection with functions, e.g. `is.numeric`
     ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-predicate-functions))
-  - variable selection with mutating, e.g. `sqrt(mpg)` or `Surv(time,
-    event)`, using a formula interface
+-   variable selection with mutating, e.g. `sqrt(mpg)` or
+    `Surv(time, event)`, using a formula interface
     ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-a-formula))
-  - automatic computation of statistical tests
+-   automatic computation of statistical tests
     ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#tests))
     and of effect sizes
     ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#effects))
-  - description of correlation, dates, and survival data
+-   description of correlation, dates, and survival data
     ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#miscellaneous-1))
-  - auto-reporting with `officer`
+-   auto-reporting with `officer`
     ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-report.html#create-reports-with-officer))
     or with `Rmarkdown`
     ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-report.html#create-reports-with-rmarkdown))
@@ -130,4 +136,4 @@ There are lots of other features you can learn about on the website
 Hajage. The user interface is quite different but the concept is the
 same.
 
-Thanks David\!
+Thanks David!
