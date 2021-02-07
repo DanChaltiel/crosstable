@@ -9,21 +9,8 @@ summarize_numeric_single = function(x, funs, funs_arg){
     imap_dfr(funs, ~{
         v = do.call(.x, c(list(x), funs_arg))
         if(length(v)<2){
-            v=data.frame(variable=.y, value=v)
+            v = data.frame(variable=.y, value=v)
         } else {
-            if(is.null(names(v))){
-                names(v) = paste0("fun", seq_along(v))
-                i=glue_collapse(names(v), "', '", last="', and '")
-                warn(glue("`funs` member {.y} had unnamed functions. They have been named '{i}' in the crosstable."))
-            } else if("" %in% names(v)){
-                newnames = paste0("fun", seq_along(names(v)[names(v)==""]))
-                i=glue_collapse(newnames, "', '", last="', and '")
-                names(v)[names(v)==""] = newnames
-                warn(glue("`funs` member {.y} had unnamed functions. They have been named '{i}' in the crosstable."))
-            }
-            v2 = data.frame(variable=names(v), value=v)
-            
-            
             v = data.frame(variable=names(v), value=v)
             if(.y!=" "){
                 v$variable = paste(.y, v$variable)

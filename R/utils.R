@@ -1,4 +1,4 @@
-
+utils::globalVariables(".")
 
 
 # Error and warning handling ----------------------------------------------
@@ -44,7 +44,7 @@ get_defined_function = function(name) {
     # Filter out function defined in own package.
     envs = lapply(funs, environment)
     funs = funs[! vapply(envs, identical, logical(1L), topenv())]
-    if(length(funs)>1) warning("There are multiple '", name,"' functions loaded. If this causes any trouble, fill an issue on crosstable's github page.")
+    if(length(funs)>1) warn("There are multiple '", name,"' functions loaded. If this causes any trouble, fill an issue on crosstable's github page.") # nocov
     unlist(funs[1L])
     # unlist(funs[[1L]])
 }
@@ -52,31 +52,54 @@ get_defined_function = function(name) {
 
 
 #' @keywords internal
+#' @importFrom rlang as_function caller_env warn abort
+#' @importFrom purrr map
 #' @noRd
 parse_funs = function(funs){
-    fun_call = as.character(as.list(substitute(funs, caller_env())))
-    fun_call = fun_call[fun_call != "c" & fun_call != "list"]
     funs = c(funs)
-    if(is.null(names(funs))) {
-        if(fun_call[1]=="`function`"){
-            names(funs)= "anonymous function"
-            warn(c("Anonymous function should have a name.", 
-                   i=paste0("Instead of: funs=function(...)", fun_call[3]), 
-                   i=paste0('Write: funs=c("Some calculation"=function(...)', fun_call[3])))
-        } else if(fun_call[1]=="`~`"){
-            names(funs)= "lambda function"
-            warn(c("Anonymous function should have a name.", 
-                   i=paste0("Instead of: funs=~", fun_call[2]), 
-                   i=paste0('Write: funs=c("Some calculation"=~', fun_call[2])))
-        } else {
-            names(funs)= fun_call
-        }
+    if(is.null(names(funs))) names(funs)=NA
+    if(length(funs)>1) {
+        fun_call = as.character(as.list(substitute(funs, caller_env())))
+        fun_call = fun_call[fun_call != "c" & fun_call != "list"]
     } else {
-        names(funs)[names(funs)==""] = fun_call[names(funs)==""]
+        fun_call = deparse(substitute(funs, caller_env()))
     }
     
-    funs = map(funs, as_function)
-    funs
+    x=list(funs, names(funs), fun_call) 
+    if(map_dbl(x, length) %>% .[.>0] %>% unique() %>% length() != 1){
+        abort(c("Problem with fun_call. This should never happen. Is `funs` syntax correct?", 
+                i=glue("lengths: funs={length(funs)}, names(funs)={length(names(funs))}, fun_call={length(fun_call)}"))) #nocov
+    }
+    
+    names(funs) = purrr::pmap_chr(x, ~{
+        .f = ..1; .name = ..2; .call = ..3
+        target_name = NULL 
+        
+        if(!is.null(.name) && !is.na(.name) && .name!=""){
+            target_name=.name
+        } else {
+            if(is_formula(.f)){
+                target_name = format(.f)
+                warn(c("Anonymous lambda-functions should be named.", 
+                       i=paste0("Instead of: funs=", target_name), 
+                       i=paste0('Write: funs=c("Some calculation"=', target_name)))
+            } else if(grepl("function *\\(", .call)){
+                .call2 = deparse(substitute(.f))
+                fargs = names(formals(.f)) %>% glue_collapse(", ")
+                fbody = str_subset(.call2[-1], "[}{]", negate = TRUE) %>% str_squish()
+                if(length(fbody)>1) fbody = paste0(fbody[1], "...")
+                target_name = paste0("function(", fargs ,"){", fbody, "}")
+                warn(c("Anonymous functions should be named.", 
+                       i=paste0("Instead of: funs=", target_name), 
+                       i=paste0('Write: funs=c("Some calculation"=', target_name)))
+            } else{
+                target_name = .call
+            }
+        }
+        target_name
+    })
+    
+    map(funs, as_function)
 }
 
 
@@ -169,6 +192,7 @@ sd_date = function(x, date_unit=c("auto", "seconds", "minutes", "hours", "days",
 #'
 #' @param object a vector, numeric or equivalent (date, logical...)
 #' @param level the confidence level required
+#' @param B if >0, the number of bootstraps
 #'
 #' @return the vector \[conf_inf, conf_sup\]
 #'
@@ -178,17 +202,41 @@ sd_date = function(x, date_unit=c("auto", "seconds", "minutes", "hours", "days",
 #' confint_numeric(iris$Sepal.Length)
 #' confint_numeric(mtcars2$hp_date)
 #' confint_numeric(mtcars2$hp_date, level=0.99)
-confint_numeric = function(object, level=0.95){
+confint_numeric = function(object, level=0.95, B=0){
     a = (1-level)/2
     ua = qnorm(1-a)
+    n = length(object)
     .mean = mean(object, na.rm=TRUE)
-    .sd = sd(object, na.rm=TRUE)
-    rtn = .mean+c(-1,1)*ua*.sd/sqrt(length(object))
+    if(B>0){
+        boot.samples = matrix(sample(object, size = B * n, replace = TRUE), B, n)
+        boot.statistics = apply(boot.samples, 1, mean, na.rm=TRUE)
+        se = sd(boot.statistics, na.rm=TRUE)
+    } else {
+        se = sd(object, na.rm=TRUE)/sqrt(n)
+    }
+    rtn = .mean+c(-1,1)*ua*se
     nm = format_fixed(c(a, 1-a)*100, 1)
     names(rtn) = paste(nm, "%")
     rtn
 }
- 
+
+# x = iris$Sepal.Length
+# x[5:20]=NA
+# confint_numeric(x) - confint_numeric(x, B=10)
+# confint_numeric(x) - confint_numeric(x, B=100)
+# confint_numeric(x) - confint_numeric(x, B=1000)
+# confint_numeric(x) - confint_numeric(x, B=10000)
+# x = rnorm(1500, mean = 0, sd = 1)
+# confint_numeric(x) - confint_numeric(x, B=10)
+# confint_numeric(x) - confint_numeric(x, B=100)
+# confint_numeric(x) - confint_numeric(x, B=1000)
+# confint_numeric(x) - confint_numeric(x, B=10000)
+# t.test(x)$conf.int
+
+
+
+
+
 
 #' Return the number of non NA observations
 #'
