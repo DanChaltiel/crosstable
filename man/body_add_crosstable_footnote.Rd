@@ -2,7 +2,7 @@
 % Please edit documentation in R/officer.R
 \name{body_add_crosstable_footnote}
 \alias{body_add_crosstable_footnote}
-\title{Adds a standard footnote explaining the abreviations used in a crosstable}
+\title{Adds a standard footnote explaining the abbreviations used in a crosstable}
 \usage{
 body_add_crosstable_footnote(doc)
 }

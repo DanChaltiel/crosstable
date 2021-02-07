@@ -45,7 +45,7 @@ Add a table legend to an \code{officer} document
 }
 \section{Warning}{
 
-At first, the legends added with \code{\link[=body_add_table_legend]{body_add_table_legend()}} or \code{\link[=body_add_figure_legend]{body_add_figure_legend()}} have no numbers. You have to manualy update the references in MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}). You might have to do this several times. More info on \url{https://ardata-fr.github.io/officeverse/faq.html#update-fields}.
+At first, the legends added with \code{\link[=body_add_table_legend]{body_add_table_legend()}} or \code{\link[=body_add_figure_legend]{body_add_figure_legend()}} have no numbers. You have to manually update the references in MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}). You might have to do this several times. More info on \url{https://ardata-fr.github.io/officeverse/faq.html#update-fields}.
 }
 
 \examples{

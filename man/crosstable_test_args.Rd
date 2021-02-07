@@ -14,7 +14,7 @@ A list with testing parameters:
 
 \item \code{test_tabular} - a function of two arguments (two categorical variables), used to test association between two categorical variables.  Must return a list of two components: \code{p.value} and \code{method}. See \code{\link{test_tabular_auto}} for example.
 
-\item \code{test_correlation} - a function of three arguments (two continuous variables plus the correlation method), used to test association between two continuous variables.  Like \code{cor.test}, it must return a list of at least \code{estimate}, \code{p.value}, and \code{method}, with also \code{conf.int} optionnaly. See \code{\link{test_correlation_auto}} for example.
+\item \code{test_correlation} - a function of three arguments (two continuous variables plus the correlation method), used to test association between two continuous variables.  Like \code{cor.test}, it must return a list of at least \code{estimate}, \code{p.value}, and \code{method}, with also \code{conf.int} optionally. See \code{\link{test_correlation_auto}} for example.
 
 \item \code{test_survival} - a function of one argument (the formula \code{surv~by}), used to compare survival estimations. Must return a list of two components: \code{p.value} and \code{method}. See \code{\link{test_survival_logrank}} for example.
 

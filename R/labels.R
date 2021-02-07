@@ -49,7 +49,7 @@ get_label = function(x, default=names(x), object=FALSE, simplify=TRUE){
 
 #' Set the "label" attribute of an object
 #'
-#' @param x object to labelise. 
+#' @param x object to label. 
 #' @param value value of the label. If `x` is a list/data.frame, all the labels will be set recursively
 #' @param object if `x` is a list/data.frame, `object=TRUE` will force setting the labels of the object instead of the children
 #'

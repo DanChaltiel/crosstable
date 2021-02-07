@@ -10,11 +10,11 @@
 #' @param ... more variables to describe. Cannot be a lambda function nor a formula.
 #' @param by the variable to group on. Character or name.
 #' @param funs functions to apply to numeric variables. Default to [cross_summary].
-#' @param funs_arg additionnal parameters for `funs`, e.g. `digits` (the number of decimal places) for the default [cross_summary]. Ultimately, these arguments are passed to [format_fixed].
+#' @param funs_arg additional parameters for `funs`, e.g. `digits` (the number of decimal places) for the default [cross_summary]. Ultimately, these arguments are passed to [format_fixed].
 #' @param total one of \["none", "row", "column" or "both"] to indicate whether to add total rows and/or columns. Default to `none`.
 #' @param margin one of \["row", "column", "cell", "none" or "all"] to indicate which proportions should be computed in frequency tables. Default to `row`.
 #' @param percent_digits number of digits for percentages
-#' @param showNA whether to show NA in categorial variables (one of \code{c("ifany", "always", "no")}, like in \code{table()})
+#' @param showNA whether to show NA in categorical variables (one of \code{c("ifany", "always", "no")}, like in \code{table()})
 #' @param label whether to show labels. See [import_labels] or [set_label]for how to add labels to the dataset columns.
 #' @param cor_method one of \["pearson", "kendall", or "spearman"] to indicate which correlation coefficient is to be used.
 #' @param test whether to perform tests

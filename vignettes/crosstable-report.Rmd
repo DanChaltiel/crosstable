@@ -90,7 +90,7 @@ You can learn more on officer on [its documentation](https://davidgohel.github.i
 
 <!-- Intégration Rmd in Rmd: la coloration syntaxique RStudio est mauvaise mais le code est bon ! -->
 <!-- https://stackoverflow.com/questions/53226493/add-markdown-code-chunk-to-r-markdown-document#comment104859956_53226493 -->
-Knitting (`knitr::knit()` ou via **RStudio**) this `Rmd` code also creates a MS-Word file. Here, you can use the power of `bookdown` to generate the automatic numbering of the tables.
+Knitting (`knitr::knit()` or via **RStudio**) this `Rmd` code also creates a MS-Word file. Here, you can use the power of `bookdown` to generate the automatic numbering of the tables.
 
 ````markdown
 

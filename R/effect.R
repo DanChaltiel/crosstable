@@ -3,9 +3,9 @@
 #'
 #' @return A list with testing parameters:
 #' \itemize{
-#'   \item `effect_summarize` - a function of three arguments (continuous variable, grouping variable and conf_level), used to compare continuous variable. Returns a list of five components: \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretiation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf_level} (the confidence interval level). See \code{diff_mean_auto}, \code{diff_mean_student} or \code{diff_mean_boot} for some examples of such functions. Users can provide their own function.
+#'   \item `effect_summarize` - a function of three arguments (continuous variable, grouping variable and conf_level), used to compare continuous variable. Returns a list of five components: \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf_level} (the confidence interval level). See \code{diff_mean_auto}, \code{diff_mean_student} or \code{diff_mean_boot} for some examples of such functions. Users can provide their own function.
 #'   \item `effect_tabular` - a function of three arguments (two categorical variables and conf_level) used to measure the associations between two factors. Returns a list of five components: \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf_level} (the confidence interval level). See \code{effect_odds_ratio}, \code{effect_relative_risk}, \code{effect_risk_difference}, \code{effect_odds_ratio}, \code{rr.col.by.row}, or \code{rd.col.by.row} for some examples of such functions. Users can provide their own function.
-#'   \item `effect_survival` - a function of two argument (a formula and conf_level), used to measure the association between a consored and a factor. Returns the same components as created by \code{effect_summarize}. See \code{effect_survival_coxph}. Users can provide their own function.
+#'   \item `effect_survival` - a function of two argument (a formula and conf_level), used to measure the association between a censored and a factor. Returns the same components as created by \code{effect_summarize}. See \code{effect_survival_coxph}. Users can provide their own function.
 #'   \item `conf_level` - the desired confidence interval level
 #'   \item `digits` - the decimal places
 #'   \item `show_effect` - a function to format the effect. See [display_effect()].
@@ -49,7 +49,7 @@ display_effect = function(effect, digits = 4) {
 
 
 
-#' Effect measure for association between two categorial variables
+#' Effect measure for association between two categorical variables
 #' 
 #' User can either use or extend these functions to parametrize effect calculation.
 #'
@@ -59,7 +59,7 @@ display_effect = function(effect, digits = 4) {
 #' @param y another vector
 #' @param conf_level confidence interval level
 #'
-#' @return A list with five componments: effect, ci, effect.name, effect.type, and conf_level
+#' @return A list with five components: effect, ci, effect.name, effect.type, and conf_level
 #' @seealso [crosstable_effect_args()] 
 NULL
 
@@ -204,7 +204,7 @@ effect_risk_difference = function (x, y, conf_level = 0.95) {
 #' @param conf_level confidence interval level
 #' @param R number of bootstrap replication
 #'
-#' @return A list with five componments: effect, ci, effect.name, effect.type, and conf_level
+#' @return A list with five components: effect, ci, effect.name, effect.type, and conf_level
 #' @seealso [crosstable_effect_args()] 
 NULL
 
@@ -261,7 +261,7 @@ diff_mean_auto = function(x, g, conf_level = 0.95, R = 500) {
 }
 
 
-#' @describeIn effect_summary calculate a "difference in means" effect by bootstraping
+#' @describeIn effect_summary calculate a "difference in means" effect by bootstrapping
 #' @importFrom stats sd qnorm 
 #' @export
 diff_mean_boot = function(x, g, conf_level = 0.95, R = 500) {
@@ -291,7 +291,7 @@ diff_mean_boot = function(x, g, conf_level = 0.95, R = 500) {
 }
 
 
-#' @describeIn effect_summary calculate a "difference in medians" effect by bootstraping
+#' @describeIn effect_summary calculate a "difference in medians" effect by bootstrapping
 #' @importFrom stats sd qnorm
 #' @export
 diff_median = function(x, g, conf_level = 0.95, R = 500) {
@@ -355,13 +355,13 @@ diff_mean_student = function(x, g, conf_level = 0.95) {
 # Survival ----------------------------------------------------------------
 
 
-#' Effect measure for association between one consored variable and one categorical variable
+#' Effect measure for association between one censored variable and one categorical variable
 #'
 #' @param formula a formula
 #' @param conf_level the confidence level required
 #'
 #' @name effect_survival
-#' @return a list with two componments: p.value and method
+#' @return a list with two components: p.value and method
 #' @author David Hajage
 #' @importFrom stats confint
 #' @importFrom survival coxph

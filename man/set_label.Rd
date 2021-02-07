@@ -10,7 +10,7 @@ set_label(x, value, object = FALSE)
 copy_label_from(x, target)
 }
 \arguments{
-\item{x}{object to labelise.}
+\item{x}{object to label.}
 
 \item{value}{value of the label. If \code{x} is a list/data.frame, all the labels will be set recursively}
 

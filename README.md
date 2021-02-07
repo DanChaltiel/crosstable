@@ -7,7 +7,7 @@
 
 [![Package-License](http://img.shields.io/badge/license-GPL--3-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html)
 [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/crosstable)](https://CRAN.R-project.org/package=crosstable)
 <!-- [![Downloads](http://cranlogs.r-pkg.org/badges/crosstable?color=brightgreen)](http://www.r-pkg.org/pkg/crosstable) -->
@@ -36,12 +36,12 @@ This will install the very last version, which should contains the
 fewest bugs and the most features.
 
 However, for reproducibility purpose, you might want to install a
-specific version (even better would be to use
-[`renv`](https://rstudio.github.io/renv/articles/renv.html)\`):
+specific version in your projects (even better would be to use
+[`renv`](https://rstudio.github.io/renv/articles/renv.html)):
 
 ``` r
-devtools::install_github("DanChaltiel/crosstable@v0.2.0", build_vignettes=TRUE) #last version
-devtools::install_github("DanChaltiel/crosstable@4058877", build_vignettes=TRUE) #last commit
+devtools::install_github("DanChaltiel/crosstable@v0.2.1", build_vignettes=TRUE) #last version
+devtools::install_github("DanChaltiel/crosstable@0ce391e", build_vignettes=TRUE) #last commit
 ```
 
 In case of any installation problem, try the solutions proposed in [this
@@ -51,7 +51,7 @@ or fill an [Issue](https://github.com/DanChaltiel/crosstable/issues).
 ## Getting help
 
 You can find the whole documentation on the the [dedicated
-website](https://danchaltiel.github.io/crosstable).
+website](https://danchaltiel.github.io/crosstable/).
 
 Otherwise, you can also use the vignettes:
 
@@ -111,7 +111,7 @@ publication.
 ## More
 
 There are lots of other features you can learn about on the website
-<https://danchaltiel.github.io/crosstable>, for instance:
+<https://danchaltiel.github.io/crosstable/>, for instance:
 
 -   variable selection with functions, e.g. `is.numeric`
     ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-predicate-functions))

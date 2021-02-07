@@ -26,7 +26,7 @@ diff_mean_student(x, g, conf_level = 0.95)
 \item{R}{number of bootstrap replication}
 }
 \value{
-A list with five componments: effect, ci, effect.name, effect.type, and conf_level
+A list with five components: effect, ci, effect.name, effect.type, and conf_level
 }
 \description{
 User can either use or extend these functions to parametrize effect calculation.
@@ -35,9 +35,9 @@ User can either use or extend these functions to parametrize effect calculation.
 \itemize{
 \item \code{diff_mean_auto}: (\strong{Default}) calculate a specific "difference in means" effect based on normality (Shapiro or Anderson test) and variance homogeneity (Bartlett test)
 
-\item \code{diff_mean_boot}: calculate a "difference in means" effect by bootstraping
+\item \code{diff_mean_boot}: calculate a "difference in means" effect by bootstrapping
 
-\item \code{diff_median}: calculate a "difference in medians" effect by bootstraping
+\item \code{diff_median}: calculate a "difference in medians" effect by bootstrapping
 
 \item \code{diff_mean_student}: calculate a "difference in means" effect using \code{t.test} confidence intervals
 }}

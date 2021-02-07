@@ -205,7 +205,7 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #' @param seqfield Keep default. Otherwise, you may figure it out doing this: in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.
 #'
 #' @section Warning:
-#' At first, the legends added with [body_add_table_legend()] or [body_add_figure_legend()] have no numbers. You have to manualy update the references in MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}). You might have to do this several times. More info on [https://ardata-fr.github.io/officeverse/faq.html#update-fields](https://ardata-fr.github.io/officeverse/faq.html#update-fields).
+#' At first, the legends added with [body_add_table_legend()] or [body_add_figure_legend()] have no numbers. You have to manually update the references in MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}). You might have to do this several times. More info on [https://ardata-fr.github.io/officeverse/faq.html#update-fields](https://ardata-fr.github.io/officeverse/faq.html#update-fields).
 #' @author Dan Chaltiel
 #' @export
 #' 
@@ -345,7 +345,7 @@ body_add_gg2 = function(doc, value, width = 6, height = 5,
 
 
 
-#' Adds a standard footnote explaining the abreviations used in a crosstable
+#' Adds a standard footnote explaining the abbreviations used in a crosstable
 #' 
 #' Use it below [body_add_crosstable()].
 #' Footnote: Med: median, IQR: interquartile range, Std: standard deviation. Percentages are expressed in column.

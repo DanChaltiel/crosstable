@@ -43,13 +43,13 @@ crosstable(
 
 \item{percent_digits}{number of digits for percentages}
 
-\item{showNA}{whether to show NA in categorial variables (one of \code{c("ifany", "always", "no")}, like in \code{table()})}
+\item{showNA}{whether to show NA in categorical variables (one of \code{c("ifany", "always", "no")}, like in \code{table()})}
 
 \item{label}{whether to show labels. See \link{import_labels} or \link{set_label}for how to add labels to the dataset columns.}
 
 \item{funs}{functions to apply to numeric variables. Default to \link{cross_summary}.}
 
-\item{funs_arg}{additionnal parameters for \code{funs}, e.g. \code{digits} (the number of decimal places) for the default \link{cross_summary}. Ultimately, these arguments are passed to \link{format_fixed}.}
+\item{funs_arg}{additional parameters for \code{funs}, e.g. \code{digits} (the number of decimal places) for the default \link{cross_summary}. Ultimately, these arguments are passed to \link{format_fixed}.}
 
 \item{cor_method}{one of ["pearson", "kendall", or "spearman"] to indicate which correlation coefficient is to be used.}
 

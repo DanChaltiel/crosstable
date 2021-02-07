@@ -12,7 +12,7 @@ plim(p, digits = 4)
 \item{digits}{number of digits}
 }
 \value{
-formated p values
+formatted p values
 }
 \description{
 Format p values (alternative to \code{\link[=format.pval]{format.pval()}})

@@ -12,7 +12,7 @@ test_summarize_linear_contrasts(x, y)
 \item{y}{ordered factor}
 }
 \value{
-a list with two componments: p.value and method
+a list with two components: p.value and method
 }
 \description{
 Test for linear trend across ordered factor with contrasts

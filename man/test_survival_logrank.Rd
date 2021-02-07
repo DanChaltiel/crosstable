@@ -10,7 +10,7 @@ test_survival_logrank(formula)
 \item{formula}{a formula}
 }
 \value{
-a list with two componments: p.value and method
+a list with two components: p.value and method
 }
 \description{
 Compute a logrank test

@@ -5,7 +5,7 @@
 \alias{effect_odds_ratio}
 \alias{effect_relative_risk}
 \alias{effect_risk_difference}
-\title{Effect measure for association between two categorial variables}
+\title{Effect measure for association between two categorical variables}
 \usage{
 effect_odds_ratio(x, y, conf_level = 0.95)
 
@@ -21,7 +21,7 @@ effect_risk_difference(x, y, conf_level = 0.95)
 \item{conf_level}{confidence interval level}
 }
 \value{
-A list with five componments: effect, ci, effect.name, effect.type, and conf_level
+A list with five components: effect, ci, effect.name, effect.type, and conf_level
 }
 \description{
 User can either use or extend these functions to parametrize effect calculation.

@@ -3,7 +3,7 @@
 \name{effect_survival}
 \alias{effect_survival}
 \alias{effect_survival_coxph}
-\title{Effect measure for association between one consored variable and one categorical variable}
+\title{Effect measure for association between one censored variable and one categorical variable}
 \usage{
 effect_survival_coxph(formula, conf_level = 0.95)
 }
@@ -13,10 +13,10 @@ effect_survival_coxph(formula, conf_level = 0.95)
 \item{conf_level}{the confidence level required}
 }
 \value{
-a list with two componments: p.value and method
+a list with two components: p.value and method
 }
 \description{
-Effect measure for association between one consored variable and one categorical variable
+Effect measure for association between one censored variable and one categorical variable
 }
 \author{
 David Hajage

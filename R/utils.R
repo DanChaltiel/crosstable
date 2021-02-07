@@ -52,8 +52,10 @@ get_defined_function = function(name) {
 
 
 #' @keywords internal
-#' @importFrom rlang as_function caller_env warn abort
-#' @importFrom purrr map
+#' @importFrom rlang as_function is_formula caller_env warn abort
+#' @importFrom purrr map map_dbl pmap_chr
+#' @importFrom glue glue glue_collapse
+#' @importFrom stringr str_subset
 #' @noRd
 parse_funs = function(funs){
     funs = c(funs)
@@ -71,7 +73,7 @@ parse_funs = function(funs){
                 i=glue("lengths: funs={length(funs)}, names(funs)={length(names(funs))}, fun_call={length(fun_call)}"))) #nocov
     }
     
-    names(funs) = purrr::pmap_chr(x, ~{
+    names(funs) = pmap_chr(x, ~{
         .f = ..1; .name = ..2; .call = ..3
         target_name = NULL 
         

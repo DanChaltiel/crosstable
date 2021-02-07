@@ -1,5 +1,12 @@
 <!-- https://style.tidyverse.org/news.html -->
 
+# crosstable 0.2.1 <sub><sup>(2021-02-07)</sup></sub>
+
+* First version on CRAN
+* Improved functions naming in `funs`, especially with multiple combinations of named and unnamed functions, including lambda or anonymous
+* Set `simplify=FALSE` in `get_label()` to get a list instead of a vector
+
+
 # crosstable 0.2.0 <sub><sup>(2021-02-02)</sup></sub>
 
 #### Misc
@@ -27,7 +34,7 @@ Use the `bookmark` argument to set a reference, then write `"\\@ref(my_bkm)"` in
 * Ellipsis (`...`) use in `crosstable()` has been deprecated for a more "tidy" syntax. Write `crosstable(mtcars2, c(disp, vs))` instead of `crosstable(mtcars2, disp, vs)`. Ellipsis will be defunct in future v1.0.
 * `crosstable(.vars=)` has been renamed to `crosstable(cols=)`.
 * `moystd()` has been renamed to `meansd()`.
-* `body_add_glued()` has been superded by `body_add_normal()`, which inherits all functionalities and more.
+* `body_add_glued()` has been superseded by `body_add_normal()`, which inherits all functionalities and more.
 
 # crosstable 0.1.5 <sub><sup>(2020-08-02)</sup></sub>
 
@@ -50,7 +57,7 @@ Use the `bookmark` argument to set a reference, then write `"\\@ref(my_bkm)"` in
 # crosstable 0.1.2 <sub><sup>(2020-06-10)</sup></sub>
 
 * Effect refactoring: better error/warning handling
-* Name sanitazion: replacing "." by "_" in function names
+* Name sanitation: replacing "." by "_" in function names
 * Better error messages
 * Bug fixes
 

@@ -172,7 +172,7 @@ crosstable(mtcars2, am, mpg, by=vs, funs=meansd, margin=c("column","row","cell")
 
 Of course, if `by` is not set, `margin` will have no effect and percentages will be calculated in column.
 
-Missing values are not taken into account when calculing percentage calculation. You can change this behaviour by using `tidyr::replace_na` or `forcats::fct_explicit_na` on your dataset before applying `crosstable`. 
+Missing values are not taken into account when calculating percentage calculation. You can change this behaviour by using `tidyr::replace_na` or `forcats::fct_explicit_na` on your dataset before applying `crosstable`. 
 
 
 

@@ -9,7 +9,7 @@
 #'   
 #'   \item `test_tabular` - a function of two arguments (two categorical variables), used to test association between two categorical variables.  Must return a list of two components: `p.value` and `method`. See [`test_tabular_auto`] for example.
 #'   
-#'   \item `test_correlation` - a function of three arguments (two continuous variables plus the correlation method), used to test association between two continuous variables.  Like `cor.test`, it must return a list of at least `estimate`, `p.value`, and `method`, with also `conf.int` optionnaly. See [`test_correlation_auto`] for example.
+#'   \item `test_correlation` - a function of three arguments (two continuous variables plus the correlation method), used to test association between two continuous variables.  Like `cor.test`, it must return a list of at least `estimate`, `p.value`, and `method`, with also `conf.int` optionally. See [`test_correlation_auto`] for example.
 #'   
 #'   \item `test_survival` - a function of one argument (the formula `surv~by`), used to compare survival estimations. Must return a list of two components: `p.value` and `method`. See [`test_survival_logrank`] for example.
 #'   
@@ -51,7 +51,7 @@ crosstable_test_args = function(){
 #'
 #' @param p p values
 #' @param digits number of digits
-#' @return formated p values
+#' @return formatted p values
 #' @seealso [format.pval()], https://stackoverflow.com/a/23018806/3888000
 #' @export
 #' @author David Hajage
@@ -99,7 +99,7 @@ display_test = function(test, digits = 4, method = TRUE) {
 #' @param x vector
 #' @param y another vector
 #' @author David Hajage
-#' @return a list with two componments: p.value and method
+#' @return a list with two components: p.value and method
 #' @importFrom stats chisq.test fisher.test
 #' @export
 test_tabular_auto = function(x, y) {
@@ -126,7 +126,7 @@ test_tabular_auto = function(x, y) {
 #'
 #' @param x vector
 #' @param g another vector
-#' @return a list with two componments: p.value and method
+#' @return a list with two components: p.value and method
 #' @author David Hajage, Dan Chaltiel
 #' @importFrom nortest ad.test
 #' @importFrom stats shapiro.test bartlett.test kruskal.test t.test oneway.test
@@ -215,7 +215,7 @@ test_correlation_auto = function(x, by, method) {
 #' Compute a logrank test
 #'
 #' @param formula a formula
-#' @return a list with two componments: p.value and method
+#' @return a list with two components: p.value and method
 #' @author David Hajage
 #' @export
 #' @importFrom survival survdiff
@@ -235,7 +235,7 @@ test_survival_logrank = function(formula) {
 #' @param x vector
 #' @param y ordered factor
 #'
-#' @return a list with two componments: p.value and method
+#' @return a list with two components: p.value and method
 #' @author Dan Chaltiel
 #' @export
 #' @importFrom stats lm

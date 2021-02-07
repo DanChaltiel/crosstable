@@ -19,7 +19,6 @@ TODO\.R
 ^_pkgdown\.yml$
 ^codecov\.yml$
 ^cran-comments\.md$
-^NEWS\.md$
 ^doc$
 ^Meta$
 ^data-raw$

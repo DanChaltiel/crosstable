@@ -3,7 +3,7 @@
 .Rproj.user
 *.RData
 *.Rhistory
-.Rhistory
+crosstable.Rcheck/
 
 # MS Word files
 test*.docx
@@ -22,6 +22,7 @@ Desktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
+
 
 # Windows Installer files
 *.cab

@@ -12,7 +12,7 @@ test_tabular_auto(x, y)
 \item{y}{another vector}
 }
 \value{
-a list with two componments: p.value and method
+a list with two components: p.value and method
 }
 \description{
 Compute a chisq.test, a chisq.test with correction of continuity
