@@ -181,7 +181,14 @@ test_that("numeric+factor+surv by factor: margin", {
   expect_identical(x92[8,4], "7")
   expect_equal(dim(x92), c(17,7))
   expect_equal(sum(is.na(x92)), 3)
-
+  
+  
+  x93=crosstable(mtcars3, c(am,mpg,cyl,surv), by=vs, total="both", margin="none", times=c(0,100,200,400), label=FALSE)
+  x93 %>% as_flextable()
+  expect_false(identical(x93[5:8,], x6[5:8,]))
+  expect_identical(x93[8,4], "7")
+  expect_equal(dim(x93), c(17,7))
+  expect_equal(sum(is.na(x93)), 3)
 })
 
 
@@ -228,7 +235,7 @@ test_that("Function arguments work", {
 })
 
 
-test_that("Function arguments work", {
+test_that("One function", {
   bar=function(x, dig=1, ...) {
     return(c("MinMax" = minmax(x, dig=dig, ...), "N_NA" = nna(x)))
   }
@@ -243,7 +250,6 @@ test_that("Function arguments work", {
   x = crosstable(iris2, c(Sepal.Length, Sepal.Width), funs="mean")
   x = crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=c("My mean" = mean))
   x = crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=c("My mean" = ~mean(.x, na.rm=TRUE)))
-  x = crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=c(var, "meannnn" = mean))
   x = crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=cross_summary)
   x = crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=c(" " = cross_summary))
   x = crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=list(" " = cross_summary))
@@ -251,15 +257,79 @@ test_that("Function arguments work", {
   expect_true(TRUE)
   
   expect_warning(crosstable(iris2, c(Sepal.Length, Sepal.Width), 
-                            funs=~mean(.x, na.rm=TRUE)))
+                            funs=function(y) mean(y, na.rm=TRUE)),
+                 "Anonymous functions should be named.")
   expect_warning(crosstable(iris2, c(Sepal.Length, Sepal.Width), 
-                            funs=function(y) mean(y, na.rm=TRUE))
-  )
-  
+                            funs=~mean(.x, na.rm=TRUE)),
+                 "Anonymous lambda-functions should be named.")
 })
 
 
+test_that("Multiple functions", {
+  #avec un seul nom
+  x1 = crosstable(iris2, c(Sepal.Length, Sepal.Width), 
+                 funs=c(var, "meannnn"=mean))
+  expect_setequal(x1$variable, c("var", "meannnn"))
+  
+  #avec tous les noms quand il en faut
+  x2 = crosstable(iris2, c(Sepal.Length, Sepal.Width),
+             funs=c(
+               "moy_lambda"=~mean(.x, na.rm=TRUE), 
+               "moy_fn"=function(.x){mean(.x, na.rm=TRUE)}, 
+               var, 
+               "moyenne"=mean
+             ))
+  
+  expect_setequal(x2$variable, 
+                  c("moy_lambda", "moy_fn", "var", "moyenne"))
+  
+  #avec un seul nom
+  x3 = expect_warning(crosstable(iris2, c(Sepal.Length, Sepal.Width),
+             funs=c(
+               ~mean(.x, na.rm=TRUE), 
+               function(.x){
+                 .x=.x+1
+                 mean(.x, na.rm=TRUE)
+               }, 
+               var, 
+               "moyenne"=mean
+             )))
+  
+  expect_setequal(x3$variable, 
+                  c("~mean(.x, na.rm = TRUE)", 
+                    "function(.x){.x = .x + 1...}", 
+                    "var", "moyenne"))
 
+  #sans noms
+  x4 = expect_warning(crosstable(iris2, c(Sepal.Length, Sepal.Width),
+             funs=c(
+               ~mean(.x, na.rm=TRUE), 
+               function(.x){mean(.x, na.rm=TRUE)}, 
+               var, 
+               mean
+             )))
+  
+  expect_setequal(x4$variable, 
+                  c("~mean(.x, na.rm = TRUE)", 
+                    "function(.x){mean(.x, na.rm = TRUE)}", 
+                    "var", "mean"))
+})
+
+
+test_that("Summary functions", {
+  #date
+  ct = crosstable(mtcars2, hp_date, date_format="%d/%m/%Y")
+  expect_equal(ct[1,4], "22/02/2010 - 02/12/2010")
+  
+  #only_round
+  x = mtcars2 %>% dplyr::transmute(mpg=mpg/100000)
+  withr::local_options(crosstable_only_round=NULL)
+  ct = crosstable(x, funs_arg=list(dig=2, zero_digits=5))
+  expect_equal(ct[1,4], "0.000104 / 0.000339")
+  withr::local_options(crosstable_only_round=TRUE)
+  ct = crosstable(x, funs_arg=list(dig=2, zero_digits=5))
+  expect_equal(ct[1,4], "0 / 0")
+})
 
 
 
