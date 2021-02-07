@@ -23,7 +23,7 @@ doc = read_docx() \%>\%
     body_add_crosstable(mytable)
 write_and_open(doc, "example.docx")
 write_and_open(doc)
-}
+} # nocov start
 }
 \author{
 Dan Chaltiel

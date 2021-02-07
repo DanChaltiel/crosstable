@@ -186,7 +186,7 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
             style = getOption('crosstable_style_list_unordered', NULL)
         }
         if(is.null(style)){
-            abort("Ordered lists and bullet lists are not supported by the default officer template. You have to set them in a custom template and use either the `style` argument or crosstable options. See `?body_add_list` examples for more details.")
+            abort("Ordered lists and bullet lists are not supported by the default officer template. You have to set them in a custom template and use either the `style` argument or crosstable options. See `?body_add_list` examples for more details.") #nocov
         }
     }
     body_add_par(doc, value, style=style, ...)
@@ -334,7 +334,7 @@ body_add_gg2 = function(doc, value, width = 6, height = 5,
                         style = getOption("crosstable_style_image", doc$default_styles$paragraph), 
                         res = 300, ... ){
     if(!requireNamespace("ggplot2") )
-        abort("package ggplot2 is required to use this function")
+        abort("package ggplot2 is required to use this function") # nocov
     assert_class(value, "ggplot")
     units = match.arg(units, c("in", "cm", "mm"))
     file = tempfile(fileext=".png")
@@ -343,8 +343,6 @@ body_add_gg2 = function(doc, value, width = 6, height = 5,
     body_add_img2(doc, src=file, style=style, width=width, height=height, units=units)
 }
 
-
-# Officer helpers ---------------------------------------------------------
 
 
 #' Adds a standard footnote explaining the abreviations used in a crosstable
@@ -370,7 +368,7 @@ body_add_crosstable_footnote = function(doc){
 #' @importFrom checkmate assert_class
 #' @author Dan Chaltiel
 #' @export
-docx_bookmarks2 = function(x, return_vector=FALSE) {
+docx_bookmarks2 = function(x, return_vector=FALSE) {#nocov start
     #cannot test nor add examples as there is officer::body_bookmark() but no officer::head_bookmark()
     assert_class(x, "rdocx")  
     if(!requireNamespace("xml2"))
@@ -391,7 +389,7 @@ docx_bookmarks2 = function(x, return_vector=FALSE) {
     }
     
     list(header=unname(unlist(head_)), body=unname(unlist(doc_)), footer=unname(unlist(foot_)))
-}
+}#nocov end
 
 
 #' Alternative to default `officer` print() function. Write the file and try to open it right away.
@@ -417,8 +415,9 @@ docx_bookmarks2 = function(x, return_vector=FALSE) {
 #'     body_add_crosstable(mytable)
 #' write_and_open(doc, "example.docx")
 #' write_and_open(doc)
-#' }
+#' } # nocov start
 write_and_open = function(doc, docx.file){
+    
     #checking if the file is already open... by removing it
     tryCatch({
         if(missing(docx.file) || is.null(docx.file)){
@@ -445,7 +444,8 @@ write_and_open = function(doc, docx.file){
         warning(w)
     }, finally={}
     )
-}
+    
+}    # nocov end
 
 
 
@@ -475,8 +475,8 @@ parse_reference = function(doc, value){
     x = str_match_all(value, "(.*?)\\\\@ref\\((.*?)\\)(.*)")
     x = unlist(x[[1]][-1])
     if(length(x)!=3) #1rd (.*) is not greedy
-        abort(c("This error should not have happened, please report a bug.", 
-                i="function = crosstable:::parse_reference"), x=x) 
+        abort(c("This error should not have happened, please report a bug.", # nocov
+                i="function = crosstable:::parse_reference"), x=x)           # nocov
     doc = doc %>% 
         slip_in_text(x[1], style=normal_style_character, pos='after') %>% 
         slip_in_seqfield(str = glue(' REF {x[2]} \\h '),  
