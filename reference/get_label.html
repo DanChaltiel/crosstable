@@ -102,7 +102,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -183,7 +183,7 @@
     <p>Get label if wanted and available, or default (name) otherwise</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_label</span><span class='op'>(</span><span class='va'>x</span>, default <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/openxlsx/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, object <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_label</span><span class='op'>(</span><span class='va'>x</span>, default <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/openxlsx/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, object <span class='op'>=</span> <span class='cn'>FALSE</span>, simplify <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -199,6 +199,10 @@
     <tr>
       <th>object</th>
       <td><p>if <code>x</code> is a list/data.frame, <code>object=TRUE</code> will force getting the labels of the object instead of the children</p></td>
+    </tr>
+    <tr>
+      <th>simplify</th>
+      <td><p>if <code>x</code> is a list and <code>object=FALSE</code>, simplify the result to a vector</p></td>
     </tr>
     </table>
 
