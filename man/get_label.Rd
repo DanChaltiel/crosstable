@@ -4,7 +4,7 @@
 \alias{get_label}
 \title{Get label if wanted and available, or default (name) otherwise}
 \usage{
-get_label(x, default = names(x), object = FALSE)
+get_label(x, default = names(x), object = FALSE, simplify = TRUE)
 }
 \arguments{
 \item{x}{labelled object. If \code{x} is a list/data.frame, \code{get_label()} will return the labels of all children recursively}
@@ -12,6 +12,8 @@ get_label(x, default = names(x), object = FALSE)
 \item{default}{value returned if there is no label. Default to \code{names(x)}.}
 
 \item{object}{if \code{x} is a list/data.frame, \code{object=TRUE} will force getting the labels of the object instead of the children}
+
+\item{simplify}{if \code{x} is a list and \code{object=FALSE}, simplify the result to a vector}
 }
 \description{
 Get label if wanted and available, or default (name) otherwise

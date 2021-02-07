@@ -4,6 +4,7 @@
 #' @param x labelled object. If `x` is a list/data.frame, `get_label()` will return the labels of all children recursively
 #' @param default value returned if there is no label. Default to `names(x)`.
 #' @param object if `x` is a list/data.frame, `object=TRUE` will force getting the labels of the object instead of the children
+#' @param simplify if `x` is a list and `object=FALSE`, simplify the result to a vector
 #'
 #' @export
 #' @importFrom purrr map map2
@@ -27,19 +28,20 @@
 #' get_label(list(xx$cyl, xx$mpg))
 #' get_label(list(foo=xx$cyl, bar=xx$mpg))
 #' get_label(list(foo=xx$cyl, bar=xx$mpg), default="Default value")
-get_label = function(x, default=names(x), object=FALSE){
+get_label = function(x, default=names(x), object=FALSE, simplify=TRUE){
     if(is.list(x) && !object){
         if(is.null(default)) default=rep(NA, length(x))
-        if(length(default)>1 && length(x)!=length(default)) warning("prout")
+        if(length(default)>1 && length(x)!=length(default)) 
+            abort("`default` should be either length 1 or the same length as `x`")
         lab = x %>% 
             map(get_label) %>% 
-            map2(default, ~{if(is.null(.x)) .y else .x}) %>%
-            unlist()
+            map2(default, ~{if(is.null(.x)) .y else .x})
+        if(simplify) lab = unlist(lab)
     } else {
         lab = attr(x, "label", exact=TRUE)
         if(is_null(lab)) lab=default
     }
-    # stop("TODO")
+    
     lab
 }
 
@@ -47,8 +49,8 @@ get_label = function(x, default=names(x), object=FALSE){
 
 #' Set the "label" attribute of an object
 #'
-#' @param x object to labelise. If `x` is a list/data.frame, `set_label()` will return the labels of all children recursively
-#' @param value value of the label
+#' @param x object to labelise. 
+#' @param value value of the label. If `x` is a list/data.frame, all the labels will be set recursively
 #' @param object if `x` is a list/data.frame, `object=TRUE` will force setting the labels of the object instead of the children
 #'
 #' @importFrom checkmate assert_string

@@ -10,9 +10,9 @@ set_label(x, value, object = FALSE)
 copy_label_from(x, target)
 }
 \arguments{
-\item{x}{object to labelise. If \code{x} is a list/data.frame, \code{set_label()} will return the labels of all children recursively}
+\item{x}{object to labelise.}
 
-\item{value}{value of the label}
+\item{value}{value of the label. If \code{x} is a list/data.frame, all the labels will be set recursively}
 
 \item{object}{if \code{x} is a list/data.frame, \code{object=TRUE} will force setting the labels of the object instead of the children}
 
