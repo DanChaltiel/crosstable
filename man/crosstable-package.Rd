@@ -5,9 +5,9 @@
 \alias{crosstable-package}
 \alias{_PACKAGE}
 \alias{Test-package}
-\title{crosstable: Crosstables for descriptive analyses}
+\title{crosstable: Crosstables for Descriptive Analyses}
 \description{
-A handy tool for description and testing.
+A handy tool for description and reporting.
 }
 \details{
 The \code{crosstable}package is centered on the \code{\link[=crosstable]{crosstable()}}` function.
@@ -17,7 +17,7 @@ See vignettes for more information.
 Useful links:
 \itemize{
   \item \url{https://danchaltiel.github.io/crosstable/}
-  \item \url{https://github.com/DanChaltiel/crosstable}
+  \item \url{https://github.com/DanChaltiel/crosstable/}
   \item Report bugs at \url{https://github.com/DanChaltiel/crosstable/issues}
 }
 
@@ -27,7 +27,7 @@ Useful links:
 
 Other contributors:
 \itemize{
-  \item David Hajage \email{david.hajage@aphp.fr} [conceptor]
+  \item David Hajage [conceptor]
 }
 
 }
