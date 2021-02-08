@@ -130,7 +130,7 @@ crosstable(mtcars2, mpg, cyl, by=am) %>%
 
 If you want to share your tables in a MS Word document, you can use David Gohel's [awesome package `officer`](https://davidgohel.github.io/officer/). 
 
-Here, I use the `keep_id` argument to keep the variable name, but in practice you usually drop it for the label. See `vignette("crosstable-officer")` ([link](crosstable-officer.html)) for more on `as_flextable` and on how to integrate crosstables with `officer` and `Rmarkdown`.
+Here, I use the `keep_id` argument to keep the variable name, but in practice you usually drop it for the label. See `vignette("crosstable-officer")` ([link](crosstable-report.html)) for more on `as_flextable` and on how to integrate crosstables with `officer` and `Rmarkdown`.
 
 
 ## Descriptive functions
