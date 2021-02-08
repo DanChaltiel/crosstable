@@ -5,6 +5,9 @@
 *.Rhistory
 crosstable.Rcheck/
 
+# this messes up github linguistics (see https://github.com/github/linguist/issues/4927)
+pkgdown/index\.html 
+
 # MS Word files
 test*.docx
 ~*.docx
