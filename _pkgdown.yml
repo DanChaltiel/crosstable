@@ -61,6 +61,12 @@ reference:
   - cross_summary
   - na
   - "N"
+- title: "Visualization"
+  desc: "Visualize a crosstable in various formats"
+- contents: 
+  - as_gt.crosstable
+  - as_workbook
+  - as_flextable
 - title: "Officer helpers"
   desc: "Used in cooperation with the `officer` package"
 - contents: 
@@ -75,9 +81,6 @@ reference:
   - plim
   - confint_numeric
   - rename_dataframe_with_labels
-  - as_gt.crosstable
-  - as_workbook
-  - as_flextable
   - peek 
 - title: "Effects and tests"
 - subtitle: "Default parameters"
