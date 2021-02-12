@@ -11,19 +11,21 @@ write_and_open(doc, docx.file)
 
 \item{docx.file}{the name of the target file. If missing or NULL, the doc will open in a temporary file.}
 }
+\value{
+Nothing, called for its side effects
+}
 \description{
 As it tests if the file is writable, this function also prevents \code{officer:::print.rdocx()} to abort the RStudio session.
 }
 \examples{
-\dontrun{
 library(officer)
 library(crosstable)
 mytable = crosstable(mtcars2)
 doc = read_docx() \%>\% 
     body_add_crosstable(mytable)
-write_and_open(doc, "example.docx")
-write_and_open(doc)
-} # nocov start
+#write_and_open(doc, "example.docx")
+#write_and_open(doc)
+# nocov start
 }
 \author{
 Dan Chaltiel

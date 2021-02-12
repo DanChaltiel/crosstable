@@ -15,6 +15,9 @@ get_label(x, default = names(x), object = FALSE, simplify = TRUE)
 
 \item{simplify}{if \code{x} is a list and \code{object=FALSE}, simplify the result to a vector}
 }
+\value{
+A character vector if \code{simplify==TRUE}, a list otherwise
+}
 \description{
 Get label if wanted and available, or default (name) otherwise
 }

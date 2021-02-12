@@ -5,6 +5,8 @@
 #' @param default value returned if there is no label. Default to `names(x)`.
 #' @param object if `x` is a list/data.frame, `object=TRUE` will force getting the labels of the object instead of the children
 #' @param simplify if `x` is a list and `object=FALSE`, simplify the result to a vector
+#' 
+#' @return A character vector if `simplify==TRUE`, a list otherwise
 #'
 #' @export
 #' @importFrom purrr map map2
@@ -52,6 +54,8 @@ get_label = function(x, default=names(x), object=FALSE, simplify=TRUE){
 #' @param x object to label. 
 #' @param value value of the label. If `x` is a list/data.frame, all the labels will be set recursively
 #' @param object if `x` is a list/data.frame, `object=TRUE` will force setting the labels of the object instead of the children
+#' 
+#' @return An object of the same type as `x`, with labels
 #'
 #' @importFrom checkmate assert_string
 #' @export
@@ -79,11 +83,17 @@ set_label = function(x, value, object=FALSE){
 }
 
 
-#' @param target the variable whose label must be copied
+#' Copy the label from one variable to another
+#' 
+#' @param x the variable to label
+#' @param from the variable whose label must be copied
+#' 
+#' @return An object of the same type as `x`, with the label of `from`
+#'
 #' @rdname set_label
 #' @export
-copy_label_from = function(x, target){
-    set_label(x, get_label(target))
+copy_label_from = function(x, from){
+    set_label(x, get_label(from))
 }
 
 #' Remove all label attributes.
@@ -91,6 +101,8 @@ copy_label_from = function(x, target){
 #' Use `remove_labels()` to remove the label from an object or to recursively remove all the labels from a collection of objects (such as a list or a data.frame). \cr \cr This can be useful with functions reacting badly to labelled objects.
 #' 
 #' @param x object to unlabel
+#' 
+#' @return An object of the same type as `x`, with no labels
 #'
 #' @export
 #' @rdname remove_labels
@@ -123,6 +135,8 @@ remove_label = remove_labels
 #' Rename every column of a dataframe with its label
 #'
 #' @param df a data.frame
+#' 
+#' @return A dataframe, as `df`, which names are copied from the label attribute
 #'
 #' @importFrom checkmate assert_data_frame
 #' @export
@@ -146,6 +160,8 @@ rename_dataframe_with_labels = function(df){
 #' @param data data.frame/list
 #' @param ... named arguments
 #' @param warn_missing if TRUE, throw a warning if some names are missing
+#' 
+#' @return An object of the same type as `.data`, with labels
 #'
 #' @importFrom purrr imap_dfr
 #' @export
@@ -183,6 +199,8 @@ apply_labels = function (data, ..., warn_missing=FALSE) {
 #' @param verbose_name if TRUE, displays a warning if a variable name is not found in `data_label`
 #' @param verbose_label if TRUE, displays a warning if a label is not found in `.tbl`
 #' @param verbose deprecated
+#' 
+#' @return A dataframe, as `.tbl`, with labels
 #'
 #' @export
 #' @importFrom glue glue
@@ -254,6 +272,7 @@ import_labels = function(.tbl, data_label,
 
 #' @rdname import_labels
 #' @description `save_labels` saves the labels from a data.frame in a temporary variable that can be retrieve by `import_labels`.
+#' @return `.tbl` invisibly. Used only for its side effects.
 #' @export
 #' @examples 
 #' #save the labels, use some dplyr label-removing function, then retrieve the labels

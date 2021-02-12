@@ -58,6 +58,9 @@ to_flextable(
 
 \item{...}{unused}
 }
+\value{
+a flextable
+}
 \section{Methods (by class)}{
 \itemize{
 \item \code{crosstable}: Turns a \code{crosstable} object into a formatted \code{flextable}.

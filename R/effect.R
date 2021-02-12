@@ -1,11 +1,13 @@
 
 #' Default arguments for calculating and displaying effects in [crosstable()]
 #'
+#' This helper function provides default parameters for defining how the effect sizes should be computed. It belongs to the `effect_args` argument of the [crosstable()] function. See [effect_summary], [effect_tabular], and [effect_survival] for more insight.
+#'
 #' @return A list with testing parameters:
 #' \itemize{
-#'   \item `effect_summarize` - a function of three arguments (continuous variable, grouping variable and conf_level), used to compare continuous variable. Returns a list of five components: \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf_level} (the confidence interval level). See \code{diff_mean_auto}, \code{diff_mean_student} or \code{diff_mean_boot} for some examples of such functions. Users can provide their own function.
-#'   \item `effect_tabular` - a function of three arguments (two categorical variables and conf_level) used to measure the associations between two factors. Returns a list of five components: \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf_level} (the confidence interval level). See \code{effect_odds_ratio}, \code{effect_relative_risk}, \code{effect_risk_difference}, \code{effect_odds_ratio}, \code{rr.col.by.row}, or \code{rd.col.by.row} for some examples of such functions. Users can provide their own function.
-#'   \item `effect_survival` - a function of two argument (a formula and conf_level), used to measure the association between a censored and a factor. Returns the same components as created by \code{effect_summarize}. See \code{effect_survival_coxph}. Users can provide their own function.
+#'   \item `effect_summarize` - a function of three arguments (continuous variable, grouping variable and conf_level), used to compare continuous variable. Returns a list of five components: `effect` (the effect value(s)), `ci` (the matrix of confidence interval(s)), `effect.name` (the interpretation(s) of the effect value(s)), `effect.type` (the description of the measure used) and `conf_level` (the confidence interval level). See [diff_mean_auto()], [diff_mean_student()], [diff_mean_boot()], or [diff_median()] for some examples of such functions. Users can provide their own function.
+#'   \item `effect_tabular` - a function of three arguments (two categorical variables and conf_level) used to measure the associations between two factors. Returns a list of five components: `effect` (the effect value(s)), `ci` (the matrix of confidence interval(s)), `effect.name` (the interpretation(s) of the effect value(s)), `effect.type` (the description of the measure used) and `conf_level` (the confidence interval level). See [effect_odds_ratio()], [effect_relative_risk()], or [effect_risk_difference()] for some examples of such functions. Users can provide their own function.
+#'   \item `effect_survival` - a function of two argument (a formula and conf_level), used to measure the association between a censored and a factor. Returns the same components as created by `effect_summarize`. See [effect_survival_coxph()]. Users can provide their own function.
 #'   \item `conf_level` - the desired confidence interval level
 #'   \item `digits` - the decimal places
 #'   \item `show_effect` - a function to format the effect. See [display_effect()].
@@ -26,10 +28,15 @@ crosstable_effect_args = function(){
 
 
 #' Default function to display the effect
+#' 
+#' User can provide their own custom version in [crosstable_effect_args()]
 #'
 #' @param effect effect
 #' @param digits digits
 #' 
+#' @return a character vector 
+#' 
+#' @importFrom rlang is_string
 #' @export
 display_effect = function(effect, digits = 4) {
     if (is.null(effect) || all(map_lgl(effect, is.null))){
@@ -199,8 +206,8 @@ effect_risk_difference = function (x, y, conf_level = 0.95) {
 #'
 #' @name effect_summary
 #' 
-#' @param x vector (of exactly 2 unique levels)
-#' @param g another vector
+#' @param x a numeric vector
+#' @param g another vector (of exactly 2 unique levels)
 #' @param conf_level confidence interval level
 #' @param R number of bootstrap replication
 #'
@@ -362,7 +369,7 @@ diff_mean_student = function(x, g, conf_level = 0.95) {
 #'
 #' @name effect_survival
 #' @return a list with two components: p.value and method
-#' @author David Hajage
+#' 
 #' @importFrom stats confint
 #' @importFrom survival coxph
 #' @export
@@ -386,8 +393,6 @@ effect_survival_coxph = function(formula, conf_level = 0.95) {
                 call. = F)
         return(glue("Error (coxph: {w})"))
     }
-    
-    
     
     effect = exp(mod$coef)
     ci = suppressMessages(exp(confint(mod)))

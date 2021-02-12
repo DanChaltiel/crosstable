@@ -11,6 +11,8 @@
 #' @param fontsizes font sizes as a list of keys \[body, subheaders, header\]. If set through arguments, all needed names should be mentioned.
 #' @param generic_labels names of the crosstable default columns 
 #' @param ... unused
+#' 
+#' @return a flextable
 #'
 #' @author Dan Chaltiel
 #' @aliases ctf cross_to_flextable to_flextable
@@ -184,6 +186,8 @@ flextable::as_flextable
 #'
 #' @param x a crosstable
 #' @param ... passed on to `as_flextable.crosstable()`
+#' 
+#' @return Nothing, called for its side effects
 #'
 #' @export
 peek = function(x, ...) {

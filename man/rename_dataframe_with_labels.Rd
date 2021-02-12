@@ -9,6 +9,9 @@ rename_dataframe_with_labels(df)
 \arguments{
 \item{df}{a data.frame}
 }
+\value{
+A dataframe, as \code{df}, which names are copied from the label attribute
+}
 \description{
 Rename every column of a dataframe with its label
 }

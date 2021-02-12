@@ -11,6 +11,9 @@ display_effect(effect, digits = 4)
 
 \item{digits}{digits}
 }
+\value{
+a character vector
+}
 \description{
-Default function to display the effect
+User can provide their own custom version in \code{\link[=crosstable_effect_args]{crosstable_effect_args()}}
 }

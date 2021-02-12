@@ -9,6 +9,9 @@ body_add_crosstable_footnote(doc)
 \arguments{
 \item{doc}{a \code{rdocx} object}
 }
+\value{
+The docx object \code{doc}
+}
 \description{
 Use it below \code{\link[=body_add_crosstable]{body_add_crosstable()}}.
 Footnote: Med: median, IQR: interquartile range, Std: standard deviation. Percentages are expressed in column.

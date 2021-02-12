@@ -71,6 +71,9 @@ crosstable(
 
 \item{.vars}{deprecated}
 }
+\value{
+A \code{data.frame} of class \code{crosstable}
+}
 \description{
 Generate a descriptive table of all chosen columns, as contingency tables for categorical variables and as calculation summaries for numeric variables. If the \code{by} argument points to a categorical variable, \code{crosstable} will output a description of all columns for every level. Else, if it points to a numeric variable, \code{crosstable} will calculate correlation coefficients with all other selected numeric columns. Finally, if it points to a \code{Surv} object, \code{crosstable} will describe the survival at different times.
 }

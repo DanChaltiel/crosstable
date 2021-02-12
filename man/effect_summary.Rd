@@ -17,9 +17,9 @@ diff_median(x, g, conf_level = 0.95, R = 500)
 diff_mean_student(x, g, conf_level = 0.95)
 }
 \arguments{
-\item{x}{vector (of exactly 2 unique levels)}
+\item{x}{a numeric vector}
 
-\item{g}{another vector}
+\item{g}{another vector (of exactly 2 unique levels)}
 
 \item{conf_level}{confidence interval level}
 

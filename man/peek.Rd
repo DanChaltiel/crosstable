@@ -11,6 +11,9 @@ peek(x, ...)
 
 \item{...}{passed on to \code{as_flextable.crosstable()}}
 }
+\value{
+Nothing, called for its side effects
+}
 \description{
 This eases copy-pasting
 }

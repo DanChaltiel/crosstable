@@ -23,6 +23,9 @@ body_add_crosstable(
 
 \item{...}{further arguments passed to \code{\link[=as_flextable.crosstable]{as_flextable.crosstable()}}}
 }
+\value{
+The docx object \code{doc}
+}
 \description{
 \code{\link[=body_add_crosstable]{body_add_crosstable()}} adds such a \code{flextable} an \code{officer} document.
 }
@@ -35,9 +38,7 @@ doc = read_docx() \%>\%
     body_add_break \%>\% 
     body_add_crosstable(mytable, compact=TRUE)
 
-\dontrun{
-dfile = "examples\\\\example_doc.docx"
+dfile = tempfile(fileext=".docx")
 print(doc, target = dfile)
-shell.exec(dfile)
-}
+#browseURL(dfile)
 }

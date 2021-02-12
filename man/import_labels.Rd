@@ -32,6 +32,11 @@ save_labels(.tbl)
 
 \item{verbose}{deprecated}
 }
+\value{
+A dataframe, as \code{.tbl}, with labels
+
+\code{.tbl} invisibly. Used only for its side effects.
+}
 \description{
 \code{import_labels} imports labels from a data.frame (\code{data_label}) to another one (\code{.tbl}). Works in synergy with \code{\link[=save_labels]{save_labels()}}.
 

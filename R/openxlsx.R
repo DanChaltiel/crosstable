@@ -7,6 +7,8 @@
 #' @param keep_id whether to keep the `.id` column
 #' @param generic_labels names of the crosstable default columns 
 #' @param ... unused
+#' 
+#' @return an `openxlsx` workbook containing the crosstable
 #'
 #' @author Dan Chaltiel
 #' 
@@ -19,13 +21,13 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' library(openxlsx)
-#' x=crosstable(mtcars2, mpg, vs, gear, total=T, test=T)
+#' target = tempfile(fileext=".xlsx")
+#' x=crosstable(mtcars2, c(mpg, vs, gear), total=TRUE, test=TRUE)
 #' x %>% 
 #'     as_workbook(keep_id=TRUE) %>% 
-#'     saveWorkbook(file = "test_openxlsx.xlsx", overwrite = TRUE)
-#' }
+#'     saveWorkbook(file=target, overwrite = TRUE)
+#' #browseURL(target)
 as_workbook = function(x, show_test_name = TRUE, 
                        by_header = NULL, keep_id = FALSE,
                        generic_labels=list(id = ".id", variable = "variable", value = "value",

@@ -37,6 +37,9 @@ nna(x)
 
 \item{format}{a sugar argument. If FALSE, the function returns a list instead of a formatted string}
 }
+\value{
+a character vector
+}
 \description{
 Summary functions to use with \code{\link[=crosstable]{crosstable()}} or anywhere else.
 }

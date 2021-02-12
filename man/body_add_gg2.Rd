@@ -30,11 +30,13 @@ body_add_gg2(
 
 \item{...}{other arguments to be passed to \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}}}
 }
+\value{
+The docx object \code{doc}
+}
 \description{
 Alternative to \code{\link[officer:body_add_gg]{officer::body_add_gg()}} which uses \code{ggplot} syntax
 }
 \examples{
-\dontrun{
 if(require("ggplot2") && capabilities(what = "png")){
   library(officer)
   p = ggplot(data = iris ) +
@@ -46,7 +48,6 @@ if(require("ggplot2") && capabilities(what = "png")){
     body_add_normal("Text before") \%>\% 
     body_add_gg2(p, w=14, h=10, scale=1.5) \%>\% #or units="cm" instead of using options
     body_add_normal("Text after")
-  write_and_open(doc)
-}
+  #write_and_open(doc)
 }
 }

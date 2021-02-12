@@ -20,11 +20,13 @@ body_add_title(
 
 \item{style}{the name of the title style. See \code{styles_info(doc)} to know the possibilities.}
 }
+\value{
+The docx object \code{doc}
+}
 \description{
 Add a title to an \code{officer} document
 }
 \examples{
-\dontrun{
 library(officer)
 library(crosstable)
 library(dplyr)
@@ -33,7 +35,7 @@ doc = doc \%>\%
    body_add_title("La table iris", 1) \%>\% 
    body_add_title("Description", 2) \%>\% 
    body_add_normal("La table iris a ", ncol(iris), " colonnes.")
-}
+#write_and_open(doc)
 }
 \author{
 Dan Chaltiel

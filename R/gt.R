@@ -6,6 +6,8 @@
 #' @param keep_id whether to keep the `.id` column
 #' @param generic_labels names of the crosstable default columns 
 #' @param ... unused
+#' 
+#' @return a formatted `gt` table
 #'
 #' @author Dan Chaltiel
 #' @family as_gt methods

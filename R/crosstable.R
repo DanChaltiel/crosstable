@@ -39,6 +39,8 @@
 #' @importFrom lifecycle deprecated is_present deprecate_warn deprecate_stop
 #' @importFrom stats model.frame
 #' 
+#' @return A `data.frame` of class `crosstable`
+#' 
 #' @seealso https://danchaltiel.github.io/crosstable/, as_flextable, import_labels
 #' 
 #' @examples

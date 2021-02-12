@@ -33,6 +33,9 @@ as_gt(x, ...)
 
 \item{...}{arguments for custom methods}
 }
+\value{
+a formatted \code{gt} table
+}
 \description{
 Converts a \code{crosstable} object into a formatted \code{gt} table.
 

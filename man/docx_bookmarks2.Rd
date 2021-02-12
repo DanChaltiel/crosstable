@@ -11,6 +11,9 @@ docx_bookmarks2(x, return_vector = FALSE)
 
 \item{return_vector}{use \code{TRUE} for compatibility with \code{\link[officer:docx_bookmarks]{officer::docx_bookmarks()}}}
 }
+\value{
+a list with all bookmarks
+}
 \description{
 This is a correction of \code{\link[officer:docx_bookmarks]{officer::docx_bookmarks()}}. See \href{https://github.com/davidgohel/officer/pull/313}{this PR}.
 }

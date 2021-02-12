@@ -40,6 +40,9 @@ body_add_figure_legend(
 
 \item{seqfield}{Keep default. Otherwise, you may figure it out doing this: in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.}
 }
+\value{
+The docx object \code{doc}
+}
 \description{
 Add a table legend to an \code{officer} document
 }
@@ -49,7 +52,6 @@ At first, the legends added with \code{\link[=body_add_table_legend]{body_add_ta
 }
 
 \examples{
-\dontrun{
 library(officer)
 p=ggplot2::quickplot(x=Sepal.Length, y=Sepal.Width, color=Species, data=iris)
 x=read_docx() \%>\% 
@@ -60,9 +62,8 @@ x=read_docx() \%>\%
   body_add_crosstable(crosstable(iris)) \%>\% 
   body_add_gg(p) \%>\% 
   body_add_figure_legend("Iris plot", bookmark="fig1")
-write_and_open(x, "example.docx")
+#write_and_open(x, "example.docx")
 #press Ctrl+A then F9 twice for the reference to appear.
-}
 }
 \author{
 Dan Chaltiel

@@ -9,16 +9,16 @@ crosstable_effect_args()
 \value{
 A list with testing parameters:
 \itemize{
-\item \code{effect_summarize} - a function of three arguments (continuous variable, grouping variable and conf_level), used to compare continuous variable. Returns a list of five components: \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf_level} (the confidence interval level). See \code{diff_mean_auto}, \code{diff_mean_student} or \code{diff_mean_boot} for some examples of such functions. Users can provide their own function.
-\item \code{effect_tabular} - a function of three arguments (two categorical variables and conf_level) used to measure the associations between two factors. Returns a list of five components: \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf_level} (the confidence interval level). See \code{effect_odds_ratio}, \code{effect_relative_risk}, \code{effect_risk_difference}, \code{effect_odds_ratio}, \code{rr.col.by.row}, or \code{rd.col.by.row} for some examples of such functions. Users can provide their own function.
-\item \code{effect_survival} - a function of two argument (a formula and conf_level), used to measure the association between a censored and a factor. Returns the same components as created by \code{effect_summarize}. See \code{effect_survival_coxph}. Users can provide their own function.
+\item \code{effect_summarize} - a function of three arguments (continuous variable, grouping variable and conf_level), used to compare continuous variable. Returns a list of five components: \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf_level} (the confidence interval level). See \code{\link[=diff_mean_auto]{diff_mean_auto()}}, \code{\link[=diff_mean_student]{diff_mean_student()}}, \code{\link[=diff_mean_boot]{diff_mean_boot()}}, or \code{\link[=diff_median]{diff_median()}} for some examples of such functions. Users can provide their own function.
+\item \code{effect_tabular} - a function of three arguments (two categorical variables and conf_level) used to measure the associations between two factors. Returns a list of five components: \code{effect} (the effect value(s)), \code{ci} (the matrix of confidence interval(s)), \code{effect.name} (the interpretation(s) of the effect value(s)), \code{effect.type} (the description of the measure used) and \code{conf_level} (the confidence interval level). See \code{\link[=effect_odds_ratio]{effect_odds_ratio()}}, \code{\link[=effect_relative_risk]{effect_relative_risk()}}, or \code{\link[=effect_risk_difference]{effect_risk_difference()}} for some examples of such functions. Users can provide their own function.
+\item \code{effect_survival} - a function of two argument (a formula and conf_level), used to measure the association between a censored and a factor. Returns the same components as created by \code{effect_summarize}. See \code{\link[=effect_survival_coxph]{effect_survival_coxph()}}. Users can provide their own function.
 \item \code{conf_level} - the desired confidence interval level
 \item \code{digits} - the decimal places
 \item \code{show_effect} - a function to format the effect. See \code{\link[=display_effect]{display_effect()}}.
 }
 }
 \description{
-Default arguments for calculating and displaying effects in \code{\link[=crosstable]{crosstable()}}
+This helper function provides default parameters for defining how the effect sizes should be computed. It belongs to the \code{effect_args} argument of the \code{\link[=crosstable]{crosstable()}} function. See \link{effect_summary}, \link{effect_tabular}, and \link{effect_survival} for more insight.
 }
 \author{
 Dan Chaltiel

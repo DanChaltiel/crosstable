@@ -16,13 +16,14 @@ body_add_normal(doc, ..., .sep = "")
 }
 \value{
 a new doc object
+
+The docx object \code{doc}
 }
 \description{
 Add a new paragraph in an \code{officer} document with default style. Variables can be inserted as multiple strings (\code{paste()} style) or enclosed by braces (\code{glue()} style).
 References to any bookmark can be inserted using the syntax "\\@ref(bookmark)". See an example in \code{\link[=body_add_table_legend]{body_add_table_legend()}}.
 }
 \examples{
-\dontrun{
 library(officer)
 library(crosstable)
 
@@ -32,8 +33,7 @@ doc = read_docx()  \%>\%
     body_add_normal("Table iris has", ncol(iris), "columns.", .sep=" ") \%>\% #paste style
     body_add_normal("However, table mtcars has {ncol(mtcars)} columns") \%>\% #glue style
     body_add_normal(info_rows)                                              #vector style
-write_and_open(doc)
-}
+#write_and_open(doc)
 }
 \author{
 Dan Chaltiel

@@ -74,6 +74,8 @@ format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL, only_round
 #'  \item `only_round` (default=`FALSE`): use [round()] instead of [format_fixed()]
 #' }
 #' 
+#' @return a character vector
+#' 
 #' 
 #' @examples 
 #' meansd(iris$Sepal.Length, dig=3)
@@ -202,6 +204,8 @@ nna = function(x) {
 #' @param x a numeric vector
 #' @param dig number of digits
 #' @param ... params to pass on to [format_fixed()]: `zero_digits` and `only_round`
+#' 
+#' @return a list of named functions
 #'
 #' @export
 #' @examples 

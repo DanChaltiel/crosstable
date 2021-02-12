@@ -24,19 +24,20 @@ body_add_img2(
 
 \item{...}{other arguments to be passed to \code{\link[officer:body_add_img]{officer::body_add_img()}}}
 }
+\value{
+The docx object \code{doc}
+}
 \description{
 Alternative to \code{\link[officer:body_add_img]{officer::body_add_img()}} which adds a \code{units} choice
 }
 \examples{
-\dontrun{
-  img.file = file.path( R.home("doc"), "html", "logo.jpg" )
-  if( file.exists(img.file) ){
-      options(crosstable_units="cm")
-      doc = read_docx() \%>\%
-          body_add_normal("This is the R logo.") \%>\% 
-          body_add_img2(img.file, h=7.6, w=10, style="centered") #or units="cm" without options
-      write_and_open(doc)
-  }
+img.file = file.path( R.home("doc"), "html", "logo.jpg" )
+if( file.exists(img.file) ){
+    options(crosstable_units="cm")
+    doc = read_docx() \%>\%
+        body_add_normal("This is the R logo.") \%>\% 
+        body_add_img2(img.file, h=7.6, w=10, style="centered") #or units="cm" without options
+    #write_and_open(doc)
 }
 }
 \seealso{

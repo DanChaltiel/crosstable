@@ -20,6 +20,9 @@ body_add_list_item(doc, value, ordered = FALSE, style = NULL, ...)
 
 \item{...}{passed on to \code{\link[officer:body_add_par]{officer::body_add_par()}}}
 }
+\value{
+The docx object \code{doc}
+}
 \description{
 Add a list to an \code{officer} document
 }
@@ -28,17 +31,19 @@ Ordered lists and bullet lists are not supported by the default officer template
 }
 \examples{
 \dontrun{
+#For this example to work, `my_template.docx` should include styles named `ordered_list` and `unordered_list`
+
 library(officer)
 library(crosstable)
 options(crosstable_style_list_ordered="ordered_list")
 options(crosstable_style_list_unordered="unordered_list")
-# of course, my_template.docx should have these styles
+
 read_docx("my_template.docx") \%>\%
  body_add_list(c("Numbered item 1", "Numbered item 2"), ordered = TRUE) \%>\%
  body_add_list_item("Numbered item 3", ordered = TRUE) \%>\%
  body_add_list(c("Bullet item 1", "Bullet item 2"), ordered = FALSE) \%>\%
  body_add_list_item("Bullet item 3", ordered = FALSE) \%>\%
- write_and_open("result.docx")
+ write_and_open()
 }
 }
 \author{

@@ -13,6 +13,9 @@ cross_summary(x, dig = 1, ...)
 
 \item{...}{params to pass on to \code{\link[=format_fixed]{format_fixed()}}: \code{zero_digits} and \code{only_round}}
 }
+\value{
+a list of named functions
+}
 \description{
 Summarize a numeric vector with min, max, mean, sd, median, IQR, n and missings.
 }

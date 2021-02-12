@@ -10,6 +10,9 @@ remove_labels(x)
 \arguments{
 \item{x}{object to unlabel}
 }
+\value{
+An object of the same type as \code{x}, with no labels
+}
 \description{
 Use \code{remove_labels()} to remove the label from an object or to recursively remove all the labels from a collection of objects (such as a list or a data.frame). \cr \cr This can be useful with functions reacting badly to labelled objects.
 }

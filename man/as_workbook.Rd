@@ -27,17 +27,20 @@ as_workbook(
 
 \item{...}{unused}
 }
+\value{
+an \code{openxlsx} workbook containing the crosstable
+}
 \description{
 Converts a \code{crosstable} object into a formatted, savable \code{openxlsx} workbook.
 }
 \examples{
-\dontrun{
 library(openxlsx)
-x=crosstable(mtcars2, mpg, vs, gear, total=T, test=T)
+target = tempfile(fileext=".xlsx")
+x=crosstable(mtcars2, c(mpg, vs, gear), total=TRUE, test=TRUE)
 x \%>\% 
     as_workbook(keep_id=TRUE) \%>\% 
-    saveWorkbook(file = "test_openxlsx.xlsx", overwrite = TRUE)
-}
+    saveWorkbook(file=target, overwrite = TRUE)
+#browseURL(target)
 }
 \author{
 Dan Chaltiel

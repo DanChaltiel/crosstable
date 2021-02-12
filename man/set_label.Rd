@@ -7,19 +7,26 @@
 \usage{
 set_label(x, value, object = FALSE)
 
-copy_label_from(x, target)
+copy_label_from(x, from)
 }
 \arguments{
-\item{x}{object to label.}
+\item{x}{the variable to label}
 
 \item{value}{value of the label. If \code{x} is a list/data.frame, all the labels will be set recursively}
 
 \item{object}{if \code{x} is a list/data.frame, \code{object=TRUE} will force setting the labels of the object instead of the children}
 
-\item{target}{the variable whose label must be copied}
+\item{from}{the variable whose label must be copied}
+}
+\value{
+An object of the same type as \code{x}, with labels
+
+An object of the same type as \code{x}, with the label of \code{from}
 }
 \description{
 Set the "label" attribute of an object
+
+Copy the label from one variable to another
 }
 \examples{
 library(dplyr)
