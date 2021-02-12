@@ -47,25 +47,6 @@ crosstable_test_args = function(){
 
 
 
-#' Format p values (alternative to [format.pval()])
-#'
-#' @param p p values
-#' @param digits number of digits
-#' @return formatted p values
-#' @seealso [format.pval()], https://stackoverflow.com/a/23018806/3888000
-#' @export
-#' @author David Hajage
-plim = function(p, digits = 4) {
-  pround = round(p, digits)
-  lim = 10^(-digits)
-  ptxt = vector("character", length(p))
-  ptxt[pround < lim] = paste("<", "0.", paste(rep("0", digits -
-                                                    1), collapse = ""), "1", sep = "")
-  ptxt[pround >= lim] = formatC(pround[pround >= lim], format = "f",
-                                digits = digits)
-  return(ptxt)
-}
-
 
 
 #' Default function to display a test result
