@@ -10,7 +10,9 @@ Authors@R:
       person(given = "David",
              family = "Hajage",
              role = "ccp"))
-Description: A handy tool for description and reporting.
+Description: Create descriptive tables for continuous and categorical variables. 
+    Apply summary statistics and counting function, with or without a grouping variable, and create beautiful reports using rmarkdown or officer.
+    You can also compute statistical tests and effect sizes if needed.
 License: GPL-3
 URL: https://danchaltiel.github.io/crosstable/, https://github.com/DanChaltiel/crosstable/
 BugReports: https://github.com/DanChaltiel/crosstable/issues/
