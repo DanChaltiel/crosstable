@@ -24,3 +24,4 @@ TODO\.R
 ^data-raw$
 ^docs$
 ^pkgdown$
+^CRAN-RELEASE$
