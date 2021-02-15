@@ -32,7 +32,8 @@ Alternative to \code{\link[officer:body_add_img]{officer::body_add_img()}} which
 }
 \examples{
 img.file = file.path( R.home("doc"), "html", "logo.jpg" )
-if( file.exists(img.file) ){
+if(file.exists(img.file)){
+    library(officer)
     options(crosstable_units="cm")
     doc = read_docx() \%>\%
         body_add_normal("This is the R logo.") \%>\% 

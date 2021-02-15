@@ -288,7 +288,8 @@ body_add_legend = function(doc, legend, legend_name, bookmark, legend_style, sty
 #' @importFrom officer body_add_img
 #' @examples
 #' img.file = file.path( R.home("doc"), "html", "logo.jpg" )
-#' if( file.exists(img.file) ){
+#' if(file.exists(img.file)){
+#'     library(officer)
 #'     options(crosstable_units="cm")
 #'     doc = read_docx() %>%
 #'         body_add_normal("This is the R logo.") %>% 
