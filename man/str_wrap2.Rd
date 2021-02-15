@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{str_wrap2}
 \alias{str_wrap2}
-\title{Small improvement around stringr::str_wrap in case there is no whitespace}
+\title{Small improvement around \code{\link[stringr:str_wrap]{stringr::str_wrap()}} in case there is no whitespace}
 \usage{
 str_wrap2(x, width, ...)
 }
@@ -11,17 +11,15 @@ str_wrap2(x, width, ...)
 
 \item{width}{target line width}
 
-\item{...}{passed on to stringr::str_wrap}
+\item{...}{passed on to \code{\link[stringr:str_wrap]{stringr::str_wrap()}}}
 }
 \description{
-Small improvement around stringr::str_wrap in case there is no whitespace
+Small improvement around \code{\link[stringr:str_wrap]{stringr::str_wrap()}} in case there is no whitespace
 }
 \examples{
-\dontrun{
 set.seed(0)
 x=sample(iris$Species, 10)
 x \%>\% paste(collapse="") \%>\% str_wrap2(20) \%>\% cat
 x \%>\% paste(collapse=" ") \%>\% str_wrap2(20) \%>\% cat
-}
 }
 \keyword{internal}

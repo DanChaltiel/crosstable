@@ -259,14 +259,13 @@ na = function(x) {
 }
 
 
-#' Small improvement around [stringr::str_wrap] in case there is no whitespace
+#' Small improvement around [stringr::str_wrap()] in case there is no whitespace
 #'
 #' @param x character vector of strings to reformat
 #' @param width target line width
 #' @param ... passed on to [stringr::str_wrap()]
 #'
 #' @keywords internal
-#' @noRd
 #' @importFrom stringr str_detect str_wrap str_replace_all
 #'
 #' @examples

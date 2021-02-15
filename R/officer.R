@@ -160,7 +160,8 @@ body_add_title = function(doc, value, level = 1,
 #'
 #' @examples
 #' \dontrun{
-#' #For this example to work, `my_template.docx` should include styles named `ordered_list` and `unordered_list`
+#' #For this example to work, `my_template.docx` should include styles named 
+#' #`ordered_list` and `unordered_list`
 #' 
 #' library(officer)
 #' library(crosstable)

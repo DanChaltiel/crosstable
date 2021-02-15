@@ -4,7 +4,7 @@
 
 * First version on CRAN
 * Improved functions naming in `funs`, especially with multiple combinations of named and unnamed functions, including lambda or anonymous
-* Set `simplify=FALSE` in `get_label()` to get a list instead of a vector
+* Use `simplify=FALSE` in `get_label()` to get a list instead of a vector
 
 
 # crosstable 0.2.0 <sub><sup>(2021-02-02)</sup></sub>

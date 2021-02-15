@@ -340,7 +340,7 @@ test_that("Statistical Tests", {
   set.seed(0)
   dummy_data = tibble(x_norm=rnorm(50,0,20), x_exp=rexp(50,60), y=rnorm(50,0,20), tmt2=rep(c("A","B"), 25), tmt3=LETTERS[1:3][sample(3,50,replace=TRUE)])
 
-  ##CATEGORIAL
+  ##CATEGORICAL
 
   # Fisher
   x=crosstable(mtcars3, cyl, by=vs, test=T)
@@ -435,7 +435,7 @@ test_that("Effects", {
 
   args = crosstable_effect_args()
 
-  ##CATEGORIAL
+  ##CATEGORICAL
 
   #args$effect_tabular = effect_odds_ratio (default)
   x=crosstable(mtcars3, am, by=vs, effect=T, effect_args=args)
