@@ -19,7 +19,7 @@ Small improvement around \code{\link[stringr:str_wrap]{stringr::str_wrap()}} in 
 \examples{
 set.seed(0)
 x=sample(iris$Species, 10)
-x \%>\% paste(collapse="") \%>\% str_wrap2(20) \%>\% cat
-x \%>\% paste(collapse=" ") \%>\% str_wrap2(20) \%>\% cat
+x \%>\% paste(collapse="") \%>\% crosstable:::str_wrap2(20) \%>\% cat
+x \%>\% paste(collapse=" ") \%>\% crosstable:::str_wrap2(20) \%>\% cat
 }
 \keyword{internal}

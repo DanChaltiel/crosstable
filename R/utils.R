@@ -271,8 +271,8 @@ na = function(x) {
 #' @examples
 #' set.seed(0)
 #' x=sample(iris$Species, 10)
-#' x %>% paste(collapse="") %>% str_wrap2(20) %>% cat
-#' x %>% paste(collapse=" ") %>% str_wrap2(20) %>% cat
+#' x %>% paste(collapse="") %>% crosstable:::str_wrap2(20) %>% cat
+#' x %>% paste(collapse=" ") %>% crosstable:::str_wrap2(20) %>% cat
 str_wrap2 = function(x, width, ...){
     ifelse(str_detect(x, " "),
            str_wrap(x, width, ...),
