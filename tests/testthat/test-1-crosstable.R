@@ -14,8 +14,6 @@ test_that("Auto-testing is bad and you should feel bad.", {
 })
 
 test_that("Deprecation: moystd", {
-  expect_warning(crosstable(mtcars2, disp, by=vs, funs=moystd),
-                 ".*`moystd\\(\\)` is deprecated.*")
   lifecycle::expect_deprecated(crosstable(mtcars2, disp, by=vs, funs=moystd))
 })
 
@@ -337,6 +335,7 @@ test_that("Summary functions", {
 # Statistical Tests --------------------------------------------------
 
 test_that("Statistical Tests", {
+  # testthat::skip_on_cran()
   set.seed(0)
   dummy_data = tibble(x_norm=rnorm(50,0,20), x_exp=rexp(50,60), y=rnorm(50,0,20), tmt2=rep(c("A","B"), 25), tmt3=LETTERS[1:3][sample(3,50,replace=TRUE)])
 
@@ -430,6 +429,7 @@ test_that("'Test' can be a variable name", {
 # Effects --------------------------------------------------
 
 test_that("Effects", {
+  # testthat::skip_on_cran()
   set.seed(0)
   dummy_data = tibble(x_norm=rnorm(50,0,20), x_exp=rexp(50,60), y=rnorm(50,0,20), tmt2=rep(c("A","B"), 25), tmt3=LETTERS[1:3][sample(3,50,replace=TRUE)])
 
