@@ -8,7 +8,7 @@
 \title{crosstable: Crosstables for Descriptive Analyses}
 \description{
 Create descriptive tables for continuous and categorical variables. 
-    Apply summary statistics and counting function, with or without a grouping variable, and create beautiful reports using rmarkdown or officer.
+    Apply summary statistics and counting function, with or without a grouping variable, and create beautiful reports using 'rmarkdown' or 'officer'.
     You can also compute statistical tests and effect sizes if needed.
 }
 \details{
