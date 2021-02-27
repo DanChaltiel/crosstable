@@ -58,7 +58,7 @@ expect_cross = function(expr, xnames, byname, dim, expect=c("nothing", "silent",
         x=expect_warning(expr, regex)
     else
         x=expect_error(expr, regex)
-    expect_is(x, c("data.frame", "crosstable"))
+    expect_s3_class(x, c("data.frame", "crosstable"))
     expect_equal(dim, dim(x))
     expect_equal(byname, unname(attr(x, "by")))
     
