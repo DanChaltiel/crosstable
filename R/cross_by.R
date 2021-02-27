@@ -28,6 +28,11 @@ cross_by = function(data_x, data_y, funs, funs_arg, margin, total, percent_digit
             .x = as.numeric(.x) %>% set_label(lab)
         }
            
+        if(is.list(.x)){
+            errors[[.y]] = data.frame(name=.y, class="list")
+            return(NULL)
+        }
+        
         data_x[.y] = .x
         if(is.numeric.and.not.surv(.x) || is.date(.x)){
             rtn=cross_numeric(data_x[.y], data_y, funs=funs, funs_arg=funs_arg, 
