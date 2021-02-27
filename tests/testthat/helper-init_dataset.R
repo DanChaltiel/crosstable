@@ -6,15 +6,15 @@ options(stringsAsFactors = FALSE)
 options(width = 200)
 # options(warn = 2)
 # options(warn = 1)
-# options(tidyselect_verbosity = "verbose") #quiet or verbose
 # getOption("tidyselect_verbosity")
+# options(tidyselect_verbosity = "verbose") #quiet or verbose
+# options(lifecycle_verbosity = "error") #NULL, "quiet", "warning" or "error"
 
 library(dplyr, warn.conflicts = FALSE)
 library(survival, warn.conflicts = FALSE)
 library(crosstable, warn.conflicts = FALSE)
-# library(stats)
 
-
+set.seed(1234)
 mtcars3 = as_tibble(mtcars2)
 mtcars3$cyl[1:5] = NA
 mtcars3$vs[5:12] = NA
