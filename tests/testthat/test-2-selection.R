@@ -56,9 +56,10 @@ test_that("crosstable with external character vector", {
         crosstable(iris2, c(all_of(XX), -Sepal.Width), by="Species"),
         xnames=c("SL"), byname="Species", dim=c(4,6))
     
-    expect_cross(#expect warning, but only once a session
+    expect_cross(
         crosstable(iris2, XX, by="Species"),
-        xnames=c("SL", "SW"), byname="Species", dim=c(8,6))
+        xnames=c("SL", "SW"), byname="Species", dim=c(8,6)) %>% 
+        expect_message("external vector")
 })
 
 
