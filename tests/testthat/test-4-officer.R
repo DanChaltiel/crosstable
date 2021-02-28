@@ -17,6 +17,88 @@ mtcars3$cyl6 = mtcars3$cyl==6
 mtcars3$surv = Surv(mtcars3$disp, mtcars3$am=="manual") %>% set_label("Dummy survival")
 
 
+clean_docx = function(x){
+    x$package_dir=NULL
+    x$content_type$.__enclos_env__$private$filename = "test"
+    x$doc_obj$.__enclos_env__$private$filename = "test"
+    x$doc_obj$.__enclos_env__$private$package_dir = "test"
+    x$doc_obj$.__enclos_env__$private$rels_filename = "test"
+    x$footnotes$.__enclos_env__$private$filename = "test"
+    x$footnotes$.__enclos_env__$private$package_dir = "test"
+    x$footnotes$.__enclos_env__$private$rels_filename = "test"
+    x
+}
+
+expect_snapshot_doc = function(doc){
+    
+    doc_xml = xml2::as_list(doc$doc_obj$get())
+    
+    sp = testthat:::get_snapshotter()
+    if(is.null(sp)) abort("Can't compare snapshot to reference when testing interactively")
+    test_file = sp$file
+    test_name = str_replace_all(sp$test, "\\W", "_") %>% 
+        stringi::stri_trans_general(id = "Latin-ASCII")
+    
+    x = expect_snapshot_value(doc_xml, style = "json2")
+    
+    folder=paste0("docx/", test_file)
+    filename=paste0(folder, "/snap_", test_name, ".docx")
+    if(!file.exists(filename)){
+        dir.create(folder, recursive=TRUE, showWarnings=FALSE)
+        print(doc, filename)
+    }
+    
+    filename_new=paste0(folder, "/snap_", test_name, "_new.docx")
+    if(!inherits(x, "expectation_success")){
+        print(doc, filename_new)
+        warn(glue("Snapshot changed, see changes in files and :\n",
+                  "   browseURL('tests/testthat/{filename}')\n",
+                  "   browseURL('tests/testthat/{filename_new}')\n"))
+    } else {
+        if(file.exists(filename_new)) file.remove(filename_new)
+        print(doc, filename)
+    }
+}
+
+
+test_that("word document", {
+    local_edition(3)
+    doc = read_docx() %>% 
+        body_add_par("This is a teeeeeest")
+    
+    expect_snapshot_doc(doc)
+    # doc_xml = xml2::as_list(doc$doc_obj$get())
+    # 
+    # x = expect_snapshot_value(doc_xml, style = "json2")
+    # 
+    # filename="docx/4-officer/result_test_crosstable_officer.docx"
+    # if(!file.exists(filename)){
+    #     dir.create("docx/4-officer/", recursive=TRUE, showWarnings=FALSE)
+    #     print(doc, filename)
+    # }
+    # 
+    # filename_new="docx/4-officer/result_test_crosstable_officer_new.docx"
+    # if(!inherits(x, "expectation_success")){
+    #     print(doc, filename_new)
+    #     warn(glue("Snapshot changed, see changes in files and :\n",
+    #               "   browseURL('tests/testthat/{filename}')\n",
+    #               "   browseURL('tests/testthat/{filename_new}')\n"))
+    # } else {
+    #     if(file.exists(filename_new)) file.remove(filename_new)
+    #     print(doc, filename)
+    # }
+    
+    
+})
+
+
+
+
+
+if(FALSE){
+    
+
+
 
 # crosstables don't throw errors in officer -------------------------------
 crosstables = suppressWarnings(
@@ -30,7 +112,7 @@ test_that("crosstables don't throw errors in officer", {
     doc = read_docx()
     for (i in names(crosstables)) {
         ct = crosstables[[i]]
-        expect_is(ct, c("crosstable"))
+        expect_s3_class(ct, c("crosstable"))
         doc = doc %>% 
             body_add_title(i, 1) %>%
             body_add_normal("This dataset has {nrow(ct)} rows and {x} columns.", 
@@ -49,9 +131,16 @@ test_that("crosstables don't throw errors in officer", {
             body_add_table_legend(paste0(i, ", compacted before function")) %>% 
             body_add_break()
     }
+    
+    
     if(!is_testing()){
-        print(doc, "tests/testthat/docx/result_test_crosstable_officer.docx")
+        filename="tests/testthat/docx/result_test_crosstable_officer.docx"
+    } else {
+        filename="docx/result_test_crosstable_officer.docx"
     }
+    print(doc, filename)
+    
+    expect_snapshot_value(read_docx(filename), style = "serialize")
 })
 
 test_that("crosstables helpers", {
@@ -156,5 +245,5 @@ test_that("openxlsx is working", {
 
 
 
-
+}
 
