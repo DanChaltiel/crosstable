@@ -2,21 +2,6 @@
 
 # Init --------------------------------------------------------------------
 
-Sys.setenv(LANG = "en")
-options(warn = 1)
-options(stringsAsFactors = FALSE)
-# options(tidyselect_verbosity = "verbose")
-
-library(officer)
-library(survival)
-mtcars3 = mtcars2
-mtcars3$cyl[1:5] = NA
-mtcars3$vs[5:12] = NA
-mtcars3$cyl3 = mtcars3$cyl==3
-mtcars3$cyl6 = mtcars3$cyl==6
-mtcars3$surv = Surv(mtcars3$disp, mtcars3$am=="manual") %>% set_label("Dummy survival")
-
-
 compare_snapshot_doc = function(name){
     doc1 = read_docx(paste0('tests/testthat/docx/4-officer/snap_',name,'.docx'))
     doc2 = read_docx(paste0('tests/testthat/docx/4-officer/snap_',name,'_new.docx'))
@@ -58,22 +43,7 @@ expect_snapshot_doc = function(doc){
         print(doc, filename)
     }
 }
-# compare_snapshot_doc('utils_functions_are_ok_too')
-# 
-# doc=read_docx('tests/testthat/docx/4-officer/snap_utils_functions_are_ok_too.docx')
-# docjson = doc$doc_obj$get() %>% xml2::as_list() %>% jsonlite::serializeJSON(pretty = TRUE)
-# write(docjson, "test.json")
-# 
-# 
-# x=doc$doc_obj$get() %>% xml2::as_list()
-# q=x %>% jsonlite::serializeJSON(pretty = TRUE)
-# w=x$document$body
-# x %>% View
-# x %>% jsonlite::serializeJSON(pretty = TRUE) %>% class
-# x %>% jsonlite::serializeJSON(pretty = TRUE) %>% View
-# x %>% jsonlite::serializeJSON(pretty = TRUE) %>% .[[1]] %>% lines() %>% .[24389:24395]
-# names(w)
-# w[[5]] %>% View()
+
 
 # crosstables don't throw errors in officer -------------------------------
 crosstables = suppressWarnings({
