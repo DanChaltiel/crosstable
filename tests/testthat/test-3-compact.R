@@ -18,7 +18,7 @@ test_that("Compact method error if list without purrr", {
 
 test_that("Compact method OK with purrr", {
     ll=list(a = "a", b = NULL, c = integer(0), d = NA, e = list())
-    library(purrr)
+    library(purrr, warn.conflicts=FALSE)
     expect_identical(compact(ll), list(a="a",d=NA))
 
     x=sloop::s3_dispatch(compact(ll))
