@@ -436,7 +436,7 @@ docx_bookmarks2 = function(x, return_vector=FALSE) {#nocov start
 #'     body_add_crosstable(mytable)
 #' #write_and_open(doc, "example.docx")
 #' #write_and_open(doc)
-#' # nocov start
+# nocov start
 write_and_open = function(doc, docx.file){
     
     #checking if the file is already open... by removing it
