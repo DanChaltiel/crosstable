@@ -138,10 +138,13 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     }
     
     
-    if(test==T){
+    autotesting_verbosity = getOption("crosstable_verbosity_autotesting", "default")
+    if(test==T && autotesting_verbosity!="quiet"){
+        if(autotesting_verbosity=="verbose") freq = "always"
+        else freq = "regularly"
         warn("Be aware that automatic global testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.", 
              class="crosstable_autotesting_warning",
-             .frequency = "regularly", .frequency_id="crosstable_global_testing")
+             .frequency = freq, .frequency_id="crosstable_global_testing")
     }
     
     # Deprecations ********************************************************

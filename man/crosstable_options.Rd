@@ -25,6 +25,11 @@ For specifying styles in officer docx output:
 \item \code{crosstable_style_list_ordered} and \code{crosstable_style_list_unordered}, mandatory for \code{\link[=body_add_list]{body_add_list()}} to work.
 }
 
+Verbosity:
+\itemize{
+\item \code{crosstable_verbosity_autotesting}: one of \code{default}, \code{quiet}, or \code{verbose}
+}
+
 Misc:
 \itemize{
 \item \code{crosstable_only_round}: default argument for \code{\link[=format_fixed]{format_fixed()}}

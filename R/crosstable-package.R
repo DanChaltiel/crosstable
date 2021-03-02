@@ -31,6 +31,9 @@
 #'  + `crosstable_style_legend`
 #'  + `crosstable_style_list_ordered` and `crosstable_style_list_unordered`, mandatory for [body_add_list()] to work.
 #'  
+#' Verbosity: 
+#'  + `crosstable_verbosity_autotesting`: one of `default`, `quiet`, or `verbose`
+#'  
 #' Misc: 
 #'  + `crosstable_only_round`: default argument for [format_fixed()]
 #'  + `crosstable_units`: default units in [body_add_gg2()] and [body_add_img2()]
