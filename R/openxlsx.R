@@ -37,7 +37,8 @@ as_workbook = function(x, show_test_name = TRUE,
     
     assert_class(x, "crosstable", .var.name=vname(x))
     if (inherits(x, "compacted_crosstable")) {
-        stop("`as_gt` is not implemented for compacted crosstable yet.")
+        abort("`as_workbook()` is not implemented for compacted crosstable yet.",
+              class="compact_not_implemented_error")
     }
     
     border1 = fp_border(color = "black", style = "solid", width = 1)

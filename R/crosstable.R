@@ -165,13 +165,16 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     
     if(is_form && !is_lamb){
         debug$interface="formula"
-        if(length(enquos(...))>0) 
-            abort("You cannot use additional arguments through ellipsis (`...`) when using formulas with crosstable. Please include them in the formula or use another syntax.")
-        if(!is_empty(byname))
-            abort(c("`by` argument is ignored when using formula. Please include it in the formula or use another syntax.",
+        if(length(enquos(...))>0) {
+            abort("You cannot use additional arguments through ellipsis (`...`) when using formulas with crosstable. Please include them in the formula or use another syntax.", 
+                  class="crosstable_formula_ellipsis_error")
+        }
+        if(!is_empty(byname)){
+            abort(c("`by` argument cannot be used with the formula interface. Please include it in the formula or use another syntax.",
                    i=paste("formula = ", format(cols)),
-                   i=paste("by = ", paste(as.character(byname), collapse=", "))))
-        
+                   i=paste("by = ", paste(as.character(byname), collapse=", "))), 
+                  class="crosstable_formula_by_error")
+        }
         data_y = model.frame(cols[-2], data, na.action = NULL)
         byname = names(data_y)
         data_x = model.frame(cols[-3], data, na.action = NULL) %>% 
@@ -225,8 +228,14 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     }
     
     # Return checks *******************************************************
-    if(ncol(data_y)>1) stop("Crosstable does not support multiple `by` columns.")
-    if(ncol(data_y)>0 && all(is.na(data_y))) stop("The `by` column contains only missing values")
+    if(ncol(data_y)>1) {
+        abort("Crosstable does not support multiple `by` columns.",
+              class="crosstable_multiple_by_error")
+    }
+    if(ncol(data_y)>0 && all(is.na(data_y))){ 
+        abort("The `by` column contains only missing values",
+              class="crosstable_by_only_missing_error")
+    }
     
     if(ncol(data_y)==0) {
         test=effect=FALSE
@@ -245,8 +254,8 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     if(!is.null(data_y) && !is.numeric.and.not.surv(data_y[[1]]) && !is.character.or.factor(data_y[[1]])){
         abort(c("Crosstable only supports numeric, logical, character or factor `by` columns.",
                 i=glue("`by` was pointing to the column '{y}' ({yy})", 
-                       y=names(data_y[1]), yy=paste_classes(data_y[[1]])))
-        )
+                       y=names(data_y[1]), yy=paste_classes(data_y[[1]]))),
+              class="crosstable_wrong_byclass_error")
     }
     
     x_class = map_chr(data_x, ~paste_classes(.x))

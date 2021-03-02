@@ -99,7 +99,9 @@ compact.crosstable = function(data, name_from=c("label", ".id"), name_to="variab
 #' @export
 compact.default = function(data, ...) {
     fn=get_defined_function('compact')
-    if(is.null(fn) || is.null(fn[[1L]])) stop('could not find function "compact" for objects of class other than `crosstable` or `dataframe`')
+    if(is.null(fn) || is.null(fn[[1L]])) 
+        abort('could not find function "compact" for objects of class other than `crosstable` or `dataframe`', 
+              class="compact_notfound_error")
     fn[[1L]](data, ...)
 }
 

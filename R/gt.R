@@ -34,7 +34,8 @@ as_gt.crosstable = function(x, show_test_name = TRUE,
     
     assert_class(x, "crosstable", .var.name=vname(x))
     if (inherits(x, "compacted_crosstable")) {
-        stop("`as_gt` is not implemented for compacted crosstable yet.")
+        abort("`as_gt` is not implemented for compacted crosstable yet.",
+              class="compact_not_implemented_error")
     }
     
     by_label = attr(x, "by_label")
@@ -86,8 +87,8 @@ as_gt.crosstable = function(x, show_test_name = TRUE,
 #' @export
 as_gt = function(x, ...){
     if (!requireNamespace("gt", quietly = TRUE)) {
-        stop("Package \"gt\" is obviously needed for this function to work. Please install it.",
-             call. = FALSE)
+        abort("Package \"gt\" is obviously needed for function as_gt() to work. Please install it.",
+              class="missing_package_error")
     }
     UseMethod("as_gt")
 }

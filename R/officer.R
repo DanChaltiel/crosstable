@@ -95,7 +95,8 @@ body_add_normal = function(doc, ..., .sep="") {
         }
     } else { #several vectors of which at least one is length 2+
         abort(c("body_add_normal() only accepts either one vector of any length or several vectors of length 1", 
-                i=glue("Length of vectors passed: {glue_collapse(lengths, ', ')}")))
+                i=glue("Length of vectors passed: {glue_collapse(lengths, ', ')}")),
+              class="officer_wrong_vector_error")
     }
     
     doc
@@ -192,7 +193,8 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
             style = getOption('crosstable_style_list_unordered', NULL)
         }
         if(is.null(style)){
-            abort("Ordered lists and bullet lists are not supported by the default officer template. You have to set them in a custom template and use either the `style` argument or crosstable options. See `?body_add_list` examples for more details.") #nocov
+            abort("Ordered lists and bullet lists are not supported by the default officer template. You have to set them in a custom template and use either the `style` argument or crosstable options. See `?body_add_list` examples for more details.",
+                  class="officer_lists_style_error") #nocov
         }
     }
     body_add_par(doc, value, style=style, ...)
@@ -340,8 +342,10 @@ body_add_gg2 = function(doc, value, width = 6, height = 5,
                         units = getOption("crosstable_units", "in"), 
                         style = getOption("crosstable_style_image", doc$default_styles$paragraph), 
                         res = 300, ... ){
-    if(!requireNamespace("ggplot2") )
-        abort("package ggplot2 is required to use this function") # nocov
+    if(!requireNamespace("ggplot2") ){
+        abort("package ggplot2 is required to use this function",
+              class="missing_package_error") # nocov
+    }
     assert_class(value, "ggplot")
     units = match.arg(units, c("in", "cm", "mm"))
     file = tempfile(fileext=".png")
@@ -391,9 +395,10 @@ crosstable_luafilters = function(){
 docx_bookmarks2 = function(x, return_vector=FALSE) {#nocov start
     #cannot test nor add examples as there is officer::body_bookmark() but no officer::head_bookmark()
     assert_class(x, "rdocx")  
-    if(!requireNamespace("xml2"))
-        abort("Package `xml2` is needed for docx_bookmarks2() to work.")
-    
+    if(!requireNamespace("xml2")){
+        abort("Package `xml2` is needed for docx_bookmarks2() to work.",
+              class="missing_package_error")
+    }
     doc_ = xml2::xml_find_all(x$doc_obj$get(), "//w:bookmarkStart[@w:name]")
     doc_ = setdiff(xml2::xml_attr(doc_, "name"), "_GoBack")
     head_ = sapply(x$headers, function(h) {
@@ -449,7 +454,8 @@ write_and_open = function(doc, docx.file){
     }, warning=function(w) {
         message(w)
         if(str_detect(w$message, "Permission denied")){
-            abort(c("Permission denied. Is the file already open?", glue("File: {docx.file}")))
+            abort(c("Permission denied. Is the file already open?", glue("File: {docx.file}")),
+                  class="permission_denied")
         }
     })
     
@@ -458,7 +464,8 @@ write_and_open = function(doc, docx.file){
         browseURL(docx.file)
     }, error=function(e) {
         if(str_detect(e$message, "Permission denied")){
-            abort(c("Permission denied. Is the file already open?", glue("File: {docx.file}")))
+            abort(c("Permission denied. Is the file already open?", glue("File: {docx.file}")),
+                  class="permission_denied")
         }
         stop(e)
     }, warning=function(w) {

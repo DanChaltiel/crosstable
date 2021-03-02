@@ -33,8 +33,10 @@
 get_label = function(x, default=names(x), object=FALSE, simplify=TRUE){
     if(is.list(x) && !object){
         if(is.null(default)) default=rep(NA, length(x))
-        if(length(default)>1 && length(x)!=length(default)) 
-            abort("`default` should be either length 1 or the same length as `x`")
+        if(length(default)>1 && length(x)!=length(default)) {
+            abort("`default` should be either length 1 or the same length as `x`",
+                  class="labels_get_wrong_default_error")
+        }
         lab = x %>% 
             map(get_label) %>% 
             map2(default, ~{if(is.null(.x)) .y else .x})
@@ -235,16 +237,19 @@ import_labels = function(.tbl, data_label,
     
     if(missing(data_label)){
         data_label = get_last_save()
-        if(is.null(data_label)) 
-            abort("There is no saved labels. Did you forget `data_label` or calling `save_labels()`?")
-    } 
+        if(is.null(data_label)) {
+            abort("There is no saved labels. Did you forget `data_label` or calling `save_labels()`?",
+                  class="labels_import_null_error")
+        } 
+    }
     
     duplicates = data_label$name[duplicated(data_label$name)]
     s = if(length(duplicates)>1) "s" else ""
     if(length(duplicates)>0){
         abort(c(glue('Duplicated column name{s} in `data_label`, cannot identify a label uniquely'), 
                 i=glue("Duplicates name{s}: {glue_collapse(duplicates, ', ')}")), 
-              data=list(.tbl=.tbl, data_label=data_label))
+              data=list(.tbl=.tbl, data_label=data_label),
+              class="labels_import_dupkey_error")
     }
 
     no_label = names(.tbl)[!names(.tbl) %in% data_label$name]
