@@ -210,19 +210,19 @@ test_that("crosstable ultimate selection", {
 test_that("crosstable limit tests: warnings", {
     #no selection
     expect_warning(crosstable(iris2, where(function(x) FALSE)),
-                   "Variable selection in crosstable ended with no variable to describe")
+                   class="crosstable_empty_warning")
     expect_warning(crosstable(iris2, 0),
-                   "Variable selection in crosstable ended with no variable to describe")
+                   class="crosstable_empty_warning")
     expect_warning(crosstable(iris2, 0, by="Species"),
-                   "Variable selection in crosstable ended with no variable to describe")
+                   class="crosstable_empty_warning")
     
     #removes unfit variables with a warning
     expect_warning(crosstable(iris2, c(Sepal.Length, Species), by=Petal.Width),
-                   "Cannot cross column .* by column .*")
+                   class="crosstable_wrong_col_class_by_warning")
     
     x = iris2 %>% mutate(xx=list(1))
     expect_warning(crosstable(x, c(xx, Species)),
-                   "Cannot describe column '.*' \\(list\\)")
+                   class="crosstable_wrong_col_class_warning")
 })
 
 test_that("crosstable limit tests: deprecated features", {
@@ -240,14 +240,14 @@ test_that("crosstable limit tests: errors", {
     #Multiple `by` statement
     expect_error(
         crosstable(mtcars, by=c("vs", "am")),
-        "Crosstable does not support multiple `by` columns.*")
+        class="crosstable_multiple_by_error")
     expect_error(
         {mtcars %>% dplyr::mutate_at(c("vs", "am"), factor) %>% crosstable(1:2, by=c("vs", "am"))},
-        "Crosstable does not support multiple `by` columns.*")
+        class="crosstable_multiple_by_error")
     
     #either formula or `by` but not both
     expect_error(crosstable(iris2, Sepal.Width~Species, by="Species"),
-                 "`by` argument is ignored when using formula")
+                 class="crosstable_formula_by_error")
     
     #one-sided formula but not a lambda
     A="foobar" #in helper-crosstable.R
@@ -258,9 +258,11 @@ test_that("crosstable limit tests: errors", {
     
     #wrong functions (returning non-scalar)
     expect_error(crosstable(iris2, ~.x, by="Species"),
-                 "Result 1 must be a single logical, .*", class = "rlang_error")
+                 "Result 1 must be a single logical, .*", 
+                 class = "rlang_error")
     expect_error(crosstable(iris2, ~c(is.numeric(.x),is.numeric(.x)), by="Species"),
-                 "Result 1 must be a single logical, .*", class = "rlang_error")
+                 "Result 1 must be a single logical, .*", 
+                 class = "rlang_error")
 })
 
 

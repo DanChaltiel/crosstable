@@ -134,16 +134,14 @@ test_that("Import labels: standard is OK", {
 })
 
 test_that("Import labels: warnings", {
-    # print(iris_label)
-    # print(df)
     import_labels(df, iris_label, verbose_label = T) %>% 
-        expect_warning("Name .* not found")
-    import_labels(df, iris_label, verbose_name = T) %>% 
-        expect_warning("Variable .* did not have any label")
+        expect_warning(class="missing_label_name_warning")
+    import_labels(df, iris_label, verbose_name = T) %>%
+        expect_warning(class="missing_label_warning")
     #both
     import_labels(df, iris_label, verbose_label = T, verbose_name = T) %>% 
-        expect_warning("Variable .* did not have any label") %>% 
-        expect_warning("Name .* not found")
+        expect_warning(class="missing_label_name_warning") %>% 
+        expect_warning(class="missing_label_warning")
 })
 
 test_that("Import labels: errors", {
@@ -151,20 +149,18 @@ test_that("Import labels: errors", {
     #error no save
     remove_last_save()
     expect_error(import_labels(iris), 
-                 "There is no saved labels")
-    expect_error(import_labels(iris), 
-                 "There is no saved labels")
+                 class="labels_import_null_error")
     
     #error duplicates
     iris_label_dup = iris_label
     iris_label_dup[5,] = list("Petal.Length", "xxxxx")
     iris_label_dup[6,] = list("Petal.Width",  "ttttt")
     expect_error(import_labels(iris, iris_label_dup), 
-                 "Duplicated column names")
+                 class="labels_import_dupkey_error")
     
     #deprecation
-    import_labels(iris, iris_label, verbose=TRUE)%>% 
-        expect_warning("Variable .* did not have any label") %>% 
+    import_labels(iris, iris_label, verbose=TRUE) %>%  
+        expect_warning(class="missing_label_warning") %>% 
         lifecycle::expect_deprecated()
 })
 
@@ -201,8 +197,4 @@ test_that("rename_dataframe_with_labels ", {
     x=rename_dataframe_with_labels(mtcars2)
     expect_equal(names(x), unname(get_label(mtcars2)))
 })
-
-
-
-
 

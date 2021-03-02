@@ -317,7 +317,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'mpg' (numeric)
     Output
       [1] Freq
@@ -332,7 +332,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'mpg', 'disp', 'hp', 'drat', 'wt', 'qsec', 'gear', 'carb', 'hp_date', 'qsec_posix', 'cyl3', 'dummy', 'dummy_na', 'dummy_num_vs', 'dummy2', and 'diff'. Aren't there 2 groups exactly?
     Output
                                                                                                                                                                                              .
@@ -359,7 +359,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'disp' (numeric)
     Output
       [1] Freq
@@ -374,7 +374,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'hp' (numeric)
     Output
       [1] Freq
@@ -389,7 +389,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'drat' (numeric)
     Output
       [1] Freq
@@ -404,7 +404,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'wt' (numeric)
     Output
       [1] Freq
@@ -419,7 +419,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'qsec' (numeric)
     Output
       [1] Freq
@@ -434,8 +434,9 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (coxph): 'Loglik converged before variable 1,2 ; coefficient may be infinite. '.
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'cyl', 'gear', 'cyl3', 'dummy', 'dummy_na', and 'dummy2'. Aren't there 2 groups exactly?
     Output
                                                                                                                                                               .
@@ -480,8 +481,9 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (coxph): 'Loglik converged before variable 1 ; coefficient may be infinite. '.
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'cyl', 'gear', 'cyl3', 'dummy', 'dummy_na', and 'dummy2'. Aren't there 2 groups exactly?
     Output
                                                                                                      .
@@ -528,8 +530,9 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (coxph): 'Loglik converged before variable 1,2 ; coefficient may be infinite. '.
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'mpg', 'cyl', 'disp', 'hp', 'drat', 'wt', 'qsec', 'carb', 'hp_date', 'qsec_posix', 'cyl3', 'dummy', 'dummy_na', 'dummy_num_vs', 'dummy2', and 'diff'. Aren't there 2 groups exactly?
     Output
                                                                                                                                                    .
@@ -556,7 +559,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'carb' (numeric)
     Output
       [1] Freq
@@ -571,7 +574,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'mpg', 'cyl', 'disp', 'hp', 'drat', 'wt', 'qsec', 'vs', 'am', 'gear', 'carb', 'hp_date', 'qsec_posix', 'cyl6', 'dummy', 'dummy_na', 'dummy_num_vs', 'dummy2', 'test', and 'diff'. Aren't there 2 groups exactly?
     Output
                                                                        . Freq
@@ -587,7 +590,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'cyl', 'gear', 'cyl3', 'dummy', 'dummy_na', and 'dummy2'. Aren't there 2 groups exactly?
     Output
                                                                                                                                             .
@@ -632,7 +635,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'mpg', 'cyl', 'disp', 'hp', 'drat', 'wt', 'qsec', 'vs', 'am', 'gear', 'carb', 'hp_date', 'qsec_posix', 'cyl3', 'cyl6', 'dummy_na', 'dummy_num_vs', 'dummy2', 'test', and 'diff'. Aren't there 2 groups exactly?
     Output
                  . Freq
@@ -648,7 +651,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'dummy_num_vs' (numeric)
     Output
       [1] Freq
@@ -663,8 +666,9 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (coxph): 'Loglik converged before variable 1 ; coefficient may be infinite. '.
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'mpg', 'cyl', 'disp', 'hp', 'drat', 'wt', 'qsec', 'vs', 'am', 'gear', 'carb', 'hp_date', 'qsec_posix', 'cyl3', 'cyl6', 'dummy', 'dummy_na', 'dummy_num_vs', 'test', and 'diff'. Aren't there 2 groups exactly?
     Output
                                                                               . Freq
@@ -680,7 +684,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'cyl', 'gear', 'cyl3', 'dummy', 'dummy_na', and 'dummy2'. Aren't there 2 groups exactly?
     Output
                                                                                               .
@@ -725,7 +729,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'mpg' (numeric)
     Output
       [1] Freq
@@ -740,15 +744,18 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'mpg', 'disp', 'hp', 'drat', 'wt', 'qsec', 'gear', 'carb', 'hp_date', 'qsec_posix', 'dummy_num_vs', and 'diff'. Aren't there 2 groups exactly?
     Output
                                                                                                                                                                                              .
@@ -771,7 +778,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'disp' (numeric)
     Output
       [1] Freq
@@ -786,7 +793,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'hp' (numeric)
     Output
       [1] Freq
@@ -801,7 +808,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'drat' (numeric)
     Output
       [1] Freq
@@ -816,7 +823,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'wt' (numeric)
     Output
       [1] Freq
@@ -831,7 +838,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'qsec' (numeric)
     Output
       [1] Freq
@@ -846,14 +853,16 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (coxph): 'Loglik converged before variable 1,2 ; coefficient may be infinite. '.
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'cyl', and 'gear'. Aren't there 2 groups exactly?
     Output
                                                                                                                                                               .
@@ -898,13 +907,15 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (coxph): 'Loglik converged before variable 1 ; coefficient may be infinite. '.
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'cyl', and 'gear'. Aren't there 2 groups exactly?
     Output
                                                                                                         .
@@ -951,14 +962,16 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (coxph): 'Loglik converged before variable 1,2 ; coefficient may be infinite. '.
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'mpg', 'cyl', 'disp', 'hp', 'drat', 'wt', 'qsec', 'carb', 'hp_date', 'qsec_posix', 'dummy_num_vs', and 'diff'. Aren't there 2 groups exactly?
     Output
                                                                                                                                                       .
@@ -983,7 +996,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'carb' (numeric)
     Output
       [1] Freq
@@ -998,7 +1011,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'mpg', 'cyl', 'disp', 'hp', 'drat', 'wt', 'qsec', 'vs', 'am', 'gear', 'carb', 'hp_date', 'qsec_posix', 'cyl6', 'dummy', 'dummy_na', 'dummy_num_vs', 'dummy2', 'test', and 'diff'. Aren't there 2 groups exactly?
     Output
                                                                        . Freq
@@ -1014,16 +1027,22 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'step size truncated due to divergence' and 'glm.fit: algorithm did not converge'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'cyl', and 'gear'. Aren't there 2 groups exactly?
     Output
                                                                                                                                             .
@@ -1066,7 +1085,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'mpg', 'cyl', 'disp', 'hp', 'drat', 'wt', 'qsec', 'vs', 'am', 'gear', 'carb', 'hp_date', 'qsec_posix', 'cyl3', 'cyl6', 'dummy_na', 'dummy_num_vs', 'dummy2', 'test', and 'diff'. Aren't there 2 groups exactly?
     Output
                  . Freq
@@ -1082,7 +1101,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'dummy_num_vs' (numeric)
     Output
       [1] Freq
@@ -1097,8 +1116,9 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (coxph): 'Loglik converged before variable 1 ; coefficient may be infinite. '.
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'mpg', 'cyl', 'disp', 'hp', 'drat', 'wt', 'qsec', 'vs', 'am', 'gear', 'carb', 'hp_date', 'qsec_posix', 'cyl3', 'cyl6', 'dummy', 'dummy_na', 'dummy_num_vs', 'test', and 'diff'. Aren't there 2 groups exactly?
     Output
                                                                               . Freq
@@ -1114,12 +1134,13 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
       An error occured when calculating crosstable effects (glm): 'no valid set of coefficients has been found: please supply starting values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'cyl', and 'gear'. Aren't there 2 groups exactly?
     Output
                                                                                                  .
@@ -1166,7 +1187,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'mpg' (numeric)
     Output
       [1] Freq
@@ -1181,19 +1202,30 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred'. You might want to check for complete separation or extreme outliers.
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'mpg', 'disp', 'hp', 'drat', 'wt', 'qsec', 'gear', 'carb', 'hp_date', 'qsec_posix', 'dummy_num_vs', and 'diff'. Aren't there 2 groups exactly?
     Output
                                                                                                                                                                                              .
@@ -1220,7 +1252,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'disp' (numeric)
     Output
       [1] Freq
@@ -1235,7 +1267,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'hp' (numeric)
     Output
       [1] Freq
@@ -1250,7 +1282,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'drat' (numeric)
     Output
       [1] Freq
@@ -1265,7 +1297,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'wt' (numeric)
     Output
       [1] Freq
@@ -1280,7 +1312,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'qsec' (numeric)
     Output
       [1] Freq
@@ -1295,17 +1327,26 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (coxph): 'Loglik converged before variable 1,2 ; coefficient may be infinite. '.
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'cyl', and 'gear'. Aren't there 2 groups exactly?
     Output
                                                                                                                                                               .
@@ -1354,16 +1395,25 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (coxph): 'Loglik converged before variable 1 ; coefficient may be infinite. '.
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'cyl', and 'gear'. Aren't there 2 groups exactly?
     Output
                                                                                                  .
@@ -1412,17 +1462,26 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred', 'glm.fit: algorithm did not converge' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (coxph): 'Loglik converged before variable 1,2 ; coefficient may be infinite. '.
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'mpg', 'cyl', 'disp', 'hp', 'drat', 'wt', 'qsec', 'carb', 'hp_date', 'qsec_posix', 'dummy_num_vs', and 'diff'. Aren't there 2 groups exactly?
     Output
                                                                                                                                                                           .
@@ -1451,7 +1510,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'carb' (numeric)
     Output
       [1] Freq
@@ -1466,7 +1525,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'mpg', 'cyl', 'disp', 'hp', 'drat', 'wt', 'qsec', 'vs', 'am', 'gear', 'carb', 'hp_date', 'qsec_posix', 'cyl6', 'dummy', 'dummy_na', 'dummy_num_vs', 'dummy2', 'test', and 'diff'. Aren't there 2 groups exactly?
     Output
                                                                        . Freq
@@ -1482,17 +1541,26 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred'. You might want to check for complete separation or extreme outliers.
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'cyl', and 'gear'. Aren't there 2 groups exactly?
     Output
                                                                                                                                             .
@@ -1539,7 +1607,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'mpg', 'cyl', 'disp', 'hp', 'drat', 'wt', 'qsec', 'vs', 'am', 'gear', 'carb', 'hp_date', 'qsec_posix', 'cyl3', 'cyl6', 'dummy_na', 'dummy_num_vs', 'dummy2', 'test', and 'diff'. Aren't there 2 groups exactly?
     Output
                  . Freq
@@ -1555,7 +1623,7 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_wrong_col_class_by_warning>
       Cannot cross columns 'test' (factor), 'vs' (character), 'dummy_na' (character), 'dummy2' (character), 'qsec_posix' (POSIXct, POSIXt), 'hp_date' (Date), 'am' (character), 'cyl3' (character), 'cyl' (factor), 'cyl6' (character), 'surv' (Surv), 'gear' (factor), and 'dummy' (character) by column 'dummy_num_vs' (numeric)
     Output
       [1] Freq
@@ -1570,8 +1638,9 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (coxph): 'Loglik converged before variable 1 ; coefficient may be infinite. '.
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'mpg', 'cyl', 'disp', 'hp', 'drat', 'wt', 'qsec', 'vs', 'am', 'gear', 'carb', 'hp_date', 'qsec_posix', 'cyl3', 'cyl6', 'dummy', 'dummy_na', 'dummy_num_vs', 'test', and 'diff'. Aren't there 2 groups exactly?
     Output
                                                                               . Freq
@@ -1587,16 +1656,24 @@
     Code
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>%
         table %>% as.data.frame()
-    Warning <simpleWarning>
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       A problem occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred'. You might want to check for complete separation or extreme outliers.
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_warning>
       Problems occured when calculating crosstable effects (glm): 'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_error_warning>
       An error occured when calculating crosstable effects (glm): 'need at least two non-NA values to interpolate'. You might want to check for complete separation or extreme outliers.
+    Warning <crosstable_effect_2groups_warning>
       Could not calculate crosstable effects for variables 'cyl', and 'gear'. Aren't there 2 groups exactly?
     Output
                                                                                           .
