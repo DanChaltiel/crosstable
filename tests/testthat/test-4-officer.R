@@ -13,6 +13,7 @@ compare_snapshot_doc = function(name){
 }
 
 expect_snapshot_doc = function(doc){
+    skip_on_os(c("mac", "linux", "solaris"))
     doc_xml = xml2::as_list(doc$doc_obj$get())
     
     sp = testthat:::get_snapshotter()
@@ -56,6 +57,7 @@ crosstables = suppressWarnings({
 })
 
 test_that("crosstables: Simple", {
+    skip_on_os(c("mac", "linux", "solaris"))
     i="Simple"
     ct = crosstables[[i]]
     expect_s3_class(ct, c("crosstable"))
@@ -80,6 +82,7 @@ test_that("crosstables: Simple", {
     expect_snapshot_doc(doc)
 })
 test_that("crosstables: Double with effects", {
+    skip_on_os(c("mac", "linux", "solaris"))
     i="Double_effect"
     ct = crosstables[[i]]
     expect_s3_class(ct, c("crosstable"))
@@ -104,6 +107,7 @@ test_that("crosstables: Double with effects", {
     expect_snapshot_doc(doc)
 })
 test_that("crosstables: Triple", {
+    skip_on_os(c("mac", "linux", "solaris"))
     i="Triple"
     ct = crosstables[[i]]
     expect_s3_class(ct, c("crosstable"))
@@ -134,6 +138,7 @@ test_that("crosstables: Triple", {
 
 
 test_that("crosstables helpers", {
+    skip_on_os(c("mac", "linux", "solaris"))
     withr::local_options(crosstable_style_list_ordered="toc 1",
                          crosstable_style_list_unordered="toc 2",
                          crosstable_style_image="centered",
@@ -163,6 +168,7 @@ test_that("crosstables helpers", {
 
 
 test_that("Utils functions", {
+    skip_on_os(c("mac", "linux", "solaris"))
     withr::local_options(crosstable_units="cm")
 
     info_rows = c("Also, table iris has {nrow(iris)} rows.", "And table mtcars has {nrow(mtcars)} rows.")
@@ -183,12 +189,12 @@ test_that("Utils functions", {
         body_add_gg2(p, w=14, h=10, scale=1.5) %>%
         body_add_gg2(p, w=14/2.5, h=10/2.5, scale=1.5, units="in") %>%
         identity()
-
     expect_snapshot_doc(doc)
 })
 
 
 test_that("Legend fields", {
+    skip_on_os(c("mac", "linux", "solaris"))
     #cannot use snapshot as fields are identified with uuid
     doc = read_docx() %>%
         body_add_normal("As you can see in Table \\@ref(tab1) and in Figure \\@ref(fig1), ",
@@ -207,6 +213,7 @@ test_that("Legend fields", {
 
 
 test_that("Officers warnings and errors", {
+    skip_on_os(c("mac", "linux", "solaris"))
     pars1 = c("Paragraphe 1.1", "Paragraphe 1.2")
     pars2 = c("Paragraphe 2.1", "Paragraphe 2.2")
     expect_error(body_add_normal(read_docx(), pars1, pars2),
