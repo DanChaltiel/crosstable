@@ -7,24 +7,38 @@ utils::globalVariables(".")
 #' @author https://stackoverflow.com/a/20578779/3888000
 #' @keywords internal
 #' @noRd
+#' @examples 
+#' foo=function(){log(-1);warn("outch");message("foo");message("bar");stop("END");1}
+#' x=tryCatch2(foo())
+#' x
+#' attributes(x)
 tryCatch2 = function(expr){
     errors = list()
     warnings = list()
+    messages = list()
     rtn = withCallingHandlers(
-        tryCatch(expr,
-                 error=function(e) {errors <<- c(errors, conditionMessage(e)); return("error")}),
-        warning=function(m){
-            warnings <<- c(warnings, conditionMessage(m))
+        tryCatch(
+            expr,
+            error=function(e) {
+                errors <<- c(errors, conditionMessage(e))
+                # return(e)
+                return("error")
+            }
+        ),
+        warning=function(w){
+            warnings <<- c(warnings, conditionMessage(w))
             invokeRestart("muffleWarning")
+        },
+        message=function(m){
+            messages <<- c(messages, conditionMessage(m))
+            invokeRestart("muffleMessage")
         }
     )
-    # attr(rtn, "msg") = unique(msg)
     attr(rtn, "errors") = unique(unlist(errors))
     attr(rtn, "warnings") = unique(unlist(warnings))
+    attr(rtn, "messages") = unique(unlist(messages))
     rtn
 }
-
-
 
 
 # Function handling --------------------------------------------------------
