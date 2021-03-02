@@ -66,7 +66,6 @@ expect_cross = function(expr, xnames, byname, dim, expect=c("nothing", "silent",
         expect_equal(unname(iris2names[xnames]), unique(as.character(x$.id)))
     else
         expect_equal(unname(xnames), unique(x$.id))
-    debug <<- c(debug, list(attr(x, "debug")))
 }
 
 
