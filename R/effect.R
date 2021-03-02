@@ -19,7 +19,7 @@ crosstable_effect_args = function(){
     list( 
         effect_summarize = diff_mean_auto, 
         effect_tabular = effect_odds_ratio,
-        effect_survival = effect_survival_coxph, 
+        effect_survival = effect_survival_coxph,
         conf_level = 0.95,
         digits = 2,
         show_effect = display_effect
@@ -119,18 +119,18 @@ effect_relative_risk = function (x, y, conf_level = 0.95) {
         if(!is.null(msg)){
             p = if(length(msg)==1) "A problem" else "Problems"
             w = glue_collapse(msg, "', '", last="' and '")
-            warning(str_squish(glue("{p} occured when calculating 
+            warn(str_squish(glue("{p} occured when calculating 
                         crosstable effects (glm): '{w}'. {default_warning}")), 
-                    call. = F)
+                 class="crosstable_effect_warning")
         }
         
         msg = unique(c(attr(mod, "errors"), attr(ci, "errors")))
         if(length(msg)>1) msg = attr(mod, "errors")
         if(!is.null(msg)) {
             w = glue_collapse(msg, "', '", last="' and '")
-            warning(str_squish(glue("An error occured when calculating 
+            warn(str_squish(glue("An error occured when calculating 
                 crosstable effects (glm): '{w}'. {default_warning}")), 
-                    call. = F)
+                 class="crosstable_effect_error_warning")
             return(glue("Error (glm: {w})"))
         }
         
@@ -166,18 +166,18 @@ effect_risk_difference = function (x, y, conf_level = 0.95) {
         if(!is.null(msg)){
             p = if(length(msg)==1) "A problem" else "Problems"
             w = glue_collapse(msg, "', '", last="' and '")
-            warning(str_squish(glue("{p} occured when calculating 
+            warn(str_squish(glue("{p} occured when calculating 
                         crosstable effects (glm): '{w}'. {default_warning}")), 
-                    call. = F)
+                 class="crosstable_effect_warning")
         }
         
         msg = unique(c(attr(mod, "errors"), attr(ci, "errors")))
         if(length(msg)>1) msg = attr(mod, "errors")
         if(!is.null(msg)) {
             w = glue_collapse(msg, "', '", last="' and '")
-            warning(str_squish(glue("An error occured when calculating 
+            warn(str_squish(glue("An error occured when calculating 
                 crosstable effects (glm): '{w}'. {default_warning}")), 
-                    call. = F)
+                 class="crosstable_effect_error_warning")
             return(glue("Error (glm: {w})"))
         }
         
@@ -380,17 +380,17 @@ effect_survival_coxph = function(formula, conf_level = 0.95) {
     if(!is.null(msg)){
         p = if(length(msg)==1) "A problem" else "Problems"
         w = glue_collapse(msg, "', '", last="' and '")
-        warning(str_squish(glue("{p} occured when calculating 
+        warn(str_squish(glue("{p} occured when calculating 
                 crosstable effects (coxph): '{w}'.")), 
-                call. = F)
+             class="crosstable_effect_warning")
     }
     
     msg = attr(mod, "errors")
     if(!is.null(msg)) {
         w = glue_collapse(msg, "', '", last="' and '")
-        warning(str_squish(glue("An error occured when calculating 
+        warn(str_squish(glue("An error occured when calculating 
                 crosstable effects (coxph): '{w}'.")), 
-                call. = F)
+             class="crosstable_effect_error_warning")
         return(glue("Error (coxph: {w})"))
     }
     

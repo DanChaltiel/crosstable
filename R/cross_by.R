@@ -18,7 +18,8 @@ cross_by = function(data_x, data_y, funs, funs_arg, margin, total, percent_digit
             s2 = if(sum(is.na(.x))>1) "s" else ""
             warn(c(glue('Cannot describe column "{.y}" as it contains both `NA` (missing values) and "NA" (string)'),
                   i=glue('NA as strings on row{s1} {na_string}'),
-                  i=glue('NA missing value on row{s2} {na_proper}')))
+                  i=glue('NA missing value on row{s2} {na_proper}')),
+                 class = "crosstable_na_char_warning")
             errors[[.y]] = data.frame(name=.y, class="Both `NA` and 'NA'")
             return(NULL)
         }
@@ -62,12 +63,12 @@ cross_by = function(data_x, data_y, funs, funs_arg, margin, total, percent_digit
         s=if(nrow(errors)>1) "s" else ""
         errors_s = glue_data(errors, "'{name}' ({class})") %>% glue_collapse(", ", last = ", and ")
         if(is.null(data_y)){
-            warning(call. = FALSE, 
-                    glue("Cannot describe column{s} {errors_s}"))
+            warn(glue("Cannot describe column{s} {errors_s}"),
+                 class = "crosstable_wrong_col_class_warning")
         } else {
-            warning(call. = FALSE, 
-                    glue("Cannot cross column{s} {errors_s} by column '{y}' ({yy})", 
-                         y=names(data_y[1]),  yy=paste_classes(data_y[[1]])))
+            warn(glue("Cannot cross column{s} {errors_s} by column '{y}' ({yy})", 
+                      y=names(data_y[1]),  yy=paste_classes(data_y[[1]])),
+                 class = "crosstable_wrong_col_class_by_warning")
         }
     }
     
@@ -75,7 +76,8 @@ cross_by = function(data_x, data_y, funs, funs_arg, margin, total, percent_digit
         x=rtn_tbl %>% filter(effect=="No effect?") %>% pull(.data$.id) %>% unique
         s=if(length(x)>1) "s" else ""
         v=glue_collapse(x, "', '", last="', and '")
-        warning(glue("Could not calculate crosstable effects for variable{s} '{v}'. Aren't there 2 groups exactly?"), call. = FALSE)
+        warn(glue("Could not calculate crosstable effects for variable{s} '{v}'. Aren't there 2 groups exactly?"),
+             class = "crosstable_effect_2groups_warning")
     }
     
     rownames(rtn_tbl)=NULL

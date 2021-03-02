@@ -140,9 +140,10 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     
     if(test==T){
         warn("Be aware that automatic global testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.", 
+             class="crosstable_autotesting_warning",
              .frequency = "regularly", .frequency_id="crosstable_global_testing")
     }
-
+    
     # Deprecations ********************************************************
     
     if (!missing(...)) {
@@ -233,7 +234,8 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     }
     
     if(ncol(data_x)==0) {
-        warn(c("Variable selection in crosstable ended with no variable to describe"))
+        warn("Variable selection in crosstable ended with no variable to describe",
+             class="crosstable_empty_warning")
         rtn=data.frame()
         class(rtn) = c("crosstable", "data.frame")
         attr(rtn, "debug") = debug

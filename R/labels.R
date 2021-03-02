@@ -176,7 +176,8 @@ apply_labels = function (data, ..., warn_missing=FALSE) {
     args = list(...)
     unknowns = setdiff(names(args), names(data))
     if (length(unknowns) && warn_missing) {
-        warning("Some names don't exist in `data`: ", paste(unknowns, collapse = ", "))
+        warn("Some names don't exist in `data`: ", paste(unknowns, collapse = ", "),
+             class="missing_label_warning")
     }
     
     imap_dfr(data, ~{
@@ -251,15 +252,17 @@ import_labels = function(.tbl, data_label,
     if(length(no_label)>0 && verbose_name){
         warn(c(glue('Variable{s} in `.tbl` did not have any label'), 
                 i=glue("Variable{s} without label: {glue_collapse(no_label, ', ')}")), 
-              data=list(.tbl=.tbl, data_label=data_label))
+             class="missing_label_warning",
+             data=list(.tbl=.tbl, data_label=data_label))
     }
     
     not_found = data_label$name[!data_label$name %in% names(.tbl)]
     s = if(length(not_found)>1) "s" else ""
     if(length(not_found)>0 && verbose_label){
         warn(c(glue('Name{s} in `data_label` not found in `.tbl`'), 
-                i=glue("Name{s} unused: {glue_collapse(not_found, ', ')}")), 
-              data=list(.tbl=.tbl, data_label=data_label))
+               i=glue("Name{s} unused: {glue_collapse(not_found, ', ')}")), 
+             class="missing_label_name_warning",
+             data=list(.tbl=.tbl, data_label=data_label))
     }
     
     data_label = as.data.frame(data_label) %>% column_to_rownames(name_from)
