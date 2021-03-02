@@ -47,6 +47,7 @@ test_that("crosstable with character vector", {
 # External character vector -------------------------------
 test_that("crosstable with external character vector", {
     XX=c("Sepal.Length", "Sepal.Width") #cf helper-crosstable.R
+    rlang::local_options(tidyselect_verbosity = "verbose")
     
     expect_cross(
         crosstable(iris2, all_of(XX), by="Species"),
