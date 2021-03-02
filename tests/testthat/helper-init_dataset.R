@@ -1,20 +1,20 @@
 
 Sys.setenv(LANG = "en")
 
-
 options(stringsAsFactors = FALSE)
 options(width = 200)
 # options(warn = 2)
 # options(warn = 1)
 # options(tidyselect_verbosity = "verbose") #quiet or verbose
-# getOption("tidyselect_verbosity")
+# options(lifecycle_verbosity = "error") #NULL, "quiet", "warning" or "error"
 
 library(dplyr, warn.conflicts = FALSE)
-library(survival, warn.conflicts = FALSE)
 library(crosstable, warn.conflicts = FALSE)
-# library(stats)
+library(stats, warn.conflicts = FALSE)
+library(officer, warn.conflicts = FALSE)
+# library(survival, warn.conflicts = FALSE)
 
-
+set.seed(1234)
 mtcars3 = as_tibble(mtcars2)
 mtcars3$cyl[1:5] = NA
 mtcars3$vs[5:12] = NA
@@ -32,14 +32,6 @@ mtcars3$surv = survival::Surv(mtcars3$disp, mtcars3$am=="manual") %>% set_label(
 mtcars3$diff = difftime(mtcars3$hp_date, mtcars3$qsec_posix, units="days") %>% set_label("Difftime hp_date-qsec_posix (days)")
 
 
-debug=list()
-# debug %>% map_dfr(identity) %>% table
-
-
-
-
-# local_edition(3)
-# print("testthat, 3rd edition")
 
 
 # Functions ---------------------------------------------------------------
@@ -58,7 +50,7 @@ expect_cross = function(expr, xnames, byname, dim, expect=c("nothing", "silent",
         x=expect_warning(expr, regex)
     else
         x=expect_error(expr, regex)
-    expect_is(x, c("data.frame", "crosstable"))
+    expect_s3_class(x, c("data.frame", "crosstable"))
     expect_equal(dim, dim(x))
     expect_equal(byname, unname(attr(x, "by")))
     

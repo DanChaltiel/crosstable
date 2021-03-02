@@ -9,14 +9,16 @@ test_that("Labelling dataframes", {
         dplyr::mutate(cyl=remove_label(cyl))
     
     expect_null(get_label(xx$cyl))
-    expect_equal(get_label(xx$cyl, default="foobar"), "foobar")
-    expect_equal(get_label(xx$mpg), "Miles/(US) gallon")
-    expect_equal(get_label(xx), #TODO snapshot testthat v3
-                 c(mpg = "Miles/(US) gallon", cyl = "cyl", disp = "Displacement (cu.in.)",
-                   hp = "Gross horsepower", drat = "Rear axle ratio", wt = "Weight (1000 lbs)",
-                   qsec = "1/4 mile time", vs = "Engine", am = "Transmission",
-                   gear = "Number of forward gears", carb = "Number of carburetors",
-                   hp_date = "Some nonsense date", qsec_posix = "Date+time"))
+    # expect_equal(get_label(xx$cyl, default="foobar"), "foobar")
+    # expect_equal(get_label(xx$mpg), "Miles/(US) gallon")
+    # expect_equal(get_label(xx), #TODO snapshot testthat v3
+    #              c(mpg = "Miles/(US) gallon", cyl = "cyl", disp = "Displacement (cu.in.)",
+    #                hp = "Gross horsepower", drat = "Rear axle ratio", wt = "Weight (1000 lbs)",
+    #                qsec = "1/4 mile time", vs = "Engine", am = "Transmission",
+    #                gear = "Number of forward gears", carb = "Number of carburetors",
+    #                hp_date = "Some nonsense date", qsec_posix = "Date+time"))
+    
+    expect_snapshot(get_label(xx))
 })
 
 test_that("Labelling unnamed dataframes/lists", {
@@ -35,32 +37,34 @@ test_that("Labelling objects", {
     
 })
 
-test_that("Labelling nested lists", {
+test_that("Labelling nested lists (get)", {
     x = list(
         list(1,2,3),
         list(iris=iris2, mtcars2),
         list("foo"="bar", "ffoo"="bbar")
     )
-    expect_equal(get_label(x), 
-                 c(NA, NA, NA, iris.Sepal.Length = "Length of Sepal", iris.Sepal.Width = "Width of Sepal", 
-                   iris.Petal.Length = "Length of Petal", iris.Petal.Width = "Width of Petal", 
-                   iris.Species = "Specie", mpg = "Miles/(US) gallon", cyl = "Number of cylinders", 
-                   disp = "Displacement (cu.in.)", hp = "Gross horsepower", drat = "Rear axle ratio", 
-                   wt = "Weight (1000 lbs)", qsec = "1/4 mile time", vs = "Engine", 
-                   am = "Transmission", gear = "Number of forward gears", carb = "Number of carburetors", 
-                   hp_date = "Some nonsense date", qsec_posix = "Date+time", foo = "foo", 
-                   ffoo = "ffoo"))
-    expect_equal(get_label(x, simplify=FALSE), 
-                 list(c(NA, NA, NA), 
-                      c(iris.Sepal.Length = "Length of Sepal", 
-                        iris.Sepal.Width = "Width of Sepal", iris.Petal.Length = "Length of Petal", 
-                        iris.Petal.Width = "Width of Petal", iris.Species = "Specie", 
-                        mpg = "Miles/(US) gallon", cyl = "Number of cylinders", disp = "Displacement (cu.in.)", 
-                        hp = "Gross horsepower", drat = "Rear axle ratio", wt = "Weight (1000 lbs)", 
-                        qsec = "1/4 mile time", vs = "Engine", am = "Transmission", gear = "Number of forward gears", 
-                        carb = "Number of carburetors", hp_date = "Some nonsense date", 
-                        qsec_posix = "Date+time"), 
-                      c(foo = "foo", ffoo = "ffoo")))
+    expect_snapshot(get_label(x))
+    expect_snapshot(get_label(x, simplify=FALSE))
+    # expect_equal(get_label(x), 
+    #              c(NA, NA, NA, iris.Sepal.Length = "Length of Sepal", iris.Sepal.Width = "Width of Sepal", 
+    #                iris.Petal.Length = "Length of Petal", iris.Petal.Width = "Width of Petal", 
+    #                iris.Species = "Specie", mpg = "Miles/(US) gallon", cyl = "Number of cylinders", 
+    #                disp = "Displacement (cu.in.)", hp = "Gross horsepower", drat = "Rear axle ratio", 
+    #                wt = "Weight (1000 lbs)", qsec = "1/4 mile time", vs = "Engine", 
+    #                am = "Transmission", gear = "Number of forward gears", carb = "Number of carburetors", 
+    #                hp_date = "Some nonsense date", qsec_posix = "Date+time", foo = "foo", 
+    #                ffoo = "ffoo"))
+    # expect_equal(get_label(x, simplify=FALSE), 
+    #              list(c(NA, NA, NA), 
+    #                   c(iris.Sepal.Length = "Length of Sepal", 
+    #                     iris.Sepal.Width = "Width of Sepal", iris.Petal.Length = "Length of Petal", 
+    #                     iris.Petal.Width = "Width of Petal", iris.Species = "Specie", 
+    #                     mpg = "Miles/(US) gallon", cyl = "Number of cylinders", disp = "Displacement (cu.in.)", 
+    #                     hp = "Gross horsepower", drat = "Rear axle ratio", wt = "Weight (1000 lbs)", 
+    #                     qsec = "1/4 mile time", vs = "Engine", am = "Transmission", gear = "Number of forward gears", 
+    #                     carb = "Number of carburetors", hp_date = "Some nonsense date", 
+    #                     qsec_posix = "Date+time"), 
+    #                   c(foo = "foo", ffoo = "ffoo")))
 })
 
 
@@ -68,7 +72,7 @@ test_that("Labelling nested lists", {
 # Setting labels ----------------------------------------------------------
 
 
-test_that("Labelling nested lists", {
+test_that("Labelling nested lists (set)", {
     x = list(
         list(1,2,3),
         list(iris=iris2, mtcars2),
@@ -97,7 +101,7 @@ test_that("Removing labels", {
     expect_type(x2, "double")
     
     expect_s3_class(x, c("labelled", "numeric"))
-    expect_is(x2, "numeric")#TODO https://github.com/r-lib/testthat/issues/1321
+    expect_s3_class(x2, NA)
     
     #limit case
     expect_null(remove_label(NULL))
@@ -130,15 +134,16 @@ test_that("Import labels: standard is OK", {
 })
 
 test_that("Import labels: warnings", {
-    expect_warning(import_labels(df, iris_label, verbose_label = T), 
-                   "Name .* not found")
-    expect_warning(import_labels(df, iris_label, verbose_name = T), 
-                   "Variable .* did not have any label")
+    # print(iris_label)
+    # print(df)
+    import_labels(df, iris_label, verbose_label = T) %>% 
+        expect_warning("Name .* not found")
+    import_labels(df, iris_label, verbose_name = T) %>% 
+        expect_warning("Variable .* did not have any label")
     #both
-    expect_warning(import_labels(df, iris_label, verbose_label = T, verbose_name = T), 
-                   "Variable .* did not have any label")
-    expect_warning(import_labels(df, iris_label, verbose_label = T, verbose_name = T), 
-                   "Name .* not found")
+    import_labels(df, iris_label, verbose_label = T, verbose_name = T) %>% 
+        expect_warning("Variable .* did not have any label") %>% 
+        expect_warning("Name .* not found")
 })
 
 test_that("Import labels: errors", {
@@ -158,7 +163,9 @@ test_that("Import labels: errors", {
                  "Duplicated column names")
     
     #deprecation
-    lifecycle::expect_deprecated(import_labels(iris, iris_label, verbose=TRUE))
+    import_labels(iris, iris_label, verbose=TRUE)%>% 
+        expect_warning("Variable .* did not have any label") %>% 
+        lifecycle::expect_deprecated()
 })
 
 test_that("Applying labels", {

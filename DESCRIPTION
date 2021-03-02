@@ -41,19 +41,22 @@ Suggests:
     crayon,
     xml2,
     DescTools,
+    digest, 
     gt,
+    expss,
     ggplot2,
-    openxlsx,
-    waldo,
     gmodels,
     Hmisc,
-    expss,
+    jsonlite, 
     knitr,
+    openxlsx,
     rmarkdown,
     sloop,
+    stringi,
     systemfonts,
     testthat,
     withr,
+    waldo,
 VignetteBuilder: 
     knitr
 RdMacros: 
@@ -62,3 +65,6 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Config/testthat/edition: 3
+Config/testthat/parallel: true
+Config/testthat/start-first: watcher, parallel*

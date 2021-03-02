@@ -28,6 +28,11 @@ cross_by = function(data_x, data_y, funs, funs_arg, margin, total, percent_digit
             lab = get_label(.x)
             .x = as.numeric(.x) %>% set_label(lab)
         }
+        
+        if(is.list(.x)){
+            errors[[.y]] = data.frame(name=.y, class="list")
+            return(NULL)
+        }
            
         if(is.list(.x)){
             errors[[.y]] = data.frame(name=.y, class="list")

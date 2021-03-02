@@ -1,16 +1,4 @@
 
-# Init --------------------------------------------------------------------
-# Sys.setenv("R_TESTS" = "")
-
-
-
-Sys.setenv(LANG = "en")
-options(warn = 1)
-options(stringsAsFactors = FALSE)
-options(tidyselect_verbosity = "verbose")
-options(lifecycle_verbosity = "error")
-
-
 
 
 
@@ -68,9 +56,10 @@ test_that("crosstable with external character vector", {
         crosstable(iris2, c(all_of(XX), -Sepal.Width), by="Species"),
         xnames=c("SL"), byname="Species", dim=c(4,6))
     
-    expect_cross(#expect warning, but only once a session
+    expect_cross(
         crosstable(iris2, XX, by="Species"),
-        xnames=c("SL", "SW"), byname="Species", dim=c(8,6))
+        xnames=c("SL", "SW"), byname="Species", dim=c(8,6)) %>% 
+        expect_message("external vector")
 })
 
 
@@ -199,7 +188,7 @@ test_that("crosstable with formula", {
     mytable = crosstable(iris2, as.formula(ff), label=F)
     expect_equal(nchar(ff), 1097) #>500
     expect_equal(dim(mytable), c(200,6))
-    expect_is(mytable, c("data.frame", "crosstable"))
+    expect_s3_class(mytable, c("data.frame", "crosstable"))
 })
 
 
