@@ -1,10 +1,71 @@
+# 
+# test_that("Effects never fail 1", {
+#   expect_snapshot({
+#     args = crosstable_effect_args()
+#     
+#     x=structure(c(2L, 2L, 2L, 1L, 2L, 1L, 2L, 2L, 1L, 2L, 2L, 1L, 1L,
+#                   2L, 1L, 2L, 1L, 2L, 2L, 2L, 2L, 1L, 2L, 2L, 1L, 2L, 2L, 2L, 2L,
+#                   1L, 1L, 1L), .Label = c("A", "B"), class = "factor")
+#     y=structure(c(NA, NA, NA, NA, NA, 2L, 3L, 1L, 1L, 2L, 2L, 3L, 3L, 
+#                   3L, 3L, 3L, 3L, 1L, 1L, 1L, 1L, 3L, 3L, 3L, 3L, 1L, 1L, 1L, 3L, 
+#                   2L, 3L, 1L), .Label = c("4", "6", "8"), 
+#                 label = "Number of cylinders", class = c("labelled", "factor"))
+#     
+#     # x=as.character(x)
+#     y=as.character(y)
+#     
+#     tab = table(x, y)
+#     xnum = ifelse(x == rownames(tab)[1], 1, 0)
+#     ref = as.factor(x) %>% levels %>% .[1]
+#     set.seed(1234)
+#     mod = glm(x==ref ~ y, family = binomial(link = "logit"))
+#     effect = exp(mod$coef)[-1]
+#     effect
+#     
+#   })
+#   
+#   expect_snapshot({
+#     args = crosstable_effect_args()
+#     
+#     x=mtcars3$test
+#     y=mtcars3$cyl
+#     y
+#     x
+#     x=as.character(x)
+#     y=as.character(y)
+#     
+#     tab = table(x, y)
+#     xnum = ifelse(x == rownames(tab)[1], 1, 0)
+#     ref = as.factor(x) %>% levels %>% .[1]
+#     set.seed(1234)
+#     mod = glm(x==ref ~ y, family = binomial(link = "logit"))
+#     effect2 = exp(mod$coef)[-1]
+#     effect2
+#     
+#   })
+# })
+# test_that("Effects never fail 1", {
+#   can_be_by = function(x) !is.Surv(x) && !is.date(x) && !all(is.na(x)) && !inherits(x, "difftime")
+#   
+#   names(mtcars3) %>% set_names() %>% map(~{
+#     if(!is_testing()) print(.x)
+#     if(can_be_by(mtcars3[[.x]])) {
+#       expect_snapshot({
+#         set.seed(1234)
+#         print(.x)
+#         args = crosstable_effect_args()
+#         x = crosstable(mtcars3, by=any_of(.x), effect=T, effect_args=args)$effect %>% 
+#           unique()
+#         x
+#       })
+#     }
+#     return(0)
+#   })
+# })
 
-# Init --------------------------------------------------------------------
+# snapshot_review('1-crosstable')
 
-# local_edition(3)
-do_save=FALSE
-# do_save=TRUE
-
+# if(FALSE){
 
 
 # Unique checks -----------------------------------------------------------
@@ -14,10 +75,8 @@ test_that("Auto-testing is bad and you should feel bad.", {
 })
 
 test_that("Deprecation: moystd", {
-  lifecycle::expect_deprecated(crosstable(mtcars2, disp, by=vs, funs=moystd))
+  lifecycle::expect_deprecated(crosstable(mtcars2, disp, funs=moystd))
 })
-
-
 
 
 
@@ -41,9 +100,9 @@ test_that("numeric by numeric", {
 })
 
 test_that("numeric+factor by numeric: ", {
-  expect_warning(crosstable(mtcars3, mpg, cyl, by=disp),
+  expect_warning(crosstable(mtcars3, c(mpg, cyl), by=disp),
                  "Cannot cross column 'cyl' \\(factor\\) by column 'disp' \\(numeric\\)")
-  expect_warning(crosstable(mtcars3, is.numeric, by=disp, effect=T),
+  expect_warning(crosstable(mtcars3, where(is.numeric), by=disp, effect=T),
                  "Cannot cross column 'surv' \\(Surv\\) by column 'disp' \\(numeric\\)")
 
   x1=crosstable(mtcars3, where(is.numeric.and.not.surv), by=disp)
@@ -109,6 +168,7 @@ test_that("numeric+factor+surv by factor: showNA with NA in by", {
   expect_equal(dim(x3), c(16,6))
   expect_equal(sum(is.na(x3)), 2)
 })
+
 
 test_that("numeric+factor+surv by factor: showNA without NA in by", {
   #am=character, mpg=numeric, cyl=numeric-factor, vs=character
@@ -219,19 +279,10 @@ test_that("Function arguments work", {
   x = crosstable(mtcars3, c(disp, hp, am), by=vs, funs=c(meansd, quantile),
                  funs_arg = list(dig=3, probs=c(0.25,0.75)),
                  total=T, showNA="always")
-  x %>% as_flextable()
-  if(is_testing()){
-    expect_equivalent(x, readRDS(paste0("rds/",name)))
-  } else {
-    if(do_save)
-      saveRDS(x, paste0("tests/testthat/rds/",name), version = 2)
-    expect_equivalent(x, readRDS(paste0("tests/testthat/rds/",name)))
-    waldo::compare(x, readRDS(paste0("tests/testthat/rds/",name)))
-  }
-  
-  #TODO snapshot avec testthat3
+  ft =  as_flextable(x)
+  expect_snapshot(x)
+  expect_snapshot(ft)
 })
-
 
 test_that("One function", {
   bar=function(x, dig=1, ...) {
@@ -244,20 +295,23 @@ test_that("One function", {
     return(c(minmax(x, dig=dig, ...), nna(x)))
   }
   
-  x = crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=mean)
-  x = crosstable(iris2, c(Sepal.Length, Sepal.Width), funs="mean")
-  x = crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=c("My mean" = mean))
-  x = crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=c("My mean" = ~mean(.x, na.rm=TRUE)))
-  x = crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=cross_summary)
-  x = crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=c(" " = cross_summary))
-  x = crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=list(" " = cross_summary))
-  x = crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=c("cross_summary1" = cross_summary, "bar2" = bar))
-  expect_true(TRUE)
-  
-  expect_warning(crosstable(iris2, c(Sepal.Length, Sepal.Width), 
+  cross_list = list(
+    crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=mean),
+    crosstable(iris2, c(Sepal.Length, Sepal.Width), funs="mean"),
+    crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=c("My mean" = mean)),
+    crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=c("My mean" = ~mean(.x, na.rm=TRUE))),
+    crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=cross_summary),
+    crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=c(" " = cross_summary)),
+    crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=list(" " = cross_summary)),
+    crosstable(iris2, c(Sepal.Length, Sepal.Width), 
+               funs=c("cross_summary1" = cross_summary, "bar2" = bar))
+  )
+  expect_snapshot(cross_list, error=FALSE)
+
+  expect_warning(crosstable(iris2, c(Sepal.Length, Sepal.Width),
                             funs=function(y) mean(y, na.rm=TRUE)),
                  "Anonymous functions should be named.")
-  expect_warning(crosstable(iris2, c(Sepal.Length, Sepal.Width), 
+  expect_warning(crosstable(iris2, c(Sepal.Length, Sepal.Width),
                             funs=~mean(.x, na.rm=TRUE)),
                  "Anonymous lambda-functions should be named.")
 })
@@ -282,7 +336,7 @@ test_that("Multiple functions", {
                   c("moy_lambda", "moy_fn", "var", "moyenne"))
   
   #avec un seul nom
-  x3 = expect_warning(crosstable(iris2, c(Sepal.Length, Sepal.Width),
+  x3 = crosstable(iris2, c(Sepal.Length, Sepal.Width),
              funs=c(
                ~mean(.x, na.rm=TRUE), 
                function(.x){
@@ -291,21 +345,26 @@ test_that("Multiple functions", {
                }, 
                var, 
                "moyenne"=mean
-             )))
+             )) %>% 
+    expect_warning('Anonymous lambda-functions should be named.') %>% 
+    expect_warning('Anonymous functions should be named')
   
   expect_setequal(x3$variable, 
                   c("~mean(.x, na.rm = TRUE)", 
                     "function(.x){.x = .x + 1...}", 
                     "var", "moyenne"))
+  
 
   #sans noms
-  x4 = expect_warning(crosstable(iris2, c(Sepal.Length, Sepal.Width),
+  x4 = crosstable(iris2, c(Sepal.Length, Sepal.Width),
              funs=c(
                ~mean(.x, na.rm=TRUE), 
                function(.x){mean(.x, na.rm=TRUE)}, 
                var, 
                mean
-             )))
+             )) %>% 
+    expect_warning('Anonymous lambda-functions should be named.') %>% 
+    expect_warning('Anonymous functions should be named')
   
   expect_setequal(x4$variable, 
                   c("~mean(.x, na.rm = TRUE)", 
@@ -406,6 +465,7 @@ test_that("Statistical Tests", {
 })
 
 
+
 test_that("Linear contrasts test)", {
   my_test_args=crosstable_test_args()
   my_test_args$test_summarize = test_summarize_linear_contrasts
@@ -423,6 +483,20 @@ test_that("'Test' can be a variable name", {
   expect_equal(dim(x), c(2,7))
 })
 
+
+test_that("Testing everything", {
+  set.seed(1234)
+  x = crosstable(mtcars3, disp+hp+am+surv~vs, margin="all", total="both",
+                 times=c(0,100,200,400), followup=TRUE, funs_arg = list(dig=9),
+                 test=T, effect=T) %>% 
+    expect_warning("Loglik converged before variable") %>% 
+    # expect_warning("automatic global testing") %>% 
+    identity()
+  ft = as_flextable(x)
+  
+  expect_snapshot(x)
+  expect_snapshot(ft)
+})
 
 
 
@@ -474,79 +548,66 @@ test_that("Effects", {
   expect_equal(x$effect[1], "Hazard ratio (Wald CI) (NA vs FALSE): 1.54\n95%CI [0.42 to 5.63]")
 })
 
-test_that("Effects never fail", {
 
-  set.seed(1234)
+
+test_that("Effects never fail 1", {
   args = crosstable_effect_args()
   can_be_by = function(x) !is.Surv(x) && !is.date(x) && !all(is.na(x)) && !inherits(x, "difftime")
 
-  expect_warning({
-    x=names(mtcars3) %>% set_names() %>% map(~{
-      if(!is_testing()) print(.x)
-      if(can_be_by(mtcars3[[.x]])) {
+  names(mtcars3) %>% set_names() %>% map(~{
+    set.seed(1234)
+    if(!is_testing()) print(.x)
+    if(can_be_by(mtcars3[[.x]])) {
+      expect_snapshot({
+        print(.x)
         crosstable(mtcars3, by=any_of(.x), effect=T, effect_args=args)$effect %>%
           table %>% as.data.frame()
-      }
-      expect_equal(1,1, info = .x)
-      return(0)
-    })
+      })
+    }
+    return(0)
   })
 
-  set.seed(1234)
+})
+
+test_that("Effects never fail 2", {
   args = crosstable_effect_args()
   args$effect_summarize = diff_mean_boot
   args$effect_tabular = effect_relative_risk
-  expect_warning({
-    x=names(mtcars3) %>% set_names() %>% map(~{
-      if(!is_testing()) print(.x)
-      if(can_be_by(mtcars3[[.x]])) {
+  can_be_by = function(x) !is.Surv(x) && !is.date(x) && !all(is.na(x)) && !inherits(x, "difftime")
+
+  names(mtcars3) %>% set_names() %>% map(~{
+    set.seed(1234)
+    if(!is_testing()) print(.x)
+    if(can_be_by(mtcars3[[.x]])) {
+      expect_snapshot({
+        print(.x)
         crosstable(mtcars3, by=any_of(.x), effect=T, effect_args=args)$effect %>%
           table %>% as.data.frame()
-      }
-      expect_equal(1,1, info = .x)
-      return(0)
-    })
+      })
+    }
+    return(0)
   })
 
-  set.seed(1234)
+})
+
+test_that("Effects never fail 3", {
   args = crosstable_effect_args()
   args$effect_summarize = diff_median
   args$effect_tabular = effect_risk_difference
-  expect_warning({
-    x=names(mtcars3) %>% set_names() %>% map(~{
-      # print(.x)
-      if(can_be_by(mtcars3[[.x]])) {
+  can_be_by = function(x) !is.Surv(x) && !is.date(x) && !all(is.na(x)) && !inherits(x, "difftime")
+
+  names(mtcars3) %>% set_names() %>% map(~{
+    set.seed(1234)
+    if(!is_testing()) print(.x)
+    if(can_be_by(mtcars3[[.x]])) {
+      expect_snapshot({
+        print(.x)
         crosstable(mtcars3, by=any_of(.x), effect=T, effect_args=args)$effect %>%
           table %>% as.data.frame()
-      }
-      expect_equal(1,1)
-      return(0)
-    })
+      })
+    }
+    return(0)
   })
-})
-
-
-
-
-# Testing everything --------------------------------------------------
-test_that("Testing everything", {
-  name = "test_everything.rds"
-  set.seed(1234)
-  x = expect_warning(
-    crosstable(mtcars3, disp+hp+am+surv~vs, margin="all", total="both",
-               times=c(0,100,200,400), followup=TRUE, funs_arg = list(dig=9),
-               test=T, effect=T),
-    "Loglik converged before variable.*")
-  x %>% as_flextable()
-  if(is_testing()){
-    expect_equivalent(x, readRDS(paste0("rds/",name)))
-  } else {
-    save_name = paste0("tests/testthat/rds/",name)
-    if(do_save)
-      saveRDS(x, save_name, version = 2)
-    expect_equivalent(x, readRDS(save_name))
-    waldo::compare(x, readRDS(save_name))
-  }
 })
 
 
@@ -565,8 +626,9 @@ test_that("Warnings", {
 test_that('contains both `NA` and "NA"', {
   x=mtcars3
   x$vs[18:20] = "NA"
-  expect_warning(crosstable(x, c(vs), by=mpg),
-                 'contains both `NA` \\(missing values\\) and "NA" \\(string\\)')
+  crosstable(x, c(vs), by=mpg) %>% 
+    expect_warning('Cannot cross column') %>% 
+    expect_warning('contains both `NA` \\(missing values\\) and "NA" \\(string\\)')
 })
 
 test_that("BY class check", {
@@ -588,3 +650,4 @@ test_that("Unnamed ellipsis", {
 
 
 
+# }

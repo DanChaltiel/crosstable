@@ -18,7 +18,7 @@ test_that("Compact method error if list without purrr", {
 
 test_that("Compact method OK with purrr", {
     ll=list(a = "a", b = NULL, c = integer(0), d = NA, e = list())
-    library(purrr)
+    library(purrr, warn.conflicts=FALSE)
     expect_identical(compact(ll), list(a="a",d=NA))
 
     x=sloop::s3_dispatch(compact(ll))
@@ -41,12 +41,12 @@ test_that("Compact method OK with data.frame", {
     df=iris[c(1:5,51:55,101:105),]
     x1=expect_silent(compact(df, name_from="Species"))
     expect_equal(dim(x1), c(18,5))
-    expect_equivalent(x1[1,], c("setosa", "", "", "", ""))
+    expect_equal(as.character(x1[1,]), c("setosa", "", "", "", ""))
 
     expect_silent(compact(df, name_from="Species", name_to="Petal.Length", rtn_flextable=TRUE))
     x2=expect_silent(compact(df, name_from="Species", name_to="Petal.Length"))
     expect_equal(dim(x2), c(18,4))
-    expect_equivalent(x2[1,], c("setosa", "", "", ""))
+    expect_equal(as.character(x2[1,]), c("setosa", "", "", ""))
 
     x=sloop::s3_dispatch(compact(x1))
     expect_identical(x$method, c("compact.data.frame", "compact.default"))
@@ -56,11 +56,9 @@ test_that("Compact method OK with data.frame", {
 
 test_that("Compacting inside or outside as_flextable.crosstable gives the same result", {
     options(tidyselect_verbosity = "silent")
-    ct1 = crosstable(esoph, by="tobgp", test = TRUE) %>% compact
+    ct1 = crosstable(esoph, by="tobgp", test = TRUE) %>% suppressWarnings() %>% compact()
     expect_equal(dim(ct1), c(22,6))
-    expect_is(ct1, c("data.frame"))
-    expect_is(ct1, c("crosstable"))
-    expect_is(ct1, c("compacted_crosstable"))
+    expect_s3_class(ct1, c("data.frame", "crosstable", "compacted_crosstable"))
 
     ct2 = crosstable(esoph, by="tobgp", test = TRUE)
     expect_identical(as_flextable(ct1), as_flextable(ct2, compact=TRUE))
