@@ -20,24 +20,38 @@ tryCatch2 = function(expr){
         tryCatch(
             expr,
             error=function(e) {
-                errors <<- c(errors, conditionMessage(e))
-                # return(e)
+                errors <<- c(errors, list(e))
                 return("error")
             }
         ),
         warning=function(w){
-            warnings <<- c(warnings, conditionMessage(w))
+            warnings <<- c(warnings, list(w))
             invokeRestart("muffleWarning")
         },
         message=function(m){
-            messages <<- c(messages, conditionMessage(m))
+            messages <<- c(messages, list(m))
             invokeRestart("muffleMessage")
         }
     )
-    attr(rtn, "errors") = unique(unlist(errors))
-    attr(rtn, "warnings") = unique(unlist(warnings))
-    attr(rtn, "messages") = unique(unlist(messages))
+    attr(rtn, "errors") = unique(map_chr(errors, conditionMessage))
+    attr(rtn, "warnings") = unique(map_chr(warnings, conditionMessage))
+    attr(rtn, "messages") = unique(map_chr(messages, conditionMessage))
+    
+    x=c(errors, warnings, messages)
+    attr(rtn, "overview") = tibble(
+        type=map_chr(x, ~ifelse(inherits(.x, "error"), "Error", 
+                                ifelse(inherits(.x, "warning"), "Warning", "Message"))),
+        class=map_chr(x, ~class(.x) %>% glue_collapse("/")),
+        message=map_chr(x, ~conditionMessage(.x))
+    )
+    
     rtn
+}
+
+#' @keywords internal
+#' @noRd
+condition_overview = function(expr){
+    tryCatch2(expr) %>% attr("overview")
 }
 
 

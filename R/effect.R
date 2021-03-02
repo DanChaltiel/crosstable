@@ -116,7 +116,8 @@ effect_relative_risk = function (x, y, conf_level = 0.95) {
         ci = tryCatch2(suppressMessages(exp(confint(mod)[-1, ])))
         
         msg = unique(c(attr(mod, "warnings"), attr(ci, "warnings")))
-        if(!is.null(msg)){
+        if(length(msg)>0){
+            browser()
             p = if(length(msg)==1) "A problem" else "Problems"
             w = glue_collapse(msg, "', '", last="' and '")
             warn(str_squish(glue("{p} occured when calculating 
@@ -126,7 +127,7 @@ effect_relative_risk = function (x, y, conf_level = 0.95) {
         
         msg = unique(c(attr(mod, "errors"), attr(ci, "errors")))
         if(length(msg)>1) msg = attr(mod, "errors")
-        if(!is.null(msg)) {
+        if(length(msg)>0){
             w = glue_collapse(msg, "', '", last="' and '")
             warn(str_squish(glue("An error occured when calculating 
                 crosstable effects (glm): '{w}'. {default_warning}")), 
@@ -163,7 +164,7 @@ effect_risk_difference = function (x, y, conf_level = 0.95) {
         ci = tryCatch2(100*suppressMessages(confint(mod)[-1, ]))
         
         msg = unique(c(attr(mod, "warnings"), attr(ci, "warnings")))
-        if(!is.null(msg)){
+        if(length(msg)>0){
             p = if(length(msg)==1) "A problem" else "Problems"
             w = glue_collapse(msg, "', '", last="' and '")
             warn(str_squish(glue("{p} occured when calculating 
@@ -173,7 +174,7 @@ effect_risk_difference = function (x, y, conf_level = 0.95) {
         
         msg = unique(c(attr(mod, "errors"), attr(ci, "errors")))
         if(length(msg)>1) msg = attr(mod, "errors")
-        if(!is.null(msg)) {
+        if(length(msg)>0){
             w = glue_collapse(msg, "', '", last="' and '")
             warn(str_squish(glue("An error occured when calculating 
                 crosstable effects (glm): '{w}'. {default_warning}")), 
@@ -377,16 +378,15 @@ effect_survival_coxph = function(formula, conf_level = 0.95) {
     mod = tryCatch2(coxph(formula))
     
     msg = attr(mod, "warnings")
-    if(!is.null(msg)){
+    if(length(msg)>0){
         p = if(length(msg)==1) "A problem" else "Problems"
         w = glue_collapse(msg, "', '", last="' and '")
         warn(str_squish(glue("{p} occured when calculating 
                 crosstable effects (coxph): '{w}'.")), 
              class="crosstable_effect_warning")
     }
-    
     msg = attr(mod, "errors")
-    if(!is.null(msg)) {
+    if(length(msg)>0) {
         w = glue_collapse(msg, "', '", last="' and '")
         warn(str_squish(glue("An error occured when calculating 
                 crosstable effects (coxph): '{w}'.")), 
