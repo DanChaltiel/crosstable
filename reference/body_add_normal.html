@@ -207,13 +207,13 @@ References to any bookmark can be inserted using the syntax "\@ref(bookmark)". S
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a new doc object</p>
+<p>The docx object <code>doc</code></p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Dan Chaltiel</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://danchaltiel.github.io/crosstable/'>crosstable</a></span><span class='op'>)</span>
 
 <span class='va'>info_rows</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Also, table iris has {nrow(iris)} rows."</span>, 
@@ -222,8 +222,7 @@ References to any bookmark can be inserted using the syntax "\@ref(bookmark)". S
     <span class='fu'>body_add_normal</span><span class='op'>(</span><span class='st'>"Table iris has"</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span>, <span class='st'>"columns."</span>, .sep<span class='op'>=</span><span class='st'>" "</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'>#paste style</span>
     <span class='fu'>body_add_normal</span><span class='op'>(</span><span class='st'>"However, table mtcars has {ncol(mtcars)} columns"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'>#glue style</span>
     <span class='fu'>body_add_normal</span><span class='op'>(</span><span class='va'>info_rows</span><span class='op'>)</span>                                              <span class='co'>#vector style</span>
-<span class='fu'><a href='write_and_open.html'>write_and_open</a></span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
-<span class='op'>}</span>
+<span class='co'>#write_and_open(doc)</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

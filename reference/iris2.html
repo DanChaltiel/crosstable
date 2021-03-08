@@ -206,7 +206,7 @@ See iris for more informations on the original &quot;Edgar Anderson's Iris Data&
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
 <span class='va'>iris2</span> <span class='op'>=</span> <span class='va'>iris</span> <span class='op'>%&gt;%</span> 
     <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>mutate_at</a></span><span class='op'>(</span><span class='st'>"Species"</span>, <span class='va'>factor</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-    <span class='fu'>expss</span><span class='fu'>::</span><span class='fu'>apply_labels</span><span class='op'>(</span> <span class='co'>#I also could have used [import_labels] or even `Hmisc::label`</span>
+    <span class='fu'>expss</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/expss/man/apply_labels.html'>apply_labels</a></span><span class='op'>(</span> <span class='co'>#I also could have used [import_labels] or even `Hmisc::label`</span>
         Species <span class='op'>=</span> <span class='st'>"Specie"</span>,
         Sepal.Length <span class='op'>=</span> <span class='st'>"Length of Sepal"</span>,
         Sepal.Width <span class='op'>=</span> <span class='st'>"Width of Sepal"</span>,

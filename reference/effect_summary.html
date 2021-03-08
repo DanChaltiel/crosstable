@@ -196,11 +196,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>vector (of exactly 2 unique levels)</p></td>
+      <td><p>a numeric vector</p></td>
     </tr>
     <tr>
       <th>g</th>
-      <td><p>another vector</p></td>
+      <td><p>another vector (of exactly 2 unique levels)</p></td>
     </tr>
     <tr>
       <th>conf_level</th>
@@ -214,14 +214,14 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list with five componments: effect, ci, effect.name, effect.type, and conf_level</p>
+    <p>A list with five components: effect, ci, effect.name, effect.type, and conf_level</p>
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     
 <ul>
 <li><p><code>diff_mean_auto</code>: (<strong>Default</strong>) calculate a specific "difference in means" effect based on normality (Shapiro or Anderson test) and variance homogeneity (Bartlett test)</p></li>
-<li><p><code>diff_mean_boot</code>: calculate a "difference in means" effect by bootstraping</p></li>
-<li><p><code>diff_median</code>: calculate a "difference in medians" effect by bootstraping</p></li>
+<li><p><code>diff_mean_boot</code>: calculate a "difference in means" effect by bootstrapping</p></li>
+<li><p><code>diff_median</code>: calculate a "difference in medians" effect by bootstrapping</p></li>
 <li><p><code>diff_mean_student</code>: calculate a "difference in means" effect using <code>t.test</code> confidence intervals</p></li>
 </ul>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>

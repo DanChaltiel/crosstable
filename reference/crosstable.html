@@ -240,7 +240,7 @@
     </tr>
     <tr>
       <th>showNA</th>
-      <td><p>whether to show NA in categorial variables (one of <code><a href='https://rdrr.io/r/base/c.html'>c("ifany", "always", "no")</a></code>, like in <code><a href='https://rdrr.io/r/base/table.html'>table()</a></code>)</p></td>
+      <td><p>whether to show NA in categorical variables (one of <code><a href='https://rdrr.io/r/base/c.html'>c("ifany", "always", "no")</a></code>, like in <code><a href='https://rdrr.io/r/base/table.html'>table()</a></code>)</p></td>
     </tr>
     <tr>
       <th>label</th>
@@ -252,7 +252,7 @@
     </tr>
     <tr>
       <th>funs_arg</th>
-      <td><p>additionnal parameters for <code>funs</code>, e.g. <code>digits</code> (the number of decimal places) for the default <a href='cross_summary.html'>cross_summary</a>. Ultimately, these arguments are passed to <a href='format_fixed.html'>format_fixed</a>.</p></td>
+      <td><p>additional parameters for <code>funs</code>, e.g. <code>digits</code> (the number of decimal places) for the default <a href='cross_summary.html'>cross_summary</a>. Ultimately, these arguments are passed to <a href='format_fixed.html'>format_fixed</a>.</p></td>
     </tr>
     <tr>
       <th>cor_method</th>
@@ -296,6 +296,9 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A <code>data.frame</code> of class <code>crosstable</code></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Can be formatted as an HTML table using <code><a href='as_flextable.crosstable.html'>as_flextable()</a></code>.</p>
@@ -354,19 +357,17 @@
 #&gt; 25 qsec  qsec  Med [IQR]    17.7 [16.9;18.9]
 #&gt; 26 qsec  qsec Mean (std)          17.8 (1.8)
 #&gt; 27 qsec  qsec     N (NA)              32 (0)
-#&gt; 28   vs    vs          4         11 (34.38%)
-#&gt; 29   vs    vs          6          7 (21.88%)
-#&gt; 30   vs    vs          8         14 (43.75%)
-#&gt; 31   am    am          4         11 (34.38%)
-#&gt; 32   am    am          6          7 (21.88%)
-#&gt; 33   am    am          8         14 (43.75%)
-#&gt; 34 gear  gear          4         11 (34.38%)
-#&gt; 35 gear  gear          6          7 (21.88%)
-#&gt; 36 gear  gear          8         14 (43.75%)
-#&gt; 37 carb  carb  Min / Max           1.0 / 8.0
-#&gt; 38 carb  carb  Med [IQR]       2.0 [2.0;4.0]
-#&gt; 39 carb  carb Mean (std)           2.8 (1.6)
-#&gt; 40 carb  carb     N (NA)              32 (0)</div><div class='input'><span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>)</span>
+#&gt; 28   vs    vs          0         18 (56.25%)
+#&gt; 29   vs    vs          1         14 (43.75%)
+#&gt; 30   am    am          0         19 (59.38%)
+#&gt; 31   am    am          1         13 (40.62%)
+#&gt; 32 gear  gear          3         15 (46.88%)
+#&gt; 33 gear  gear          4         12 (37.50%)
+#&gt; 34 gear  gear          5          5 (15.62%)
+#&gt; 35 carb  carb  Min / Max           1.0 / 8.0
+#&gt; 36 carb  carb  Med [IQR]       2.0 [2.0;4.0]
+#&gt; 37 carb  carb Mean (std)           2.8 (1.6)
+#&gt; 38 carb  carb     N (NA)              32 (0)</div><div class='input'><span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;           .id                   label   variable
 #&gt; 1         mpg       Miles/(US) gallon  Min / Max
 #&gt; 2         mpg       Miles/(US) gallon  Med [IQR]
@@ -467,9 +468,7 @@
            funs<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mean</span>, <span class='va'>quantile</span><span class='op'>)</span>, funs_arg <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>probs<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.25</span>,<span class='fl'>.75</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: The `...` argument of `crosstable()` is deprecated as of crosstable 0.2.0.</span>
 #&gt; <span class='warning'>Please use the `cols` argument instead.</span>
-#&gt; <span class='warning'>NB: The `...` argument might even be reused in other usages in later versions (breaking change).</span>
-#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='output co'>#&gt;     .id                 label     variable    straight      vshaped
+#&gt; <span class='warning'>NB: The `...` argument might even be reused in other usages in later versions (breaking change).</span></div><div class='output co'>#&gt;     .id                 label     variable    straight      vshaped
 #&gt; 1  drat       Rear axle ratio         mean         3.9          3.4
 #&gt; 2  drat       Rear axle ratio quantile 25%         3.7          3.1
 #&gt; 3  drat       Rear axle ratio quantile 75%         4.1          3.7
@@ -566,7 +565,7 @@
 #&gt; 3     0.61 (2/5)    0.29 (3/4)
 #&gt; 4     0.18 (3/1)       0 (3/0)
 #&gt; 5 103 [13 ; 161]  NA [16 ; 45]
-#&gt; 6             31            23</div></span></pre>
+#&gt; 6             31            23</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

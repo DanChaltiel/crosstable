@@ -230,6 +230,10 @@ save_labels saves the labels from a data.frame in a temporary variable that can 
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A dataframe, as <code>.tbl</code>, with labels</p>
+<p><code>.tbl</code> invisibly. Used only for its side effects.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='get_label.html'>get_label()</a></code>, <code><a href='set_label.html'>set_label()</a></code>, <code><a href='remove_labels.html'>remove_label()</a></code>, <code>save_labels()</code></p></div>
@@ -270,16 +274,13 @@ save_labels saves the labels from a data.frame in a temporary variable that can 
 <span class='va'>mtcars2</span> <span class='op'>%&gt;%</span>
   <span class='fu'>save_labels</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>transmute</a></span><span class='op'>(</span>disp<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>disp</span><span class='op'>)</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>import_labels</span><span class='op'>(</span>verbose<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'>#</span>
+  <span class='fu'>import_labels</span><span class='op'>(</span>verbose_label<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'>#</span>
   <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>disp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: The `verbose` argument of `import_labels()` is deprecated as of crosstable 0.2.0.</span>
-#&gt; <span class='warning'>Please use the `verbose_name` or the `verbose_label` argument instead.</span>
-#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='output co'>#&gt;    .id                 label   variable               value
+</div><div class='output co'>#&gt;    .id                 label   variable               value
 #&gt; 1 disp Displacement (cu.in.)  Min / Max        72.1 / 473.0
 #&gt; 2 disp Displacement (cu.in.)  Med [IQR] 197.3 [121.8;327.0]
 #&gt; 3 disp Displacement (cu.in.) Mean (std)       231.7 (123.9)
-#&gt; 4 disp Displacement (cu.in.)     N (NA)              32 (0)</div></span></pre>
+#&gt; 4 disp Displacement (cu.in.)     N (NA)              32 (0)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
