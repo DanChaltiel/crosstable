@@ -20,3 +20,4 @@ There was 1 NOTE (false positive):
 ## Comment
 
 * This is a new release.
+* crosstable_options.Rd is a placeholder, \value would have no sense here.
