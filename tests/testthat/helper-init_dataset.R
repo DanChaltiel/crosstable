@@ -13,6 +13,7 @@ library(crosstable, warn.conflicts = FALSE)
 library(stats, warn.conflicts = FALSE)
 library(officer, warn.conflicts = FALSE)
 # library(survival, warn.conflicts = FALSE)
+# compact=crosstable::compact
 
 set.seed(1234)
 mtcars3 = as_tibble(mtcars2)
