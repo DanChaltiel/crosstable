@@ -54,6 +54,7 @@ crosstable_test_args = function(){
 #' @param test test
 #' @param digits number of digits
 #' @param method display method
+#' @return a string
 #' @importFrom stringr str_squish
 #' @export
 display_test = function(test, digits = 4, method = TRUE) {

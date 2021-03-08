@@ -40,5 +40,5 @@ doc = read_docx() \%>\%
 
 dfile = tempfile(fileext=".docx")
 print(doc, target = dfile)
-#browseURL(dfile)
+if(interactive()) browseURL(dfile)
 }

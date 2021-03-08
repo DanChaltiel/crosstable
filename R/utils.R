@@ -273,6 +273,7 @@ confint_numeric = function(object, level=0.95, B=0){
 #' Return the number of non NA observations
 #'
 #' @export
+#' @return integer, number of non NA observations
 #' @param x a vector
 #' @author David Hajage
 N = function(x) {
@@ -282,6 +283,7 @@ N = function(x) {
 #' Return the number of NA observations
 #'
 #' @export
+#' @return integer, number of NA observations
 #' @param x a vector
 #' @author David Hajage
 na = function(x) {
@@ -294,6 +296,7 @@ na = function(x) {
 #' @param x character vector of strings to reformat
 #' @param width target line width
 #' @param ... passed on to [stringr::str_wrap()]
+#' @return A character vector of re-wrapped strings
 #'
 #' @keywords internal
 #' @importFrom stringr str_detect str_wrap str_replace_all

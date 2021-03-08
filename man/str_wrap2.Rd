@@ -13,6 +13,9 @@ str_wrap2(x, width, ...)
 
 \item{...}{passed on to \code{\link[stringr:str_wrap]{stringr::str_wrap()}}}
 }
+\value{
+A character vector of re-wrapped strings
+}
 \description{
 Small improvement around \code{\link[stringr:str_wrap]{stringr::str_wrap()}} in case there is no whitespace
 }

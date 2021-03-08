@@ -288,7 +288,7 @@ import_labels = function(.tbl, data_label,
 #' mtcars2 %>%
 #'   save_labels() %>% 
 #'   transmute(disp=as.numeric(disp)+1) %>%
-#'   import_labels(verbose=FALSE) %>% #
+#'   import_labels(verbose_label=FALSE) %>% #
 #'   crosstable(disp)
 save_labels = function(.tbl){
     labels_env$last_save = tibble(

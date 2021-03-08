@@ -55,7 +55,7 @@
   
 
 <meta property="og:title" content="Default arguments for calculating and displaying effects in crosstable() — crosstable_effect_args" />
-<meta property="og:description" content="Default arguments for calculating and displaying effects in crosstable()" />
+<meta property="og:description" content="This helper function provides default parameters for defining how the effect sizes should be computed. It belongs to the effect_args argument of the crosstable() function. See effect_summary, effect_tabular, and effect_survival for more insight." />
 <meta property="og:image" content="https://danchaltiel.github.io/crosstable/apple-touch-icon-180x180.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary" />
@@ -180,7 +180,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Default arguments for calculating and displaying effects in <code><a href='crosstable.html'>crosstable()</a></code></p>
+    <p>This helper function provides default parameters for defining how the effect sizes should be computed. It belongs to the <code>effect_args</code> argument of the <code><a href='crosstable.html'>crosstable()</a></code> function. See <a href='effect_summary.html'>effect_summary</a>, <a href='effect_tabular.html'>effect_tabular</a>, and <a href='effect_survival.html'>effect_survival</a> for more insight.</p>
     </div>
 
     <pre class="usage"><span class='fu'>crosstable_effect_args</span><span class='op'>(</span><span class='op'>)</span></pre>
@@ -189,9 +189,9 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list with testing parameters:</p><ul>
-<li><p><code>effect_summarize</code> - a function of three arguments (continuous variable, grouping variable and conf_level), used to compare continuous variable. Returns a list of five components: <code>effect</code> (the effect value(s)), <code>ci</code> (the matrix of confidence interval(s)), <code>effect.name</code> (the interpretation(s) of the effect value(s)), <code>effect.type</code> (the description of the measure used) and <code>conf_level</code> (the confidence interval level). See <code>diff_mean_auto</code>, <code>diff_mean_student</code> or <code>diff_mean_boot</code> for some examples of such functions. Users can provide their own function.</p></li>
-<li><p><code>effect_tabular</code> - a function of three arguments (two categorical variables and conf_level) used to measure the associations between two factors. Returns a list of five components: <code>effect</code> (the effect value(s)), <code>ci</code> (the matrix of confidence interval(s)), <code>effect.name</code> (the interpretation(s) of the effect value(s)), <code>effect.type</code> (the description of the measure used) and <code>conf_level</code> (the confidence interval level). See <code>effect_odds_ratio</code>, <code>effect_relative_risk</code>, <code>effect_risk_difference</code>, <code>effect_odds_ratio</code>, <code>rr.col.by.row</code>, or <code>rd.col.by.row</code> for some examples of such functions. Users can provide their own function.</p></li>
-<li><p><code>effect_survival</code> - a function of two argument (a formula and conf_level), used to measure the association between a censored and a factor. Returns the same components as created by <code>effect_summarize</code>. See <code>effect_survival_coxph</code>. Users can provide their own function.</p></li>
+<li><p><code>effect_summarize</code> - a function of three arguments (continuous variable, grouping variable and conf_level), used to compare continuous variable. Returns a list of five components: <code>effect</code> (the effect value(s)), <code>ci</code> (the matrix of confidence interval(s)), <code>effect.name</code> (the interpretation(s) of the effect value(s)), <code>effect.type</code> (the description of the measure used) and <code>conf_level</code> (the confidence interval level). See <code><a href='effect_summary.html'>diff_mean_auto()</a></code>, <code><a href='effect_summary.html'>diff_mean_student()</a></code>, <code><a href='effect_summary.html'>diff_mean_boot()</a></code>, or <code><a href='effect_summary.html'>diff_median()</a></code> for some examples of such functions. Users can provide their own function.</p></li>
+<li><p><code>effect_tabular</code> - a function of three arguments (two categorical variables and conf_level) used to measure the associations between two factors. Returns a list of five components: <code>effect</code> (the effect value(s)), <code>ci</code> (the matrix of confidence interval(s)), <code>effect.name</code> (the interpretation(s) of the effect value(s)), <code>effect.type</code> (the description of the measure used) and <code>conf_level</code> (the confidence interval level). See <code><a href='effect_tabular.html'>effect_odds_ratio()</a></code>, <code><a href='effect_tabular.html'>effect_relative_risk()</a></code>, or <code><a href='effect_tabular.html'>effect_risk_difference()</a></code> for some examples of such functions. Users can provide their own function.</p></li>
+<li><p><code>effect_survival</code> - a function of two argument (a formula and conf_level), used to measure the association between a censored and a factor. Returns the same components as created by <code>effect_summarize</code>. See <code><a href='effect_survival.html'>effect_survival_coxph()</a></code>. Users can provide their own function.</p></li>
 <li><p><code>conf_level</code> - the desired confidence interval level</p></li>
 <li><p><code>digits</code> - the decimal places</p></li>
 <li><p><code>show_effect</code> - a function to format the effect. See <code><a href='display_effect.html'>display_effect()</a></code>.</p></li>

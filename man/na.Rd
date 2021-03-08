@@ -9,6 +9,9 @@ na(x)
 \arguments{
 \item{x}{a vector}
 }
+\value{
+integer, number of NA observations
+}
 \description{
 Return the number of NA observations
 }

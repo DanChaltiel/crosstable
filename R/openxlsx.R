@@ -27,7 +27,7 @@
 #' x %>% 
 #'     as_workbook(keep_id=TRUE) %>% 
 #'     saveWorkbook(file=target, overwrite = TRUE)
-#' #browseURL(target)
+#' if(interactive()) browseURL(target)
 as_workbook = function(x, show_test_name = TRUE, 
                        by_header = NULL, keep_id = FALSE,
                        generic_labels=list(id = ".id", variable = "variable", value = "value",

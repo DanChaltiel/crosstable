@@ -13,6 +13,9 @@ display_test(test, digits = 4, method = TRUE)
 
 \item{method}{display method}
 }
+\value{
+a string
+}
 \description{
 Default function to display a test result
 }

@@ -1,9 +1,8 @@
 ---
     output: md_document
-    knit: (knitr::knit)
     always_allow_html: true
 ---
-<!-- knitr::knit("pkgdown/index.Rmd", "pkgdown/index.md") -->
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
@@ -32,7 +31,7 @@ assignInNamespace("flextable_to_rmd", crosstable:::flextable_to_rmd, ns="flextab
 [![Last Commit](https://img.shields.io/github/last-commit/DanChaltiel/crosstable)](https://github.com/DanChaltiel/crosstable)
 [![Build Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=master)](https://travis-ci.org/DanChaltiel/crosstable)
 [![Codecov test coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/master/graph/badge.svg)](https://codecov.io/gh/DanChaltiel/crosstable?branch=master)
-<!-- [![Dependencies](https://tinyverse.netlify.com/badge/crosstable)](https://cran.r-project.org/package=crosstable)  -->
+<!-- [![Dependencies](https://tinyverse.netlify.com/badge/crosstable)](https://cran.r-project.org/package=crosstable) -->
 <!-- badges: end -->
 
 
@@ -42,23 +41,23 @@ Crosstable is a package centered on a single function, `crosstable`, which easil
 
 It can use the `tidyselect` syntax for selecting variables (and more) and is interfaced with the package `officer` to create automatized reports.
 
-## Installation
 
-This will install the very last version, which should contains the fewest bugs and the most features:
-
-```{r install, eval=FALSE}
-install.packages("devtools")
-devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
-```
-
-
-However, for reproducibility purpose, you might want to install a specific version in your projects (even better would be to use [`renv`](https://rstudio.github.io/renv/articles/renv.html)):
-
-```{r run-numeric-md, include=FALSE}
+```{r installation, include=FALSE}
+cran_version = pkgsearch::cran_package("crosstable")$Version
 git_head = git2r::revparse_single(git2r::repository(),"HEAD") #sapply(git_head, print)
 last_commit = substr(git_head$sha, 1,7)
 last_tag = dplyr::last(names(git2r::tags()))
-out = c(
+out1 = c(
+  '```{r install1, eval=FALSE}',
+  knit_expand(text="# Install last version on CRAN ({{#cran_version}})"),
+  'install.packages("crosstable")',
+  '',
+  '# Install last version on GitHub (fewer bug, more features',
+  'install.packages("devtools")
+devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
+```'
+)
+out2 = c(
   "```{r install2, eval=FALSE}",
   knit_expand(text='devtools::install_github("DanChaltiel/crosstable@{{last_tag}}", build_vignettes=TRUE) #last version'),
   knit_expand(text='devtools::install_github("DanChaltiel/crosstable@{{last_commit}}", build_vignettes=TRUE) #last commit
@@ -67,7 +66,13 @@ out = c(
 )
 ```
 
-`r paste(knit(text = out), collapse = '\n')`
+## Installation
+
+`r paste(knit(text = out1), collapse = '\n')`
+
+However, for reproducibility purpose, you might want to install a specific version in your projects (even better would be to use [`renv`](https://rstudio.github.io/renv/articles/renv.html)):
+
+`r paste(knit(text = out2), collapse = '\n')`
 
 
 In case of any installation problem, try the solutions proposed in [this article](https://danchaltiel.github.io/crosstable/articles/crosstable-install.html) or fill an [Issue](https://github.com/DanChaltiel/crosstable/issues).

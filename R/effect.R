@@ -117,7 +117,6 @@ effect_relative_risk = function (x, y, conf_level = 0.95) {
         
         msg = unique(c(attr(mod, "warnings"), attr(ci, "warnings")))
         if(length(msg)>0){
-            browser()
             p = if(length(msg)==1) "A problem" else "Problems"
             w = glue_collapse(msg, "', '", last="' and '")
             warn(str_squish(glue("{p} occured when calculating 

@@ -55,7 +55,8 @@
   
 
 <meta property="og:title" content="Set the "label" attribute of an object — set_label" />
-<meta property="og:description" content="Set the &quot;label&quot; attribute of an object" />
+<meta property="og:description" content="Set the &quot;label&quot; attribute of an object
+Copy the label from one variable to another" />
 <meta property="og:image" content="https://danchaltiel.github.io/crosstable/apple-touch-icon-180x180.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary" />
@@ -181,18 +182,19 @@
 
     <div class="ref-description">
     <p>Set the "label" attribute of an object</p>
+<p>Copy the label from one variable to another</p>
     </div>
 
     <pre class="usage"><span class='fu'>set_label</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>value</span>, object <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>copy_label_from</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>target</span><span class='op'>)</span></pre>
+<span class='fu'>copy_label_from</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>from</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>object to label.</p></td>
+      <td><p>the variable to label</p></td>
     </tr>
     <tr>
       <th>value</th>
@@ -203,11 +205,15 @@
       <td><p>if <code>x</code> is a list/data.frame, <code>object=TRUE</code> will force setting the labels of the object instead of the children</p></td>
     </tr>
     <tr>
-      <th>target</th>
+      <th>from</th>
       <td><p>the variable whose label must be copied</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An object of the same type as <code>x</code>, with labels</p>
+<p>An object of the same type as <code>x</code>, with the label of <code>from</code></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='get_label.html'>get_label()</a></code>, <code><a href='import_labels.html'>import_labels()</a></code>, <code><a href='remove_labels.html'>remove_label()</a></code></p></div>

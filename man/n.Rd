@@ -9,6 +9,9 @@ N(x)
 \arguments{
 \item{x}{a vector}
 }
+\value{
+integer, number of non NA observations
+}
 \description{
 Return the number of non NA observations
 }

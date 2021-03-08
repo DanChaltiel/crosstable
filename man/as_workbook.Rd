@@ -40,7 +40,7 @@ x=crosstable(mtcars2, c(mpg, vs, gear), total=TRUE, test=TRUE)
 x \%>\% 
     as_workbook(keep_id=TRUE) \%>\% 
     saveWorkbook(file=target, overwrite = TRUE)
-#browseURL(target)
+if(interactive()) browseURL(target)
 }
 \author{
 Dan Chaltiel

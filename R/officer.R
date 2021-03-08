@@ -28,7 +28,7 @@
 #' 
 #' dfile = tempfile(fileext=".docx")
 #' print(doc, target = dfile)
-#' #browseURL(dfile)
+#' if(interactive()) browseURL(dfile)
 body_add_crosstable = function (doc, x, body_fontsize=NULL, 
                                 header_fontsize=ceiling(body_fontsize*1.2), ...) {
     assert_class(x, "crosstable", .var.name=vname(x))
@@ -230,7 +230,7 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #'   body_add_crosstable(crosstable(iris)) %>% 
 #'   body_add_gg(p) %>% 
 #'   body_add_figure_legend("Iris plot", bookmark="fig1")
-#' #write_and_open(x, "example.docx")
+#' write_and_open(x)
 #' #press Ctrl+A then F9 twice for the reference to appear.
 body_add_table_legend = function(doc, legend, bookmark=NULL, 
                                  legend_style=getOption('crosstable_style_legend', "Table Caption"), 
@@ -439,8 +439,11 @@ docx_bookmarks2 = function(x, return_vector=FALSE) {#nocov start
 #' mytable = crosstable(mtcars2)
 #' doc = read_docx() %>% 
 #'     body_add_crosstable(mytable)
-#' #write_and_open(doc, "example.docx")
-#' #write_and_open(doc)
+#'     
+#' write_and_open(doc)
+#' \dontrun{
+#' write_and_open(doc, "example.docx")
+#' }
 # nocov start
 write_and_open = function(doc, docx.file){
     
@@ -461,7 +464,7 @@ write_and_open = function(doc, docx.file){
     
     tryCatch({
         print(doc, target=docx.file)
-        browseURL(docx.file)
+        if(interactive()) browseURL(docx.file)
     }, error=function(e) {
         if(str_detect(e$message, "Permission denied")){
             abort(c("Permission denied. Is the file already open?", glue("File: {docx.file}")),

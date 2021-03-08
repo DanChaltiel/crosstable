@@ -31,6 +31,9 @@
 
 \item{...}{additional arguments (not used)}
 }
+\value{
+a compacted data.frame
+}
 \description{
 Generic function to compact a table (publication formatting)
 }

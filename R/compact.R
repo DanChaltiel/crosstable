@@ -17,6 +17,8 @@
 #' @importFrom flextable align bold border
 #' @export
 #' 
+#' @return a compacted data.frame
+#' 
 #' @examples 
 #' #dataframes
 #' x=iris[c(1:5,51:55,101:105),]

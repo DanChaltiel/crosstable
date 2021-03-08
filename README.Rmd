@@ -36,6 +36,9 @@ Crosstable is a package centered on a single function, `crosstable`, which easil
 ## Installation
 
 ```{r install, eval=FALSE}
+# Install last version on CRAN (#0.2.1)
+install.packages("crosstable")
+
 install.packages("devtools")
 devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 ```

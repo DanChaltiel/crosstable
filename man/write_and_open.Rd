@@ -23,8 +23,11 @@ library(crosstable)
 mytable = crosstable(mtcars2)
 doc = read_docx() \%>\% 
     body_add_crosstable(mytable)
-#write_and_open(doc, "example.docx")
-#write_and_open(doc)
+    
+write_and_open(doc)
+\dontrun{
+write_and_open(doc, "example.docx")
+}
 }
 \author{
 Dan Chaltiel

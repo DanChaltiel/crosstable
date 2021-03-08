@@ -59,7 +59,7 @@ library(dplyr)
 mtcars2 \%>\%
   save_labels() \%>\% 
   transmute(disp=as.numeric(disp)+1) \%>\%
-  import_labels(verbose=FALSE) \%>\% #
+  import_labels(verbose_label=FALSE) \%>\% #
   crosstable(disp)
 }
 \seealso{

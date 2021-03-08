@@ -62,7 +62,7 @@ x=read_docx() \%>\%
   body_add_crosstable(crosstable(iris)) \%>\% 
   body_add_gg(p) \%>\% 
   body_add_figure_legend("Iris plot", bookmark="fig1")
-#write_and_open(x, "example.docx")
+write_and_open(x)
 #press Ctrl+A then F9 twice for the reference to appear.
 }
 \author{
