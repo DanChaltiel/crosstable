@@ -17,14 +17,14 @@ crosstable(
   funs = c(` ` = cross_summary),
   funs_arg = list(),
   cor_method = c("pearson", "kendall", "spearman"),
-  test = FALSE,
-  test_args = crosstable_test_args(),
   unique_numeric = 3,
   date_format = NULL,
-  effect = FALSE,
-  effect_args = crosstable_effect_args(),
   times = NULL,
   followup = FALSE,
+  test = FALSE,
+  test_args = crosstable_test_args(),
+  effect = FALSE,
+  effect_args = crosstable_effect_args(),
   .vars
 )
 }
@@ -53,21 +53,21 @@ crosstable(
 
 \item{cor_method}{one of ["pearson", "kendall", or "spearman"] to indicate which correlation coefficient is to be used.}
 
-\item{test}{whether to perform tests}
-
-\item{test_args}{See \code{\link{crosstable_test_args}} to override default testing behaviour.}
-
 \item{unique_numeric}{the number of non-missing different levels a variable should have to be considered as numeric}
 
 \item{date_format}{if \code{x} is a vector of Date or POSIXt, the format to apply (see \link{strptime} for formats)}
 
-\item{effect}{whether to compute a effect measure}
-
-\item{effect_args}{See \code{\link{crosstable_effect_args}} to override default behaviour.}
-
 \item{times}{when using formula with \code{\link[survival:Surv]{survival::Surv()}} objects, which times to summarize}
 
 \item{followup}{when using formula with \code{\link[survival:Surv]{survival::Surv()}} objects, whether to display follow-up time}
+
+\item{test}{whether to perform tests}
+
+\item{test_args}{See \code{\link{crosstable_test_args}} to override default testing behaviour.}
+
+\item{effect}{whether to compute a effect measure}
+
+\item{effect_args}{See \code{\link{crosstable_effect_args}} to override default behaviour.}
 
 \item{.vars}{deprecated}
 }

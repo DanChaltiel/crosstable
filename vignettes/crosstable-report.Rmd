@@ -24,7 +24,7 @@ library(dplyr)
 
 The real power of `crosstable` comes out when used with David Gohel's awesome package [`officer` ](https://davidgohel.github.io/officer/), which allows to automatically create MS Word documents. 
 
-Therefore, `crosstable` has several helper functions to output a beautiful report:
+Therefore, `crosstable` exports several helper functions to easily output a beautiful report:
 
 ```{r officer, message=FALSE, warning=FALSE}
 library(officer)
@@ -57,10 +57,10 @@ doc = read_docx() %>%
   body_add_break() %>%
   body_add_title("Dataset esoph", 1) %>%
   body_add_normal("This one was compacted beforehand for some reason.") %>%
-  body_add_crosstable(compact(ct3))
+  body_add_crosstable(compact(ct3)) #beware of any conflict with purrr::compact
 ```
 
-Beware when using the whole `tidyverse`, as `crosstable::compact` conflicts with `purrr::compact`. You can solve this using an alias (`my_compact=crosstable::compact`) or using the `conflicted` package.
+#### Output
 
 ```{r save, include=FALSE}
 # stop("Working directory = ", getwd())
@@ -68,19 +68,46 @@ if(file.exists("../examples"))
   print(doc, "../examples/vignette_officer.docx")
 ```
 
-## Output
+To see the resulting Word document, use `write_and_open()`. 
 
-To save the file, just use the `print` function:
+If you only want to save the document without opening it, simply use `print()`:
 
 ```{r print, eval=FALSE}
-filename=file.path("..", "examples", "vignette_officer.docx", fsep="\\")#`\\` is needed for shell.exec on Windows
-print(doc, filename) #write the docx file
-shell.exec(filename) #open the docx file (fails if it is already open)
+write_and_open(doc) #save and open the docx file in a temporary file
+write_and_open(doc, "my_report.docx") #fails if it is already open
+print(doc, "my_report.docx") #only save the docx file
 ```
 
-You can check out this example [here](https://github.com/DanChaltiel/crosstable/raw/master/examples/vignette_officer.docx).
+You can check out the result of the example above [here](https://github.com/DanChaltiel/crosstable/raw/master/examples/vignette_officer.docx).
 
-Unfortunately, large tables can overflow the MS Word document width. In this case (for instance for `mtcars2` in the previous example), you have to manually go to `Table Tools > Layout > AutoFit > AutoFit Window` in the ribbon to correct the width. 
+#### Functions
+
+Here is a brief description of the functions used in this example:
+
+ + `officer::read_docx()`: creates a bare MS Word document
+ + `body_add_title()`: adds a title paragraph of any level
+ + `body_add_normal()`: adds a normal style paragraph. You can also incorporate variables using the syntax `{{nrow(ct3)}}` and references using the syntax `\\@ref(my_bookmark)`.
+ + `body_add_crosstable()`: adds a crosstable
+ + `body_add_figure_legend()` and `body_add_table_legend()`: adds a figure/table legend. The `bookmark` is the key that can be added elsewhere in `body_add_normal()`.
+ + `body_add_gg2()`: adds a ggplot. Unlike `officer::body_add_gg()`, you can change the unit using the `units` argument or the options `options(crosstable_units="cm")`.
+
+Browse https://davidgohel.github.io/officer for more insight about how you can use `officer`.
+
+#### Styles issues
+
+Crosstables need [Word styles](https://support.microsoft.com/fr-fr/office/personnaliser-ou-cr%C3%A9er-des-styles-d38d6e47-f6fc-48eb-a607-1eb120dec563) to work properly, and default values are contained in the default template of `officer::read_docx()`. However, if you use a custom template inside `read_docx()`, several functions in `crosstable` might need **style** parameterization.
+
+For instance, `body_add_figure_legend()` needs 2 styles, which are by default "Image Caption" and "strong". If these styles are not found in the template, an error will be raised. 
+
+You can prevent this by using either parameters `body_add_figure_legend(legend_style="Figure Legend", style="Bold")` or options `options(crosstable_style_legend="Figure Legend", crosstable_style_strong="Bold")`.
+
+See `?crosstable_options` for a list of all styles you can specify with options.
+
+#### Post-production
+
++ References numbering is calculated by MS Word. Therefore, they do not exist yet when the document is written. To trigger the calculation, you need to manually update the references inside MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}). You might even need to do this several times. See `?body_add_table_legend` for more insight.
+
+ + Large tables can sometimes overflow the MS Word document width. In this case (for instance for `mtcars2` in the previous example), you have to manually go to `Table Tools > Layout > AutoFit > AutoFit Window` in the ribbon to correct the width. This is a limitation that comes with `officer` ([link](https://ardata-fr.github.io/officeverse/faq.html#update-fields)).
 
 You can learn more on officer on [its documentation](https://davidgohel.github.io/officer/).
 

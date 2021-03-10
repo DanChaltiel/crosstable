@@ -196,14 +196,14 @@
   funs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>` ` <span class='op'>=</span> <span class='va'>cross_summary</span><span class='op'>)</span>,
   funs_arg <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
   cor_method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"pearson"</span>, <span class='st'>"kendall"</span>, <span class='st'>"spearman"</span><span class='op'>)</span>,
-  test <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  test_args <span class='op'>=</span> <span class='fu'><a href='crosstable_test_args.html'>crosstable_test_args</a></span><span class='op'>(</span><span class='op'>)</span>,
   unique_numeric <span class='op'>=</span> <span class='fl'>3</span>,
   date_format <span class='op'>=</span> <span class='cn'>NULL</span>,
-  effect <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  effect_args <span class='op'>=</span> <span class='fu'><a href='crosstable_effect_args.html'>crosstable_effect_args</a></span><span class='op'>(</span><span class='op'>)</span>,
   times <span class='op'>=</span> <span class='cn'>NULL</span>,
   followup <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  test <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  test_args <span class='op'>=</span> <span class='fu'><a href='crosstable_test_args.html'>crosstable_test_args</a></span><span class='op'>(</span><span class='op'>)</span>,
+  effect <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  effect_args <span class='op'>=</span> <span class='fu'><a href='crosstable_effect_args.html'>crosstable_effect_args</a></span><span class='op'>(</span><span class='op'>)</span>,
   <span class='va'>.vars</span>
 <span class='op'>)</span></pre>
 
@@ -259,14 +259,6 @@
       <td><p>one of ["pearson", "kendall", or "spearman"] to indicate which correlation coefficient is to be used.</p></td>
     </tr>
     <tr>
-      <th>test</th>
-      <td><p>whether to perform tests</p></td>
-    </tr>
-    <tr>
-      <th>test_args</th>
-      <td><p>See <code><a href='crosstable_test_args.html'>crosstable_test_args</a></code> to override default testing behaviour.</p></td>
-    </tr>
-    <tr>
       <th>unique_numeric</th>
       <td><p>the number of non-missing different levels a variable should have to be considered as numeric</p></td>
     </tr>
@@ -275,20 +267,28 @@
       <td><p>if <code>x</code> is a vector of Date or POSIXt, the format to apply (see <a href='https://rdrr.io/r/base/strptime.html'>strptime</a> for formats)</p></td>
     </tr>
     <tr>
-      <th>effect</th>
-      <td><p>whether to compute a effect measure</p></td>
-    </tr>
-    <tr>
-      <th>effect_args</th>
-      <td><p>See <code><a href='crosstable_effect_args.html'>crosstable_effect_args</a></code> to override default behaviour.</p></td>
-    </tr>
-    <tr>
       <th>times</th>
       <td><p>when using formula with <code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code> objects, which times to summarize</p></td>
     </tr>
     <tr>
       <th>followup</th>
       <td><p>when using formula with <code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code> objects, whether to display follow-up time</p></td>
+    </tr>
+    <tr>
+      <th>test</th>
+      <td><p>whether to perform tests</p></td>
+    </tr>
+    <tr>
+      <th>test_args</th>
+      <td><p>See <code><a href='crosstable_test_args.html'>crosstable_test_args</a></code> to override default testing behaviour.</p></td>
+    </tr>
+    <tr>
+      <th>effect</th>
+      <td><p>whether to compute a effect measure</p></td>
+    </tr>
+    <tr>
+      <th>effect_args</th>
+      <td><p>See <code><a href='crosstable_effect_args.html'>crosstable_effect_args</a></code> to override default behaviour.</p></td>
     </tr>
     <tr>
       <th>.vars</th>
@@ -357,19 +357,17 @@
 #&gt; 25 qsec  qsec  Med [IQR]    17.7 [16.9;18.9]
 #&gt; 26 qsec  qsec Mean (std)          17.8 (1.8)
 #&gt; 27 qsec  qsec     N (NA)              32 (0)
-#&gt; 28   vs    vs          4         11 (34.38%)
-#&gt; 29   vs    vs          6          7 (21.88%)
-#&gt; 30   vs    vs          8         14 (43.75%)
-#&gt; 31   am    am          4         11 (34.38%)
-#&gt; 32   am    am          6          7 (21.88%)
-#&gt; 33   am    am          8         14 (43.75%)
-#&gt; 34 gear  gear          4         11 (34.38%)
-#&gt; 35 gear  gear          6          7 (21.88%)
-#&gt; 36 gear  gear          8         14 (43.75%)
-#&gt; 37 carb  carb  Min / Max           1.0 / 8.0
-#&gt; 38 carb  carb  Med [IQR]       2.0 [2.0;4.0]
-#&gt; 39 carb  carb Mean (std)           2.8 (1.6)
-#&gt; 40 carb  carb     N (NA)              32 (0)</div><div class='input'><span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>)</span>
+#&gt; 28   vs    vs          0         18 (56.25%)
+#&gt; 29   vs    vs          1         14 (43.75%)
+#&gt; 30   am    am          0         19 (59.38%)
+#&gt; 31   am    am          1         13 (40.62%)
+#&gt; 32 gear  gear          3         15 (46.88%)
+#&gt; 33 gear  gear          4         12 (37.50%)
+#&gt; 34 gear  gear          5          5 (15.62%)
+#&gt; 35 carb  carb  Min / Max           1.0 / 8.0
+#&gt; 36 carb  carb  Med [IQR]       2.0 [2.0;4.0]
+#&gt; 37 carb  carb Mean (std)           2.8 (1.6)
+#&gt; 38 carb  carb     N (NA)              32 (0)</div><div class='input'><span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;           .id                   label   variable
 #&gt; 1         mpg       Miles/(US) gallon  Min / Max
 #&gt; 2         mpg       Miles/(US) gallon  Med [IQR]

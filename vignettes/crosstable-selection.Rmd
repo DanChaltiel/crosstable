@@ -22,12 +22,9 @@ options(width = 100)
 ```
 
 
-
 This vignette will review the different ways of selecting variables to describe with `crosstable`. For more general informations about `crosstable`, see `vignette("crosstable")` ([link](crosstable.html)). For more information and tips on `tidyselect`, see [tidyselect syntax](https://tidyselect.r-lib.org/articles/syntax.html)
 
 Please note that tables look better on a white background. If you are using RStudio in dark mode, borders may look blurry.
-
-
 
 
 ## Whole table
@@ -38,9 +35,7 @@ Here are the 10 first lines of the `mtcars2` dataset:
 
 ```{r crosstable-bare}
 library(crosstable)
-library(dplyr)
-ct=crosstable(mtcars2, everything())
-dim(ct)
+ct = crosstable(mtcars2, everything())
 ct %>% head(10) %>% 
   as_flextable(keep_id=TRUE)
 ```
@@ -52,12 +47,10 @@ ct %>% head(10) %>%
 
 ### Name
 
-Just like with `dplyr::select`, you can use names with or without quotes to select variables you want to describe:
+Just like with `dplyr::select()`, you can use names with or without quotes to select variables you want to describe. Use `c()` to select several columns:
 
 ```{r crosstable-names}
-crosstable(mtcars2, mpg, by=vs) %>% 
-  as_flextable(keep_id=TRUE)
-crosstable(mtcars2, "qsec", by="am") %>% 
+crosstable(mtcars2, c(mpg, "qsec"), by=vs) %>% 
   as_flextable(keep_id=TRUE)
 ```
 
@@ -66,21 +59,17 @@ crosstable(mtcars2, "qsec", by="am") %>%
 However, it is better to use `all_of` or `any_of` when you take your column names from an external vector. Otherwise, there would be an ambiguity as you might have wanted to select a column named like this vector.
 
 ```{r crosstable-external}
-qsec=c("mpg", "cyl") #well, that's quite a bad variable name...
+qsec = c("mpg", "cyl") #wouldn't that be the most evil variable name ever?
 crosstable(mtcars2, any_of(qsec), by=vs) %>% 
   as_flextable(keep_id=TRUE)
 ```
 
 ### Negation
 
-You can also use negation to keep all but some columns:
+You can use negation to keep all but some columns:
 
 ```{r crosstable-negation}
-crosstable(mtcars2, -mpg, by=vs) %>% head(7) %>% 
-  as_flextable(keep_id=TRUE)
-crosstable(mtcars2, -mpg, -cyl, by=vs) %>% head(8) %>% 
-  as_flextable(keep_id=TRUE)
-crosstable(mtcars2, -c(mpg, cyl), by=vs) %>% head(8) %>% 
+crosstable(mtcars2, c(-mpg, -cyl), by=vs) %>% head(8) %>% #-c(mpg, cyl) would also work
   as_flextable(keep_id=TRUE)
 ```
 
@@ -100,44 +89,49 @@ You can also use negation (`-(1:3)`), concatenation (`c(1,2,3)`), or both (`cros
 
 ## Select with `tidyselect` helpers
 
-Along with `everything()`, `tidyselect` provides a large choice of helpers. You can see `?tidyselect::select_helpers` for a complete list. They all have the useful `ignore.case` argument which is often very convenient.
+Along with `everything()`, `tidyselect` provides a large choice of helpers. You can browse `?tidyselect::select_helpers` for a complete list. 
 
-The main are re-exported by crosstable: `starts_with`, `ends_with`, `contains` and `matches`. Here are some examples:
+Note that all have the useful `ignore.case` argument which is often very convenient.
 
-```{r crosstable-helpers}
+The main ones are re-exported by crosstable: `starts_with()`, `ends_with()`, `contains()` and `matches()`. Here are some examples:
+
+```{r crosstable-helpers1}
 crosstable(mtcars2, starts_with("d")) %>% 
   as_flextable(keep_id=TRUE)
-crosstable(mtcars2, ends_with("g"), contains("yl")) %>% 
+```
+```{r crosstable-helpers2}
+crosstable(mtcars2, c(ends_with("g"), contains("yl"))) %>% 
   as_flextable(keep_id=TRUE)
-#for regex haters, the following call selects all columns which name starts with "d" or "g", followed by exactly 3 characters
+```
+```{r crosstable-helpers3}
+#to all regex haters: the following call selects all columns which name 
+#starts with "d" or "g", followed by exactly 3 characters
 crosstable(mtcars2, matches("^d|g.{3}$")) %>% 
   as_flextable(keep_id=TRUE)
 ```
 
 
-
-
 ## Select with predicate functions
 
-Sometimes, you want to select columns if they meet a set of specifications, for instance of type or of value. You can then use predicate functions: functions that return a single logical value. If the function is named, it is a good practice to wrap it in `where`.
+Sometimes, you want to select columns if they meet a set of specifications, for instance of type or of value. You can then use predicate functions: functions that return a single logical value. If the function is named, it is a good practice to wrap it in `where()`.
 
-For instance, you might want to keep only numeric variables:
+For instance, you might want to keep only `character` variables:
 
 ```{r crosstable-functions1}
-crosstable(mtcars2, where(is.numeric)) %>% 
+crosstable(mtcars2, where(is.character)) %>% 
   as_flextable(keep_id=TRUE)
 ```
 
 Using anonymous functions, you can even use more complicated patterns. For instance, you might want only numeric variables which mean is higher than 100:
 
 ```{r crosstable-functions2}
-crosstable(mtcars2, function(x) is.numeric(x) && mean(x)>100) %>% 
+crosstable(mtcars2, where(function(x) is.numeric(x) && mean(x)>100)) %>% 
   as_flextable(keep_id=TRUE)
 ```
 
-Of note, crosstable support lambda-functions, so you could write `crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>100)` for the exact same result.
+Of note, crosstable support lambda-functions, so you could instead write `crosstable(mtcars2, where(~is.numeric(.x) && mean(.x)>100))` for the exact same result but a tidier code.
 
-The only, logical constraint is that the function should return a single logical value. Use `&&`, `||`, and parenthesis to combine functions in complex patterns.
+The only logical constraint is that the function in `where()` should return a single logical value. Use `&&`, `||`, and parenthesis to combine functions in complex patterns.
 
 
 
@@ -156,7 +150,7 @@ This permits very complex and interesting patterns, using functions *in situ* an
 ```{r crosstable-formula2}
 crosstable(mtcars2, sqrt(mpg) + I(qsec^2) ~ ifelse(mpg>20,"mpg>20","mpg<20"),
            label=FALSE) %>% 
-  as_flextable(keep_id=TRUE)
+  as_flextable()
 ```
 
 Note that you cannot use `tidyselect` helpers in formulas.
@@ -171,7 +165,7 @@ Lets play a little with all of this :-)
 I want all numeric variables that do not start by "d" or "w", but I still want `drat` in the end.
 
 ```{r crosstable-ultimate1}
-crosstable(mtcars2, where(is.numeric), -matches("^d|w"), drat, label=FALSE) %>% 
+crosstable(mtcars2, c(where(is.numeric), -matches("^d|w"), drat), label=FALSE) %>% 
   as_flextable()
 ```
 

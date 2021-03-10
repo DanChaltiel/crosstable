@@ -13,12 +13,12 @@ knitr::opts_chunk$set(
     out.width="100%"
 )
 
+library(crosstable)
 library(officer)
 library(knitr)
 library(flextable)
 
-assignInNamespace("knit_print.flextable", crosstable:::knit_print.flextable, ns="flextable")
-assignInNamespace("flextable_to_rmd", crosstable:::flextable_to_rmd, ns="flextable")
+assignInNamespace("flextable_to_rmd", (crosstable:::flextable_to_rmd), ns="flextable")
 
 ```
 
@@ -28,8 +28,9 @@ assignInNamespace("flextable_to_rmd", crosstable:::flextable_to_rmd, ns="flextab
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN status](https://www.r-pkg.org/badges/version/crosstable)](https://CRAN.R-project.org/package=crosstable)
 <!-- [![Downloads](http://cranlogs.r-pkg.org/badges/crosstable?color=brightgreen)](http://www.r-pkg.org/pkg/crosstable) -->
+<!-- [![Build Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=master)](https://travis-ci.org/DanChaltiel/crosstable) -->
+[![R build status](https://github.com/DanChaltiel/crosstable/workflows/R-CMD-check/badge.svg)](https://github.com/DanChaltiel/crosstable/actions)
 [![Last Commit](https://img.shields.io/github/last-commit/DanChaltiel/crosstable)](https://github.com/DanChaltiel/crosstable)
-[![Build Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=master)](https://travis-ci.org/DanChaltiel/crosstable)
 [![Codecov test coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/master/graph/badge.svg)](https://codecov.io/gh/DanChaltiel/crosstable?branch=master)
 <!-- [![Dependencies](https://tinyverse.netlify.com/badge/crosstable)](https://cran.r-project.org/package=crosstable) -->
 <!-- badges: end -->
@@ -49,10 +50,10 @@ last_commit = substr(git_head$sha, 1,7)
 last_tag = dplyr::last(names(git2r::tags()))
 out1 = c(
   '```{r install1, eval=FALSE}',
-  knit_expand(text="# Install last version on CRAN ({{#cran_version}})"),
+  knit_expand(text="# Install last version on CRAN (#{{cran_version}})"),
   'install.packages("crosstable")',
   '',
-  '# Install last version on GitHub (fewer bug, more features',
+  '# Install last version on GitHub (fewer bug, more features)',
   'install.packages("devtools")
 devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 ```'
@@ -105,9 +106,9 @@ crosstable(iris)
 
 ### Column specification, grouping and labels
 
-You can select specific columns using names and helpers functions, and require specific summary statistics using `funs` and `funs_arg`. The `by` argument allows to specify a grouping variable. Here, as the `mtcars2` has labels, they are also included in the crosstable.
+You can select specific columns using names and helpers functions, and require specific summary statistics using `funs` and `funs_arg`. The `by` argument allows to specify a grouping variable; the following example groups by the column `vs`, which is the "Engine" type. Note that, as the `mtcars2` has labels, they are also included in the crosstable.
 
-The `as_flextable` function allows to output a beautiful HTML table that can be customized at will ( see the [flextable package](https://davidgohel.github.io/flextable/index.html)) and embed in a Word document (see the [officer package](https://davidgohel.github.io/officer/)).
+The `as_flextable` function allows to output a beautiful HTML table that can be customized at will (see the [flextable package](https://davidgohel.github.io/flextable/index.html)) and embed in a Word document (see the [officer package](https://davidgohel.github.io/officer/)).
 
 ```{r usage1, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
 library(tidyverse)
