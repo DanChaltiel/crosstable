@@ -1,19 +1,9 @@
 
 
-
 #' For markdown compatibility, cf https://github.com/davidgohel/flextable/issues/216
 #' View(flextable:::knit_print.flextable)
 #' @keywords internal
 #' @noRd
-knit_print.flextable = function (x, ...) {
-    is_bookdown <- isTRUE(opts_knit$get("bookdown.internal.label"))
-    pandoc2 <- rmarkdown::pandoc_version() >= numeric_version("2.0")
-    str <- flextable_to_rmd(x, bookdown = is_bookdown, pandoc2 = pandoc2, 
-                            print = FALSE)
-    knit_print(asis_output(str))
-    
-}
-
 flextable_to_rmd = function (x, ft.align = opts_current$get("ft.align"), ft.split = opts_current$get("ft.split"), 
           ft.tabcolsep = opts_current$get("ft.tabcolsep"), ft.arraystretch = opts_current$get("ft.arraystretch"), 
           ft.left = opts_current$get("ft.left"), ft.top = opts_current$get("ft.top"), 
