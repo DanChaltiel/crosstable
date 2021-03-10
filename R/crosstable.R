@@ -14,16 +14,16 @@
 #' @param total one of \["none", "row", "column" or "both"] to indicate whether to add total rows and/or columns. Default to `none`.
 #' @param margin one of \["row", "column", "cell", "none" or "all"] to indicate which proportions should be computed in frequency tables. Default to `row`.
 #' @param percent_digits number of digits for percentages
+#' @param unique_numeric the number of non-missing different levels a variable should have to be considered as numeric
 #' @param showNA whether to show NA in categorical variables (one of \code{c("ifany", "always", "no")}, like in \code{table()})
 #' @param label whether to show labels. See [import_labels] or [set_label]for how to add labels to the dataset columns.
 #' @param cor_method one of \["pearson", "kendall", or "spearman"] to indicate which correlation coefficient is to be used.
+#' @param times when using formula with [survival::Surv()] objects, which times to summarize
+#' @param followup when using formula with [survival::Surv()] objects, whether to display follow-up time
 #' @param test whether to perform tests
 #' @param test_args See \code{\link{crosstable_test_args}} to override default testing behaviour.
 #' @param effect whether to compute a effect measure
 #' @param effect_args See \code{\link{crosstable_effect_args}} to override default behaviour.
-#' @param times when using formula with [survival::Surv()] objects, which times to summarize
-#' @param followup when using formula with [survival::Surv()] objects, whether to display follow-up time
-#' @param unique_numeric the number of non-missing different levels a variable should have to be considered as numeric
 #' @param .vars deprecated
 #' @inheritParams format_fixed
 #' 
@@ -77,10 +77,10 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
                       percent_digits = 2, showNA = c("ifany", "always", "no"), label = TRUE, 
                       funs = c(" " = cross_summary), funs_arg=list(), 
                       cor_method = c("pearson", "kendall", "spearman"), 
-                      test = FALSE, test_args = crosstable_test_args(), 
                       unique_numeric = 3, date_format=NULL, 
-                      effect = FALSE, effect_args = crosstable_effect_args(), 
                       times = NULL, followup = FALSE, 
+                      test = FALSE, test_args = crosstable_test_args(), 
+                      effect = FALSE, effect_args = crosstable_effect_args(), 
                       .vars) {
     debug=list()
     # Arguments checks ****************************************************
