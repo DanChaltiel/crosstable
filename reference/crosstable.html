@@ -196,14 +196,14 @@
   funs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>` ` <span class='op'>=</span> <span class='va'>cross_summary</span><span class='op'>)</span>,
   funs_arg <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
   cor_method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"pearson"</span>, <span class='st'>"kendall"</span>, <span class='st'>"spearman"</span><span class='op'>)</span>,
-  test <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  test_args <span class='op'>=</span> <span class='fu'><a href='crosstable_test_args.html'>crosstable_test_args</a></span><span class='op'>(</span><span class='op'>)</span>,
   unique_numeric <span class='op'>=</span> <span class='fl'>3</span>,
   date_format <span class='op'>=</span> <span class='cn'>NULL</span>,
-  effect <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  effect_args <span class='op'>=</span> <span class='fu'><a href='crosstable_effect_args.html'>crosstable_effect_args</a></span><span class='op'>(</span><span class='op'>)</span>,
   times <span class='op'>=</span> <span class='cn'>NULL</span>,
   followup <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  test <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  test_args <span class='op'>=</span> <span class='fu'><a href='crosstable_test_args.html'>crosstable_test_args</a></span><span class='op'>(</span><span class='op'>)</span>,
+  effect <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  effect_args <span class='op'>=</span> <span class='fu'><a href='crosstable_effect_args.html'>crosstable_effect_args</a></span><span class='op'>(</span><span class='op'>)</span>,
   <span class='va'>.vars</span>
 <span class='op'>)</span></pre>
 
@@ -259,14 +259,6 @@
       <td><p>one of ["pearson", "kendall", or "spearman"] to indicate which correlation coefficient is to be used.</p></td>
     </tr>
     <tr>
-      <th>test</th>
-      <td><p>whether to perform tests</p></td>
-    </tr>
-    <tr>
-      <th>test_args</th>
-      <td><p>See <code><a href='crosstable_test_args.html'>crosstable_test_args</a></code> to override default testing behaviour.</p></td>
-    </tr>
-    <tr>
       <th>unique_numeric</th>
       <td><p>the number of non-missing different levels a variable should have to be considered as numeric</p></td>
     </tr>
@@ -275,20 +267,28 @@
       <td><p>if <code>x</code> is a vector of Date or POSIXt, the format to apply (see <a href='https://rdrr.io/r/base/strptime.html'>strptime</a> for formats)</p></td>
     </tr>
     <tr>
-      <th>effect</th>
-      <td><p>whether to compute a effect measure</p></td>
-    </tr>
-    <tr>
-      <th>effect_args</th>
-      <td><p>See <code><a href='crosstable_effect_args.html'>crosstable_effect_args</a></code> to override default behaviour.</p></td>
-    </tr>
-    <tr>
       <th>times</th>
       <td><p>when using formula with <code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code> objects, which times to summarize</p></td>
     </tr>
     <tr>
       <th>followup</th>
       <td><p>when using formula with <code><a href='https://rdrr.io/pkg/survival/man/Surv.html'>survival::Surv()</a></code> objects, whether to display follow-up time</p></td>
+    </tr>
+    <tr>
+      <th>test</th>
+      <td><p>whether to perform tests</p></td>
+    </tr>
+    <tr>
+      <th>test_args</th>
+      <td><p>See <code><a href='crosstable_test_args.html'>crosstable_test_args</a></code> to override default testing behaviour.</p></td>
+    </tr>
+    <tr>
+      <th>effect</th>
+      <td><p>whether to compute a effect measure</p></td>
+    </tr>
+    <tr>
+      <th>effect_args</th>
+      <td><p>See <code><a href='crosstable_effect_args.html'>crosstable_effect_args</a></code> to override default behaviour.</p></td>
     </tr>
     <tr>
       <th>.vars</th>
