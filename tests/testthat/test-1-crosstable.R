@@ -553,6 +553,13 @@ test_that('contains both `NA` and "NA"', {
     expect_warning(class='crosstable_na_char_warning')
 })
 
+test_that('Total in rows when by is NULL', {
+  crosstable(mtcars2, c(mpg, wt), total="row") %>% 
+    expect_warning(class='crosstable_totalrow_bynull')
+  crosstable(mtcars2, mpg+wt~1, total="row") %>% 
+    expect_warning(class='crosstable_totalrow_bynull')
+})
+
 test_that("BY class check", {
   #no by survival
   expect_error(crosstable(mtcars3, by=surv, times=c(0,100,200,400)),
