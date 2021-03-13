@@ -245,6 +245,18 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
         data_y=NULL
     }
     
+    if(ncol(data_y)==0 && total==1){
+        warn("Crosstable() cannot add total in rows if `by` is NULL",
+             class="crosstable_totalrow_bynull")
+    } 
+    
+    if(!is.null(data_y) && !is.numeric.and.not.surv(data_y[[1]]) && !is.character.or.factor(data_y[[1]])){
+        abort(c("Crosstable only supports numeric, logical, character or factor `by` columns.",
+                i=glue("`by` was pointing to the column '{y}' ({yy})", 
+                       y=names(data_y[1]), yy=paste_classes(data_y[[1]]))),
+              class="crosstable_wrong_byclass_error")
+    }
+    
     if(ncol(data_x)==0) {
         warn("Variable selection in crosstable ended with no variable to describe",
              class="crosstable_empty_warning")
@@ -252,13 +264,6 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
         class(rtn) = c("crosstable", "data.frame")
         attr(rtn, "debug") = debug
         return(rtn)
-    }
-    
-    if(!is.null(data_y) && !is.numeric.and.not.surv(data_y[[1]]) && !is.character.or.factor(data_y[[1]])){
-        abort(c("Crosstable only supports numeric, logical, character or factor `by` columns.",
-                i=glue("`by` was pointing to the column '{y}' ({yy})", 
-                       y=names(data_y[1]), yy=paste_classes(data_y[[1]]))),
-              class="crosstable_wrong_byclass_error")
     }
     
     x_class = map_chr(data_x, ~paste_classes(.x))
