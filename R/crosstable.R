@@ -240,21 +240,21 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
               class="crosstable_by_only_missing_error")
     }
     
-    if(ncol(data_y)==0) {
-        test=effect=FALSE
-        data_y=NULL
-    }
-    
     if(ncol(data_y)==0 && total==1){
         warn("Crosstable() cannot add total in rows if `by` is NULL",
              class="crosstable_totalrow_bynull")
     } 
     
-    if(!is.null(data_y) && !is.numeric.and.not.surv(data_y[[1]]) && !is.character.or.factor(data_y[[1]])){
+    if(ncol(data_y)>0 && !is.numeric.and.not.surv(data_y[[1]]) && !is.character.or.factor(data_y[[1]])){
         abort(c("Crosstable only supports numeric, logical, character or factor `by` columns.",
                 i=glue("`by` was pointing to the column '{y}' ({yy})", 
                        y=names(data_y[1]), yy=paste_classes(data_y[[1]]))),
               class="crosstable_wrong_byclass_error")
+    }
+    
+    if(ncol(data_y)==0) {
+        test=effect=FALSE
+        data_y=NULL
     }
     
     if(ncol(data_x)==0) {
