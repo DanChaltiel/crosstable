@@ -241,32 +241,32 @@ test_that("One function", {
 test_that("Multiple functions", {
   #avec un seul nom
   x1 = crosstable(iris2, c(Sepal.Length, Sepal.Width), 
-                 funs=c(var, "meannnn"=mean))
+                  funs=c(var, "meannnn"=mean))
   expect_setequal(x1$variable, c("var", "meannnn"))
   
   #avec tous les noms quand il en faut
   x2 = crosstable(iris2, c(Sepal.Length, Sepal.Width),
-             funs=c(
-               "moy_lambda"=~mean(.x, na.rm=TRUE), 
-               "moy_fn"=function(.x){mean(.x, na.rm=TRUE)}, 
-               var, 
-               "moyenne"=mean
-             ))
+                  funs=c(
+                    "moy_lambda"=~mean(.x, na.rm=TRUE), 
+                    "moy_fn"=function(.x){mean(.x, na.rm=TRUE)}, 
+                    var, 
+                    "moyenne"=mean
+                  ))
   
   expect_setequal(x2$variable, 
                   c("moy_lambda", "moy_fn", "var", "moyenne"))
   
   #avec un seul nom
   x3 = crosstable(iris2, c(Sepal.Length, Sepal.Width),
-             funs=c(
-               ~mean(.x, na.rm=TRUE), 
-               function(.x){
-                 .x=.x+1
-                 mean(.x, na.rm=TRUE)
-               }, 
-               var, 
-               "moyenne"=mean
-             )) %>% 
+                  funs=c(
+                    ~mean(.x, na.rm=TRUE), 
+                    function(.x){
+                      .x=.x+1
+                      mean(.x, na.rm=TRUE)
+                    }, 
+                    var, 
+                    "moyenne"=mean
+                  )) %>% 
     expect_warning(class="crosstable_unnamed_anonymous_warning") %>% 
     expect_warning(class="crosstable_unnamed_lambda_warning")
   
@@ -275,15 +275,15 @@ test_that("Multiple functions", {
                     "function(.x){.x = .x + 1...}", 
                     "var", "moyenne"))
   
-
+  
   #sans noms
   x4 = crosstable(iris2, c(Sepal.Length, Sepal.Width),
-             funs=c(
-               ~mean(.x, na.rm=TRUE), 
-               function(.x){mean(.x, na.rm=TRUE)}, 
-               var, 
-               mean
-             )) %>% 
+                  funs=c(
+                    ~mean(.x, na.rm=TRUE), 
+                    function(.x){mean(.x, na.rm=TRUE)}, 
+                    var, 
+                    mean
+                  )) %>% 
     expect_warning(class="crosstable_unnamed_anonymous_warning") %>% 
     expect_warning(class="crosstable_unnamed_lambda_warning")
   
@@ -314,7 +314,7 @@ test_that("Summary functions", {
 # Warnings and Errors -----------------------------------------------------
 test_that("Warnings", {
   ct_warns = function() { crosstable(mtcars3, by=vs, times=c(0,100,200,400), test=T, effect=T) }
-
+  
   w = capture_warnings(ct_warns())
   expect_match(w, ".*Loglik converged before variable.*", all = FALSE)
   expect_match(w, "Could not calculate crosstable effects for variables.*", all = FALSE)
