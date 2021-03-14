@@ -86,10 +86,7 @@ as_gt.crosstable = function(x, show_test_name = TRUE,
 #' @seealso [gt::gt()]
 #' @export
 as_gt = function(x, ...){
-    if (!requireNamespace("gt", quietly = TRUE)) {
-        abort("Package \"gt\" is obviously needed for function as_gt() to work. Please install it.",
-              class="missing_package_error")
-    }
+    assert_is_installed("gt", "as_gt()")
     UseMethod("as_gt")
 }
 

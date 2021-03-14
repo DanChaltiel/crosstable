@@ -230,10 +230,7 @@ test_survival_logrank = function(formula) {
 #'   mutate(Petal.Width.qt = paste0("Q", ntile(Petal.Width, 5)) %>% ordered()) %>%
 #'   crosstable(Petal.Length ~ Petal.Width.qt, test=TRUE, test_args = my_test_args)
 test_summarize_linear_contrasts = function(x, y){
-  if(!requireNamespace("gmodels", quietly = TRUE)) {
-    abort("Package \"gmodels\" needed for this function to work. Please install it.",
-          class="missing_package_error")
-  }
+  assert_is_installed("gmodels", "test_summarize_linear_contrasts()")
   x = as.numeric(x)
   stopifnot(is.ordered(y))
   levels_seq = 1:length(levels(y))
@@ -407,10 +404,7 @@ test_tabular_auto2 = function (x, y) {
   if(is.ordered(x) & is.ordered(y)){
     test = cor.test(as.numeric(x), as.numeric(y), method = "spearman", exact = FALSE)
   } else if((is.ordered(x) | is.ordered(y)) & any(dim(tab)==2)){
-    if (!requireNamespace("DescTools", quietly = TRUE)) {
-      abort("Package \"DescTools\" needed for this function to work. Please install it.",
-           class="missing_package_error")
-    }
+    assert_is_installed("DescTools", "CochranArmitageTest() in test_tabular_auto2()")
     test = DescTools::CochranArmitageTest(tab, alternative = "two.sided")
   } else{
     exp = rowSums(tab) %*% t(colSums(tab))/sum(tab)

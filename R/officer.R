@@ -342,10 +342,7 @@ body_add_gg2 = function(doc, value, width = 6, height = 5,
                         units = getOption("crosstable_units", "in"), 
                         style = getOption("crosstable_style_image", doc$default_styles$paragraph), 
                         res = 300, ... ){
-    if(!requireNamespace("ggplot2") ){
-        abort("package ggplot2 is required to use this function",
-              class="missing_package_error") # nocov
-    }
+    assert_is_installed("ggplot2", "body_add_gg2()")
     assert_class(value, "ggplot")
     units = match.arg(units, c("in", "cm", "mm"))
     file = tempfile(fileext=".png")
@@ -395,10 +392,7 @@ crosstable_luafilters = function(){
 docx_bookmarks2 = function(x, return_vector=FALSE) {#nocov start
     #cannot test nor add examples as there is officer::body_bookmark() but no officer::head_bookmark()
     assert_class(x, "rdocx")  
-    if(!requireNamespace("xml2")){
-        abort("Package `xml2` is needed for docx_bookmarks2() to work.",
-              class="missing_package_error")
-    }
+    assert_is_installed("xml2", "docx_bookmarks2()")
     doc_ = xml2::xml_find_all(x$doc_obj$get(), "//w:bookmarkStart[@w:name]")
     doc_ = setdiff(xml2::xml_attr(doc_, "name"), "_GoBack")
     head_ = sapply(x$headers, function(h) {

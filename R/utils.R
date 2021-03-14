@@ -54,6 +54,20 @@ condition_overview = function(expr){
     tryCatch2(expr) %>% attr("overview")
 }
 
+#' @importFrom glue glue
+#' @importFrom rlang abort
+#' @importFrom stringr str_ends
+#' @keywords internal
+#' @noRd
+assert_is_installed = function(pkg, fun) {
+    if(!str_ends(fun, "()")) fun=paste0(fun, "()")
+    if(!requireNamespace(pkg, quietly=TRUE)) {
+        abort(glue('Package "{pkg}" is needed for function {fun} to work. Please install it.'),
+              class="missing_package_error") # nocov
+    }
+    invisible(pkg)
+}
+
 
 # Function handling --------------------------------------------------------
 
