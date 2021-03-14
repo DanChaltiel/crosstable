@@ -240,7 +240,7 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
               class="crosstable_by_only_missing_error")
     }
     
-    if(ncol(data_y)==0 && total==1){
+    if(ncol(data_y)==0 && identical(total, 1)){
         warn("Crosstable() cannot add total in rows if `by` is NULL",
              class="crosstable_totalrow_bynull")
     } 
