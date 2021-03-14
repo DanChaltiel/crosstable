@@ -180,18 +180,26 @@ flextable::as_flextable
 
 
 
-#' Open a `crosstable` in a temporary Word document
+#' Open a `crosstable` in a temporary document
 #' 
 #' This eases copy-pasting
 #'
 #' @param x a crosstable
-#' @param ... passed on to `as_flextable.crosstable()`
+#' @param docx if true, peek as a `docx`, else, peek as `xlsx`
+#' @param ... passed on to `as_flextable.crosstable()` or to `as_workbook()`
 #' 
 #' @return Nothing, called for its side effects
 #'
 #' @export
-peek = function(x, ...) {
-    x=as_flextable.crosstable(x, ...)
-    print(x, preview="docx")
+peek = function(x, docx=getOption("crosstable_peek_docx", TRUE), ...) {
+    if(docx){
+        x=as_flextable.crosstable(x, ...)
+        print(x, preview="docx")
+    } else {
+        x=as_workbook(x, ...)
+        filename = tempfile(fileext=".xlsx")
+        openxlsx::saveWorkbook(x, file=filename)
+        if(interactive()) browseURL(filename)
+    }
     invisible()
 }

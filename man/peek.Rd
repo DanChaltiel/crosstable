@@ -2,14 +2,16 @@
 % Please edit documentation in R/flextable.R
 \name{peek}
 \alias{peek}
-\title{Open a \code{crosstable} in a temporary Word document}
+\title{Open a \code{crosstable} in a temporary document}
 \usage{
-peek(x, ...)
+peek(x, docx = getOption("crosstable_peek_docx", TRUE), ...)
 }
 \arguments{
 \item{x}{a crosstable}
 
-\item{...}{passed on to \code{as_flextable.crosstable()}}
+\item{docx}{if true, peek as a \code{docx}, else, peek as \code{xlsx}}
+
+\item{...}{passed on to \code{as_flextable.crosstable()} or to \code{as_workbook()}}
 }
 \value{
 Nothing, called for its side effects

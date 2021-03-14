@@ -34,5 +34,6 @@ Misc:
 \itemize{
 \item \code{crosstable_only_round}: default argument for \code{\link[=format_fixed]{format_fixed()}}
 \item \code{crosstable_units}: default units in \code{\link[=body_add_gg2]{body_add_gg2()}} and \code{\link[=body_add_img2]{body_add_img2()}}
+\item \code{crosstable_peek_docx}: behavior of \code{\link[=peek]{peek()}}, which will open a \code{docx} if \code{TRUE} and an \code{xlsx} if \code{FALSE}
 }
 }

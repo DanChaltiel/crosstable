@@ -15,7 +15,7 @@ as_workbook(
 )
 }
 \arguments{
-\item{x}{the result of \code{\link[=crosstable]{crosstable()}}}
+\item{x}{the result of \code{\link[=crosstable]{crosstable()}} or a list of crosstables}
 
 \item{show_test_name}{in the \code{test} column, show the test name}
 
@@ -28,7 +28,7 @@ as_workbook(
 \item{...}{unused}
 }
 \value{
-an \code{openxlsx} workbook containing the crosstable
+an \code{openxlsx} workbook containing the crosstable(s)
 }
 \description{
 Converts a \code{crosstable} object into a formatted, savable \code{openxlsx} workbook.
@@ -36,10 +36,15 @@ Converts a \code{crosstable} object into a formatted, savable \code{openxlsx} wo
 \examples{
 library(openxlsx)
 target = tempfile(fileext=".xlsx")
+
 x=crosstable(mtcars2, c(mpg, vs, gear), total=TRUE, test=TRUE)
-x \%>\% 
-    as_workbook(keep_id=TRUE) \%>\% 
-    saveWorkbook(file=target, overwrite = TRUE)
+as_workbook(x, keep_id=TRUE) \%>\% 
+    saveWorkbook(file=target)
+if(interactive()) browseURL(target)
+
+x2=list(iris=crosstable(iris2), crosstable(mtcars2))
+as_workbook(x2, keep_id=TRUE) \%>\% 
+    saveWorkbook(file=target)
 if(interactive()) browseURL(target)
 }
 \author{

@@ -37,5 +37,6 @@
 #' Misc: 
 #'  + `crosstable_only_round`: default argument for [format_fixed()]
 #'  + `crosstable_units`: default units in [body_add_gg2()] and [body_add_img2()]
+#'  + `crosstable_peek_docx`: behavior of [peek()], which will open a `docx` if `TRUE` and an `xlsx` if `FALSE`
 #' 
 NULL
