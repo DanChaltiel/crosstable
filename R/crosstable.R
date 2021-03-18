@@ -254,6 +254,12 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
               class="crosstable_wrong_byclass_error")
     }
     
+    if(ncol(data_y)>0 && is.numeric(data_y[[1]])){        
+        if(!identical(funs,c(` `=cross_summary)) || length(funs_arg)>0)
+            warn("`funs` and `funs_arg` arguments will not be used if `by` is numeric.",
+                 class="crosstable_funs_by_warning")
+    }
+    
     if(ncol(data_y)==0) {
         test=effect=FALSE
         data_y=NULL
