@@ -136,7 +136,7 @@ addToWorksheet = function(wb, ct, sheetname, show_test_name = TRUE,
         })
     }
     
-    border_rows = c(rh, sep.rows+rh, nrow(x)+rh)
+    border_rows = c(rh, sep.rows+rh, nrow(ct)+rh)
     merge_rows_intervals = Map(c, border_rows[-length(border_rows)], border_rows[-1] - 1)
     merge_rows_intervals %>% walk(function(i){#rows
         merge_cols = which(names(rtn) %in% body_merge)
@@ -150,7 +150,7 @@ addToWorksheet = function(wb, ct, sheetname, show_test_name = TRUE,
                        gridExpand = TRUE, stack=TRUE)
     openxlsx::addStyle(wb, sheet=sheetname, style = header, rows = 2:(rh-1), cols = 2:col_right, 
                        gridExpand = TRUE, stack=TRUE)
-    openxlsx::addStyle(wb, sheet=sheetname, style = border1, rows = c(2,rh,nrow(x)+rh), cols = 2:col_right, 
+    openxlsx::addStyle(wb, sheet=sheetname, style = border1, rows = c(2,rh,nrow(ct)+rh), cols = 2:col_right, 
                        gridExpand = TRUE, stack=TRUE)
     openxlsx::addStyle(wb, sheet=sheetname, style = border2, rows = sep.rows+rh, cols = 2:col_right, 
                        gridExpand = TRUE, stack=TRUE)
