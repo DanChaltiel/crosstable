@@ -83,7 +83,8 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
                       effect = FALSE, effect_args = crosstable_effect_args(), 
                       .vars) {
     debug=list()
-    # Arguments checks ****************************************************
+    
+    # Arguments checks --------------------------------------------------------
     if(TRUE){
         check_dots_unnamed()
         
@@ -147,8 +148,8 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
              .frequency = freq, .frequency_id="crosstable_global_testing")
     }
     
-    # Deprecations ********************************************************
     
+    # Deprecations ------------------------------------------------------------
     if (!missing(...)) {
         deprecate_warn("0.2.0", "crosstable(...=)", "crosstable(cols=)", 
                        details="NB: The `...` argument might even be reused in other usages in later versions (breaking change).")
@@ -158,7 +159,8 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
         vardots= c(enquos(.vars), enquos(...))
     }
     
-    # Logic handle ********************************************************
+    
+    # Logic handle ------------------------------------------------------------
     byname = vars_select(names(data), !!!enquos(by))
     if(!exists("vardots"))
         vardots= c(enquos(cols), enquos(...))
@@ -174,8 +176,8 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
         }
         if(!is_empty(byname)){
             abort(c("`by` argument cannot be used with the formula interface. Please include it in the formula or use another syntax.",
-                   i=paste("formula = ", format(cols)),
-                   i=paste("by = ", paste(as.character(byname), collapse=", "))), 
+                    i=paste("formula = ", format(cols)),
+                    i=paste("by = ", paste(as.character(byname), collapse=", "))), 
                   class="crosstable_formula_by_error")
         }
         data_y = model.frame(cols[-2], data, na.action = NULL)
@@ -203,7 +205,7 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     }
     
     
-    # Data-management *****************************************************
+    # Data-management ---------------------------------------------------------
     if(ncol(data_x)>0){
         data_x = data_x %>% mutate(
             across(where(is.logical),
@@ -230,7 +232,7 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
         )
     }
     
-    # Return checks *******************************************************
+    # Return checks -----------------------------------------------------------
     if(ncol(data_y)>1) {
         abort("Crosstable does not support multiple `by` columns.",
               class="crosstable_multiple_by_error")
@@ -268,16 +270,17 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     
     x_class = map_chr(data_x, ~paste_classes(.x))
     y_class = class(data_y[[1]])
-
-    # Function call *******************************************************
     
+    
+    # Function call -----------------------------------------------------------
     funs = parse_funs(funs)
     rtn = cross_by(data_x=data_x, data_y=data_y, funs=funs, funs_arg=funs_arg,
                    margin=margin, total=total, percent_digits=percent_digits, showNA=showNA,
                    cor_method=cor_method, times=times, followup=followup, test=test, test_args=test_args,
                    effect=effect, effect_args=effect_args, label=label)
     
-    # Attributes and return ***********************************************
+    
+    # Attributes and return ---------------------------------------------------
     class(rtn) = c("crosstable", "data.frame")
     debug$x_class = x_class
     debug$y_class = y_class
