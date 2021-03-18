@@ -75,14 +75,13 @@ NULL
 #' @describeIn effect_tabular (**Default**) calculate the odds ratio
 #' @importFrom stats glm binomial confint.default
 #' @export
-effect_odds_ratio = function (x, y, conf_level = 0.95) {
-    tab = table(x, y)
+effect_odds_ratio = function (x, by, conf_level = 0.95) {
+    tab = table(by, x)
     if (ncol(tab) <= 1 | nrow(tab) > 2) {
         return(NULL)
-    } else if(n_distinct(x, na.rm=T)==1 || n_distinct(y, na.rm=T)==1){
+    } else if(n_distinct(x, na.rm=T)==1 || n_distinct(by, na.rm=T)==1){
         return(NULL)
     } else {
-        xnum = ifelse(x == rownames(tab)[1], 1, 0)
         mod = glm(xnum ~ y, family = binomial(link = "logit"))
         effect = exp(mod$coef)[-1]
         ci = suppressMessages(exp(confint.default(mod)[-1, ]))
