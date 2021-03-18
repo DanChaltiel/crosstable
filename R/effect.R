@@ -82,7 +82,10 @@ effect_odds_ratio = function (x, by, conf_level = 0.95) {
     } else if(n_distinct(x, na.rm=T)==1 || n_distinct(by, na.rm=T)==1){
         return(NULL)
     } else {
-        mod = glm(xnum ~ y, family = binomial(link = "logit"))
+        if(is.factor(x)) ref = levels(x)[1]
+        else ref = rownames(tab)[1]
+        xnum = ifelse(x == ref, 1, 0)
+        mod = glm(xnum ~ by, family = binomial(link = "logit"))
         effect = exp(mod$coef)[-1]
         ci = suppressMessages(exp(confint.default(mod)[-1, ]))
         if (is.null(nrow(ci))) {
