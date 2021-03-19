@@ -1,5 +1,5 @@
 
-#' @importFrom purrr imap_dfr map_dfr
+#' @importFrom purrr imap_dfr map_dfr imap_chr
 #' @importFrom survival is.Surv
 #' @importFrom glue glue glue_data glue_collapse
 #' @keywords internal
@@ -81,7 +81,14 @@ cross_by = function(data_x, data_y, funs, funs_arg, margin, total, percent_digit
         x=rtn_tbl %>% filter(effect=="No effect?") %>% pull(.data$.id) %>% unique
         s=if(length(x)>1) "s" else ""
         v=glue_collapse(x, "', '", last="', and '")
-        warn(glue("Could not calculate crosstable effects for variable{s} '{v}'. Aren't there 2 groups exactly?"),
+        info = table(rtn_tbl$.id) %>% 
+            imap_chr(~glue("`{.y}` has {.x} levels")) %>% 
+            set_names(rep("i",length(.)))
+        info_by = NULL
+        if(!is.null(data_y)) info_by = c(i=glue("While `by` has {length(unique(data_y[[1]]))} levels"))
+        # browser()
+        warn(c(glue("Cannot calculate crosstable effects for variable{s} '{v}' because they have not 2 groups"),
+               info, info_by),
              class = "crosstable_effect_2groups_warning")
     }
     
