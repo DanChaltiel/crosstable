@@ -41,14 +41,19 @@ crosstable_effect_args = function(){
 display_effect = function(effect, digits = 4) {
     if (is.null(effect) || all(map_lgl(effect, is.null))){
         return("No effect?")
-    } else if (is_string(effect)){ #error message
-        return(effect)
-    } else {
-        paste(paste0(effect$effect.type, " (", effect$effect.name, "): ", formatC(effect$effect, format = "f", digits = digits), "\n", effect$conf_level*100, "%CI [", paste(formatC(effect$ci[, 1], format = "f", digits = digits), formatC(effect$ci[, 2], format = "f", digits = digits), sep = " to "), "]"), collapse = "\n")
+    } else if (is_string(effect)){ 
+        return(effect) #error message
     }
+    
+    x = effect$summary %>% 
+        mutate_if(is.numeric, 
+                  ~formatC(.x, format="f", digits=digits))
+    c(glue("{effect$effect.type} ({effect$ref})"),
+      glue("{x$name}: {x$effect} [{x$ci_inf} to {x$ci_sup}]")) %>% 
+        glue_collapse("\n")
+    
+    # browser()
 }
-
-
 
 
 
@@ -62,8 +67,8 @@ display_effect = function(effect, digits = 4) {
 #'
 #' @name effect_tabular
 #' 
-#' @param x vector (of exactly 2 unique levels)
-#' @param y another vector
+#' @param x vector 
+#' @param by another vector (of exactly 2 unique levels)
 #' @param conf_level confidence interval level
 #'
 #' @return A list with five components: effect, ci, effect.name, effect.type, and conf_level
@@ -75,26 +80,31 @@ NULL
 #' @describeIn effect_tabular (**Default**) calculate the odds ratio
 #' @importFrom stats glm binomial confint.default
 #' @export
-effect_odds_ratio = function (x, by, conf_level = 0.95) {
+effect_odds_ratio = function (x, by, conf_level=0.95) {
     tab = table(by, x)
     if (ncol(tab) <= 1 | nrow(tab) > 2) {
         return(NULL)
     } else if(n_distinct(x, na.rm=T)==1 || n_distinct(by, na.rm=T)==1){
         return(NULL)
-    } else {
-        if(is.factor(x)) ref = levels(x)[1]
-        else ref = rownames(tab)[1]
-        xnum = ifelse(x == ref, 1, 0)
-        mod = glm(xnum ~ by, family = binomial(link = "logit"))
-        effect = exp(mod$coef)[-1]
-        ci = suppressMessages(exp(confint.default(mod)[-1, ]))
-        if (is.null(nrow(ci))) {
-            dim(ci) = c(1, length(ci))
-        }
-        effect.name = paste0(rownames(tab)[1], ", ", paste(colnames(tab)[-1], colnames(tab)[1], sep = " vs "))
-        effect.type = "Odds ratio (Wald CI)"
-    }    
-    list(effect = effect, ci = ci, effect.name = effect.name, effect.type = effect.type, conf_level = conf_level)
+    }
+    ref = rownames(tab)[1]
+    bynum = ifelse(by==ref, 0, 1)
+    mod = glm(bynum ~ x, family = binomial(link = "logit"))
+    
+    effect = exp(mod$coef)[-1]
+    ci = suppressMessages(exp(confint.default(mod, level=conf_level)[-1, ]))
+    if (is.null(nrow(ci))) {
+        dim(ci) = c(1, length(ci))
+    }
+    effect.name = glue("{colnames(tab)[-1]} vs {colnames(tab)[1]}")
+    
+    summary = tibble(name=effect.name, effect, ci_inf=ci[,1], ci_sup=ci[,2])
+    
+    browser()
+    effect.type = glue("Odds ratio [{conf_level*100}% Wald CI]")
+    # reference = glue("Reference={ref}")
+    reference = glue("{rownames(tab)[2]} vs {ref}")
+    list(effect.type=effect.type, ref=reference, summary=summary)
 }
 
 
