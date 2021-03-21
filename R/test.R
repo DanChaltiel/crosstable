@@ -13,7 +13,7 @@
 #'   
 #'   \item `test_survival` - a function of one argument (the formula `surv~by`), used to compare survival estimations. Must return a list of two components: `p.value` and `method`. See [`test_survival_logrank`] for example.
 #'   
-#'   \item `display_test` - function used to display the test result. See [`display_test`].
+#'   \item `test_display` - function used to display the test result. See [`display_test`].
 #'   \item `plim` - number of digits for the p value
 #'   \item `show_method` - whether to display the test name (logical)
 #' } 
@@ -39,7 +39,7 @@ crosstable_test_args = function(){
     test_tabular = test_tabular_auto, 
     test_correlation = test_correlation_auto, 
     test_survival = test_survival_logrank, 
-    display_test = display_test, 
+    test_display = display_test, 
     plim = 4, 
     show_method = TRUE
   )

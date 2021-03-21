@@ -41,7 +41,7 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
         .effect = effect_args$show_effect(effect_args$effect_summarize(x, by, effect_args$conf_level), 
                                           digits = cor_digits)
     if(test) 
-        .test = test_args$display_test(test_args$test_summarize(x, by), digits = test_args$plim, 
+        .test = test_args$test_display(test_args$test_summarize(x, by), digits = test_args$plim, 
                                        method = test_args$show_method)
     if (identical(total, 1) | identical(total, 1:2) | identical(total, TRUE))
         .total = summarize_numeric_single(x, funs=funs, funs_arg=funs_arg)[["value"]]

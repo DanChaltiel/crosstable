@@ -44,7 +44,7 @@ summarize_categorical_single = function(x, showNA, total, digits, margin){
 #' @noRd
 summarize_categorical_by = function(x, by, margin, showNA, total, digits, 
                                     test, test_args, effect, effect_args){
-    nn = table(x, by, useNA = showNA)
+    nn = table(x, by, useNA=showNA)
     .tbl = as.data.frame(nn, responseName="Freq", stringsAsFactors=FALSE)
     
     if(identical(margin,-1)){
@@ -94,9 +94,10 @@ summarize_categorical_by = function(x, by, margin, showNA, total, digits,
     if(effect) 
         .effect = effect_args$show_effect(effect_args$effect_tabular(x, by, effect_args$conf_level), 
                                           digits = effect_args$digits)
-    if(test) 
-        .test = test_args$display_test(test_args$test_tabular(x, by), digits = test_args$plim, 
+    if(test) {
+        .test = test_args$test_display(test_args$test_tabular(x, by), digits = test_args$plim, 
                                        method = test_args$show_method)
+    }
     rtn %>%
         mutate(Total=.total, effect=.effect, test=.test) %>% 
         mutate_all(as.character)

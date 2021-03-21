@@ -100,7 +100,7 @@ summarise_survival_by = function(surv, by, times, followup, total, digits, showN
                                           digits = effect_args$digits)
     } 
     if (test) {
-        .tests = test_args$display_test(test_args$test_survival(surv~by), 
+        .tests = test_args$test_display(test_args$test_survival(surv~by), 
                                      digits = test_args$plim, method = test_args$show_method)
     } 
     if (1 %in% total) {
