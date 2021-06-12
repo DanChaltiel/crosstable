@@ -34,6 +34,9 @@ mtcars \%>\%
    mutate(mpg2=set_label(mpg, "Miles per gallon"),
           mpg3=mpg \%>\% copy_label_from(mpg2)) \%>\% 
    crosstable(mpg, mpg2, mpg3)
+mtcars \%>\% 
+   copy_label_from(mtcars2[,1:11]) \%>\% 
+   crosstable(mpg, vs)
 }
 \seealso{
 \code{\link[=get_label]{get_label()}}, \code{\link[=import_labels]{import_labels()}}, \code{\link[=remove_label]{remove_label()}}

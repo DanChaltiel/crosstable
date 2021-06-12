@@ -68,13 +68,23 @@ get_label = function(x, default=names(x), object=FALSE, simplify=TRUE){
 #'    mutate(mpg2=set_label(mpg, "Miles per gallon"),
 #'           mpg3=mpg %>% copy_label_from(mpg2)) %>% 
 #'    crosstable(mpg, mpg2, mpg3)
+#' mtcars %>% 
+#'    copy_label_from(mtcars2[,1:11]) %>% 
+#'    crosstable(mpg, vs)
 set_label = function(x, value, object=FALSE){
     if(is.null(value) || is.na(value)) return(x)
     value = as.character(value)
-    assert_string(value)
+    assert_character(value)
     if(is.list(x) && !object){
-        for (each in seq_along(x)) 
-            x[[each]] = set_label(x[[each]], value)
+        if(length(value)==1){
+            for (each in seq_along(x)) 
+                x[[each]] = set_label(x[[each]], value)
+        } else if(length(value)==length(x)){
+            for (each in seq_along(x)) 
+                x[[each]] = set_label(x[[each]], value[[each]])
+        } else {
+            abort("`value` must be either length 1 or the same as `x`")
+        }
         return(x)
     }
     attr(x, "label") = value
