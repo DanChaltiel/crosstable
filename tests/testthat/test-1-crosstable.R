@@ -257,7 +257,7 @@ test_that("Multiple functions", {
                   c("moy_lambda", "moy_fn", "var", "moyenne"))
   
   #avec un seul nom
-  x3 = crosstable(iris2, c(Sepal.Length, Sepal.Width),
+  { x3 = crosstable(iris2, c(Sepal.Length, Sepal.Width),
              funs=c(
                ~mean(.x, na.rm=TRUE), 
                function(.x){
@@ -266,7 +266,7 @@ test_that("Multiple functions", {
                }, 
                var, 
                "moyenne"=mean
-             )) %>% 
+             )) } %>% 
     expect_warning(class="crosstable_unnamed_anonymous_warning") %>% 
     expect_warning(class="crosstable_unnamed_lambda_warning")
   
@@ -277,13 +277,13 @@ test_that("Multiple functions", {
   
 
   #sans noms
-  x4 = crosstable(iris2, c(Sepal.Length, Sepal.Width),
+  { x4 = crosstable(iris2, c(Sepal.Length, Sepal.Width),
              funs=c(
                ~mean(.x, na.rm=TRUE), 
                function(.x){mean(.x, na.rm=TRUE)}, 
                var, 
                mean
-             )) %>% 
+             )) } %>% 
     expect_warning(class="crosstable_unnamed_anonymous_warning") %>% 
     expect_warning(class="crosstable_unnamed_lambda_warning")
   
@@ -407,9 +407,9 @@ test_that("'Test' can be a variable name", {
 
 test_that("Testing everything", {
   set.seed(1234)
-  x = crosstable(mtcars3, disp+hp+am+surv~vs, margin="all", total="both",
+  { x = crosstable(mtcars3, disp+hp+am+surv~vs, margin="all", total="both",
                  times=c(0,100,200,400), followup=TRUE, funs_arg = list(dig=9),
-                 test=T, effect=T) %>% 
+                 test=T, effect=T) } %>% 
     expect_warning(class="crosstable_effect_warning")
   ft = as_flextable(x)
   
