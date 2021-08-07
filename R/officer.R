@@ -474,6 +474,37 @@ write_and_open = function(doc, docx.file){
 
 
 
+# External utils ---------------------------------------------------------
+
+#' Generate a macro file for autofitting
+#'
+#' This function generates a file that can be imported into MS Word in order to use a macro for autofitting all tables in a document at once. This macro file should be imported only once per computer.
+#' 
+#' @section Installation:
+#'  * Run `generate_autofit_macro()` in `R` to generate the file `crosstable_autofit.bas` in your working directory. 
+#'  * In MS Word, press Alt+F11 to open the VB Editor.
+#'  * In the Editor, go to `File` > `Import` or press `Ctrl+M` to open the import dialog, and import `crosstable_autofit.bas`. There should now be a "CrosstableMacros" module in the "Normal" project.
+#'  * Run the macro, either from the VB Editor or from `View` > `Macros` > `View Macros` > `Run`.
+#'
+#' @return nothing
+#' @export
+generate_autofit_macro = function(){
+    fileConn<-file("crosstable_autofit.bas")
+    writeLines(c(
+        'Attribute VB_Name = "CrosstableMacros"',
+        'Sub CrosstableAutofitAll()',
+        '\tDim t As Table',
+        '\tFor Each t In ActiveDocument.Tables',
+        '\t\tt.AutoFitBehavior wdAutoFitContent',
+        '\t\tt.AutoFitBehavior wdAutoFitWindow',
+        '\tNext t',
+        'End Sub'
+    ), fileConn)
+    close(fileConn)
+    invisible(NULL)
+}
+
+
 # Internal utils ---------------------------------------------------------
 
 
