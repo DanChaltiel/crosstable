@@ -37,7 +37,7 @@ tryCatch2 = function(expr){
     attr(rtn, "warnings") = unique(map_chr(warnings, conditionMessage))
     attr(rtn, "messages") = unique(map_chr(messages, conditionMessage))
     
-    x=c(errors, warnings, messages)
+    x = c(errors, warnings, messages) %>% unique()
     attr(rtn, "overview") = tibble(
         type=map_chr(x, ~ifelse(inherits(.x, "error"), "Error", 
                                 ifelse(inherits(.x, "warning"), "Warning", "Message"))),
@@ -93,23 +93,44 @@ get_defined_function = function(name) {
 
 
 
-#' @keywords internal
 #' @importFrom rlang as_function is_formula caller_env warn abort
 #' @importFrom purrr map map_dbl pmap_chr
 #' @importFrom glue glue glue_collapse
 #' @importFrom stringr str_subset
+#' @keywords internal
 #' @noRd
 parse_funs = function(funs){
+    # browser()
+    # fun_quo=enquo(funs)
     funs = c(funs)
     if(is.null(names(funs))) names(funs)=NA
+    caller = caller_env()
+    
+    #TODO if(!is.list(funs) funs=list(funs))
+    
+    # fun_call = as.character(as.list(substitute(funs)))
+    # fun_call = fun_call[fun_call != "c" & fun_call != "list"]
+    # fun_call2 = as.character(as.list(substitute(funs, caller_env())))
+    # fun_call2 = fun_call[fun_call != "c" & fun_call != "list"]
+    
     if(length(funs)>1) {
         fun_call = as.character(as.list(substitute(funs, caller_env())))
         fun_call = fun_call[fun_call != "c" & fun_call != "list"]
     } else {
         fun_call = deparse(substitute(funs, caller_env()))
     }
-    
+    # print(fun_call)
+    # print(deparse(substitute(funs, caller_env())))
+    # print(deparse(substitute(funs)))
+    # print(deparse(substitute(list(funs), caller_env())))
+    # browser()
+    if(length(fun_call)!=length(funs)){
+        fun_call = as.character(as.list(substitute(funs, caller_env())))
+        fun_call = fun_call[fun_call != "c" & fun_call != "list"]
+        # x=list(funs, names(funs), fun_call) 
+    }
     x=list(funs, names(funs), fun_call) 
+    
     if(map_dbl(x, length) %>% .[.>0] %>% unique() %>% length() != 1){
         abort(c("Problem with fun_call. This should never happen. Is `funs` syntax correct?", 
                 i=glue("lengths: funs={length(funs)}, names(funs)={length(names(funs))}, fun_call={length(fun_call)}"))) #nocov
@@ -192,6 +213,16 @@ is.date = function(x){
 #' @noRd
 paste_classes = function(x){
     paste(class(remove_labels(x)), collapse=", ")
+}
+
+#' paste all names and first classes (minus "labelled")
+#'
+#' @param x a dataframe
+#' @keywords internal
+#' @noRd
+paste_nameclasses = function(x){
+    glue("{name} ({class})", name=names(x), 
+         class=map_chr(x, ~class(remove_label(.x))[1]))
 }
 
 

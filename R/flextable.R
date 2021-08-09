@@ -9,7 +9,8 @@
 #' @param compact whether to compact the table
 #' @param show_test_name in the `test` column, show the test name
 #' @param fontsizes font sizes as a list of keys \[body, subheaders, header\]. If set through arguments, all needed names should be mentioned.
-#' @param generic_labels names of the crosstable default columns 
+#' @param remove_header_keys if `TRUE` and `x` has several `by` strata, header will only display values
+#' @param generic_labels names of the crosstable default columns. Useful for translation for instance. 
 #' @param ... unused
 #' 
 #' @return a flextable
@@ -21,11 +22,11 @@
 #' 
 #' @importFrom dplyr select lead sym %>%
 #' @importFrom stringr str_replace str_replace_all str_remove
-#' @importFrom flextable flextable autofit add_header_row merge_v merge_h bold align hline_top hline_bottom border_inner_h hline fix_border_issues padding as_flextable fontsize
+#' @importFrom flextable flextable autofit add_header_row merge_v merge_h bold align hline_top hline_bottom border_inner_h hline fix_border_issues padding as_flextable fontsize vline vline_left vline_right set_header_df
 #' @importFrom officer fp_border
 #' @importFrom checkmate assert_class vname
 #' @importFrom tibble as_tibble
-#' @importFrom tidyr replace_na
+#' @importFrom tidyr replace_na separate
 #' @export
 #'
 #' @examples 
@@ -57,6 +58,7 @@ as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL,
                                        subheaders=getOption('crosstable_fontsize_subheaders', 11),
                                        header=getOption('crosstable_fontsize_header', 11)
                                    ), 
+                                   remove_header_keys = FALSE,
                                    generic_labels=list(id = ".id", variable = "variable", value = "value", 
                                                        total="Total", label = "label", test = "test", 
                                                        effect="effect"), 
@@ -71,7 +73,7 @@ as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL,
     has_total = attr(x, "has_total")
     has_label = attr(x, "has_label")
     by_label = attr(x, "by_label")
-    by_levels = attr(x, "by_levels") %>% replace_na("NA")
+    by_levels = attr(x, "by_levels") %>% map(replace_na, "NA")
     by = attr(x, "by")
     has_by =  !is.null(by)
     if(has_by && is.null(by_label)) by_label=by
@@ -91,7 +93,9 @@ as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL,
     
     rtn = replace(x, is.na(x), "NA")
     
+    
     if(inherits(x, "compacted_crosstable")) {
+        # if(length(by_levels)>1) abort("Cannot compact a crosstable with multiple `by`.")
         rows = attr(x, "title_rows")
         title_rows = which(rows)+(0:(sum(rows)-1))
         padded_rows = 1:nrow(rtn)
@@ -106,14 +110,14 @@ as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL,
             padding(i=padded_rows, j=1, padding.left=getOption('crosstable_compact_padding', 25))
     } else {
         sep.rows = which(rtn[[id]] != lead(rtn[[id]]))
+        body_merge = intersect(names(rtn), generic_labels[c("label", "test", "effect", "id")]) %>%
+            unlist()
+        
         if(keep_id) {
             cols = rtn %>% names()
-            body_merge = setdiff(names(rtn), 
-                                 c(generic_labels[c("variable", "value", "total")], by_levels))
         } else {
             cols = rtn %>% select(-any_of(id)) %>% names()
-            body_merge = setdiff(names(rtn), 
-                                 c(generic_labels[c("variable", "value", "total", "id")], by_levels))
+            body_merge = body_merge[body_merge!=id]
         }
         rtn = rtn %>% 
             mutate(
@@ -125,28 +129,58 @@ as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL,
             merge_v(j=id, target=body_merge, part = "body")
     }
     
-    if(has_by) {
+    if(length(by_levels)==1) {
+        by_levels = unlist(by_levels)
         byname = if(has_label) by_label else by
-        header_values = x %>% names
-        header_values = ifelse(header_values %in% by_levels, byname, header_values) %>% unique
+        header_values = ifelse(names(x) %in% by_levels, byname, names(x)) %>% unique
         if(!keep_id) header_values = setdiff(header_values, id)
         header_colwidths = ifelse(header_values==byname, sum(names(x) %in% labs.names), 1)
         if(!is.null(by_header))
             header_values = header_values %>% str_replace(byname, by_header)
         rtn = rtn %>% 
-            add_header_row(values = header_values, colwidths = header_colwidths) %>% 
-            merge_v(part = "head")
+            add_header_row(values = header_values, colwidths = header_colwidths)
+    } else if(length(by_levels)>1) {
+        header_mapping = tibble(col_keys = names(x)) %>% 
+            separate(col_keys, into=paste0(".col_", 1:length(by_levels)), 
+                     sep=" & ", remove=FALSE, fill="right") %>% 
+            select(col_keys, rev(names(.))) %>% 
+            mutate(across(starts_with(".col_"), ~ifelse(is.na(.x), col_keys, .x)))
+        if(remove_header_keys){ #TODO plutôt que logical, pattern avec key, label et value
+            header_mapping = header_mapping %>% 
+                mutate(across(starts_with(".col_"), ~str_remove(.x, "^.*=")))
+        }
+        # TODO option pour ça ?
+        # header_mapping = header_mapping %>% 
+        #     separate_rows(-col_keys, sep="=") %>% 
+        #     mutate(kv = rep(c("key", "value"), length(names(x)[-(1:3)]))) %>% 
+        #     pivot_wider(names_from = "kv", values_from = starts_with(".col_"))
+        header_left = sum(rtn$header$col_keys %in% generic_labels[c("label", "variable", "id")])
+        # n_strat = by_levels[-1] %>% map(length) %>% reduce(`*`)
+        # n_col_strat1 = length(by_levels[[1]])
+        # hline_index_j = c(header_left, header_left+n_col_strat1*seq.int(n_strat))
+        # browser()
+        hline_index_j = header_mapping %>% pull(ncol(.)-1) %>% {which(!. %in% generic_labels & .!=lead(.))}
+        hline_index_j = c(header_left+1, hline_index_j)
+        rtn =
+            rtn %>% 
+            set_header_df(header_mapping, key = "col_keys") %>%
+            merge_h(i=seq.int(length(by_levels)-1), part = "head") %>%
+            border(j=hline_index_j, border.left=border1, part="all") %>%
+            vline_left(border=border1) %>% 
+            vline_right(border=border1)
     }
     
-    rtn = rtn %>% 
+    
+    rtn = rtn %>%  
+        merge_v(part = "head") %>% 
         bold(part = "head") %>% 
-        fontsize(part="head", size=fontsizes$header) %>%
         align(align = "left", part = "all") %>% 
-        align(i = 1, align = "center", part = "head") %>% 
+        align(align="center", part="head") %>% 
+        fontsize(part="head", size=fontsizes$header) %>%
         hline_top(border = border2, part = "head") %>% 
         hline_bottom(border = border2, part = "head") %>% 
-        border_inner_h(border = border2, part = "head") %>% 
-        fix_border_issues
+        border_inner_h(border = border1, part = "head") %>%
+        fix_border_issues()
     
     if (autofit) {
         rtn = autofit(rtn)

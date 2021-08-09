@@ -90,10 +90,10 @@ summarize_categorical_by = function(x, by, margin, showNA, total, digits,
     if(1 %in% total){
         .total=summarize_categorical_single(x, showNA, total, digits, margin) %>% pull(.data$value)
     }
-    
-    if(effect) 
-        .effect = effect_args$show_effect(effect_args$effect_tabular(x, by, effect_args$conf_level), 
-                                          digits = effect_args$digits)
+    if(effect) {
+        e = effect_args$effect_tabular(x, by, effect_args$conf_level)
+        .effect = effect_args$effect_display(e, digits = effect_args$digits)
+    }
     if(test) {
         .test = test_args$test_display(test_args$test_tabular(x, by), digits = test_args$plim, 
                                        method = test_args$show_method)

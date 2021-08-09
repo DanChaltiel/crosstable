@@ -9,14 +9,20 @@ summarize_numeric_single = function(x, funs, funs_arg){
     imap_dfr(funs, ~{
         v = do.call(.x, c(list(x), funs_arg))
         if(length(v)<2){
-            v = data.frame(variable=.y, value=v)
+            variable = .y
         } else {
-            v = data.frame(variable=names(v), value=v)
+            variable=names(v)
             if(.y!=" "){
-                v$variable = paste(.y, v$variable)
+                variable = paste(.y, variable)
             }
         }
-        mutate_if(v, is.numeric, format_fixed, !!!funs_arg)
+        if(length(variable)!=length(v)){
+            abort("Summary functions should return a single value", 
+                  class="crosstable_summary_not_scalar")
+        }
+        
+        data.frame(variable=variable, value=v) %>% 
+            mutate_if(is.numeric, format_fixed, !!!funs_arg)
     })
 }
 
@@ -38,7 +44,7 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
     .=NULL #mute the R CMD Check note
     .na=.effect=.test=.total=NULL
     if(effect) 
-        .effect = effect_args$show_effect(effect_args$effect_summarize(x, by, effect_args$conf_level), 
+        .effect = effect_args$effect_display(effect_args$effect_summarize(x, by, effect_args$conf_level), 
                                           digits = cor_digits)
     if(test) 
         .test = test_args$test_display(test_args$test_summarize(x, by), digits = test_args$plim, 
@@ -57,11 +63,11 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
         by_filter = !is.na(by) 
     }
     
-    tibble(x, by) %>%
-        filter(by_filter) %>%
-        group_by(by) %>%
-        summarise(x=list(summarize_numeric_single(x, funs=funs, funs_arg=funs_arg))) %>%
-        unnest(cols="x") %>%
+    by(x[by_filter], by[by_filter], summarize_numeric_single, funs=funs, funs_arg=funs_arg) %>% 
+        imap_dfr(~{
+            if(is.null(.x)) .x=summarize_numeric_single(numeric(0), funs=funs, funs_arg=funs_arg)
+            mutate(.x, by=.y, .before=1)
+        }) %>%
         pivot_wider(names_from = "by") %>%
         {if(!is.null(.na)){mutate(.,"NA"=.na)} else .} %>%
         mutate(Total=.total, effect=.effect, test=.test, 
@@ -97,7 +103,7 @@ summarize_numeric_numeric = function(x, by, method, digits, test, test_args){
         value=glue("{cor}")
     }
     
-    if(test) .test=test_args$display_test(ct) else .test=NULL
+    if(test) .test=test_args$test_display(ct) else .test=NULL
     
     tibble(variable=method, value=as.character(value)) %>% mutate(test=.test)
 }

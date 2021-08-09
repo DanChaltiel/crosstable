@@ -110,7 +110,7 @@ test_tabular_auto = function(x, y) {
 #' @param g another vector
 #' @return a list with two components: p.value and method
 #' @author David Hajage, Dan Chaltiel
-#' @importFrom nortest ad.test
+# @importFrom nortest ad.test
 #' @importFrom stats shapiro.test bartlett.test kruskal.test t.test oneway.test
 #' @export
 test_summarize_auto = function(x, g) {
@@ -251,7 +251,7 @@ test_summarize_linear_contrasts = function(x, y){
 #' 
 #' @keywords internal
 #' @importFrom stats shapiro.test na.omit
-#' @importFrom nortest ad.test
+# @importFrom nortest ad.test
 #' @noRd
 test_normality = function(x, g){
   x=as.numeric(x)
