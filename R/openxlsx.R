@@ -39,6 +39,8 @@ as_workbook = function(x, show_test_name=TRUE,
                                            total="Total", label = "label", test = "test",
                                            effect="effect"),
                        ...){
+    assert_is_installed("openxlsx", "as_workbook()")
+    
     if(!inherits(x, "list")){
         x=list("crosstable"=x)
     }
@@ -76,7 +78,9 @@ addToWorksheet = function(wb, ct, sheetname, show_test_name = TRUE,
     has_test = attr(ct, "has_test")
     has_label = attr(ct, "has_label")
     by_label = attr(ct, "by_label")
-    by_levels = attr(ct, "by_levels") %>% replace_na("NA")
+    by_levels = attr(ct, "by_levels") %>% replace_na("NA") %>% unlist()
+    multiple_by = length(attr(ct, "by_levels"))>1
+    
     by = attr(ct, "by")
     has_by =  !is.null(by)
     if(has_by && is.null(by_label)) by_label=by
@@ -113,7 +117,7 @@ addToWorksheet = function(wb, ct, sheetname, show_test_name = TRUE,
     border1 <- openxlsx::createStyle(border = "top", borderStyle="medium")
     border2 <- openxlsx::createStyle(border = "top", borderStyle="thin")
     
-    if(has_by) {
+    if(has_by && !multiple_by) {
         if(!is.null(by_header)) by_label=by_header
         byname = if(has_label) by_label else by
         by_cols = which(names(rtn) %in% by_levels)
@@ -124,10 +128,9 @@ addToWorksheet = function(wb, ct, sheetname, show_test_name = TRUE,
     } else {
         rh = 3
     }
-    
     openxlsx::writeData(wb, sheet=sheetname, x=rtn, startRow=2, startCol=2)
     
-    if(has_by) {
+    if(has_by && !multiple_by) {
         openxlsx::mergeCells(wb, sheet=sheetname, cols=by_cols+1, rows=2)
         openxlsx::addStyle(wb, sheet=sheetname, style = border2, rows = 3, cols = by_cols+1,
                            gridExpand = TRUE, stack=TRUE)
