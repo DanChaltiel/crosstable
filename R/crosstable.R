@@ -346,15 +346,32 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     multiby = !is.null(data_y) && ncol(data_y)>1
     
     # Function call -------------------------------------------------------
-    by_levels = data_y %>% map(~{if(is.numeric(.x)) NULL else unique(as.character(.x))})
+    by_levels = data_y %>% map(~{if(is.numeric(.x)) NULL else sort(unique(as.character(.x)), na.last=TRUE)})
     if(showNA=="no") by_levels = map(by_levels, ~.x[!is.na(.x)])
     funs = parse_funs(funs)
     if(multiby){
-        data_y = data_y %>% 
-            imap_dfr(~ paste(.y, .x, sep="=")) %>%
-            unite(text, sep=" & ")
+        # data_y_lvl = expand.grid(by_levels, stringsAsFactors=FALSE) %>% pmap_chr(~{
+        #     l=list(...)
+        #     paste0(names(l), "=", as.character(l)) %>% paste(collapse=" & ") %>% set_names("y")
+        # })
+        # data_y3 = data_y %>%
+        #     pmap_dfr(~{
+        #         l=map(list(...), as.character)
+        #         paste0(names(l), "=", as.character(l)) %>% paste(collapse=" & ") %>% set_names("y")
+        #     }) %>%
+        #     mutate(y=factor(y, levels=data_y_lvl))
         
-        rtn = cross_by(data_x=data_x, data_y=data_y, funs=funs, funs_arg=funs_arg,
+        
+        data_y_lvl = expand.grid(by_levels, stringsAsFactors=FALSE) %>%
+            imap_dfr(~ paste(.y, .x, sep="=")) %>%
+            unite(y, sep=" & ") %>% pull()
+        
+        data_y2 = data_y %>%
+            imap_dfr(~ paste(.y, .x, sep="=")) %>%
+            unite(y, sep=" & ") %>%
+            mutate(y=factor(y, levels=data_y_lvl))
+        
+        rtn = cross_by(data_x=data_x, data_y=data_y2, funs=funs, funs_arg=funs_arg,
                        margin=margin, total=total, percent_digits=percent_digits, showNA=showNA,
                        cor_method=cor_method, times=times, followup=followup, test=test, test_args=test_args,
                        effect=effect, effect_args=effect_args, label=label)
