@@ -19,5 +19,5 @@ Compute a oneway.test (with equal or unequal variance) or a
 kruskal.test as appropriate.
 }
 \author{
-David Hajage, Dan Chaltiel
+Dan Chaltiel, David Hajage
 }

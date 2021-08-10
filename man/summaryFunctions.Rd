@@ -90,7 +90,15 @@ minmax(x, date_format="\%d/\%m/\%Y")
 \code{\link[=format_fixed]{format_fixed()}}
 }
 \author{
-Dan Chaltiel
+Dan Chaltiel, David Hajage
 
-David Hajage
+Dan Chaltiel, David Hajage
+
+Dan Chaltiel, David Hajage
+
+Dan Chaltiel, David Hajage
+
+Dan Chaltiel, David Hajage
+
+Dan Chaltiel, David Hajage
 }

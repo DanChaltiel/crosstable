@@ -8,6 +8,7 @@
 #' 
 #' @return A character vector if `simplify==TRUE`, a list otherwise
 #'
+#' @author Dan Chaltiel
 #' @export
 #' @importFrom purrr map map2
 #' @seealso [set_label()], [import_labels()], [remove_label()], [Hmisc::label()], [expss::var_lab()]
@@ -59,8 +60,9 @@ get_label = function(x, default=names(x), object=FALSE, simplify=TRUE){
 #' 
 #' @return An object of the same type as `x`, with labels
 #'
-#' @importFrom checkmate assert_string
+#' @author Dan Chaltiel
 #' @export
+#' @importFrom checkmate assert_string
 #' @seealso [get_label()], [import_labels()], [remove_label()]
 #' @examples 
 #' library(dplyr)
@@ -103,6 +105,7 @@ set_label = function(x, value, object=FALSE){
 #' @return An object of the same type as `x`, with the label of `from`
 #'
 #' @rdname set_label
+#' @author Dan Chaltiel
 #' @export
 copy_label_from = function(x, from){
     set_label(x, get_label(from))
@@ -116,6 +119,7 @@ copy_label_from = function(x, from){
 #' 
 #' @return An object of the same type as `x`, with no labels
 #'
+#' @author Dan Chaltiel
 #' @export
 #' @rdname remove_labels
 #' @aliases remove_label
@@ -151,6 +155,7 @@ remove_label = remove_labels
 #' @return A dataframe, as `df`, which names are copied from the label attribute
 #'
 #' @importFrom checkmate assert_data_frame
+#' @author Dan Chaltiel
 #' @export
 #'
 #' @examples
@@ -175,8 +180,9 @@ rename_dataframe_with_labels = function(df){
 #' 
 #' @return An object of the same type as `.data`, with labels
 #'
-#' @importFrom purrr imap_dfr
+#' @author Dan Chaltiel
 #' @export
+#' @importFrom purrr imap_dfr
 #' 
 #' @examples 
 #' library(crosstable)
@@ -215,6 +221,7 @@ apply_labels = function (data, ..., warn_missing=FALSE) {
 #' 
 #' @return A dataframe, as `.tbl`, with labels
 #'
+#' @author Dan Chaltiel
 #' @export
 #' @importFrom glue glue
 #' @importFrom tibble column_to_rownames
@@ -291,6 +298,7 @@ import_labels = function(.tbl, data_label,
 #' @rdname import_labels
 #' @description `save_labels` saves the labels from a data.frame in a temporary variable that can be retrieve by `import_labels`.
 #' @return `.tbl` invisibly. Used only for its side effects.
+#' @author Dan Chaltiel
 #' @export
 #' @examples 
 #' #save the labels, use some dplyr label-removing function, then retrieve the labels

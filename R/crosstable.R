@@ -27,6 +27,7 @@
 #' @param .vars deprecated
 #' @inheritParams format_fixed
 #' 
+#' @author Dan Chaltiel
 #' @export
 #' @importFrom checkmate makeAssertCollection reportAssertions assert_data_frame assert_count assert_logical assert_list assert_subset assert_choice
 #' @importFrom rlang quos enquos enquo expr quo_is_null is_null is_quosures is_formula is_string is_empty is_lambda as_function set_env quo_squash caller_env warn abort quo_is_missing

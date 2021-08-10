@@ -16,5 +16,5 @@ a list with two components: p.value and method
 Compute a logrank test
 }
 \author{
-David Hajage
+Dan Chaltiel, David Hajage
 }

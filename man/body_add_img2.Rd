@@ -44,3 +44,6 @@ if(file.exists(img.file)){
 \seealso{
 \code{\link[=body_add_gg2]{body_add_gg2()}}
 }
+\author{
+Dan Chaltiel
+}

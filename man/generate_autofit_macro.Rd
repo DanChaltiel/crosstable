@@ -22,3 +22,6 @@ This function generates a file that can be imported into MS Word in order to use
 }
 }
 
+\author{
+Dan Chaltiel
+}

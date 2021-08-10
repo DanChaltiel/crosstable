@@ -41,3 +41,8 @@ mtcars \%>\%
 \seealso{
 \code{\link[=get_label]{get_label()}}, \code{\link[=import_labels]{import_labels()}}, \code{\link[=remove_label]{remove_label()}}
 }
+\author{
+Dan Chaltiel
+
+Dan Chaltiel
+}

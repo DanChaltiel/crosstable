@@ -63,5 +63,11 @@ crosstable(xx, by=am, test=TRUE, total=TRUE, effect=TRUE) \%>\% as_gt(keep_id=TR
 }
 \author{
 Dan Chaltiel
+
+Dan Chaltiel
+
+Dan Chaltiel
+
+Dan Chaltiel
 }
 \concept{as_gt methods}

@@ -16,3 +16,6 @@ The docx object \code{doc}
 Use it below \code{\link[=body_add_crosstable]{body_add_crosstable()}}.
 Footnote: Med: median, IQR: interquartile range, Std: standard deviation. Percentages are expressed in column.
 }
+\author{
+Dan Chaltiel
+}

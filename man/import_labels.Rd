@@ -65,3 +65,8 @@ mtcars2 \%>\%
 \seealso{
 \code{\link[=get_label]{get_label()}}, \code{\link[=set_label]{set_label()}}, \code{\link[=remove_label]{remove_label()}}, \code{\link[=save_labels]{save_labels()}}
 }
+\author{
+Dan Chaltiel
+
+Dan Chaltiel
+}

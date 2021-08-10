@@ -42,3 +42,6 @@ dfile = tempfile(fileext=".docx")
 print(doc, target = dfile)
 if(interactive()) browseURL(dfile)
 }
+\author{
+Dan Chaltiel
+}

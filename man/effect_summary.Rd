@@ -38,11 +38,22 @@ User can either use or extend these functions to parametrize effect calculation.
 
 \item \code{diff_mean_boot}: calculate a "difference in means" effect with a bootstrapped CI using standard deviation
 
-\item \code{diff_median_boot}: calculate a "difference in medians" effect with a bootstrapped CI using quantiles
+\item \code{diff_median_boot}: calculate a "difference in medians" effect with a bootstrapped CI using quantiles#'
 
 \item \code{diff_mean_student}: calculate a "difference in means" effect using \code{t.test} confidence intervals
 }}
 
 \seealso{
 \code{\link[=crosstable_effect_args]{crosstable_effect_args()}}
+}
+\author{
+Dan Chaltiel, David Hajage
+
+Dan Chaltiel, David Hajage
+
+Dan Chaltiel, David Hajage
+
+Dan Chaltiel, David Hajage
+
+Dan Chaltiel, David Hajage
 }

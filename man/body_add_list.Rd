@@ -49,4 +49,6 @@ read_docx("my_template.docx") \%>\%
 }
 \author{
 Dan Chaltiel
+
+Dan Chaltiel
 }

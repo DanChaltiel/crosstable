@@ -19,5 +19,5 @@ Compute a chisq.test, a chisq.test with correction of continuity
 or a fisher test as appropriate
 }
 \author{
-David Hajage
+Dan Chaltiel, David Hajage
 }

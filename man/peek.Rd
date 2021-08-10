@@ -19,3 +19,6 @@ Nothing, called for its side effects
 \description{
 This eases copy-pasting
 }
+\author{
+Dan Chaltiel
+}

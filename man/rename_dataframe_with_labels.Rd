@@ -21,3 +21,6 @@ mtcars2 \%>\%
   select(1:5) \%>\% 
   rename_dataframe_with_labels()
 }
+\author{
+Dan Chaltiel
+}

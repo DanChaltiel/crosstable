@@ -36,5 +36,7 @@ doc = read_docx()  \%>\%
 #write_and_open(doc)
 }
 \author{
+Dan Chaltiel#'
+
 Dan Chaltiel
 }

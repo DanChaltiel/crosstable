@@ -11,6 +11,7 @@
 #' @param header_fontsize fontsize of the header
 #' @param ... further arguments passed to [as_flextable.crosstable()]
 #'
+#' @author Dan Chaltiel
 #' @export
 #' @importFrom flextable body_add_flextable fontsize
 #' @importFrom checkmate assert_class vname
@@ -57,8 +58,8 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #' @param .sep Separator used to separate elements.
 #'
 #' @return a new doc object
-#' @author Dan Chaltiel
 #' 
+#' @author Dan Chaltiel#' 
 #' @export
 #' @importFrom glue glue glue_collapse
 #' @importFrom officer body_add_par
@@ -105,6 +106,7 @@ body_add_normal = function(doc, ..., .sep="") {
 #' @usage NULL
 #' @importFrom lifecycle deprecate_warn
 #' @rdname body_add_normal
+#' @author Dan Chaltiel
 #' @export
 body_add_glued = function(...){
     deprecate_warn("0.2.0", "body_add_glued()", "body_add_normal()")# nocov
@@ -124,8 +126,8 @@ body_add_glued = function(...){
 #' @return The docx object `doc`
 #'
 #' @author Dan Chaltiel
-#' @importFrom officer body_add_par
 #' @export
+#' @importFrom officer body_add_par
 #' @examples
 #' library(officer)
 #' library(crosstable)
@@ -184,6 +186,7 @@ body_add_list = function(doc, value, ordered=FALSE, style=NULL, ...){
 }
 
 #' @rdname body_add_list
+#' @author Dan Chaltiel
 #' @export
 body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
     if(is.null(style)){
@@ -243,6 +246,7 @@ body_add_table_legend = function(doc, legend, bookmark=NULL,
 }
 
 #' @rdname body_add_table_legend
+#' @author Dan Chaltiel
 #' @export
 body_add_figure_legend = function(doc, legend, bookmark=NULL, 
                                   legend_style=getOption('crosstable_style_legend', "Image Caption"), 
@@ -287,6 +291,7 @@ body_add_legend = function(doc, legend, legend_name, bookmark, legend_style, sty
 #' 
 #' @seealso [body_add_gg2()]
 #'
+#' @author Dan Chaltiel
 #' @export
 #' @importFrom officer body_add_img
 #' @examples
@@ -322,8 +327,9 @@ body_add_img2 = function(doc, src, width, height,
 #' 
 #' @return The docx object `doc`
 #' 
-#' @importFrom checkmate assert_class
+#' @author Dan Chaltiel
 #' @export
+#' @importFrom checkmate assert_class
 #' @examples
 #' if(require("ggplot2") && capabilities(what = "png")){
 #'   library(officer)
@@ -362,6 +368,7 @@ body_add_gg2 = function(doc, value, width = 6, height = 5,
 #' 
 #' @return The docx object `doc`
 #'
+#' @author Dan Chaltiel
 #' @export
 body_add_crosstable_footnote = function(doc){
     body_add_normal(doc, "Med: median, IQR: interquartile range, Std: standard deviation. Percentages are expressed in column.")    
@@ -421,11 +428,11 @@ docx_bookmarks2 = function(x, return_vector=FALSE) {#nocov start
 #' @return Nothing, called for its side effects
 #'
 #' @author Dan Chaltiel
+#' @export
 #' @importFrom utils browseURL
 #' @importFrom rlang abort
 #' @importFrom stringr str_detect
 #' @importFrom glue glue
-#' @export
 #'
 #' @examples
 #' library(officer)
@@ -487,6 +494,7 @@ write_and_open = function(doc, docx.file){
 #'  * Run the macro, either from the VB Editor or from `View` > `Macros` > `View Macros` > `Run`.
 #'
 #' @return nothing
+#' @author Dan Chaltiel
 #' @export
 generate_autofit_macro = function(){
     fileConn<-file("crosstable_autofit.bas")

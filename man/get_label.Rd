@@ -44,3 +44,6 @@ get_label(list(foo=xx$cyl, bar=xx$mpg), default="Default value")
 \seealso{
 \code{\link[=set_label]{set_label()}}, \code{\link[=import_labels]{import_labels()}}, \code{\link[=remove_label]{remove_label()}}, \code{\link[Hmisc:label]{Hmisc::label()}}, \code{\link[expss:var_lab]{expss::var_lab()}}
 }
+\author{
+Dan Chaltiel
+}

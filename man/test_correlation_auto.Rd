@@ -19,3 +19,6 @@ the correlation test with appropriate method
 \description{
 test for correlation coefficients
 }
+\author{
+Dan Chaltiel, David Hajage
+}

@@ -23,3 +23,6 @@ mtcars2$hp \%>\% remove_labels \%>\% get_label #numeric
 \seealso{
 \link{get_label}, \link{set_label}, \link{import_labels}, \link[expss:unlab]{expss::unlab}
 }
+\author{
+Dan Chaltiel
+}

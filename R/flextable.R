@@ -194,22 +194,25 @@ to_flextable = as_flextable.crosstable
 
 
 #' @usage NULL
-#' @importFrom lifecycle deprecate_warn
+#' @author Dan Chaltiel
 #' @export
+#' @importFrom lifecycle deprecate_warn
 #' @rdname as_flextable
 cross_to_flextable = function(...){
     deprecate_warn("0.1.0", "cross_to_flextable()", "as_flextable()")# nocov
     as_flextable.crosstable(...)# nocov
 }
 #' @usage NULL
+#' @author Dan Chaltiel
 #' @export
 #' @rdname as_flextable
 ctf = cross_to_flextable
 
 #' @name as_flextable 
 #' @rdname as_flextable 
-#' @importFrom flextable as_flextable
+#' @author Dan Chaltiel
 #' @export
+#' @importFrom flextable as_flextable
 flextable::as_flextable
 
 
@@ -224,6 +227,7 @@ flextable::as_flextable
 #' 
 #' @return Nothing, called for its side effects
 #'
+#' @author Dan Chaltiel
 #' @export
 peek = function(x, docx=getOption("crosstable_peek_docx", TRUE), ...) {
     if(docx){

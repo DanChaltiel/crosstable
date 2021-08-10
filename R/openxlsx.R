@@ -11,14 +11,13 @@
 #' @return an `openxlsx` workbook containing the crosstable(s)
 #'
 #' @author Dan Chaltiel
-#' 
+#' @export
 #' @importFrom checkmate assert_class vname
 #' @importFrom stringr str_remove
 #' @importFrom purrr walk
 #' @importFrom tidyr replace_na
 #' @importFrom dplyr %>% mutate across everything any_of lag lead select
 #' @importFrom glue glue
-#' @export
 #'
 #' @examples
 #' library(openxlsx)

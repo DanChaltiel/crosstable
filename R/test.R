@@ -57,6 +57,7 @@ crosstable_test_args = function(){
 #' @return a string
 #' @importFrom stringr str_squish
 #' @export
+#' @author Dan Chaltiel
 display_test = function(test, digits = 4, method = TRUE) {
   if (all(sapply(test, is.null)))
     "No test"
@@ -80,10 +81,10 @@ display_test = function(test, digits = 4, method = TRUE) {
 #'
 #' @param x vector
 #' @param y another vector
-#' @author David Hajage
 #' @return a list with two components: p.value and method
 #' @importFrom stats chisq.test fisher.test
 #' @export
+#' @author Dan Chaltiel, David Hajage
 test_tabular_auto = function(x, y) {
   tab = table(x, y)
   exp = rowSums(tab)%*%t(colSums(tab))/sum(tab)
@@ -109,7 +110,7 @@ test_tabular_auto = function(x, y) {
 #' @param x vector
 #' @param g another vector
 #' @return a list with two components: p.value and method
-#' @author David Hajage, Dan Chaltiel
+#' @author Dan Chaltiel, David Hajage
 # @importFrom nortest ad.test
 #' @importFrom stats shapiro.test bartlett.test kruskal.test t.test oneway.test
 #' @export
@@ -168,8 +169,9 @@ test_summarize_auto = function(x, g) {
 #' @param method "pearson", "kendall", or "spearman"
 #'
 #' @return the correlation test with appropriate method
-#' @importFrom stringr str_detect
+#' @author Dan Chaltiel, David Hajage
 #' @export
+#' @importFrom stringr str_detect
 test_correlation_auto = function(x, by, method) {
   exact=TRUE
   ct = withCallingHandlers(
@@ -198,7 +200,7 @@ test_correlation_auto = function(x, by, method) {
 #'
 #' @param formula a formula
 #' @return a list with two components: p.value and method
-#' @author David Hajage
+#' @author Dan Chaltiel, David Hajage
 #' @export
 #' @importFrom survival survdiff
 #' @importFrom stats pchisq

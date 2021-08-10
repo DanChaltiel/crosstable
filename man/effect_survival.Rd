@@ -20,3 +20,6 @@ a list with two components: p.value and method
 \description{
 Effect measure for association between one censored variable and one categorical variable
 }
+\author{
+Dan Chaltiel, David Hajage
+}

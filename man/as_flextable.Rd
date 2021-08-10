@@ -96,6 +96,12 @@ crosstable(iris, by=Species, total="both", test=TRUE, effect=TRUE) \%>\%
 }
 \author{
 Dan Chaltiel
+
+Dan Chaltiel
+
+Dan Chaltiel
+
+Dan Chaltiel
 }
 \keyword{internal}
 \description{

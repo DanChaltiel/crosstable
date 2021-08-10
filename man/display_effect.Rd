@@ -17,3 +17,6 @@ a character vector
 \description{
 User can provide their own custom version in \code{\link[=crosstable_effect_args]{crosstable_effect_args()}}
 }
+\author{
+Dan Chaltiel
+}

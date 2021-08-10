@@ -14,11 +14,12 @@
 #' @describeIn as_gt For crosstables
 #' @seealso [as_flextable.crosstable()]
 #' 
+#' @author Dan Chaltiel
+#' @export
 #' @importFrom checkmate assert_class vname
 #' @importFrom stringr str_remove
 #' @importFrom dplyr %>% mutate across everything any_of lag select
 #' @importFrom glue glue
-#' @export
 #'
 #' @examples
 #' xx = mtcars2 %>% dplyr::select(1:9)
@@ -84,6 +85,7 @@ as_gt.crosstable = function(x, show_test_name = TRUE,
 #'
 #' @family as_gt methods
 #' @seealso [gt::gt()]
+#' @author Dan Chaltiel
 #' @export
 as_gt = function(x, ...){
     assert_is_installed("gt", "as_gt()")
@@ -99,6 +101,7 @@ as_gt = function(x, ...){
 #' @describeIn as_gt default function
 #'
 #' @family as_gt methods
+#' @author Dan Chaltiel
 #' @export
 as_gt.default = function(x, ...){
     gt::gt(data=x, ...)

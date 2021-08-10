@@ -51,3 +51,6 @@ if(require("ggplot2") && capabilities(what = "png")){
   #write_and_open(doc)
 }
 }
+\author{
+Dan Chaltiel
+}

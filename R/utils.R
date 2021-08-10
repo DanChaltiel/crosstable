@@ -88,7 +88,6 @@ get_defined_function = function(name) {
     funs = funs[! vapply(envs, identical, logical(1L), topenv())]
     if(length(funs)>1) warn("There are multiple '", name,"' functions loaded. If this causes any trouble, fill an issue on crosstable's github page.") # nocov
     unlist(funs[1L])
-    # unlist(funs[[1L]])
 }
 
 
@@ -273,6 +272,7 @@ sd_date = function(x, date_unit=c("auto", "seconds", "minutes", "hours", "days",
 #'
 #' @return the vector \[conf_inf, conf_sup\]
 #'
+#' @author Dan Chaltiel
 #' @export
 #'
 #' @examples
@@ -344,6 +344,7 @@ na = function(x) {
 #' @return A character vector of re-wrapped strings
 #'
 #' @keywords internal
+#' @noRd
 #' @importFrom stringr str_detect str_wrap str_replace_all
 #'
 #' @examples

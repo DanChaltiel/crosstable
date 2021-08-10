@@ -26,3 +26,6 @@ iris \%>\%
                Sepal.Width="Width of Sepal") \%>\% 
   crosstable()
 }
+\author{
+Dan Chaltiel
+}

@@ -9,13 +9,14 @@
 #' @param ... additional arguments (not used)
 #' @rdname compact
 #'
+#' @author Dan Chaltiel
+#' @export
 #' @importFrom tidyr replace_na
 #' @importFrom rlang :=
 #' @importFrom tidyselect any_of everything
 #' @importFrom dplyr lag mutate mutate_at mutate_all vars
 #' @importFrom officer fp_border
 #' @importFrom flextable align bold border
-#' @export
 #' 
 #' @return a compacted data.frame
 #' 
@@ -63,10 +64,11 @@ compact.data.frame = function(data, name_from, name_to="variable", wrap_cols=NUL
 #' @description NULL
 #' @rdname compact
 #'
+#' @author Dan Chaltiel
+#' @export
 #' @importFrom dplyr select %>% .data intersect
 #' @importFrom stringr str_subset 
 #' @importFrom tidyselect any_of 
-#' @export
 #' 
 #' @examples 
 #' 
@@ -98,6 +100,7 @@ compact.crosstable = function(data, name_from=c("label", ".id"), name_to="variab
 #' @rdname compact
 #' @usage NULL
 #'
+#' @author Dan Chaltiel
 #' @export
 compact.default = function(data, ...) {
     fn=get_defined_function('compact')
@@ -113,6 +116,7 @@ compact.default = function(data, ...) {
 #' @description NULL
 #' @usage NULL
 #' 
+#' @author Dan Chaltiel
 #' @export
 compact = function(data, ...){
     UseMethod("compact")

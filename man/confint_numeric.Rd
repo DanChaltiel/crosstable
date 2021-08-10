@@ -24,3 +24,6 @@ confint_numeric(iris$Sepal.Length)
 confint_numeric(mtcars2$hp_date)
 confint_numeric(mtcars2$hp_date, level=0.99)
 }
+\author{
+Dan Chaltiel
+}

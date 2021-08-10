@@ -13,8 +13,8 @@
 #'   \item `digits` - the decimal places
 #' }
 #' 
-#' @export
 #' @author Dan Chaltiel
+#' @export
 crosstable_effect_args = function(){
     list( 
         effect_summarize = diff_mean_auto, 
@@ -36,8 +36,9 @@ crosstable_effect_args = function(){
 #' 
 #' @return a character vector 
 #' 
-#' @importFrom rlang is_string
+#' @author Dan Chaltiel
 #' @export
+#' @importFrom rlang is_string
 display_effect = function(effect, digits = 4){
     if(is.null(effect) || all(map_lgl(effect, is.null))){
         return("No effect?")
@@ -83,8 +84,9 @@ NULL
 
 
 #' @describeIn effect_tabular (**Default**) calculate the odds ratio
-#' @importFrom stats glm binomial confint.default
+#' @author Dan Chaltiel, David Hajage
 #' @export
+#' @importFrom stats glm binomial confint.default
 effect_odds_ratio = function (x, by, conf_level=0.95) {
     tab = table(by, x)
     if(ncol(tab) <= 1 || 
@@ -121,9 +123,10 @@ effect_odds_ratio = function (x, by, conf_level=0.95) {
 
 #' @describeIn effect_tabular calculate the relative risk
 #'
+#' @author Dan Chaltiel, David Hajage
+#' @export 
 #' @importFrom stats glm binomial confint
 #' @importFrom glue glue
-#' @export 
 # https://stats.stackexchange.com/a/336624/81974
 effect_relative_risk = function (x, by, conf_level = 0.95) { 
     tab = table(by, x)
@@ -156,9 +159,10 @@ effect_relative_risk = function (x, by, conf_level = 0.95) {
 
 #' @describeIn effect_tabular calculate the risk difference
 #'
+#' @author Dan Chaltiel, David Hajage
+#' @export
 #' @importFrom stats glm binomial confint 
 #' @importFrom glue glue 
-#' @export
 effect_risk_difference = function (x, by, conf_level = 0.95) {
     tab = table(by, x)
     if (ncol(tab) <= 1 || nrow(tab) > 2) {
@@ -221,9 +225,10 @@ NULL
 
 
 #' @describeIn effect_summary (**Default**) calculate a specific "difference in means" effect based on normality (Shapiro or Anderson test) and variance homogeneity (Bartlett test)
+#' @author Dan Chaltiel, David Hajage
+#' @export
 #' @importFrom stats sd qnorm bartlett.test t.test
 #' @importFrom forcats fct_rev
-#' @export
 diff_mean_auto = function(x, by, conf_level=0.95, R=500) {
     tab = table(by)
     if(length(tab) != 2) return(NULL) 
@@ -237,8 +242,9 @@ diff_mean_auto = function(x, by, conf_level=0.95, R=500) {
 
 
 #' @describeIn effect_summary calculate a "difference in means" effect with a bootstrapped CI using standard deviation
-#' @importFrom stats sd qnorm 
+#' @author Dan Chaltiel, David Hajage
 #' @export
+#' @importFrom stats sd qnorm 
 diff_mean_boot = function(x, by, conf_level=0.95, R=500) {
     x = as.numeric(x)
     tab = table(by)
@@ -265,9 +271,10 @@ diff_mean_boot = function(x, by, conf_level=0.95, R=500) {
 }
 
 
-#' @describeIn effect_summary calculate a "difference in medians" effect with a bootstrapped CI using quantiles
-#' @importFrom stats sd qnorm
+#' @describeIn effect_summary calculate a "difference in medians" effect with a bootstrapped CI using quantiles#' 
+#' @author Dan Chaltiel, David Hajage
 #' @export
+#' @importFrom stats sd qnorm
 diff_median_boot = function(x, by, conf_level=0.95, R=500) {
     x=as.numeric(x)
     tab = table(by)
@@ -293,8 +300,9 @@ diff_median_boot = function(x, by, conf_level=0.95, R=500) {
     list(effect.type=effect.type, ref=reference, summary=summary)
 }
 #' @usage NULL
-#' @importFrom lifecycle deprecate_warn
+#' @author Dan Chaltiel, David Hajage
 #' @export
+#' @importFrom lifecycle deprecate_warn
 #' @rdname effect_summary
 diff_median = function(...){
   deprecate_warn("0.3.0", "diff_median()", "diff_median_boot()")# nocov
@@ -303,8 +311,9 @@ diff_median = function(...){
 
 
 #' @describeIn effect_summary  calculate a "difference in means" effect using `t.test` confidence intervals
-#' @importFrom stats bartlett.test t.test
+#' @author Dan Chaltiel, David Hajage
 #' @export
+#' @importFrom stats bartlett.test t.test
 diff_mean_student = function(x, by, conf_level = 0.95) {
     x=as.numeric(x)
     tab = table(by)
@@ -348,9 +357,10 @@ diff_mean_student = function(x, by, conf_level = 0.95) {
 #' @name effect_survival
 #' @return a list with two components: p.value and method
 #' 
+#' @author Dan Chaltiel, David Hajage
+#' @export
 #' @importFrom stats confint
 #' @importFrom survival coxph
-#' @export
 effect_survival_coxph = function(x, by, conf_level = 0.95) {
     mod = tryCatch2(coxph(x~by))
     ci = suppressMessages(exp(confint(mod)))

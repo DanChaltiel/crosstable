@@ -38,3 +38,10 @@ User can either use or extend these functions to parametrize effect calculation.
 \seealso{
 \code{\link[=crosstable_effect_args]{crosstable_effect_args()}}
 }
+\author{
+Dan Chaltiel, David Hajage
+
+Dan Chaltiel, David Hajage
+
+Dan Chaltiel, David Hajage
+}

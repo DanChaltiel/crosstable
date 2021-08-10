@@ -48,3 +48,12 @@ x=crosstable(mtcars2, c(disp,hp,am), by=vs, test=TRUE, effect=TRUE)
 compact(x)
 compact(x, name_from=".id")
 }
+\author{
+Dan Chaltiel
+
+Dan Chaltiel
+
+Dan Chaltiel
+
+Dan Chaltiel
+}

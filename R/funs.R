@@ -59,8 +59,8 @@ format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL, only_round
 #' @param digits number of digits
 #' @return formatted p values
 #' @seealso [format.pval()], https://stackoverflow.com/a/23018806/3888000
-#' @export
 #' @author David Hajage
+#' @export
 plim = function(p, digits = 4) {
   pround = round(p, digits)
   lim = 10^(-digits)
@@ -117,8 +117,7 @@ plim = function(p, digits = 4) {
 #' meansd(x)
 #' minmax(x, date_format="%d/%m/%Y")
 #'
-#' @author Dan Chaltiel
-#' @author David Hajage
+#' @author Dan Chaltiel, David Hajage
 #' 
 #' @seealso [format_fixed()]
 #' 
@@ -130,6 +129,7 @@ NULL
 #' @describeIn summaryFunctions returns mean and std error
 #' @importFrom stats sd
 #' @aliases moystd
+#' @author Dan Chaltiel, David Hajage
 #' @export
 meansd = function(x, na.rm = TRUE, dig = 2, ...) {
   moy = mean(x, na.rm=na.rm) %>% 
@@ -161,6 +161,7 @@ moystd=function(...){
 #' @describeIn summaryFunctions returns mean and confidence interval
 #' @param level the confidence level required
 #' @param format a sugar argument. If FALSE, the function returns a list instead of a formatted string
+#' @author Dan Chaltiel, David Hajage
 #' @export
 meanCI = function(x, na.rm = TRUE, dig = 2, level=0.95, format=TRUE, ...) {
   .mean = mean(x, na.rm=na.rm) %>% 
@@ -177,8 +178,9 @@ meanCI = function(x, na.rm = TRUE, dig = 2, level=0.95, format=TRUE, ...) {
 
 
 #' @describeIn summaryFunctions returns median and IQR
-#' @importFrom stats median quantile
+#' @author Dan Chaltiel, David Hajage
 #' @export
+#' @importFrom stats median quantile
 mediqr = function(x, na.rm = TRUE, dig = 2, format=TRUE, ...) {
   if(is.date(x)) type=1 else type=7
   med = x %>% 
@@ -192,6 +194,7 @@ mediqr = function(x, na.rm = TRUE, dig = 2, format=TRUE, ...) {
 }
 
 #' @describeIn summaryFunctions returns minimum and maximum
+#' @author Dan Chaltiel, David Hajage
 #' @export
 minmax = function(x, na.rm = TRUE, dig = 2, ...) {
   if(all(is.na(x))){
@@ -208,6 +211,7 @@ minmax = function(x, na.rm = TRUE, dig = 2, ...) {
 }
 
 #' @describeIn summaryFunctions returns  number of observations and number of missing values
+#' @author Dan Chaltiel, David Hajage
 #' @export
 nna = function(x) {
   paste0(N(x), " (", na(x), ")")
@@ -224,6 +228,7 @@ nna = function(x) {
 #' 
 #' @return a list of named functions
 #'
+#' @author Dan Chaltiel, David Hajage
 #' @export
 #' @examples 
 #' cross_summary(iris$Sepal.Length)

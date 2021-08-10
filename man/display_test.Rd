@@ -19,3 +19,6 @@ a string
 \description{
 Default function to display a test result
 }
+\author{
+Dan Chaltiel
+}
