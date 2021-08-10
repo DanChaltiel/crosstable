@@ -240,14 +240,6 @@ test_that("crosstable limit tests: deprecated features", {
 # Errors ------------------------------------------------------------------
 test_that("crosstable limit tests: errors", {
     
-    #Multiple `by` statement
-    expect_error(
-        crosstable(mtcars, by=c("vs", "am")),
-        class="crosstable_multiple_by_error")
-    expect_error(
-        {mtcars %>% dplyr::mutate_at(c("vs", "am"), factor) %>% crosstable(1:2, by=c("vs", "am"))},
-        class="crosstable_multiple_by_error")
-    
     #either formula or `by` but not both
     expect_error(crosstable(iris2, Sepal.Width~Species, by="Species"),
                  class="crosstable_formula_by_error")

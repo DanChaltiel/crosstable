@@ -8,13 +8,15 @@
 test_that("Compact method error if list without purrr", {
     ll=list(a = "a", b = NULL, c = integer(0), d = NA, e = list())
     expect_silent(purrr::compact(ll))
-    if(is_testing())
+    if(is_testing()){
         expect_error(compact(ll), 'could not find function "compact" for objects of class other than `crosstable` or `dataframe`')
+    }
 })
 
 test_that("Compact method OK with purrr", {
     ll=list(a = "a", b = NULL, c = integer(0), d = NA, e = list())
-    library(purrr, warn.conflicts=FALSE)
+    library(purrr, include.only="compact", warn.conflicts=FALSE)
+    compact = crosstable::compact
     expect_identical(compact(ll), list(a="a",d=NA))
 
     x=sloop::s3_dispatch(compact(ll))
@@ -28,9 +30,9 @@ test_that("Compact method OK with crosstable", {
     expect_equal(dim(x1), c(17,3))
     expect_equal(sum(x1[[1]]==""), 0)
     expect_equal(sum(x1[[2]]==""), 4)
-
+    
     x=sloop::s3_dispatch(compact(ct))
-    expect_identical(x$method, c("compact.crosstable", "compact.data.frame", "compact.default"))
+    expect_true(all(c("compact.data.frame", "compact.default") %in% x$method))
 })
 
 test_that("Compact method OK with data.frame", {
@@ -45,9 +47,9 @@ test_that("Compact method OK with data.frame", {
     expect_equal(as.character(x2[1,]), c("setosa", "", "", ""))
 
     x=sloop::s3_dispatch(compact(x1))
-    expect_identical(x$method, c("compact.data.frame", "compact.default"))
+    expect_true(all(c("compact.data.frame", "compact.default") %in% x$method))
     x=sloop::s3_dispatch(compact(x2))
-    expect_identical(x$method, c("compact.data.frame", "compact.default"))
+    expect_true(all(c("compact.data.frame", "compact.default") %in% x$method))
 })
 
 test_that("Compacting inside or outside as_flextable.crosstable gives the same result", {
@@ -69,9 +71,7 @@ test_that("Flextable: by_header", {
     ct = crosstable(esoph, by="tobgp")
     ft=ct %>% as_flextable(by_header="blabla")
     
-    expect_equal(ft$header$dataset[1,3], "blabla")
-    expect_equal(ft$header$dataset[1,4], "blabla")
-    expect_equal(ft$header$dataset[1,5], "blabla")
+    expect_setequal(ft$header$dataset[1,3:5], "blabla")
 })
 
 test_that("Flextable: show_test_name", {

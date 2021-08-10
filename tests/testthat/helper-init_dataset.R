@@ -2,7 +2,17 @@
 Sys.setenv(LANG = "en")
 
 options(stringsAsFactors = FALSE)
+options(testthat.progress.max_fails = 50)
 options(width = 200)
+
+options(crosstable_verbosity_autotesting="quiet")
+# if(testthat::is_testing()){
+print(is_parallel())
+if(FALSE){
+    v=View
+    prettycode::prettycode()
+}
+
 # options(warn = 2)
 # options(warn = 1)
 # options(tidyselect_verbosity = "verbose") #quiet or verbose
@@ -23,6 +33,7 @@ mtcars3$cyl3 = mtcars3$cyl==3
 mtcars3$cyl6 = mtcars3$cyl==6
 mtcars3$dummy = "dummy"
 mtcars3$dummy_na = NA
+mtcars3$dummy_na2 = NA
 mtcars3$dummy_num_vs = ifelse(mtcars3$vs=="vshaped", 0, rnorm(15))
 mtcars3$dummy2 = mtcars3$dummy
 mtcars3$dummy2[5:12] = NA
@@ -31,7 +42,6 @@ mtcars3$surv = survival::Surv(mtcars3$disp, mtcars3$am=="manual") %>% set_label(
 # mtcars3$my_date = as.Date(mtcars2$hp , origin="2010-01-01") %>% set_label("Some nonsense date")
 # mtcars3$my_posix = as.POSIXct(mtcars2$qsec*3600*24 , origin="2010-01-01") %>% set_label("Date+time")
 mtcars3$diff = difftime(mtcars3$hp_date, mtcars3$qsec_posix, units="days") %>% set_label("Difftime hp_date-qsec_posix (days)")
-
 
 
 
