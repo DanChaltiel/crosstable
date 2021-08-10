@@ -60,7 +60,7 @@ doc = read_docx() %>%
   body_add_crosstable(compact(ct3)) #beware of any conflict with purrr::compact
 ```
 
-#### Output
+### Output
 
 ```{r save, include=FALSE}
 # stop("Working directory = ", getwd())
@@ -80,7 +80,7 @@ print(doc, "my_report.docx") #only save the docx file
 
 You can check out the result of the example above [here](https://github.com/DanChaltiel/crosstable/raw/master/examples/vignette_officer.docx).
 
-#### Functions
+### Functions
 
 Here is a brief description of the functions used in this example:
 
@@ -93,7 +93,7 @@ Here is a brief description of the functions used in this example:
 
 Browse https://davidgohel.github.io/officer for more insight about how you can use `officer`.
 
-#### Styles issues
+### Styles issues
 
 Crosstables need [Word styles](https://support.microsoft.com/fr-fr/office/personnaliser-ou-cr%C3%A9er-des-styles-d38d6e47-f6fc-48eb-a607-1eb120dec563) to work properly, and default values are contained in the default template of `officer::read_docx()`. However, if you use a custom template inside `read_docx()`, several functions in `crosstable` might need **style** parameterization.
 
@@ -103,7 +103,7 @@ You can prevent this by using either parameters `body_add_figure_legend(legend_s
 
 See `?crosstable_options` for a list of all styles you can specify with options.
 
-#### Post-production
+### Post-production
 
 + References numbering is calculated by MS Word. Therefore, they do not exist yet when the document is written. To trigger the calculation, you need to manually update the references inside MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}). You might even need to do this several times. See `?body_add_table_legend` for more insight.
 

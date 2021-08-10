@@ -5,12 +5,14 @@
 \alias{effect_survival_coxph}
 \title{Effect measure for association between one censored variable and one categorical variable}
 \usage{
-effect_survival_coxph(formula, conf_level = 0.95)
+effect_survival_coxph(x, by, conf_level = 0.95)
 }
 \arguments{
-\item{formula}{a formula}
+\item{x}{survival vector (made using \code{\link[survival:Surv]{survival::Surv()}})}
 
-\item{conf_level}{the confidence level required}
+\item{by}{categorical vector (of exactly 2 unique levels)}
+
+\item{conf_level}{confidence interval level}
 }
 \value{
 a list with two components: p.value and method

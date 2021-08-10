@@ -12,7 +12,7 @@ vignette: >
 ---
   
 
-### Normal installation
+## Normal installation
 Normal installation should goes like this:
 ```r
 install.packages("devtools")
@@ -21,7 +21,7 @@ devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 
 If none of the solutions described here worked, please create an [Issue](https://github.com/DanChaltiel/crosstable/issues) with the error message and the maximum of information.
 
-### Asking for updates
+## Asking for updates
 
 This code will probably ask for updates: 
 
@@ -63,7 +63,7 @@ install.packages("nortest")
 install.packages("lifecycle")
 ```
 
-### Asking for source compilation 
+## Asking for source compilation 
 
 If the installer asks:
 
@@ -72,7 +72,7 @@ If the installer asks:
 Try first with "no", and then with "yes" if it fails.
 
 
-### On Mac
+## On Mac
 
 This error can happen on Mac. I have no clue on how to correct it. If you experience it, please create an [Issue](https://github.com/DanChaltiel/crosstable/issues) with the actual error message and the result of `sessionInfo()`.
 

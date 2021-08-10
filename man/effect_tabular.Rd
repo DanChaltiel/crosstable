@@ -7,16 +7,16 @@
 \alias{effect_risk_difference}
 \title{Effect measure for association between two categorical variables}
 \usage{
-effect_odds_ratio(x, y, conf_level = 0.95)
+effect_odds_ratio(x, by, conf_level = 0.95)
 
-effect_relative_risk(x, y, conf_level = 0.95)
+effect_relative_risk(x, by, conf_level = 0.95)
 
-effect_risk_difference(x, y, conf_level = 0.95)
+effect_risk_difference(x, by, conf_level = 0.95)
 }
 \arguments{
-\item{x}{vector (of exactly 2 unique levels)}
+\item{x}{categorical vector (character, factor, ...)}
 
-\item{y}{another vector}
+\item{by}{categorical vector (of exactly 2 unique levels)}
 
 \item{conf_level}{confidence interval level}
 }

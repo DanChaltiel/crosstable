@@ -19,6 +19,7 @@
   fontsizes = list(body = getOption("crosstable_fontsize_body", 11), subheaders =
     getOption("crosstable_fontsize_subheaders", 11), header =
     getOption("crosstable_fontsize_header", 11)),
+  remove_header_keys = FALSE,
   generic_labels = list(id = ".id", variable = "variable", value = "value", total =
     "Total", label = "label", test = "test", effect = "effect"),
   ...
@@ -34,6 +35,7 @@ to_flextable(
   fontsizes = list(body = getOption("crosstable_fontsize_body", 11), subheaders =
     getOption("crosstable_fontsize_subheaders", 11), header =
     getOption("crosstable_fontsize_header", 11)),
+  remove_header_keys = FALSE,
   generic_labels = list(id = ".id", variable = "variable", value = "value", total =
     "Total", label = "label", test = "test", effect = "effect"),
   ...
@@ -54,7 +56,9 @@ to_flextable(
 
 \item{fontsizes}{font sizes as a list of keys [body, subheaders, header]. If set through arguments, all needed names should be mentioned.}
 
-\item{generic_labels}{names of the crosstable default columns}
+\item{remove_header_keys}{if \code{TRUE} and \code{x} has several \code{by} strata, header will only display values}
+
+\item{generic_labels}{names of the crosstable default columns. Useful for translation for instance.}
 
 \item{...}{unused}
 }

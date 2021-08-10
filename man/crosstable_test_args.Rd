@@ -18,7 +18,7 @@ A list with testing parameters:
 
 \item \code{test_survival} - a function of one argument (the formula \code{surv~by}), used to compare survival estimations. Must return a list of two components: \code{p.value} and \code{method}. See \code{\link{test_survival_logrank}} for example.
 
-\item \code{display_test} - function used to display the test result. See \code{\link{display_test}}.
+\item \code{test_display} - function used to display the test result. See \code{\link{display_test}}.
 \item \code{plim} - number of digits for the p value
 \item \code{show_method} - whether to display the test name (logical)
 }
