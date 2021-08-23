@@ -1,6 +1,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # ad.test (copied from nortest:::ad.test)
 # from nortest 1.0-4
+#' @importFrom stats complete.cases pnorm
 `ad.test` <- function(x) {
   DNAME <- deparse(substitute(x))
   x <- sort(x[complete.cases(x)])
@@ -34,6 +35,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # CochranArmitageTest (copied from DescTools:::CochranArmitageTest)
 # from DescTools 0.99.42
+#' @importFrom stats pnorm
 `CochranArmitageTest` <- function(x, alternative = c("two.sided", "increasing", "decreasing")) {
   DNAME <- deparse(substitute(x))
   if (!(any(dim(x) == 2))) {
