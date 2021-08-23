@@ -406,8 +406,9 @@ test_tabular_auto2 = function (x, y) {
   if(is.ordered(x) & is.ordered(y)){
     test = cor.test(as.numeric(x), as.numeric(y), method = "spearman", exact = FALSE)
   } else if((is.ordered(x) | is.ordered(y)) & any(dim(tab)==2)){
-    assert_is_installed("DescTools", "CochranArmitageTest() in test_tabular_auto2()")
-    test = DescTools::CochranArmitageTest(tab, alternative = "two.sided")
+    # assert_is_installed("DescTools", "CochranArmitageTest() in test_tabular_auto2()")
+    # test = DescTools::CochranArmitageTest(tab, alternative = "two.sided")
+    test = CochranArmitageTest(tab, alternative = "two.sided")
   } else{
     exp = rowSums(tab) %*% t(colSums(tab))/sum(tab)
     if (any(dim(table(x, y)) == 1)) 
