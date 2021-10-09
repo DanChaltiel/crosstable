@@ -8,7 +8,7 @@
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
         as.data.frame()
     Warning <crosstable_effect_2groups_warning>
-      Cannot calculate crosstable effects as there is has not exactly 2 groups in `by`.
+      Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 3 levels
     Warning <warning>
       Unknown or uninitialised column: `effect`.
@@ -84,7 +84,7 @@
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
         as.data.frame()
     Warning <crosstable_effect_2groups_warning>
-      Cannot calculate crosstable effects as there is has not exactly 2 groups in `by`.
+      Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 3 levels
     Warning <warning>
       Unknown or uninitialised column: `effect`.
@@ -170,7 +170,7 @@
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
         as.data.frame()
     Warning <crosstable_effect_2groups_warning>
-      Cannot calculate crosstable effects as there is has not exactly 2 groups in `by`.
+      Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 1 levels
     Warning <warning>
       Unknown or uninitialised column: `effect`.
@@ -188,7 +188,7 @@
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
         as.data.frame()
     Warning <crosstable_effect_2groups_warning>
-      Cannot calculate crosstable effects as there is has not exactly 2 groups in `by`.
+      Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 3 levels
     Warning <warning>
       Unknown or uninitialised column: `effect`.
@@ -274,7 +274,7 @@
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
         as.data.frame()
     Warning <crosstable_effect_2groups_warning>
-      Cannot calculate crosstable effects as there is has not exactly 2 groups in `by`.
+      Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 3 levels
     Warning <warning>
       Unknown or uninitialised column: `effect`.
@@ -368,7 +368,7 @@
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
         as.data.frame()
     Warning <crosstable_effect_2groups_warning>
-      Cannot calculate crosstable effects as there is has not exactly 2 groups in `by`.
+      Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 1 levels
     Warning <warning>
       Unknown or uninitialised column: `effect`.
@@ -387,7 +387,7 @@
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
         as.data.frame()
     Warning <crosstable_effect_2groups_warning>
-      Cannot calculate crosstable effects as there is has not exactly 2 groups in `by`.
+      Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 3 levels
     Warning <warning>
       Unknown or uninitialised column: `effect`.
@@ -467,7 +467,7 @@
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
         as.data.frame()
     Warning <crosstable_effect_2groups_warning>
-      Cannot calculate crosstable effects as there is has not exactly 2 groups in `by`.
+      Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 3 levels
     Warning <warning>
       Unknown or uninitialised column: `effect`.
@@ -557,7 +557,7 @@
       crosstable(mtcars3, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
         as.data.frame()
     Warning <crosstable_effect_2groups_warning>
-      Cannot calculate crosstable effects as there is has not exactly 2 groups in `by`.
+      Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 1 levels
     Warning <warning>
       Unknown or uninitialised column: `effect`.

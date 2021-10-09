@@ -106,7 +106,7 @@ There are many ways to select variables: with names, character vector, `tidysele
 
 The `by` column is usually a factor, character or logical vector. If it is a numeric vector, then only numeric vectors can be described and correlation coefficients will be displayed.
 
-In this vignette, I will often set `keep_id=TRUE` so you can see the variable name, but in practice you usually omit it. See `vignette("crosstable-report")` for more on `as_flextable()` and on how to integrate crosstables in MS Word document (`officer`) and `Rmarkdown`. On the other hand, you can set `label=FALSE` if you dont want them to appear.
+In this vignette, I will often set `keep_id=TRUE` so you can see the variable name, but in practice you usually omit it. See `vignette("crosstable-report")` for more on `as_flextable()` and on how to integrate crosstables in MS Word document (`officer`) and `Rmarkdown`. On the other hand, you can set `label=FALSE` if you don't want them to appear.
 
 
 ## Totals

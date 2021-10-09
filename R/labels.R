@@ -211,7 +211,7 @@ apply_labels = function (data, ..., warn_missing=FALSE) {
 #' 
 #' `import_labels` imports labels from a data.frame (`data_label`) to another one (`.tbl`). Works in synergy with [save_labels()].
 #'
-#' @param .tbl the data.frame to labellize
+#' @param .tbl the data.frame to be labelled
 #' @param data_label a data.frame from which to import labels. If missing, the function will take the labels from the last dataframe on which [save_labels()] was called.
 #' @param name_from in `data_label`, which column to get the variable name (default to `name`)
 #' @param label_from in `data_label`, which column to get the variable label (default to `label`)

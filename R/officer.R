@@ -380,7 +380,7 @@ body_add_crosstable_footnote = function(doc){
 # Officer helpers ---------------------------------------------------------
 
 crosstable_luafilters = function(){
-    x=system.file(package = "crosstable", "rmarkdown/page-break.lua")
+    x = system.file(package="crosstable", "rmarkdown/page-break.lua")
     paste0("--lua-filter=", x)
 }
 

@@ -14,7 +14,7 @@ cross_by = function(data_x, data_y, funs, funs_arg, margin, total, percent_digit
     if(!is.numeric(data_y[[1]]) && isTRUE(effect) && by_levels!=2){
         info_by = NULL
         if(!is.null(data_y)) info_by = c()
-        warn(c(glue("Cannot calculate crosstable effects as there is has not exactly 2 groups in `by`."),
+        warn(c(glue("Cannot calculate crosstable effects as there is not exactly 2 groups in `by`."),
                i=glue("`by` has {by_levels} levels")),
              class = "crosstable_effect_2groups_warning")
         effect = FALSE

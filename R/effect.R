@@ -69,7 +69,7 @@ display_effect = function(effect, digits = 4){
 
 #' Effect measure for association between two categorical variables
 #' 
-#' User can either use or extend these functions to parametrize effect calculation.
+#' User can either use or extend these functions to configure effect calculation.
 #'
 #' @name effect_tabular
 #' 
@@ -209,7 +209,7 @@ effect_risk_difference = function (x, by, conf_level = 0.95) {
 
 #' Effect measure for association between one continuous and one categorical variable
 #' 
-#' User can either use or extend these functions to parametrize effect calculation.
+#' User can either use or extend these functions to configure effect calculation.
 #'
 #' @name effect_summary
 #' 
