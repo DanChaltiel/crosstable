@@ -9,11 +9,12 @@
 #' @param x a `crosstable` object
 #' @param body_fontsize fontsize of the body
 #' @param header_fontsize fontsize of the header
+#' @param padding_v vertical padding of all table rows
 #' @param ... further arguments passed to [as_flextable.crosstable()]
 #'
 #' @author Dan Chaltiel
 #' @export
-#' @importFrom flextable body_add_flextable fontsize
+#' @importFrom flextable body_add_flextable fontsize padding
 #' @importFrom checkmate assert_class vname
 #' 
 #' @return The docx object `doc`
@@ -31,13 +32,16 @@
 #' print(doc, target = dfile)
 #' if(interactive()) browseURL(dfile)
 body_add_crosstable = function (doc, x, body_fontsize=NULL, 
-                                header_fontsize=ceiling(body_fontsize*1.2), ...) {
+                                header_fontsize=ceiling(body_fontsize*1.2), 
+                                padding_v=NULL, ...) {
     assert_class(x, "crosstable", .var.name=vname(x))
     ft = as_flextable(x, ...)
     if(length(body_fontsize)!=0)
-        fontsize(ft, size = body_fontsize, part = "body")
+        ft = fontsize(ft, size = body_fontsize, part = "body")
     if(length(header_fontsize)!=0)
-        fontsize(ft, size = header_fontsize, part = "header")
+        ft = fontsize(ft, size = header_fontsize, part = "header")
+    if(length(padding_v)!=0)
+        ft = padding(ft, padding.top=padding, padding.bottom=padding, part = "body")
     
     body_add_flextable(doc, ft)
 }
