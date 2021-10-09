@@ -337,11 +337,6 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     }
     
     
-    
-    
-    
-    # browser()
-    
     x_class = map_chr(data_x, ~paste_classes(.x))
     y_class = map_chr(data_y, ~paste_classes(.x))
     multiby = !is.null(data_y) && ncol(data_y)>1
@@ -351,25 +346,13 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     if(showNA=="no") by_levels = map(by_levels, ~.x[!is.na(.x)])
     funs = parse_funs(funs)
     if(multiby){
-        # data_y_lvl = expand.grid(by_levels, stringsAsFactors=FALSE) %>% pmap_chr(~{
-        #     l=list(...)
-        #     paste0(names(l), "=", as.character(l)) %>% paste(collapse=" & ") %>% set_names("y")
-        # })
-        # data_y3 = data_y %>%
-        #     pmap_dfr(~{
-        #         l=map(list(...), as.character)
-        #         paste0(names(l), "=", as.character(l)) %>% paste(collapse=" & ") %>% set_names("y")
-        #     }) %>%
-        #     mutate(y=factor(y, levels=data_y_lvl))
-        
-        
         data_y_lvl = expand.grid(by_levels, stringsAsFactors=FALSE) %>%
             imap_dfr(~ paste(.y, .x, sep="=")) %>%
-            unite(y, sep=" & ") %>% pull()
+            unite(col="y", sep=" & ") %>% pull()
         
         data_y2 = data_y %>%
             imap_dfr(~ paste(.y, .x, sep="=")) %>%
-            unite(y, sep=" & ") %>%
+            unite(col="y", sep=" & ") %>%
             mutate(y=factor(y, levels=data_y_lvl))
         
         rtn = cross_by(data_x=data_x, data_y=data_y2, funs=funs, funs_arg=funs_arg,
