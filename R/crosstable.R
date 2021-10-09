@@ -1,4 +1,6 @@
 
+utils::globalVariables(c("x", "y", "ct", "col_keys"))
+
 #' Easily describe datasets
 #' 
 #' Generate a descriptive table of all chosen columns, as contingency tables for categorical variables and as calculation summaries for numeric variables. If the `by` argument points to a categorical variable, `crosstable` will output a description of all columns for every level. Else, if it points to a numeric variable, `crosstable` will calculate correlation coefficients with all other selected numeric columns. Finally, if it points to a `Surv` object, `crosstable` will describe the survival at different times.
