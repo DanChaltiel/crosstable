@@ -394,16 +394,20 @@ crosstable_luafilters = function(){
 #'
 #' @param x an `rdocx` object
 #' @param return_vector use `TRUE` for compatibility with [officer::docx_bookmarks()]
+#' @param target one of c("all", "header", "body", "footer")
 #' 
 #' @return a list with all bookmarks
 #'
 #' @importFrom checkmate assert_class
 #' @author Dan Chaltiel
 #' @export
-docx_bookmarks2 = function(x, return_vector=FALSE) {#nocov start
+docx_bookmarks2 = function(x, return_vector=FALSE, 
+                           target=c("all", "header", "body", "footer")) {#nocov start
     #cannot test nor add examples as there is officer::body_bookmark() but no officer::head_bookmark()
+    
     assert_class(x, "rdocx")  
     assert_is_installed("xml2", "docx_bookmarks2()")
+    target = match.arg(target)
     doc_ = xml2::xml_find_all(x$doc_obj$get(), "//w:bookmarkStart[@w:name]")
     doc_ = setdiff(xml2::xml_attr(doc_, "name"), "_GoBack")
     head_ = sapply(x$headers, function(h) {
@@ -414,11 +418,13 @@ docx_bookmarks2 = function(x, return_vector=FALSE) {#nocov start
         tmp = xml2::xml_find_all(f$get(), "//w:bookmarkStart[@w:name]")
         setdiff(xml2::xml_attr(tmp, "name"), "_GoBack")
     })
-    if(return_vector){
-        return(unname(unlist(c(doc_, head_, foot_)))) #alternative return
-    }
     
-    list(header=unname(unlist(head_)), body=unname(unlist(doc_)), footer=unname(unlist(foot_)))
+    rtn = list(header=unname(unlist(head_)), body=unname(unlist(doc_)), footer=unname(unlist(foot_)))
+    if(target!="all"){
+        rtn = rtn[target]
+    }
+    if(return_vector) return(unname(unlist(rtn)))
+    rtn
 }#nocov end
 
 
