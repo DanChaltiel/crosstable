@@ -35,12 +35,16 @@ as_gt.crosstable = function(x, show_test_name = TRUE,
     
     assert_class(x, "crosstable", .var.name=vname(x))
     if (inherits(x, "compacted_crosstable")) {
-        abort("`as_gt` is not implemented for compacted crosstable yet.",
-              class="compact_not_implemented_error")
+        abort("`as_gt` is not implemented for compacted crosstables yet.",
+              class="gt_compact_not_implemented_error")
+    }
+    if (inherits(x, "crosstable_multiby")) {
+        abort("`as_gt` is not implemented for multi-by crosstables yet.",
+              class="gt_multiby_not_implemented_error")
     }
     
     by_label = attr(x, "by_label")
-    by_levels = attr(x, "by_levels") %>% replace_na("NA")
+    by_levels = attr(x, "by_levels") %>% unlist() %>% unname() %>% replace_na("NA")
     by = attr(x, "by")
     has_by =  !is.null(by)
     if(has_by && is.null(by_label)) by_label=by
