@@ -63,11 +63,12 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #'
 #' @return a new doc object
 #' 
-#' @author Dan Chaltiel#' 
+#' @author Dan Chaltiel
 #' @export
 #' @importFrom glue glue glue_collapse
 #' @importFrom officer body_add_par
 #' @importFrom purrr map_dbl
+#' @importFrom stringr str_squish
 #' 
 #' @return The docx object `doc`
 #' 
@@ -82,13 +83,14 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #'     body_add_normal("However, table mtcars has {ncol(mtcars)} columns") %>% #glue style
 #'     body_add_normal(info_rows)                                              #vector style
 #' #write_and_open(doc)
-body_add_normal = function(doc, ..., .sep="") {
+body_add_normal = function(doc, ..., .sep="", squish=TRUE) {
     dots = list(...)
     normal_style = getOption('crosstable_style_normal', doc$default_styles$paragraph)
     lengths = map_dbl(dots, length)
     
     if(all(lengths==1)){ #one or several vectors of length 1
         value = glue(..., .sep=.sep, .envir=parent.frame())
+        if(squish) value = str_squish(value)
         if(str_detect(value, "\\\\@ref\\((.*?)\\)")){
             doc = body_add_par(doc, "") %>% parse_reference(value)
         } else{
@@ -132,19 +134,21 @@ body_add_glued = function(...){
 #' @author Dan Chaltiel
 #' @export
 #' @importFrom officer body_add_par
+#' @importFrom stringr str_squish
+#' @importFrom glue glue
 #' @examples
 #' library(officer)
 #' library(crosstable)
 #' library(dplyr)
-#' doc = read_docx()
-#' doc = doc %>% 
-#'    body_add_title("La table iris", 1) %>% 
+#' doc = read_docx() %>% 
+#'    body_add_title("La table iris (nrow={nrow(iris)})", 1) %>% 
 #'    body_add_title("Description", 2) %>% 
 #'    body_add_normal("La table iris a ", ncol(iris), " colonnes.")
 #' #write_and_open(doc)
-body_add_title = function(doc, value, level = 1, 
+body_add_title = function(doc, value, level = 1, squish=TRUE, 
                           style = getOption('crosstable_style_heading', "heading")) {
     value = glue(value, .envir = parent.frame())
+    if(squish) value = str_squish(value)
     style = paste(style, level)
     body_add_par(doc, value, style = style)
 }
