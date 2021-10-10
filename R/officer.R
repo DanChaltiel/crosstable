@@ -218,62 +218,144 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #'
 #' @param doc a docx object
 #' @param legend the table legend. As with [glue::glue()], expressions enclosed by braces will be evaluated as R code.
-#' @param bookmark the id of the bookmark. This is the id that should then be called in [body_add_normal()] using `"\\@ref(id)"`.
-#' @param legend_style style of of the whole legend. May depend on the docx template
-#' @param style style of the number. May depend on the docx template (default to strong)
-#' @param legend_name name before the numbering. Useful for translation
+#' @param bookmark the id of the bookmark. This is the id that should then be called in [body_add_normal()] using the `"\\@ref(id)"` syntax.
+#' @param legend_style style of of the whole legend. May depend on the docx template. However, if `name_format` is provided with a specific `font.size`, this size will apply to the whole legend for consistency.
+#' @param name_format format of the legend's LHS (legend_name + numbering) using [officer::fp_text_lite()] or [officer::fp_text()]. Default to `fp_text_lite(bold=TRUE)` in addition to the format defined in `legend_style`. Note that the reference to the bookmark will have the same specific format in the text.
+#' @param legend_name name before the numbering. Default to either "Table" or "Figure".
+#' @param style deprecated in favor of `name_format`.
 #' @param seqfield Keep default. Otherwise, you may figure it out doing this: in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.
+#' @param legacy use the old version of this function, if you cannot update `{officer}` to v0.4+
 #' 
 #' @return The docx object `doc`
 #'
 #' @section Warning:
-#' At first, the legends added with [body_add_table_legend()] or [body_add_figure_legend()] have no numbers. You have to manually update the references in MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}). You might have to do this several times. More info on [https://ardata-fr.github.io/officeverse/faq.html#update-fields](https://ardata-fr.github.io/officeverse/faq.html#update-fields).
+#' Be aware that you unfortunately cannot reference a bookmark more than once using this method. Writing: \cr `body_add_normal("Table \\@ref(iris_col1) is about flowers. I like this Table \\@ref(iris_col1).")`\cr
+#' will prevent the numbering from applying.
+#' @section What to do if there is still no numbering?:
+#' During the opening of the document, MS Word might ask you to "update the fields", to which you should answer "Yes".  \cr
+#' If it is not asked or if you answer "No", the legends added with [body_add_table_legend()] or [body_add_figure_legend()] might have no actual numbers displayed. \cr
+#' In this case, you have to manually update the references in MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}), sometimes twice. More info on [https://ardata-fr.github.io/officeverse/faq.html#update-fields](https://ardata-fr.github.io/officeverse/faq.html#update-fields).
+#' @rdname body_add_legend
+#' @name body_add_legend
 #' @author Dan Chaltiel
+#' @importFrom utils packageVersion
+#' @importFrom rlang is_missing warn
+#' @importFrom lifecycle is_present deprecate_warn
 #' @export
 #' 
 #' @examples 
 #' library(officer)
 #' p=ggplot2::quickplot(x=Sepal.Length, y=Sepal.Width, color=Species, data=iris)
-#' x=read_docx() %>% 
-#'   body_add_normal("As you can see in Table \\@ref(tab1) and in Figure \\@ref(fig1), ", 
-#'                   "the iris dataset is about flowers.") %>% 
-#'   body_add_normal() %>% 
-#'   body_add_table_legend("Iris dataset", bookmark="tab1") %>% 
-#'   body_add_crosstable(crosstable(iris)) %>% 
-#'   body_add_gg(p) %>% 
-#'   body_add_figure_legend("Iris plot", bookmark="fig1")
+#' fp_italic = fp_text_lite(italic=TRUE, font.size=10)
+#' x=read_docx() %>%
+#'     body_add_normal("There is Table \\@ref(iris_col1) and Table \\@ref(iris_col2). ",
+#'                     "The `iris` dataset is about flowers.") %>%
+#'     body_add_normal() %>%
+#'     body_add_table_legend("Iris dataset, column 1 (mean={round(mean(iris[[1]]), 2)})", 
+#'                            bookmark="iris_col1") %>%
+#'     body_add_crosstable(crosstable(iris[1])) %>%
+#'     body_add_normal() %>%
+#'     body_add_table_legend("Iris dataset, column 2 (mean={round(mean(iris[[2]]), 2)})", 
+#'                           bookmark="iris_col2",
+#'                           name_format=fp_italic, legend_style="Balloon Text") %>%
+#'     body_add_crosstable(crosstable(iris[2])) %>% 
+#'     body_add_normal() %>%
+#'     body_add_normal("There is also the figure \\@ref(iris_fig)") %>%
+#'     body_add_gg(p) %>%
+#'     body_add_figure_legend("Iris plot", bookmark="iris_fig")
 #' write_and_open(x)
-#' #press Ctrl+A then F9 twice for the reference to appear.
+#' #If asked to update fields, press "Yes". Otherwise press Ctrl+A then F9 twice for the references 
+#' #to appear.
 body_add_table_legend = function(doc, legend, bookmark=NULL, 
-                                 legend_style=getOption('crosstable_style_legend', "Table Caption"), 
-                                 style=getOption('crosstable_style_strong', "strong"), 
-                                 legend_name="Table",
-                                 seqfield="SEQ Table \\* Arabic"){
-    body_add_legend(doc=doc, legend=legend, legend_name=legend_name, 
-                    bookmark=bookmark, legend_style=legend_style, 
-                    style=style, seqfield=seqfield)
+                                 legend_style=getOption('crosstable_style_legend', "Normal"), 
+                                 style=deprecated(), 
+                                 name_format=NULL,
+                                 legend_name="Table", 
+                                 seqfield="SEQ Table \\* Arabic", 
+                                 legacy=FALSE){
+    body_add_legend(doc=doc, legend=legend, legend_name=legend_name,
+                    bookmark=bookmark, legend_style=legend_style,
+                    name_format=name_format, seqfield=seqfield, 
+                    style=style, legacy=legacy)
 }
 
-#' @rdname body_add_table_legend
-#' @author Dan Chaltiel
+#' @rdname body_add_legend
 #' @export
 body_add_figure_legend = function(doc, legend, bookmark=NULL, 
-                                  legend_style=getOption('crosstable_style_legend', "Image Caption"), 
-                                  style=getOption('crosstable_style_strong', "strong"), 
-                                  legend_name="Figure",
-                                  seqfield="SEQ Figure \\* Arabic"){
-    body_add_legend(doc=doc, legend=legend, legend_name=legend_name, 
-                    bookmark=bookmark, legend_style=legend_style, 
-                    style=style, seqfield=seqfield)
+                                  legend_style=getOption('crosstable_style_legend', "Normal"), 
+                                  style=deprecated(), 
+                                  name_format=NULL,
+                                  legend_name="Figure", 
+                                  seqfield="SEQ Figure \\* Arabic", 
+                                  legacy=FALSE){
+    body_add_legend(doc=doc, legend=legend, legend_name=legend_name,
+                    bookmark=bookmark, legend_style=legend_style,
+                    name_format=name_format, seqfield=seqfield, 
+                    style=style, legacy=legacy)
 }
 
-#' @importFrom stringr str_detect str_match_all
+
 #' @importFrom glue glue
-#' @importFrom rlang abort
-#' @importFrom officer slip_in_text slip_in_seqfield body_bookmark
+#' @importFrom officer ftext fpar run_bookmark run_seqfield body_add_fpar
 #' @keywords internal
 #' @noRd
-body_add_legend = function(doc, legend, legend_name, bookmark, legend_style, style, seqfield){
+body_add_legend = function(doc, legend, legend_name, bookmark, 
+                           legend_style, name_format, seqfield, 
+                           style, legacy){
+    
+    if(packageVersion("officer")<"0.4" || legacy){
+        if(!legacy){
+            warn("You might want to update officer to v0.4+ in order to get the best of crosstable::body_add_xxx_legend().", 
+                 .frequency="once", 
+                 .frequency_id="body_add_xxx_legend_officer_version")
+        }
+        if(is_missing(style)){
+            style = getOption('crosstable_style_strong', "strong")
+        }
+        
+        rtn = body_add_legend_legacy(doc=doc, legend=legend, legend_name=legend_name,
+                               bookmark=bookmark, legend_style=legend_style, style=style, seqfield=seqfield)
+        return(rtn)
+    } 
+    
+    if(is_present(style)){
+        deprecate_warn("0.2.2", "body_add_X_legend(style)", 
+                       "body_add_X_legend(name_format)", 
+                       details="The `style` argument has been ignored. Use `legacy=TRUE` to override.")
+    }
+
+    fp_text2 = officer::fp_text_lite #v0.4+
+    if(is.null(name_format)){
+        name_format = fp_text2(bold=TRUE)
+    }
+    fp_size = fp_text2(font.size=name_format$font.size)
+    
+    legend = glue(legend, .envir = parent.frame())
+    legend_name = paste0(legend_name, " ")
+    
+    bkm = run_seqfield(seqfield, prop=name_format)
+    if(!is.null(bookmark)){
+        bkm = run_bookmark(bookmark, bkm)
+    }
+    
+    legend_fpar = fpar(
+        ftext(legend_name, name_format), 
+        bkm,
+        ftext(": ", name_format), 
+        ftext(legend, fp_size)
+    )
+    
+    body_add_fpar(doc, legend_fpar, style=legend_style)
+}
+
+
+#' @importFrom glue glue
+#' @importFrom officer body_add_par slip_in_text slip_in_seqfield body_bookmark
+#' @keywords internal
+#' @noRd
+body_add_legend_legacy = function(doc, legend, legend_name, bookmark, 
+                                  legend_style, style, seqfield){
+    # browser()
     legend = glue(legend, .envir = parent.frame())
     rtn = doc %>% 
         body_add_par(value=legend, style=legend_style) %>% 
@@ -282,8 +364,7 @@ body_add_legend = function(doc, legend, legend_name, bookmark, legend_style, sty
     if(!is.null(bookmark)){
         rtn = body_bookmark(rtn, bookmark)
     }
-    rtn %>% 
-        slip_in_text(str=glue("{legend_name} "), style=style, pos="before")
+    slip_in_text(rtn, str=glue("{legend_name} "), style=style, pos="before")
 }
 
 
