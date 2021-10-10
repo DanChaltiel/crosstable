@@ -44,9 +44,9 @@
 #' crosstable(iris) %>% as_flextable(compact=TRUE, autofit=TRUE)
 #' 
 #' #Renaming (because why not?)
-#' crosstable(iris, by=Species, total="both", test=TRUE, effect=TRUE) %>%
+#' crosstable(mtcars2, by=vs, total="both", test=TRUE, effect=TRUE) %>%
 #'    rename(ID=.id, math=variable, Tot=Total, lab=label, pval=test, fx=effect) %>%
-#'    as_flextable(by_header = "The specie", 
+#'    as_flextable(by_header = "Engine shape", 
 #'                 generic_labels=list(id = "ID", variable = "math", total="Tot", 
 #'                                     label = "lab", test = "pval", effect="fx"))
 as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL, 
