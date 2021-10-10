@@ -188,13 +188,13 @@ as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL,
     return(rtn)
 }
 
+#' @usage NULL
 #' @export
 #' @rdname as_flextable
 to_flextable = as_flextable.crosstable
 
 
 #' @usage NULL
-#' @author Dan Chaltiel
 #' @export
 #' @importFrom lifecycle deprecate_warn
 #' @rdname as_flextable
@@ -203,17 +203,20 @@ cross_to_flextable = function(...){
     as_flextable.crosstable(...)# nocov
 }
 #' @usage NULL
-#' @author Dan Chaltiel
 #' @export
 #' @rdname as_flextable
 ctf = cross_to_flextable
 
 #' @name as_flextable 
 #' @rdname as_flextable 
-#' @author Dan Chaltiel
 #' @export
 #' @importFrom flextable as_flextable
 flextable::as_flextable
+
+#' @usage NULL
+#' @export
+#' @rdname as_flextable
+af = as_flextable.crosstable
 
 
 
