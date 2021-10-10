@@ -144,6 +144,7 @@ body_add_glued = function(...){
 #' #write_and_open(doc)
 body_add_title = function(doc, value, level = 1, 
                           style = getOption('crosstable_style_heading', "heading")) {
+    value = glue(value, .envir = parent.frame())
     style = paste(style, level)
     body_add_par(doc, value, style = style)
 }
