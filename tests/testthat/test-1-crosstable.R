@@ -221,20 +221,21 @@ test_that("By multiple formula interface", {
   
 })
 
+
 test_that("By multiple warnings", {
   x1 = crosstable(mtcars3, c(mpg, gear, cyl), by=c(am, diff, qsec_posix, hp_date)) %>% 
-    expect_warning(class="crosstable_multiby_wrong_class_warning")
-  expect_equal(dim(x1), c(11,5))
+    # expect_equal(dim(.), c(11,5)) %>% 
+    expect_warning2(class="crosstable_multiby_wrong_class_warning")
+  attr(x1, "obj") %>% dim() %>% expect_equal(c(11,5))
   
   x2 = crosstable(mtcars3, c(mpg, gear, cyl), by=c(am, dummy_na, dummy_na2)) %>% 
-    expect_warning(class="crosstable_multiby_some_missing_warning")
-  expect_equal(dim(x2), c(11,5))
+    expect_warning2(class="crosstable_multiby_some_missing_warning")
+  attr(x2, "obj") %>% dim() %>% expect_equal(c(11,5))
   
   crosstable(mtcars3, c(mpg, gear, cyl), by=c(am, vs), test=TRUE) %>% 
     expect_warning(class="crosstable_multiby_test_warning")
   crosstable(mtcars3, c(mpg, gear, cyl), by=c(am, vs), effect=TRUE) %>% 
     expect_warning(class="crosstable_multiby_effect_warning")
-  expect_equal(dim(x1), c(11,5))
 })
 
 test_that("By multiple errors", {
@@ -363,10 +364,10 @@ test_that("Multiple functions", {
                     var, 
                     "moyenne"=mean
                   )) %>% 
-    expect_warning(class="crosstable_unnamed_anonymous_warning") %>% 
-    expect_warning(class="crosstable_unnamed_lambda_warning")
+    expect_warning2(class="crosstable_unnamed_anonymous_warning") %>% 
+    expect_warning2(class="crosstable_unnamed_lambda_warning")
   
-  expect_setequal(x3$variable, 
+  expect_setequal(attr(x3, "obj")$variable, 
                   c("~mean(.x, na.rm = TRUE)", 
                     "function(.x){.x = .x + 1...}", 
                     "var", "moyenne"))
@@ -380,10 +381,10 @@ test_that("Multiple functions", {
                     var, 
                     mean
                   )) %>% 
-    expect_warning(class="crosstable_unnamed_anonymous_warning") %>% 
-    expect_warning(class="crosstable_unnamed_lambda_warning")
+    expect_warning2(class="crosstable_unnamed_anonymous_warning") %>% 
+    expect_warning2(class="crosstable_unnamed_lambda_warning")
   
-  expect_setequal(x4$variable, 
+  expect_setequal(attr(x4, "obj")$variable, 
                   c("~mean(.x, na.rm = TRUE)", 
                     "function(.x){mean(.x, na.rm = TRUE)}", 
                     "var", "mean"))

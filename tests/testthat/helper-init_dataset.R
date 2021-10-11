@@ -1,16 +1,18 @@
 
 Sys.setenv(LANG = "en")
 
+
 options(stringsAsFactors = FALSE)
 options(testthat.progress.max_fails = 50)
 options(width = 200)
 
 options(crosstable_verbosity_autotesting="quiet")
+options(lifecycle_verbosity="warning")
 # if(testthat::is_testing()){
-print(is_parallel())
+# print(is_parallel())
 if(FALSE){
     v=View
-    prettycode::prettycode()
+    # prettycode::prettycode()
 }
 
 # options(warn = 2)
@@ -74,5 +76,14 @@ expect_cross = function(expr, xnames, byname, dim, expect=c("nothing", "silent",
 
 
 
+expect_warning2 = function(object, ...) {
+    rtn = testthat::expect_warning(object, ...)
+    if (inherits(object, "condition")) {
+        attr(rtn, "object") = attr(object, "object")
+    } else{
+        attr(rtn, "object") = object
+    }
+    rtn
+}
 
 print('Helper loaded')

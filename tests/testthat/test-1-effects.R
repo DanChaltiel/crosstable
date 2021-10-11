@@ -9,8 +9,8 @@ test_that("Effects: categorical variables", {
     
     args$effect_tabular = effect_relative_risk
     x = crosstable(mtcars3, am~vs, effect=T, effect_args=args) %>% 
-        expect_warning(class="crosstable_effect_error_warning")
-    expect_match(x$effect[1], "0.56 [CI error]", fixed=TRUE)
+        expect_warning2(class="crosstable_effect_error_warning")
+    expect_match(attr(x, "obj")$effect[1], "0.56 [CI error]", fixed=TRUE)
     x = crosstable(mtcars3, am~fct_rev(vs), effect=T, effect_args=args)
     expect_match(x$effect[1], "2.96 [0.94 to 17.27]", fixed=TRUE)
     
