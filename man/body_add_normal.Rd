@@ -5,7 +5,7 @@
 \alias{body_add_glued}
 \title{Add a new paragraph with default style}
 \usage{
-body_add_normal(doc, ..., .sep = "")
+body_add_normal(doc, ..., .sep = "", squish = TRUE)
 }
 \arguments{
 \item{doc}{the doc object (created with the \code{read_docx} function of \code{officer} package)}
@@ -36,7 +36,7 @@ doc = read_docx()  \%>\%
 #write_and_open(doc)
 }
 \author{
-Dan Chaltiel#'
+Dan Chaltiel
 
 Dan Chaltiel
 }

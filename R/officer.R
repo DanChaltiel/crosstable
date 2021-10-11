@@ -60,6 +60,7 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #' @param doc the doc object (created with the `read_docx` function of `officer` package)
 #' @param ... one or several character strings, pasted using `.sep`. As with `glue::glue()`, expressions enclosed by braces will be evaluated as R code. If more than one variable is passed, all should be of length 1.
 #' @param .sep Separator used to separate elements.
+#' @param squish Whether to squish the result (remove trailing and repeated spaces). Default to `TRUE`.
 #'
 #' @return a new doc object
 #' 
@@ -127,6 +128,7 @@ body_add_glued = function(...){
 #' @param doc the doc object (created with the \code{read_docx} function of \code{officer} package)
 #' @param value a character string
 #' @param level the level of the title. See \code{styles_info(doc)} to know the possibilities.
+#' @param squish Whether to squish the result (remove trailing and repeated spaces). Default to `TRUE`.
 #' @param style the name of the title style. See \code{styles_info(doc)} to know the possibilities.
 #' 
 #' @return The docx object `doc`

@@ -7,25 +7,10 @@
 \alias{cross_to_flextable}
 \alias{to_flextable}
 \alias{as_flextable}
+\alias{af}
 \title{Turns a \code{crosstable} object into a formatted \code{flextable}}
 \usage{
 \method{as_flextable}{crosstable}(
-  x,
-  keep_id = FALSE,
-  by_header = NULL,
-  autofit = getOption("crosstable_autofit", TRUE),
-  compact = getOption("crosstable_compact", FALSE),
-  show_test_name = getOption("crosstable_show_test_name", TRUE),
-  fontsizes = list(body = getOption("crosstable_fontsize_body", 11), subheaders =
-    getOption("crosstable_fontsize_subheaders", 11), header =
-    getOption("crosstable_fontsize_header", 11)),
-  remove_header_keys = FALSE,
-  generic_labels = list(id = ".id", variable = "variable", value = "value", total =
-    "Total", label = "label", test = "test", effect = "effect"),
-  ...
-)
-
-to_flextable(
   x,
   keep_id = FALSE,
   by_header = NULL,
@@ -85,9 +70,9 @@ crosstable(iris, by=Species, test = TRUE) \%>\% as_flextable(compact=TRUE)
 crosstable(iris) \%>\% as_flextable(compact=TRUE, autofit=TRUE)
 
 #Renaming (because why not?)
-crosstable(iris, by=Species, total="both", test=TRUE, effect=TRUE) \%>\%
+crosstable(mtcars2, by=vs, total="both", test=TRUE, effect=TRUE) \%>\%
    rename(ID=.id, math=variable, Tot=Total, lab=label, pval=test, fx=effect) \%>\%
-   as_flextable(by_header = "The specie", 
+   as_flextable(by_header = "Engine shape", 
                 generic_labels=list(id = "ID", variable = "math", total="Tot", 
                                     label = "lab", test = "pval", effect="fx"))
 }
@@ -95,12 +80,6 @@ crosstable(iris, by=Species, total="both", test=TRUE, effect=TRUE) \%>\%
 \code{\link[=crosstable]{crosstable()}}, \code{\link[flextable:flextable]{flextable::flextable()}}, \code{\link[=as_gt.crosstable]{as_gt.crosstable()}}
 }
 \author{
-Dan Chaltiel
-
-Dan Chaltiel
-
-Dan Chaltiel
-
 Dan Chaltiel
 }
 \keyword{internal}

@@ -8,6 +8,7 @@ body_add_title(
   doc,
   value,
   level = 1,
+  squish = TRUE,
   style = getOption("crosstable_style_heading", "heading")
 )
 }
@@ -30,9 +31,8 @@ Add a title to an \code{officer} document
 library(officer)
 library(crosstable)
 library(dplyr)
-doc = read_docx()
-doc = doc \%>\% 
-   body_add_title("La table iris", 1) \%>\% 
+doc = read_docx() \%>\% 
+   body_add_title("La table iris (nrow={nrow(iris)})", 1) \%>\% 
    body_add_title("Description", 2) \%>\% 
    body_add_normal("La table iris a ", ncol(iris), " colonnes.")
 #write_and_open(doc)

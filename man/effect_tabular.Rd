@@ -24,7 +24,7 @@ effect_risk_difference(x, by, conf_level = 0.95)
 A list with five components: effect, ci, effect.name, effect.type, and conf_level
 }
 \description{
-User can either use or extend these functions to parametrize effect calculation.
+User can either use or extend these functions to configure effect calculation.
 }
 \section{Functions}{
 \itemize{

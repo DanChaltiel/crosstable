@@ -9,6 +9,7 @@ body_add_crosstable(
   x,
   body_fontsize = NULL,
   header_fontsize = ceiling(body_fontsize * 1.2),
+  padding_v = NULL,
   ...
 )
 }
@@ -20,6 +21,8 @@ body_add_crosstable(
 \item{body_fontsize}{fontsize of the body}
 
 \item{header_fontsize}{fontsize of the header}
+
+\item{padding_v}{vertical padding of all table rows}
 
 \item{...}{further arguments passed to \code{\link[=as_flextable.crosstable]{as_flextable.crosstable()}}}
 }

@@ -13,21 +13,25 @@ status](https://www.r-pkg.org/badges/version/crosstable)](https://CRAN.R-project
 <!-- [![Downloads](http://cranlogs.r-pkg.org/badges/crosstable?color=brightgreen)](http://www.r-pkg.org/pkg/crosstable) -->
 [![Last
 Commit](https://img.shields.io/github/last-commit/DanChaltiel/crosstable)](https://github.com/DanChaltiel/crosstable)
-[![Build
-Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=master)](https://travis-ci.org/DanChaltiel/crosstable)
+<!-- [![Build Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=master)](https://travis-ci.org/DanChaltiel/crosstable) -->
 [![Codecov test
 coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/master/graph/badge.svg)](https://codecov.io/gh/DanChaltiel/crosstable?branch=master)
 <!-- [![Dependencies](https://tinyverse.netlify.com/badge/crosstable)](https://cran.r-project.org/package=crosstable)  -->
 [![R build
 status](https://github.com/DanChaltiel/crosstable/workflows/R-CMD-check/badge.svg)](https://github.com/DanChaltiel/crosstable/actions)
-<!-- badges: end --> Crosstable is a package centered on a single
-function, `crosstable`, which easily computes descriptive statistics on
-datasets. It can use the `tidyverse` syntax and is interfaced with the
-package `officer` to create automatized reports.
+<!-- badges: end -->
+
+Crosstable is a package centered on a single function, `crosstable`,
+which easily computes descriptive statistics on datasets. It can use the
+`tidyverse` syntax and is interfaced with the package `officer` to
+create automatized reports.
 
 ## Installation
 
 ``` r
+# Install last version on CRAN (#0.2.1)
+install.packages("crosstable")
+
 install.packages("devtools")
 devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 ```
@@ -36,12 +40,12 @@ This will install the very last version, which should contains the
 fewest bugs and the most features.
 
 However, for reproducibility purpose, you might want to install a
-specific version in your projects (even better would be to use
+specific version in your projects (although even better would be to use
 [`renv`](https://rstudio.github.io/renv/articles/renv.html)):
 
 ``` r
-devtools::install_github("DanChaltiel/crosstable@v0.2.1", build_vignettes=TRUE) #last version
-devtools::install_github("DanChaltiel/crosstable@0ce391e", build_vignettes=TRUE) #last commit
+devtools::install_github("DanChaltiel/crosstable@v0.2.1-CRAN", build_vignettes=TRUE) #last version
+devtools::install_github("DanChaltiel/crosstable@4120962", build_vignettes=TRUE) #last commit
 ```
 
 In case of any installation problem, try the solutions proposed in [this
@@ -51,7 +55,7 @@ or fill an [Issue](https://github.com/DanChaltiel/crosstable/issues).
 ## Getting help
 
 You can find the whole documentation on the the [dedicated
-website](https://danchaltiel.github.io/crosstable/).
+website](https://danchaltiel.github.io/crosstable).
 
 Otherwise, you can also use the vignettes:
 
@@ -111,7 +115,7 @@ publication.
 ## More
 
 There are lots of other features you can learn about on the website
-<https://danchaltiel.github.io/crosstable/>, for instance:
+<https://danchaltiel.github.io/crosstable>, for instance:
 
 -   variable selection with functions, e.g. `is.numeric`
     ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-predicate-functions))

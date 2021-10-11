@@ -4,12 +4,18 @@
 \alias{docx_bookmarks2}
 \title{List Word bookmarks, including the ones in header and footer}
 \usage{
-docx_bookmarks2(x, return_vector = FALSE)
+docx_bookmarks2(
+  x,
+  return_vector = FALSE,
+  target = c("all", "header", "body", "footer")
+)
 }
 \arguments{
 \item{x}{an \code{rdocx} object}
 
 \item{return_vector}{use \code{TRUE} for compatibility with \code{\link[officer:docx_bookmarks]{officer::docx_bookmarks()}}}
+
+\item{target}{one of c("all", "header", "body", "footer")}
 }
 \value{
 a list with all bookmarks
