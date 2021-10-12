@@ -1,0 +1,8 @@
+
+
+linters: with_defaults(
+  line_length_linter(100), 
+  assignment_linter = NULL
+  )
+exclusions: list("R/burgled.R")
+encoding: "UTF-8"
