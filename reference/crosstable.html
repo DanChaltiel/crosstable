@@ -55,7 +55,9 @@
   
 
 <meta property="og:title" content="Easily describe datasets — crosstable" />
-<meta property="og:description" content="Generate a descriptive table of all chosen columns, as contingency tables for categorical variables and as calculation summaries for numeric variables. If the by argument points to a categorical variable, crosstable will output a description of all columns for every level. Else, if it points to a numeric variable, crosstable will calculate correlation coefficients with all other selected numeric columns. Finally, if it points to a Surv object, crosstable will describe the survival at different times." />
+<meta property="og:description" content="Generate a descriptive table of all chosen columns, as contingency tables for categorical variables and as calculation summaries for numeric variables. If the by argument points to one or several categorical variables, crosstable will output a description of all columns for each level. Otherwise, if it points to a numeric variable, crosstable will calculate correlation coefficients with all other selected numeric columns. Finally, if it points to a Surv object, crosstable will describe the survival at different times.
+
+Can be formatted as an HTML table using as_flextable()." />
 <meta property="og:image" content="https://danchaltiel.github.io/crosstable/apple-touch-icon-180x180.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary" />
@@ -180,7 +182,9 @@
     </div>
 
     <div class="ref-description">
-    <p>Generate a descriptive table of all chosen columns, as contingency tables for categorical variables and as calculation summaries for numeric variables. If the <code>by</code> argument points to a categorical variable, <code>crosstable</code> will output a description of all columns for every level. Else, if it points to a numeric variable, <code>crosstable</code> will calculate correlation coefficients with all other selected numeric columns. Finally, if it points to a <code>Surv</code> object, <code>crosstable</code> will describe the survival at different times.</p>
+    <p>Generate a descriptive table of all chosen columns, as contingency tables for categorical variables and as calculation summaries for numeric variables. If the <code>by</code> argument points to one or several categorical variables, <code>crosstable</code> will output a description of all columns for each level. Otherwise, if it points to a numeric variable, <code>crosstable</code> will calculate correlation coefficients with all other selected numeric columns. Finally, if it points to a <code>Surv</code> object, <code>crosstable</code> will describe the survival at different times.<br />
+<br />
+Can be formatted as an HTML table using <code><a href='as_flextable.crosstable.html'>as_flextable()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>crosstable</span><span class='op'>(</span>
@@ -299,9 +303,6 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>data.frame</code> of class <code>crosstable</code></p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Can be formatted as an HTML table using <code><a href='as_flextable.crosstable.html'>as_flextable()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>https://danchaltiel.github.io/crosstable/, as_flextable, import_labels</p></div>
@@ -364,11 +365,9 @@
 #&gt; <span style='color: #949494;'># … with 36 more rows</span></div><div class='input'>
 <span class='co'>#tidyselection, custom functions</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-<span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>ends_with</a></span><span class='op'>(</span><span class='st'>"t"</span><span class='op'>)</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"c"</span><span class='op'>)</span>, by<span class='op'>=</span><span class='va'>vs</span>, 
+<span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>ends_with</a></span><span class='op'>(</span><span class='st'>"t"</span><span class='op'>)</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"c"</span><span class='op'>)</span><span class='op'>)</span>, by<span class='op'>=</span><span class='va'>vs</span>, 
            funs<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mean</span>, <span class='va'>quantile</span><span class='op'>)</span>, funs_arg <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>probs<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.25</span>,<span class='fl'>.75</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: The `...` argument of `crosstable()` is deprecated as of crosstable 0.2.0.</span>
-#&gt; <span class='warning'>Please use the `cols` argument instead.</span>
-#&gt; <span class='warning'>NB: The `...` argument might even be reused in other usages in later versions (breaking change).</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 × 5</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 × 5</span>
 #&gt;    .id   label                 variable     straight    vshaped     
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                 <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
 #&gt; <span style='color: #BCBCBC;'> 1</span> drat  Rear axle ratio       mean         3.9         3.4         
@@ -383,19 +382,21 @@
 #&gt; <span style='color: #BCBCBC;'>10</span> carb  Number of carburetors mean         1.8         3.6         
 #&gt; <span style='color: #BCBCBC;'>11</span> carb  Number of carburetors quantile 25% 1.0         2.2         
 #&gt; <span style='color: #BCBCBC;'>12</span> carb  Number of carburetors quantile 75% 2.0         4.0         </div><div class='input'>
-<span class='co'>#margin and totals</span>
-<span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='va'>disp</span>, <span class='va'>vs</span>, by<span class='op'>=</span><span class='va'>am</span>, 
+<span class='co'>#margin and totals, multiple by</span>
+<span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>disp</span>, <span class='va'>cyl</span><span class='op'>)</span>, by<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>am</span>, <span class='va'>vs</span><span class='op'>)</span>, 
            margin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"row"</span>, <span class='st'>"col"</span><span class='op'>)</span>, total <span class='op'>=</span> <span class='st'>"both"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 7 × 6</span>
-#&gt;   .id   label                 variable   auto                 manual    Total   
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                 <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   
-#&gt; <span style='color: #BCBCBC;'>1</span> disp  Displacement (cu.in.) Min / Max  120.1 / 472.0        71.1 / 3… 71.1 / …
-#&gt; <span style='color: #BCBCBC;'>2</span> disp  Displacement (cu.in.) Med [IQR]  275.8 [196.3;360.0]  120.3 [7… 196.3 […
-#&gt; <span style='color: #BCBCBC;'>3</span> disp  Displacement (cu.in.) Mean (std) 290.4 (110.2)        143.5 (8… 230.7 (…
-#&gt; <span style='color: #BCBCBC;'>4</span> disp  Displacement (cu.in.) N (NA)     19 (0)               13 (0)    32 (0)  
-#&gt; <span style='color: #BCBCBC;'>5</span> vs    Engine                straight   7 (50.00% / 36.84%)  7 (50.00… 14 (43.…
-#&gt; <span style='color: #BCBCBC;'>6</span> vs    Engine                vshaped    12 (66.67% / 63.16%) 6 (33.33… 18 (56.…
-#&gt; <span style='color: #BCBCBC;'>7</span> vs    Engine                Total      19 (59.38%)          13 (40.6… 32 (100…</div><div class='input'>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 × 8</span>
+#&gt;   .id   label                 variable `am=auto &amp; vs=s… `am=manual &amp; vs… `am=auto &amp; vs=v…
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                 <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           
+#&gt; <span style='color: #BCBCBC;'>1</span> disp  Displacement (cu.in.) Min / M… 120.1 / 258.0    71.1 / 121.0     275.8 / 472.0   
+#&gt; <span style='color: #BCBCBC;'>2</span> disp  Displacement (cu.in.) Med [IQ… 167.6 [143.8;19… 79.0 [77.2;101.… 355.0 [296.9;41…
+#&gt; <span style='color: #BCBCBC;'>3</span> disp  Displacement (cu.in.) Mean (s… 175.1 (49.1)     89.8 (18.8)      357.6 (71.8)    
+#&gt; <span style='color: #BCBCBC;'>4</span> disp  Displacement (cu.in.) N (NA)   7 (0)            7 (0)            12 (0)          
+#&gt; <span style='color: #BCBCBC;'>5</span> cyl   Number of cylinders   4        3 (27.27% / 42.… 7 (63.64% / 100… 0 (0% / 0%)     
+#&gt; <span style='color: #BCBCBC;'>6</span> cyl   Number of cylinders   6        4 (57.14% / 57.… 0 (0% / 0%)      0 (0% / 0%)     
+#&gt; <span style='color: #BCBCBC;'>7</span> cyl   Number of cylinders   8        0 (0% / 0%)      0 (0% / 0%)      12 (85.71% / 10…
+#&gt; <span style='color: #BCBCBC;'>8</span> cyl   Number of cylinders   Total    7 (21.88%)       7 (21.88%)       12 (37.50%)     
+#&gt; <span style='color: #949494;'># … with 2 more variables: am=manual &amp; vs=vshaped &lt;chr&gt;, Total &lt;chr&gt;</span></div><div class='input'>
 <span class='co'>#predicate selection, correlation, testing</span>
 <span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='fu'>where</span><span class='op'>(</span><span class='va'>is.numeric</span><span class='op'>)</span>, by<span class='op'>=</span><span class='va'>hp</span>, test<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 5</span>
@@ -407,7 +408,7 @@
 #&gt; <span style='color: #BCBCBC;'>4</span> wt    Weight (1000 lbs)     pearson  <span style='color: #949494;'>"</span>0.66 \n95%CI [0.4;… <span style='color: #949494;'>"</span>p value: &lt;0.0001 \…
 #&gt; <span style='color: #BCBCBC;'>5</span> qsec  1/4 mile time         pearson  <span style='color: #949494;'>"</span>-0.71 \n95%CI [-0.… <span style='color: #949494;'>"</span>p value: &lt;0.0001 \…
 #&gt; <span style='color: #BCBCBC;'>6</span> carb  Number of carburetors pearson  <span style='color: #949494;'>"</span>0.75 \n95%CI [0.54… <span style='color: #949494;'>"</span>p value: &lt;0.0001 \…</div><div class='input'>
-<span class='co'>#lambda selection, effect calculation</span>
+<span class='co'>#lambda selection &amp; effect calculation</span>
 <span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='op'>~</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>is.numeric</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>&gt;</span><span class='fl'>50</span>, by<span class='op'>=</span><span class='va'>vs</span>, effect<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 × 6</span>
 #&gt;   .id   label                 variable   straight           vshaped  effect     
@@ -430,7 +431,7 @@
 #&gt; <span style='color: #BCBCBC;'>2</span> my_date Some nonsense date Med [IQR]  07/04/2010 [08/03/2… 30/06/2010 [31/05/…
 #&gt; <span style='color: #BCBCBC;'>3</span> my_date Some nonsense date Mean (std) 02/04/2010 (24.4 da… 09/07/2010 (2.0 mo…
 #&gt; <span style='color: #BCBCBC;'>4</span> my_date Some nonsense date N (NA)     14 (0)               18 (0)             </div><div class='input'>
-<span class='co'>#Survival data (using formula UI)</span>
+<span class='co'>#Survival data (using formula syntax)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/therneau/survival'>survival</a></span><span class='op'>)</span>
 <span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>aml</span>, <span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>time</span>, <span class='va'>status</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>x</span>,times<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>15</span>,<span class='fl'>30</span>,<span class='fl'>150</span><span class='op'>)</span>, followup<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 5</span>
