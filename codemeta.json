@@ -14,13 +14,13 @@
   ],
   "issueTracker": "https://github.com/DanChaltiel/crosstable/issues/",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
+  "runtimePlatform": "R version 4.1.1 (2021-08-10)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -84,18 +84,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=xml2"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "DescTools",
-      "name": "DescTools",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=DescTools"
     },
     {
       "@type": "SoftwareApplication",
@@ -385,18 +373,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "nortest",
-      "name": "nortest",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=nortest"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "officer",
       "name": "officer",
       "provider": {
@@ -500,8 +476,8 @@
   ],
   "releaseNotes": "https://github.com/DanChaltiel/crosstable/blob/master/NEWS.md",
   "readme": "https://github.com/DanChaltiel/crosstable/blob/master/README.md",
-  "fileSize": "0KB",
-  "contIntegration": ["https://codecov.io/gh/DanChaltiel/crosstable?branch=master"],
+  "fileSize": "59731.156KB",
+  "contIntegration": "https://codecov.io/gh/DanChaltiel/crosstable?branch=master",
   "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html",
   "keywords": [
     "r",
