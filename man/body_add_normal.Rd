@@ -13,6 +13,8 @@ body_add_normal(doc, ..., .sep = "", squish = TRUE)
 \item{...}{one or several character strings, pasted using \code{.sep}. As with \code{glue::glue()}, expressions enclosed by braces will be evaluated as R code. If more than one variable is passed, all should be of length 1.}
 
 \item{.sep}{Separator used to separate elements.}
+
+\item{squish}{Whether to squish the result (remove trailing and repeated spaces). Default to \code{TRUE}.}
 }
 \value{
 a new doc object

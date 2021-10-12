@@ -19,6 +19,8 @@ body_add_title(
 
 \item{level}{the level of the title. See \code{styles_info(doc)} to know the possibilities.}
 
+\item{squish}{Whether to squish the result (remove trailing and repeated spaces). Default to \code{TRUE}.}
+
 \item{style}{the name of the title style. See \code{styles_info(doc)} to know the possibilities.}
 }
 \value{
