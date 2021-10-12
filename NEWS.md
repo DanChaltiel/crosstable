@@ -1,5 +1,35 @@
 <!-- https://style.tidyverse.org/news.html -->
 
+# crosstable 0.2.2 <sub><sup>(2021-08)</sup></sub>
+
+#### New features
+
+* Added support for multiple `by`! You can now write `crosstable(mtcars, c(mpg, gear), by=c(am, vs)) %>% as_flextable()`.
+* Added a macro that can autofit every table in the document at once. This macro can be generated using the function `generate_autofit_macro()` which creates a file that should then be imported into MS Word.
+* `body_add_crosstable()` gains a `padding_v` argument to control the vertical padding of all rows.
+* `body_add_title()` and `body_add_xxx_legend)` gain a glue functionality. You can now write `body_add_title("The iris dataset (nrow={nrow(iris)})", 1)`.
+* `as_workbook()` can now take a named list of crosstables, that will be considered as sheets. 
+
+
+#### Minor changes
+
+* `style` is deprecated in `body_add_table_legend()` and `body_add_image_legend()` in favor of `name_format`.
+* Changed the behaviour of some `effect` calculations that were done by column instead of rows. That might change some outputs but not their meaning.
+* `body_add_normal()` now removes duplicated spaces (squish) in its input by default. Use `squish=FALSE` to override.
+* `docx_bookmarks2()` gainss a `target` parameter.
+
+#### Bug fixes
+
+* `effect` calculation now takes into account the reference level (first level of a factor).
+* `body_add_crosstable()` rightly takes `body_fontsize` and `header_fontsize` into account.
+* Added few more warnings, so that you know what went wrong.
+
+
+#### Internal
+* burgled 2 functions using `burglr::burgle()` to avoid dependency: `nortest::ad.test()` and `DescTools::CochranArmitageTest()`.
+* fixes the bug from the breaking change in `testthat` (https://github.com/DanChaltiel/crosstable/pull/3).
+
+
 # crosstable 0.2.1 <sub><sup>(2021-02-07)</sup></sub>
 
 * First version on CRAN
