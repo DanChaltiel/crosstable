@@ -103,7 +103,7 @@ Copy the label from one variable to another" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -217,26 +217,43 @@ Copy the label from one variable to another" />
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='get_label.html'>get_label()</a></code>, <code><a href='import_labels.html'>import_labels()</a></code>, <code><a href='remove_labels.html'>remove_label()</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Dan Chaltiel</p>
+<p>Dan Chaltiel</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
 <span class='va'>mtcars</span> <span class='op'>%&gt;%</span> 
    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>mpg2<span class='op'>=</span><span class='fu'>set_label</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='st'>"Miles per gallon"</span><span class='op'>)</span>,
           mpg3<span class='op'>=</span><span class='va'>mpg</span> <span class='op'>%&gt;%</span> <span class='fu'>copy_label_from</span><span class='op'>(</span><span class='va'>mpg2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-   <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>mpg2</span>, <span class='va'>mpg3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     .id            label   variable            value
-#&gt; 1   mpg              mpg  Min / Max      10.4 / 33.9
-#&gt; 2   mpg              mpg  Med [IQR] 19.2 [15.4;22.8]
-#&gt; 3   mpg              mpg Mean (std)       20.1 (6.0)
-#&gt; 4   mpg              mpg     N (NA)           32 (0)
-#&gt; 5  mpg2 Miles per gallon  Min / Max      10.4 / 33.9
-#&gt; 6  mpg2 Miles per gallon  Med [IQR] 19.2 [15.4;22.8]
-#&gt; 7  mpg2 Miles per gallon Mean (std)       20.1 (6.0)
-#&gt; 8  mpg2 Miles per gallon     N (NA)           32 (0)
-#&gt; 9  mpg3 Miles per gallon  Min / Max      10.4 / 33.9
-#&gt; 10 mpg3 Miles per gallon  Med [IQR] 19.2 [15.4;22.8]
-#&gt; 11 mpg3 Miles per gallon Mean (std)       20.1 (6.0)
-#&gt; 12 mpg3 Miles per gallon     N (NA)           32 (0)</div></pre>
+   <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>mpg2</span>, <span class='va'>mpg3</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 x 4</span>
+#&gt;    .id   label            variable   value           
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           
+#&gt; <span style='color: #BCBCBC;'> 1</span> mpg   mpg              Min / Max  10.4 / 33.9     
+#&gt; <span style='color: #BCBCBC;'> 2</span> mpg   mpg              Med [IQR]  19.2 [15.4;22.8]
+#&gt; <span style='color: #BCBCBC;'> 3</span> mpg   mpg              Mean (std) 20.1 (6.0)      
+#&gt; <span style='color: #BCBCBC;'> 4</span> mpg   mpg              N (NA)     32 (0)          
+#&gt; <span style='color: #BCBCBC;'> 5</span> mpg2  Miles per gallon Min / Max  10.4 / 33.9     
+#&gt; <span style='color: #BCBCBC;'> 6</span> mpg2  Miles per gallon Med [IQR]  19.2 [15.4;22.8]
+#&gt; <span style='color: #BCBCBC;'> 7</span> mpg2  Miles per gallon Mean (std) 20.1 (6.0)      
+#&gt; <span style='color: #BCBCBC;'> 8</span> mpg2  Miles per gallon N (NA)     32 (0)          
+#&gt; <span style='color: #BCBCBC;'> 9</span> mpg3  Miles per gallon Min / Max  10.4 / 33.9     
+#&gt; <span style='color: #BCBCBC;'>10</span> mpg3  Miles per gallon Med [IQR]  19.2 [15.4;22.8]
+#&gt; <span style='color: #BCBCBC;'>11</span> mpg3  Miles per gallon Mean (std) 20.1 (6.0)      
+#&gt; <span style='color: #BCBCBC;'>12</span> mpg3  Miles per gallon N (NA)     32 (0)          </div><div class='input'><span class='va'>mtcars</span> <span class='op'>%&gt;%</span> 
+   <span class='fu'>copy_label_from</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>11</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+   <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 4</span>
+#&gt;   .id   label             variable   value           
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           
+#&gt; <span style='color: #BCBCBC;'>1</span> mpg   Miles/(US) gallon Min / Max  10.4 / 33.9     
+#&gt; <span style='color: #BCBCBC;'>2</span> mpg   Miles/(US) gallon Med [IQR]  19.2 [15.4;22.8]
+#&gt; <span style='color: #BCBCBC;'>3</span> mpg   Miles/(US) gallon Mean (std) 20.1 (6.0)      
+#&gt; <span style='color: #BCBCBC;'>4</span> mpg   Miles/(US) gallon N (NA)     32 (0)          
+#&gt; <span style='color: #BCBCBC;'>5</span> vs    Engine            0          18 (56.25%)     
+#&gt; <span style='color: #BCBCBC;'>6</span> vs    Engine            1          14 (43.75%)     </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

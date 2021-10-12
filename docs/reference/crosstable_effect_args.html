@@ -102,7 +102,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -192,9 +192,9 @@
 <li><p><code>effect_summarize</code> - a function of three arguments (continuous variable, grouping variable and conf_level), used to compare continuous variable. Returns a list of five components: <code>effect</code> (the effect value(s)), <code>ci</code> (the matrix of confidence interval(s)), <code>effect.name</code> (the interpretation(s) of the effect value(s)), <code>effect.type</code> (the description of the measure used) and <code>conf_level</code> (the confidence interval level). See <code><a href='effect_summary.html'>diff_mean_auto()</a></code>, <code><a href='effect_summary.html'>diff_mean_student()</a></code>, <code><a href='effect_summary.html'>diff_mean_boot()</a></code>, or <code><a href='effect_summary.html'>diff_median()</a></code> for some examples of such functions. Users can provide their own function.</p></li>
 <li><p><code>effect_tabular</code> - a function of three arguments (two categorical variables and conf_level) used to measure the associations between two factors. Returns a list of five components: <code>effect</code> (the effect value(s)), <code>ci</code> (the matrix of confidence interval(s)), <code>effect.name</code> (the interpretation(s) of the effect value(s)), <code>effect.type</code> (the description of the measure used) and <code>conf_level</code> (the confidence interval level). See <code><a href='effect_tabular.html'>effect_odds_ratio()</a></code>, <code><a href='effect_tabular.html'>effect_relative_risk()</a></code>, or <code><a href='effect_tabular.html'>effect_risk_difference()</a></code> for some examples of such functions. Users can provide their own function.</p></li>
 <li><p><code>effect_survival</code> - a function of two argument (a formula and conf_level), used to measure the association between a censored and a factor. Returns the same components as created by <code>effect_summarize</code>. See <code><a href='effect_survival.html'>effect_survival_coxph()</a></code>. Users can provide their own function.</p></li>
+<li><p><code>effect_display</code> - a function to format the effect. See <code><a href='display_effect.html'>display_effect()</a></code>.</p></li>
 <li><p><code>conf_level</code> - the desired confidence interval level</p></li>
 <li><p><code>digits</code> - the decimal places</p></li>
-<li><p><code>show_effect</code> - a function to format the effect. See <code><a href='display_effect.html'>display_effect()</a></code>.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>

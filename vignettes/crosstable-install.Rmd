@@ -15,11 +15,20 @@ vignette: >
 ## Normal installation
 Normal installation should goes like this:
 ```r
-install.packages("devtools")
-devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
+install.packages("crosstable")
 ```
 
-If none of the solutions described here worked, please create an [Issue](https://github.com/DanChaltiel/crosstable/issues) with the error message and the maximum of information.
+If none of the solutions described below worked, please create an [Issue](https://github.com/DanChaltiel/crosstable/issues) with the error message and the maximum of information.
+
+## Github installation
+If normal installation does not work, you can try installing from Github:
+```r
+#install.packages("devtools", "pak")
+devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
+#or, alternatively
+pak::pkg_install("DanChaltiel/crosstable")
+
+```
 
 ## Asking for updates
 

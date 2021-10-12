@@ -102,7 +102,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -228,6 +228,12 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a compacted data.frame</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Dan Chaltiel</p>
+<p>Dan Chaltiel</p>
+<p>Dan Chaltiel</p>
+<p>Dan Chaltiel</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>#dataframes</span>
@@ -288,20 +294,20 @@
 #&gt; 11          Transmission                                       
 #&gt; 12                  auto         7 (36.84%)         12 (63.16%)
 #&gt; 13                manual         7 (53.85%)          6 (46.15%)
-#&gt;                                                                                          effect
-#&gt; 1  Difference in means (Welch CI) (straight minus vshaped): -174.69\n95%CI [-235.02 to -114.36]
-#&gt; 2                                                                                              
-#&gt; 3                                                                                              
-#&gt; 4                                                                                              
-#&gt; 5                                                                                              
-#&gt; 6    Difference in means (Welch CI) (straight minus vshaped): -98.37\n95%CI [-130.67 to -66.06]
-#&gt; 7                                                                                              
-#&gt; 8                                                                                              
-#&gt; 9                                                                                              
-#&gt; 10                                                                                             
-#&gt; 11                 Odds ratio (Wald CI) (auto, vshaped vs straight): 2.00\n95%CI [0.48 to 8.40]
-#&gt; 12                                                                                             
-#&gt; 13                                                                                             
+#&gt;                                                                                               effect
+#&gt; 1  Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 174.69 [114.36 to 235.02]
+#&gt; 2                                                                                                   
+#&gt; 3                                                                                                   
+#&gt; 4                                                                                                   
+#&gt; 5                                                                                                   
+#&gt; 6    Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 98.37 [66.06 to 130.67]
+#&gt; 7                                                                                                   
+#&gt; 8                                                                                                   
+#&gt; 9                                                                                                   
+#&gt; 10                                                                                                  
+#&gt; 11          Odds ratio [95% Wald CI], ref='vshaped vs straight'\nmanual vs auto: 0.50 [0.11 to 2.08]
+#&gt; 12                                                                                                  
+#&gt; 13                                                                                                  
 #&gt;                                              test
 #&gt; 1    p value: &lt;0.0001 \n(Welch Two Sample t-test)
 #&gt; 2                                                
@@ -330,20 +336,20 @@
 #&gt; 11         am                                       
 #&gt; 12       auto         7 (36.84%)         12 (63.16%)
 #&gt; 13     manual         7 (53.85%)          6 (46.15%)
-#&gt;                                                                                          effect
-#&gt; 1  Difference in means (Welch CI) (straight minus vshaped): -174.69\n95%CI [-235.02 to -114.36]
-#&gt; 2                                                                                              
-#&gt; 3                                                                                              
-#&gt; 4                                                                                              
-#&gt; 5                                                                                              
-#&gt; 6    Difference in means (Welch CI) (straight minus vshaped): -98.37\n95%CI [-130.67 to -66.06]
-#&gt; 7                                                                                              
-#&gt; 8                                                                                              
-#&gt; 9                                                                                              
-#&gt; 10                                                                                             
-#&gt; 11                 Odds ratio (Wald CI) (auto, vshaped vs straight): 2.00\n95%CI [0.48 to 8.40]
-#&gt; 12                                                                                             
-#&gt; 13                                                                                             
+#&gt;                                                                                               effect
+#&gt; 1  Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 174.69 [114.36 to 235.02]
+#&gt; 2                                                                                                   
+#&gt; 3                                                                                                   
+#&gt; 4                                                                                                   
+#&gt; 5                                                                                                   
+#&gt; 6    Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 98.37 [66.06 to 130.67]
+#&gt; 7                                                                                                   
+#&gt; 8                                                                                                   
+#&gt; 9                                                                                                   
+#&gt; 10                                                                                                  
+#&gt; 11          Odds ratio [95% Wald CI], ref='vshaped vs straight'\nmanual vs auto: 0.50 [0.11 to 2.08]
+#&gt; 12                                                                                                  
+#&gt; 13                                                                                                  
 #&gt;                                              test
 #&gt; 1    p value: &lt;0.0001 \n(Welch Two Sample t-test)
 #&gt; 2                                                

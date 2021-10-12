@@ -102,7 +102,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -183,7 +183,11 @@
     <p>This is a correction of <code><a href='https://davidgohel.github.io/officer/reference/docx_bookmarks.html'>officer::docx_bookmarks()</a></code>. See <a href='https://github.com/davidgohel/officer/pull/313'>this PR</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>docx_bookmarks2</span><span class='op'>(</span><span class='va'>x</span>, return_vector <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>docx_bookmarks2</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  return_vector <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"all"</span>, <span class='st'>"header"</span>, <span class='st'>"body"</span>, <span class='st'>"footer"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,6 +199,10 @@
     <tr>
       <th>return_vector</th>
       <td><p>use <code>TRUE</code> for compatibility with <code><a href='https://davidgohel.github.io/officer/reference/docx_bookmarks.html'>officer::docx_bookmarks()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>target</th>
+      <td><p>one of c("all", "header", "body", "footer")</p></td>
     </tr>
     </table>
 

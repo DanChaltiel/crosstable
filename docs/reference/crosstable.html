@@ -55,7 +55,9 @@
   
 
 <meta property="og:title" content="Easily describe datasets — crosstable" />
-<meta property="og:description" content="Generate a descriptive table of all chosen columns, as contingency tables for categorical variables and as calculation summaries for numeric variables. If the by argument points to a categorical variable, crosstable will output a description of all columns for every level. Else, if it points to a numeric variable, crosstable will calculate correlation coefficients with all other selected numeric columns. Finally, if it points to a Surv object, crosstable will describe the survival at different times." />
+<meta property="og:description" content="Generate a descriptive table of all chosen columns, as contingency tables for categorical variables and as calculation summaries for numeric variables. If the by argument points to one or several categorical variables, crosstable will output a description of all columns for each level. Otherwise, if it points to a numeric variable, crosstable will calculate correlation coefficients with all other selected numeric columns. Finally, if it points to a Surv object, crosstable will describe the survival at different times.
+
+Can be formatted as an HTML table using as_flextable()." />
 <meta property="og:image" content="https://danchaltiel.github.io/crosstable/apple-touch-icon-180x180.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary" />
@@ -102,7 +104,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -180,7 +182,9 @@
     </div>
 
     <div class="ref-description">
-    <p>Generate a descriptive table of all chosen columns, as contingency tables for categorical variables and as calculation summaries for numeric variables. If the <code>by</code> argument points to a categorical variable, <code>crosstable</code> will output a description of all columns for every level. Else, if it points to a numeric variable, <code>crosstable</code> will calculate correlation coefficients with all other selected numeric columns. Finally, if it points to a <code>Surv</code> object, <code>crosstable</code> will describe the survival at different times.</p>
+    <p>Generate a descriptive table of all chosen columns, as contingency tables for categorical variables and as calculation summaries for numeric variables. If the <code>by</code> argument points to one or several categorical variables, <code>crosstable</code> will output a description of all columns for each level. Otherwise, if it points to a numeric variable, <code>crosstable</code> will calculate correlation coefficients with all other selected numeric columns. Finally, if it points to a <code>Surv</code> object, <code>crosstable</code> will describe the survival at different times.<br />
+<br />
+Can be formatted as an HTML table using <code><a href='as_flextable.crosstable.html'>as_flextable()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>crosstable</span><span class='op'>(</span>
@@ -299,273 +303,146 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>data.frame</code> of class <code>crosstable</code></p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Can be formatted as an HTML table using <code><a href='as_flextable.crosstable.html'>as_flextable()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>https://danchaltiel.github.io/crosstable/, as_flextable, import_labels</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Dan Chaltiel</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>#whole table</span>
 <span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;             .id        label   variable         value
-#&gt; 1  Sepal.Length Sepal.Length  Min / Max     4.3 / 7.9
-#&gt; 2  Sepal.Length Sepal.Length  Med [IQR] 5.8 [5.1;6.4]
-#&gt; 3  Sepal.Length Sepal.Length Mean (std)     5.8 (0.8)
-#&gt; 4  Sepal.Length Sepal.Length     N (NA)       150 (0)
-#&gt; 5   Sepal.Width  Sepal.Width  Min / Max     2.0 / 4.4
-#&gt; 6   Sepal.Width  Sepal.Width  Med [IQR] 3.0 [2.8;3.3]
-#&gt; 7   Sepal.Width  Sepal.Width Mean (std)     3.1 (0.4)
-#&gt; 8   Sepal.Width  Sepal.Width     N (NA)       150 (0)
-#&gt; 9  Petal.Length Petal.Length  Min / Max     1.0 / 6.9
-#&gt; 10 Petal.Length Petal.Length  Med [IQR] 4.3 [1.6;5.1]
-#&gt; 11 Petal.Length Petal.Length Mean (std)     3.8 (1.8)
-#&gt; 12 Petal.Length Petal.Length     N (NA)       150 (0)
-#&gt; 13  Petal.Width  Petal.Width  Min / Max     0.1 / 2.5
-#&gt; 14  Petal.Width  Petal.Width  Med [IQR] 1.3 [0.3;1.8]
-#&gt; 15  Petal.Width  Petal.Width Mean (std)     1.2 (0.8)
-#&gt; 16  Petal.Width  Petal.Width     N (NA)       150 (0)
-#&gt; 17      Species      Species     setosa   50 (33.33%)
-#&gt; 18      Species      Species versicolor   50 (33.33%)
-#&gt; 19      Species      Species  virginica   50 (33.33%)</div><div class='input'><span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     .id label   variable               value
-#&gt; 1   mpg   mpg  Min / Max         10.4 / 33.9
-#&gt; 2   mpg   mpg  Med [IQR]    19.2 [15.4;22.8]
-#&gt; 3   mpg   mpg Mean (std)          20.1 (6.0)
-#&gt; 4   mpg   mpg     N (NA)              32 (0)
-#&gt; 5   cyl   cyl          4         11 (34.38%)
-#&gt; 6   cyl   cyl          6          7 (21.88%)
-#&gt; 7   cyl   cyl          8         14 (43.75%)
-#&gt; 8  disp  disp  Min / Max        71.1 / 472.0
-#&gt; 9  disp  disp  Med [IQR] 196.3 [120.8;326.0]
-#&gt; 10 disp  disp Mean (std)       230.7 (123.9)
-#&gt; 11 disp  disp     N (NA)              32 (0)
-#&gt; 12   hp    hp  Min / Max        52.0 / 335.0
-#&gt; 13   hp    hp  Med [IQR]  123.0 [96.5;180.0]
-#&gt; 14   hp    hp Mean (std)        146.7 (68.6)
-#&gt; 15   hp    hp     N (NA)              32 (0)
-#&gt; 16 drat  drat  Min / Max           2.8 / 4.9
-#&gt; 17 drat  drat  Med [IQR]       3.7 [3.1;3.9]
-#&gt; 18 drat  drat Mean (std)           3.6 (0.5)
-#&gt; 19 drat  drat     N (NA)              32 (0)
-#&gt; 20   wt    wt  Min / Max           1.5 / 5.4
-#&gt; 21   wt    wt  Med [IQR]       3.3 [2.6;3.6]
-#&gt; 22   wt    wt Mean (std)           3.2 (1.0)
-#&gt; 23   wt    wt     N (NA)              32 (0)
-#&gt; 24 qsec  qsec  Min / Max         14.5 / 22.9
-#&gt; 25 qsec  qsec  Med [IQR]    17.7 [16.9;18.9]
-#&gt; 26 qsec  qsec Mean (std)          17.8 (1.8)
-#&gt; 27 qsec  qsec     N (NA)              32 (0)
-#&gt; 28   vs    vs          0         18 (56.25%)
-#&gt; 29   vs    vs          1         14 (43.75%)
-#&gt; 30   am    am          0         19 (59.38%)
-#&gt; 31   am    am          1         13 (40.62%)
-#&gt; 32 gear  gear          3         15 (46.88%)
-#&gt; 33 gear  gear          4         12 (37.50%)
-#&gt; 34 gear  gear          5          5 (15.62%)
-#&gt; 35 carb  carb  Min / Max           1.0 / 8.0
-#&gt; 36 carb  carb  Med [IQR]       2.0 [2.0;4.0]
-#&gt; 37 carb  carb Mean (std)           2.8 (1.6)
-#&gt; 38 carb  carb     N (NA)              32 (0)</div><div class='input'><span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           .id                   label   variable
-#&gt; 1         mpg       Miles/(US) gallon  Min / Max
-#&gt; 2         mpg       Miles/(US) gallon  Med [IQR]
-#&gt; 3         mpg       Miles/(US) gallon Mean (std)
-#&gt; 4         mpg       Miles/(US) gallon     N (NA)
-#&gt; 5         cyl     Number of cylinders          4
-#&gt; 6         cyl     Number of cylinders          6
-#&gt; 7         cyl     Number of cylinders          8
-#&gt; 8        disp   Displacement (cu.in.)  Min / Max
-#&gt; 9        disp   Displacement (cu.in.)  Med [IQR]
-#&gt; 10       disp   Displacement (cu.in.) Mean (std)
-#&gt; 11       disp   Displacement (cu.in.)     N (NA)
-#&gt; 12         hp        Gross horsepower  Min / Max
-#&gt; 13         hp        Gross horsepower  Med [IQR]
-#&gt; 14         hp        Gross horsepower Mean (std)
-#&gt; 15         hp        Gross horsepower     N (NA)
-#&gt; 16       drat         Rear axle ratio  Min / Max
-#&gt; 17       drat         Rear axle ratio  Med [IQR]
-#&gt; 18       drat         Rear axle ratio Mean (std)
-#&gt; 19       drat         Rear axle ratio     N (NA)
-#&gt; 20         wt       Weight (1000 lbs)  Min / Max
-#&gt; 21         wt       Weight (1000 lbs)  Med [IQR]
-#&gt; 22         wt       Weight (1000 lbs) Mean (std)
-#&gt; 23         wt       Weight (1000 lbs)     N (NA)
-#&gt; 24       qsec           1/4 mile time  Min / Max
-#&gt; 25       qsec           1/4 mile time  Med [IQR]
-#&gt; 26       qsec           1/4 mile time Mean (std)
-#&gt; 27       qsec           1/4 mile time     N (NA)
-#&gt; 28         vs                  Engine   straight
-#&gt; 29         vs                  Engine    vshaped
-#&gt; 30         am            Transmission       auto
-#&gt; 31         am            Transmission     manual
-#&gt; 32       gear Number of forward gears          3
-#&gt; 33       gear Number of forward gears          4
-#&gt; 34       gear Number of forward gears          5
-#&gt; 35       carb   Number of carburetors  Min / Max
-#&gt; 36       carb   Number of carburetors  Med [IQR]
-#&gt; 37       carb   Number of carburetors Mean (std)
-#&gt; 38       carb   Number of carburetors     N (NA)
-#&gt; 39    hp_date      Some nonsense date  Min / Max
-#&gt; 40    hp_date      Some nonsense date  Med [IQR]
-#&gt; 41    hp_date      Some nonsense date Mean (std)
-#&gt; 42    hp_date      Some nonsense date     N (NA)
-#&gt; 43 qsec_posix               Date+time  Min / Max
-#&gt; 44 qsec_posix               Date+time  Med [IQR]
-#&gt; 45 qsec_posix               Date+time Mean (std)
-#&gt; 46 qsec_posix               Date+time     N (NA)
-#&gt;                                                            value
-#&gt; 1                                                    10.4 / 33.9
-#&gt; 2                                               19.2 [15.4;22.8]
-#&gt; 3                                                     20.1 (6.0)
-#&gt; 4                                                         32 (0)
-#&gt; 5                                                    11 (34.38%)
-#&gt; 6                                                     7 (21.88%)
-#&gt; 7                                                    14 (43.75%)
-#&gt; 8                                                   71.1 / 472.0
-#&gt; 9                                            196.3 [120.8;326.0]
-#&gt; 10                                                 230.7 (123.9)
-#&gt; 11                                                        32 (0)
-#&gt; 12                                                  52.0 / 335.0
-#&gt; 13                                            123.0 [96.5;180.0]
-#&gt; 14                                                  146.7 (68.6)
-#&gt; 15                                                        32 (0)
-#&gt; 16                                                     2.8 / 4.9
-#&gt; 17                                                 3.7 [3.1;3.9]
-#&gt; 18                                                     3.6 (0.5)
-#&gt; 19                                                        32 (0)
-#&gt; 20                                                     1.5 / 5.4
-#&gt; 21                                                 3.3 [2.6;3.6]
-#&gt; 22                                                     3.2 (1.0)
-#&gt; 23                                                        32 (0)
-#&gt; 24                                                   14.5 / 22.9
-#&gt; 25                                              17.7 [16.9;18.9]
-#&gt; 26                                                    17.8 (1.8)
-#&gt; 27                                                        32 (0)
-#&gt; 28                                                   14 (43.75%)
-#&gt; 29                                                   18 (56.25%)
-#&gt; 30                                                   19 (59.38%)
-#&gt; 31                                                   13 (40.62%)
-#&gt; 32                                                   15 (46.88%)
-#&gt; 33                                                   12 (37.50%)
-#&gt; 34                                                    5 (15.62%)
-#&gt; 35                                                     1.0 / 8.0
-#&gt; 36                                                 2.0 [2.0;4.0]
-#&gt; 37                                                     2.8 (1.6)
-#&gt; 38                                                        32 (0)
-#&gt; 39                                       2010-02-22 - 2010-12-02
-#&gt; 40                            2010-05-04 [2010-04-06;2010-06-30]
-#&gt; 41                                       2010-05-27 (2.3 months)
-#&gt; 42                                                        32 (0)
-#&gt; 43                     2010-01-15 13:00:00 - 2010-01-23 22:36:00
-#&gt; 44 2010-01-18 18:02:24 [2010-01-17 21:52:48;2010-01-19 22:36:00]
-#&gt; 45                                2010-01-18 21:22:12 (1.8 days)
-#&gt; 46                                                        32 (0)</div><div class='input'>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 19 x 4</span>
+#&gt;    .id          label        variable   value        
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        
+#&gt; <span style='color: #BCBCBC;'> 1</span> Sepal.Length Sepal.Length Min / Max  4.3 / 7.9    
+#&gt; <span style='color: #BCBCBC;'> 2</span> Sepal.Length Sepal.Length Med [IQR]  5.8 [5.1;6.4]
+#&gt; <span style='color: #BCBCBC;'> 3</span> Sepal.Length Sepal.Length Mean (std) 5.8 (0.8)    
+#&gt; <span style='color: #BCBCBC;'> 4</span> Sepal.Length Sepal.Length N (NA)     150 (0)      
+#&gt; <span style='color: #BCBCBC;'> 5</span> Sepal.Width  Sepal.Width  Min / Max  2.0 / 4.4    
+#&gt; <span style='color: #BCBCBC;'> 6</span> Sepal.Width  Sepal.Width  Med [IQR]  3.0 [2.8;3.3]
+#&gt; <span style='color: #BCBCBC;'> 7</span> Sepal.Width  Sepal.Width  Mean (std) 3.1 (0.4)    
+#&gt; <span style='color: #BCBCBC;'> 8</span> Sepal.Width  Sepal.Width  N (NA)     150 (0)      
+#&gt; <span style='color: #BCBCBC;'> 9</span> Petal.Length Petal.Length Min / Max  1.0 / 6.9    
+#&gt; <span style='color: #BCBCBC;'>10</span> Petal.Length Petal.Length Med [IQR]  4.3 [1.6;5.1]
+#&gt; <span style='color: #BCBCBC;'>11</span> Petal.Length Petal.Length Mean (std) 3.8 (1.8)    
+#&gt; <span style='color: #BCBCBC;'>12</span> Petal.Length Petal.Length N (NA)     150 (0)      
+#&gt; <span style='color: #BCBCBC;'>13</span> Petal.Width  Petal.Width  Min / Max  0.1 / 2.5    
+#&gt; <span style='color: #BCBCBC;'>14</span> Petal.Width  Petal.Width  Med [IQR]  1.3 [0.3;1.8]
+#&gt; <span style='color: #BCBCBC;'>15</span> Petal.Width  Petal.Width  Mean (std) 1.2 (0.8)    
+#&gt; <span style='color: #BCBCBC;'>16</span> Petal.Width  Petal.Width  N (NA)     150 (0)      
+#&gt; <span style='color: #BCBCBC;'>17</span> Species      Species      setosa     50 (33.33%)  
+#&gt; <span style='color: #BCBCBC;'>18</span> Species      Species      versicolor 50 (33.33%)  
+#&gt; <span style='color: #BCBCBC;'>19</span> Species      Species      virginica  50 (33.33%)  </div><div class='input'><span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 38 x 4</span>
+#&gt;    .id   label variable   value              
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>              
+#&gt; <span style='color: #BCBCBC;'> 1</span> mpg   mpg   Min / Max  10.4 / 33.9        
+#&gt; <span style='color: #BCBCBC;'> 2</span> mpg   mpg   Med [IQR]  19.2 [15.4;22.8]   
+#&gt; <span style='color: #BCBCBC;'> 3</span> mpg   mpg   Mean (std) 20.1 (6.0)         
+#&gt; <span style='color: #BCBCBC;'> 4</span> mpg   mpg   N (NA)     32 (0)             
+#&gt; <span style='color: #BCBCBC;'> 5</span> cyl   cyl   4          11 (34.38%)        
+#&gt; <span style='color: #BCBCBC;'> 6</span> cyl   cyl   6          7 (21.88%)         
+#&gt; <span style='color: #BCBCBC;'> 7</span> cyl   cyl   8          14 (43.75%)        
+#&gt; <span style='color: #BCBCBC;'> 8</span> disp  disp  Min / Max  71.1 / 472.0       
+#&gt; <span style='color: #BCBCBC;'> 9</span> disp  disp  Med [IQR]  196.3 [120.8;326.0]
+#&gt; <span style='color: #BCBCBC;'>10</span> disp  disp  Mean (std) 230.7 (123.9)      
+#&gt; <span style='color: #949494;'># ... with 28 more rows</span></div><div class='input'><span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 46 x 4</span>
+#&gt;    .id   label                 variable   value              
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                 <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>              
+#&gt; <span style='color: #BCBCBC;'> 1</span> mpg   Miles/(US) gallon     Min / Max  10.4 / 33.9        
+#&gt; <span style='color: #BCBCBC;'> 2</span> mpg   Miles/(US) gallon     Med [IQR]  19.2 [15.4;22.8]   
+#&gt; <span style='color: #BCBCBC;'> 3</span> mpg   Miles/(US) gallon     Mean (std) 20.1 (6.0)         
+#&gt; <span style='color: #BCBCBC;'> 4</span> mpg   Miles/(US) gallon     N (NA)     32 (0)             
+#&gt; <span style='color: #BCBCBC;'> 5</span> cyl   Number of cylinders   4          11 (34.38%)        
+#&gt; <span style='color: #BCBCBC;'> 6</span> cyl   Number of cylinders   6          7 (21.88%)         
+#&gt; <span style='color: #BCBCBC;'> 7</span> cyl   Number of cylinders   8          14 (43.75%)        
+#&gt; <span style='color: #BCBCBC;'> 8</span> disp  Displacement (cu.in.) Min / Max  71.1 / 472.0       
+#&gt; <span style='color: #BCBCBC;'> 9</span> disp  Displacement (cu.in.) Med [IQR]  196.3 [120.8;326.0]
+#&gt; <span style='color: #BCBCBC;'>10</span> disp  Displacement (cu.in.) Mean (std) 230.7 (123.9)      
+#&gt; <span style='color: #949494;'># ... with 36 more rows</span></div><div class='input'>
 <span class='co'>#tidyselection, custom functions</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-<span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>ends_with</a></span><span class='op'>(</span><span class='st'>"t"</span><span class='op'>)</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"c"</span><span class='op'>)</span>, by<span class='op'>=</span><span class='va'>vs</span>, 
+<span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>ends_with</a></span><span class='op'>(</span><span class='st'>"t"</span><span class='op'>)</span>, <span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"c"</span><span class='op'>)</span><span class='op'>)</span>, by<span class='op'>=</span><span class='va'>vs</span>, 
            funs<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mean</span>, <span class='va'>quantile</span><span class='op'>)</span>, funs_arg <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>probs<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.25</span>,<span class='fl'>.75</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: The `...` argument of `crosstable()` is deprecated as of crosstable 0.2.0.</span>
-#&gt; <span class='warning'>Please use the `cols` argument instead.</span>
-#&gt; <span class='warning'>NB: The `...` argument might even be reused in other usages in later versions (breaking change).</span></div><div class='output co'>#&gt;     .id                 label     variable    straight      vshaped
-#&gt; 1  drat       Rear axle ratio         mean         3.9          3.4
-#&gt; 2  drat       Rear axle ratio quantile 25%         3.7          3.1
-#&gt; 3  drat       Rear axle ratio quantile 75%         4.1          3.7
-#&gt; 4    wt     Weight (1000 lbs)         mean         2.6          3.7
-#&gt; 5    wt     Weight (1000 lbs) quantile 25%         2.0          3.2
-#&gt; 6    wt     Weight (1000 lbs) quantile 75%         3.2          3.8
-#&gt; 7   cyl   Number of cylinders            4 10 (90.91%)    1 (9.09%)
-#&gt; 8   cyl   Number of cylinders            6  4 (57.14%)   3 (42.86%)
-#&gt; 9   cyl   Number of cylinders            8      0 (0%) 14 (100.00%)
-#&gt; 10 carb Number of carburetors         mean         1.8          3.6
-#&gt; 11 carb Number of carburetors quantile 25%         1.0          2.2
-#&gt; 12 carb Number of carburetors quantile 75%         2.0          4.0</div><div class='input'>
-<span class='co'>#margin and totals</span>
-<span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='va'>disp</span>, <span class='va'>vs</span>, by<span class='op'>=</span><span class='va'>am</span>, 
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 x 5</span>
+#&gt;    .id   label                 variable     straight    vshaped     
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                 <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       
+#&gt; <span style='color: #BCBCBC;'> 1</span> drat  Rear axle ratio       mean         3.9         3.4         
+#&gt; <span style='color: #BCBCBC;'> 2</span> drat  Rear axle ratio       quantile 25% 3.7         3.1         
+#&gt; <span style='color: #BCBCBC;'> 3</span> drat  Rear axle ratio       quantile 75% 4.1         3.7         
+#&gt; <span style='color: #BCBCBC;'> 4</span> wt    Weight (1000 lbs)     mean         2.6         3.7         
+#&gt; <span style='color: #BCBCBC;'> 5</span> wt    Weight (1000 lbs)     quantile 25% 2.0         3.2         
+#&gt; <span style='color: #BCBCBC;'> 6</span> wt    Weight (1000 lbs)     quantile 75% 3.2         3.8         
+#&gt; <span style='color: #BCBCBC;'> 7</span> cyl   Number of cylinders   4            10 (90.91%) 1 (9.09%)   
+#&gt; <span style='color: #BCBCBC;'> 8</span> cyl   Number of cylinders   6            4 (57.14%)  3 (42.86%)  
+#&gt; <span style='color: #BCBCBC;'> 9</span> cyl   Number of cylinders   8            0 (0%)      14 (100.00%)
+#&gt; <span style='color: #BCBCBC;'>10</span> carb  Number of carburetors mean         1.8         3.6         
+#&gt; <span style='color: #BCBCBC;'>11</span> carb  Number of carburetors quantile 25% 1.0         2.2         
+#&gt; <span style='color: #BCBCBC;'>12</span> carb  Number of carburetors quantile 75% 2.0         4.0         </div><div class='input'>
+<span class='co'>#margin and totals, multiple by</span>
+<span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>disp</span>, <span class='va'>cyl</span><span class='op'>)</span>, by<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>am</span>, <span class='va'>vs</span><span class='op'>)</span>, 
            margin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"row"</span>, <span class='st'>"col"</span><span class='op'>)</span>, total <span class='op'>=</span> <span class='st'>"both"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    .id                 label   variable                 auto
-#&gt; 1 disp Displacement (cu.in.)  Min / Max        120.1 / 472.0
-#&gt; 2 disp Displacement (cu.in.)  Med [IQR]  275.8 [196.3;360.0]
-#&gt; 3 disp Displacement (cu.in.) Mean (std)        290.4 (110.2)
-#&gt; 4 disp Displacement (cu.in.)     N (NA)               19 (0)
-#&gt; 5   vs                Engine   straight  7 (50.00% / 36.84%)
-#&gt; 6   vs                Engine    vshaped 12 (66.67% / 63.16%)
-#&gt; 7   vs                Engine      Total          19 (59.38%)
-#&gt;                manual               Total
-#&gt; 1        71.1 / 351.0        71.1 / 472.0
-#&gt; 2  120.3 [79.0;160.0] 196.3 [120.8;326.0]
-#&gt; 3        143.5 (87.2)       230.7 (123.9)
-#&gt; 4              13 (0)              32 (0)
-#&gt; 5 7 (50.00% / 53.85%)         14 (43.75%)
-#&gt; 6 6 (33.33% / 46.15%)         18 (56.25%)
-#&gt; 7         13 (40.62%)        32 (100.00%)</div><div class='input'>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 x 8</span>
+#&gt;   .id   label                 variable `am=auto &amp; vs=s~ `am=manual &amp; vs~ `am=auto &amp; vs=v~
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                 <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           
+#&gt; <span style='color: #BCBCBC;'>1</span> disp  Displacement (cu.in.) Min / M~ 120.1 / 258.0    71.1 / 121.0     275.8 / 472.0   
+#&gt; <span style='color: #BCBCBC;'>2</span> disp  Displacement (cu.in.) Med [IQ~ 167.6 [143.8;19~ 79.0 [77.2;101.~ 355.0 [296.9;41~
+#&gt; <span style='color: #BCBCBC;'>3</span> disp  Displacement (cu.in.) Mean (s~ 175.1 (49.1)     89.8 (18.8)      357.6 (71.8)    
+#&gt; <span style='color: #BCBCBC;'>4</span> disp  Displacement (cu.in.) N (NA)   7 (0)            7 (0)            12 (0)          
+#&gt; <span style='color: #BCBCBC;'>5</span> cyl   Number of cylinders   4        3 (27.27% / 42.~ 7 (63.64% / 100~ 0 (0% / 0%)     
+#&gt; <span style='color: #BCBCBC;'>6</span> cyl   Number of cylinders   6        4 (57.14% / 57.~ 0 (0% / 0%)      0 (0% / 0%)     
+#&gt; <span style='color: #BCBCBC;'>7</span> cyl   Number of cylinders   8        0 (0% / 0%)      0 (0% / 0%)      12 (85.71% / 10~
+#&gt; <span style='color: #BCBCBC;'>8</span> cyl   Number of cylinders   Total    7 (21.88%)       7 (21.88%)       12 (37.50%)     
+#&gt; <span style='color: #949494;'># ... with 2 more variables: am=manual &amp; vs=vshaped &lt;chr&gt;, Total &lt;chr&gt;</span></div><div class='input'>
 <span class='co'>#predicate selection, correlation, testing</span>
 <span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='fu'>where</span><span class='op'>(</span><span class='va'>is.numeric</span><span class='op'>)</span>, by<span class='op'>=</span><span class='va'>hp</span>, test<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    .id                 label variable            Gross horsepower
-#&gt; 1  mpg     Miles/(US) gallon  pearson -0.78 \n95%CI [-0.89;-0.59]
-#&gt; 2 disp Displacement (cu.in.)  pearson    0.79 \n95%CI [0.61;0.89]
-#&gt; 3 drat       Rear axle ratio  pearson -0.45 \n95%CI [-0.69;-0.12]
-#&gt; 4   wt     Weight (1000 lbs)  pearson     0.66 \n95%CI [0.4;0.82]
-#&gt; 5 qsec         1/4 mile time  pearson -0.71 \n95%CI [-0.85;-0.48]
-#&gt; 6 carb Number of carburetors  pearson    0.75 \n95%CI [0.54;0.87]
-#&gt;                                                        test
-#&gt; 1 p value: &lt;0.0001 \n(Pearson's product-moment correlation)
-#&gt; 2 p value: &lt;0.0001 \n(Pearson's product-moment correlation)
-#&gt; 3  p value: 0.0100 \n(Pearson's product-moment correlation)
-#&gt; 4 p value: &lt;0.0001 \n(Pearson's product-moment correlation)
-#&gt; 5 p value: &lt;0.0001 \n(Pearson's product-moment correlation)
-#&gt; 6 p value: &lt;0.0001 \n(Pearson's product-moment correlation)</div><div class='input'>
-<span class='co'>#lambda selection, effect calculation</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 5</span>
+#&gt;   .id   label                 variable `Gross horsepower`   test                
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                 <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>               
+#&gt; <span style='color: #BCBCBC;'>1</span> mpg   Miles/(US) gallon     pearson  <span style='color: #949494;'>"</span>-0.78 \n95%CI [-0.~ <span style='color: #949494;'>"</span>p value: &lt;0.0001 \~
+#&gt; <span style='color: #BCBCBC;'>2</span> disp  Displacement (cu.in.) pearson  <span style='color: #949494;'>"</span>0.79 \n95%CI [0.61~ <span style='color: #949494;'>"</span>p value: &lt;0.0001 \~
+#&gt; <span style='color: #BCBCBC;'>3</span> drat  Rear axle ratio       pearson  <span style='color: #949494;'>"</span>-0.45 \n95%CI [-0.~ <span style='color: #949494;'>"</span>p value: 0.0100 \n~
+#&gt; <span style='color: #BCBCBC;'>4</span> wt    Weight (1000 lbs)     pearson  <span style='color: #949494;'>"</span>0.66 \n95%CI [0.4;~ <span style='color: #949494;'>"</span>p value: &lt;0.0001 \~
+#&gt; <span style='color: #BCBCBC;'>5</span> qsec  1/4 mile time         pearson  <span style='color: #949494;'>"</span>-0.71 \n95%CI [-0.~ <span style='color: #949494;'>"</span>p value: &lt;0.0001 \~
+#&gt; <span style='color: #BCBCBC;'>6</span> carb  Number of carburetors pearson  <span style='color: #949494;'>"</span>0.75 \n95%CI [0.54~ <span style='color: #949494;'>"</span>p value: &lt;0.0001 \~</div><div class='input'>
+<span class='co'>#lambda selection &amp; effect calculation</span>
 <span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='op'>~</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>is.numeric</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>&gt;</span><span class='fl'>50</span>, by<span class='op'>=</span><span class='va'>vs</span>, effect<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    .id                 label   variable           straight             vshaped
-#&gt; 1 disp Displacement (cu.in.)  Min / Max       71.1 / 258.0       120.3 / 472.0
-#&gt; 2 disp Displacement (cu.in.)  Med [IQR] 120.5 [83.0;162.4] 311.0 [275.8;360.0]
-#&gt; 3 disp Displacement (cu.in.) Mean (std)       132.5 (56.9)       307.1 (106.8)
-#&gt; 4 disp Displacement (cu.in.)     N (NA)             14 (0)              18 (0)
-#&gt; 5   hp      Gross horsepower  Min / Max       52.0 / 123.0        91.0 / 335.0
-#&gt; 6   hp      Gross horsepower  Med [IQR]  96.0 [66.0;109.8] 180.0 [156.2;226.2]
-#&gt; 7   hp      Gross horsepower Mean (std)        91.4 (24.4)        189.7 (60.3)
-#&gt; 8   hp      Gross horsepower     N (NA)             14 (0)              18 (0)
-#&gt;                                                                                         effect
-#&gt; 1 Difference in means (Welch CI) (straight minus vshaped): -174.69\n95%CI [-235.02 to -114.36]
-#&gt; 2 Difference in means (Welch CI) (straight minus vshaped): -174.69\n95%CI [-235.02 to -114.36]
-#&gt; 3 Difference in means (Welch CI) (straight minus vshaped): -174.69\n95%CI [-235.02 to -114.36]
-#&gt; 4 Difference in means (Welch CI) (straight minus vshaped): -174.69\n95%CI [-235.02 to -114.36]
-#&gt; 5   Difference in means (Welch CI) (straight minus vshaped): -98.37\n95%CI [-130.67 to -66.06]
-#&gt; 6   Difference in means (Welch CI) (straight minus vshaped): -98.37\n95%CI [-130.67 to -66.06]
-#&gt; 7   Difference in means (Welch CI) (straight minus vshaped): -98.37\n95%CI [-130.67 to -66.06]
-#&gt; 8   Difference in means (Welch CI) (straight minus vshaped): -98.37\n95%CI [-130.67 to -66.06]</div><div class='input'>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 x 6</span>
+#&gt;   .id   label                 variable   straight           vshaped  effect     
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                 <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      
+#&gt; <span style='color: #BCBCBC;'>1</span> disp  Displacement (cu.in.) Min / Max  71.1 / 258.0       120.3 /~ <span style='color: #949494;'>"</span>Differenc~
+#&gt; <span style='color: #BCBCBC;'>2</span> disp  Displacement (cu.in.) Med [IQR]  120.5 [83.0;162.4] 311.0 [~ <span style='color: #949494;'>"</span>Differenc~
+#&gt; <span style='color: #BCBCBC;'>3</span> disp  Displacement (cu.in.) Mean (std) 132.5 (56.9)       307.1 (~ <span style='color: #949494;'>"</span>Differenc~
+#&gt; <span style='color: #BCBCBC;'>4</span> disp  Displacement (cu.in.) N (NA)     14 (0)             18 (0)   <span style='color: #949494;'>"</span>Differenc~
+#&gt; <span style='color: #BCBCBC;'>5</span> hp    Gross horsepower      Min / Max  52.0 / 123.0       91.0 / ~ <span style='color: #949494;'>"</span>Differenc~
+#&gt; <span style='color: #BCBCBC;'>6</span> hp    Gross horsepower      Med [IQR]  96.0 [66.0;109.8]  180.0 [~ <span style='color: #949494;'>"</span>Differenc~
+#&gt; <span style='color: #BCBCBC;'>7</span> hp    Gross horsepower      Mean (std) 91.4 (24.4)        189.7 (~ <span style='color: #949494;'>"</span>Differenc~
+#&gt; <span style='color: #BCBCBC;'>8</span> hp    Gross horsepower      N (NA)     14 (0)             18 (0)   <span style='color: #949494;'>"</span>Differenc~</div><div class='input'>
 <span class='co'>#Dates</span>
 <span class='va'>mtcars2</span><span class='op'>$</span><span class='va'>my_date</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>$</span><span class='va'>hp</span> , origin<span class='op'>=</span><span class='st'>"2010-01-01"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='set_label.html'>set_label</a></span><span class='op'>(</span><span class='st'>"Some nonsense date"</span><span class='op'>)</span>
 <span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='va'>my_date</span>, by<span class='op'>=</span><span class='va'>vs</span>, date_format<span class='op'>=</span><span class='st'>"%d/%m/%Y"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;       .id              label   variable                           straight
-#&gt; 1 my_date Some nonsense date  Min / Max            22/02/2010 - 04/05/2010
-#&gt; 2 my_date Some nonsense date  Med [IQR] 07/04/2010 [08/03/2010;21/04/2010]
-#&gt; 3 my_date Some nonsense date Mean (std)             02/04/2010 (24.4 days)
-#&gt; 4 my_date Some nonsense date     N (NA)                             14 (0)
-#&gt;                              vshaped
-#&gt; 1            02/04/2010 - 02/12/2010
-#&gt; 2 30/06/2010 [31/05/2010;19/08/2010]
-#&gt; 3            09/07/2010 (2.0 months)
-#&gt; 4                             18 (0)</div><div class='input'>
-<span class='co'>#Survival data (using formula UI)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 5</span>
+#&gt;   .id     label              variable   straight             vshaped            
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>              
+#&gt; <span style='color: #BCBCBC;'>1</span> my_date Some nonsense date Min / Max  22/02/2010 - 04/05/~ 02/04/2010 - 02/12~
+#&gt; <span style='color: #BCBCBC;'>2</span> my_date Some nonsense date Med [IQR]  07/04/2010 [08/03/2~ 30/06/2010 [31/05/~
+#&gt; <span style='color: #BCBCBC;'>3</span> my_date Some nonsense date Mean (std) 02/04/2010 (24.4 da~ 09/07/2010 (2.0 mo~
+#&gt; <span style='color: #BCBCBC;'>4</span> my_date Some nonsense date N (NA)     14 (0)               18 (0)             </div><div class='input'>
+<span class='co'>#Survival data (using formula syntax)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/therneau/survival'>survival</a></span><span class='op'>)</span>
 <span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>aml</span>, <span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>time</span>, <span class='va'>status</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>x</span>,times<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>15</span>,<span class='fl'>30</span>,<span class='fl'>150</span><span class='op'>)</span>, followup<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                  .id              label                     variable
-#&gt; 1 Surv(time, status) Surv(time, status)                          t=0
-#&gt; 2 Surv(time, status) Surv(time, status)                         t=15
-#&gt; 3 Surv(time, status) Surv(time, status)                         t=30
-#&gt; 4 Surv(time, status) Surv(time, status)                        t=150
-#&gt; 5 Surv(time, status) Surv(time, status) Median follow up [min ; max]
-#&gt; 6 Surv(time, status) Surv(time, status)              Median survival
-#&gt;       Maintained Nonmaintained
-#&gt; 1    1.00 (0/11)   1.00 (0/12)
-#&gt; 2     0.82 (2/8)    0.58 (5/7)
-#&gt; 3     0.61 (2/5)    0.29 (3/4)
-#&gt; 4     0.18 (3/1)       0 (3/0)
-#&gt; 5 103 [13 ; 161]  NA [16 ; 45]
-#&gt; 6             31            23</div></pre>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 5</span>
+#&gt;   .id                label              variable       Maintained  Nonmaintained
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        
+#&gt; <span style='color: #BCBCBC;'>1</span> Surv(time, status) Surv(time, status) t=0            1.00 (0/11) 1.00 (0/12)  
+#&gt; <span style='color: #BCBCBC;'>2</span> Surv(time, status) Surv(time, status) t=15           0.82 (2/8)  0.58 (5/7)   
+#&gt; <span style='color: #BCBCBC;'>3</span> Surv(time, status) Surv(time, status) t=30           0.61 (2/5)  0.29 (3/4)   
+#&gt; <span style='color: #BCBCBC;'>4</span> Surv(time, status) Surv(time, status) t=150          0.18 (3/1)  0 (3/0)      
+#&gt; <span style='color: #BCBCBC;'>5</span> Surv(time, status) Surv(time, status) Median follow~ 103 [13 ; ~ NA [16 ; 45] 
+#&gt; <span style='color: #BCBCBC;'>6</span> Surv(time, status) Surv(time, status) Median surviv~ 31          23           </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -51,7 +51,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -120,13 +120,13 @@
 
       
 
-      </header><script src="crosstable-report_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
+      </header><script src="crosstable-report_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Make automatic reports</h1>
                         <h4 class="author">Dan Chaltiel</h4>
             
-            <h4 class="date">2021-03-10</h4>
+            <h4 class="date">2021-10-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/DanChaltiel/crosstable/blob/master/vignettes/crosstable-report.Rmd"><code>vignettes/crosstable-report.Rmd</code></a></small>
       <div class="hidden name"><code>crosstable-report.Rmd</code></div>
@@ -152,14 +152,14 @@
 <span class="va">my_plot</span> <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">iris</span> <span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">Sepal.Length</span>, <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span>
 
-<span class="va">doc</span> <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Dataset iris"</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">doc</span> <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/read_docx.html">read_docx</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co">#default template</span>
+  <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Dataset iris (nrow={nrow(iris)})"</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Not compacted"</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"Table \\@ref(table_autotest) is an example. However, automatic testing is bad and I should feel bad."</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/body_add_crosstable.html">body_add_crosstable</a></span><span class="op">(</span><span class="va">ct1</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_table_legend.html">body_add_table_legend</a></span><span class="op">(</span><span class="st">"Automatic testing is bad"</span>, bookmark<span class="op">=</span><span class="st">"table_autotest"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/body_add_legend.html">body_add_table_legend</a></span><span class="op">(</span><span class="st">"Automatic testing is bad"</span>, bookmark<span class="op">=</span><span class="st">"table_autotest"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"Let's add a figure as well. You can see in Figure \\@ref(fig_iris) that sepal length is somehow correlated with petal length."</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_table_legend.html">body_add_figure_legend</a></span><span class="op">(</span><span class="st">"Relation between Petal length and Sepal length"</span>, bookmark<span class="op">=</span><span class="st">"fig_iris"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/body_add_legend.html">body_add_figure_legend</a></span><span class="op">(</span><span class="st">"Relation between Petal length and Sepal length"</span>, bookmark<span class="op">=</span><span class="st">"fig_iris"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/body_add_gg2.html">body_add_gg2</a></span><span class="op">(</span><span class="va">my_plot</span>, w<span class="op">=</span><span class="fl">14</span>, h<span class="op">=</span><span class="fl">10</span>, scale<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Compacted"</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"When compacting, you might want to remove the test names."</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -168,25 +168,20 @@
   <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Dataset mtcars2"</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"This dataset has {nrow(ct3)} rows and {x} columns."</span>, x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">ct3</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"Look, there are labels!"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_crosstable.html">body_add_crosstable</a></span><span class="op">(</span><span class="va">ct2</span>, compact<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://davidgohel.github.io/officer/reference/body_add_break.html">body_add_break</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Dataset esoph"</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"This one was compacted beforehand for some reason."</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_crosstable.html">body_add_crosstable</a></span><span class="op">(</span><span class="fu"><a href="../reference/compact.html">compact</a></span><span class="op">(</span><span class="va">ct3</span><span class="op">)</span><span class="op">)</span> <span class="co">#beware of any conflict with purrr::compact</span></code></pre></div>
-<div id="output" class="section level4">
-<h4 class="hasAnchor">
-<a href="#output" class="anchor"></a>Output</h4>
-<p>To see the resulting Word document, use <code><a href="../reference/write_and_open.html">write_and_open()</a></code>.</p>
-<p>If you only want to save the document without opening it, simply use <code><a href="https://rdrr.io/r/base/print.html">print()</a></code>:</p>
+  <span class="fu"><a href="../reference/body_add_crosstable.html">body_add_crosstable</a></span><span class="op">(</span><span class="va">ct2</span>, compact<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<div id="output" class="section level3">
+<h3 class="hasAnchor">
+<a href="#output" class="anchor"></a>Output</h3>
+<p>To see the resulting Word document, use:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/write_and_open.html">write_and_open</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span> <span class="co">#save and open the docx file in a temporary file</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/write_and_open.html">write_and_open</a></span><span class="op">(</span><span class="va">doc</span><span class="op">)</span>                   <span class="co">#save and open the docx file in a temporary file for a quick peek</span>
 <span class="fu"><a href="../reference/write_and_open.html">write_and_open</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"my_report.docx"</span><span class="op">)</span> <span class="co">#fails if it is already open</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"my_report.docx"</span><span class="op">)</span> <span class="co">#only save the docx file</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"my_report.docx"</span><span class="op">)</span>          <span class="co">#only save the docx file</span></code></pre></div>
 <p>You can check out the result of the example above <a href="https://github.com/DanChaltiel/crosstable/raw/master/examples/vignette_officer.docx">here</a>.</p>
 </div>
-<div id="functions" class="section level4">
-<h4 class="hasAnchor">
-<a href="#functions" class="anchor"></a>Functions</h4>
+<div id="functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#functions" class="anchor"></a>Functions</h3>
 <p>Here is a brief description of the functions used in this example:</p>
 <ul>
 <li>
@@ -194,32 +189,43 @@
 <li>
 <code><a href="../reference/body_add_title.html">body_add_title()</a></code>: adds a title paragraph of any level</li>
 <li>
-<code><a href="../reference/body_add_normal.html">body_add_normal()</a></code>: adds a normal style paragraph. You can also incorporate variables using the syntax <code>{{nrow(ct3)}}</code> and references using the syntax <code>\\@ref(my_bookmark)</code>.</li>
+<code><a href="../reference/body_add_normal.html">body_add_normal()</a></code>: adds a normal style paragraph. You can also incorporate variables using the syntax <code>{nrow(ct3)}</code> and references using the syntax <code>\\@ref(my_bookmark)</code>.</li>
 <li>
 <code><a href="../reference/body_add_crosstable.html">body_add_crosstable()</a></code>: adds a crosstable</li>
 <li>
-<code><a href="../reference/body_add_table_legend.html">body_add_figure_legend()</a></code> and <code><a href="../reference/body_add_table_legend.html">body_add_table_legend()</a></code>: adds a figure/table legend. The <code>bookmark</code> is the key that can be added elsewhere in <code><a href="../reference/body_add_normal.html">body_add_normal()</a></code>.</li>
+<code><a href="../reference/body_add_legend.html">body_add_figure_legend()</a></code> and <code><a href="../reference/body_add_legend.html">body_add_table_legend()</a></code>: adds a figure/table legend. The <code>bookmark</code> is the key that can be added elsewhere in <code><a href="../reference/body_add_normal.html">body_add_normal()</a></code>.</li>
 <li>
 <code><a href="../reference/body_add_gg2.html">body_add_gg2()</a></code>: adds a ggplot. Unlike <code><a href="https://davidgohel.github.io/officer/reference/body_add_gg.html">officer::body_add_gg()</a></code>, you can change the unit using the <code>units</code> argument or the options <code><a href="https://rdrr.io/r/base/options.html">options(crosstable_units="cm")</a></code>.</li>
 </ul>
-<p>Browse <a href="https://davidgohel.github.io/officer" class="uri">https://davidgohel.github.io/officer</a> for more insight about how you can use <code>officer</code>.</p>
+<p>Browse <a href="https://davidgohel.github.io/officer/" class="uri">https://davidgohel.github.io/officer/</a> for more insight about how you can use <a href="https://ardata-fr.github.io/officeverse/">officer</a>.</p>
 </div>
-<div id="styles-issues" class="section level4">
-<h4 class="hasAnchor">
-<a href="#styles-issues" class="anchor"></a>Styles issues</h4>
-<p>Crosstables need <a href="https://support.microsoft.com/fr-fr/office/personnaliser-ou-cr%C3%A9er-des-styles-d38d6e47-f6fc-48eb-a607-1eb120dec563">Word styles</a> to work properly, and default values are contained in the default template of <code><a href="https://davidgohel.github.io/officer/reference/read_docx.html">officer::read_docx()</a></code>. However, if you use a custom template inside <code><a href="https://davidgohel.github.io/officer/reference/read_docx.html">read_docx()</a></code>, several functions in <code>crosstable</code> might need <strong>style</strong> parameterization.</p>
-<p>For instance, <code><a href="../reference/body_add_table_legend.html">body_add_figure_legend()</a></code> needs 2 styles, which are by default “Image Caption” and “strong”. If these styles are not found in the template, an error will be raised.</p>
-<p>You can prevent this by using either parameters <code><a href="../reference/body_add_table_legend.html">body_add_figure_legend(legend_style="Figure Legend", style="Bold")</a></code> or options <code><a href="https://rdrr.io/r/base/options.html">options(crosstable_style_legend="Figure Legend", crosstable_style_strong="Bold")</a></code>.</p>
-<p>See <code><a href="../reference/crosstable_options.html">?crosstable_options</a></code> for a list of all styles you can specify with options.</p>
+<div id="styles" class="section level3">
+<h3 class="hasAnchor">
+<a href="#styles" class="anchor"></a>Styles</h3>
+<p>Crosstables uses <a href="https://support.microsoft.com/fr-fr/office/personnaliser-ou-cr%C3%A9er-des-styles-d38d6e47-f6fc-48eb-a607-1eb120dec563">Word styles</a> to operate at full power .</p>
+<p>Here, I used the default template of <code><a href="https://davidgohel.github.io/officer/reference/read_docx.html">officer::read_docx()</a></code> that comes with default styles. In your own custom template, you can edit all styles (for instance you can make “Normal” have a bold font of size 8) and add your own.</p>
+<p>The best example here is <code><a href="../reference/body_add_list.html">body_add_list()</a></code>, which is supposed to add a bullet list. Unfortunately, the default template does not come with list styles so you will have to add one to your custom template before using it:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>doc <span class="ot">=</span> <span class="fu">read_docx</span>(<span class="st">"my_template.docx) %&gt;% #your custom template</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">  body_add_list(c("</span>this is item <span class="dv">1</span><span class="st">", "</span>this is item <span class="dv">2</span><span class="st">"), style="</span>bullet<span class="st">")</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">#alternatively, you can define the style globally and use the ordered parameter</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">options(crosstable_style_list_unordered="</span>bullet<span class="st">")</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">options(crosstable_style_list_ordered="</span>numbered<span class="st">")</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">doc = read_docx("</span>my_template.docx) <span class="sc">%&gt;%</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">body_add_list</span>(<span class="fu">c</span>(<span class="st">"this is item 1"</span>, <span class="st">"this is item 2"</span>), <span class="at">ordered=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<p>See <code><a href="../reference/crosstable_options.html">?crosstable_options</a></code> for a list of all styles you can specify globally and use <code><a href="https://davidgohel.github.io/officer/reference/styles_info.html">officer::styles_info(doc)</a></code> to see which one are available in your template.</p>
+<p>Note that you might sometimes encounter the error “Error: could not match any style named ‘xxx’” if you are not careful.</p>
 </div>
-<div id="post-production" class="section level4">
-<h4 class="hasAnchor">
-<a href="#post-production" class="anchor"></a>Post-production</h4>
+<div id="post-production-for-tablefigure-legends" class="section level3">
+<h3 class="hasAnchor">
+<a href="#post-production-for-tablefigure-legends" class="anchor"></a>Post-production for table/figure legends</h3>
+<p>Depending on your version of <a href="https://ardata-fr.github.io/officeverse/">officer</a>, Word will ask you to update the fields</p>
 <ul>
-<li><p>References numbering is calculated by MS Word. Therefore, they do not exist yet when the document is written. To trigger the calculation, you need to manually update the references inside MS Word: select all (+), then update (). You might even need to do this several times. See <code><a href="../reference/body_add_table_legend.html">?body_add_table_legend</a></code> for more insight.</p></li>
-<li><p>Large tables can sometimes overflow the MS Word document width. In this case (for instance for <code>mtcars2</code> in the previous example), you have to manually go to <code>Table Tools &gt; Layout &gt; AutoFit &gt; AutoFit Window</code> in the ribbon to correct the width. This is a limitation that comes with <code>officer</code> (<a href="https://ardata-fr.github.io/officeverse/faq.html#update-fields">link</a>).</p></li>
+<li><p>During the opening of the document, MS Word might ask you to “update the fields”, to which you should answer “Yes”. If it does not ask or if you answer “No”, the legends added with <code><a href="../reference/body_add_legend.html">body_add_table_legend()</a></code> or <code><a href="../reference/body_add_legend.html">body_add_figure_legend()</a></code> might have no actual numbers displayed.<br>
+In this case, you have to manually update the references inside MS Word: select all (+), then update (), sometimes twice. You might even need to do this several times. See <code><a href="../reference/body_add_legend.html">?body_add_legend</a></code> for more insight.</p></li>
+<li><p>Large tables can sometimes overflow the MS Word document width. In this case (for instance for <code>mtcars2</code> in the previous example), you have to manually go to <code>Table Tools &gt; Layout &gt; AutoFit &gt; AutoFit Window</code> in the ribbon to correct the width. This is a limitation that comes with <code>officer</code> (<a href="https://ardata-fr.github.io/officeverse/faq.html#update-fields">link</a>). You can also use <code><a href="../reference/generate_autofit_macro.html">generate_autofit_macro()</a></code> to generate a <code>.bas</code> file that, once imported in Word, unlocks the possibility to autofit every table of the document at once. See <code><a href="../reference/generate_autofit_macro.html">?generate_autofit_macro</a></code> for more details.</p></li>
+<li><p>Be aware that you unfortunately cannot reference a bookmark more than once using this method. Writing: <code><a href="../reference/body_add_normal.html">body_add_normal("Table \\@ref(iris_col1) is about flowers. I like this Table \\@ref(iris_col1).")</a></code> will prevent <strong>all</strong> the numbering from applying.</p></li>
 </ul>
-<p>You can learn more on officer on <a href="https://davidgohel.github.io/officer/">its documentation</a>.</p>
 </div>
 </div>
 <div id="create-reports-with-rmarkdown" class="section level2">
@@ -229,24 +235,24 @@
 <!-- Intégration Rmd in Rmd: la coloration syntaxique RStudio est mauvaise mais le code est bon ! -->
 <!-- https://stackoverflow.com/questions/53226493/add-markdown-code-chunk-to-r-markdown-document#comment104859956_53226493 -->
 <p>Knitting (<code><a href="https://rdrr.io/pkg/knitr/man/knit.html">knitr::knit()</a></code> or via <strong>RStudio</strong>) this <code>Rmd</code> code also creates a MS-Word file. Here, you can use the power of <code>bookdown</code> to generate the automatic numbering of the tables.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>title: "Iris"</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>output: bookdown::word_document2</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="in">library(crosstable)</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="in">library(flextable)</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="in">library(dplyr) #pour le pipe %&gt;% </span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>Table iris is given in Table \@ref(tab:irisTable).</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="in">```{r description, echo=FALSE, results='asis'}</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="in">cat("&lt;caption&gt; (\\#tab:irisTable) Table Iris &lt;/caption&gt; \n\r ")</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="in">crosstable(iris, Sepal.Length, Sepal.Width, by=Species, test = TRUE, total="column") %&gt;% as_flextable</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>title: "Iris"</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>output: bookdown::word_document2</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="in">library(crosstable)</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="in">library(flextable)</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="in">library(dplyr) #pour le pipe %&gt;% </span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>Table iris is given in Table \@ref(tab:irisTable).</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="in">```{r description, echo=FALSE, results='asis'}</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="in">cat("&lt;caption&gt; (\\#tab:irisTable) Table Iris &lt;/caption&gt; \n\r ")</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="in">crosstable(iris, Sepal.Length, Sepal.Width, by=Species, test = TRUE, total="column") %&gt;% as_flextable</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <p>You can example files here: <a href="../examples/vignette_markdown.Rmd">vignette_markdown.Rmd</a> and <a href="../examples/vignette_markdown.docx">vignette_markdown.docx</a>.</p>
 </div>
   </div>

@@ -55,7 +55,7 @@
   
 
 <meta property="og:title" content="Effect measure for association between one continuous and one categorical variable — effect_summary" />
-<meta property="og:description" content="User can either use or extend these functions to parametrize effect calculation." />
+<meta property="og:description" content="User can either use or extend these functions to configure effect calculation." />
 <meta property="og:image" content="https://danchaltiel.github.io/crosstable/apple-touch-icon-180x180.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary" />
@@ -102,7 +102,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -180,27 +180,27 @@
     </div>
 
     <div class="ref-description">
-    <p>User can either use or extend these functions to parametrize effect calculation.</p>
+    <p>User can either use or extend these functions to configure effect calculation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>diff_mean_auto</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span>, conf_level <span class='op'>=</span> <span class='fl'>0.95</span>, R <span class='op'>=</span> <span class='fl'>500</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>diff_mean_auto</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>by</span>, conf_level <span class='op'>=</span> <span class='fl'>0.95</span>, R <span class='op'>=</span> <span class='fl'>500</span><span class='op'>)</span>
 
-<span class='fu'>diff_mean_boot</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span>, conf_level <span class='op'>=</span> <span class='fl'>0.95</span>, R <span class='op'>=</span> <span class='fl'>500</span><span class='op'>)</span>
+<span class='fu'>diff_mean_boot</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>by</span>, conf_level <span class='op'>=</span> <span class='fl'>0.95</span>, R <span class='op'>=</span> <span class='fl'>500</span><span class='op'>)</span>
 
-<span class='fu'>diff_median</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span>, conf_level <span class='op'>=</span> <span class='fl'>0.95</span>, R <span class='op'>=</span> <span class='fl'>500</span><span class='op'>)</span>
+<span class='fu'>diff_median_boot</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>by</span>, conf_level <span class='op'>=</span> <span class='fl'>0.95</span>, R <span class='op'>=</span> <span class='fl'>500</span><span class='op'>)</span>
 
-<span class='fu'>diff_mean_student</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>g</span>, conf_level <span class='op'>=</span> <span class='fl'>0.95</span><span class='op'>)</span></pre>
+<span class='fu'>diff_mean_student</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>by</span>, conf_level <span class='op'>=</span> <span class='fl'>0.95</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a numeric vector</p></td>
+      <td><p>numeric vector</p></td>
     </tr>
     <tr>
-      <th>g</th>
-      <td><p>another vector (of exactly 2 unique levels)</p></td>
+      <th>by</th>
+      <td><p>categorical vector (of exactly 2 unique levels)</p></td>
     </tr>
     <tr>
       <th>conf_level</th>
@@ -220,13 +220,20 @@
     
 <ul>
 <li><p><code>diff_mean_auto</code>: (<strong>Default</strong>) calculate a specific "difference in means" effect based on normality (Shapiro or Anderson test) and variance homogeneity (Bartlett test)</p></li>
-<li><p><code>diff_mean_boot</code>: calculate a "difference in means" effect by bootstrapping</p></li>
-<li><p><code>diff_median</code>: calculate a "difference in medians" effect by bootstrapping</p></li>
+<li><p><code>diff_mean_boot</code>: calculate a "difference in means" effect with a bootstrapped CI using standard deviation</p></li>
+<li><p><code>diff_median_boot</code>: calculate a "difference in medians" effect with a bootstrapped CI using quantiles#'</p></li>
 <li><p><code>diff_mean_student</code>: calculate a "difference in means" effect using <code>t.test</code> confidence intervals</p></li>
 </ul>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='crosstable_effect_args.html'>crosstable_effect_args()</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Dan Chaltiel, David Hajage</p>
+<p>Dan Chaltiel, David Hajage</p>
+<p>Dan Chaltiel, David Hajage</p>
+<p>Dan Chaltiel, David Hajage</p>
+<p>Dan Chaltiel, David Hajage</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

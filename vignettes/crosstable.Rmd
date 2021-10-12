@@ -45,17 +45,16 @@ kbd {
 
 ## Crosstable
 
-Crosstable is a package centered on a single function, `crosstable`, which easily computes descriptive statistics on datasets.
+Crosstable is a package centered on a single function, `crosstable()`, which easily computes descriptive statistics on datasets.
 
 Before starting this vignette, here are a few points:
 
- + Tables look better on a white background. If you are using RStudio in dark mode, borders may look blurry.
- + If you are not familiar with `dplyr` and pipes (`%>%`, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> in RStudio), I warmly recommend you to read the [vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html), or, if you can read French, Julien Barnier's awesome [tidyverse tutorial](https://juba.github.io/tidyverse/10-dplyr.html#pipe). Nevertheless, this vignette should still be somehow understandable, since `crosstable` is perfectly usable with base `R`.
+ + If you are not familiar with `dplyr` and pipes (`%>%`, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> in RStudio), I warmly recommend you to read the [vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html), or, if you can read French, Julien Barnier's awesome [tidyverse tutorial](https://juba.github.io/tidyverse/10-dplyr.html#pipe). Nevertheless, this vignette should still be easy to understand otherwise, as `crosstable` is perfectly usable with base `R`.
 
 
 ## Example dataset: modified `mtcars`
 
-First, since it uses the power of the `label` attribute, let's start by building a labelled dataset. 
+First, since `crosstable()` uses the power of the `label` attribute, let's start by building a labelled dataset. 
 
 In this vignette, we will use a modified version of the `mtcars` famous dataset, which comprises 11 aspects of design and performance for 32 automobiles. Let's modify it to add textual categories, make some numeric variables factors, and add labels from a table using `import_labels`. 
 
@@ -91,7 +90,7 @@ mtcars2 = mtcars %>%
 
 As a first example, let's describe the columns `mpg` and `cyl`, grouping by the column `am` (the transmission).
 
-As tables are not very readable in the console, let's also use `as_flextable()` to turn the resulting `crosstable` into a beautiful, ready-to-print HTML table. This table will be automatically displayed in the Viewer if your are using RStudio. 
+As tables are not very readable in the console, let's also use `as_flextable()` to turn the resulting `crosstable` into a beautiful, ready-to-print HTML table. This table will be automatically displayed in the Viewer pane if your are using RStudio. 
 
 
 ```{r crosstable-flextable}
@@ -104,9 +103,9 @@ By default, numeric variables (like `mpg` and `disp`) are described with `min/ma
 
 There are many ways to select variables: with names, character vector, `tidyselect` helpers, formula... This is described in details in `vignette("crosstable-selection")`.
 
-The `by` column is usually a factor, character or logical vector. If it is a numeric vector, then only numeric vectors can be described and correlation coefficients will be displayed.
+The `by` column is usually a factor, character or logical vector. If it is a numeric vector, then only numeric vectors can be described and correlation coefficients will be displayed. While it is possible to apply several variables (`by=c(am, vs)`), I will use only one variable here for clarity.
 
-In this vignette, I will often set `keep_id=TRUE` so you can see the variable name, but in practice you usually omit it. See `vignette("crosstable-report")` for more on `as_flextable()` and on how to integrate crosstables in MS Word document (`officer`) and `Rmarkdown`. On the other hand, you can set `label=FALSE` if you don't want them to appear.
+In this vignette, I will often set `keep_id=TRUE` so you can see the variable name, but in practice you usually omit it. See `vignette("crosstable-report")` for more about `as_flextable()` and on how to integrate crosstables in MS Word document (using `{officer}`) and `Rmarkdown`. On the other hand, you can set `label=FALSE` if you don't want them to appear.
 
 
 ## Totals
@@ -119,12 +118,12 @@ crosstable(mtcars2, c(am, mpg), by=vs, total="both") %>%
   as_flextable(keep_id=TRUE)
 ```
 
-Totals always take missing values into account. Therefore, be aware that if `showNA="no"`, totals may be higher than the sum of the values inside the table.
+Note that totals always take missing values into account. Therefore, be aware that if `showNA="no"`, totals may be higher than the sum of the values inside the table.
 
 
 ## Arguments to control variables description
 
-The `crosstable()` function comes with a lot of arguments to add control on how it will describe. Some arguments are tied to a type of variable and will only apply for the descriptions of those.
+The `crosstable()` function comes with a lot of arguments to add control on how it will describe your dataset. Some arguments are tied to a type of variable and will only apply for the descriptions of those.
 
 
 ### Categorical variables
@@ -156,7 +155,7 @@ crosstable(mtcars2, c(mpg, wt), funs=c(median, mean, "std dev"=sd)) %>%
   as_flextable(keep_id=TRUE)
 ```
 
-As you can see, you can name your functions. For advanced user, note that you can also use anonymous and lambda functions: `crosstable(mtcars2, c(mpg, wt), funs=c("mean square"=function(xx) mean(xx^2), "mean cube"= ~mean(.x^3)))`.
+As you can see, you can name your functions. For more advanced use cases, note that you can also use anonymous and lambda functions: `crosstable(mtcars2, c(mpg, wt), funs=c("mean square"=function(xx) mean(xx^2), "mean cube"= ~mean(.x^3)))`.
 
 You might want to use `crosstable`'s convenience functions such as `meansd()`, `meanCI()`, `mediqr()`, `minmax()`, or `nna()`.
 
@@ -215,9 +214,24 @@ crosstable(mtcars2, c(x_date, x_posix), funs=meansd, funs_arg=list(date_unit="da
 ```
 
 
+## Effects
+
+If there is onely one `by` variable with only 2 levels, it is possible to automatically compute an effect-size, most often along with its confidence interval. 
+
+```{r crosstable-effect}
+library(flextable)
+crosstable(mtcars2, vs, qsec, by=am, funs=mean, effect=TRUE) %>% 
+  as_flextable(keep_id=TRUE)
+```
+
+Type of effect (method, bootstrap, ...) are also chosen depending on the characteristics of the crossed variables (class, size, distribution, ...). See `?crosstable_effect_args` for more details on the effect choice algorithm and how to customize it.
+
+
+
+
 ## Tests
 
-It is possible to perform statistical tests automatically. 
+It is also possible to perform statistical tests automatically. 
 
 ```{r crosstable-tests}
 library(flextable)
@@ -232,22 +246,6 @@ Tests are chosen depending on the characteristics of the crossed variables (clas
 
 
 
-## Effects
-
-If the `by` variable has only 2 levels, it is also possible to automatically compute an effect. 
-
-```{r crosstable-effect}
-library(flextable)
-crosstable(mtcars2, vs, qsec, by=am, funs=mean, effect=TRUE) %>% 
-  as_flextable(keep_id=TRUE)
-```
-
-Type of effect (method, bootstrap, ...) are also chosen depending on the characteristics of the crossed variables (class, size, distribution, ...). See `?crosstable_effect_args` for more details on the effect choice algorithm.
-
-
-
 
 ## Acknowledgement
-`crosstable` is a rewrite of the awesome [`biostat2` package](https://github.com/eusebe/biostat2) written by David Hajage. The user interface is quite different but the concept is the same.
-
-Thanks David!
+`crosstable` is a rewrite of the awesome [`biostat2` package](https://github.com/eusebe/biostat2) written by David Hajage. The user interface is quite different but the concept is the same. Thanks David!

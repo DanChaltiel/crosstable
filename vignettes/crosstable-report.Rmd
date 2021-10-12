@@ -37,8 +37,8 @@ options(crosstable_units="cm")
 my_plot = ggplot(data = iris ) +
   geom_point(mapping = aes(Sepal.Length, Petal.Length))
 
-doc = read_docx() %>% 
-  body_add_title("Dataset iris", 1) %>%
+doc = read_docx() %>% #default template
+  body_add_title("Dataset iris (nrow={nrow(iris)})", 1) %>%
   body_add_title("Not compacted", 2) %>%
   body_add_normal("Table \\@ref(table_autotest) is an example. However, automatic testing is bad and I should feel bad.") %>%
   body_add_crosstable(ct1) %>%
@@ -53,29 +53,23 @@ doc = read_docx() %>%
   body_add_title("Dataset mtcars2", 1) %>%
   body_add_normal("This dataset has {nrow(ct3)} rows and {x} columns.", x=ncol(ct3)) %>%
   body_add_normal("Look, there are labels!") %>%
-  body_add_crosstable(ct2, compact=TRUE) %>%
-  body_add_break() %>%
-  body_add_title("Dataset esoph", 1) %>%
-  body_add_normal("This one was compacted beforehand for some reason.") %>%
-  body_add_crosstable(compact(ct3)) #beware of any conflict with purrr::compact
+  body_add_crosstable(ct2, compact=TRUE)
 ```
+
 
 ### Output
 
 ```{r save, include=FALSE}
-# stop("Working directory = ", getwd())
 if(file.exists("../examples"))
   print(doc, "../examples/vignette_officer.docx")
 ```
 
-To see the resulting Word document, use `write_and_open()`. 
-
-If you only want to save the document without opening it, simply use `print()`:
+To see the resulting Word document, use:
 
 ```{r print, eval=FALSE}
-write_and_open(doc) #save and open the docx file in a temporary file
+write_and_open(doc)                   #save and open the docx file in a temporary file for a quick peek
 write_and_open(doc, "my_report.docx") #fails if it is already open
-print(doc, "my_report.docx") #only save the docx file
+print(doc, "my_report.docx")          #only save the docx file
 ```
 
 You can check out the result of the example above [here](https://github.com/DanChaltiel/crosstable/raw/master/examples/vignette_officer.docx).
@@ -86,30 +80,50 @@ Here is a brief description of the functions used in this example:
 
  + `officer::read_docx()`: creates a bare MS Word document
  + `body_add_title()`: adds a title paragraph of any level
- + `body_add_normal()`: adds a normal style paragraph. You can also incorporate variables using the syntax `{{nrow(ct3)}}` and references using the syntax `\\@ref(my_bookmark)`.
+ + `body_add_normal()`: adds a normal style paragraph. You can also incorporate variables using the syntax `{nrow(ct3)}` and references using the syntax `\\@ref(my_bookmark)`.
  + `body_add_crosstable()`: adds a crosstable
  + `body_add_figure_legend()` and `body_add_table_legend()`: adds a figure/table legend. The `bookmark` is the key that can be added elsewhere in `body_add_normal()`.
  + `body_add_gg2()`: adds a ggplot. Unlike `officer::body_add_gg()`, you can change the unit using the `units` argument or the options `options(crosstable_units="cm")`.
 
-Browse https://davidgohel.github.io/officer for more insight about how you can use `officer`.
+Browse https://davidgohel.github.io/officer/ for more insight about how you can use `{officer}`.
 
-### Styles issues
+### Styles
 
-Crosstables need [Word styles](https://support.microsoft.com/fr-fr/office/personnaliser-ou-cr%C3%A9er-des-styles-d38d6e47-f6fc-48eb-a607-1eb120dec563) to work properly, and default values are contained in the default template of `officer::read_docx()`. However, if you use a custom template inside `read_docx()`, several functions in `crosstable` might need **style** parameterization.
+Crosstables uses [Word styles](https://support.microsoft.com/fr-fr/office/personnaliser-ou-cr%C3%A9er-des-styles-d38d6e47-f6fc-48eb-a607-1eb120dec563) to operate at full power .
 
-For instance, `body_add_figure_legend()` needs 2 styles, which are by default "Image Caption" and "strong". If these styles are not found in the template, an error will be raised. 
+Here, I used the default template of `officer::read_docx()` that comes with default styles. In your own custom template, you can edit all styles (for instance you can make "Normal" have a bold font of size 8) and add your own.
 
-You can prevent this by using either parameters `body_add_figure_legend(legend_style="Figure Legend", style="Bold")` or options `options(crosstable_style_legend="Figure Legend", crosstable_style_strong="Bold")`.
+The best example here is `body_add_list()`, which is supposed to add a bullet list. Unfortunately, the default template does not come with list styles so you will have to add one to your custom template before using it:
 
-See `?crosstable_options` for a list of all styles you can specify with options.
+```r
+doc = read_docx("my_template.docx) %>% #your custom template
+  body_add_list(c("this is item 1", "this is item 2"), style="bullet")
 
-### Post-production
+#alternatively, you can define the style globally and use the ordered parameter
+options(crosstable_style_list_unordered="bullet")
+options(crosstable_style_list_ordered="numbered")
+doc = read_docx("my_template.docx) %>%
+  body_add_list(c("this is item 1", "this is item 2"), ordered=FALSE)
+```
 
-+ References numbering is calculated by MS Word. Therefore, they do not exist yet when the document is written. To trigger the calculation, you need to manually update the references inside MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}). You might even need to do this several times. See `?body_add_table_legend` for more insight.
+See `?crosstable_options` for a list of all styles you can specify globally and use `officer::styles_info(doc)` to see which one are available in your template.
+
+Note that you might sometimes encounter the error "Error: could not match any style named 'xxx'" if you are not careful.
+
+### Post-production for table/figure legends
+
+Depending on your version of `{officer}`, Word will ask you to update the fields
+
+ + During the opening of the document, MS Word might ask you to "update the fields", to which you should answer "Yes". 
+If it does not ask or if you answer "No", the legends added with `body_add_table_legend()` or `body_add_figure_legend()` might have no actual numbers displayed.   
+In this case, you have to manually update the references inside MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}), sometimes twice. You might even need to do this several times. See `?body_add_legend` for more insight.
 
  + Large tables can sometimes overflow the MS Word document width. In this case (for instance for `mtcars2` in the previous example), you have to manually go to `Table Tools > Layout > AutoFit > AutoFit Window` in the ribbon to correct the width. This is a limitation that comes with `officer` ([link](https://ardata-fr.github.io/officeverse/faq.html#update-fields)).
+ You can also use `generate_autofit_macro()` to generate a `.bas` file that, once imported in Word, unlocks the possibility to autofit every table of the document at once. See `?generate_autofit_macro` for more details.
+ 
+ + Be aware that you unfortunately cannot reference a bookmark more than once using this method. Writing: 
+`body_add_normal("Table \\@ref(iris_col1) is about flowers. I like this Table \\@ref(iris_col1).")` will prevent **all** the numbering from applying.
 
-You can learn more on officer on [its documentation](https://davidgohel.github.io/officer/).
 
 
 

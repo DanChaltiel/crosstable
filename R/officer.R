@@ -170,7 +170,6 @@ body_add_title = function(doc, value, level = 1, squish=TRUE,
 #'
 #' @details Ordered lists and bullet lists are not supported by the default officer template (see [https://github.com/davidgohel/officer/issues/262](#262)). You have to manually set custom styles matching those list in a custom Word template file. Then, you can use either the `style` argument or crosstable options. See examples for more details.
 #'
-#' @author Dan Chaltiel
 #' @export
 #'
 #' @examples
@@ -270,7 +269,8 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #' #If asked to update fields, press "Yes". Otherwise press Ctrl+A then F9 twice for the references 
 #' #to appear.
 body_add_table_legend = function(doc, legend, bookmark=NULL, 
-                                 legend_style=getOption('crosstable_style_legend', "Normal"), 
+                                 legend_style=getOption('crosstable_style_legend', 
+                                                        doc$default_styles$paragraph), 
                                  style=deprecated(), 
                                  name_format=NULL,
                                  legend_name="Table", 
@@ -285,7 +285,8 @@ body_add_table_legend = function(doc, legend, bookmark=NULL,
 #' @rdname body_add_legend
 #' @export
 body_add_figure_legend = function(doc, legend, bookmark=NULL, 
-                                  legend_style=getOption('crosstable_style_legend', "Normal"), 
+                                  legend_style=getOption('crosstable_style_legend', 
+                                                         doc$default_styles$paragraph), 
                                   style=deprecated(), 
                                   name_format=NULL,
                                   legend_name="Figure", 
