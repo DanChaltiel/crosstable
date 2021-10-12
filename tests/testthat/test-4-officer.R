@@ -222,7 +222,7 @@ test_that("Legend fields", {
 
 
 test_that("Legend fields on `officer` previous than 0.4.0", {
-    skip("This should only be ran manually in tests/testthat/not_test-officer_v4_legends.R")
+    skip("This should only be ran manually in examples/not_test-officer_v4_legends.R")
     # devtools::install_version("officer", "0.3.19")
     #this should also be tested after running devtools::install_version("officer", "0.3.19")
     doc = read_docx() %>%
