@@ -93,7 +93,6 @@ as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL,
     
     rtn = replace(x, is.na(x), "NA")
     
-    
     if(inherits(x, "compacted_crosstable")) {
         # if(length(by_levels)>1) abort("Cannot compact a crosstable with multiple `by`.")
         rows = attr(x, "title_rows")
@@ -149,27 +148,19 @@ as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL,
             header_mapping = header_mapping %>% 
                 mutate(across(starts_with(".col_"), ~str_remove(.x, "^.*=")))
         }
-        # TODO option pour ça ?
-        # header_mapping = header_mapping %>% 
-        #     separate_rows(-col_keys, sep="=") %>% 
-        #     mutate(kv = rep(c("key", "value"), length(names(x)[-(1:3)]))) %>% 
-        #     pivot_wider(names_from = "kv", values_from = starts_with(".col_"))
-        header_left = sum(rtn$header$col_keys %in% generic_labels[c("label", "variable", "id")])
-        # n_strat = by_levels[-1] %>% map(length) %>% reduce(`*`)
-        # n_col_strat1 = length(by_levels[[1]])
-        # hline_index_j = c(header_left, header_left+n_col_strat1*seq.int(n_strat))
-        # browser()
-        hline_index_j = header_mapping %>% pull(ncol(.)-1) %>% {which(!. %in% generic_labels & .!=lead(.))}
-        hline_index_j = c(header_left+1, hline_index_j)
+        border_left_first = sum(rtn$header$col_keys %in% generic_labels[c("label", "variable", "id")])
+        border_separations = header_mapping %>% 
+            filter(col_keys %in% rtn$header$col_keys) %>%
+            pull(-2) %>% {which(!. %in% generic_labels & .!=lead(.))}
+        borders_j = c(border_left_first+1, border_separations+1)
         rtn =
             rtn %>% 
             set_header_df(header_mapping, key = "col_keys") %>%
             merge_h(i=seq.int(length(by_levels)-1), part = "head") %>%
-            border(j=hline_index_j, border.left=border1, part="all") %>%
+            border(j=borders_j, border.left=border1, part="all") %>%
             vline_left(border=border1) %>% 
             vline_right(border=border1)
     }
-    
     
     rtn = rtn %>%  
         merge_v(part = "head") %>% 
