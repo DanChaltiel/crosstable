@@ -93,6 +93,7 @@ body_add_normal = function(doc, ..., .sep="", squish=TRUE) {
         value = glue(..., .sep=.sep, .envir=parent.frame())
         if(squish) value = str_squish(value)
         if(str_detect(value, "\\\\@ref\\((.*?)\\)")){
+            # doc = body_add_par(doc, "") %>% parse_reference(value)
             doc = body_add_par(doc, "") %>% parse_reference(value)
         } else{
             doc = body_add_par(doc, value, style=normal_style)
@@ -618,14 +619,40 @@ generate_autofit_macro = function(){
 #' Replace every string containing a reference to a table/figure by the 
 #' docx-formatted cross-reference
 #' 
-#' @importFrom stringr str_detect str_match_all
+#' @importFrom stringr str_split str_detect str_match str_extract_all
 #' @importFrom glue glue
-#' @importFrom rlang abort
-#' @importFrom officer slip_in_text slip_in_seqfield
+#' @importFrom utils packageVersion
+#' @importFrom purrr map
+#' @importFrom officer run_seqfield ftext body_add_fpar
 #' 
 #' @keywords internal
 #' @noRd
 parse_reference = function(doc, value){
+    if(packageVersion("officer")<"0.4"){
+        return(parse_reference_legacy(doc, value))
+    }
+    par_not_ref = str_split(value, "\\\\@ref\\(.*?\\)")[[1]]
+    par_ref = str_extract_all(value, "\\\\@ref\\(.*?\\)")[[1]]
+    #altern: https://stackoverflow.com/a/43876294/3888000
+    altern = c(par_not_ref, par_ref)[order(c(seq_along(par_not_ref)*2 - 1, seq_along(par_ref)*2))] 
+    
+    par_list = map(altern, ~{
+        if(str_detect(.x, "\\\\@ref")){
+            bkm = str_match(.x, "\\\\@ref\\((.*?)\\)")[,2]
+            run_seqfield(glue(' REF {bkm} \\h '))
+        } else {
+            ftext(.x)
+        }
+    })
+    
+    p=do.call(fpar, args=par_list)
+    body_add_fpar(doc, p)
+}
+
+
+#' @keywords internal
+#' @noRd
+parse_reference_legacy = function(doc, value){
     normal_style_character = getOption('crosstable_style_character', doc$default_styles$character)
     
     if(!str_detect(value, "\\\\@ref\\((.*?)\\)")){ #recursion out
