@@ -140,9 +140,18 @@
 <a href="#normal-installation" class="anchor"></a>Normal installation</h2>
 <p>Normal installation should goes like this:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p>If none of the solutions described here worked, please create an <a href="https://github.com/DanChaltiel/crosstable/issues">Issue</a> with the error message and the maximum of information.</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"crosstable"</span><span class="op">)</span></code></pre></div>
+<p>If none of the solutions described below worked, please create an <a href="https://github.com/DanChaltiel/crosstable/issues">Issue</a> with the error message and the maximum of information.</p>
+</div>
+<div id="github-installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#github-installation" class="anchor"></a>Github installation</h2>
+<p>If normal installation does not work, you can try installing from Github:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#install.packages("devtools", "pak")</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#or, alternatively</span>
+<span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="http://pak.r-lib.org/reference/pkg_install.html">pkg_install</a></span><span class="op">(</span><span class="st">"DanChaltiel/crosstable"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="asking-for-updates" class="section level2">
 <h2 class="hasAnchor">
@@ -161,12 +170,12 @@ Which would you like to update?
 </blockquote>
 <p>While it is a good idea to update all packages frequently, this update routine might fail. If it does fail, try to choose <code>3: None</code> so it will install <code>crosstable</code> without updating dependencies.</p>
 <p>If the package still does not work, you can try installing/updating dependencies manually. First, install/update <code>dplyr</code>, <code>flextable</code>, and <code>rlang</code> as newer versions are mandatory:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"dplyr"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"flextable"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"rlang"</span><span class="op">)</span></code></pre></div>
 <p>This should do, but if it is still failing, you can try installing the other dependencies:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"purrr"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"checkmate"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"tidyselect"</span><span class="op">)</span>
