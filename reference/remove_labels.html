@@ -102,7 +102,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -200,17 +200,22 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='get_label.html'>get_label</a>, <a href='set_label.html'>set_label</a>, <a href='import_labels.html'>import_labels</a>, <a href='https://rdrr.io/pkg/expss/man/unlab.html'>expss::unlab</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Dan Chaltiel</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>mtcars2</span> <span class='op'>%&gt;%</span> <span class='va'>remove_labels</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span> <span class='co'>#no labels</span>
-</div><div class='output co'>#&gt;   .id label   variable            value
-#&gt; 1 mpg   mpg  Min / Max      10.4 / 33.9
-#&gt; 2 mpg   mpg  Med [IQR] 19.2 [15.4;22.8]
-#&gt; 3 mpg   mpg Mean (std)       20.1 (6.0)
-#&gt; 4 mpg   mpg     N (NA)           32 (0)
-#&gt; 5 cyl   cyl          4      11 (34.38%)
-#&gt; 6 cyl   cyl          6       7 (21.88%)
-#&gt; 7 cyl   cyl          8      14 (43.75%)</div><div class='input'><span class='va'>mtcars2</span><span class='op'>$</span><span class='va'>hp</span> <span class='op'>%&gt;%</span> <span class='va'>remove_labels</span> <span class='op'>%&gt;%</span> <span class='va'>get_label</span> <span class='co'>#numeric</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 7 × 4</span>
+#&gt;   .id   label variable   value           
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           
+#&gt; <span style='color: #BCBCBC;'>1</span> mpg   mpg   Min / Max  10.4 / 33.9     
+#&gt; <span style='color: #BCBCBC;'>2</span> mpg   mpg   Med [IQR]  19.2 [15.4;22.8]
+#&gt; <span style='color: #BCBCBC;'>3</span> mpg   mpg   Mean (std) 20.1 (6.0)      
+#&gt; <span style='color: #BCBCBC;'>4</span> mpg   mpg   N (NA)     32 (0)          
+#&gt; <span style='color: #BCBCBC;'>5</span> cyl   cyl   4          11 (34.38%)     
+#&gt; <span style='color: #BCBCBC;'>6</span> cyl   cyl   6          7 (21.88%)      
+#&gt; <span style='color: #BCBCBC;'>7</span> cyl   cyl   8          14 (43.75%)     </div><div class='input'><span class='va'>mtcars2</span><span class='op'>$</span><span class='va'>hp</span> <span class='op'>%&gt;%</span> <span class='va'>remove_labels</span> <span class='op'>%&gt;%</span> <span class='va'>get_label</span> <span class='co'>#numeric</span>
 </div><div class='output co'>#&gt; NULL</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

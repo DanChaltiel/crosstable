@@ -28,13 +28,13 @@
     <loc>https://danchaltiel.github.io/crosstable/reference/body_add_img2.html</loc>
   </url>
   <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/body_add_legend.html</loc>
+  </url>
+  <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/body_add_list.html</loc>
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/body_add_normal.html</loc>
-  </url>
-  <url>
-    <loc>https://danchaltiel.github.io/crosstable/reference/body_add_table_legend.html</loc>
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/body_add_title.html</loc>
@@ -85,6 +85,9 @@
     <loc>https://danchaltiel.github.io/crosstable/reference/format_fixed.html</loc>
   </url>
   <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/generate_autofit_macro.html</loc>
+  </url>
+  <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/get_label.html</loc>
   </url>
   <url>
@@ -119,9 +122,6 @@
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/set_label.html</loc>
-  </url>
-  <url>
-    <loc>https://danchaltiel.github.io/crosstable/reference/str_wrap2.html</loc>
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/summaryFunctions.html</loc>

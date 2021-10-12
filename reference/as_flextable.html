@@ -107,7 +107,7 @@ below to see their documentation.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -204,21 +204,7 @@ below to see their documentation.</p>
   fontsizes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>body <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_fontsize_body"</span>, <span class='fl'>11</span><span class='op'>)</span>, subheaders <span class='op'>=</span>
     <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_fontsize_subheaders"</span>, <span class='fl'>11</span><span class='op'>)</span>, header <span class='op'>=</span>
     <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_fontsize_header"</span>, <span class='fl'>11</span><span class='op'>)</span><span class='op'>)</span>,
-  generic_labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>".id"</span>, variable <span class='op'>=</span> <span class='st'>"variable"</span>, value <span class='op'>=</span> <span class='st'>"value"</span>, total <span class='op'>=</span>
-    <span class='st'>"Total"</span>, label <span class='op'>=</span> <span class='st'>"label"</span>, test <span class='op'>=</span> <span class='st'>"test"</span>, effect <span class='op'>=</span> <span class='st'>"effect"</span><span class='op'>)</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
-
-<span class='fu'>to_flextable</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  keep_id <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  by_header <span class='op'>=</span> <span class='cn'>NULL</span>,
-  autofit <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_autofit"</span>, <span class='cn'>TRUE</span><span class='op'>)</span>,
-  compact <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_compact"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
-  show_test_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_show_test_name"</span>, <span class='cn'>TRUE</span><span class='op'>)</span>,
-  fontsizes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>body <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_fontsize_body"</span>, <span class='fl'>11</span><span class='op'>)</span>, subheaders <span class='op'>=</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_fontsize_subheaders"</span>, <span class='fl'>11</span><span class='op'>)</span>, header <span class='op'>=</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_fontsize_header"</span>, <span class='fl'>11</span><span class='op'>)</span><span class='op'>)</span>,
+  remove_header_keys <span class='op'>=</span> <span class='cn'>FALSE</span>,
   generic_labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>".id"</span>, variable <span class='op'>=</span> <span class='st'>"variable"</span>, value <span class='op'>=</span> <span class='st'>"value"</span>, total <span class='op'>=</span>
     <span class='st'>"Total"</span>, label <span class='op'>=</span> <span class='st'>"label"</span>, test <span class='op'>=</span> <span class='st'>"test"</span>, effect <span class='op'>=</span> <span class='st'>"effect"</span><span class='op'>)</span>,
   <span class='va'>...</span>
@@ -256,8 +242,12 @@ below to see their documentation.</p>
       <td><p>font sizes as a list of keys [body, subheaders, header]. If set through arguments, all needed names should be mentioned.</p></td>
     </tr>
     <tr>
+      <th>remove_header_keys</th>
+      <td><p>if <code>TRUE</code> and <code>x</code> has several <code>by</code> strata, header will only display values</p></td>
+    </tr>
+    <tr>
       <th>generic_labels</th>
-      <td><p>names of the crosstable default columns</p></td>
+      <td><p>names of the crosstable default columns. Useful for translation for instance.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -306,7 +296,7 @@ below to see their documentation.</p>
 #&gt; 4 mpg   Miles/(US) gallon     N (NA)           32 (0)
 #&gt; 5 cyl Number of cylinders          4      11 (34.38%)</div><div class='input'><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span>, by<span class='op'>=</span><span class='va'>vs</span>, test <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>as_flextable</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Be aware that automatic global testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.</span>
-#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span></div><div class='output co'>#&gt; a flextable object.
+#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span></span></div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `label`, `variable`, `straight`, `vshaped`, `test` 
 #&gt; header has 2 row(s) 
 #&gt; body has 44 row(s) 
@@ -392,34 +382,43 @@ below to see their documentation.</p>
 #&gt; 4   Mean (std)     5.8 (0.8)
 #&gt; 5       N (NA)       150 (0)</div><div class='input'>
 <span class='co'>#Renaming (because why not?)</span>
-<span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>iris</span>, by<span class='op'>=</span><span class='va'>Species</span>, total<span class='op'>=</span><span class='st'>"both"</span>, test<span class='op'>=</span><span class='cn'>TRUE</span>, effect<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span>, by<span class='op'>=</span><span class='va'>vs</span>, total<span class='op'>=</span><span class='st'>"both"</span>, test<span class='op'>=</span><span class='cn'>TRUE</span>, effect<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>ID<span class='op'>=</span><span class='va'>.id</span>, math<span class='op'>=</span><span class='va'>variable</span>, Tot<span class='op'>=</span><span class='va'>Total</span>, lab<span class='op'>=</span><span class='va'>label</span>, pval<span class='op'>=</span><span class='va'>test</span>, fx<span class='op'>=</span><span class='va'>effect</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-   <span class='fu'>as_flextable</span><span class='op'>(</span>by_header <span class='op'>=</span> <span class='st'>"The specie"</span>, 
+   <span class='fu'>as_flextable</span><span class='op'>(</span>by_header <span class='op'>=</span> <span class='st'>"Engine shape"</span>, 
                 generic_labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>"ID"</span>, variable <span class='op'>=</span> <span class='st'>"math"</span>, total<span class='op'>=</span><span class='st'>"Tot"</span>, 
                                     label <span class='op'>=</span> <span class='st'>"lab"</span>, test <span class='op'>=</span> <span class='st'>"pval"</span>, effect<span class='op'>=</span><span class='st'>"fx"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Could not calculate crosstable effects for variables 'Sepal.Length', 'Sepal.Width', 'Petal.Length', and 'Petal.Width'. Aren't there 2 groups exactly?</span></div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `lab`, `math`, `setosa`, `versicolor`, `virginica`, `Tot`, `fx`, `pval` 
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Problems occured when calculating crosstable effects (glm-logit):</span>
+#&gt; <span class='warning'>  'glm.fit: fitted probabilities numerically 0 or 1 occurred', 'glm.fit: algorithm did not converge' and 'collapsing to unique 'x' values' </span>
+#&gt; <span class='warning'>You might want to check for complete separation or extreme outliers. </span>
+#&gt; <span class='warning'>Applying `forcats::fct_rev()` to some columns might help too.</span></div><div class='output co'>#&gt; a flextable object.
+#&gt; col_keys: `lab`, `math`, `straight`, `vshaped`, `Tot`, `fx`, `pval` 
 #&gt; header has 2 row(s) 
-#&gt; body has 16 row(s) 
+#&gt; body has 47 row(s) 
 #&gt; original dataset sample: 
-#&gt;             ID          lab       math        setosa    versicolor
-#&gt; 1 Sepal.Length Sepal.Length  Min / Max     4.3 / 5.8     4.9 / 7.0
-#&gt; 2 Sepal.Length Sepal.Length  Med [IQR] 5.0 [4.8;5.2] 5.9 [5.6;6.3]
-#&gt; 3 Sepal.Length Sepal.Length Mean (std)     5.0 (0.4)     5.9 (0.5)
-#&gt; 4 Sepal.Length Sepal.Length     N (NA)        50 (0)        50 (0)
-#&gt; 5  Sepal.Width  Sepal.Width  Min / Max     2.3 / 4.4     2.0 / 3.4
-#&gt;       virginica           Tot         fx
-#&gt; 1     4.9 / 7.9     4.3 / 7.9 No effect?
-#&gt; 2 6.5 [6.2;6.9] 5.8 [5.1;6.4] No effect?
-#&gt; 3     6.6 (0.6)     5.8 (0.8) No effect?
-#&gt; 4        50 (0)       150 (0) No effect?
-#&gt; 5     2.2 / 3.8     2.0 / 4.4 No effect?
-#&gt;                                                                            pval
-#&gt; 1 p value: &lt;0.0001 \n(One-way analysis of means (not assuming equal variances))
-#&gt; 2 p value: &lt;0.0001 \n(One-way analysis of means (not assuming equal variances))
-#&gt; 3 p value: &lt;0.0001 \n(One-way analysis of means (not assuming equal variances))
-#&gt; 4 p value: &lt;0.0001 \n(One-way analysis of means (not assuming equal variances))
-#&gt; 5                                p value: &lt;0.0001 \n(One-way analysis of means)</div></span></pre>
+#&gt;    ID                 lab       math         straight          vshaped
+#&gt; 1 mpg   Miles/(US) gallon  Min / Max      17.8 / 33.9      10.4 / 26.0
+#&gt; 2 mpg   Miles/(US) gallon  Med [IQR] 22.8 [21.4;29.6] 15.7 [14.8;19.1]
+#&gt; 3 mpg   Miles/(US) gallon Mean (std)       24.6 (5.4)       16.6 (3.9)
+#&gt; 4 mpg   Miles/(US) gallon     N (NA)           14 (0)           18 (0)
+#&gt; 5 cyl Number of cylinders          4      10 (90.91%)        1 (9.09%)
+#&gt;                Tot
+#&gt; 1      10.4 / 33.9
+#&gt; 2 19.2 [15.4;22.8]
+#&gt; 3       20.1 (6.0)
+#&gt; 4           32 (0)
+#&gt; 5      11 (34.38%)
+#&gt;                                                                                                                        fx
+#&gt; 1                        Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -7.94 [-11.27 to -4.61]
+#&gt; 2                        Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -7.94 [-11.27 to -4.61]
+#&gt; 3                        Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -7.94 [-11.27 to -4.61]
+#&gt; 4                        Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -7.94 [-11.27 to -4.61]
+#&gt; 5 Odds ratio [95% Wald CI], ref='vshaped vs straight'\n6 vs 4: 7.50 [0.72 to 180.02]\n8 vs 4: 3143660128.53 [0.00 to  NA]
+#&gt;                                                      pval
+#&gt; 1                  p value: &lt;0.0001 \n(Two Sample t-test)
+#&gt; 2                  p value: &lt;0.0001 \n(Two Sample t-test)
+#&gt; 3                  p value: &lt;0.0001 \n(Two Sample t-test)
+#&gt; 4                  p value: &lt;0.0001 \n(Two Sample t-test)
+#&gt; 5 p value: &lt;0.0001 \n(Fisher's Exact Test for Count Data)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

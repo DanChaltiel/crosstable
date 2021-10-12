@@ -51,7 +51,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -126,7 +126,7 @@
       <h1 data-toc-skip>Make automatic reports</h1>
                         <h4 class="author">Dan Chaltiel</h4>
             
-            <h4 class="date">2021-03-16</h4>
+            <h4 class="date">2021-10-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/DanChaltiel/crosstable/blob/master/vignettes/crosstable-report.Rmd"><code>vignettes/crosstable-report.Rmd</code></a></small>
       <div class="hidden name"><code>crosstable-report.Rmd</code></div>
@@ -157,9 +157,9 @@
   <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Not compacted"</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"Table \\@ref(table_autotest) is an example. However, automatic testing is bad and I should feel bad."</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/body_add_crosstable.html">body_add_crosstable</a></span><span class="op">(</span><span class="va">ct1</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_table_legend.html">body_add_table_legend</a></span><span class="op">(</span><span class="st">"Automatic testing is bad"</span>, bookmark<span class="op">=</span><span class="st">"table_autotest"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/body_add_legend.html">body_add_table_legend</a></span><span class="op">(</span><span class="st">"Automatic testing is bad"</span>, bookmark<span class="op">=</span><span class="st">"table_autotest"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"Let's add a figure as well. You can see in Figure \\@ref(fig_iris) that sepal length is somehow correlated with petal length."</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/body_add_table_legend.html">body_add_figure_legend</a></span><span class="op">(</span><span class="st">"Relation between Petal length and Sepal length"</span>, bookmark<span class="op">=</span><span class="st">"fig_iris"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/body_add_legend.html">body_add_figure_legend</a></span><span class="op">(</span><span class="st">"Relation between Petal length and Sepal length"</span>, bookmark<span class="op">=</span><span class="st">"fig_iris"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/body_add_gg2.html">body_add_gg2</a></span><span class="op">(</span><span class="va">my_plot</span>, w<span class="op">=</span><span class="fl">14</span>, h<span class="op">=</span><span class="fl">10</span>, scale<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Compacted"</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"When compacting, you might want to remove the test names."</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -173,9 +173,9 @@
   <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Dataset esoph"</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"This one was compacted beforehand for some reason."</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/body_add_crosstable.html">body_add_crosstable</a></span><span class="op">(</span><span class="fu"><a href="../reference/compact.html">compact</a></span><span class="op">(</span><span class="va">ct3</span><span class="op">)</span><span class="op">)</span> <span class="co">#beware of any conflict with purrr::compact</span></code></pre></div>
-<div id="output" class="section level4">
-<h4 class="hasAnchor">
-<a href="#output" class="anchor"></a>Output</h4>
+<div id="output" class="section level3">
+<h3 class="hasAnchor">
+<a href="#output" class="anchor"></a>Output</h3>
 <p>To see the resulting Word document, use <code><a href="../reference/write_and_open.html">write_and_open()</a></code>.</p>
 <p>If you only want to save the document without opening it, simply use <code><a href="https://rdrr.io/r/base/print.html">print()</a></code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -184,9 +184,9 @@
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">doc</span>, <span class="st">"my_report.docx"</span><span class="op">)</span> <span class="co">#only save the docx file</span></code></pre></div>
 <p>You can check out the result of the example above <a href="https://github.com/DanChaltiel/crosstable/raw/master/examples/vignette_officer.docx">here</a>.</p>
 </div>
-<div id="functions" class="section level4">
-<h4 class="hasAnchor">
-<a href="#functions" class="anchor"></a>Functions</h4>
+<div id="functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#functions" class="anchor"></a>Functions</h3>
 <p>Here is a brief description of the functions used in this example:</p>
 <ul>
 <li>
@@ -198,25 +198,25 @@
 <li>
 <code><a href="../reference/body_add_crosstable.html">body_add_crosstable()</a></code>: adds a crosstable</li>
 <li>
-<code><a href="../reference/body_add_table_legend.html">body_add_figure_legend()</a></code> and <code><a href="../reference/body_add_table_legend.html">body_add_table_legend()</a></code>: adds a figure/table legend. The <code>bookmark</code> is the key that can be added elsewhere in <code><a href="../reference/body_add_normal.html">body_add_normal()</a></code>.</li>
+<code><a href="../reference/body_add_legend.html">body_add_figure_legend()</a></code> and <code><a href="../reference/body_add_legend.html">body_add_table_legend()</a></code>: adds a figure/table legend. The <code>bookmark</code> is the key that can be added elsewhere in <code><a href="../reference/body_add_normal.html">body_add_normal()</a></code>.</li>
 <li>
 <code><a href="../reference/body_add_gg2.html">body_add_gg2()</a></code>: adds a ggplot. Unlike <code><a href="https://davidgohel.github.io/officer/reference/body_add_gg.html">officer::body_add_gg()</a></code>, you can change the unit using the <code>units</code> argument or the options <code><a href="https://rdrr.io/r/base/options.html">options(crosstable_units="cm")</a></code>.</li>
 </ul>
 <p>Browse <a href="https://davidgohel.github.io/officer" class="uri">https://davidgohel.github.io/officer</a> for more insight about how you can use <code>officer</code>.</p>
 </div>
-<div id="styles-issues" class="section level4">
-<h4 class="hasAnchor">
-<a href="#styles-issues" class="anchor"></a>Styles issues</h4>
+<div id="styles-issues" class="section level3">
+<h3 class="hasAnchor">
+<a href="#styles-issues" class="anchor"></a>Styles issues</h3>
 <p>Crosstables need <a href="https://support.microsoft.com/fr-fr/office/personnaliser-ou-cr%C3%A9er-des-styles-d38d6e47-f6fc-48eb-a607-1eb120dec563">Word styles</a> to work properly, and default values are contained in the default template of <code><a href="https://davidgohel.github.io/officer/reference/read_docx.html">officer::read_docx()</a></code>. However, if you use a custom template inside <code><a href="https://davidgohel.github.io/officer/reference/read_docx.html">read_docx()</a></code>, several functions in <code>crosstable</code> might need <strong>style</strong> parameterization.</p>
-<p>For instance, <code><a href="../reference/body_add_table_legend.html">body_add_figure_legend()</a></code> needs 2 styles, which are by default “Image Caption” and “strong”. If these styles are not found in the template, an error will be raised.</p>
-<p>You can prevent this by using either parameters <code><a href="../reference/body_add_table_legend.html">body_add_figure_legend(legend_style="Figure Legend", style="Bold")</a></code> or options <code><a href="https://rdrr.io/r/base/options.html">options(crosstable_style_legend="Figure Legend", crosstable_style_strong="Bold")</a></code>.</p>
+<p>For instance, <code><a href="../reference/body_add_legend.html">body_add_figure_legend()</a></code> needs 2 styles, which are by default “Image Caption” and “strong”. If these styles are not found in the template, an error will be raised.</p>
+<p>You can prevent this by using either parameters <code><a href="../reference/body_add_legend.html">body_add_figure_legend(legend_style="Figure Legend", style="Bold")</a></code> or options <code><a href="https://rdrr.io/r/base/options.html">options(crosstable_style_legend="Figure Legend", crosstable_style_strong="Bold")</a></code>.</p>
 <p>See <code><a href="../reference/crosstable_options.html">?crosstable_options</a></code> for a list of all styles you can specify with options.</p>
 </div>
-<div id="post-production" class="section level4">
-<h4 class="hasAnchor">
-<a href="#post-production" class="anchor"></a>Post-production</h4>
+<div id="post-production" class="section level3">
+<h3 class="hasAnchor">
+<a href="#post-production" class="anchor"></a>Post-production</h3>
 <ul>
-<li><p>References numbering is calculated by MS Word. Therefore, they do not exist yet when the document is written. To trigger the calculation, you need to manually update the references inside MS Word: select all (+), then update (). You might even need to do this several times. See <code><a href="../reference/body_add_table_legend.html">?body_add_table_legend</a></code> for more insight.</p></li>
+<li><p>References numbering is calculated by MS Word. Therefore, they do not exist yet when the document is written. To trigger the calculation, you need to manually update the references inside MS Word: select all (+), then update (). You might even need to do this several times. See <code><a href="../reference/body_add_legend.html">?body_add_table_legend</a></code> for more insight.</p></li>
 <li><p>Large tables can sometimes overflow the MS Word document width. In this case (for instance for <code>mtcars2</code> in the previous example), you have to manually go to <code>Table Tools &gt; Layout &gt; AutoFit &gt; AutoFit Window</code> in the ribbon to correct the width. This is a limitation that comes with <code>officer</code> (<a href="https://ardata-fr.github.io/officeverse/faq.html#update-fields">link</a>).</p></li>
 </ul>
 <p>You can learn more on officer on <a href="https://davidgohel.github.io/officer/">its documentation</a>.</p>

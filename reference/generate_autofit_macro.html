@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Format numbers with the exact same number of decimals, including trailing zeros — format_fixed • crosstable</title>
+<title>Generate a macro file for autofitting — generate_autofit_macro • crosstable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -54,8 +54,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Format numbers with the exact same number of decimals, including trailing zeros — format_fixed" />
-<meta property="og:description" content="Format numbers with the exact same number of decimals, including trailing zeros" />
+<meta property="og:title" content="Generate a macro file for autofitting — generate_autofit_macro" />
+<meta property="og:description" content="This function generates a file that can be imported into MS Word in order to use a macro for autofitting all tables in a document at once. This macro file should be imported only once per computer." />
 <meta property="og:image" content="https://danchaltiel.github.io/crosstable/apple-touch-icon-180x180.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary" />
@@ -174,74 +174,36 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Format numbers with the exact same number of decimals, including trailing zeros</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/funs.R'><code>R/funs.R</code></a></small>
-    <div class="hidden name"><code>format_fixed.Rd</code></div>
+    <h1>Generate a macro file for autofitting</h1>
+    <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/officer.R'><code>R/officer.R</code></a></small>
+    <div class="hidden name"><code>generate_autofit_macro.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Format numbers with the exact same number of decimals, including trailing zeros</p>
+    <p>This function generates a file that can be imported into MS Word in order to use a macro for autofitting all tables in a document at once. This macro file should be imported only once per computer.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>format_fixed</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  digits <span class='op'>=</span> <span class='fl'>1</span>,
-  zero_digits <span class='op'>=</span> <span class='fl'>1</span>,
-  date_format <span class='op'>=</span> <span class='cn'>NULL</span>,
-  only_round <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_only_round"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>generate_autofit_macro</span><span class='op'>(</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>a numeric vector to format</p></td>
-    </tr>
-    <tr>
-      <th>digits</th>
-      <td><p>number of decimals</p></td>
-    </tr>
-    <tr>
-      <th>zero_digits</th>
-      <td><p>number of significant digits for values rounded to 0 (can be set to NULL to keep the original 0 value)</p></td>
-    </tr>
-    <tr>
-      <th>date_format</th>
-      <td><p>if <code>x</code> is a vector of Date or POSIXt, the format to apply (see <a href='https://rdrr.io/r/base/strptime.html'>strptime</a> for formats)</p></td>
-    </tr>
-    <tr>
-      <th>only_round</th>
-      <td><p>if TRUE, <code>format_fixed</code> simply returns the rounded value. Can be set globally with <code><a href='https://rdrr.io/r/base/options.html'>options("crosstable_only_round"=TRUE)</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>unused</p></td>
-    </tr>
-    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a character vector of formatted numbers</p>
+    <p>nothing</p>
+    <h2 class="hasAnchor" id="installation"><a class="anchor" href="#installation"></a>Installation</h2>
+
+    
+
+<ul>
+<li><p>Run <code>generate_autofit_macro()</code> in <code>R</code> to generate the file <code>crosstable_autofit.bas</code> in your working directory.</p></li>
+<li><p>In MS Word, press Alt+F11 to open the VB Editor.</p></li>
+<li><p>In the Editor, go to <code>File</code> &gt; <code>Import</code> or press <code>Ctrl+M</code> to open the import dialog, and import <code>crosstable_autofit.bas</code>. There should now be a "CrosstableMacros" module in the "Normal" project.</p></li>
+<li><p>Run the macro, either from the VB Editor or from <code>View</code> &gt; <code>Macros</code> &gt; <code>View Macros</code> &gt; <code>Run</code>.</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Dan Chaltiel</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1.2</span>, <span class='fl'>12.78749</span>, <span class='va'>pi</span>, <span class='fl'>0.00000012</span><span class='op'>)</span>
-<span class='fu'>format_fixed</span><span class='op'>(</span><span class='va'>x</span>, digits<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span> <span class='co'>#default zero_digits=1</span>
-</div><div class='output co'>#&gt; [1] "1.000"  "1.200"  "12.787" "3.142"  "1e-07" </div><div class='input'><span class='fu'>format_fixed</span><span class='op'>(</span><span class='va'>x</span>, digits<span class='op'>=</span><span class='fl'>3</span>, zero_digits<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "1.000"   "1.200"   "12.787"  "3.142"   "1.2e-07"</div><div class='input'><span class='fu'>format_fixed</span><span class='op'>(</span><span class='va'>x</span>, digits<span class='op'>=</span><span class='fl'>3</span>, zero_digits<span class='op'>=</span><span class='cn'>NULL</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "1.000"  "1.200"  "12.787" "3.142"  "0.000" </div><div class='input'>
-<span class='va'>x_sd</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>$</span><span class='va'>Sepal.Length</span><span class='op'>/</span><span class='fl'>10000</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'>format_fixed</span><span class='op'>(</span><span class='va'>x_sd</span>, dig<span class='op'>=</span><span class='fl'>6</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "0.000083"</div><div class='input'><span class='fu'>format_fixed</span><span class='op'>(</span><span class='va'>x_sd</span>, dig<span class='op'>=</span><span class='fl'>3</span>, zero_digits<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span> <span class='co'>#default only_round=FALSE</span>
-</div><div class='output co'>#&gt; [1] 8.3e-05</div><div class='input'><span class='fu'>format_fixed</span><span class='op'>(</span><span class='va'>x_sd</span>, dig<span class='op'>=</span><span class='fl'>3</span>, zero_digits<span class='op'>=</span><span class='fl'>2</span>, only_round<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span><span class='st'>"crosstable_only_round"</span><span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'>format_fixed</span><span class='op'>(</span><span class='va'>x_sd</span>, dig<span class='op'>=</span><span class='fl'>3</span>, zero_digits<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span> <span class='co'>#override default</span>
-</div><div class='output co'>#&gt; [1] 0</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span><span class='st'>"crosstable_only_round"</span><span class='op'>=</span><span class='cn'>NULL</span><span class='op'>)</span>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
