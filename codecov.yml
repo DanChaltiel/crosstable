@@ -12,4 +12,5 @@ coverage:
         threshold: 1%
 
 ignore:
+  - "R/knit_print_debug.R"
   - "R/burgled.R"
