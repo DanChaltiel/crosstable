@@ -476,8 +476,8 @@
   ],
   "releaseNotes": "https://github.com/DanChaltiel/crosstable/blob/master/NEWS.md",
   "readme": "https://github.com/DanChaltiel/crosstable/blob/master/README.md",
-  "fileSize": "59731.156KB",
-  "contIntegration": "https://codecov.io/gh/DanChaltiel/crosstable?branch=master",
+  "fileSize": "62956.694KB",
+  "contIntegration": "https://app.codecov.io/gh/DanChaltiel/crosstable?branch=master",
   "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html",
   "keywords": [
     "r",

@@ -11,7 +11,7 @@ TODO\.R
 .*~.*
 
 ^README.Rmd$
-^.linter$
+^\.lintr$
 ^.*\.Rproj$
 ^.*\.RData$
 ^\.github$

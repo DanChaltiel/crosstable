@@ -28,9 +28,8 @@ Desktop.ini
 .Rhistory
 .Rprofile
 
-doc
-docs
-Meta
+/doc/
+/Meta/
 
 *~*
 inst/doc
