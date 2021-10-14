@@ -15,7 +15,7 @@ status](https://www.r-pkg.org/badges/version/crosstable)](https://CRAN.R-project
 Commit](https://img.shields.io/github/last-commit/DanChaltiel/crosstable)](https://github.com/DanChaltiel/crosstable)
 <!-- [![Build Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=master)](https://travis-ci.org/DanChaltiel/crosstable) -->
 [![Codecov test
-coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/master/graph/badge.svg)](https://codecov.io/gh/DanChaltiel/crosstable?branch=master)
+coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/master/graph/badge.svg)](https://app.codecov.io/gh/DanChaltiel/crosstable?branch=master)
 <!-- [![Dependencies](https://tinyverse.netlify.com/badge/crosstable)](https://cran.r-project.org/package=crosstable)  -->
 [![R build
 status](https://github.com/DanChaltiel/crosstable/workflows/R-CMD-check/badge.svg)](https://github.com/DanChaltiel/crosstable/actions)
@@ -37,7 +37,7 @@ devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 
 # Install specific version (for reproducibility purpose)
 devtools::install_github("DanChaltiel/crosstable@v0.2.2", build_vignettes=TRUE) #last tag
-devtools::install_github("DanChaltiel/crosstable@f67b133", build_vignettes=TRUE) #last commit
+devtools::install_github("DanChaltiel/crosstable@e2c9eb2", build_vignettes=TRUE) #last commit
 ```
 
 Note that, for reproducibility purpose, an even better solution would be
@@ -46,7 +46,7 @@ to use [`renv`](https://rstudio.github.io/renv/articles/renv.html).
 ## Getting help and giving feedback
 
 You can find the whole documentation on the the [dedicated
-website](https://danchaltiel.github.io/crosstable).
+website](https://danchaltiel.github.io/crosstable/).
 
 Besides, you can also use the vignettes:
 
@@ -118,7 +118,8 @@ for publication.
 ## More
 
 There are lots of other features you can learn about on the website
-<https://danchaltiel.github.io/crosstable>, for instance:
+[https://danchaltiel.github.io/crosstable](https://danchaltiel.github.io/crosstable/),
+for instance:
 
 -   variable selection with functions, e.g. `is.numeric`
     ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-predicate-functions))

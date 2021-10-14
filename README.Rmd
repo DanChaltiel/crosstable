@@ -29,7 +29,7 @@ library(crosstable)
 <!-- [![Downloads](http://cranlogs.r-pkg.org/badges/crosstable?color=brightgreen)](http://www.r-pkg.org/pkg/crosstable) -->
 [![Last Commit](https://img.shields.io/github/last-commit/DanChaltiel/crosstable)](https://github.com/DanChaltiel/crosstable)
 <!-- [![Build Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=master)](https://travis-ci.org/DanChaltiel/crosstable) -->
-[![Codecov test coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/master/graph/badge.svg)](https://codecov.io/gh/DanChaltiel/crosstable?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/master/graph/badge.svg)](https://app.codecov.io/gh/DanChaltiel/crosstable?branch=master)
 <!-- [![Dependencies](https://tinyverse.netlify.com/badge/crosstable)](https://cran.r-project.org/package=crosstable)  -->
 [![R build status](https://github.com/DanChaltiel/crosstable/workflows/R-CMD-check/badge.svg)](https://github.com/DanChaltiel/crosstable/actions)
 <!-- badges: end -->
@@ -66,7 +66,7 @@ Note that, for reproducibility purpose, an even better solution would be to use 
 
 ## Getting help and giving feedback
 
-You can find the whole documentation on the the [dedicated website](https://danchaltiel.github.io/crosstable).
+You can find the whole documentation on the the [dedicated website](https://danchaltiel.github.io/crosstable/).
 
 Besides, you can also use the vignettes: 
 
@@ -124,7 +124,7 @@ Here, the variables were selected using `tidyselect` helpers and the summary fun
 
 ## More
 
-There are lots of other features you can learn about on the website [https://danchaltiel.github.io/crosstable](https://danchaltiel.github.io/crosstable), for instance:
+There are lots of other features you can learn about on the website [https://danchaltiel.github.io/crosstable](https://danchaltiel.github.io/crosstable/), for instance:
 
 - variable selection with functions, e.g. `is.numeric` ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-predicate-functions))
 - variable selection with mutating, e.g. `sqrt(mpg)` or `Surv(time, event)`, using a formula interface ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-a-formula))

@@ -49,7 +49,7 @@ Crosstable is a package centered on a single function, `crosstable()`, which eas
 
 Before starting this vignette, here are a few points:
 
- + If you are not familiar with `dplyr` and pipes (`%>%`, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> in RStudio), I warmly recommend you to read the [vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html), or, if you can read French, Julien Barnier's awesome [tidyverse tutorial](https://juba.github.io/tidyverse/10-dplyr.html#pipe). Nevertheless, this vignette should still be easy to understand otherwise, as `crosstable` is perfectly usable with base `R`.
+ + If you are not familiar with `dplyr` and pipes (`%>%`, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> in RStudio), I warmly recommend you to read the [vignette](https://cran.r-project.org/package=dplyr/vignettes/dplyr.html), or, if you can read French, Julien Barnier's awesome [tidyverse tutorial](https://juba.github.io/tidyverse/10-dplyr.html#pipe). Nevertheless, this vignette should still be easy to understand otherwise, as `crosstable` is perfectly usable with base `R`.
 
 
 ## Example dataset: modified `mtcars`
