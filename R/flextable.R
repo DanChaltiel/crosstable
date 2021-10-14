@@ -36,12 +36,12 @@
 #' options(crosstable_fontsize_header=14)
 #' options(crosstable_fontsize_subheaders=10)
 #' options(crosstable_fontsize_body=8)
-#' crosstable(mtcars2) %>% as_flextable()
-#' crosstable(mtcars2, by=vs, test = TRUE) %>% as_flextable()
-#' crosstable(esoph, by=tobgp, test = TRUE) %>% as_flextable()
-#' crosstable(iris, by=Species, test = TRUE) %>% as_flextable(autofit=FALSE)
-#' crosstable(iris, by=Species, test = TRUE) %>% as_flextable(compact=TRUE)
-#' crosstable(iris) %>% as_flextable(compact=TRUE, autofit=TRUE)
+#' crosstable(iris) %>% as_flextable()
+#' crosstable(mtcars2, by=c(am, vs)) %>% as_flextable()
+#' crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE) %>% 
+#'    as_flextable(keep_id=TRUE, autofit=FALSE)
+#' crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE) %>% 
+#'    as_flextable(compact=TRUE)
 #' 
 #' #Renaming (because why not?)
 #' crosstable(mtcars2, by=vs, total="both", test=TRUE, effect=TRUE) %>%
