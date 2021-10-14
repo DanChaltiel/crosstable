@@ -300,7 +300,7 @@ body_add_figure_legend = function(doc, legend, bookmark=NULL,
 
 
 #' @importFrom glue glue
-#' @importFrom officer ftext fpar run_bookmark run_seqfield body_add_fpar
+#' @importFrom officer ftext fpar run_bookmark run_word_field body_add_fpar
 #' @keywords internal
 #' @noRd
 body_add_legend = function(doc, legend, legend_name, bookmark, 
@@ -337,7 +337,7 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
     legend = glue(legend, .envir = parent.frame())
     legend_name = paste0(legend_name, " ")
     
-    bkm = run_seqfield(seqfield, prop=name_format)
+    bkm = run_word_field(seqfield, prop=name_format)
     if(!is.null(bookmark)){
         bkm = run_bookmark(bookmark, bkm)
     }
@@ -624,7 +624,7 @@ generate_autofit_macro = function(){
 #' @importFrom glue glue
 #' @importFrom utils packageVersion
 #' @importFrom purrr map
-#' @importFrom officer run_seqfield ftext body_add_fpar
+#' @importFrom officer run_word_field ftext body_add_fpar
 #' 
 #' @keywords internal
 #' @noRd
@@ -640,7 +640,7 @@ parse_reference = function(doc, value){
     par_list = map(altern, ~{
         if(str_detect(.x, "\\\\@ref")){
             bkm = stringr::str_match(.x, "\\\\@ref\\((.*?)\\)")[,2]
-            run_seqfield(glue(' REF {bkm} \\h '))
+            run_word_field(glue(' REF {bkm} \\h '))
         } else {
             ftext(.x)
         }
