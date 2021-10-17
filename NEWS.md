@@ -9,6 +9,7 @@
 * `body_add_crosstable()` gains a `padding_v` argument to control the vertical padding of all rows.
 * `body_add_title()` and `body_add_xxx_legend)` gain a glue functionality. You can now write `body_add_title("The iris dataset (nrow={nrow(iris)})", 1)`.
 * `as_workbook()` can now take a named list of crosstables, that will be considered as sheets. 
+* New parameter `percent` in `format_fixed(percent=TRUE/FALSE)` to easily format percentages.
 
 
 #### Minor changes

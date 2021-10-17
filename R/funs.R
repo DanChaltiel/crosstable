@@ -29,9 +29,16 @@
 #' options("crosstable_only_round"=TRUE)
 #' format_fixed(x_sd, dig=3, zero_digits=2) #override default
 #' options("crosstable_only_round"=NULL)
-format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL, only_round=getOption("crosstable_only_round", FALSE), ...){
+#' 
+#' x2 = mtcars$mpg/max(mtcars$mpg)
+#' x2 = c(0.01, 0.1001, 0.500005, 0.00000012)
+#' format_fixed(x2, percent=TRUE, dig=6)
+format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL, 
+                        percent=FALSE, 
+                        only_round=getOption("crosstable_only_round", FALSE), ...){
   assert_numeric(x)
   assert_numeric(digits)
+  assert_logical(percent)
   assert_logical(only_round)
   assert(is.null(zero_digits)||is.na(zero_digits)||is.numeric(zero_digits))
   if(is.date(x)){
@@ -39,14 +46,14 @@ format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL, only_round
       return(format(x, date_format))
     else 
       return(x)
-  } else if(only_round) {
-    return(round(x,digits))
-  } else {
+  } else  {
+    if(percent) x=x*100
+    if(only_round) return(round(x, digits))
     rtn = ifelse(is.na(x), NA_character_, formatC(x, format='f', digits=digits))
-    # rtn = formatC(x, format='f', digits=digits)
     if(!is.null(zero_digits) && !is.na(zero_digits)){
       rtn = ifelse(as.numeric(rtn)==0, signif(x, digits=zero_digits), rtn)
     }
+    if(percent) rtn=paste0(rtn, "%")
     return(rtn)
   }
 }
