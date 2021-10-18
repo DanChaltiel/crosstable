@@ -299,6 +299,7 @@ test_that("openxlsx is working", {
 
 
 test_that("gt is working", {
+    rlang::local_options(tidyselect_verbosity = "verbose") #oddly needed for as_gt(x2)
     #by=NULL
     x1=crosstable(mtcars2, c(mpg, vs, gear), total=T, test=T)
     as_gt(x1)
