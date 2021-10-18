@@ -18,10 +18,10 @@ cross_survival=function(data_x, data_y, showNA, total, label, surv_digits, times
     }
     
     if(is.null(data_y)){
-        rtn=summarise_survival_single(data_x[[1]], times=times, followup=followup, 
+        rtn=summarize_survival_single(data_x[[1]], times=times, followup=followup, 
                                       digits=surv_digits)
     } else if(is.character.or.factor(data_y[[1]])){
-        rtn=summarise_survival_by(data_x[[1]], data_y[[1]], times=times, followup=followup, 
+        rtn=summarize_survival_by(data_x[[1]], data_y[[1]], times=times, followup=followup, 
                                   digits=surv_digits, total=total, showNA=showNA, test=test, 
                                   test_args=test_args, effect=effect, effect_args=effect_args)
     } else {
@@ -43,7 +43,7 @@ cross_survival=function(data_x, data_y, showNA, total, label, surv_digits, times
 #' @importFrom glue glue
 #' @keywords internal
 #' @noRd
-summarise_survival_single = function(surv, times, digits, followup) {
+summarize_survival_single = function(surv, times, digits, followup) {
     stopifnot(is.Surv(surv))
     fit = survfit(surv~1)
     
@@ -88,7 +88,7 @@ summarise_survival_single = function(surv, times, digits, followup) {
 #' @importFrom survival is.Surv survfit
 #' @keywords internal
 #' @noRd
-summarise_survival_by = function(surv, by, times, followup, total, digits, showNA,
+summarize_survival_by = function(surv, by, times, followup, total, digits, showNA,
                                  test, test_args, effect, effect_args) {
     assert(is.Surv(surv))
     by2 = by
@@ -96,7 +96,7 @@ summarise_survival_by = function(surv, by, times, followup, total, digits, showN
     
     if(length(unique(by2))==1){
         cname = as.character(unique(by2))
-        rtn = summarise_survival_single(surv, times, digits, followup)
+        rtn = summarize_survival_single(surv, times, digits, followup)
         rtn = rtn %>% 
             rename(!!cname:=.data$value) %>% 
             mutate(test=if(test) "No test" else NULL, 
@@ -147,7 +147,7 @@ summarise_survival_by = function(surv, by, times, followup, total, digits, showN
                                         digits = test_args$plim, method = test_args$show_method)
     } 
     if (1 %in% total) {
-        rtn_tot = summarise_survival_single(surv, times, digits, followup) %>% 
+        rtn_tot = summarize_survival_single(surv, times, digits, followup) %>% 
             rename(Total=.data$value)
         rtn = left_join(rtn, rtn_tot, by=c("variable"))
     }
