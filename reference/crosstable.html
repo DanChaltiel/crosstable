@@ -313,7 +313,30 @@ Can be formatted as an HTML table using <code><a href='as_flextable.crosstable.h
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>#whole table</span>
 <span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 19 × 4</span>
+</div><div class='output co'>#&gt; 'data.frame':	150 obs. of  1 variable:
+#&gt;  $ Species: Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+#&gt; [1] "data.frame"
+#&gt; [1] 1
+#&gt; x
+#&gt;     setosa versicolor  virginica 
+#&gt;         50         50         50 
+#&gt;            x Freq
+#&gt; 1     setosa   50
+#&gt; 2 versicolor   50
+#&gt; 3  virginica   50
+#&gt; [1] "data.frame"
+#&gt; [[1]]
+#&gt; [1] "1" "2" "3"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "x"    "Freq"
+#&gt; 
+#&gt; [1] "setosa"     "versicolor" "virginica" 
+#&gt; [1] 50 50 50
+#&gt;     variable value
+#&gt; 1     setosa    50
+#&gt; 2 versicolor    50
+#&gt; 3  virginica    50</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 19 × 4</span>
 #&gt;    .id          label        variable   value        
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        
 #&gt; <span style='color: #BCBCBC;'> 1</span> Sepal.Length Sepal.Length Min / Max  4.3 / 7.9    
@@ -335,7 +358,98 @@ Can be formatted as an HTML table using <code><a href='as_flextable.crosstable.h
 #&gt; <span style='color: #BCBCBC;'>17</span> Species      Species      setosa     50 (33.33%)  
 #&gt; <span style='color: #BCBCBC;'>18</span> Species      Species      versicolor 50 (33.33%)  
 #&gt; <span style='color: #BCBCBC;'>19</span> Species      Species      virginica  50 (33.33%)  </div><div class='input'><span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 38 × 4</span>
+</div><div class='output co'>#&gt; 'data.frame':	32 obs. of  1 variable:
+#&gt;  $ cyl: 'unique_numeric' chr  "6" "6" "4" "6" ...
+#&gt; [1] "data.frame"
+#&gt; [1] 1
+#&gt; x
+#&gt;  4  6  8 
+#&gt; 11  7 14 
+#&gt;   x Freq
+#&gt; 1 4   11
+#&gt; 2 6    7
+#&gt; 3 8   14
+#&gt; [1] "data.frame"
+#&gt; [[1]]
+#&gt; [1] "1" "2" "3"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "x"    "Freq"
+#&gt; 
+#&gt; [1] "4" "6" "8"
+#&gt; [1] 11  7 14
+#&gt;   variable value
+#&gt; 1        4    11
+#&gt; 2        6     7
+#&gt; 3        8    14
+#&gt; 'data.frame':	32 obs. of  1 variable:
+#&gt;  $ vs: 'unique_numeric' chr  "0" "0" "1" "1" ...
+#&gt; [1] "data.frame"
+#&gt; [1] 1
+#&gt; x
+#&gt;  0  1 
+#&gt; 18 14 
+#&gt;   x Freq
+#&gt; 1 0   18
+#&gt; 2 1   14
+#&gt; [1] "data.frame"
+#&gt; [[1]]
+#&gt; [1] "1" "2"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "x"    "Freq"
+#&gt; 
+#&gt; [1] "0" "1"
+#&gt; [1] 18 14
+#&gt;   variable value
+#&gt; 1        0    18
+#&gt; 2        1    14
+#&gt; 'data.frame':	32 obs. of  1 variable:
+#&gt;  $ am: 'unique_numeric' chr  "1" "1" "1" "0" ...
+#&gt; [1] "data.frame"
+#&gt; [1] 1
+#&gt; x
+#&gt;  0  1 
+#&gt; 19 13 
+#&gt;   x Freq
+#&gt; 1 0   19
+#&gt; 2 1   13
+#&gt; [1] "data.frame"
+#&gt; [[1]]
+#&gt; [1] "1" "2"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "x"    "Freq"
+#&gt; 
+#&gt; [1] "0" "1"
+#&gt; [1] 19 13
+#&gt;   variable value
+#&gt; 1        0    19
+#&gt; 2        1    13
+#&gt; 'data.frame':	32 obs. of  1 variable:
+#&gt;  $ gear: 'unique_numeric' chr  "4" "4" "4" "3" ...
+#&gt; [1] "data.frame"
+#&gt; [1] 1
+#&gt; x
+#&gt;  3  4  5 
+#&gt; 15 12  5 
+#&gt;   x Freq
+#&gt; 1 3   15
+#&gt; 2 4   12
+#&gt; 3 5    5
+#&gt; [1] "data.frame"
+#&gt; [[1]]
+#&gt; [1] "1" "2" "3"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "x"    "Freq"
+#&gt; 
+#&gt; [1] "3" "4" "5"
+#&gt; [1] 15 12  5
+#&gt;   variable value
+#&gt; 1        3    15
+#&gt; 2        4    12
+#&gt; 3        5     5</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 38 × 4</span>
 #&gt;    .id   label variable   value              
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>              
 #&gt; <span style='color: #BCBCBC;'> 1</span> mpg   mpg   Min / Max  10.4 / 33.9        
@@ -349,7 +463,102 @@ Can be formatted as an HTML table using <code><a href='as_flextable.crosstable.h
 #&gt; <span style='color: #BCBCBC;'> 9</span> disp  disp  Med [IQR]  196.3 [120.8;326.0]
 #&gt; <span style='color: #BCBCBC;'>10</span> disp  disp  Mean (std) 230.7 (123.9)      
 #&gt; <span style='color: #949494;'># … with 28 more rows</span></div><div class='input'><span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 46 × 4</span>
+</div><div class='output co'>#&gt; 'data.frame':	32 obs. of  1 variable:
+#&gt;  $ cyl: Factor w/ 3 levels "4","6","8": 2 2 1 2 3 2 3 1 1 2 ...
+#&gt;   ..- attr(*, "label")= chr "Number of cylinders"
+#&gt; [1] "data.frame"
+#&gt; [1] 1
+#&gt; x
+#&gt;  4  6  8 
+#&gt; 11  7 14 
+#&gt;   x Freq
+#&gt; 1 4   11
+#&gt; 2 6    7
+#&gt; 3 8   14
+#&gt; [1] "data.frame"
+#&gt; [[1]]
+#&gt; [1] "1" "2" "3"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "x"    "Freq"
+#&gt; 
+#&gt; [1] "4" "6" "8"
+#&gt; [1] 11  7 14
+#&gt;   variable value
+#&gt; 1        4    11
+#&gt; 2        6     7
+#&gt; 3        8    14
+#&gt; 'data.frame':	32 obs. of  1 variable:
+#&gt;  $ vs: 'labelled' chr  "vshaped" "vshaped" "straight" "straight" ...
+#&gt;   ..- attr(*, "label")= chr "Engine"
+#&gt; [1] "data.frame"
+#&gt; [1] 1
+#&gt; x
+#&gt; straight  vshaped 
+#&gt;       14       18 
+#&gt;          x Freq
+#&gt; 1 straight   14
+#&gt; 2  vshaped   18
+#&gt; [1] "data.frame"
+#&gt; [[1]]
+#&gt; [1] "1" "2"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "x"    "Freq"
+#&gt; 
+#&gt; [1] "straight" "vshaped" 
+#&gt; [1] 14 18
+#&gt;   variable value
+#&gt; 1 straight    14
+#&gt; 2  vshaped    18
+#&gt; 'data.frame':	32 obs. of  1 variable:
+#&gt;  $ am: 'labelled' chr  "manual" "manual" "manual" "auto" ...
+#&gt;   ..- attr(*, "label")= chr "Transmission"
+#&gt; [1] "data.frame"
+#&gt; [1] 1
+#&gt; x
+#&gt;   auto manual 
+#&gt;     19     13 
+#&gt;        x Freq
+#&gt; 1   auto   19
+#&gt; 2 manual   13
+#&gt; [1] "data.frame"
+#&gt; [[1]]
+#&gt; [1] "1" "2"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "x"    "Freq"
+#&gt; 
+#&gt; [1] "auto"   "manual"
+#&gt; [1] 19 13
+#&gt;   variable value
+#&gt; 1     auto    19
+#&gt; 2   manual    13
+#&gt; 'data.frame':	32 obs. of  1 variable:
+#&gt;  $ gear: Factor w/ 3 levels "3","4","5": 2 2 2 1 1 1 1 2 2 2 ...
+#&gt;   ..- attr(*, "label")= chr "Number of forward gears"
+#&gt; [1] "data.frame"
+#&gt; [1] 1
+#&gt; x
+#&gt;  3  4  5 
+#&gt; 15 12  5 
+#&gt;   x Freq
+#&gt; 1 3   15
+#&gt; 2 4   12
+#&gt; 3 5    5
+#&gt; [1] "data.frame"
+#&gt; [[1]]
+#&gt; [1] "1" "2" "3"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "x"    "Freq"
+#&gt; 
+#&gt; [1] "3" "4" "5"
+#&gt; [1] 15 12  5
+#&gt;   variable value
+#&gt; 1        3    15
+#&gt; 2        4    12
+#&gt; 3        5     5</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 46 × 4</span>
 #&gt;    .id   label                 variable   value              
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                 <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>              
 #&gt; <span style='color: #BCBCBC;'> 1</span> mpg   Miles/(US) gallon     Min / Max  10.4 / 33.9        
@@ -385,7 +594,30 @@ Can be formatted as an HTML table using <code><a href='as_flextable.crosstable.h
 <span class='co'>#margin and totals, multiple by</span>
 <span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>disp</span>, <span class='va'>cyl</span><span class='op'>)</span>, by<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>am</span>, <span class='va'>vs</span><span class='op'>)</span>, 
            margin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"row"</span>, <span class='st'>"col"</span><span class='op'>)</span>, total <span class='op'>=</span> <span class='st'>"both"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 × 8</span>
+</div><div class='output co'>#&gt;  Factor w/ 3 levels "4","6","8": 2 2 1 2 3 2 3 1 1 2 ...
+#&gt;  - attr(*, "label")= chr "Number of cylinders"
+#&gt; [1] "labelled" "factor"  
+#&gt; [1] 1 2
+#&gt; x
+#&gt;  4  6  8 
+#&gt; 11  7 14 
+#&gt;   x Freq
+#&gt; 1 4   11
+#&gt; 2 6    7
+#&gt; 3 8   14
+#&gt; [1] "data.frame"
+#&gt; [[1]]
+#&gt; [1] "1" "2" "3"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "x"    "Freq"
+#&gt; 
+#&gt; [1] "4" "6" "8"
+#&gt; [1] 11  7 14
+#&gt;   variable value
+#&gt; 1        4    11
+#&gt; 2        6     7
+#&gt; 3        8    14</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 × 8</span>
 #&gt;   .id   label                 variable `am=auto &amp; vs=s… `am=manual &amp; vs… `am=auto &amp; vs=v…
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                 <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           
 #&gt; <span style='color: #BCBCBC;'>1</span> disp  Displacement (cu.in.) Min / M… 120.1 / 258.0    71.1 / 121.0     275.8 / 472.0   

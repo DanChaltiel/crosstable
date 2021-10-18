@@ -283,114 +283,173 @@ below to see their documentation.</p>
 #&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>crosstable_fontsize_header<span class='op'>=</span><span class='fl'>14</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>crosstable_fontsize_subheaders<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>crosstable_fontsize_body<span class='op'>=</span><span class='fl'>8</span><span class='op'>)</span>
-<span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>as_flextable</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; a flextable object.
+<span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>as_flextable</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 'data.frame':	150 obs. of  1 variable:
+#&gt;  $ Species: Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+#&gt; [1] "data.frame"
+#&gt; [1] 1
+#&gt; x
+#&gt;     setosa versicolor  virginica 
+#&gt;         50         50         50 
+#&gt;            x Freq
+#&gt; 1     setosa   50
+#&gt; 2 versicolor   50
+#&gt; 3  virginica   50
+#&gt; [1] "data.frame"
+#&gt; [[1]]
+#&gt; [1] "1" "2" "3"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "x"    "Freq"
+#&gt; 
+#&gt; [1] "setosa"     "versicolor" "virginica" 
+#&gt; [1] 50 50 50
+#&gt;     variable value
+#&gt; 1     setosa    50
+#&gt; 2 versicolor    50
+#&gt; 3  virginica    50</div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `label`, `variable`, `value` 
 #&gt; header has 1 row(s) 
-#&gt; body has 46 row(s) 
+#&gt; body has 19 row(s) 
 #&gt; original dataset sample: 
-#&gt;   .id               label   variable            value
-#&gt; 1 mpg   Miles/(US) gallon  Min / Max      10.4 / 33.9
-#&gt; 2 mpg   Miles/(US) gallon  Med [IQR] 19.2 [15.4;22.8]
-#&gt; 3 mpg   Miles/(US) gallon Mean (std)       20.1 (6.0)
-#&gt; 4 mpg   Miles/(US) gallon     N (NA)           32 (0)
-#&gt; 5 cyl Number of cylinders          4      11 (34.38%)</div><div class='input'><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span>, by<span class='op'>=</span><span class='va'>vs</span>, test <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>as_flextable</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Be aware that automatic global testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.</span>
-#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span></span></div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `label`, `variable`, `straight`, `vshaped`, `test` 
-#&gt; header has 2 row(s) 
-#&gt; body has 44 row(s) 
-#&gt; original dataset sample: 
-#&gt;   .id               label   variable         straight          vshaped
-#&gt; 1 mpg   Miles/(US) gallon  Min / Max      17.8 / 33.9      10.4 / 26.0
-#&gt; 2 mpg   Miles/(US) gallon  Med [IQR] 22.8 [21.4;29.6] 15.7 [14.8;19.1]
-#&gt; 3 mpg   Miles/(US) gallon Mean (std)       24.6 (5.4)       16.6 (3.9)
-#&gt; 4 mpg   Miles/(US) gallon     N (NA)           14 (0)           18 (0)
-#&gt; 5 cyl Number of cylinders          4      10 (90.91%)        1 (9.09%)
-#&gt;                                                      test
-#&gt; 1                  p value: &lt;0.0001 \n(Two Sample t-test)
-#&gt; 2                  p value: &lt;0.0001 \n(Two Sample t-test)
-#&gt; 3                  p value: &lt;0.0001 \n(Two Sample t-test)
-#&gt; 4                  p value: &lt;0.0001 \n(Two Sample t-test)
-#&gt; 5 p value: &lt;0.0001 \n(Fisher's Exact Test for Count Data)</div><div class='input'><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>esoph</span>, by<span class='op'>=</span><span class='va'>tobgp</span>, test <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>as_flextable</span><span class='op'>(</span><span class='op'>)</span>
+#&gt;            .id        label   variable         value
+#&gt; 1 Sepal.Length Sepal.Length  Min / Max     4.3 / 7.9
+#&gt; 2 Sepal.Length Sepal.Length  Med [IQR] 5.8 [5.1;6.4]
+#&gt; 3 Sepal.Length Sepal.Length Mean (std)     5.8 (0.8)
+#&gt; 4 Sepal.Length Sepal.Length     N (NA)       150 (0)
+#&gt; 5  Sepal.Width  Sepal.Width  Min / Max     2.0 / 4.4</div><div class='input'><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span>, by<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>am</span>, <span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>as_flextable</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `label`, `variable`, `0-9g/day`, `10-19`, `20-29`, `30+`, `test` 
+#&gt; col_keys: `label`, `variable`, `am=auto &amp; vs=straight`, `am=manual &amp; vs=straight`, `am=auto &amp; vs=vshaped`, `am=manual &amp; vs=vshaped` 
 #&gt; header has 2 row(s) 
-#&gt; body has 18 row(s) 
+#&gt; body has 42 row(s) 
 #&gt; original dataset sample: 
-#&gt;     .id label variable   0-9g/day      10-19      20-29        30+
-#&gt; 1 agegp agegp    25-34 4 (26.67%) 4 (26.67%) 3 (20.00%) 4 (26.67%)
-#&gt; 2 agegp agegp    35-44 4 (26.67%) 4 (26.67%) 4 (26.67%) 3 (20.00%)
-#&gt; 3 agegp agegp    45-54 4 (25.00%) 4 (25.00%) 4 (25.00%) 4 (25.00%)
-#&gt; 4 agegp agegp    55-64 4 (25.00%) 4 (25.00%) 4 (25.00%) 4 (25.00%)
-#&gt; 5 agegp agegp    65-74 4 (26.67%) 4 (26.67%) 4 (26.67%) 3 (20.00%)
-#&gt;                                                     test
-#&gt; 1 p value: 0.9999 \n(Fisher's Exact Test for Count Data)
-#&gt; 2 p value: 0.9999 \n(Fisher's Exact Test for Count Data)
-#&gt; 3 p value: 0.9999 \n(Fisher's Exact Test for Count Data)
-#&gt; 4 p value: 0.9999 \n(Fisher's Exact Test for Count Data)
-#&gt; 5 p value: 0.9999 \n(Fisher's Exact Test for Count Data)</div><div class='input'><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>iris</span>, by<span class='op'>=</span><span class='va'>Species</span>, test <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>as_flextable</span><span class='op'>(</span>autofit<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+#&gt;   .id               label   variable am=auto &amp; vs=straight
+#&gt; 1 mpg   Miles/(US) gallon  Min / Max           17.8 / 24.4
+#&gt; 2 mpg   Miles/(US) gallon  Med [IQR]      21.4 [18.6;22.1]
+#&gt; 3 mpg   Miles/(US) gallon Mean (std)            20.7 (2.5)
+#&gt; 4 mpg   Miles/(US) gallon     N (NA)                 7 (0)
+#&gt; 5 cyl Number of cylinders          4            3 (27.27%)
+#&gt;   am=manual &amp; vs=straight am=auto &amp; vs=vshaped am=manual &amp; vs=vshaped
+#&gt; 1             21.4 / 33.9          10.4 / 19.2            15.0 / 26.0
+#&gt; 2        30.4 [25.1;31.4]     15.2 [14.1;16.6]       20.4 [16.8;21.0]
+#&gt; 3              28.4 (4.8)           15.1 (2.8)             19.8 (4.0)
+#&gt; 4                   7 (0)               12 (0)                  6 (0)
+#&gt; 5              7 (63.64%)               0 (0%)              1 (9.09%)</div><div class='input'><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span>, cols<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>cyl</span><span class='op'>)</span>, by<span class='op'>=</span><span class='va'>am</span>, effect<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+   <span class='fu'>as_flextable</span><span class='op'>(</span>keep_id<span class='op'>=</span><span class='cn'>TRUE</span>, autofit<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `label`, `variable`, `setosa`, `versicolor`, `virginica`, `test` 
+#&gt; col_keys: `.id`, `label`, `variable`, `auto`, `manual`, `effect` 
 #&gt; header has 2 row(s) 
-#&gt; body has 16 row(s) 
+#&gt; body has 7 row(s) 
 #&gt; original dataset sample: 
-#&gt;            .id        label   variable        setosa    versicolor
-#&gt; 1 Sepal.Length Sepal.Length  Min / Max     4.3 / 5.8     4.9 / 7.0
-#&gt; 2 Sepal.Length Sepal.Length  Med [IQR] 5.0 [4.8;5.2] 5.9 [5.6;6.3]
-#&gt; 3 Sepal.Length Sepal.Length Mean (std)     5.0 (0.4)     5.9 (0.5)
-#&gt; 4 Sepal.Length Sepal.Length     N (NA)        50 (0)        50 (0)
-#&gt; 5  Sepal.Width  Sepal.Width  Min / Max     2.3 / 4.4     2.0 / 3.4
-#&gt;       virginica
-#&gt; 1     4.9 / 7.9
-#&gt; 2 6.5 [6.2;6.9]
-#&gt; 3     6.6 (0.6)
-#&gt; 4        50 (0)
-#&gt; 5     2.2 / 3.8
-#&gt;                                                                            test
-#&gt; 1 p value: &lt;0.0001 \n(One-way analysis of means (not assuming equal variances))
-#&gt; 2 p value: &lt;0.0001 \n(One-way analysis of means (not assuming equal variances))
-#&gt; 3 p value: &lt;0.0001 \n(One-way analysis of means (not assuming equal variances))
-#&gt; 4 p value: &lt;0.0001 \n(One-way analysis of means (not assuming equal variances))
-#&gt; 5                                p value: &lt;0.0001 \n(One-way analysis of means)</div><div class='input'><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>iris</span>, by<span class='op'>=</span><span class='va'>Species</span>, test <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>as_flextable</span><span class='op'>(</span>compact<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+#&gt;   .id               label   variable             auto           manual
+#&gt; 1 mpg   Miles/(US) gallon  Min / Max      10.4 / 24.4      15.0 / 33.9
+#&gt; 2 mpg   Miles/(US) gallon  Med [IQR] 17.3 [14.9;19.2] 22.8 [21.0;30.4]
+#&gt; 3 mpg   Miles/(US) gallon Mean (std)       17.1 (3.8)       24.4 (6.2)
+#&gt; 4 mpg   Miles/(US) gallon     N (NA)           19 (0)           13 (0)
+#&gt; 5 cyl Number of cylinders          4       3 (27.27%)       8 (72.73%)
+#&gt;                                                                                                     effect
+#&gt; 1                     Difference in means (t-test CI), ref='auto'\nmanual minus auto: 7.24 [3.64 to 10.85]
+#&gt; 2                     Difference in means (t-test CI), ref='auto'\nmanual minus auto: 7.24 [3.64 to 10.85]
+#&gt; 3                     Difference in means (t-test CI), ref='auto'\nmanual minus auto: 7.24 [3.64 to 10.85]
+#&gt; 4                     Difference in means (t-test CI), ref='auto'\nmanual minus auto: 7.24 [3.64 to 10.85]
+#&gt; 5 Odds ratio [95% Wald CI], ref='manual vs auto'\n6 vs 4: 0.28 [0.03 to 1.99]\n8 vs 4: 0.06 [0.01 to 0.39]</div><div class='input'><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span>, cols<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>cyl</span><span class='op'>)</span>, by<span class='op'>=</span><span class='va'>am</span>, effect<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+   <span class='fu'>as_flextable</span><span class='op'>(</span>compact<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `variable`, `setosa`, `versicolor`, `virginica`, `test` 
+#&gt; col_keys: `variable`, `auto`, `manual`, `effect` 
 #&gt; header has 2 row(s) 
-#&gt; body has 20 row(s) 
+#&gt; body has 9 row(s) 
 #&gt; original dataset sample: 
-#&gt;       variable        setosa    versicolor     virginica
-#&gt; 1 Sepal.Length                                          
-#&gt; 2    Min / Max     4.3 / 5.8     4.9 / 7.0     4.9 / 7.9
-#&gt; 3    Med [IQR] 5.0 [4.8;5.2] 5.9 [5.6;6.3] 6.5 [6.2;6.9]
-#&gt; 4   Mean (std)     5.0 (0.4)     5.9 (0.5)     6.6 (0.6)
-#&gt; 5       N (NA)        50 (0)        50 (0)        50 (0)
-#&gt;                                                                            test
-#&gt; 1 p value: &lt;0.0001 \n(One-way analysis of means (not assuming equal variances))
-#&gt; 2                                                                              
-#&gt; 3                                                                              
-#&gt; 4                                                                              
-#&gt; 5                                                                              </div><div class='input'><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>as_flextable</span><span class='op'>(</span>compact<span class='op'>=</span><span class='cn'>TRUE</span>, autofit<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `variable`, `value` 
-#&gt; header has 1 row(s) 
-#&gt; body has 24 row(s) 
-#&gt; original dataset sample: 
-#&gt;       variable         value
-#&gt; 1 Sepal.Length              
-#&gt; 2    Min / Max     4.3 / 7.9
-#&gt; 3    Med [IQR] 5.8 [5.1;6.4]
-#&gt; 4   Mean (std)     5.8 (0.8)
-#&gt; 5       N (NA)       150 (0)</div><div class='input'>
+#&gt;            variable             auto           manual
+#&gt; 1 Miles/(US) gallon                                  
+#&gt; 2         Min / Max      10.4 / 24.4      15.0 / 33.9
+#&gt; 3         Med [IQR] 17.3 [14.9;19.2] 22.8 [21.0;30.4]
+#&gt; 4        Mean (std)       17.1 (3.8)       24.4 (6.2)
+#&gt; 5            N (NA)           19 (0)           13 (0)
+#&gt;                                                                                 effect
+#&gt; 1 Difference in means (t-test CI), ref='auto'\nmanual minus auto: 7.24 [3.64 to 10.85]
+#&gt; 2                                                                                     
+#&gt; 3                                                                                     
+#&gt; 4                                                                                     
+#&gt; 5                                                                                     </div><div class='input'>
 <span class='co'>#Renaming (because why not?)</span>
 <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span>, by<span class='op'>=</span><span class='va'>vs</span>, total<span class='op'>=</span><span class='st'>"both"</span>, test<span class='op'>=</span><span class='cn'>TRUE</span>, effect<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>ID<span class='op'>=</span><span class='va'>.id</span>, math<span class='op'>=</span><span class='va'>variable</span>, Tot<span class='op'>=</span><span class='va'>Total</span>, lab<span class='op'>=</span><span class='va'>label</span>, pval<span class='op'>=</span><span class='va'>test</span>, fx<span class='op'>=</span><span class='va'>effect</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
    <span class='fu'>as_flextable</span><span class='op'>(</span>by_header <span class='op'>=</span> <span class='st'>"Engine shape"</span>, 
                 generic_labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>"ID"</span>, variable <span class='op'>=</span> <span class='st'>"math"</span>, total<span class='op'>=</span><span class='st'>"Tot"</span>, 
                                     label <span class='op'>=</span> <span class='st'>"lab"</span>, test <span class='op'>=</span> <span class='st'>"pval"</span>, effect<span class='op'>=</span><span class='st'>"fx"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Problems occured when calculating crosstable effects (glm-logit):</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Be aware that automatic global testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.</span>
+#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span></span></div><div class='output co'>#&gt;  Factor w/ 3 levels "4","6","8": 2 2 1 2 3 2 3 1 1 2 ...
+#&gt;  - attr(*, "label")= chr "Number of cylinders"
+#&gt; [1] "labelled" "factor"  
+#&gt; [1] 1
+#&gt; x
+#&gt;  4  6  8 
+#&gt; 11  7 14 
+#&gt;   x Freq
+#&gt; 1 4   11
+#&gt; 2 6    7
+#&gt; 3 8   14
+#&gt; [1] "data.frame"
+#&gt; [[1]]
+#&gt; [1] "1" "2" "3"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "x"    "Freq"
+#&gt; 
+#&gt; [1] "4" "6" "8"
+#&gt; [1] 11  7 14
+#&gt;   variable value
+#&gt; 1        4    11
+#&gt; 2        6     7
+#&gt; 3        8    14</div><div class='output co'>#&gt; <span class='warning'>Warning: Problems occured when calculating crosstable effects (glm-logit):</span>
 #&gt; <span class='warning'>  'glm.fit: fitted probabilities numerically 0 or 1 occurred', 'glm.fit: algorithm did not converge' and 'collapsing to unique 'x' values' </span>
 #&gt; <span class='warning'>You might want to check for complete separation or extreme outliers. </span>
-#&gt; <span class='warning'>Applying `forcats::fct_rev()` to some columns might help too.</span></div><div class='output co'>#&gt; a flextable object.
+#&gt; <span class='warning'>Applying `forcats::fct_rev()` to some columns might help too.</span></div><div class='output co'>#&gt;  'labelled' chr [1:32] "manual" "manual" "manual" "auto" "auto" "auto" ...
+#&gt;  - attr(*, "label")= chr "Transmission"
+#&gt; [1] "labelled"  "character"
+#&gt; [1] 1
+#&gt; x
+#&gt;   auto manual 
+#&gt;     19     13 
+#&gt;        x Freq
+#&gt; 1   auto   19
+#&gt; 2 manual   13
+#&gt; [1] "data.frame"
+#&gt; [[1]]
+#&gt; [1] "1" "2"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "x"    "Freq"
+#&gt; 
+#&gt; [1] "auto"   "manual"
+#&gt; [1] 19 13
+#&gt;   variable value
+#&gt; 1     auto    19
+#&gt; 2   manual    13
+#&gt;  Factor w/ 3 levels "3","4","5": 2 2 2 1 1 1 1 2 2 2 ...
+#&gt;  - attr(*, "label")= chr "Number of forward gears"
+#&gt; [1] "labelled" "factor"  
+#&gt; [1] 1
+#&gt; x
+#&gt;  3  4  5 
+#&gt; 15 12  5 
+#&gt;   x Freq
+#&gt; 1 3   15
+#&gt; 2 4   12
+#&gt; 3 5    5
+#&gt; [1] "data.frame"
+#&gt; [[1]]
+#&gt; [1] "1" "2" "3"
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] "x"    "Freq"
+#&gt; 
+#&gt; [1] "3" "4" "5"
+#&gt; [1] 15 12  5
+#&gt;   variable value
+#&gt; 1        3    15
+#&gt; 2        4    12
+#&gt; 3        5     5</div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `lab`, `math`, `straight`, `vshaped`, `Tot`, `fx`, `pval` 
 #&gt; header has 2 row(s) 
 #&gt; body has 47 row(s) 
