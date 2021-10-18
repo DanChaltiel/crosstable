@@ -245,29 +245,7 @@ Copy the label from one variable to another" />
 #&gt; <span style='color: #BCBCBC;'>12</span> mpg3  Miles per gallon N (NA)     32 (0)          </div><div class='input'><span class='va'>mtcars</span> <span class='op'>%&gt;%</span> 
    <span class='fu'>copy_label_from</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>11</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
    <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 'data.frame':	32 obs. of  1 variable:
-#&gt;  $ vs: 'unique_numeric' chr  "0" "0" "1" "1" ...
-#&gt;   ..- attr(*, "label")= chr "Engine"
-#&gt; [1] "data.frame"
-#&gt; [1] 1
-#&gt; x
-#&gt;  0  1 
-#&gt; 18 14 
-#&gt;   x Freq
-#&gt; 1 0   18
-#&gt; 2 1   14
-#&gt; [1] "data.frame"
-#&gt; [[1]]
-#&gt; [1] "1" "2"
-#&gt; 
-#&gt; [[2]]
-#&gt; [1] "x"    "Freq"
-#&gt; 
-#&gt; [1] "0" "1"
-#&gt; [1] 18 14
-#&gt;   variable value
-#&gt; 1        0    18
-#&gt; 2        1    14</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 4</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 4</span>
 #&gt;   .id   label             variable   value           
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           
 #&gt; <span style='color: #BCBCBC;'>1</span> mpg   Miles/(US) gallon Min / Max  10.4 / 33.9     

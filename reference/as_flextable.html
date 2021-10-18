@@ -284,30 +284,7 @@ below to see their documentation.</p>
 <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>crosstable_fontsize_subheaders<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>crosstable_fontsize_body<span class='op'>=</span><span class='fl'>8</span><span class='op'>)</span>
 <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>as_flextable</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 'data.frame':	150 obs. of  1 variable:
-#&gt;  $ Species: Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-#&gt; [1] "data.frame"
-#&gt; [1] 1
-#&gt; x
-#&gt;     setosa versicolor  virginica 
-#&gt;         50         50         50 
-#&gt;            x Freq
-#&gt; 1     setosa   50
-#&gt; 2 versicolor   50
-#&gt; 3  virginica   50
-#&gt; [1] "data.frame"
-#&gt; [[1]]
-#&gt; [1] "1" "2" "3"
-#&gt; 
-#&gt; [[2]]
-#&gt; [1] "x"    "Freq"
-#&gt; 
-#&gt; [1] "setosa"     "versicolor" "virginica" 
-#&gt; [1] 50 50 50
-#&gt;     variable value
-#&gt; 1     setosa    50
-#&gt; 2 versicolor    50
-#&gt; 3  virginica    50</div><div class='output co'>#&gt; a flextable object.
+</div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `label`, `variable`, `value` 
 #&gt; header has 1 row(s) 
 #&gt; body has 19 row(s) 
@@ -378,78 +355,10 @@ below to see their documentation.</p>
                 generic_labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>"ID"</span>, variable <span class='op'>=</span> <span class='st'>"math"</span>, total<span class='op'>=</span><span class='st'>"Tot"</span>, 
                                     label <span class='op'>=</span> <span class='st'>"lab"</span>, test <span class='op'>=</span> <span class='st'>"pval"</span>, effect<span class='op'>=</span><span class='st'>"fx"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Be aware that automatic global testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.</span>
-#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span></span></div><div class='output co'>#&gt;  Factor w/ 3 levels "4","6","8": 2 2 1 2 3 2 3 1 1 2 ...
-#&gt;  - attr(*, "label")= chr "Number of cylinders"
-#&gt; [1] "labelled" "factor"  
-#&gt; [1] 1
-#&gt; x
-#&gt;  4  6  8 
-#&gt; 11  7 14 
-#&gt;   x Freq
-#&gt; 1 4   11
-#&gt; 2 6    7
-#&gt; 3 8   14
-#&gt; [1] "data.frame"
-#&gt; [[1]]
-#&gt; [1] "1" "2" "3"
-#&gt; 
-#&gt; [[2]]
-#&gt; [1] "x"    "Freq"
-#&gt; 
-#&gt; [1] "4" "6" "8"
-#&gt; [1] 11  7 14
-#&gt;   variable value
-#&gt; 1        4    11
-#&gt; 2        6     7
-#&gt; 3        8    14</div><div class='output co'>#&gt; <span class='warning'>Warning: Problems occured when calculating crosstable effects (glm-logit):</span>
+#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span></span></div><div class='output co'>#&gt; <span class='warning'>Warning: Problems occured when calculating crosstable effects (glm-logit):</span>
 #&gt; <span class='warning'>  'glm.fit: fitted probabilities numerically 0 or 1 occurred', 'glm.fit: algorithm did not converge' and 'collapsing to unique 'x' values' </span>
 #&gt; <span class='warning'>You might want to check for complete separation or extreme outliers. </span>
-#&gt; <span class='warning'>Applying `forcats::fct_rev()` to some columns might help too.</span></div><div class='output co'>#&gt;  'labelled' chr [1:32] "manual" "manual" "manual" "auto" "auto" "auto" ...
-#&gt;  - attr(*, "label")= chr "Transmission"
-#&gt; [1] "labelled"  "character"
-#&gt; [1] 1
-#&gt; x
-#&gt;   auto manual 
-#&gt;     19     13 
-#&gt;        x Freq
-#&gt; 1   auto   19
-#&gt; 2 manual   13
-#&gt; [1] "data.frame"
-#&gt; [[1]]
-#&gt; [1] "1" "2"
-#&gt; 
-#&gt; [[2]]
-#&gt; [1] "x"    "Freq"
-#&gt; 
-#&gt; [1] "auto"   "manual"
-#&gt; [1] 19 13
-#&gt;   variable value
-#&gt; 1     auto    19
-#&gt; 2   manual    13
-#&gt;  Factor w/ 3 levels "3","4","5": 2 2 2 1 1 1 1 2 2 2 ...
-#&gt;  - attr(*, "label")= chr "Number of forward gears"
-#&gt; [1] "labelled" "factor"  
-#&gt; [1] 1
-#&gt; x
-#&gt;  3  4  5 
-#&gt; 15 12  5 
-#&gt;   x Freq
-#&gt; 1 3   15
-#&gt; 2 4   12
-#&gt; 3 5    5
-#&gt; [1] "data.frame"
-#&gt; [[1]]
-#&gt; [1] "1" "2" "3"
-#&gt; 
-#&gt; [[2]]
-#&gt; [1] "x"    "Freq"
-#&gt; 
-#&gt; [1] "3" "4" "5"
-#&gt; [1] 15 12  5
-#&gt;   variable value
-#&gt; 1        3    15
-#&gt; 2        4    12
-#&gt; 3        5     5</div><div class='output co'>#&gt; a flextable object.
+#&gt; <span class='warning'>Applying `forcats::fct_rev()` to some columns might help too.</span></div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `lab`, `math`, `straight`, `vshaped`, `Tot`, `fx`, `pval` 
 #&gt; header has 2 row(s) 
 #&gt; body has 47 row(s) 
