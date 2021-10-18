@@ -57,7 +57,7 @@ crosstables = suppressWarnings({
 })
 
 test_that("crosstables: Simple", {
-    skip_on_os(c("mac", "linux", "solaris"))
+    # skip_on_os(c("mac", "linux", "solaris"))
     i="Simple"
     ct = crosstables[[i]]
     expect_s3_class(ct, c("crosstable"))
@@ -83,7 +83,7 @@ test_that("crosstables: Simple", {
     expect_true(TRUE)
 })
 test_that("crosstables: Double with effects", {
-    skip_on_os(c("mac", "linux", "solaris"))
+    # skip_on_os(c("mac", "linux", "solaris"))
     i="Double_effect"
     ct = crosstables[[i]]
     expect_s3_class(ct, c("crosstable"))
@@ -109,7 +109,7 @@ test_that("crosstables: Double with effects", {
     expect_true(TRUE)
 })
 test_that("crosstables: Triple", {
-    skip_on_os(c("mac", "linux", "solaris"))
+    # skip_on_os(c("mac", "linux", "solaris"))
     i="Triple"
     ct = crosstables[[i]]
     expect_s3_class(ct, c("crosstable"))
@@ -141,7 +141,7 @@ test_that("crosstables: Triple", {
 
 
 test_that("crosstables helpers", {
-    skip_on_os(c("mac", "linux", "solaris"))
+    # skip_on_os(c("mac", "linux", "solaris"))
     rlang::local_options(crosstable_style_list_ordered="toc 1",
                          crosstable_style_list_unordered="toc 2",
                          crosstable_style_image="centered",
@@ -200,7 +200,7 @@ test_that("Utils functions", {
 
 
 test_that("Legend fields", {
-    skip_on_os(c("mac", "linux", "solaris"))
+    # skip_on_os(c("mac", "linux", "solaris"))
     #cannot use snapshot as fields are identified with uuid
     #this should also be tested after running devtools::install_version("officer", "0.3.19")
     fp = fp_text_lite(bold=FALSE, italic=FALSE, underlined=TRUE, font.size=15)
@@ -244,11 +244,11 @@ test_that("Legend fields on `officer` previous than 0.4.0", {
 
 
 test_that("Officers warnings and errors", {
-    skip_on_os(c("mac", "linux", "solaris"))
+    # skip_on_os(c("mac", "linux", "solaris"))
     pars1 = c("Paragraphe 1.1", "Paragraphe 1.2")
     pars2 = c("Paragraphe 2.1", "Paragraphe 2.2")
     expect_error(body_add_normal(read_docx(), pars1, pars2),
-                 "either one vector of any length or several vectors of length 1")
+                 class="officer_wrong_vector_error")
 
     lifecycle::expect_deprecated(body_add_glued(read_docx(), "Paragraphe"))
 })
