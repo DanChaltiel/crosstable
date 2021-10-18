@@ -43,7 +43,7 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
 #' @keywords internal
 #' @noRd
 summarize_categorical_single = function(x, showNA, total, digits, margin){
-    str(x)
+    utils::str(x)
     print(class(x))
     print(margin)
     tb=table(x, useNA = "no")
