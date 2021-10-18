@@ -92,6 +92,7 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     
     coll = makeAssertCollection()    
     assert_data_frame(data, null.ok=FALSE, add=coll)
+    dataCall = deparse(substitute(data))
     data = as.data.frame(data)
     assert_count(percent_digits, add=coll)
     assert_logical(label, add=coll)
@@ -150,8 +151,12 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     
     # Deprecations --------------------------------------------------------
     if (!missing(...)) {
+        dotsCall = as.character(substitute(list(...))[-1L]) %>% paste(collapse=", ")
+        colsCall = as.character(substitute(cols)) %>% paste(collapse=", ")
+        bad = glue("`crosstable({dataCall}, {colsCall}, {dotsCall}, ...)`")
+        good = glue("`crosstable({dataCall}, c({colsCall}, {dotsCall}), ...)`")
         deprecate_warn("0.2.0", "crosstable(...=)", "crosstable(cols=)", 
-                       details="NB: The `...` argument might even be reused in other usages in later versions (breaking change).")
+                       details=glue("Instead of {bad}, write {good}"))
     }
     if (!missing(.vars)) {
         deprecate_stop("0.2.0", "crosstable(.vars=)", "crosstable(cols=)")
