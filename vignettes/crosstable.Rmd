@@ -95,8 +95,7 @@ As tables are not very readable in the console, let's also use `as_flextable()` 
 
 
 ```{r crosstable-flextable}
-# crosstable(mtcars2, c(mpg, cyl), by=am) %>% 
-crosstable(mtcars2, mpg, cyl, by=am) %>% 
+crosstable(mtcars2, c(mpg, cyl), by=am) %>%
   as_flextable(keep_id=TRUE)
 ```
 
