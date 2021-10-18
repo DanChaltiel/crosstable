@@ -220,7 +220,7 @@ If there is onely one `by` variable with only 2 levels, it is possible to automa
 
 ```{r crosstable-effect}
 library(flextable)
-crosstable(mtcars2, vs, qsec, by=am, funs=mean, effect=TRUE) %>% 
+crosstable(mtcars2, c(vs, qsec), by=am, funs=mean, effect=TRUE) %>% 
   as_flextable(keep_id=TRUE)
 ```
 
