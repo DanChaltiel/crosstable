@@ -48,9 +48,9 @@ summarize_categorical_single = function(x, showNA, total, digits, margin){
     # print(margin)
     # tb=table(x, useNA = "no")
     # print(tb)
-    # tbd = table(x, useNA = "no") %>% 
-    #     as.data.frame(stringsAsFactors=FALSE) %>% 
-    #     set_names(c("x", "Freq"))
+    tbd = table(x, useNA = "no") %>%
+        as.data.frame(stringsAsFactors=FALSE) %>%
+        set_names(c("x", "Freq"))
     # print(ncol(tbd))
     # print(tbd)
     # print(class(tbd))
