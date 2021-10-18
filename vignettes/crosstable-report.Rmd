@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options(width = 100, 
+        crosstable_verbosity_autotesting="quiet")
 library(crosstable)
 library(dplyr)
 ```

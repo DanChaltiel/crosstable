@@ -10,16 +10,17 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-  
+
 ```{r options, include = FALSE}
-  knitr::opts_chunk$set(
+knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   warning=FALSE, 
   message=FALSE
-  )
-  options(width = 100)
-  library(flextable)
+)
+options(width = 100, 
+        crosstable_verbosity_autotesting="quiet")
+library(flextable)
 ```
 
 ```{r css, echo=FALSE, results="asis"}
@@ -94,7 +95,8 @@ As tables are not very readable in the console, let's also use `as_flextable()` 
 
 
 ```{r crosstable-flextable}
-crosstable(mtcars2, c(mpg, cyl), by=am) %>% 
+# crosstable(mtcars2, c(mpg, cyl), by=am) %>% 
+crosstable(mtcars2, mpg, cyl, by=am) %>% 
   as_flextable(keep_id=TRUE)
 ```
 
@@ -110,7 +112,7 @@ In this vignette, I will often set `keep_id=TRUE` so you can see the variable na
 
 ## Totals
 
-To display totals, use the `total` argument (`c("none", "row", "column", "both")`)
+To display totals, use the `total` argument as one of `c("none", "row", "column", "both")`.
 
 ```{r crosstable-total-both}
 #of course, the total of a "column" in only meaningful for categorical variables.
