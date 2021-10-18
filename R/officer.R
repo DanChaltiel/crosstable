@@ -583,6 +583,7 @@ write_and_open = function(doc, docx.file){
 
 # External utils ---------------------------------------------------------
 
+# nocov start
 #' Generate a macro file for autofitting
 #'
 #' This function generates a file that can be imported into MS Word in order to use a macro for autofitting all tables in a document at once. This macro file should be imported only once per computer.
@@ -612,6 +613,7 @@ generate_autofit_macro = function(){
     invisible(NULL)
 }
 
+# nocov end
 
 # Internal utils ---------------------------------------------------------
 
@@ -650,6 +652,7 @@ parse_reference = function(doc, value){
     body_add_fpar(doc, p)
 }
 
+# nocov start
 
 #' @importFrom stringr str_detect str_match_all
 #' @importFrom glue glue
@@ -677,3 +680,5 @@ parse_reference_legacy = function(doc, value){
                          style=normal_style_character, pos='after') %>%
         parse_reference(x[3])
 }
+
+# nocov end
