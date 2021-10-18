@@ -25,7 +25,8 @@
 #' xx = mtcars2 %>% dplyr::select(1:9)
 #' crosstable(xx) %>% as_gt
 #' crosstable(xx, by=am) %>% as_gt
-#' crosstable(xx, by=am, test=TRUE, total=TRUE, effect=TRUE) %>% as_gt(keep_id=TRUE)
+#' crosstable(xx, by=cyl, test=TRUE, total=TRUE, effect=TRUE) %>% 
+#'    as_gt(keep_id=TRUE, show_test_name=FALSE, by_header="Cylinders")
 as_gt.crosstable = function(x, show_test_name = TRUE, 
                             by_header = NULL, keep_id = FALSE,
                             generic_labels=list(id = ".id", variable = "variable", value = "value", 

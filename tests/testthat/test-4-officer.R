@@ -255,7 +255,10 @@ test_that("Officers warnings and errors", {
 
 
 
-# openxlsx workbooks ------------------------------------------------------
+# Other reporting functions -----------------------------------------------
+
+
+## openxlsx workbooks ------------------------------------------------------
 
 
 
@@ -289,4 +292,25 @@ test_that("openxlsx is working", {
         openxlsx::saveWorkbook(wb6, file = "tests/testthat/xlsx/test_openxlsx6.xlsx", overwrite = TRUE)
         
     }
+})
+
+
+## gt ----------------------------------------------------------------------
+
+
+test_that("gt is working", {
+    #by=NULL
+    x1=crosstable(mtcars2, c(mpg, vs, gear), total=T, test=T)
+    as_gt(x1)
+    as_gt(x1, keep_id=TRUE)
+    expect_true(TRUE)
+
+    #by=cyl
+    x2=crosstable(mtcars2, c(mpg, vs, gear), by=cyl, total=T, test=T)
+    as_gt(x2)
+    as_gt(x2, keep_id=TRUE, show_test_name=FALSE, by_header="Cylinders")
+    
+    #by=c(cyl, am) --> error pour l'instant
+    x3=crosstable(mtcars2, c(mpg, vs, gear), by=c(cyl, am), total=T)
+    as_gt(x3) %>% expect_error(class="gt_multiby_not_implemented_error")
 })
