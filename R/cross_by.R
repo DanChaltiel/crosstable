@@ -90,7 +90,7 @@ cross_by = function(data_x, data_y, funs, funs_arg, margin, total, percent_digit
     }
     
     if("effect" %in% names(rtn_tbl) && any(rtn_tbl$effect=="No effect?")){
-        x=rtn_tbl %>% filter(effect=="No effect?") %>% pull(.data$.id) %>% unique
+        x=rtn_tbl %>% filter(effect=="No effect?") %>% pull(.data$.id) %>% unique()
         s=if(length(x)>1) "s" else ""
         v=glue_collapse(x, "', '", last="', and '")
         warn(glue("Cannot calculate crosstable effects for variable{s} '{v}'"),

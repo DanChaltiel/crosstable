@@ -153,8 +153,8 @@ as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL,
             filter(col_keys %in% rtn$header$col_keys) %>%
             pull(-2) %>% {which(!. %in% generic_labels & .!=lead(.))}
         borders_j = c(border_left_first+1, border_separations+1)
-        rtn =
-            rtn %>% 
+        
+        rtn = rtn %>% 
             set_header_df(header_mapping, key = "col_keys") %>%
             merge_h(i=seq.int(length(by_levels)-1), part = "head") %>%
             border(j=borders_j, border.left=border1, part="all") %>%
