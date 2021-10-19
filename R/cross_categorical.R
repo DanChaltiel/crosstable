@@ -43,25 +43,10 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
 #' @keywords internal
 #' @noRd
 summarize_categorical_single = function(x, showNA, total, digits, margin){
-    # utils::str(x)
-    # print(class(x))
-    # print(margin)
-    # tb=table(x, useNA = "no")
-    # print(tb)
     tbd = table(x, useNA = "no") %>%
         as.data.frame(stringsAsFactors=FALSE) %>%
-        set_names(c("x", "Freq"))
-    # print(ncol(tbd))
-    # print(tbd)
-    # print(class(tbd))
-    # print(dimnames(tbd))
-    # browser()
-    # print(tbd$x)
-    # print(tbd$Freq)
-    # select(tbd, variable="x", value="Freq") %>% print()
+        set_names(c("x", "Freq")) #needed for an odd bug on fedora-devel
     if(identical(margin,-1)){
-        # rtn = table(x, useNA = "no") %>% 
-        #     as.data.frame(responseName="Freq", stringsAsFactors=FALSE) %>% 
         rtn = tbd %>% 
             select(variable="x", value="Freq")
     } else {
