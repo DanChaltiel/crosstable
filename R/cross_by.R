@@ -4,7 +4,7 @@
 #' @importFrom glue glue glue_data glue_collapse
 #' @keywords internal
 #' @noRd
-cross_by = function(data_x, data_y, funs, funs_arg, margin, total, percent_digits, 
+cross_by = function(data_x, data_y, funs, funs_arg, percent_pattern, total, percent_digits, 
                     showNA, label, test, times, followup, 
                     test_args, cor_method, effect, effect_args){
     if(!is.null(data_y) && ncol(data_y)>1) abort(glue("data_y has {ncol(data_y)} columns (max=1)"))
@@ -57,7 +57,7 @@ cross_by = function(data_x, data_y, funs, funs_arg, margin, total, percent_digit
                               cor_digits=percent_digits, cor_method=cor_method,
                               test=test, test_args=test_args, effect=effect, effect_args=effect_args)
         } else if(is.character.or.factor(.x)){
-            rtn=cross_categorical(data_x[.y], data_y, margin=margin,
+            rtn=cross_categorical(data_x[.y], data_y, percent_pattern=percent_pattern,
                                   showNA=showNA, total=total, label=label, percent_digits=percent_digits,
                                   test=test, test_args=test_args, effect=effect, effect_args=effect_args)
         } else if(is.Surv(.x)){

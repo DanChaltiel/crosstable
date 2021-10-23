@@ -7,31 +7,32 @@ utils::globalVariables(c("x", "y", "ct", "col_keys"))
 #' \cr
 #' Can be formatted as an HTML table using [as_flextable()].
 #' 
-#' @param data a data.frame
-#' @param cols the variables to describe. Can be a character or name vector, a tidyselect helper, a (lambda) function that returns a logical, or a formula. See examples or `vignette("crosstable-selection")` for more details.
-#' @param ... more variables to describe. Cannot be a lambda function nor a formula.
-#' @param by the variable to group on. Character or name.
-#' @param funs functions to apply to numeric variables. Default to [cross_summary].
-#' @param funs_arg additional parameters for `funs`, e.g. `digits` (the number of decimal places) for the default [cross_summary]. Ultimately, these arguments are passed to [format_fixed].
+#' @param data A data.frame
+#' @param cols The variables to describe. Can be a character or name vector, a tidyselect helper, a (lambda) function that returns a logical, or a formula. See examples or `vignette("crosstable-selection")` for more details.
+#' @param ... Unused. All parameters after this one must be named.
+#' @param by The variable to group on. Character or name.
+#' @param funs Functions to apply to numeric variables. Default to [cross_summary()].
+#' @param funs_arg Additional parameters for `funs`, e.g. `digits` (the number of decimal places) for the default [cross_summary()]. Ultimately, these arguments are passed to [format_fixed()].
 #' @param total one of \["none", "row", "column" or "both"] to indicate whether to add total rows and/or columns. Default to `none`.
-#' @param margin one of \["row", "column", "cell", "none" or "all"] to indicate which proportions should be computed in frequency tables. Default to `row`.
-#' @param percent_digits number of digits for percentages
-#' @param unique_numeric the number of non-missing different levels a variable should have to be considered as numeric
-#' @param showNA whether to show NA in categorical variables (one of \code{c("ifany", "always", "no")}, like in \code{table()})
-#' @param label whether to show labels. See [import_labels] or [set_label]for how to add labels to the dataset columns.
-#' @param cor_method one of \["pearson", "kendall", or "spearman"] to indicate which correlation coefficient is to be used.
-#' @param times when using formula with [survival::Surv()] objects, which times to summarize
-#' @param followup when using formula with [survival::Surv()] objects, whether to display follow-up time
-#' @param test whether to perform tests
+#' @param percent_pattern Pattern used to describe proportions in categorical data. Use the [glue::glue()] syntax with any variable in `c("n", "p_row", "p_coll", "p_cell")`. Default to `"{n} ({p_row})"`.
+#' @param percent_digits Number of digits for percentages
+#' @param unique_numeric The number of non-missing different levels a variable should have to be considered as numeric
+#' @param showNA Whether to show NA in categorical variables (one of \code{c("ifany", "always", "no")}, like in \code{table()})
+#' @param label Whether to show labels. See [import_labels()] or [set_label()]for how to add labels to the dataset columns.
+#' @param cor_method One of `c("pearson", "kendall", "spearman")` to indicate which correlation coefficient is to be used.
+#' @param times When using formula with [survival::Surv()] objects, which times to summarize
+#' @param followup When using formula with [survival::Surv()] objects, whether to display follow-up time
+#' @param test Whether to perform tests
 #' @param test_args See \code{\link{crosstable_test_args}} to override default testing behaviour.
-#' @param effect whether to compute a effect measure
+#' @param effect Whether to compute a effect measure
 #' @param effect_args See \code{\link{crosstable_effect_args}} to override default behaviour.
-#' @param .vars deprecated
+#' @param margin Deprecated in favor of `percent_pattern`. One of \["row", "column", "cell", "none", or "all"]. Default to `row`.
+#' @param .vars Deprecated
 #' @inheritParams format_fixed
 #' 
 #' @author Dan Chaltiel
 #' @export
-#' @importFrom checkmate makeAssertCollection reportAssertions assert_data_frame assert_count assert_logical assert_list assert_subset assert_choice
+#' @importFrom checkmate makeAssertCollection reportAssertions assert_data_frame assert_count assert_string assert_logical assert_list assert_subset assert_choice
 #' @importFrom rlang quos enquos enquo expr quo_is_null is_null is_quosures is_formula is_string is_empty is_lambda as_function set_env quo_squash caller_env warn abort quo_is_missing
 #' @importFrom tidyselect vars_select eval_select everything any_of 
 #' @importFrom dplyr select mutate_if n_distinct across
@@ -42,7 +43,7 @@ utils::globalVariables(c("x", "y", "ct", "col_keys"))
 #' @importFrom lifecycle deprecated is_present deprecate_warn deprecate_stop
 #' @importFrom stats model.frame
 #' 
-#' @return A `data.frame` of class `crosstable`
+#' @return A `data.frame`/`tibble` of class `crosstable`
 #' 
 #' @seealso https://danchaltiel.github.io/crosstable/, as_flextable, import_labels
 #' 
@@ -76,14 +77,15 @@ utils::globalVariables(c("x", "y", "ct", "col_keys"))
 #' crosstable(aml, Surv(time, status) ~ x,times=c(0,15,30,150), followup=TRUE)
 crosstable = function(data, cols=NULL, ..., by=NULL, 
                       total = c("none", "row", "column", "both"),
-                      margin = c("row", "column", "cell", "none", "all"), 
-                      percent_digits = 2, showNA = c("ifany", "always", "no"), label = TRUE, 
+                      percent_pattern = "{n} ({p_row})", percent_digits = 2, 
+                      showNA = c("ifany", "always", "no"), label = TRUE, 
                       funs = c(" " = cross_summary), funs_arg=list(), 
                       cor_method = c("pearson", "kendall", "spearman"), 
                       unique_numeric = 3, date_format=NULL, 
                       times = NULL, followup = FALSE, 
                       test = FALSE, test_args = crosstable_test_args(), 
                       effect = FALSE, effect_args = crosstable_effect_args(), 
+                      margin = c("row", "column", "cell", "none", "all"), 
                       .vars) {
     debug=list()
     
@@ -94,47 +96,45 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     assert_data_frame(data, null.ok=FALSE, add=coll)
     dataCall = deparse(substitute(data))
     data = as.data.frame(data)
+    assert_string(percent_pattern, add=coll)
     assert_count(percent_digits, add=coll)
     assert_logical(label, add=coll)
+    assert_logical(followup, add=coll)
+    assert_logical(test, add=coll)
+    assert_logical(effect, add=coll)
     assert_list(funs_arg, add=coll)
     if(isFALSE(showNA)) showNA="no"
     if(isTRUE(showNA)) showNA="always"
     showNA = match.arg(showNA)
     cor_method = match.arg(cor_method)
-    
-    
-    if (missing(margin)) margin = "row"
-    if (isTRUE(margin)) margin = c("row", "col")
-    if (is.character(margin)) {
-        assert_subset(margin, c("all", "row", "col", "column", "cell", "none"), add=coll)
-        if(is.null(margin)) {
-            margin=0:2 #defaulting 
+
+    if(!missing(margin)){
+        if(length(margin)>3){
+            abort(c("Margin should be of max length 3", 
+                    i=glue("margin={paste0(margin, collapse=', ')}")), 
+                  class="XXX") #TODO TODO!
+        }
+        if(missing(percent_pattern)) {
+            percent_pattern = get_percent_pattern(margin)
         } else {
-            marginopts = list(all = 0:2,
-                              row = 1,
-                              col = 2,
-                              column = 2,
-                              cell = 0,
-                              none=-1)
-            margin = unname(unlist(marginopts[margin]))
+            warn(c("Argument `margin` is ignored if `percent_pattern` is set.", 
+                   i=glue("`margin`={margin}"), 
+                   i=glue("`percent_pattern`={percent_pattern}")), #TODO warning
+                 class="xxxx")
         }
     }
     
-    if (missing(total)) total = "none"
-    if (isTRUE(total)) total = "both"
-    if (is.character(total)) {
+    if(missing(total) || is.null(total)) total = 0
+    else if(isTRUE(total)) total = 1:2
+    else if(is.character(total)) {
         assert_choice(total, c("none", "both", "all", "row", "col", "column"), add=coll)
-        if(is.null(total)) {
-            total=0 #defaulting
-        } else {
-            totalopts = list(all = 1:2,
-                             both = 1:2,
-                             row = 1,
-                             col = 2,
-                             column = 2,
-                             none = 0)
-            total = unname(unlist(totalopts[total]))
-        }
+        totalopts = list(all = 1:2,
+                         both = 1:2,
+                         row = 1,
+                         col = 2,
+                         column = 2,
+                         none = 0)
+        total = unname(unlist(totalopts[total]))
     }
     reportAssertions(coll)
     
@@ -363,7 +363,8 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
             mutate(y=factor(y, levels=data_y_lvl))
         
         rtn = cross_by(data_x=data_x, data_y=data_y2, funs=funs, funs_arg=funs_arg,
-                       margin=margin, total=total, percent_digits=percent_digits, showNA=showNA,
+                       percent_pattern=percent_pattern, total=total, 
+                       percent_digits=percent_digits, showNA=showNA,
                        cor_method=cor_method, times=times, followup=followup, test=test, test_args=test_args,
                        effect=effect, effect_args=effect_args, label=label)
         
@@ -371,7 +372,8 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
         
     } else {
         rtn = cross_by(data_x=data_x, data_y=data_y, funs=funs, funs_arg=funs_arg,
-                       margin=margin, total=total, percent_digits=percent_digits, showNA=showNA,
+                       percent_pattern=percent_pattern, percent_digits=percent_digits, 
+                       total=total, showNA=showNA,
                        cor_method=cor_method, times=times, followup=followup, test=test, test_args=test_args,
                        effect=effect, effect_args=effect_args, label=label)
         class(rtn) = c("crosstable", "tbl_df", "tbl", "data.frame")
