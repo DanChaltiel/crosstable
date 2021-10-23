@@ -307,6 +307,7 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
                            legend_style, name_format, seqfield, 
                            style, legacy){
     
+    # nocov start
     if(packageVersion("officer")<"0.4" || legacy){
         if(!legacy){
             warn("You might want to update officer to v0.4+ in order to get the best of crosstable::body_add_xxx_legend().", 
@@ -327,6 +328,7 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
                        "body_add_X_legend(name_format)", 
                        details="The `style` argument has been ignored. Use `legacy=TRUE` to override.")
     }
+    # nocov end
 
     fp_text2 = officer::fp_text_lite #v0.4+
     if(is.null(name_format)){
@@ -353,6 +355,7 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
 }
 
 
+# nocov start
 #' @importFrom glue glue
 #' @importFrom officer body_add_par slip_in_text slip_in_seqfield body_bookmark
 #' @keywords internal
@@ -370,6 +373,7 @@ body_add_legend_legacy = function(doc, legend, legend_name, bookmark,
     }
     slip_in_text(rtn, str=glue("{legend_name} "), style=style, pos="before")
 }
+# nocov end
 
 
 
