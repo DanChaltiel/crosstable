@@ -11,6 +11,7 @@ crosstable(
   by = NULL,
   total = c("none", "row", "column", "both"),
   margin = c("row", "column", "cell", "none", "all"),
+  percent_pattern = "{n} ({p_row})",
   percent_digits = 2,
   showNA = c("ifany", "always", "no"),
   label = TRUE,
@@ -33,7 +34,7 @@ crosstable(
 
 \item{cols}{the variables to describe. Can be a character or name vector, a tidyselect helper, a (lambda) function that returns a logical, or a formula. See examples or \code{vignette("crosstable-selection")} for more details.}
 
-\item{...}{more variables to describe. Cannot be a lambda function nor a formula.}
+\item{...}{unused. All parameters after this one must be named.}
 
 \item{by}{the variable to group on. Character or name.}
 
@@ -72,7 +73,7 @@ crosstable(
 \item{.vars}{deprecated}
 }
 \value{
-A \code{data.frame} of class \code{crosstable}
+A \code{data.frame}/\code{tibble} of class \code{crosstable}
 }
 \description{
 Generate a descriptive table of all chosen columns, as contingency tables for categorical variables and as calculation summaries for numeric variables. If the \code{by} argument points to one or several categorical variables, \code{crosstable} will output a description of all columns for each level. Otherwise, if it points to a numeric variable, \code{crosstable} will calculate correlation coefficients with all other selected numeric columns. Finally, if it points to a \code{Surv} object, \code{crosstable} will describe the survival at different times.\cr
