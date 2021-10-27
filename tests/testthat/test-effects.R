@@ -1,4 +1,8 @@
 
+# crosstable_effect_2groups_warning
+
+# Categorical variables ---------------------------------------------------
+
 test_that("Effects: categorical variables", {
     set.seed(0)
     args = crosstable_effect_args()
@@ -18,6 +22,9 @@ test_that("Effects: categorical variables", {
     x=crosstable(mtcars3, am, by=vs, effect=T, effect_args=args)
     expect_match(x$effect[1], "-1.66 [-3.79 to 0.11]", fixed=TRUE)
 })#TODO doc effect dire que ref = 1er level des factors
+
+
+# Numeric variables -------------------------------------------------------
 
 test_that("Effects: numeric variables", {
     args = crosstable_effect_args()
@@ -51,6 +58,9 @@ test_that("Effects: numeric variables", {
     expect_match(x$effect[1], "208.90 [89.06 to 283.31]", fixed=TRUE)
 })
 
+
+# Survival variables ------------------------------------------------------
+
 test_that("Effects: survival variables", {
     set.seed(1234)
     x=crosstable(mtcars3, surv, by=cyl6, effect=T)
@@ -62,6 +72,14 @@ test_that("Effects: survival variables", {
 })
 
 
+# Warnings ----------------------------------------------------------------
+
+test_that("Effects Warnings", {
+    crosstable(mtcars3, by=vs, times=c(0,100,200,400), effect=T) %>%
+        expect_warning("fitted probabilities numerically 0 or 1 occurred") %>%
+        expect_warning("fitted probabilities numerically 0 or 1 occurred") %>%
+        expect_warning(class="crosstable_effect_other_warning")
+})
 
 
 # Automatic snapshot tests ------------------------------------------------
@@ -134,12 +152,5 @@ test_that("Effects never fail 3", {
     })
 })
 
-
-test_that("Effects Warnings", {
-    crosstable(mtcars3, by=vs, times=c(0,100,200,400), effect=T) %>%
-        expect_warning("fitted probabilities numerically 0 or 1 occurred") %>%
-        expect_warning("fitted probabilities numerically 0 or 1 occurred") %>%
-        expect_warning(class="crosstable_effect_other_warning")
-})
 
 #snapshot_review('1-effects')
