@@ -20,6 +20,7 @@
   fontsizes = list(body = getOption("crosstable_fontsize_body", 11), subheaders =
     getOption("crosstable_fontsize_subheaders", 11), header =
     getOption("crosstable_fontsize_header", 11)),
+  padding_v = getOption("crosstable_padding_v", NULL),
   remove_header_keys = FALSE,
   generic_labels = list(id = ".id", variable = "variable", value = "value", total =
     "Total", label = "label", test = "test", effect = "effect"),
@@ -39,7 +40,9 @@
 
 \item{show_test_name}{in the \code{test} column, show the test name}
 
-\item{fontsizes}{font sizes as a list of keys [body, subheaders, header]. If set through arguments, all needed names should be mentioned.}
+\item{fontsizes}{font sizes as a list of keys \code{c(body, subheaders, header)}. If set through arguments instead of options, all 3 names should be specified.}
+
+\item{padding_v}{vertical padding (body)}
 
 \item{remove_header_keys}{if \code{TRUE} and \code{x} has several \code{by} strata, header will only display values}
 

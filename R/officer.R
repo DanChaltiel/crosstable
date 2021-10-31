@@ -41,7 +41,7 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
     if(length(header_fontsize)!=0)
         ft = fontsize(ft, size = header_fontsize, part = "header")
     if(length(padding_v)!=0)
-        ft = padding(ft, padding.top=padding, padding.bottom=padding, part = "body")
+        ft = padding(ft, padding.top=padding_v, padding.bottom=padding_v, part = "body")
     
     body_add_flextable(doc, ft)
 }
