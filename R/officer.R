@@ -92,7 +92,7 @@ body_add_normal = function(doc, ..., .sep="", squish=TRUE) {
     if(all(lengths==1)){ #one or several vectors of length 1
         value = glue(..., .sep=.sep, .envir=parent.frame())
         if(squish) value = str_squish(value)
-        if(str_detect(value, "\\\\@ref\\((.*?)\\)")){
+        if(length(value) > 0 && str_detect(value, "\\\\@ref\\((.*?)\\)")){
             # doc = body_add_par(doc, "") %>% parse_reference(value)
             doc = body_add_par(doc, "") %>% parse_reference(value)
         } else{
