@@ -101,7 +101,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3.9000</span>
       </span>
     </div>
 
@@ -190,10 +190,10 @@
 <li>
 <code><a href="../reference/body_add_crosstable.html">body_add_crosstable()</a></code> gains a <code>padding_v</code> argument to control the vertical padding of all rows.</li>
 <li>
-<code><a href="../reference/body_add_title.html">body_add_title()</a></code> and <code>body_add_xxx_legend)</code> gain a glue functionality. You can now write <code><a href="../reference/body_add_title.html">body_add_title("The iris dataset (nrow={nrow(iris)})", 1)</a></code>.</li>
+<code><a href="../reference/body_add_title.html">body_add_title()</a></code> and <code>body_add_xxx_legend)</code> gain a glue functionality. You can now write <code>body_add_title("The iris dataset (nrow={nrow(iris)})", 1)</code>.</li>
 <li>
 <code><a href="../reference/as_workbook.html">as_workbook()</a></code> can now take a named list of crosstables, that will be considered as sheets.</li>
-<li>New parameter <code>percent</code> in <code><a href="../reference/format_fixed.html">format_fixed(percent=TRUE/FALSE)</a></code> to easily format percentages.</li>
+<li>New parameter <code>percent</code> in <code>format_fixed(percent=TRUE/FALSE)</code> to easily format percentages.</li>
 </ul>
 </div>
 <div id="minor-changes" class="section level4">
@@ -280,9 +280,9 @@ Use the <code>bookmark</code> argument to set a reference, then write <code>"\\@
 <h4 class="hasAnchor">
 <a href="#deprecations" class="anchor"></a>Deprecations</h4>
 <ul>
-<li>Ellipsis (<code>...</code>) use in <code><a href="../reference/crosstable.html">crosstable()</a></code> has been deprecated for a more “tidy” syntax. Write <code><a href="../reference/crosstable.html">crosstable(mtcars2, c(disp, vs))</a></code> instead of <code><a href="../reference/crosstable.html">crosstable(mtcars2, disp, vs)</a></code>. Ellipsis will be defunct in future v1.0.</li>
+<li>Ellipsis (<code>...</code>) use in <code><a href="../reference/crosstable.html">crosstable()</a></code> has been deprecated for a more “tidy” syntax. Write <code>crosstable(mtcars2, c(disp, vs))</code> instead of <code>crosstable(mtcars2, disp, vs)</code>. Ellipsis will be defunct in future v1.0.</li>
 <li>
-<code><a href="../reference/crosstable.html">crosstable(.vars=)</a></code> has been renamed to <code><a href="../reference/crosstable.html">crosstable(cols=)</a></code>.</li>
+<code>crosstable(.vars=)</code> has been renamed to <code>crosstable(cols=)</code>.</li>
 <li>
 <code><a href="../reference/summaryFunctions.html">moystd()</a></code> has been renamed to <code><a href="../reference/summaryFunctions.html">meansd()</a></code>.</li>
 <li>

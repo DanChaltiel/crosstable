@@ -103,7 +103,7 @@ Copy the label from one variable to another" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3.9000</span>
       </span>
     </div>
 
@@ -223,37 +223,39 @@ Copy the label from one variable to another" />
 <p>Dan Chaltiel</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-<span class='va'>mtcars</span> <span class='op'>%&gt;%</span> 
-   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>mpg2<span class='op'>=</span><span class='fu'>set_label</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='st'>"Miles per gallon"</span><span class='op'>)</span>,
-          mpg3<span class='op'>=</span><span class='va'>mpg</span> <span class='op'>%&gt;%</span> <span class='fu'>copy_label_from</span><span class='op'>(</span><span class='va'>mpg2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-   <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>mpg2</span>, <span class='va'>mpg3</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 × 4</span>
-#&gt;    .id   label            variable   value           
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           
-#&gt; <span style='color: #BCBCBC;'> 1</span> mpg   mpg              Min / Max  10.4 / 33.9     
-#&gt; <span style='color: #BCBCBC;'> 2</span> mpg   mpg              Med [IQR]  19.2 [15.4;22.8]
-#&gt; <span style='color: #BCBCBC;'> 3</span> mpg   mpg              Mean (std) 20.1 (6.0)      
-#&gt; <span style='color: #BCBCBC;'> 4</span> mpg   mpg              N (NA)     32 (0)          
-#&gt; <span style='color: #BCBCBC;'> 5</span> mpg2  Miles per gallon Min / Max  10.4 / 33.9     
-#&gt; <span style='color: #BCBCBC;'> 6</span> mpg2  Miles per gallon Med [IQR]  19.2 [15.4;22.8]
-#&gt; <span style='color: #BCBCBC;'> 7</span> mpg2  Miles per gallon Mean (std) 20.1 (6.0)      
-#&gt; <span style='color: #BCBCBC;'> 8</span> mpg2  Miles per gallon N (NA)     32 (0)          
-#&gt; <span style='color: #BCBCBC;'> 9</span> mpg3  Miles per gallon Min / Max  10.4 / 33.9     
-#&gt; <span style='color: #BCBCBC;'>10</span> mpg3  Miles per gallon Med [IQR]  19.2 [15.4;22.8]
-#&gt; <span style='color: #BCBCBC;'>11</span> mpg3  Miles per gallon Mean (std) 20.1 (6.0)      
-#&gt; <span style='color: #BCBCBC;'>12</span> mpg3  Miles per gallon N (NA)     32 (0)          </div><div class='input'><span class='va'>mtcars</span> <span class='op'>%&gt;%</span> 
-   <span class='fu'>copy_label_from</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>11</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-   <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 4</span>
-#&gt;   .id   label             variable   value           
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           
-#&gt; <span style='color: #BCBCBC;'>1</span> mpg   Miles/(US) gallon Min / Max  10.4 / 33.9     
-#&gt; <span style='color: #BCBCBC;'>2</span> mpg   Miles/(US) gallon Med [IQR]  19.2 [15.4;22.8]
-#&gt; <span style='color: #BCBCBC;'>3</span> mpg   Miles/(US) gallon Mean (std) 20.1 (6.0)      
-#&gt; <span style='color: #BCBCBC;'>4</span> mpg   Miles/(US) gallon N (NA)     32 (0)          
-#&gt; <span style='color: #BCBCBC;'>5</span> vs    Engine            0          18 (56.25%)     
-#&gt; <span style='color: #BCBCBC;'>6</span> vs    Engine            1          14 (43.75%)     </div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>mtcars</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span class='r-in'>   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>mpg2<span class='op'>=</span><span class='fu'>set_label</span><span class='op'>(</span><span class='va'>mpg</span>, <span class='st'>"Miles per gallon"</span><span class='op'>)</span>,</span>
+<span class='r-in'>          mpg3<span class='op'>=</span><span class='va'>mpg</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>copy_label_from</span><span class='op'>(</span><span class='va'>mpg2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span class='r-in'>   <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>mpg2</span>, <span class='va'>mpg3</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 12 × 4</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    .id   label            variable   value           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> mpg   mpg              Min / Max  10.4 / 33.9     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> mpg   mpg              Med [IQR]  19.2 [15.4;22.8]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> mpg   mpg              Mean (std) 20.1 (6.0)      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> mpg   mpg              N (NA)     32 (0)          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> mpg2  Miles per gallon Min / Max  10.4 / 33.9     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> mpg2  Miles per gallon Med [IQR]  19.2 [15.4;22.8]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> mpg2  Miles per gallon Mean (std) 20.1 (6.0)      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> mpg2  Miles per gallon N (NA)     32 (0)          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> mpg3  Miles per gallon Min / Max  10.4 / 33.9     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> mpg3  Miles per gallon Med [IQR]  19.2 [15.4;22.8]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>11</span> mpg3  Miles per gallon Mean (std) 20.1 (6.0)      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>12</span> mpg3  Miles per gallon N (NA)     32 (0)          </span>
+<span class='r-in'><span class='va'>mtcars</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span class='r-in'>   <span class='fu'>copy_label_from</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>11</span><span class='op'>]</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span class='r-in'>   <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 6 × 4</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .id   label             variable   value           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> mpg   Miles/(US) gallon Min / Max  10.4 / 33.9     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> mpg   Miles/(US) gallon Med [IQR]  19.2 [15.4;22.8]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> mpg   Miles/(US) gallon Mean (std) 20.1 (6.0)      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> mpg   Miles/(US) gallon N (NA)     32 (0)          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span> vs    Engine            0          18 (56.25%)     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>6</span> vs    Engine            1          14 (43.75%)     </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

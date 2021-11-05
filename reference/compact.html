@@ -102,7 +102,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3.9000</span>
       </span>
     </div>
 
@@ -236,134 +236,138 @@
 <p>Dan Chaltiel</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>#dataframes</span>
-<span class='va'>x</span><span class='op'>=</span><span class='va'>iris</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>,<span class='fl'>51</span><span class='op'>:</span><span class='fl'>55</span>,<span class='fl'>101</span><span class='op'>:</span><span class='fl'>105</span><span class='op'>)</span>,<span class='op'>]</span>
-<span class='fu'>compact</span><span class='op'>(</span><span class='va'>x</span>, name_from<span class='op'>=</span><span class='st'>"Species"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      variable Sepal.Length Sepal.Width Petal.Length Petal.Width
-#&gt; 1      setosa                                                  
-#&gt; 2                      5.1         3.5          1.4         0.2
-#&gt; 3                      4.9           3          1.4         0.2
-#&gt; 4                      4.7         3.2          1.3         0.2
-#&gt; 5                      4.6         3.1          1.5         0.2
-#&gt; 6                        5         3.6          1.4         0.2
-#&gt; 7  versicolor                                                  
-#&gt; 8                        7         3.2          4.7         1.4
-#&gt; 9                      6.4         3.2          4.5         1.5
-#&gt; 10                     6.9         3.1          4.9         1.5
-#&gt; 11                     5.5         2.3            4         1.3
-#&gt; 12                     6.5         2.8          4.6         1.5
-#&gt; 13  virginica                                                  
-#&gt; 14                     6.3         3.3            6         2.5
-#&gt; 15                     5.8         2.7          5.1         1.9
-#&gt; 16                     7.1           3          5.9         2.1
-#&gt; 17                     6.3         2.9          5.6         1.8
-#&gt; 18                     6.5           3          5.8         2.2</div><div class='input'><span class='fu'>compact</span><span class='op'>(</span><span class='va'>x</span>, name_from<span class='op'>=</span><span class='st'>"Species"</span>, name_to<span class='op'>=</span><span class='st'>"Petal.Length"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    Petal.Length Sepal.Length Sepal.Width Petal.Width
-#&gt; 1        setosa                                     
-#&gt; 2           1.4          5.1         3.5         0.2
-#&gt; 3           1.4          4.9           3         0.2
-#&gt; 4           1.3          4.7         3.2         0.2
-#&gt; 5           1.5          4.6         3.1         0.2
-#&gt; 6           1.4            5         3.6         0.2
-#&gt; 7    versicolor                                     
-#&gt; 8           4.7            7         3.2         1.4
-#&gt; 9           4.5          6.4         3.2         1.5
-#&gt; 10          4.9          6.9         3.1         1.5
-#&gt; 11            4          5.5         2.3         1.3
-#&gt; 12          4.6          6.5         2.8         1.5
-#&gt; 13    virginica                                     
-#&gt; 14            6          6.3         3.3         2.5
-#&gt; 15          5.1          5.8         2.7         1.9
-#&gt; 16          5.9          7.1           3         2.1
-#&gt; 17          5.6          6.3         2.9         1.8
-#&gt; 18          5.8          6.5           3         2.2</div><div class='input'>
-<span class='co'>#crosstables</span>
-<span class='va'>x</span><span class='op'>=</span><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>disp</span>,<span class='va'>hp</span>,<span class='va'>am</span><span class='op'>)</span>, by<span class='op'>=</span><span class='va'>vs</span>, test<span class='op'>=</span><span class='cn'>TRUE</span>, effect<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'>compact</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                 variable           straight             vshaped
-#&gt; 1  Displacement (cu.in.)                                       
-#&gt; 2              Min / Max       71.1 / 258.0       120.3 / 472.0
-#&gt; 3              Med [IQR] 120.5 [83.0;162.4] 311.0 [275.8;360.0]
-#&gt; 4             Mean (std)       132.5 (56.9)       307.1 (106.8)
-#&gt; 5                 N (NA)             14 (0)              18 (0)
-#&gt; 6       Gross horsepower                                       
-#&gt; 7              Min / Max       52.0 / 123.0        91.0 / 335.0
-#&gt; 8              Med [IQR]  96.0 [66.0;109.8] 180.0 [156.2;226.2]
-#&gt; 9             Mean (std)        91.4 (24.4)        189.7 (60.3)
-#&gt; 10                N (NA)             14 (0)              18 (0)
-#&gt; 11          Transmission                                       
-#&gt; 12                  auto         7 (36.84%)         12 (63.16%)
-#&gt; 13                manual         7 (53.85%)          6 (46.15%)
-#&gt;                                                                                               effect
-#&gt; 1  Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 174.69 [114.36 to 235.02]
-#&gt; 2                                                                                                   
-#&gt; 3                                                                                                   
-#&gt; 4                                                                                                   
-#&gt; 5                                                                                                   
-#&gt; 6    Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 98.37 [66.06 to 130.67]
-#&gt; 7                                                                                                   
-#&gt; 8                                                                                                   
-#&gt; 9                                                                                                   
-#&gt; 10                                                                                                  
-#&gt; 11          Odds ratio [95% Wald CI], ref='vshaped vs straight'\nmanual vs auto: 0.50 [0.11 to 2.08]
-#&gt; 12                                                                                                  
-#&gt; 13                                                                                                  
-#&gt;                                              test
-#&gt; 1    p value: &lt;0.0001 \n(Welch Two Sample t-test)
-#&gt; 2                                                
-#&gt; 3                                                
-#&gt; 4                                                
-#&gt; 5                                                
-#&gt; 6    p value: &lt;0.0001 \n(Welch Two Sample t-test)
-#&gt; 7                                                
-#&gt; 8                                                
-#&gt; 9                                                
-#&gt; 10                                               
-#&gt; 11 p value: 0.3409 \n(Pearson's Chi-squared test)
-#&gt; 12                                               
-#&gt; 13                                               </div><div class='input'><span class='fu'>compact</span><span class='op'>(</span><span class='va'>x</span>, name_from<span class='op'>=</span><span class='st'>".id"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      variable           straight             vshaped
-#&gt; 1        disp                                       
-#&gt; 2   Min / Max       71.1 / 258.0       120.3 / 472.0
-#&gt; 3   Med [IQR] 120.5 [83.0;162.4] 311.0 [275.8;360.0]
-#&gt; 4  Mean (std)       132.5 (56.9)       307.1 (106.8)
-#&gt; 5      N (NA)             14 (0)              18 (0)
-#&gt; 6          hp                                       
-#&gt; 7   Min / Max       52.0 / 123.0        91.0 / 335.0
-#&gt; 8   Med [IQR]  96.0 [66.0;109.8] 180.0 [156.2;226.2]
-#&gt; 9  Mean (std)        91.4 (24.4)        189.7 (60.3)
-#&gt; 10     N (NA)             14 (0)              18 (0)
-#&gt; 11         am                                       
-#&gt; 12       auto         7 (36.84%)         12 (63.16%)
-#&gt; 13     manual         7 (53.85%)          6 (46.15%)
-#&gt;                                                                                               effect
-#&gt; 1  Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 174.69 [114.36 to 235.02]
-#&gt; 2                                                                                                   
-#&gt; 3                                                                                                   
-#&gt; 4                                                                                                   
-#&gt; 5                                                                                                   
-#&gt; 6    Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 98.37 [66.06 to 130.67]
-#&gt; 7                                                                                                   
-#&gt; 8                                                                                                   
-#&gt; 9                                                                                                   
-#&gt; 10                                                                                                  
-#&gt; 11          Odds ratio [95% Wald CI], ref='vshaped vs straight'\nmanual vs auto: 0.50 [0.11 to 2.08]
-#&gt; 12                                                                                                  
-#&gt; 13                                                                                                  
-#&gt;                                              test
-#&gt; 1    p value: &lt;0.0001 \n(Welch Two Sample t-test)
-#&gt; 2                                                
-#&gt; 3                                                
-#&gt; 4                                                
-#&gt; 5                                                
-#&gt; 6    p value: &lt;0.0001 \n(Welch Two Sample t-test)
-#&gt; 7                                                
-#&gt; 8                                                
-#&gt; 9                                                
-#&gt; 10                                               
-#&gt; 11 p value: 0.3409 \n(Pearson's Chi-squared test)
-#&gt; 12                                               
-#&gt; 13                                               </div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'>#dataframes</span></span>
+<span class='r-in'><span class='va'>x</span><span class='op'>=</span><span class='va'>iris</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>,<span class='fl'>51</span><span class='op'>:</span><span class='fl'>55</span>,<span class='fl'>101</span><span class='op'>:</span><span class='fl'>105</span><span class='op'>)</span>,<span class='op'>]</span></span>
+<span class='r-in'><span class='fu'>compact</span><span class='op'>(</span><span class='va'>x</span>, name_from<span class='op'>=</span><span class='st'>"Species"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      variable Sepal.Length Sepal.Width Petal.Length Petal.Width</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1      setosa                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                      5.1         3.5          1.4         0.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                      4.9           3          1.4         0.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                      4.7         3.2          1.3         0.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                      4.6         3.1          1.5         0.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6                        5         3.6          1.4         0.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  versicolor                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8                        7         3.2          4.7         1.4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9                      6.4         3.2          4.5         1.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10                     6.9         3.1          4.9         1.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11                     5.5         2.3            4         1.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12                     6.5         2.8          4.6         1.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13  virginica                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14                     6.3         3.3            6         2.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15                     5.8         2.7          5.1         1.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16                     7.1           3          5.9         2.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17                     6.3         2.9          5.6         1.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18                     6.5           3          5.8         2.2</span>
+<span class='r-in'><span class='fu'>compact</span><span class='op'>(</span><span class='va'>x</span>, name_from<span class='op'>=</span><span class='st'>"Species"</span>, name_to<span class='op'>=</span><span class='st'>"Petal.Length"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    Petal.Length Sepal.Length Sepal.Width Petal.Width</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1        setosa                                     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2           1.4          5.1         3.5         0.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3           1.4          4.9           3         0.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4           1.3          4.7         3.2         0.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5           1.5          4.6         3.1         0.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6           1.4            5         3.6         0.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7    versicolor                                     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8           4.7            7         3.2         1.4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9           4.5          6.4         3.2         1.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10          4.9          6.9         3.1         1.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11            4          5.5         2.3         1.3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12          4.6          6.5         2.8         1.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13    virginica                                     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 14            6          6.3         3.3         2.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15          5.1          5.8         2.7         1.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 16          5.9          7.1           3         2.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 17          5.6          6.3         2.9         1.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 18          5.8          6.5           3         2.2</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#crosstables</span></span>
+<span class='r-in'><span class='va'>x</span><span class='op'>=</span><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>disp</span>,<span class='va'>hp</span>,<span class='va'>am</span><span class='op'>)</span>, by<span class='op'>=</span><span class='va'>vs</span>, test<span class='op'>=</span><span class='cn'>TRUE</span>, effect<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>compact</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 variable           straight             vshaped</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  Displacement (cu.in.)                                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2              Min / Max       71.1 / 258.0       120.3 / 472.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3              Med [IQR] 120.5 [83.0;162.4] 311.0 [275.8;360.0]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4             Mean (std)       132.5 (56.9)       307.1 (106.8)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                 N (NA)             14 (0)              18 (0)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6       Gross horsepower                                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7              Min / Max       52.0 / 123.0        91.0 / 335.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8              Med [IQR]  96.0 [66.0;109.8] 180.0 [156.2;226.2]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9             Mean (std)        91.4 (24.4)        189.7 (60.3)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10                N (NA)             14 (0)              18 (0)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11          Transmission                                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12                  auto         7 (36.84%)         12 (63.16%)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13                manual         7 (53.85%)          6 (46.15%)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                                               effect</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 174.69 [114.36 to 235.02]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                                                                                                   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                                                                                                   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                                                                                                   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                                                                                                   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6    Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 98.37 [66.06 to 130.67]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7                                                                                                   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8                                                                                                   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9                                                                                                   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10                                                                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11          Odds ratio [95% Wald CI], ref='vshaped vs straight'\nmanual vs auto: 0.50 [0.11 to 2.08]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12                                                                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13                                                                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                              test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1    p value: &lt;0.0001 \n(Welch Two Sample t-test)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6    p value: &lt;0.0001 \n(Welch Two Sample t-test)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10                                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 p value: 0.3409 \n(Pearson's Chi-squared test)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12                                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13                                               </span>
+<span class='r-in'><span class='fu'>compact</span><span class='op'>(</span><span class='va'>x</span>, name_from<span class='op'>=</span><span class='st'>".id"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      variable           straight             vshaped</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1        disp                                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2   Min / Max       71.1 / 258.0       120.3 / 472.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3   Med [IQR] 120.5 [83.0;162.4] 311.0 [275.8;360.0]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  Mean (std)       132.5 (56.9)       307.1 (106.8)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5      N (NA)             14 (0)              18 (0)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6          hp                                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7   Min / Max       52.0 / 123.0        91.0 / 335.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8   Med [IQR]  96.0 [66.0;109.8] 180.0 [156.2;226.2]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  Mean (std)        91.4 (24.4)        189.7 (60.3)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10     N (NA)             14 (0)              18 (0)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11         am                                       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12       auto         7 (36.84%)         12 (63.16%)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13     manual         7 (53.85%)          6 (46.15%)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                                               effect</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 174.69 [114.36 to 235.02]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                                                                                                   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                                                                                                   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                                                                                                   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                                                                                                   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6    Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 98.37 [66.06 to 130.67]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7                                                                                                   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8                                                                                                   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9                                                                                                   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10                                                                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11          Odds ratio [95% Wald CI], ref='vshaped vs straight'\nmanual vs auto: 0.50 [0.11 to 2.08]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12                                                                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13                                                                                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                              test</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1    p value: &lt;0.0001 \n(Welch Two Sample t-test)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6    p value: &lt;0.0001 \n(Welch Two Sample t-test)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9                                                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10                                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 p value: 0.3409 \n(Pearson's Chi-squared test)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 12                                               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 13                                               </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -102,7 +102,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3.9000</span>
       </span>
     </div>
 
@@ -194,7 +194,7 @@
     </tr>
     <tr>
       <th>default</th>
-      <td><p>value returned if there is no label. Default to <code><a href='https://rdrr.io/pkg/openxlsx/man/names.html'>names(x)</a></code>.</p></td>
+      <td><p>value returned if there is no label. Default to <code>names(x)</code>.</p></td>
     </tr>
     <tr>
       <th>object</th>
@@ -217,49 +217,58 @@
     <p>Dan Chaltiel</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>xx</span><span class='op'>=</span><span class='va'>mtcars2</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='set_label.html'>set_label</a></span><span class='op'>(</span><span class='st'>"The mtcars2 dataset"</span>, object<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span><span class='op'>=</span><span class='fu'><a href='remove_labels.html'>remove_label</a></span><span class='op'>(</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span><span class='op'>)</span>
-
-<span class='co'>#vectors</span>
-<span class='fu'>get_label</span><span class='op'>(</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>)</span> <span class='co'>#label="Miles/(US) gallon"</span>
-</div><div class='output co'>#&gt; [1] "Miles/(US) gallon"</div><div class='input'><span class='fu'>get_label</span><span class='op'>(</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span><span class='op'>)</span> <span class='co'>#default to NULL (as names(xx$cyl)==NULL)</span>
-</div><div class='output co'>#&gt; NULL</div><div class='input'><span class='fu'>get_label</span><span class='op'>(</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span>, default<span class='op'>=</span><span class='st'>"Default value"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "Default value"</div><div class='input'>
-<span class='co'>#data.frames</span>
-<span class='fu'>get_label</span><span class='op'>(</span><span class='va'>xx</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                       mpg                       cyl                      disp 
-#&gt;       "Miles/(US) gallon"                     "cyl"   "Displacement (cu.in.)" 
-#&gt;                        hp                      drat                        wt 
-#&gt;        "Gross horsepower"         "Rear axle ratio"       "Weight (1000 lbs)" 
-#&gt;                      qsec                        vs                        am 
-#&gt;           "1/4 mile time"                  "Engine"            "Transmission" 
-#&gt;                      gear                      carb                   hp_date 
-#&gt; "Number of forward gears"   "Number of carburetors"      "Some nonsense date" 
-#&gt;                qsec_posix 
-#&gt;               "Date+time" </div><div class='input'><span class='fu'>get_label</span><span class='op'>(</span><span class='va'>xx</span>, object<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "The mtcars2 dataset"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>name<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/pkg/openxlsx/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>xx</span><span class='op'>)</span>, label<span class='op'>=</span><span class='fu'>get_label</span><span class='op'>(</span><span class='va'>xx</span>, default<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span><span class='op'>)</span> <span class='co'>#cyl is NA</span>
-</div><div class='output co'>#&gt;                  name                   label
-#&gt; mpg               mpg       Miles/(US) gallon
-#&gt; cyl               cyl                    &lt;NA&gt;
-#&gt; disp             disp   Displacement (cu.in.)
-#&gt; hp                 hp        Gross horsepower
-#&gt; drat             drat         Rear axle ratio
-#&gt; wt                 wt       Weight (1000 lbs)
-#&gt; qsec             qsec           1/4 mile time
-#&gt; vs                 vs                  Engine
-#&gt; am                 am            Transmission
-#&gt; gear             gear Number of forward gears
-#&gt; carb             carb   Number of carburetors
-#&gt; hp_date       hp_date      Some nonsense date
-#&gt; qsec_posix qsec_posix               Date+time</div><div class='input'>
-<span class='co'>#lists</span>
-<span class='fu'>get_label</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span>, <span class='va'>xx</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] NA                  "Miles/(US) gallon"</div><div class='input'><span class='fu'>get_label</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>foo<span class='op'>=</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span>, bar<span class='op'>=</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                 foo                 bar 
-#&gt;               "foo" "Miles/(US) gallon" </div><div class='input'><span class='fu'>get_label</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>foo<span class='op'>=</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span>, bar<span class='op'>=</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>)</span>, default<span class='op'>=</span><span class='st'>"Default value"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                 foo                 bar 
-#&gt;     "Default value" "Miles/(US) gallon" </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>xx</span><span class='op'>=</span><span class='va'>mtcars2</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span class='r-in'>  <span class='fu'><a href='set_label.html'>set_label</a></span><span class='op'>(</span><span class='st'>"The mtcars2 dataset"</span>, object<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span><span class='op'>=</span><span class='fu'><a href='remove_labels.html'>remove_label</a></span><span class='op'>(</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#vectors</span></span>
+<span class='r-in'><span class='fu'>get_label</span><span class='op'>(</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>)</span> <span class='co'>#label="Miles/(US) gallon"</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Miles/(US) gallon"</span>
+<span class='r-in'><span class='fu'>get_label</span><span class='op'>(</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span><span class='op'>)</span> <span class='co'>#default to NULL (as names(xx$cyl)==NULL)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-in'><span class='fu'>get_label</span><span class='op'>(</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span>, default<span class='op'>=</span><span class='st'>"Default value"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Default value"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#data.frames</span></span>
+<span class='r-in'><span class='fu'>get_label</span><span class='op'>(</span><span class='va'>xx</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                       mpg                       cyl                      disp </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       "Miles/(US) gallon"                     "cyl"   "Displacement (cu.in.)" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                        hp                      drat                        wt </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        "Gross horsepower"         "Rear axle ratio"       "Weight (1000 lbs)" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                      qsec                        vs                        am </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           "1/4 mile time"                  "Engine"            "Transmission" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                      gear                      carb                   hp_date </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> "Number of forward gears"   "Number of carburetors"      "Some nonsense date" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                qsec_posix </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               "Date+time" </span>
+<span class='r-in'><span class='fu'>get_label</span><span class='op'>(</span><span class='va'>xx</span>, object<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "The mtcars2 dataset"</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>name<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/pkg/openxlsx/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>xx</span><span class='op'>)</span>, label<span class='op'>=</span><span class='fu'>get_label</span><span class='op'>(</span><span class='va'>xx</span>, default<span class='op'>=</span><span class='cn'>NA</span><span class='op'>)</span><span class='op'>)</span> <span class='co'>#cyl is NA</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                  name                   label</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> mpg               mpg       Miles/(US) gallon</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cyl               cyl                    &lt;NA&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> disp             disp   Displacement (cu.in.)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> hp                 hp        Gross horsepower</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> drat             drat         Rear axle ratio</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> wt                 wt       Weight (1000 lbs)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> qsec             qsec           1/4 mile time</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> vs                 vs                  Engine</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> am                 am            Transmission</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> gear             gear Number of forward gears</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> carb             carb   Number of carburetors</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> hp_date       hp_date      Some nonsense date</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> qsec_posix qsec_posix               Date+time</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#lists</span></span>
+<span class='r-in'><span class='fu'>get_label</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span>, <span class='va'>xx</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] NA                  "Miles/(US) gallon"</span>
+<span class='r-in'><span class='fu'>get_label</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>foo<span class='op'>=</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span>, bar<span class='op'>=</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 foo                 bar </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               "foo" "Miles/(US) gallon" </span>
+<span class='r-in'><span class='fu'>get_label</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>foo<span class='op'>=</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>cyl</span>, bar<span class='op'>=</span><span class='va'>xx</span><span class='op'>$</span><span class='va'>mpg</span><span class='op'>)</span>, default<span class='op'>=</span><span class='st'>"Default value"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 foo                 bar </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     "Default value" "Miles/(US) gallon" </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

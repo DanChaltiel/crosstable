@@ -107,7 +107,7 @@ below to see their documentation.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3.9000</span>
       </span>
     </div>
 
@@ -272,121 +272,131 @@ below to see their documentation.</p>
     <p>Dan Chaltiel</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>#Crosstables</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://danchaltiel.github.io/crosstable/'>crosstable</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>crosstable_fontsize_header<span class='op'>=</span><span class='fl'>14</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>crosstable_fontsize_subheaders<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>crosstable_fontsize_body<span class='op'>=</span><span class='fl'>8</span><span class='op'>)</span>
-<span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>as_flextable</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `label`, `variable`, `value` 
-#&gt; header has 1 row(s) 
-#&gt; body has 19 row(s) 
-#&gt; original dataset sample: 
-#&gt;            .id        label   variable         value
-#&gt; 1 Sepal.Length Sepal.Length  Min / Max     4.3 / 7.9
-#&gt; 2 Sepal.Length Sepal.Length  Med [IQR] 5.8 [5.1;6.4]
-#&gt; 3 Sepal.Length Sepal.Length Mean (std)     5.8 (0.8)
-#&gt; 4 Sepal.Length Sepal.Length     N (NA)       150 (0)
-#&gt; 5  Sepal.Width  Sepal.Width  Min / Max     2.0 / 4.4</div><div class='input'><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span>, by<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>am</span>, <span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>as_flextable</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `label`, `variable`, `am=auto &amp; vs=straight`, `am=manual &amp; vs=straight`, `am=auto &amp; vs=vshaped`, `am=manual &amp; vs=vshaped` 
-#&gt; header has 2 row(s) 
-#&gt; body has 42 row(s) 
-#&gt; original dataset sample: 
-#&gt;   .id               label   variable am=auto &amp; vs=straight
-#&gt; 1 mpg   Miles/(US) gallon  Min / Max           17.8 / 24.4
-#&gt; 2 mpg   Miles/(US) gallon  Med [IQR]      21.4 [18.6;22.1]
-#&gt; 3 mpg   Miles/(US) gallon Mean (std)            20.7 (2.5)
-#&gt; 4 mpg   Miles/(US) gallon     N (NA)                 7 (0)
-#&gt; 5 cyl Number of cylinders          4            3 (27.27%)
-#&gt;   am=manual &amp; vs=straight am=auto &amp; vs=vshaped am=manual &amp; vs=vshaped
-#&gt; 1             21.4 / 33.9          10.4 / 19.2            15.0 / 26.0
-#&gt; 2        30.4 [25.1;31.4]     15.2 [14.1;16.6]       20.4 [16.8;21.0]
-#&gt; 3              28.4 (4.8)           15.1 (2.8)             19.8 (4.0)
-#&gt; 4                   7 (0)               12 (0)                  6 (0)
-#&gt; 5              7 (63.64%)               0 (0%)              1 (9.09%)</div><div class='input'><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span>, cols<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>cyl</span><span class='op'>)</span>, by<span class='op'>=</span><span class='va'>am</span>, effect<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-   <span class='fu'>as_flextable</span><span class='op'>(</span>keep_id<span class='op'>=</span><span class='cn'>TRUE</span>, autofit<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `.id`, `label`, `variable`, `auto`, `manual`, `effect` 
-#&gt; header has 2 row(s) 
-#&gt; body has 7 row(s) 
-#&gt; original dataset sample: 
-#&gt;   .id               label   variable             auto           manual
-#&gt; 1 mpg   Miles/(US) gallon  Min / Max      10.4 / 24.4      15.0 / 33.9
-#&gt; 2 mpg   Miles/(US) gallon  Med [IQR] 17.3 [14.9;19.2] 22.8 [21.0;30.4]
-#&gt; 3 mpg   Miles/(US) gallon Mean (std)       17.1 (3.8)       24.4 (6.2)
-#&gt; 4 mpg   Miles/(US) gallon     N (NA)           19 (0)           13 (0)
-#&gt; 5 cyl Number of cylinders          4       3 (27.27%)       8 (72.73%)
-#&gt;                                                                                                     effect
-#&gt; 1                     Difference in means (t-test CI), ref='auto'\nmanual minus auto: 7.24 [3.64 to 10.85]
-#&gt; 2                     Difference in means (t-test CI), ref='auto'\nmanual minus auto: 7.24 [3.64 to 10.85]
-#&gt; 3                     Difference in means (t-test CI), ref='auto'\nmanual minus auto: 7.24 [3.64 to 10.85]
-#&gt; 4                     Difference in means (t-test CI), ref='auto'\nmanual minus auto: 7.24 [3.64 to 10.85]
-#&gt; 5 Odds ratio [95% Wald CI], ref='manual vs auto'\n6 vs 4: 0.28 [0.03 to 1.99]\n8 vs 4: 0.06 [0.01 to 0.39]</div><div class='input'><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span>, cols<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>cyl</span><span class='op'>)</span>, by<span class='op'>=</span><span class='va'>am</span>, effect<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-   <span class='fu'>as_flextable</span><span class='op'>(</span>compact<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `variable`, `auto`, `manual`, `effect` 
-#&gt; header has 2 row(s) 
-#&gt; body has 9 row(s) 
-#&gt; original dataset sample: 
-#&gt;            variable             auto           manual
-#&gt; 1 Miles/(US) gallon                                  
-#&gt; 2         Min / Max      10.4 / 24.4      15.0 / 33.9
-#&gt; 3         Med [IQR] 17.3 [14.9;19.2] 22.8 [21.0;30.4]
-#&gt; 4        Mean (std)       17.1 (3.8)       24.4 (6.2)
-#&gt; 5            N (NA)           19 (0)           13 (0)
-#&gt;                                                                                 effect
-#&gt; 1 Difference in means (t-test CI), ref='auto'\nmanual minus auto: 7.24 [3.64 to 10.85]
-#&gt; 2                                                                                     
-#&gt; 3                                                                                     
-#&gt; 4                                                                                     
-#&gt; 5                                                                                     </div><div class='input'>
-<span class='co'>#Renaming (because why not?)</span>
-<span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span>, by<span class='op'>=</span><span class='va'>vs</span>, total<span class='op'>=</span><span class='st'>"both"</span>, test<span class='op'>=</span><span class='cn'>TRUE</span>, effect<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>ID<span class='op'>=</span><span class='va'>.id</span>, math<span class='op'>=</span><span class='va'>variable</span>, Tot<span class='op'>=</span><span class='va'>Total</span>, lab<span class='op'>=</span><span class='va'>label</span>, pval<span class='op'>=</span><span class='va'>test</span>, fx<span class='op'>=</span><span class='va'>effect</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-   <span class='fu'>as_flextable</span><span class='op'>(</span>by_header <span class='op'>=</span> <span class='st'>"Engine shape"</span>, 
-                generic_labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>"ID"</span>, variable <span class='op'>=</span> <span class='st'>"math"</span>, total<span class='op'>=</span><span class='st'>"Tot"</span>, 
-                                    label <span class='op'>=</span> <span class='st'>"lab"</span>, test <span class='op'>=</span> <span class='st'>"pval"</span>, effect<span class='op'>=</span><span class='st'>"fx"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Be aware that automatic global testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.</span>
-#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span></span></div><div class='output co'>#&gt; <span class='warning'>Warning: Problems occured when calculating crosstable effects (glm-logit):</span>
-#&gt; <span class='warning'>  'glm.fit: fitted probabilities numerically 0 or 1 occurred', 'glm.fit: algorithm did not converge' and 'collapsing to unique 'x' values' </span>
-#&gt; <span class='warning'>You might want to check for complete separation or extreme outliers. </span>
-#&gt; <span class='warning'>Applying `forcats::fct_rev()` to some columns might help too.</span></div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `lab`, `math`, `straight`, `vshaped`, `Tot`, `fx`, `pval` 
-#&gt; header has 2 row(s) 
-#&gt; body has 47 row(s) 
-#&gt; original dataset sample: 
-#&gt;    ID                 lab       math         straight          vshaped
-#&gt; 1 mpg   Miles/(US) gallon  Min / Max      17.8 / 33.9      10.4 / 26.0
-#&gt; 2 mpg   Miles/(US) gallon  Med [IQR] 22.8 [21.4;29.6] 15.7 [14.8;19.1]
-#&gt; 3 mpg   Miles/(US) gallon Mean (std)       24.6 (5.4)       16.6 (3.9)
-#&gt; 4 mpg   Miles/(US) gallon     N (NA)           14 (0)           18 (0)
-#&gt; 5 cyl Number of cylinders          4      10 (90.91%)        1 (9.09%)
-#&gt;                Tot
-#&gt; 1      10.4 / 33.9
-#&gt; 2 19.2 [15.4;22.8]
-#&gt; 3       20.1 (6.0)
-#&gt; 4           32 (0)
-#&gt; 5      11 (34.38%)
-#&gt;                                                                                                                        fx
-#&gt; 1                        Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -7.94 [-11.27 to -4.61]
-#&gt; 2                        Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -7.94 [-11.27 to -4.61]
-#&gt; 3                        Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -7.94 [-11.27 to -4.61]
-#&gt; 4                        Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -7.94 [-11.27 to -4.61]
-#&gt; 5 Odds ratio [95% Wald CI], ref='vshaped vs straight'\n6 vs 4: 7.50 [0.72 to 180.02]\n8 vs 4: 3143660128.53 [0.00 to  NA]
-#&gt;                                                      pval
-#&gt; 1                  p value: &lt;0.0001 \n(Two Sample t-test)
-#&gt; 2                  p value: &lt;0.0001 \n(Two Sample t-test)
-#&gt; 3                  p value: &lt;0.0001 \n(Two Sample t-test)
-#&gt; 4                  p value: &lt;0.0001 \n(Two Sample t-test)
-#&gt; 5 p value: &lt;0.0001 \n(Fisher's Exact Test for Count Data)</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'>#Crosstables</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://danchaltiel.github.io/crosstable/'>crosstable</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Attaching package: ‘dplyr’</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> The following objects are masked from ‘package:stats’:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>     filter, lag</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> The following objects are masked from ‘package:base’:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>     intersect, setdiff, setequal, union</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>crosstable_fontsize_header<span class='op'>=</span><span class='fl'>14</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>crosstable_fontsize_subheaders<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>crosstable_fontsize_body<span class='op'>=</span><span class='fl'>8</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>as_flextable</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> a flextable object.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `label`, `variable`, `value` </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> header has 1 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> body has 19 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> original dataset sample: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            .id        label   variable         value</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 Sepal.Length Sepal.Length  Min / Max     4.3 / 7.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 Sepal.Length Sepal.Length  Med [IQR] 5.8 [5.1;6.4]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 Sepal.Length Sepal.Length Mean (std)     5.8 (0.8)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 Sepal.Length Sepal.Length     N (NA)       150 (0)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  Sepal.Width  Sepal.Width  Min / Max     2.0 / 4.4</span>
+<span class='r-in'><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span>, by<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>am</span>, <span class='va'>vs</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>as_flextable</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> a flextable object.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `label`, `variable`, `am=auto &amp; vs=straight`, `am=manual &amp; vs=straight`, `am=auto &amp; vs=vshaped`, `am=manual &amp; vs=vshaped` </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> header has 2 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> body has 42 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> original dataset sample: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .id               label   variable am=auto &amp; vs=straight</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 mpg   Miles/(US) gallon  Min / Max           17.8 / 24.4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 mpg   Miles/(US) gallon  Med [IQR]      21.4 [18.6;22.1]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 mpg   Miles/(US) gallon Mean (std)            20.7 (2.5)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 mpg   Miles/(US) gallon     N (NA)                 7 (0)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 cyl Number of cylinders          4            3 (27.27%)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   am=manual &amp; vs=straight am=auto &amp; vs=vshaped am=manual &amp; vs=vshaped</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1             21.4 / 33.9          10.4 / 19.2            15.0 / 26.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2        30.4 [25.1;31.4]     15.2 [14.1;16.6]       20.4 [16.8;21.0]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3              28.4 (4.8)           15.1 (2.8)             19.8 (4.0)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                   7 (0)               12 (0)                  6 (0)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5              7 (63.64%)               0 (0%)              1 (9.09%)</span>
+<span class='r-in'><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span>, cols<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>cyl</span><span class='op'>)</span>, by<span class='op'>=</span><span class='va'>am</span>, effect<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span class='r-in'>   <span class='fu'>as_flextable</span><span class='op'>(</span>keep_id<span class='op'>=</span><span class='cn'>TRUE</span>, autofit<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> a flextable object.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `.id`, `label`, `variable`, `auto`, `manual`, `effect` </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> header has 2 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> body has 7 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> original dataset sample: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .id               label   variable             auto           manual</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 mpg   Miles/(US) gallon  Min / Max      10.4 / 24.4      15.0 / 33.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 mpg   Miles/(US) gallon  Med [IQR] 17.3 [14.9;19.2] 22.8 [21.0;30.4]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 mpg   Miles/(US) gallon Mean (std)       17.1 (3.8)       24.4 (6.2)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 mpg   Miles/(US) gallon     N (NA)           19 (0)           13 (0)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 cyl Number of cylinders          4       3 (27.27%)       8 (72.73%)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                                                     effect</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                     Difference in means (t-test CI), ref='auto'\nmanual minus auto: 7.24 [3.64 to 10.85]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                     Difference in means (t-test CI), ref='auto'\nmanual minus auto: 7.24 [3.64 to 10.85]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                     Difference in means (t-test CI), ref='auto'\nmanual minus auto: 7.24 [3.64 to 10.85]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                     Difference in means (t-test CI), ref='auto'\nmanual minus auto: 7.24 [3.64 to 10.85]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 Odds ratio [95% Wald CI], ref='manual vs auto'\n6 vs 4: 0.28 [0.03 to 1.99]\n8 vs 4: 0.06 [0.01 to 0.39]</span>
+<span class='r-in'><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span>, cols<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>cyl</span><span class='op'>)</span>, by<span class='op'>=</span><span class='va'>am</span>, effect<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span class='r-in'>   <span class='fu'>as_flextable</span><span class='op'>(</span>compact<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> a flextable object.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `variable`, `auto`, `manual`, `effect` </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> header has 2 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> body has 9 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> original dataset sample: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            variable             auto           manual</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 Miles/(US) gallon                                  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2         Min / Max      10.4 / 24.4      15.0 / 33.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3         Med [IQR] 17.3 [14.9;19.2] 22.8 [21.0;30.4]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4        Mean (std)       17.1 (3.8)       24.4 (6.2)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5            N (NA)           19 (0)           13 (0)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                                 effect</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 Difference in means (t-test CI), ref='auto'\nmanual minus auto: 7.24 [3.64 to 10.85]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                                                                                     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                                                                                     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                                                                                     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5                                                                                     </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#Renaming (because why not?)</span></span>
+<span class='r-in'><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>mtcars2</span>, by<span class='op'>=</span><span class='va'>vs</span>, total<span class='op'>=</span><span class='st'>"both"</span>, test<span class='op'>=</span><span class='cn'>TRUE</span>, effect<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>ID<span class='op'>=</span><span class='va'>.id</span>, math<span class='op'>=</span><span class='va'>variable</span>, Tot<span class='op'>=</span><span class='va'>Total</span>, lab<span class='op'>=</span><span class='va'>label</span>, pval<span class='op'>=</span><span class='va'>test</span>, fx<span class='op'>=</span><span class='va'>effect</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>   <span class='fu'>as_flextable</span><span class='op'>(</span>by_header <span class='op'>=</span> <span class='st'>"Engine shape"</span>, </span>
+<span class='r-in'>                generic_labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>"ID"</span>, variable <span class='op'>=</span> <span class='st'>"math"</span>, total<span class='op'>=</span><span class='st'>"Tot"</span>, </span>
+<span class='r-in'>                                    label <span class='op'>=</span> <span class='st'>"lab"</span>, test <span class='op'>=</span> <span class='st'>"pval"</span>, effect<span class='op'>=</span><span class='st'>"fx"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Be aware that automatic global testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span style='color: #555555;'>This warning is displayed once every 8 hours.</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Problems occured when calculating crosstable effects (glm-logit):</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span>   'glm.fit: fitted probabilities numerically 0 or 1 occurred', 'glm.fit: algorithm did not converge' and 'collapsing to unique 'x' values' </span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> You might want to check for complete separation or extreme outliers. </span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> Applying `forcats::fct_rev()` to some columns might help too.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> a flextable object.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `lab`, `math`, `straight`, `vshaped`, `Tot`, `fx`, `pval` </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> header has 2 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> body has 47 row(s) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> original dataset sample: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    ID                 lab       math         straight          vshaped</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 mpg   Miles/(US) gallon  Min / Max      17.8 / 33.9      10.4 / 26.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 mpg   Miles/(US) gallon  Med [IQR] 22.8 [21.4;29.6] 15.7 [14.8;19.1]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 mpg   Miles/(US) gallon Mean (std)       24.6 (5.4)       16.6 (3.9)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 mpg   Miles/(US) gallon     N (NA)           14 (0)           18 (0)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 cyl Number of cylinders          4      10 (90.91%)        1 (9.09%)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                Tot</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1      10.4 / 33.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 19.2 [15.4;22.8]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3       20.1 (6.0)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4           32 (0)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5      11 (34.38%)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                                                                        fx</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                        Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -7.94 [-11.27 to -4.61]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                        Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -7.94 [-11.27 to -4.61]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                        Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -7.94 [-11.27 to -4.61]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                        Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -7.94 [-11.27 to -4.61]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 Odds ratio [95% Wald CI], ref='vshaped vs straight'\n6 vs 4: 7.50 [0.72 to 180.02]\n8 vs 4: 3143660128.53 [0.00 to  NA]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                      pval</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                  p value: &lt;0.0001 \n(Two Sample t-test)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                  p value: &lt;0.0001 \n(Two Sample t-test)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                  p value: &lt;0.0001 \n(Two Sample t-test)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                  p value: &lt;0.0001 \n(Two Sample t-test)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 p value: &lt;0.0001 \n(Fisher's Exact Test for Count Data)</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

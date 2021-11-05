@@ -102,7 +102,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3.9000</span>
       </span>
     </div>
 
@@ -205,18 +205,20 @@
     <p>Dan Chaltiel</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>mtcars2</span> <span class='op'>%&gt;%</span> <span class='va'>remove_labels</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span> <span class='co'>#no labels</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 7 × 4</span>
-#&gt;   .id   label variable   value           
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           
-#&gt; <span style='color: #BCBCBC;'>1</span> mpg   mpg   Min / Max  10.4 / 33.9     
-#&gt; <span style='color: #BCBCBC;'>2</span> mpg   mpg   Med [IQR]  19.2 [15.4;22.8]
-#&gt; <span style='color: #BCBCBC;'>3</span> mpg   mpg   Mean (std) 20.1 (6.0)      
-#&gt; <span style='color: #BCBCBC;'>4</span> mpg   mpg   N (NA)     32 (0)          
-#&gt; <span style='color: #BCBCBC;'>5</span> cyl   cyl   4          11 (34.38%)     
-#&gt; <span style='color: #BCBCBC;'>6</span> cyl   cyl   6          7 (21.88%)      
-#&gt; <span style='color: #BCBCBC;'>7</span> cyl   cyl   8          14 (43.75%)     </div><div class='input'><span class='va'>mtcars2</span><span class='op'>$</span><span class='va'>hp</span> <span class='op'>%&gt;%</span> <span class='va'>remove_labels</span> <span class='op'>%&gt;%</span> <span class='va'>get_label</span> <span class='co'>#numeric</span>
-</div><div class='output co'>#&gt; NULL</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>mtcars2</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>remove_labels</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span> <span class='co'>#no labels</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 7 × 4</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .id   label variable   value           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> mpg   mpg   Min / Max  10.4 / 33.9     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> mpg   mpg   Med [IQR]  19.2 [15.4;22.8]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> mpg   mpg   Mean (std) 20.1 (6.0)      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> mpg   mpg   N (NA)     32 (0)          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span> cyl   cyl   4          11 (34.38%)     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>6</span> cyl   cyl   6          7 (21.88%)      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>7</span> cyl   cyl   8          14 (43.75%)     </span>
+<span class='r-in'><span class='va'>mtcars2</span><span class='op'>$</span><span class='va'>hp</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>remove_labels</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>get_label</span> <span class='co'>#numeric</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

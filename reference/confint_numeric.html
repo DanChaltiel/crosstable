@@ -102,7 +102,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3.9000</span>
       </span>
     </div>
 
@@ -210,13 +210,16 @@
     <p>Dan Chaltiel</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>confint_numeric</span><span class='op'>(</span><span class='va'>iris</span><span class='op'>$</span><span class='va'>Sepal.Length</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    2.5 %   97.5 % 
-#&gt; 5.710818 5.975849 </div><div class='input'><span class='fu'>confint_numeric</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>$</span><span class='va'>hp_date</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;        2.5 %       97.5 % 
-#&gt; "2010-05-03" "2010-06-20" </div><div class='input'><span class='fu'>confint_numeric</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>$</span><span class='va'>hp_date</span>, level<span class='op'>=</span><span class='fl'>0.99</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;        0.5 %       99.5 % 
-#&gt; "2010-04-26" "2010-06-27" </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>confint_numeric</span><span class='op'>(</span><span class='va'>iris</span><span class='op'>$</span><span class='va'>Sepal.Length</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2.5 %   97.5 % </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5.710818 5.975849 </span>
+<span class='r-in'><span class='fu'>confint_numeric</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>$</span><span class='va'>hp_date</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        2.5 %       97.5 % </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> "2010-05-03" "2010-06-20" </span>
+<span class='r-in'><span class='fu'>confint_numeric</span><span class='op'>(</span><span class='va'>mtcars2</span><span class='op'>$</span><span class='va'>hp_date</span>, level<span class='op'>=</span><span class='fl'>0.99</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        0.5 %       99.5 % </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> "2010-04-26" "2010-06-27" </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
