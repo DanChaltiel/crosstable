@@ -3,8 +3,7 @@ utils::globalVariables(".")
 
 # Error and warning handling ----------------------------------------------
 
-
-#' @author https://stackoverflow.com/a/20578779/3888000
+#' @source https://stackoverflow.com/a/20578779/3888000 
 #' @keywords internal
 #' @noRd
 #' @examples 
@@ -297,23 +296,43 @@ confint_numeric = function(object, level=0.95, B=0){
     rtn
 }
 
-# x = iris$Sepal.Length
-# x[5:20]=NA
-# confint_numeric(x) - confint_numeric(x, B=10)
-# confint_numeric(x) - confint_numeric(x, B=100)
-# confint_numeric(x) - confint_numeric(x, B=1000)
-# confint_numeric(x) - confint_numeric(x, B=10000)
-# x = rnorm(1500, mean = 0, sd = 1)
-# confint_numeric(x) - confint_numeric(x, B=10)
-# confint_numeric(x) - confint_numeric(x, B=100)
-# confint_numeric(x) - confint_numeric(x, B=1000)
-# confint_numeric(x) - confint_numeric(x, B=10000)
-# t.test(x)$conf.int
-
-
-
-
-
+#' Confidence interval of a vector of proportion
+#'
+#' @param p the proportion
+#' @param n the sample size
+#' @param i either -1 or +1
+#' @param level the confidence level required
+#' @source binom:::binom.confint
+#' @source https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval
+#' @note validé avec PropCIs::scoreci
+#' @keywords internal
+#' @noRd
+confint_proportion = function(p, n, 
+                              method=c("wilson", "asymptotic"),
+                              level=0.95){
+    a = 1-level
+    method = match.arg(method)
+    z = qnorm(1-a/2)
+    # browser()
+    if(method=="wilson"){
+        z2 = z * z
+        p1 = p + 0.5 * z2/n
+        p2 = z * sqrt((p * (1 - p) + 0.25 * z2/n)/n)
+        p3 = 1 + z2/n
+        lcl = (p1 - p2)/p3
+        ucl = (p1 + p2)/p3
+        rtn = data.frame(inf=lcl, sup=ucl)
+        rtn2 = purrr::map2_dfr(n*p, n, ~{
+            PropCIs::scoreci(.x, .y, conf.level=0.95)$conf.int %>% 
+                set_names(c("inf", "sup"))
+        })
+        
+    } else if(method=="asymptotic"){
+        p1 = z*sqrt(p*(1-p)/n)
+        rtn = data.frame(inf=p-p1, sup=p+p1)
+    } 
+    return(rtn)
+}
 
 #' Return the number of non NA observations
 #'
@@ -358,6 +377,14 @@ str_wrap2 = function(x, width, ...){
            str_replace_all(x, paste0("(.{",width,"})"), "\\1\n"))
 }
 
+
+# dplyr -------------------------------------------------------------------
+
+#' @source https://github.com/tidyverse/dplyr/issues/5563#issuecomment-721769342
+across_unpack <- function(...) {
+    out <- across(...)
+    tidyr::unpack(out, names(out), names_sep = "_")
+}
 
 # Check silencing ---------------------------------------------------------
 

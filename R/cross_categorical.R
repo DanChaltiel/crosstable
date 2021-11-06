@@ -51,14 +51,16 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
         as.data.frame(stringsAsFactors=FALSE) %>%
         select(x=1, n=2) #needed for an odd bug on fedora-devel
     
-    any_p = get_glue_vars(percent_pattern) %>% str_starts("p") %>% any()
-    pattern = if(!any_p) "{n}" else "{n} ({p})"
-    
     rtn = tbd %>% 
         mutate(
-            p=.data$n/sum(.data$n), 
-            p=format_fixed(.data$p, digits=digits, percent=TRUE),
-            value=glue(pattern)
+            p_row=1,
+            p_col=.data$n/sum(.data$n), 
+            p_cell=p_col,
+            across_unpack(-c("x", "n"), 
+                          ~confint_proportion(.x, n, method="wilson")),
+            across(starts_with("p_"), 
+                   ~format_fixed(.x, digits=digits, percent=TRUE)), 
+            value=ifelse(is.na(x), .data$n, glue(percent_pattern))
         ) %>% 
         select(variable="x", value="value")
     .showNA = showNA=="always" || showNA=="ifany" && (anyNA(x))
@@ -67,8 +69,10 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
     }
     
     if (2 %in% total){
+        pattern_vars = get_glue_vars(percent_pattern)
+        any_p = pattern_vars %>% str_starts("p") %>% any()
         value = glue("{sum(table(x, useNA='always'))} ({format_fixed(100, digits=digits)}%)")
-        if(!any_p) value = sum(table(x, useNA='always'))
+        if(!any_p) value = sum(table(x, useNA="always")) #"always" else sum is different in cols/row
         rtn = rbind(rtn, data.frame(variable="Total", value=value))
     }
     
@@ -87,11 +91,15 @@ summarize_categorical_by = function(x, by,
                                     percent_pattern, margin, 
                                     showNA, total, digits, 
                                     test, test_args, effect, effect_args){
-    dummy = safely(glue)(percent_pattern, n=1, p_cell=1, p_row=1, p_col=1)
+    dummy = safely(glue)(percent_pattern, n=1, p_cell=1, p_row=1, p_col=1, 
+                         p_cell_inf=1, p_cell_sup=1, p_row_inf=1, 
+                         p_row_sup=1, p_col_inf=1, p_col_sup=1)
     if(!is.null(dummy$error)){
-        abort(c("`percent_pattern` should only consider variables {n}, {p_cell}, {p_row}, and {p_col}", 
+        #class(dummy$error) #https://github.com/tidyverse/glue/issues/229
+        abort(c("`percent_pattern` should only consider variables {n}, {p_cell}, {p_row}, and {p_col}", #TODO and CI
                 i=glue('percent_pattern: "{percent_pattern}"'), x=dummy$error$message))
     }
+    
     
     nn = table(x, by, useNA=showNA)
     .tbl = as.data.frame(nn, responseName="Freq", stringsAsFactors=FALSE)
@@ -104,18 +112,24 @@ summarize_categorical_by = function(x, by,
     rtn = reduce(list(table_n, table_p_cell, table_p_row, table_p_col),
                  left_join, by=c("x", "by")) %>%
         mutate(
-            across(starts_with("p"), ~format_fixed(.x, digits=digits, percent=TRUE)),
+            across_unpack(-c("x", "by", "n"), 
+                          ~confint_proportion(.x, n, method="wilson")),
+            across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE)), 
             value=ifelse(is.na(x)|is.na(by), .data$n, glue(percent_pattern))
         ) %>%
         transmute(variable=replace_na(x, "NA"), by=.data$by, value=.data$value) %>%
         pivot_wider(names_from="by", values_from = "value")
     
-    
-    
+    #TODO documentation @section percent_pattern, dire Wilson
+    #TODO documentation @section total total ignore NA else sum is different cols/row, ie cyl~vs
+    pattern_vars = get_glue_vars(percent_pattern)
     if(2 %in% total){
         mt = margin.table(nn, margin=2) %>% as.numeric()
         line = mt
-        any_p = get_glue_vars(percent_pattern) %>% str_starts("p") %>% any()
+        any_p = pattern_vars %>% str_starts("p") %>% any()
+        any_p_ci = pattern_vars %>% str_starts("p_col_") %>% any()
+        #TODO si !any_p_ci on garde pattern
+        # browser()
         if(any_p){
             mt2 = margin.table(table(x, by, useNA="no"), margin=2) %>% as.numeric()
             pct = format_fixed(100*prop.table(mt2), digits) %>% paste0("%")
@@ -127,8 +141,15 @@ summarize_categorical_by = function(x, by,
     
     .effect=.test=.total=NULL
     if(1 %in% total){
+        any_p = pattern_vars %>% str_starts("p") %>% any()
+        # any_pcol = pattern_vars %>% str_starts("pcol") %>% any()
+        any_pcol_ci = pattern_vars %>% str_starts("p_col_") %>% any()
+        percent_pattern2=percent_pattern
+        if(any_p && !any_pcol_ci) percent_pattern2="{n} ({p_col})"
+        summarize_categorical_single(x=x, showNA=showNA, total=total, 
+                                     digits=digits, percent_pattern=percent_pattern2)
         .total = summarize_categorical_single(x=x, showNA=showNA, total=total, 
-                                              digits=digits, percent_pattern=percent_pattern)$value
+                                              digits=digits, percent_pattern=percent_pattern2)$value
     }
     if(effect) {
         e = effect_args$effect_tabular(x, by, effect_args$conf_level)
@@ -157,7 +178,8 @@ getTable = function(x, by, type=c("n", "p_cell", "p_row", "p_col")){
                  p_row=as_function(~prop.table(.x, margin=1)),
                  p_col=as_function(~prop.table(.x, margin=2))
     )
-    table(x, by, useNA="no") %>% fun() %>%
+    table(x, by, useNA="no") %>% 
+        fun() %>%
         as.data.frame(responseName=type, stringsAsFactors=FALSE)
 }
 
