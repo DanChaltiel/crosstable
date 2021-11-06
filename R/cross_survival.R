@@ -81,18 +81,25 @@ summarize_survival_single = function(surv, times, digits, followup) {
 
 
 #' @importFrom dplyr mutate mutate_all rename select everything tibble group_by row_number summarise pull left_join %>% 
-#' @importFrom tidyr pivot_wider
+#' @importFrom tidyr pivot_wider replace_na
 #' @importFrom rlang set_names :=
 #' @importFrom checkmate assert
 #' @importFrom glue glue
-#' @importFrom survival is.Surv survfit
+#' @importFrom survival survfit
 #' @keywords internal
 #' @noRd
 summarize_survival_by = function(surv, by, times, followup, total, digits, showNA,
                                  test, test_args, effect, effect_args) {
-    assert(is.Surv(surv))
+    assert_class(surv, "Surv")
     by2 = by
-    if(showNA!="no") by2 = replace_na(as.character(by), "NA")
+    
+    if(showNA!="no") {
+        by2 = replace_na(as.character(by), "NA")
+    } else {
+        complete = complete.cases(surv, by)
+        surv = surv[complete]
+        by2 = by2[complete]
+    }
     
     if(length(unique(by2))==1){
         cname = as.character(unique(by2))
@@ -106,8 +113,8 @@ summarize_survival_by = function(surv, by, times, followup, total, digits, showN
     }
     
     fit = survfit(surv~by2)
-    if (is.null(times)) times = sort(fit$time)
-    x = summary(fit, times = times, extend = TRUE)
+    if(is.null(times)) times = sort(fit$time)
+    x = summary(fit, times=times, extend=TRUE)
     assert(length(unique(x$strata))>1) #should not happen since by2!=NULL
     
     counts = glue("{surv} ({event}/{risk})",
