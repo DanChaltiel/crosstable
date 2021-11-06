@@ -354,7 +354,11 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     multiby = !is.null(data_y) && ncol(data_y)>1
     
     # Function call -------------------------------------------------------
-    by_levels = data_y %>% map(~{if(is.numeric(.x)) NULL else sort(unique(as.character(.x)), na.last=TRUE)})
+    by_levels = map(data_y, ~{
+        if(is.numeric(.x)) NULL 
+        else if(is.factor(.x)) levels(.x)
+        else sort(unique(as.character(.x)), na.last=TRUE)
+    })
     if(showNA=="no") by_levels = map(by_levels, ~.x[!is.na(.x)])
     funs = parse_funs(funs)
     if(multiby){
