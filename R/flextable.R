@@ -110,7 +110,7 @@ as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL,
             fontsize(size=fontsizes$body) %>%
             fontsize(i=title_rows, size=fontsizes$subheaders) %>%
             border(title_rows, border.top = fp_border()) %>%
-            bold(title_rows) %>% 
+            bold(title_rows, j=1:2) %>% 
             align(title_rows, align="left") %>% 
             padding(i=padded_rows, j=1, padding.left=getOption('crosstable_compact_padding', 25))
     } else {
