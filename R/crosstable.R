@@ -14,7 +14,7 @@ utils::globalVariables(c("x", "y", "ct", "col_keys"))
 #' @param funs Functions to apply to numeric variables. Default to [cross_summary()].
 #' @param funs_arg Additional parameters for `funs`, e.g. `digits` (the number of decimal places) for the default [cross_summary()]. Ultimately, these arguments are passed to [format_fixed()].
 #' @param total one of \["none", "row", "column" or "both"] to indicate whether to add total rows and/or columns. Default to `none`.
-#' @param percent_pattern Pattern used to describe proportions in categorical data. Use the [glue::glue()] syntax with any variable in `c("n", "p_row", "p_coll", "p_cell")`. Default to `"{n} ({p_row})"`.
+#' @param percent_pattern Pattern used to describe proportions in categorical data. Use the [glue::glue()] syntax with any variable in `c("n", "p_row", "p_coll", "p_cell")`. Default to `"{n} ({p_col})"` if `by` is null and `"{n} ({p_row})"` if it is not.
 #' @param percent_digits Number of digits for percentages
 #' @param unique_numeric The number of non-missing different levels a variable should have to be considered as numeric
 #' @param showNA Whether to show NA in categorical variables (one of \code{c("ifany", "always", "no")}, like in \code{table()})
@@ -88,6 +88,7 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
                       margin = c("row", "column", "cell", "none", "all"), 
                       .vars) {
     debug=list()
+    byname = vars_select(names(data), !!!enquos(by))
     
     # Arguments checks ----------------------------------------------------
     check_dots_unnamed()
@@ -122,6 +123,9 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
                    i=glue("`percent_pattern`={percent_pattern}")), #TODO warning
                  class="xxxx")
         }
+    }
+    if(missing(percent_pattern) && length(byname)==0) {
+        percent_pattern = "{n} ({p_col})"
     }
     
     if(missing(total) || is.null(total)) total = 0
@@ -164,7 +168,6 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     }
     
     # Logic handle --------------------------------------------------------
-    byname = vars_select(names(data), !!!enquos(by))
     if(!exists("vardots"))
         vardots= c(enquos(cols), enquos(...))
     
@@ -246,7 +249,6 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
                    })
         )
     }
-    
     # Return checks -------------------------------------------------------
     
     if(ncol_x==0) {
@@ -379,7 +381,7 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
         class(rtn) = c("crosstable", "tbl_df", "tbl", "data.frame")
     }
     
-    # Attributes and return ----------------------------------------------*
+    # Attributes and return -----------------------------------------------
     debug$x_class = x_class
     debug$y_class = y_class
     attr(rtn, "debug") = debug
