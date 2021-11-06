@@ -124,9 +124,6 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
                  class="xxxx")
         }
     }
-    if(missing(percent_pattern) && length(byname)==0) {
-        percent_pattern = "{n} ({p_col})"
-    }
     
     if(missing(total) || is.null(total)) total = 0
     else if(isTRUE(total)) total = 1:2
@@ -208,6 +205,12 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
         data_x = data %>% select(any_of(xloc)) %>% as.data.frame()
         data_y = data %>% select(any_of(byname)) %>% as.data.frame()
     }
+    
+    one_col_dummy = ncol(data_y)==1 && length(unique(data_y[[1]]))==1
+    if(missing(percent_pattern) && length(byname)==0 || one_col_dummy) {
+        percent_pattern = "{n} ({p_col})"
+    }
+    
     
     duplicate_cols = intersect(byname, names(data_x))
     
