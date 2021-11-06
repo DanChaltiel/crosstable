@@ -75,12 +75,16 @@ as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL,
     has_total = attr(x, "has_total")
     has_label = attr(x, "has_label")
     by_label = attr(x, "by_label")
-    by_levels = attr(x, "by_levels") %>% map(replace_na, "NA")
+    showNA = attr(x, "showNA")
+    by_levels = attr(x, "by_levels") %>% map(~{
+        if(showNA=="always") .x=unique(c(.x, NA))
+        replace_na(.x, replace="NA")
+    })
     by = attr(x, "by")
     has_by =  !is.null(by)
     if(has_by && is.null(by_label)) by_label=by
-    showNA = attr(x, "showNA")
-    if(showNA=="always") by_levels=c(by_levels, "NA")
+    # if(showNA=="always") by_levels=c(by_levels, "NA")
+    
     
     test=generic_labels$test
     id=generic_labels$id
@@ -174,7 +178,6 @@ as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL,
         hline_bottom(border = border2, part = "head") %>% 
         border_inner_h(border = border1, part = "head") %>%
         fix_border_issues()
-    
     if(length(padding_v)!=0)
         rtn = padding(rtn, padding.top=padding_v, padding.bottom=padding_v, part="body")
     
