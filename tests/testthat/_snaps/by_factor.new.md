@@ -1435,7 +1435,7 @@
       x1 %>% as_flextable()
     Output
       a flextable object.
-      col_keys: `label`, `variable`, `cyl=4 & I(am == "auto")=FALSE & vs=straight`, `cyl=6 & I(am == "auto")=FALSE & vs=straight`, `cyl=8 & I(am == "auto")=FALSE & vs=straight`, `cyl=NA & I(am == "auto")=FALSE & vs=straight`, `cyl=4 & I(am == "auto")=TRUE & vs=straight`, `cyl=6 & I(am == "auto")=TRUE & vs=straight`, `cyl=8 & I(am == "auto")=TRUE & vs=straight`, `cyl=NA & I(am == "auto")=TRUE & vs=straight`, `cyl=4 & I(am == "auto")=FALSE & vs=vshaped`, `cyl=6 & I(am == "auto")=FALSE & vs=vshaped`, `cyl=8 & I(am == "auto")=FALSE & vs=vshaped`, `cyl=NA & I(am == "auto")=FALSE & vs=vshaped`, `cyl=4 & I(am == "auto")=TRUE & vs=vshaped`, `cyl=6 & I(am == "auto")=TRUE & vs=vshaped`, `cyl=8 & I(am == "auto")=TRUE & vs=vshaped`, `cyl=NA & I(am == "auto")=TRUE & vs=vshaped`, `cyl=4 & I(am == "auto")=FALSE & vs=NA`, `cyl=6 & I(am == "auto")=FALSE & vs=NA`, `cyl=8 & I(am == "auto")=FALSE & vs=NA`, `cyl=NA & I(am == "auto")=FALSE & vs=NA`, `cyl=4 & I(am == "auto")=TRUE & vs=NA`, `cyl=6 & I(am == "auto")=TRUE & vs=NA`, `cyl=8 & I(am == "auto")=TRUE & vs=NA`, `cyl=NA & I(am == "auto")=TRUE & vs=NA`, `Total` 
+      col_keys: `label`, `variable`, `cyl=4 & I(am == "auto")=FALSE & vs=straight`, `cyl=6 & I(am == "auto")=FALSE & vs=straight`, `cyl=8 & I(am == "auto")=FALSE & vs=straight`, `cyl=4 & I(am == "auto")=TRUE & vs=straight`, `cyl=6 & I(am == "auto")=TRUE & vs=straight`, `cyl=8 & I(am == "auto")=TRUE & vs=straight`, `cyl=4 & I(am == "auto")=FALSE & vs=vshaped`, `cyl=6 & I(am == "auto")=FALSE & vs=vshaped`, `cyl=8 & I(am == "auto")=FALSE & vs=vshaped`, `cyl=4 & I(am == "auto")=TRUE & vs=vshaped`, `cyl=6 & I(am == "auto")=TRUE & vs=vshaped`, `cyl=8 & I(am == "auto")=TRUE & vs=vshaped`, `cyl=4 & I(am == "auto")=FALSE & vs=NA`, `cyl=6 & I(am == "auto")=FALSE & vs=NA`, `cyl=8 & I(am == "auto")=FALSE & vs=NA`, `cyl=4 & I(am == "auto")=TRUE & vs=NA`, `cyl=6 & I(am == "auto")=TRUE & vs=NA`, `cyl=8 & I(am == "auto")=TRUE & vs=NA`, `NA`, `Total` 
       header has 3 row(s) 
       body has 8 row(s) 
       original dataset sample: 
@@ -1456,43 +1456,31 @@
       2                                  NA [NA;NA]
       3                                     NA (NA)
       4                                       0 (0)
-      5                                      0 (0%)
+      5                                     0 (NA%)
         cyl=8 & I(am == "auto")=FALSE & vs=straight
       1                                     NA / NA
       2                                  NA [NA;NA]
       3                                     NA (NA)
       4                                       0 (0)
-      5                                      0 (0%)
-        cyl=NA & I(am == "auto")=FALSE & vs=straight
-      1                                  22.8 / 22.8
-      2                             22.8 [22.8;22.8]
-      3                                    22.8 (NA)
-      4                                        1 (0)
-      5                                       0 (0%)
+      5                                     0 (NA%)
         cyl=4 & I(am == "auto")=TRUE & vs=straight
       1                                21.5 / 21.5
       2                           21.5 [21.5;21.5]
       3                                  21.5 (NA)
       4                                      1 (0)
-      5                                  1 (6.67%)
+      5                                1 (100.00%)
         cyl=6 & I(am == "auto")=TRUE & vs=straight
       1                                    NA / NA
       2                                 NA [NA;NA]
       3                                    NA (NA)
       4                                      0 (0)
-      5                                     0 (0%)
+      5                                    0 (NA%)
         cyl=8 & I(am == "auto")=TRUE & vs=straight
       1                                    NA / NA
       2                                 NA [NA;NA]
       3                                    NA (NA)
       4                                      0 (0)
-      5                                     0 (0%)
-        cyl=NA & I(am == "auto")=TRUE & vs=straight
-      1                                 21.4 / 21.4
-      2                            21.4 [21.4;21.4]
-      3                                   21.4 (NA)
-      4                                       1 (0)
-      5                                   1 (6.67%)
+      5                                    0 (NA%)
         cyl=4 & I(am == "auto")=FALSE & vs=vshaped
       1                                26.0 / 26.0
       2                           26.0 [26.0;26.0]
@@ -1511,64 +1499,46 @@
       3                                 15.4 (0.6)
       4                                      2 (0)
       5                                     0 (0%)
-        cyl=NA & I(am == "auto")=FALSE & vs=vshaped
-      1                                 21.0 / 21.0
-      2                            21.0 [21.0;21.0]
-      3                                    21.0 (0)
-      4                                       2 (0)
-      5                                      0 (0%)
         cyl=4 & I(am == "auto")=TRUE & vs=vshaped
       1                                   NA / NA
       2                                NA [NA;NA]
       3                                   NA (NA)
       4                                     0 (0)
-      5                                    0 (0%)
+      5                                   0 (NA%)
         cyl=6 & I(am == "auto")=TRUE & vs=vshaped
       1                                   NA / NA
       2                                NA [NA;NA]
       3                                   NA (NA)
       4                                     0 (0)
-      5                                    0 (0%)
+      5                                   0 (NA%)
         cyl=8 & I(am == "auto")=TRUE & vs=vshaped
       1                               10.4 / 19.2
       2                          15.2 [13.3;15.5]
       3                                14.6 (2.9)
       4                                     9 (0)
-      5                                9 (60.00%)
-        cyl=NA & I(am == "auto")=TRUE & vs=vshaped
-      1                                    NA / NA
-      2                                 NA [NA;NA]
-      3                                    NA (NA)
-      4                                      0 (0)
-      5                                     0 (0%)
+      5                               9 (100.00%)
         cyl=4 & I(am == "auto")=FALSE & vs=NA cyl=6 & I(am == "auto")=FALSE & vs=NA
       1                               NA / NA                               NA / NA
       2                            NA [NA;NA]                            NA [NA;NA]
       3                               NA (NA)                               NA (NA)
       4                                 0 (0)                                 0 (0)
-      5                                0 (0%)                                0 (0%)
-        cyl=8 & I(am == "auto")=FALSE & vs=NA cyl=NA & I(am == "auto")=FALSE & vs=NA
-      1                               NA / NA                                NA / NA
-      2                            NA [NA;NA]                             NA [NA;NA]
-      3                               NA (NA)                                NA (NA)
-      4                                 0 (0)                                  0 (0)
-      5                                0 (0%)                                 0 (0%)
-        cyl=4 & I(am == "auto")=TRUE & vs=NA cyl=6 & I(am == "auto")=TRUE & vs=NA
-      1                          22.8 / 24.4                          17.8 / 19.2
-      2                     23.6 [23.2;24.0]                     18.1 [18.0;18.6]
-      3                           23.6 (1.1)                           18.4 (0.7)
-      4                                2 (0)                                3 (0)
-      5                               0 (0%)                            1 (6.67%)
-        cyl=8 & I(am == "auto")=TRUE & vs=NA cyl=NA & I(am == "auto")=TRUE & vs=NA
-      1                          14.3 / 16.4                           18.7 / 18.7
-      2                     15.3 [14.8;15.9]                      18.7 [18.7;18.7]
-      3                           15.3 (1.5)                             18.7 (NA)
-      4                                2 (0)                                 1 (0)
-      5                           2 (13.33%)                             1 (6.67%)
-                   Total
-      1      10.4 / 33.9
-      2 19.2 [15.4;22.8]
-      3       20.1 (6.0)
-      4           32 (0)
-      5      15 (46.88%)
+      5                               0 (NA%)                               0 (NA%)
+        cyl=8 & I(am == "auto")=FALSE & vs=NA cyl=4 & I(am == "auto")=TRUE & vs=NA
+      1                               NA / NA                          22.8 / 24.4
+      2                            NA [NA;NA]                     23.6 [23.2;24.0]
+      3                               NA (NA)                           23.6 (1.1)
+      4                                 0 (0)                                2 (0)
+      5                               0 (NA%)                               0 (0%)
+        cyl=6 & I(am == "auto")=TRUE & vs=NA cyl=8 & I(am == "auto")=TRUE & vs=NA
+      1                          17.8 / 19.2                          14.3 / 16.4
+      2                     18.1 [18.0;18.6]                     15.3 [14.8;15.9]
+      3                           18.4 (0.7)                           15.3 (1.5)
+      4                                3 (0)                                2 (0)
+      5                           1 (33.33%)                          2 (100.00%)
+                      NA            Total
+      1      18.7 / 22.8      10.4 / 33.9
+      2 21.0 [21.0;21.4] 19.2 [15.4;22.8]
+      3       21.0 (1.5)       20.1 (6.0)
+      4            5 (0)           32 (0)
+      5                2      15 (46.88%)
 

@@ -127,6 +127,14 @@ test_that("Margins with totals", {
 
 
 
+# Percent pattern ---------------------------------------------------------
+
+
+test_that("Percent pattern", {
+    
+    #TODO
+})
+
 # By dummy ---------------------------------------------------------
 test_that("By dummy", {
     
@@ -154,7 +162,7 @@ test_that("By dummy", {
 test_that("By multiple", {
     
     expect_snapshot({
-        x0=crosstable(mtcars3, c(mpg, gear), by=c(cyl, am, vs)) %>% as_flextable()
+        x0=crosstable(mtcars3, c(mpg, gear), by=c(cyl, am, vs))
         x0
         as_flextable(x0)
         x1=crosstable(mtcars3, c(mpg, gear), by=c(cyl, am, vs), showNA=FALSE)
