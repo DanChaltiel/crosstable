@@ -322,11 +322,6 @@ confint_proportion = function(p, n,
         lcl = (p1 - p2)/p3
         ucl = (p1 + p2)/p3
         rtn = data.frame(inf=lcl, sup=ucl)
-        rtn2 = purrr::map2_dfr(n*p, n, ~{
-            PropCIs::scoreci(.x, .y, conf.level=0.95)$conf.int %>% 
-                set_names(c("inf", "sup"))
-        })
-        
     } else if(method=="asymptotic"){
         p1 = z*sqrt(p*(1-p)/n)
         rtn = data.frame(inf=p-p1, sup=p+p1)
