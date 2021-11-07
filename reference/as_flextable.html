@@ -107,7 +107,7 @@ below to see their documentation.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9000</span>
       </span>
     </div>
 
@@ -204,6 +204,7 @@ below to see their documentation.</p>
   fontsizes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>body <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_fontsize_body"</span>, <span class='fl'>11</span><span class='op'>)</span>, subheaders <span class='op'>=</span>
     <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_fontsize_subheaders"</span>, <span class='fl'>11</span><span class='op'>)</span>, header <span class='op'>=</span>
     <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_fontsize_header"</span>, <span class='fl'>11</span><span class='op'>)</span><span class='op'>)</span>,
+  padding_v <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_padding_v"</span>, <span class='cn'>NULL</span><span class='op'>)</span>,
   remove_header_keys <span class='op'>=</span> <span class='cn'>FALSE</span>,
   generic_labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>".id"</span>, variable <span class='op'>=</span> <span class='st'>"variable"</span>, value <span class='op'>=</span> <span class='st'>"value"</span>, total <span class='op'>=</span>
     <span class='st'>"Total"</span>, label <span class='op'>=</span> <span class='st'>"label"</span>, test <span class='op'>=</span> <span class='st'>"test"</span>, effect <span class='op'>=</span> <span class='st'>"effect"</span><span class='op'>)</span>,
@@ -239,7 +240,11 @@ below to see their documentation.</p>
     </tr>
     <tr>
       <th>fontsizes</th>
-      <td><p>font sizes as a list of keys [body, subheaders, header]. If set through arguments, all needed names should be mentioned.</p></td>
+      <td><p>font sizes as a list of keys <code>c(body, subheaders, header)</code>. If set through arguments instead of options, all 3 names should be specified.</p></td>
+    </tr>
+    <tr>
+      <th>padding_v</th>
+      <td><p>vertical padding (body)</p></td>
     </tr>
     <tr>
       <th>remove_header_keys</th>

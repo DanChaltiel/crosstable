@@ -104,7 +104,7 @@ Can be formatted as an HTML table using as_flextable()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9000</span>
       </span>
     </div>
 
@@ -237,7 +237,7 @@ Can be formatted as an HTML table using <code><a href='as_flextable.crosstable.h
     </tr>
     <tr>
       <th>percent_pattern</th>
-      <td><p>Pattern used to describe proportions in categorical data. Use the <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue::glue()</a></code> syntax with any variable in <code>c("n", "p_row", "p_coll", "p_cell")</code>. Default to <code>"{n} ({p_row})"</code>.</p></td>
+      <td><p>Pattern used to describe proportions in categorical data. Syntax uses a <code><a href='https://glue.tidyverse.org/reference/glue.html'>glue::glue()</a></code> specification, see section below for more details. Default to <code>"{n} ({p_col})"</code> if <code>by</code> is null and <code>"{n} ({p_row})"</code> if it is not.</p></td>
     </tr>
     <tr>
       <th>percent_digits</th>
@@ -308,6 +308,12 @@ Can be formatted as an HTML table using <code><a href='as_flextable.crosstable.h
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>data.frame</code>/<code>tibble</code> of class <code>crosstable</code></p>
+    <h2 class="hasAnchor" id="percent-pattern"><a class="anchor" href="#percent-pattern"></a><code>percent_pattern</code></h2>
+
+    
+
+<p>The <code>percent_pattern</code> argument is a single string that uses the glue syntax, where variables are put in double curly braces (<code>{{x}}</code>). Count is expressed as <code>{{n}}</code> and proportions as <code>{{p_row}}</code>, <code>{{p_col}}</code>, and <code>{{p_cell}}</code>, depending on which way they are calculated. <br />
+For each proportion, a confidence interval is also calculated using <a href='https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval'>Wilson score</a> and can be expressed as <code>{{p_xxx_inf}}</code> and <code>{{p_xxx_sup}}</code>. See examples for practical applications.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>https://danchaltiel.github.io/crosstable/, as_flextable, import_labels</p></div>
@@ -456,6 +462,28 @@ Can be formatted as an HTML table using <code><a href='as_flextable.crosstable.h
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> Surv(time, status) Surv(time, status) t=150          0.18 (3/1)  0 (3/0)      </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span> Surv(time, status) Surv(time, status) Median follow… 103 [13 ; … NA [16 ; 45] </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>6</span> Surv(time, status) Surv(time, status) Median surviv… 31          23           </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#Patterns</span></span>
+<span class='r-in'><span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='va'>vs</span>, by<span class='op'>=</span><span class='va'>am</span>, percent_digits<span class='op'>=</span><span class='fl'>0</span>, </span>
+<span class='r-in'>           percent_pattern<span class='op'>=</span><span class='st'>"{n} ({p_col} / {p_row})"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 2 × 5</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .id   label  variable auto           manual       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> vs    Engine straight 7 (37% / 50%)  7 (54% / 50%)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> vs    Engine vshaped  12 (63% / 67%) 6 (46% / 33%)</span>
+<span class='r-in'><span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='va'>vs</span>, by<span class='op'>=</span><span class='va'>am</span>, percent_digits<span class='op'>=</span><span class='fl'>0</span>,</span>
+<span class='r-in'>           percent_pattern<span class='op'>=</span><span class='st'>"N={n} \np[95%CI] = {p_col} [{p_col_inf}; {p_col_sup}]"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 2 × 5</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .id   label  variable auto                               manual               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                              <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> vs    Engine straight <span style='color: #949494;'>"</span>N=7 \np[95%CI] = 37% [12%; 71%]<span style='color: #949494;'>"</span>  <span style='color: #949494;'>"</span>N=7 \np[95%CI] = 54…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> vs    Engine vshaped  <span style='color: #949494;'>"</span>N=12 \np[95%CI] = 63% [36%; 84%]<span style='color: #949494;'>"</span> <span style='color: #949494;'>"</span>N=6 \np[95%CI] = 46…</span>
+<span class='r-in'><span class='va'>str_high</span><span class='op'>=</span><span class='st'>"n&gt;5"</span>; <span class='va'>str_lo</span><span class='op'>=</span><span class='st'>"n&lt;=5"</span></span>
+<span class='r-in'><span class='fu'>crosstable</span><span class='op'>(</span><span class='va'>mtcars2</span>, <span class='va'>vs</span>, by<span class='op'>=</span><span class='va'>am</span>, percent_digits<span class='op'>=</span><span class='fl'>0</span>, </span>
+<span class='r-in'>           percent_pattern<span class='op'>=</span><span class='st'>"col={p_col}, row={p_row} ({ifelse(n&lt;5, str_lo, str_high)})"</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error:</span> `percent_pattern` should only consider variables {n}, {p_cell}, {p_row}, and {p_col}</span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span style='color: #0000BB;'>ℹ</span> percent_pattern: "col={p_col}, row={p_row} ({ifelse(n&lt;5, str_lo, str_high)})"</span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span style='color: #BB0000;'>✖</span> object 'str_lo' not found</span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

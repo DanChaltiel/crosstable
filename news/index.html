@@ -101,7 +101,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9000</span>
       </span>
     </div>
 
@@ -177,13 +177,45 @@
       <small>Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="crosstable-022-2021-08" class="section level1">
-<h1 class="page-header" data-toc-text="0.2.2">
-<a href="#crosstable-022-2021-08" class="anchor"></a><small> 2021-10-19 </small>crosstable 0.2.2 <sub><sup>(2021-08)</sup></sub>
+    <div id="crosstable-030-xxx" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.0">
+<a href="#crosstable-030-xxx" class="anchor"></a><small> Unreleased </small>crosstable 0.3.0 <sub><sup>(xxx)</sup></sub>
 </h1>
 <div id="new-features" class="section level4">
 <h4 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h4>
+<ul>
+<li>New parameter <code>percent_pattern</code> in replacement of <code>crosstable(margin=x)</code> to easily format percentages. Introduces the possibility of displaying confidence intervals (Wilson score method) along with proportions.</li>
+<li>New function <code><a href="../reference/body_add_crosstable_list.html">body_add_crosstable_list()</a></code> to add a list of crosstables all at once, separated by some customizable titles.</li>
+<li>New argument <code>padding_v</code> for <code><a href="../reference/as_flextable.crosstable.html">as_flextable()</a></code> to manage vertical padding.</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level4">
+<h4 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h4>
+<ul>
+<li>fixed a bug in <code><a href="../reference/as_flextable.crosstable.html">as_flextable()</a></code> occuring when <code>showNA=TRUE</code> (header row was disapearing)</li>
+<li>fixed a bug occuring when <code>by</code> is a factor with unused levels</li>
+<li>removed extra bold columns in compacted crosstables displayed as flextables</li>
+</ul>
+</div>
+<div id="internal" class="section level4">
+<h4 class="hasAnchor">
+<a href="#internal" class="anchor"></a>Internal</h4>
+<ul>
+<li>renamed branch <code>master</code> to <code>main</code>
+</li>
+<li>use a lot more snapshots in tests</li>
+</ul>
+</div>
+</div>
+    <div id="crosstable-022-2021-10-18" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.2">
+<a href="#crosstable-022-2021-10-18" class="anchor"></a><small> 2021-10-19 </small>crosstable 0.2.2 <sub><sup>(2021-10-18)</sup></sub>
+</h1>
+<div id="new-features-1" class="section level4">
+<h4 class="hasAnchor">
+<a href="#new-features-1" class="anchor"></a>New features</h4>
 <ul>
 <li>Added support for multiple <code>by</code>! You can now write <code>crosstable(mtcars, c(mpg, gear), by=c(am, vs)) %&gt;% as_flextable()</code>.</li>
 <li>Added a macro that can autofit every table in the document at once. This macro can be generated using the function <code><a href="../reference/generate_autofit_macro.html">generate_autofit_macro()</a></code> which creates a file that should then be imported into MS Word.</li>
@@ -209,9 +241,9 @@
 <code><a href="../reference/docx_bookmarks2.html">docx_bookmarks2()</a></code> gainss a <code>target</code> parameter.</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level4">
+<div id="bug-fixes-1" class="section level4">
 <h4 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h4>
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h4>
 <ul>
 <li>
 <code>effect</code> calculation now takes into account the reference level (first level of a factor).</li>
@@ -220,9 +252,9 @@
 <li>Added few more warnings, so that you know what went wrong.</li>
 </ul>
 </div>
-<div id="internal" class="section level4">
+<div id="internal-1" class="section level4">
 <h4 class="hasAnchor">
-<a href="#internal" class="anchor"></a>Internal</h4>
+<a href="#internal-1" class="anchor"></a>Internal</h4>
 <ul>
 <li>burgled 2 functions using <code>burglr::burgle()</code> to avoid dependency: <code>nortest::ad.test()</code> and <code>DescTools::CochranArmitageTest()</code>.</li>
 <li>fixes the bug from the breaking change in <code>testthat</code> (<a href="https://github.com/DanChaltiel/crosstable/pull/3" class="uri">https://github.com/DanChaltiel/crosstable/pull/3</a>).</li>
