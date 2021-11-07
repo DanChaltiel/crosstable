@@ -10,15 +10,16 @@
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/crosstable)](https://CRAN.R-project.org/package=crosstable)
-<!-- [![Downloads](http://cranlogs.r-pkg.org/badges/crosstable?color=brightgreen)](http://www.r-pkg.org/pkg/crosstable) -->
+[![CRAN RStudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/crosstable?color=blue)](https://r-pkg.org/pkg/crosstable)
 [![Last
 Commit](https://img.shields.io/github/last-commit/DanChaltiel/crosstable)](https://github.com/DanChaltiel/crosstable)
-<!-- [![Build Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=master)](https://travis-ci.org/DanChaltiel/crosstable) -->
 [![Codecov test
 coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/master/graph/badge.svg)](https://app.codecov.io/gh/DanChaltiel/crosstable?branch=master)
-<!-- [![Dependencies](https://tinyverse.netlify.com/badge/crosstable)](https://cran.r-project.org/package=crosstable)  -->
 [![R build
 status](https://github.com/DanChaltiel/crosstable/workflows/R-CMD-check/badge.svg)](https://github.com/DanChaltiel/crosstable/actions)
+<!-- [![Dependencies](https://tinyverse.netlify.com/badge/crosstable)](https://cran.r-project.org/package=crosstable)  -->
+<!-- [![Build Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=master)](https://travis-ci.org/DanChaltiel/crosstable) -->
 <!-- badges: end -->
 
 Crosstable is a package centered on a single function, `crosstable`,
@@ -29,15 +30,15 @@ create automatized reports.
 ## Installation
 
 ``` r
-# Install last version available on CRAN (v0.2.1)
+# Install last version available on CRAN (v0.2.2)
 install.packages("crosstable")
 
 # Install development version on Github
 devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 
 # Install specific version (for reproducibility purpose)
-devtools::install_github("DanChaltiel/crosstable@v0.2.2", build_vignettes=TRUE) #last tag
-devtools::install_github("DanChaltiel/crosstable@e2c9eb2", build_vignettes=TRUE) #last commit
+devtools::install_github("DanChaltiel/crosstable@v0.2.2-CRAN", build_vignettes=TRUE) #last tag
+devtools::install_github("DanChaltiel/crosstable@f4a1ec1", build_vignettes=TRUE) #last commit
 ```
 
 Note that, for reproducibility purpose, an even better solution would be
@@ -141,7 +142,6 @@ for instance:
 
 ## Acknowledgement
 
-`crosstable` is a rewrite of the awesome package
+`crosstable` was initially based on the awesome package
 [`biostat2`](https://github.com/eusebe/biostat2) written by David
-Hajage. The user interface is quite different but the concept is the
-same. Thanks David!
+Hajage. Thanks David!
