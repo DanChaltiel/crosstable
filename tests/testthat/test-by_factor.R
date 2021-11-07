@@ -132,7 +132,23 @@ test_that("Margins with totals", {
 
 test_that("Percent pattern", {
     
-    #TODO
+    expect_snapshot({
+        x0=crosstable(mtcars3, cyl, 
+                      percent_pattern="N={n} \nrow={p_row}, col={p_col}")
+        x0
+        as_flextable(x0)
+        x1=crosstable(mtcars3, cyl, total=TRUE, 
+                      percent_pattern="N={n} \np[95%CI] = {p_col} [{p_col_inf}; {p_col_sup}]")
+        x1
+        as_flextable(x1)
+        x2=crosstable(mtcars3, cyl, showNA="always", 
+                      percent_pattern="N={n} \nrow={p_row}, col={p_col}")
+        x2
+        as_flextable(x2)
+        x3=crosstable(mtcars3, c(mpg, vs, cyl), by=c(am, dummy))
+        x3
+        as_flextable(x3)
+    }) 
 })
 
 # By dummy ---------------------------------------------------------

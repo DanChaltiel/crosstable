@@ -964,6 +964,121 @@
       4  10 (37.04%)
       5   4 (14.81%)
 
+# Percent pattern
+
+    Code
+      x0 = crosstable(mtcars3, cyl, percent_pattern = "N={n} \nrow={p_row}, col={p_col}")
+      x0
+    Output
+      # A tibble: 4 x 4
+        .id   label               variable value                           
+        <chr> <chr>               <chr>    <chr>                           
+      1 cyl   Number of cylinders 4        "N=10 \nrow=100.00%, col=37.04%"
+      2 cyl   Number of cylinders 6        "N=4 \nrow=100.00%, col=14.81%" 
+      3 cyl   Number of cylinders 8        "N=13 \nrow=100.00%, col=48.15%"
+      4 cyl   Number of cylinders NA       "5"                             
+    Code
+      as_flextable(x0)
+    Output
+      a flextable object.
+      col_keys: `label`, `variable`, `value` 
+      header has 1 row(s) 
+      body has 4 row(s) 
+      original dataset sample: 
+        .id               label variable                          value
+      1 cyl Number of cylinders        4 N=10 \nrow=100.00%, col=37.04%
+      2 cyl Number of cylinders        6  N=4 \nrow=100.00%, col=14.81%
+      3 cyl Number of cylinders        8 N=13 \nrow=100.00%, col=48.15%
+      4 cyl Number of cylinders       NA                              5
+    Code
+      x1 = crosstable(mtcars3, cyl, total = TRUE, percent_pattern = "N={n} \np[95%CI] = {p_col} [{p_col_inf}; {p_col_sup}]")
+      x1
+    Output
+      # A tibble: 5 x 4
+        .id   label               variable value                                      
+        <chr> <chr>               <chr>    <chr>                                      
+      1 cyl   Number of cylinders 4        "N=10 \np[95%CI] = 37.04% [14.94%; 66.33%]"
+      2 cyl   Number of cylinders 6        "N=4 \np[95%CI] = 14.81% [1.80%; 62.31%]"  
+      3 cyl   Number of cylinders 8        "N=13 \np[95%CI] = 48.15% [24.70%; 72.44%]"
+      4 cyl   Number of cylinders NA       "5"                                        
+      5 cyl   Number of cylinders Total    "32 (100.00%)"                             
+    Code
+      as_flextable(x1)
+    Output
+      a flextable object.
+      col_keys: `label`, `variable`, `value` 
+      header has 1 row(s) 
+      body has 5 row(s) 
+      original dataset sample: 
+        .id               label variable                                     value
+      1 cyl Number of cylinders        4 N=10 \np[95%CI] = 37.04% [14.94%; 66.33%]
+      2 cyl Number of cylinders        6   N=4 \np[95%CI] = 14.81% [1.80%; 62.31%]
+      3 cyl Number of cylinders        8 N=13 \np[95%CI] = 48.15% [24.70%; 72.44%]
+      4 cyl Number of cylinders       NA                                         5
+      5 cyl Number of cylinders    Total                              32 (100.00%)
+    Code
+      x2 = crosstable(mtcars3, cyl, showNA = "always", percent_pattern = "N={n} \nrow={p_row}, col={p_col}")
+      x2
+    Output
+      # A tibble: 4 x 4
+        .id   label               variable value                           
+        <chr> <chr>               <chr>    <chr>                           
+      1 cyl   Number of cylinders 4        "N=10 \nrow=100.00%, col=37.04%"
+      2 cyl   Number of cylinders 6        "N=4 \nrow=100.00%, col=14.81%" 
+      3 cyl   Number of cylinders 8        "N=13 \nrow=100.00%, col=48.15%"
+      4 cyl   Number of cylinders NA       "5"                             
+    Code
+      as_flextable(x2)
+    Output
+      a flextable object.
+      col_keys: `label`, `variable`, `value` 
+      header has 1 row(s) 
+      body has 4 row(s) 
+      original dataset sample: 
+        .id               label variable                          value
+      1 cyl Number of cylinders        4 N=10 \nrow=100.00%, col=37.04%
+      2 cyl Number of cylinders        6  N=4 \nrow=100.00%, col=14.81%
+      3 cyl Number of cylinders        8 N=13 \nrow=100.00%, col=48.15%
+      4 cyl Number of cylinders       NA                              5
+    Code
+      x3 = crosstable(mtcars3, c(mpg, vs, cyl), by = c(am, dummy))
+      x3
+    Output
+      # A tibble: 11 x 5
+         .id   label               variable   `am=auto & dummy=dummy` `am=manual & du~
+         <chr> <chr>               <chr>      <chr>                   <chr>           
+       1 mpg   Miles/(US) gallon   Min / Max  10.4 / 24.4             15.0 / 33.9     
+       2 mpg   Miles/(US) gallon   Med [IQR]  17.3 [14.9;19.2]        22.8 [21.0;30.4]
+       3 mpg   Miles/(US) gallon   Mean (std) 17.1 (3.8)              24.4 (6.2)      
+       4 mpg   Miles/(US) gallon   N (NA)     19 (0)                  13 (0)          
+       5 vs    Engine              straight   2 (22.22%)              7 (77.78%)      
+       6 vs    Engine              vshaped    9 (60.00%)              6 (40.00%)      
+       7 vs    Engine              NA         8                       0               
+       8 cyl   Number of cylinders 4          3 (30.00%)              7 (70.00%)      
+       9 cyl   Number of cylinders 6          3 (75.00%)              1 (25.00%)      
+      10 cyl   Number of cylinders 8          11 (84.62%)             2 (15.38%)      
+      11 cyl   Number of cylinders NA         2                       3               
+    Code
+      as_flextable(x3)
+    Output
+      a flextable object.
+      col_keys: `label`, `variable`, `am=auto & dummy=dummy`, `am=manual & dummy=dummy` 
+      header has 2 row(s) 
+      body has 11 row(s) 
+      original dataset sample: 
+        .id             label   variable am=auto & dummy=dummy
+      1 mpg Miles/(US) gallon  Min / Max           10.4 / 24.4
+      2 mpg Miles/(US) gallon  Med [IQR]      17.3 [14.9;19.2]
+      3 mpg Miles/(US) gallon Mean (std)            17.1 (3.8)
+      4 mpg Miles/(US) gallon     N (NA)                19 (0)
+      5  vs            Engine   straight            2 (22.22%)
+        am=manual & dummy=dummy
+      1             15.0 / 33.9
+      2        22.8 [21.0;30.4]
+      3              24.4 (6.2)
+      4                  13 (0)
+      5              7 (77.78%)
+
 # By dummy
 
     Code
@@ -973,15 +1088,15 @@
       # A tibble: 38 x 4
          .id   label               variable   dummy           
          <chr> <chr>               <chr>      <chr>           
-       1 am    Transmission        auto       19 (100.00%)    
-       2 am    Transmission        manual     13 (100.00%)    
+       1 am    Transmission        auto       19 (59.38%)     
+       2 am    Transmission        manual     13 (40.62%)     
        3 mpg   Miles/(US) gallon   Min / Max  10.4 / 33.9     
        4 mpg   Miles/(US) gallon   Med [IQR]  19.2 [15.4;22.8]
        5 mpg   Miles/(US) gallon   Mean (std) 20.1 (6.0)      
        6 mpg   Miles/(US) gallon   N (NA)     32 (0)          
-       7 cyl   Number of cylinders 4          10 (100.00%)    
-       8 cyl   Number of cylinders 6          4 (100.00%)     
-       9 cyl   Number of cylinders 8          13 (100.00%)    
+       7 cyl   Number of cylinders 4          10 (37.04%)     
+       8 cyl   Number of cylinders 6          4 (14.81%)      
+       9 cyl   Number of cylinders 8          13 (48.15%)     
       10 cyl   Number of cylinders NA         5               
       # ... with 28 more rows
     Code
@@ -993,8 +1108,8 @@
       body has 38 row(s) 
       original dataset sample: 
         .id             label   variable            dummy
-      1  am      Transmission       auto     19 (100.00%)
-      2  am      Transmission     manual     13 (100.00%)
+      1  am      Transmission       auto      19 (59.38%)
+      2  am      Transmission     manual      13 (40.62%)
       3 mpg Miles/(US) gallon  Min / Max      10.4 / 33.9
       4 mpg Miles/(US) gallon  Med [IQR] 19.2 [15.4;22.8]
       5 mpg Miles/(US) gallon Mean (std)       20.1 (6.0)
@@ -1005,16 +1120,16 @@
       # A tibble: 39 x 5
          .id   label               variable   dummy            `NA` 
          <chr> <chr>               <chr>      <chr>            <chr>
-       1 am    Transmission        auto       19 (100.00%)     0    
-       2 am    Transmission        manual     13 (100.00%)     0    
+       1 am    Transmission        auto       19 (59.38%)      0    
+       2 am    Transmission        manual     13 (40.62%)      0    
        3 am    Transmission        NA         0                0    
        4 mpg   Miles/(US) gallon   Min / Max  10.4 / 33.9      no NA
        5 mpg   Miles/(US) gallon   Med [IQR]  19.2 [15.4;22.8] no NA
        6 mpg   Miles/(US) gallon   Mean (std) 20.1 (6.0)       no NA
        7 mpg   Miles/(US) gallon   N (NA)     32 (0)           no NA
-       8 cyl   Number of cylinders 4          10 (100.00%)     0    
-       9 cyl   Number of cylinders 6          4 (100.00%)      0    
-      10 cyl   Number of cylinders 8          13 (100.00%)     0    
+       8 cyl   Number of cylinders 4          10 (37.04%)      0    
+       9 cyl   Number of cylinders 6          4 (14.81%)       0    
+      10 cyl   Number of cylinders 8          13 (48.15%)      0    
       # ... with 29 more rows
     Code
       as_flextable(x1)
@@ -1025,8 +1140,8 @@
       body has 39 row(s) 
       original dataset sample: 
         .id             label  variable            dummy    NA
-      1  am      Transmission      auto     19 (100.00%)     0
-      2  am      Transmission    manual     13 (100.00%)     0
+      1  am      Transmission      auto      19 (59.38%)     0
+      2  am      Transmission    manual      13 (40.62%)     0
       3  am      Transmission        NA                0     0
       4 mpg Miles/(US) gallon Min / Max      10.4 / 33.9 no NA
       5 mpg Miles/(US) gallon Med [IQR] 19.2 [15.4;22.8] no NA
@@ -1435,7 +1550,7 @@
       x1 %>% as_flextable()
     Output
       a flextable object.
-      col_keys: `label`, `variable`, `cyl=4 & I(am == "auto")=FALSE & vs=straight`, `cyl=6 & I(am == "auto")=FALSE & vs=straight`, `cyl=8 & I(am == "auto")=FALSE & vs=straight`, `cyl=NA & I(am == "auto")=FALSE & vs=straight`, `cyl=4 & I(am == "auto")=TRUE & vs=straight`, `cyl=6 & I(am == "auto")=TRUE & vs=straight`, `cyl=8 & I(am == "auto")=TRUE & vs=straight`, `cyl=NA & I(am == "auto")=TRUE & vs=straight`, `cyl=4 & I(am == "auto")=FALSE & vs=vshaped`, `cyl=6 & I(am == "auto")=FALSE & vs=vshaped`, `cyl=8 & I(am == "auto")=FALSE & vs=vshaped`, `cyl=NA & I(am == "auto")=FALSE & vs=vshaped`, `cyl=4 & I(am == "auto")=TRUE & vs=vshaped`, `cyl=6 & I(am == "auto")=TRUE & vs=vshaped`, `cyl=8 & I(am == "auto")=TRUE & vs=vshaped`, `cyl=NA & I(am == "auto")=TRUE & vs=vshaped`, `cyl=4 & I(am == "auto")=FALSE & vs=NA`, `cyl=6 & I(am == "auto")=FALSE & vs=NA`, `cyl=8 & I(am == "auto")=FALSE & vs=NA`, `cyl=NA & I(am == "auto")=FALSE & vs=NA`, `cyl=4 & I(am == "auto")=TRUE & vs=NA`, `cyl=6 & I(am == "auto")=TRUE & vs=NA`, `cyl=8 & I(am == "auto")=TRUE & vs=NA`, `cyl=NA & I(am == "auto")=TRUE & vs=NA`, `Total` 
+      col_keys: `label`, `variable`, `cyl=4 & I(am == "auto")=FALSE & vs=straight`, `cyl=6 & I(am == "auto")=FALSE & vs=straight`, `cyl=8 & I(am == "auto")=FALSE & vs=straight`, `cyl=4 & I(am == "auto")=TRUE & vs=straight`, `cyl=6 & I(am == "auto")=TRUE & vs=straight`, `cyl=8 & I(am == "auto")=TRUE & vs=straight`, `cyl=4 & I(am == "auto")=FALSE & vs=vshaped`, `cyl=6 & I(am == "auto")=FALSE & vs=vshaped`, `cyl=8 & I(am == "auto")=FALSE & vs=vshaped`, `cyl=4 & I(am == "auto")=TRUE & vs=vshaped`, `cyl=6 & I(am == "auto")=TRUE & vs=vshaped`, `cyl=8 & I(am == "auto")=TRUE & vs=vshaped`, `cyl=4 & I(am == "auto")=FALSE & vs=NA`, `cyl=6 & I(am == "auto")=FALSE & vs=NA`, `cyl=8 & I(am == "auto")=FALSE & vs=NA`, `cyl=4 & I(am == "auto")=TRUE & vs=NA`, `cyl=6 & I(am == "auto")=TRUE & vs=NA`, `cyl=8 & I(am == "auto")=TRUE & vs=NA`, `NA`, `Total` 
       header has 3 row(s) 
       body has 8 row(s) 
       original dataset sample: 
@@ -1463,18 +1578,12 @@
       3                                     NA (NA)
       4                                       0 (0)
       5                                      0 (0%)
-        cyl=NA & I(am == "auto")=FALSE & vs=straight
-      1                                  22.8 / 22.8
-      2                             22.8 [22.8;22.8]
-      3                                    22.8 (NA)
-      4                                        1 (0)
-      5                                       0 (0%)
         cyl=4 & I(am == "auto")=TRUE & vs=straight
       1                                21.5 / 21.5
       2                           21.5 [21.5;21.5]
       3                                  21.5 (NA)
       4                                      1 (0)
-      5                                  1 (6.67%)
+      5                                  1 (7.69%)
         cyl=6 & I(am == "auto")=TRUE & vs=straight
       1                                    NA / NA
       2                                 NA [NA;NA]
@@ -1487,12 +1596,6 @@
       3                                    NA (NA)
       4                                      0 (0)
       5                                     0 (0%)
-        cyl=NA & I(am == "auto")=TRUE & vs=straight
-      1                                 21.4 / 21.4
-      2                            21.4 [21.4;21.4]
-      3                                   21.4 (NA)
-      4                                       1 (0)
-      5                                   1 (6.67%)
         cyl=4 & I(am == "auto")=FALSE & vs=vshaped
       1                                26.0 / 26.0
       2                           26.0 [26.0;26.0]
@@ -1511,12 +1614,6 @@
       3                                 15.4 (0.6)
       4                                      2 (0)
       5                                     0 (0%)
-        cyl=NA & I(am == "auto")=FALSE & vs=vshaped
-      1                                 21.0 / 21.0
-      2                            21.0 [21.0;21.0]
-      3                                    21.0 (0)
-      4                                       2 (0)
-      5                                      0 (0%)
         cyl=4 & I(am == "auto")=TRUE & vs=vshaped
       1                                   NA / NA
       2                                NA [NA;NA]
@@ -1534,41 +1631,29 @@
       2                          15.2 [13.3;15.5]
       3                                14.6 (2.9)
       4                                     9 (0)
-      5                                9 (60.00%)
-        cyl=NA & I(am == "auto")=TRUE & vs=vshaped
-      1                                    NA / NA
-      2                                 NA [NA;NA]
-      3                                    NA (NA)
-      4                                      0 (0)
-      5                                     0 (0%)
+      5                                9 (69.23%)
         cyl=4 & I(am == "auto")=FALSE & vs=NA cyl=6 & I(am == "auto")=FALSE & vs=NA
       1                               NA / NA                               NA / NA
       2                            NA [NA;NA]                            NA [NA;NA]
       3                               NA (NA)                               NA (NA)
       4                                 0 (0)                                 0 (0)
       5                                0 (0%)                                0 (0%)
-        cyl=8 & I(am == "auto")=FALSE & vs=NA cyl=NA & I(am == "auto")=FALSE & vs=NA
-      1                               NA / NA                                NA / NA
-      2                            NA [NA;NA]                             NA [NA;NA]
-      3                               NA (NA)                                NA (NA)
-      4                                 0 (0)                                  0 (0)
-      5                                0 (0%)                                 0 (0%)
-        cyl=4 & I(am == "auto")=TRUE & vs=NA cyl=6 & I(am == "auto")=TRUE & vs=NA
-      1                          22.8 / 24.4                          17.8 / 19.2
-      2                     23.6 [23.2;24.0]                     18.1 [18.0;18.6]
-      3                           23.6 (1.1)                           18.4 (0.7)
-      4                                2 (0)                                3 (0)
-      5                               0 (0%)                            1 (6.67%)
-        cyl=8 & I(am == "auto")=TRUE & vs=NA cyl=NA & I(am == "auto")=TRUE & vs=NA
-      1                          14.3 / 16.4                           18.7 / 18.7
-      2                     15.3 [14.8;15.9]                      18.7 [18.7;18.7]
-      3                           15.3 (1.5)                             18.7 (NA)
-      4                                2 (0)                                 1 (0)
-      5                           2 (13.33%)                             1 (6.67%)
-                   Total
-      1      10.4 / 33.9
-      2 19.2 [15.4;22.8]
-      3       20.1 (6.0)
-      4           32 (0)
-      5      15 (46.88%)
+        cyl=8 & I(am == "auto")=FALSE & vs=NA cyl=4 & I(am == "auto")=TRUE & vs=NA
+      1                               NA / NA                          22.8 / 24.4
+      2                            NA [NA;NA]                     23.6 [23.2;24.0]
+      3                               NA (NA)                           23.6 (1.1)
+      4                                 0 (0)                                2 (0)
+      5                                0 (0%)                               0 (0%)
+        cyl=6 & I(am == "auto")=TRUE & vs=NA cyl=8 & I(am == "auto")=TRUE & vs=NA
+      1                          17.8 / 19.2                          14.3 / 16.4
+      2                     18.1 [18.0;18.6]                     15.3 [14.8;15.9]
+      3                           18.4 (0.7)                           15.3 (1.5)
+      4                                3 (0)                                2 (0)
+      5                            1 (7.69%)                           2 (15.38%)
+                      NA            Total
+      1      18.7 / 22.8      10.4 / 33.9
+      2 21.0 [21.0;21.4] 19.2 [15.4;22.8]
+      3       21.0 (1.5)       20.1 (6.0)
+      4            5 (0)           32 (0)
+      5                2      15 (46.88%)
 
