@@ -216,6 +216,72 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 
 
 
+#' Add a list of crosstables
+#' 
+#' Add a list of crosstables in an officer document
+#'
+#' @param doc a `rdocx` object, created by [officer::read_docx()]
+#' @param l a named list of crosstables
+#' @param fun a function to be used before each table, most likely to add some kind of title. Should be of the form `function(doc, .name)` where `.name` is the name of the current crosstable of the list. You can also pass `"title2"` to add the name as a title of level 2 between each table, `"newline"` to simply add a new line, or even NULL to not separate them (beware that the table might merge then).
+#' @param ... arguments passed on to [body_add_crosstable()]
+#'
+#' @importFrom checkmate assert_list assert_named assert_class
+#' @importFrom rlang abort
+#' @importFrom glue glue
+#' 
+#' @return The docx object `doc`
+#' @export
+#' 
+#' @examples 
+#' ctl = list(iris2=crosstable(iris2, 1),
+#' mtcars2=crosstable(mtcars2, 1))
+#' 
+#' myfun = function(doc, .name){
+#'     doc %>% 
+#'         body_add_title(glue(" This is table '{.name}' as a crosstable"), 2) %>% 
+#'         body_add_normal("Here is the table:")
+#' }
+#' 
+#' read_docx() %>% 
+#'     body_add_title("Separated by subtitle", 1) %>% 
+#'     body_add_crosstable_list(ctl, fun="title2") %>% 
+#'     body_add_title("Separated by new line", 1) %>% 
+#'     body_add_crosstable_list(ctl, fun="newline") %>% 
+#'     body_add_title("Separated using a custom function", 1) %>% 
+#'     body_add_crosstable_list(ctl, fun=myfun, body_fontsize=8) %>% 
+#'     write_and_open()
+body_add_crosstable_list = function(doc, l, fun="title2", ...){
+    assert_list(l)
+    assert_named(l)
+    walk(l, assert_class, classes="crosstable")
+    if(is_string(fun)){
+        if(fun=="title2") fun=function(doc, .name) body_add_title(doc, .name, 2)
+        else if(fun=="title3") fun=function(doc, .name) body_add_title(doc, .name, 3)
+        else if(fun=="title4") fun=function(doc, .name) body_add_title(doc, .name, 4)
+        else if(fun=="newline") fun=function(doc, .name) body_add_normal(doc, "")
+        else {
+            abort(c('`fun` should be either a function or a member of c("title2", "title3", "title4", "newline")', 
+                    i=glue("Current value: '{fun}'")), 
+                  class="body_add_crosstable_list_fun_name")
+        }
+    } else if(is.null(fun)) fun=function(doc, .name) doc
+    assert_class(fun, "function")
+    # browser()
+    if(!identical(formalArgs(fun), c("doc", ".name"))){
+        abort(c('`fun` should be of the form `function(doc, .name)`', 
+                i=paste0("Current arg names: ", paste0(formalArgs(fun), collapse=", "))), 
+              class="body_add_crosstable_list_fun_args")
+    }
+    for(i in names(l)){
+        x=l[[i]]
+        doc = doc %>% 
+            fun(.name=i) %>% 
+            body_add_crosstable(x, ...)
+    }
+    doc
+}
+
+
 #' Add a table legend to an `officer` document
 #'
 #' @param doc a docx object
