@@ -1,6 +1,27 @@
 <!-- https://style.tidyverse.org/news.html -->
 
-# crosstable 0.2.2 <sub><sup>(2021-08)</sup></sub>
+# crosstable 0.3.0 <sub><sup>(xxx)</sup></sub>
+
+#### New features
+
+* New parameter `percent_pattern` in replacement of `crosstable(margin=x)` to easily format percentages. Introduces the possibility of displaying confidence intervals (Wilson score method) along with proportions.
+* New function `body_add_crosstable_list()` to add a list of crosstables all at once, separated by some customizable titles.
+* New argument `padding_v` for `as_flextable()` to manage vertical padding.
+
+
+#### Bug fixes
+
+* fixed a bug in `as_flextable()` occuring when `showNA=TRUE` (header row was disapearing)
+* fixed a bug occuring when `by` is a factor with unused levels
+* removed extra bold columns in compacted crosstables displayed as flextables
+
+
+#### Internal
+
+* renamed branch `master` to `main`
+* use a lot more snapshots in tests
+
+# crosstable 0.2.2 <sub><sup>(2021-10-18)</sup></sub>
 
 #### New features
 
