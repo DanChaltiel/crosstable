@@ -40,7 +40,7 @@ crosstable(
 
 \item{total}{one of ["none", "row", "column" or "both"] to indicate whether to add total rows and/or columns. Default to \code{none}.}
 
-\item{percent_pattern}{Pattern used to describe proportions in categorical data. Use the \code{\link[glue:glue]{glue::glue()}} syntax with any variable in \code{c("n", "p_row", "p_coll", "p_cell")}. Default to \code{"{n} ({p_row})"}.}
+\item{percent_pattern}{Pattern used to describe proportions in categorical data. Syntax uses a \code{\link[glue:glue]{glue::glue()}} specification, see section below for more details. Default to \code{"{n} ({p_col})"} if \code{by} is null and \code{"{n} ({p_row})"} if it is not.}
 
 \item{percent_digits}{Number of digits for percentages}
 
@@ -82,6 +82,12 @@ Generate a descriptive table of all chosen columns, as contingency tables for ca
 \cr
 Can be formatted as an HTML table using \code{\link[=as_flextable]{as_flextable()}}.
 }
+\section{\code{percent_pattern}}{
+
+The \code{percent_pattern} argument is a single string that uses the glue syntax, where variables are put in double curly braces (\code{{{x}}}). Count is expressed as \code{{{n}}} and proportions as \code{{{p_row}}}, \code{{{p_col}}}, and \code{{{p_cell}}}, depending on which way they are calculated. \cr
+For each proportion, a confidence interval is also calculated using \href{https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval}{Wilson score} and can be expressed as \code{{{p_xxx_inf}}} and \code{{{p_xxx_sup}}}. See examples for practical applications.
+}
+
 \examples{
 #whole table
 crosstable(iris)
@@ -110,6 +116,15 @@ crosstable(mtcars2, my_date, by=vs, date_format="\%d/\%m/\%Y")
 #Survival data (using formula syntax)
 library(survival)
 crosstable(aml, Surv(time, status) ~ x,times=c(0,15,30,150), followup=TRUE)
+
+#Patterns
+crosstable(mtcars2, vs, by=am, percent_digits=0, 
+           percent_pattern="{n} ({p_col} / {p_row})")
+crosstable(mtcars2, vs, by=am, percent_digits=0,
+           percent_pattern="N={n} \np[95\%CI] = {p_col} [{p_col_inf}; {p_col_sup}]")
+str_high="n>5"; str_lo="n<=5"
+crosstable(mtcars2, vs, by=am, percent_digits=0, 
+           percent_pattern="col={p_col}, row={p_row} ({ifelse(n<5, str_lo, str_high)})")
 }
 \seealso{
 https://danchaltiel.github.io/crosstable/, as_flextable, import_labels
