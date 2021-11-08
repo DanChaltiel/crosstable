@@ -22,12 +22,13 @@ The docx object \code{doc}
 Add a list of crosstables in an officer document
 }
 \examples{
+library(officer)
 ctl = list(iris2=crosstable(iris2, 1),
 mtcars2=crosstable(mtcars2, 1))
 
 myfun = function(doc, .name){
     doc \%>\% 
-        body_add_title(glue(" This is table '{.name}' as a crosstable"), 2) \%>\% 
+        body_add_title(glue::glue(" This is table '{.name}' as a crosstable"), 2) \%>\% 
         body_add_normal("Here is the table:")
 }
 

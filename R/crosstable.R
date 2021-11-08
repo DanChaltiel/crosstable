@@ -1,5 +1,5 @@
 
-utils::globalVariables(c("x", "y", "ct", "col_keys"))
+utils::globalVariables(c("x", "y", "ct", "col_keys", "p_col"))
 
 #' Easily describe datasets
 #' 

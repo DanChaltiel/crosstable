@@ -227,18 +227,20 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #'
 #' @importFrom checkmate assert_list assert_named assert_class
 #' @importFrom rlang abort
+#' @importFrom methods formalArgs
 #' @importFrom glue glue
 #' 
 #' @return The docx object `doc`
 #' @export
 #' 
 #' @examples 
+#' library(officer)
 #' ctl = list(iris2=crosstable(iris2, 1),
 #' mtcars2=crosstable(mtcars2, 1))
 #' 
 #' myfun = function(doc, .name){
 #'     doc %>% 
-#'         body_add_title(glue(" This is table '{.name}' as a crosstable"), 2) %>% 
+#'         body_add_title(glue::glue(" This is table '{.name}' as a crosstable"), 2) %>% 
 #'         body_add_normal("Here is the table:")
 #' }
 #' 
