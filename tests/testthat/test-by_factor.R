@@ -13,16 +13,16 @@ test_that("showNA with NA in by", {
     expect_true(anyNA(mtcars3$vs))
     expect_snapshot({
         x0=crosstable(mtcars3, c(am,mpg,cyl,surv), by=vs, times=c(0,100,200,400))
-        x0
+        as.data.frame(x0)
         as_flextable(x0)
         x1=crosstable(mtcars3, c(am,mpg,cyl,surv), by=vs, showNA="no", times=c(0,100,200,400))
-        x1
+        as.data.frame(x1)
         as_flextable(x1)
         x2=crosstable(mtcars3, c(am,mpg,cyl,surv), by=vs, showNA="ifany", times=c(0,100,200,400))
-        x2
+        as.data.frame(x2)
         as_flextable(x2)
         x3=crosstable(mtcars3, c(am,mpg,cyl,surv), by=vs, showNA="always", times=c(0,100,200,400))
-        x3
+        as.data.frame(x3)
         as_flextable(x3)
     })
 })
@@ -31,16 +31,16 @@ test_that("showNA without NA in by", {
     expect_false(anyNA(mtcars3$am))
     expect_snapshot({
         x0=crosstable(mtcars3, c(vs,mpg,cyl,surv), by=am, times=c(0,100,200,400))
-        x0
+        as.data.frame(x0)
         as_flextable(x0)
         x1=crosstable(mtcars3, c(vs,mpg,cyl,surv), by=am, showNA="no", times=c(0,100,200,400))
-        x1
+        as.data.frame(x1)
         as_flextable(x1)
         x2=crosstable(mtcars3, c(vs,mpg,cyl,surv), by=am, showNA="ifany", times=c(0,100,200,400))
-        x2
+        as.data.frame(x2)
         as_flextable(x2)
         x3=crosstable(mtcars3, c(vs,mpg,cyl,surv), by=am, showNA="always", times=c(0,100,200,400))
-        x3
+        as.data.frame(x3)
         as_flextable(x3)
     }) 
 })
@@ -51,19 +51,19 @@ test_that("showNA without NA in by", {
 test_that("total", {
     expect_snapshot({
         x0=crosstable(mtcars3, c(am,mpg,cyl,surv), by=vs, times=c(0,100,200,400))
-        x0
+        as.data.frame(x0)
         as_flextable(x0)
         x1=crosstable(mtcars3, c(am,mpg,cyl,surv), by=vs, total="none", times=c(0,100,200,400))
-        x1
+        as.data.frame(x1)
         as_flextable(x1)
         x2=crosstable(mtcars3, c(am,mpg,cyl,surv), by=vs, total="row", times=c(0,100,200,400))
-        x2
+        as.data.frame(x2)
         as_flextable(x2)
         x3=crosstable(mtcars3, c(am,mpg,cyl,surv), by=vs, total="col", times=c(0,100,200,400))
-        x3
+        as.data.frame(x3)
         as_flextable(x3)
         x4=crosstable(mtcars3, c(am,mpg,cyl,surv), by=vs, total="both", times=c(0,100,200,400))
-        x4
+        as.data.frame(x4)
         as_flextable(x4)
     })
 })
@@ -75,25 +75,25 @@ test_that("Margins without totals", {
     
     expect_snapshot({
         x0=crosstable(mtcars3, c(am, cyl), by=vs, total="none")
-        x0
+        as.data.frame(x0)
         as_flextable(x0)
         x1=crosstable(mtcars3, c(am, cyl), by=vs, total="none", margin="row")
-        x1
+        as.data.frame(x1)
         as_flextable(x1)
         x2=crosstable(mtcars3, c(am, cyl), by=vs, total="none", margin="col")
-        x2
+        as.data.frame(x2)
         as_flextable(x2)
         x3=crosstable(mtcars3, c(am, cyl), by=vs, total="none", margin="cell")
-        x3
+        as.data.frame(x3)
         as_flextable(x3)
         x4=crosstable(mtcars3, c(am, cyl), by=vs, total="none", margin="none")
-        x4
+        as.data.frame(x4)
         as_flextable(x4)
         x5=crosstable(mtcars3, c(am, cyl), by=vs, total="none", margin="all")
-        x5
+        as.data.frame(x5)
         as_flextable(x5)
         x6=crosstable(mtcars3, c(am, cyl), by=vs, total="none", margin=1:2)
-        x6
+        as.data.frame(x6)
         as_flextable(x6)
     }) 
 })
@@ -102,25 +102,25 @@ test_that("Margins with totals", {
     
     expect_snapshot({
         x0=crosstable(mtcars3, c(am, cyl), by=vs, total="both")
-        x0
+        as.data.frame(x0)
         as_flextable(x0)
         x1=crosstable(mtcars3, c(am, cyl), by=vs, total="both", margin="row")
-        x1
+        as.data.frame(x1)
         as_flextable(x1)
         x2=crosstable(mtcars3, c(am, cyl), by=vs, total="both", margin="col")
-        x2
+        as.data.frame(x2)
         as_flextable(x2)
         x3=crosstable(mtcars3, c(am, cyl), by=vs, total="both", margin="cell")
-        x3
+        as.data.frame(x3)
         as_flextable(x3)
         x4=crosstable(mtcars3, c(am, cyl), by=vs, total="both", margin="none")
-        x4
+        as.data.frame(x4)
         as_flextable(x4)
         x5=crosstable(mtcars3, c(am, cyl), by=vs, total="both", margin="all")
-        x5
+        as.data.frame(x5)
         as_flextable(x5)
         x6=crosstable(mtcars3, c(am, cyl), by=vs, total="both", margin=1:2)
-        x6
+        as.data.frame(x6)
         as_flextable(x6)
     }) 
 })
@@ -135,18 +135,18 @@ test_that("Percent pattern", {
     expect_snapshot({
         x0=crosstable(mtcars3, cyl, 
                       percent_pattern="N={n} \nrow={p_row}, col={p_col}")
-        x0
+        as.data.frame(x0)
         as_flextable(x0)
         x1=crosstable(mtcars3, cyl, total=TRUE, 
                       percent_pattern="N={n} \np[95%CI] = {p_col} [{p_col_inf}; {p_col_sup}]")
-        x1
+        as.data.frame(x1)
         as_flextable(x1)
         x2=crosstable(mtcars3, cyl, showNA="always", 
                       percent_pattern="N={n} \nrow={p_row}, col={p_col}")
-        x2
+        as.data.frame(x2)
         as_flextable(x2)
         x3=crosstable(mtcars3, c(mpg, vs, cyl), by=c(am, dummy))
-        x3
+        as.data.frame(x3)
         as_flextable(x3)
     }) 
 })
@@ -156,18 +156,18 @@ test_that("By dummy", {
     
     expect_snapshot({
         x0=crosstable(mtcars3, c(am,mpg,cyl,surv), by=dummy)
-        x0
+        as.data.frame(x0)
         as_flextable(x0)
         x1=crosstable(mtcars3, c(am,mpg,cyl,surv), by=dummy, showNA=TRUE)
-        x1
+        as.data.frame(x1)
         as_flextable(x1)
     }) 
     expect_snapshot({#dummy with NA
         x2=crosstable(mtcars3, c(am,mpg,cyl,surv), by=dummy2)
-        x2
+        as.data.frame(x2)
         as_flextable(x2)
         x3=crosstable(mtcars3, c(am,mpg,cyl,surv), by=dummy2, showNA=FALSE)
-        x3
+        as.data.frame(x3)
         as_flextable(x3)
     }) 
 })
@@ -179,21 +179,21 @@ test_that("By multiple", {
     
     expect_snapshot({
         x0=crosstable(mtcars3, c(mpg, gear), by=c(cyl, am, vs))
-        x0
+        as.data.frame(x0)
         as_flextable(x0)
         x1=crosstable(mtcars3, c(mpg, gear), by=c(cyl, am, vs), showNA=FALSE)
-        x1
+        as.data.frame(x1)
         as_flextable(x1)
         x2=crosstable(mtcars3, c(mpg, gear), by=c(cyl, am, vs), total=TRUE)
-        x2
+        as.data.frame(x2)
         as_flextable(x2)
         x3=crosstable(mtcars3, c(mpg, vs, cyl), by=c(am, dummy))
-        x3
+        as.data.frame(x3)
         as_flextable(x3)
         x4=crosstable(mtcars3, c(mpg, vs, cyl, dummy, surv, hp_date, qsec_posix, diff, cyl3), 
                       by=c(am, gear), total=TRUE, 
                       times=c(100,200), followup=TRUE)
-        x4
+        as.data.frame(x4)
         as_flextable(x4)
     }) 
     # expect_equal(dim(x1), c(7,27))
