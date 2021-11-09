@@ -283,8 +283,6 @@ test_that("openxlsx is working", {
     xl=list("with by"=x2, noby=x1, x3)
     wb6=as_workbook(xl)
     
-    expect_snapshot(wb6$worksheets)
-    
     if(!is_testing()){
         openxlsx::saveWorkbook(wb1, file = "tests/testthat/xlsx/test_openxlsx1.xlsx", overwrite = TRUE)
         openxlsx::saveWorkbook(wb2, file = "tests/testthat/xlsx/test_openxlsx2.xlsx", overwrite = TRUE)
