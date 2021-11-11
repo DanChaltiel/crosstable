@@ -1,6 +1,6 @@
 
 Sys.setenv(LANG = "en")
-
+Sys.setenv(TZ='Europe/Paris')
 
 options(stringsAsFactors = FALSE)
 options(testthat.progress.max_fails = 50)
@@ -10,6 +10,7 @@ options(crosstable_verbosity_autotesting="quiet")
 options(lifecycle_verbosity="warning")
 # if(testthat::is_testing()){
 # print(is_parallel())
+
 v=utils::View
 if(FALSE){
     # prettycode::prettycode()
