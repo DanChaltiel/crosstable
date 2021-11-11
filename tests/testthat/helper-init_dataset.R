@@ -4,14 +4,14 @@ Sys.setenv(LANG = "en")
 
 options(stringsAsFactors = FALSE)
 options(testthat.progress.max_fails = 50)
-options(width = 200)
+# options(width = 200)
 
 options(crosstable_verbosity_autotesting="quiet")
 options(lifecycle_verbosity="warning")
 # if(testthat::is_testing()){
 # print(is_parallel())
+v=utils::View
 if(FALSE){
-    v=View
     # prettycode::prettycode()
 }
 
