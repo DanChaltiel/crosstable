@@ -66,11 +66,11 @@ utils::globalVariables(c("x", "y", "ct", "col_keys", "p_col"))
 #' crosstable(mtcars2, c(disp, cyl), by=c(am, vs), 
 #'            margin=c("row", "col"), total = "both")
 #' 
-#' #predicate selection, correlation, testing
-#' crosstable(mtcars2, where(is.numeric), by=hp, test=TRUE)
+#' #predicate selection, correlation, effect calculation
+#' crosstable(mtcars2, where(is.numeric), by=hp, effect=TRUE)
 #' 
-#' #lambda selection & effect calculation
-#' crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, effect=TRUE)
+#' #lambda selection & statistical tests
+#' crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, test=TRUE)
 #' 
 #' #Dates
 #' mtcars2$my_date = as.Date(mtcars2$hp , origin="2010-01-01") %>% set_label("Some nonsense date")
@@ -102,6 +102,28 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
                       .vars) {
     debug=list()
     byname = vars_select(names(data), !!!enquos(by))
+
+    # Options -------------------------------------------------------------
+    if(missing(total)) total = getOption("crosstable_total", 0)
+    missing_percent_pattern = FALSE
+    if(missing(percent_pattern)) {
+        missing_percent_pattern = TRUE
+        percent_pattern = getOption("crosstable_percent_pattern", "{n} ({p_row})")
+    }
+    if(missing(percent_digits)) percent_digits = getOption("crosstable_percent_digits", 2)
+    if(missing(showNA)) showNA = getOption("crosstable_showNA", "ifany")
+    if(missing(label)) label = getOption("crosstable_label", TRUE)
+    if(missing(funs)) funs = getOption("crosstable_funs",  c(" " = cross_summary))
+    if(missing(funs_arg)) funs_arg = getOption("crosstable_funs_arg",  list())
+    if(missing(cor_method)) cor_method = getOption("crosstable_cor_method",  "pearson")
+    if(missing(unique_numeric)) unique_numeric = getOption("crosstable_unique_numeric", 3)
+    if(missing(date_format)) date_format = getOption("crosstable_date_format",  NULL)
+    if(missing(times)) times = getOption("crosstable_times", NULL)
+    if(missing(followup)) followup = getOption("crosstable_followup", followup)
+    if(missing(test_args)) test_args = getOption("crosstable_test_args", 
+                                                 crosstable_test_args())
+    if(missing(effect_args)) effect_args = getOption("crosstable_effect_args",
+                                                     crosstable_effect_args())
     
     # Arguments checks ----------------------------------------------------
     check_dots_unnamed()
@@ -128,7 +150,7 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
                     i=glue("margin={paste0(margin, collapse=', ')}")), 
                   class="XXX") #TODO TODO!
         }
-        if(missing(percent_pattern)) {
+        if(missing_percent_pattern) {
             percent_pattern = get_percent_pattern(margin)
         } else {
             warn(c("Argument `margin` is ignored if `percent_pattern` is set.", 
@@ -138,7 +160,7 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
         }
     }
     
-    if(missing(total) || is.null(total)) total = 0
+    if(is.null(total)) total = 0
     else if(isTRUE(total)) total = 1:2
     else if(is.character(total)) {
         assert_choice(total, c("none", "both", "all", "row", "col", "column"), add=coll)
@@ -220,7 +242,7 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     }
     
     one_col_dummy = ncol(data_y)==1 && length(unique(data_y[[1]]))==1
-    if(missing(percent_pattern) && length(byname)==0 || one_col_dummy) {
+    if(missing_percent_pattern && length(byname)==0 || one_col_dummy) {
         percent_pattern = "{n} ({p_col})"
     }
     

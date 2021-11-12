@@ -35,6 +35,10 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
                                 header_fontsize=ceiling(body_fontsize*1.2), 
                                 padding_v=NULL, ...) {
     assert_class(x, "crosstable", .var.name=vname(x))
+    
+    if(missing(padding_v)) padding_v = getOption("crosstable_padding_v", NULL)
+    if(missing(body_fontsize)) body_fontsize = getOption("crosstable_fontsize_body", NULL)
+    if(missing(header_fontsize)) header_fontsize = getOption("crosstable_fontsize_header", NULL)
     ft = as_flextable(x, ...)
     if(length(body_fontsize)!=0)
         ft = fontsize(ft, size = body_fontsize, part = "body")
