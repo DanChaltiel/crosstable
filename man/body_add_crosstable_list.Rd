@@ -2,18 +2,21 @@
 % Please edit documentation in R/officer.R
 \name{body_add_crosstable_list}
 \alias{body_add_crosstable_list}
+\alias{body_add_flextable_list}
 \title{Add a list of crosstables}
 \usage{
 body_add_crosstable_list(doc, l, fun = "title2", ...)
+
+body_add_flextable_list(doc, l, fun = "title2", ...)
 }
 \arguments{
 \item{doc}{a \code{rdocx} object, created by \code{\link[officer:read_docx]{officer::read_docx()}}}
 
-\item{l}{a named list of crosstables}
+\item{l}{a named list of tables. Plain dataframes will be converted to flextables.}
 
 \item{fun}{a function to be used before each table, most likely to add some kind of title. Should be of the form \verb{function(doc, .name)} where \code{.name} is the name of the current crosstable of the list. You can also pass \code{"title2"} to add the name as a title of level 2 between each table, \code{"newline"} to simply add a new line, or even NULL to not separate them (beware that the table might merge then).}
 
-\item{...}{arguments passed on to \code{\link[=body_add_crosstable]{body_add_crosstable()}}}
+\item{...}{arguments passed on to \code{\link[=body_add_crosstable]{body_add_crosstable()}} or \code{\link[=body_add_flextable]{body_add_flextable()}}}
 }
 \value{
 The docx object \code{doc}
@@ -24,11 +27,12 @@ Add a list of crosstables in an officer document
 \examples{
 library(officer)
 ctl = list(iris2=crosstable(iris2, 1),
-mtcars2=crosstable(mtcars2, 1))
+           mtcars2=crosstable(mtcars2, 1),
+           "just a flextable"=flextable(mtcars2[1:5,1:5]))
 
 myfun = function(doc, .name){
     doc \%>\% 
-        body_add_title(glue::glue(" This is table '{.name}' as a crosstable"), 2) \%>\% 
+        body_add_title(glue(" This is table '{.name}' as a flex/crosstable"), 2) \%>\%
         body_add_normal("Here is the table:")
 }
 
