@@ -4,15 +4,17 @@
 
 #### New features
 
-* New parameter `percent_pattern` in replacement of `crosstable(margin=x)` to easily format percentages. Introduces the possibility of displaying confidence intervals (Wilson score method) along with proportions.
-* New function `body_add_crosstable_list()` to add a list of crosstables all at once, separated by some customizable titles.
-* New argument `padding_v` for `as_flextable()` to manage vertical padding.
+* New parameter `percent_pattern` in replacement of `crosstable(margin=x)` for better control over proportion format. Introduces the possibility of displaying confidence intervals (using Wilson score method) along with proportions.
+* New function `body_add_crosstable_list()` to add a list of crosstables all at once, separated by some customizable titles. Also works with flextables and plain old dataframes.
+* New argument `crosstable_padding_v` for `as_flextable()` to manage vertical padding. Also available as the global option `crosstable_padding_v`.
+* New global options `crosstable_{arg}` for almost all arguments. See `?crosstable_options` for more details.
 
 
 #### Bug fixes
 
 * fixed a bug in `as_flextable()` occuring when `showNA=TRUE` (header row was disapearing)
-* fixed a bug occuring when `by` is a factor with unused levels
+* fixed a bug occuring very randomly, when rounding caused `format_fixed()` to return a numeric value ("Error: Can't combine `..1$value` <character> and `..2$value` <double>.")
+* crosstable now shows all unused levels in `by` when it is a factor 
 * removed extra bold columns in compacted crosstables displayed as flextables
 
 
