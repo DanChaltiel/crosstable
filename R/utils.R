@@ -380,7 +380,3 @@ across_unpack = function(...) {
     out = across(...)
     tidyr::unpack(out, names(out), names_sep = "_")
 }
-
-# Check silencing ---------------------------------------------------------
-
-utils::globalVariables("where")
