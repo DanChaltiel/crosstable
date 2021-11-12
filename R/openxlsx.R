@@ -112,10 +112,10 @@ addToWorksheet = function(wb, ct, sheetname, show_test_name = TRUE,
     openxlsx::addWorksheet(wb, sheetName=sheetname)
     
     
-    default <- openxlsx::createStyle(valign = "center")
-    header <- openxlsx::createStyle(halign = "center", textDecoration = "bold")
-    border1 <- openxlsx::createStyle(border = "top", borderStyle="medium")
-    border2 <- openxlsx::createStyle(border = "top", borderStyle="thin")
+    default = openxlsx::createStyle(valign = "center")
+    header = openxlsx::createStyle(halign = "center", textDecoration = "bold")
+    border1 = openxlsx::createStyle(border = "top", borderStyle="medium")
+    border2 = openxlsx::createStyle(border = "top", borderStyle="thin")
     
     if(has_by && !multiple_by) {
         if(!is.null(by_header)) by_label=by_header

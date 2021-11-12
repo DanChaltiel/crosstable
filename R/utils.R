@@ -376,8 +376,8 @@ str_wrap2 = function(x, width, ...){
 # dplyr -------------------------------------------------------------------
 
 #' @source https://github.com/tidyverse/dplyr/issues/5563#issuecomment-721769342
-across_unpack <- function(...) {
-    out <- across(...)
+across_unpack = function(...) {
+    out = across(...)
     tidyr::unpack(out, names(out), names_sep = "_")
 }
 
