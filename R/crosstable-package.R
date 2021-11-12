@@ -16,6 +16,9 @@
 #' @description 
 #' Here is a comprehensive list of all options that you can set globally.
 #' 
+#' For setting `crosstable()` arguments globally:
+#'  + `crosstable_total`, `crosstable_percent_pattern`, `crosstable_percent_digits`, `crosstable_showNA`, `crosstable_label`, `crosstable_funs`, `crosstable_funs_arg`, `crosstable_cor_method`, `crosstable_unique_numeric`, `crosstable_date_format`, `crosstable_times`, `crosstable_followup`, `crosstable_test_arg`, and `crosstable_effect_args`
+#' 
 #' For flextables:
 #'  + `crosstable_autofit`, `crosstable_compact`, and `crosstable_show_test_name`: default arguments for [as_flextable()].
 #'  + `crosstable_compact_padding`: left-padding for non-headers rows when `compact=TRUE`.

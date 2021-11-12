@@ -6,6 +6,11 @@
 \description{
 Here is a comprehensive list of all options that you can set globally.
 
+For setting \code{crosstable()} arguments globally:
+\itemize{
+\item \code{crosstable_total}, \code{crosstable_percent_pattern}, \code{crosstable_percent_digits}, \code{crosstable_showNA}, \code{crosstable_label}, \code{crosstable_funs}, \code{crosstable_funs_arg}, \code{crosstable_cor_method}, \code{crosstable_unique_numeric}, \code{crosstable_date_format}, \code{crosstable_times}, \code{crosstable_followup}, \code{crosstable_test_arg}, and \code{crosstable_effect_args}
+}
+
 For flextables:
 \itemize{
 \item \code{crosstable_autofit}, \code{crosstable_compact}, and \code{crosstable_show_test_name}: default arguments for \code{\link[=as_flextable]{as_flextable()}}.

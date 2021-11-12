@@ -28,7 +28,7 @@ Add a list of crosstables in an officer document
 library(officer)
 ctl = list(iris2=crosstable(iris2, 1),
            mtcars2=crosstable(mtcars2, 1),
-           "just a flextable"=flextable(mtcars2[1:5,1:5]))
+           "just a flextable"=flextable::flextable(mtcars2[1:5,1:5]))
 
 myfun = function(doc, .name){
     doc \%>\% 

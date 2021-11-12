@@ -108,11 +108,11 @@ crosstable(mtcars2, c(ends_with("t"), starts_with("c")), by=vs,
 crosstable(mtcars2, c(disp, cyl), by=c(am, vs), 
            margin=c("row", "col"), total = "both")
 
-#predicate selection, correlation, testing
-crosstable(mtcars2, where(is.numeric), by=hp, test=TRUE)
+#predicate selection, correlation, effect calculation
+crosstable(mtcars2, where(is.numeric), by=hp, effect=TRUE)
 
-#lambda selection & effect calculation
-crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, effect=TRUE)
+#lambda selection & statistical tests
+crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, test=TRUE)
 
 #Dates
 mtcars2$my_date = as.Date(mtcars2$hp , origin="2010-01-01") \%>\% set_label("Some nonsense date")
