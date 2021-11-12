@@ -5,6 +5,7 @@ examples/*
 
 
 TODO\.R
+DEV\.R
 ^R/dev-.*\.R$
 ^R/knit_print_debug\.R$
 
