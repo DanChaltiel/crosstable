@@ -46,13 +46,13 @@ format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL,
     if(!is.null(date_format)) 
       return(format(x, date_format))
     else 
-      return(x)
+      return(format(x))
   } else  {
     if(percent) x=x*100
-    if(only_round) return(round(x, digits))
+    if(only_round) return(as.character(round(x, digits)))
     rtn = ifelse(is.na(x), NA_character_, formatC(x, format='f', digits=digits))
     if(!is.null(zero_digits) && !is.na(zero_digits)){
-      rtn = ifelse(as.numeric(rtn)==0, signif(x, digits=zero_digits), rtn)
+      rtn = ifelse(as.numeric(rtn)==0, as.character(signif(x, digits=zero_digits)), rtn)
     }
     if(percent) rtn=paste0(rtn, "%")
     return(rtn)
