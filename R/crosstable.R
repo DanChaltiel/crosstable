@@ -424,3 +424,13 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
 }
 
 
+
+# Utils -------------------------------------------------------------------
+
+
+#' @rdname crosstable
+#' @export
+is.crosstable = function(x) {
+    inherits(x, "crosstable")
+}
+

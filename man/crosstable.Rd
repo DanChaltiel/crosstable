@@ -2,6 +2,7 @@
 % Please edit documentation in R/crosstable.R
 \name{crosstable}
 \alias{crosstable}
+\alias{is.crosstable}
 \title{Easily describe datasets}
 \usage{
 crosstable(
@@ -28,6 +29,8 @@ crosstable(
   margin = c("row", "column", "cell", "none", "all"),
   .vars
 )
+
+is.crosstable(x)
 }
 \arguments{
 \item{data}{A data.frame}
@@ -73,6 +76,8 @@ crosstable(
 \item{margin}{Deprecated in favor of \code{percent_pattern}. One of ["row", "column", "cell", "none", or "all"]. Default to \code{row}.}
 
 \item{.vars}{Deprecated}
+
+\item{x}{a numeric vector to format}
 }
 \value{
 A \code{data.frame}/\code{tibble} of class \code{crosstable}
