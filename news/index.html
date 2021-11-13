@@ -185,17 +185,20 @@
 <h4 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h4>
 <ul>
-<li>New parameter <code>percent_pattern</code> in replacement of <code>crosstable(margin=x)</code> to easily format percentages. Introduces the possibility of displaying confidence intervals (Wilson score method) along with proportions.</li>
-<li>New function <code><a href="../reference/body_add_crosstable_list.html">body_add_crosstable_list()</a></code> to add a list of crosstables all at once, separated by some customizable titles.</li>
-<li>New argument <code>padding_v</code> for <code><a href="../reference/as_flextable.crosstable.html">as_flextable()</a></code> to manage vertical padding.</li>
+<li>New parameter <code>percent_pattern</code> in replacement of <code>crosstable(margin=x)</code> for better control over proportion format. Introduces the possibility of displaying confidence intervals (using Wilson score method) along with proportions.</li>
+<li>New function <code><a href="../reference/body_add_crosstable_list.html">body_add_crosstable_list()</a></code> to add a list of crosstables all at once, separated by some customizable titles. Also works with flextables and plain old dataframes.</li>
+<li>New argument <code>crosstable_padding_v</code> for <code><a href="../reference/as_flextable.crosstable.html">as_flextable()</a></code> to manage vertical padding. Also available as the global option <code>crosstable_padding_v</code>.</li>
+<li>New global options <code>crosstable_{arg}</code> for almost all arguments. See <code><a href="../reference/crosstable_options.html">?crosstable_options</a></code> for more details.</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level4">
 <h4 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h4>
 <ul>
-<li>fixed a bug in <code><a href="../reference/as_flextable.crosstable.html">as_flextable()</a></code> occuring when <code>showNA=TRUE</code> (header row was disapearing)</li>
-<li>fixed a bug occuring when <code>by</code> is a factor with unused levels</li>
+<li>fixed a bug in <code><a href="../reference/as_flextable.crosstable.html">as_flextable()</a></code> occurring when <code>showNA=TRUE</code> (header row was disappearing)</li>
+<li>fixed a bug occurring very randomly, when rounding caused <code><a href="../reference/format_fixed.html">format_fixed()</a></code> to return a numeric value (“Error: Can’t combine <code>..1$value</code> <character> and <code>..2$value</code> <double>.”)</double></character>
+</li>
+<li>crosstable now shows all unused levels in <code>by</code> when it is a factor</li>
 <li>removed extra bold columns in compacted crosstables displayed as flextables</li>
 </ul>
 </div>
@@ -238,7 +241,7 @@
 <li>
 <code><a href="../reference/body_add_normal.html">body_add_normal()</a></code> now removes duplicated spaces (squish) in its input by default. Use <code>squish=FALSE</code> to override.</li>
 <li>
-<code><a href="../reference/docx_bookmarks2.html">docx_bookmarks2()</a></code> gainss a <code>target</code> parameter.</li>
+<code><a href="../reference/docx_bookmarks2.html">docx_bookmarks2()</a></code> gains a <code>target</code> parameter.</li>
 </ul>
 </div>
 <div id="bug-fixes-1" class="section level4">

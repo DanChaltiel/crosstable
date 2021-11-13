@@ -126,7 +126,7 @@
       <h1 data-toc-skip>Make automatic reports</h1>
                         <h4 class="author">Dan Chaltiel</h4>
             
-            <h4 class="date">2021-11-11</h4>
+            <h4 class="date">2021-11-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/DanChaltiel/crosstable/blob/master/vignettes/crosstable-report.Rmd"><code>vignettes/crosstable-report.Rmd</code></a></small>
       <div class="hidden name"><code>crosstable-report.Rmd</code></div>
@@ -199,6 +199,21 @@
 </ul>
 <p>Browse <a href="https://davidgohel.github.io/officer/" class="uri">https://davidgohel.github.io/officer/</a> for more insight about how you can use <a href="https://ardata-fr.github.io/officeverse/">officer</a>.</p>
 </div>
+<div id="autofit-macro-for-large-tables" class="section level3">
+<h3 class="hasAnchor">
+<a href="#autofit-macro-for-large-tables" class="anchor"></a>Autofit macro for large tables</h3>
+<p>This is great, but large tables will unfortunately overflow your document.</p>
+<p>This is a (<a href="https://ardata-fr.github.io/officeverse/faq.html#update-fields">known</a>) limitation that cannot be fixed using <code>R</code>.</p>
+<p>You would have to use MS Word autofit tools on each table one by one (<code>Table Tools &gt; Layout &gt; AutoFit &gt; AutoFit Window</code>), which can be really tedious.</p>
+<p>But fear not! You can use a MS Word macro to do the job for you. Here is how:</p>
+<ul>
+<li><p>In the R console, run <code><a href="../reference/generate_autofit_macro.html">generate_autofit_macro()</a></code> to generate the file <code>crosstable_autofit.bas</code> in your working directory.</p></li>
+<li><p>In MS Word, press <kbd>Alt</kbd>+<kbd>F11</kbd> to open the VB Editor.</p></li>
+<li><p>In the Editor, go to <code>File</code> &gt; <code>Import</code> or press <code>Ctrl+M</code> to open the import dialog, and import <code>crosstable_autofit.bas</code>. There should now be a “CrosstableMacros” module in the “Normal” project.</p></li>
+<li><p>Run the macro, either from the VB Editor or from <code>View</code> &gt; <code>Macros</code> &gt; <code>View Macros</code> &gt; <code>Run</code>.</p></li>
+</ul>
+<p>This process will make the macro accessible from any Word file on this computer. Note that, in the Editor, you can also drag the module to your document project to make the macro accessible only from this file. The file will have to be named with the <code>docm</code> extension though.</p>
+</div>
 <div id="styles" class="section level3">
 <h3 class="hasAnchor">
 <a href="#styles" class="anchor"></a>Styles</h3>
@@ -223,7 +238,6 @@
 <ul>
 <li><p>During the opening of the document, MS Word might ask you to “update the fields”, to which you should answer “Yes”. If it does not ask or if you answer “No”, the legends added with <code><a href="../reference/body_add_legend.html">body_add_table_legend()</a></code> or <code><a href="../reference/body_add_legend.html">body_add_figure_legend()</a></code> might have no actual numbers displayed.<br>
 In this case, you have to manually update the references inside MS Word: select all (+), then update (), sometimes twice. You might even need to do this several times. See <code><a href="../reference/body_add_legend.html">?body_add_legend</a></code> for more insight.</p></li>
-<li><p>Large tables can sometimes overflow the MS Word document width. In this case (for instance for <code>mtcars2</code> in the previous example), you have to manually go to <code>Table Tools &gt; Layout &gt; AutoFit &gt; AutoFit Window</code> in the ribbon to correct the width. This is a limitation that comes with <code>officer</code> (<a href="https://ardata-fr.github.io/officeverse/faq.html#update-fields">link</a>). You can also use <code><a href="../reference/generate_autofit_macro.html">generate_autofit_macro()</a></code> to generate a <code>.bas</code> file that, once imported in Word, unlocks the possibility to autofit every table of the document at once. See <code><a href="../reference/generate_autofit_macro.html">?generate_autofit_macro</a></code> for more details.</p></li>
 <li><p>Be aware that you unfortunately cannot reference a bookmark more than once using this method. Writing: <code>body_add_normal("Table \\@ref(iris_col1) is about flowers. I like this Table \\@ref(iris_col1).")</code> will prevent <strong>all</strong> the numbering from applying.</p></li>
 </ul>
 </div>

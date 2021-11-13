@@ -2,6 +2,10 @@
     padding: 0 !important;
 }
 
+h1 img {
+    height: 175px !important;
+}
+
 .table {
     display: table !important;
 	margin: 0 auto 40px auto !important;
