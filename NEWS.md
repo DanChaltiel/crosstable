@@ -12,8 +12,8 @@
 
 #### Bug fixes
 
-* fixed a bug in `as_flextable()` occuring when `showNA=TRUE` (header row was disapearing)
-* fixed a bug occuring very randomly, when rounding caused `format_fixed()` to return a numeric value ("Error: Can't combine `..1$value` <character> and `..2$value` <double>.")
+* fixed a bug in `as_flextable()` occurring when `showNA=TRUE` (header row was disappearing)
+* fixed a bug occurring very randomly, when rounding caused `format_fixed()` to return a numeric value ("Error: Can't combine `..1$value` <character> and `..2$value` <double>.")
 * crosstable now shows all unused levels in `by` when it is a factor 
 * removed extra bold columns in compacted crosstables displayed as flextables
 
@@ -40,7 +40,7 @@
 * `style` is deprecated in `body_add_table_legend()` and `body_add_image_legend()` in favor of `name_format`.
 * Changed the behaviour of some `effect` calculations that were done by column instead of rows. That might change some outputs but not their meaning.
 * `body_add_normal()` now removes duplicated spaces (squish) in its input by default. Use `squish=FALSE` to override.
-* `docx_bookmarks2()` gainss a `target` parameter.
+* `docx_bookmarks2()` gains a `target` parameter.
 
 #### Bug fixes
 
