@@ -43,7 +43,6 @@ utils::globalVariables(c("x", "y", "ct", "col_keys", "p_col", "where"))
 #' @importFrom purrr map map_lgl map_chr map_dfc pmap_dfr
 #' @importFrom stringr str_detect str_split
 #' @importFrom glue glue
-#' @importFrom ellipsis check_dots_unnamed
 #' @importFrom lifecycle deprecated is_present deprecate_warn deprecate_stop
 #' @importFrom stats model.frame
 #' 
@@ -126,7 +125,6 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
                                                      crosstable_effect_args())
     
     # Arguments checks ----------------------------------------------------
-    check_dots_unnamed()
     
     coll = makeAssertCollection()    
     assert_data_frame(data, null.ok=FALSE, add=coll)
