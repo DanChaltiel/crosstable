@@ -48,9 +48,7 @@ kbd {
 
 Crosstable is a package centered on a single function, `crosstable()`, which easily computes descriptive statistics on datasets.
 
-Before starting this vignette, here are a few points:
-
- + If you are not familiar with `dplyr` and pipes (`%>%`, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> in RStudio), I warmly recommend you to read the [vignette](https://cran.r-project.org/package=dplyr/vignettes/dplyr.html), or, if you can read French, Julien Barnier's awesome [tidyverse tutorial](https://juba.github.io/tidyverse/10-dplyr.html#pipe). Nevertheless, this vignette should still be easy to understand otherwise, as `crosstable` is perfectly usable with base `R`.
+Before starting this vignette, if you are not familiar with `dplyr` and pipes (`%>%`, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> in RStudio), I warmly recommend you to read the [vignette](https://cran.r-project.org/package=dplyr/vignettes/dplyr.html), or, if you can read French, Julien Barnier's awesome [tidyverse tutorial](https://juba.github.io/tidyverse/10-dplyr.html#pipe). Nevertheless, this vignette should still be easy to understand otherwise, as `crosstable` is perfectly usable with base `R`.
 
 
 ## Example dataset: modified `mtcars`
@@ -122,9 +120,11 @@ crosstable(mtcars2, c(am, mpg), by=vs, total="both") %>%
 Note that totals always take missing values into account. Therefore, be aware that if `showNA="no"`, totals may be higher than the sum of the values inside the table.
 
 
-## Arguments to control variables description
+## Controlling the description
 
 The `crosstable()` function comes with a lot of arguments to add control on how it will describe your dataset. Some arguments are tied to a type of variable and will only apply for the descriptions of those.
+
+Note that most of the parameters can be controlled using global options. This comes handy when you want to use the same parameterization on all your crosstables. See `?crosstable_options` for more details about this.
 
 
 ### Categorical variables
@@ -138,7 +138,8 @@ Use `showNA` (one of `c("ifany", "always", "no")`) to control when missing value
 ```{r crosstable-categorical}
 mtcars3 = mtcars2
 mtcars3$cyl[1:5] = NA
-crosstable(mtcars3, c(am, cyl), by=vs, margin=c("column","row"), percent_digits=0, showNA="always") %>% 
+crosstable(mtcars3, c(am, cyl), by=vs, showNA="always", 
+           percent_digits=0, percent_pattern="{n} ({p_col}/{p_row})") %>% 
   as_flextable(keep_id=TRUE)
 ```
 
@@ -156,20 +157,20 @@ crosstable(mtcars2, c(mpg, wt), funs=c(median, mean, "std dev"=sd)) %>%
   as_flextable(keep_id=TRUE)
 ```
 
-As you can see, you can name your functions. For more advanced use cases, note that you can also use anonymous and lambda functions: `crosstable(mtcars2, c(mpg, wt), funs=c("mean square"=function(xx) mean(xx^2), "mean cube"= ~mean(.x^3)))`.
+To this end, you might want to use `crosstable`'s convenience functions such as `meansd()`, `meanCI()`, `mediqr()`, `minmax()`, or `nna()`.
 
-You might want to use `crosstable`'s convenience functions such as `meansd()`, `meanCI()`, `mediqr()`, `minmax()`, or `nna()`.
+For more advanced use cases, you can also use anonymous and lambda functions, for instance `crosstable(mtcars2, c(mpg, wt), funs=c("mean square"=function(xx) mean(xx^2), "mean cube"= ~mean(.x^3)))`.
 
-For additional arguments, you can use the `funs_arg` argument. For instance, you could write `crosstable(mtcars2, c(disp, hp), funs=c(quantile), funs_arg=list(probs=c(0.25,0.75)))`. 
 
-Numbers are formatted to have the same number of decimal places. You can use `funs_arg=list(dig=3)` to customize the number of decimals. You might also want to take a look at `?summaryFunctions` and `?format_fixed`.
+If some functions need additional arguments, you can use the `funs_arg` argument. For instance, you could write `crosstable(mtcars2, c(disp, hp), funs=c(quantile), funs_arg=list(probs=c(0.25,0.75)))`. 
 
+Numbers are formatted to have the same number of decimal places. You can use `funs_arg=list(dig=3)` to customize the number of decimals. You might  want to take a look at `?summaryFunctions` and `?format_fixed`.
 
 On the other hand, if `by` refers to a numeric variable, correlation coefficients will be calculated. 
 
 ```{r crosstable-correlation}
 library(survival)
-crosstable(mtcars2, where(is.numeric), by=mpg) %>% 
+crosstable(mtcars2, where(is.numeric), cor_method="pearson", by=mpg) %>% 
   as_flextable(keep_id=TRUE)
 ```
 
@@ -217,7 +218,7 @@ crosstable(mtcars2, c(x_date, x_posix), funs=meansd, funs_arg=list(date_unit="da
 
 ## Effects
 
-If there is onely one `by` variable with only 2 levels, it is possible to automatically compute an effect-size, most often along with its confidence interval. 
+If there is only one `by` variable with only 2 levels, it is possible to automatically compute an effect-size, most often along with its confidence interval. 
 
 ```{r crosstable-effect}
 library(flextable)
@@ -225,7 +226,9 @@ crosstable(mtcars2, c(vs, qsec), by=am, funs=mean, effect=TRUE) %>%
   as_flextable(keep_id=TRUE)
 ```
 
-Type of effect (method, bootstrap, ...) are also chosen depending on the characteristics of the crossed variables (class, size, distribution, ...). See `?crosstable_effect_args` for more details on the effect choice algorithm and how to customize it.
+Type of effect (method, bootstrap, ...) are also chosen depending on the characteristics of the crossed variables (class, size, distribution, ...). 
+
+See `?crosstable_effect_args` for more details on the effect choice algorithm and how to customize it.
 
 
 
@@ -242,11 +245,6 @@ crosstable(mtcars2, c(vs, qsec), by=am, funs=mean, test=TRUE) %>%
 
 Of course, this should only be done in an exploratory context, as it would cause extensive [alpha inflation](https://en.wikipedia.org/wiki/Multiple_comparisons_problem) otherwise.
 
-Tests are chosen depending on the characteristics of the crossed variables (class, size, distribution, ...). See `?crosstable_test_args` for more details on the test choice algorithm.
+Tests are chosen depending on the characteristics of the crossed variables (class, size, distribution, ...). 
 
-
-
-
-
-## Acknowledgement
-`crosstable` is a rewrite of the awesome [`biostat2` package](https://github.com/eusebe/biostat2) written by David Hajage. The user interface is quite different but the concept is the same. Thanks David!
+See `?crosstable_test_args` for more details on the test choice algorithm.

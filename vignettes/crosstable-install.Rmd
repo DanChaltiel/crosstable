@@ -58,8 +58,8 @@ install.packages("rlang")
 This should do, but if it is still failing, you can try installing the other dependencies:
 
 ```r
-install.packages("purrr")
 install.packages("checkmate")
+install.packages("purrr")
 install.packages("tidyselect")
 install.packages("survival")
 install.packages("tidyr")

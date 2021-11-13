@@ -14,13 +14,12 @@ apply_labels(data, ..., warn_missing = FALSE)
 \item{warn_missing}{if TRUE, throw a warning if some names are missing}
 }
 \value{
-An object of the same type as \code{.data}, with labels
+An object of the same type as \code{data}, with labels
 }
 \description{
 This function is a copycat of from expss package v0.10.7 (slightly modified) to avoid having to depend on expss. See \code{\link[expss:apply_labels]{expss::apply_labels()}} for more documentation. Note that this version is not compatible with \code{data.table}.
 }
 \examples{
-library(crosstable)
 iris \%>\%
   apply_labels(Sepal.Length="Length of Sepal",
                Sepal.Width="Width of Sepal") \%>\% 

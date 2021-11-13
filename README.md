@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# crosstable <a href='https://DanChaltiel.github.io/crosstable/'><img src='docs/hex_sticker_v2.png' align="right" height="175" /></a>
+# crosstable <a href='https://DanChaltiel.github.io/crosstable/'><img src='man/figures/hex_sticker_v2.png' align="right" height="175" /></a>
 
 <!-- badges: start -->
 
@@ -38,7 +38,7 @@ devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 
 # Install specific version (for reproducibility purpose)
 devtools::install_github("DanChaltiel/crosstable@v0.2.2-CRAN", build_vignettes=TRUE) #last tag
-devtools::install_github("DanChaltiel/crosstable@f4a1ec1", build_vignettes=TRUE) #last commit
+devtools::install_github("DanChaltiel/crosstable@570512e", build_vignettes=TRUE) #last commit
 ```
 
 Note that, for reproducibility purpose, an even better solution would be

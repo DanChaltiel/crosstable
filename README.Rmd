@@ -20,7 +20,7 @@ library(crosstable)
 ```
 
 
-# crosstable <a href='https://DanChaltiel.github.io/crosstable/'><img src='docs/hex_sticker_v2.png' align="right" height="175" /></a>
+# crosstable <a href='https://DanChaltiel.github.io/crosstable/'><img src='man/figures/hex_sticker_v2.png' align="right" height="175" /></a>
 
 <!-- badges: start -->
 [![Package-License](http://img.shields.io/badge/license-GPL--3-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html) 
@@ -66,7 +66,7 @@ Note that, for reproducibility purpose, an even better solution would be to use 
 
 ## Getting help and giving feedback
 
-You can find the whole documentation on the the [dedicated website](https://danchaltiel.github.io/crosstable/).
+You can find the whole documentation on the [dedicated website](https://danchaltiel.github.io/crosstable/).
 
 Besides, you can also use the vignettes: 
 
