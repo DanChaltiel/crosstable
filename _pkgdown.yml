@@ -73,6 +73,7 @@ reference:
   - starts_with("body_add_")
   - docx_bookmarks2 
   - write_and_open 
+  - generate_autofit_macro  
 - title: "Utils"
   desc: "Practical functions for various purposes"
 - contents: 
