@@ -85,7 +85,8 @@ In case of any installation problem, try the solutions proposed in [this article
 ```{r usage1, eval=TRUE, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
 library(crosstable)
 library(dplyr)
-ct1 = crosstable(mtcars2, c(disp, vs), by=am, margin=c("row", "col"), total="both") %>%
+ct1 = crosstable(mtcars2, c(disp, vs), by=am, total="both", 
+                 percent_pattern="{n} ({p_row}/{p_col})", percent_digits=0) %>%
   as_flextable()
 ```
 
@@ -106,7 +107,7 @@ With only a few arguments, you can select which column to describe (`c(disp, vs)
 Here is a more advanced example:
 
 ```{r usage2, eval=TRUE, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
-ct2 = crosstable(mtcars2, c(starts_with("c"), ends_with("t")), by=c(am, vs), label=FALSE,
+ct2 = crosstable(mtcars2, c(starts_with("cy"), ends_with("at")), by=c(am, vs), label=FALSE,
                  funs=c(mean, quantile), funs_arg=list(probs=c(.25,.75), digits=3)) %>% 
   as_flextable(compact=TRUE)
 ```
