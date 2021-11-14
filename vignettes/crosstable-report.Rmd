@@ -83,7 +83,7 @@ write_and_open(doc, "my_report.docx") #fails if it is already open
 print(doc, "my_report.docx")          #only save the docx file
 ```
 
-You can check out the result of the example above [here](https://github.com/DanChaltiel/crosstable/raw/master/examples/vignette_officer.docx).
+You can check out the result of the example above [here](https://github.com/DanChaltiel/crosstable/raw/main/examples/vignette_officer.docx).
 
 ### Functions
 

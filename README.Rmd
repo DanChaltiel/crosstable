@@ -28,10 +28,10 @@ library(crosstable)
 [![CRAN status](https://www.r-pkg.org/badges/version/crosstable)](https://CRAN.R-project.org/package=crosstable)
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/crosstable?color=blue)](https://r-pkg.org/pkg/crosstable)
 [![Last Commit](https://img.shields.io/github/last-commit/DanChaltiel/crosstable)](https://github.com/DanChaltiel/crosstable)
-[![Codecov test coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/master/graph/badge.svg)](https://app.codecov.io/gh/DanChaltiel/crosstable?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/main/graph/badge.svg)](https://app.codecov.io/gh/DanChaltiel/crosstable?branch=main)
 [![R build status](https://github.com/DanChaltiel/crosstable/workflows/R-CMD-check/badge.svg)](https://github.com/DanChaltiel/crosstable/actions)
 <!-- [![Dependencies](https://tinyverse.netlify.com/badge/crosstable)](https://cran.r-project.org/package=crosstable)  -->
-<!-- [![Build Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=master)](https://travis-ci.org/DanChaltiel/crosstable) -->
+<!-- [![Build Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=main)](https://travis-ci.org/DanChaltiel/crosstable) -->
 <!-- badges: end -->
 
 
