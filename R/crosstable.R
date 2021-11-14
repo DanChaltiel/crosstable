@@ -126,6 +126,7 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     
     # Arguments checks ----------------------------------------------------
     
+    check_dots_unnamed()
     coll = makeAssertCollection()    
     assert_data_frame(data, null.ok=FALSE, add=coll)
     dataCall = deparse(substitute(data))
