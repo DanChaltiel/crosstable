@@ -53,6 +53,30 @@ condition_overview = function(expr){
     tryCatch2(expr) %>% attr("overview")
 }
 
+
+
+#' @keywords internal
+#' @noRd
+#' @examples
+#' f = function(){
+#'   rlang::warn("This is a warning", class="dummy_warning")
+#'   rlang::warn("This is a warning too", class="also_dummy_warning")
+#'   99
+#' }
+#' x = f() %>% print_warning_class()
+#' x
+print_warning_class = function(expr){
+    withCallingHandlers( 
+        tryCatch(expr), 
+        warning = function(w) {
+            warning(gettext(w), immediate.=TRUE)
+            print(class(w))
+            invokeRestart("muffleWarning")
+        }
+    )
+}
+
+
 #' @importFrom glue glue
 #' @importFrom rlang abort
 #' @importFrom stringr str_ends
@@ -68,8 +92,28 @@ assert_is_installed = function(pkg, fun) {
 }
 
 
-# Function handling --------------------------------------------------------
 
+# Arguments name-check ----------------------------------------------------
+
+
+#' @importFrom rlang abort
+#' @importFrom glue glue glue_collapse
+#' @source mimick ellipsis::check_dots_unnamed
+#' @keywords internal
+#' @noRd
+check_dots_unnamed = function(){
+    dotnames = names(substitute(list(...), env=parent.frame()))
+    if(any(dotnames!="")){
+        named = dotnames[dotnames!=""] %>% glue_collapse("', '", last="', and '")
+        abort(c("Components of `...` should never have a name in crosstable().", 
+                x="Did you misspecify an argument?",
+                i=glue("Named components: '{named}'")), 
+              class="rlib_error_dots_named")
+    }
+}
+
+
+# Function handling --------------------------------------------------------
 
 #' @source methods::formalArgs
 #' @keywords internal
