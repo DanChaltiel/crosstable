@@ -126,7 +126,7 @@
       <h1 data-toc-skip>Make automatic reports</h1>
                         <h4 class="author">Dan Chaltiel</h4>
             
-            <h4 class="date">2021-11-13</h4>
+            <h4 class="date">2021-11-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/DanChaltiel/crosstable/blob/master/vignettes/crosstable-report.Rmd"><code>vignettes/crosstable-report.Rmd</code></a></small>
       <div class="hidden name"><code>crosstable-report.Rmd</code></div>
@@ -135,6 +135,12 @@
 
     
     
+<div id="embed-crosstables-in-reports" class="section level2">
+<h2 class="hasAnchor">
+<a href="#embed-crosstables-in-reports" class="anchor"></a>Embed crosstables in reports</h2>
+<p>Crosstables can be inserted into automatics reports very easily.</p>
+<p>There are two cases to consider: + You have a lot of text and a few tables? You should use <a href="#create-reports-with-rmarkdown">Rmarkdown</a>. + You have a lot of tables and little text? You should use <a href="#create-reports-with-officer">officer</a>.</p>
+</div>
 <div id="create-reports-with-officer" class="section level2">
 <h2 class="hasAnchor">
 <a href="#create-reports-with-officer" class="anchor"></a>Create reports with <code>officer</code>
@@ -169,6 +175,7 @@
   <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"This dataset has {nrow(ct3)} rows and {x} columns."</span>, x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">ct3</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"Look, there are labels!"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/body_add_crosstable.html">body_add_crosstable</a></span><span class="op">(</span><span class="va">ct2</span>, compact<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p>See more useful functions at <a href="https://danchaltiel.github.io/crosstable/reference/index.html#section-officer-helpers">https://danchaltiel.github.io/crosstable/reference/index.html#section-officer-helpers</a>.</p>
 <div id="output" class="section level3">
 <h3 class="hasAnchor">
 <a href="#output" class="anchor"></a>Output</h3>
