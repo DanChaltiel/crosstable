@@ -178,19 +178,18 @@ rename_dataframe_with_labels = function(df){
 #' @param ... named arguments
 #' @param warn_missing if TRUE, throw a warning if some names are missing
 #' 
-#' @return An object of the same type as `.data`, with labels
+#' @return An object of the same type as `data`, with labels
 #'
+#' @importFrom purrr imap_dfr
 #' @author Dan Chaltiel
 #' @export
-#' @importFrom purrr imap_dfr
 #' 
-#' @examples 
-#' library(crosstable)
+#' @examples
 #' iris %>%
 #'   apply_labels(Sepal.Length="Length of Sepal",
 #'                Sepal.Width="Width of Sepal") %>% 
 #'   crosstable()
-apply_labels = function (data, ..., warn_missing=FALSE) {
+apply_labels = function(data, ..., warn_missing=FALSE) {
     args = list(...)
     unknowns = setdiff(names(args), names(data))
     if (length(unknowns) && warn_missing) {
