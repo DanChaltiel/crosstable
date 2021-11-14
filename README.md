@@ -38,7 +38,7 @@ devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 
 # Install specific version (for reproducibility purpose)
 devtools::install_github("DanChaltiel/crosstable@v0.2.2-CRAN", build_vignettes=TRUE) #last tag
-devtools::install_github("DanChaltiel/crosstable@570512e", build_vignettes=TRUE) #last commit
+devtools::install_github("DanChaltiel/crosstable@ff4aaae", build_vignettes=TRUE) #last commit
 ```
 
 Note that, for reproducibility purpose, an even better solution would be
@@ -46,7 +46,7 @@ to use [`renv`](https://rstudio.github.io/renv/articles/renv.html).
 
 ## Getting help and giving feedback
 
-You can find the whole documentation on the the [dedicated
+You can find the whole documentation on the [dedicated
 website](https://danchaltiel.github.io/crosstable/).
 
 Besides, you can also use the vignettes:

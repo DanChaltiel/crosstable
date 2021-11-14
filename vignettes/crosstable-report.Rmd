@@ -22,6 +22,14 @@ library(crosstable)
 library(dplyr)
 ```
 
+## Embed crosstables in reports
+
+Crosstables can be inserted into automatics reports very easily.
+
+There are two cases to consider:
++ You have a lot of text and a few tables? You should use [Rmarkdown](#create-reports-with-rmarkdown).
++ You have a lot of tables and little text? You should use [officer](#create-reports-with-officer).
+
 ## Create reports with `officer`
 
 The real power of `crosstable` comes out when used with David Gohel's awesome package [`officer` ](https://davidgohel.github.io/officer/), which allows to automatically create MS Word documents. 
@@ -58,6 +66,7 @@ doc = read_docx() %>% #default template
   body_add_crosstable(ct2, compact=TRUE)
 ```
 
+See more useful functions at [https://danchaltiel.github.io/crosstable/reference/index.html#section-officer-helpers](https://danchaltiel.github.io/crosstable/reference/index.html#section-officer-helpers).
 
 ### Output
 
