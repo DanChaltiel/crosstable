@@ -245,7 +245,7 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #' 
 #' myfun = function(doc, .name){
 #'     doc %>% 
-#'         body_add_title(glue(" This is table '{.name}' as a flex/crosstable"), 2) %>%
+#'         body_add_title(" This is table '{.name}' as a flex/crosstable", level=2) %>%
 #'         body_add_normal("Here is the table:")
 #' }
 #' 
