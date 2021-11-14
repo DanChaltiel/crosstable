@@ -71,11 +71,19 @@ assert_is_installed = function(pkg, fun) {
 # Function handling --------------------------------------------------------
 
 
+#' @source methods::formalArgs
+#' @keywords internal
+#' @noRd
+formalArgs = function (def){
+    names(formals(def, envir = parent.frame()))
+}
+
+
 #' Used for defaulting S3 methods to loaded function
 #' @importFrom utils getAnywhere
 #' @keywords internal
 #' @noRd
-get_defined_function = function(name) {
+get_defined_function = function(name){
     # https://stackoverflow.com/a/60988796/3888000
     matches = getAnywhere(name)
     # Filter out invisible objects and duplicates

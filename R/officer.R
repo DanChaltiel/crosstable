@@ -231,7 +231,6 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #'
 #' @importFrom checkmate assert_list assert_named assert_class assert_multi_class
 #' @importFrom rlang abort
-#' @importFrom methods formalArgs
 #' @importFrom glue glue
 #' 
 #' @return The docx object `doc`
