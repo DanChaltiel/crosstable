@@ -220,7 +220,7 @@
 <span class='r-in'></span>
 <span class='r-in'><span class='va'>myfun</span> <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>doc</span>, <span class='va'>.name</span><span class='op'>)</span><span class='op'>{</span></span>
 <span class='r-in'>    <span class='va'>doc</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
-<span class='r-in'>        <span class='fu'><a href='body_add_title.html'>body_add_title</a></span><span class='op'>(</span><span class='fu'>glue</span><span class='op'>(</span><span class='st'>" This is table '{.name}' as a flex/crosstable"</span><span class='op'>)</span>, <span class='fl'>2</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>        <span class='fu'><a href='body_add_title.html'>body_add_title</a></span><span class='op'>(</span><span class='st'>" This is table '{.name}' as a flex/crosstable"</span>, level<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
 <span class='r-in'>        <span class='fu'><a href='body_add_normal.html'>body_add_normal</a></span><span class='op'>(</span><span class='st'>"Here is the table:"</span><span class='op'>)</span></span>
 <span class='r-in'><span class='op'>}</span></span>
 <span class='r-in'></span>
@@ -232,7 +232,6 @@
 <span class='r-in'>    <span class='fu'><a href='body_add_title.html'>body_add_title</a></span><span class='op'>(</span><span class='st'>"Separated using a custom function"</span>, <span class='fl'>1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
 <span class='r-in'>    <span class='fu'>body_add_crosstable_list</span><span class='op'>(</span><span class='va'>ctl</span>, fun<span class='op'>=</span><span class='va'>myfun</span>, body_fontsize<span class='op'>=</span><span class='fl'>8</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
 <span class='r-in'>    <span class='fu'><a href='write_and_open.html'>write_and_open</a></span><span class='op'>(</span><span class='op'>)</span></span>
-<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in glue(" This is table '{.name}' as a flex/crosstable"):</span> could not find function "glue"</span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
