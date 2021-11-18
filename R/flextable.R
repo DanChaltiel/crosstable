@@ -51,21 +51,33 @@
 #'                 generic_labels=list(id = "ID", variable = "math", total="Tot", 
 #'                                     label = "lab", test = "pval", effect="fx"))
 as_flextable.crosstable = function(x, keep_id = FALSE, by_header = NULL, 
-                                   autofit = getOption('crosstable_autofit', TRUE), 
-                                   compact = getOption('crosstable_compact', FALSE), 
-                                   show_test_name = getOption('crosstable_show_test_name', TRUE), 
-                                   fontsizes = list(
-                                       body=getOption('crosstable_fontsize_body', 11),
-                                       subheaders=getOption('crosstable_fontsize_subheaders', 11),
-                                       header=getOption('crosstable_fontsize_header', 11)
-                                   ), 
-                                   padding_v=getOption('crosstable_padding_v', NULL),
-                                   remove_header_keys = FALSE,
+                                   autofit = TRUE, compact = FALSE, 
+                                   show_test_name = TRUE, 
+                                   fontsizes = list(body=11, subheaders=11, header=11), 
+                                   padding_v=NULL, remove_header_keys = FALSE,
                                    generic_labels=list(id = ".id", variable = "variable", value = "value", 
                                                        total="Total", label = "label", test = "test", 
                                                        effect="effect"), 
                                    ...) {
     assert_class(x, "crosstable", .var.name=vname(x))
+    
+    
+    if(missing(keep_id)) keep_id = getOption("crosstable_keep_id", TRUE)
+    if(missing(autofit)) autofit = getOption('crosstable_autofit', TRUE)
+    if(missing(compact)) compact = getOption('crosstable_compact', FALSE)
+    if(missing(show_test_name)) show_test_name = getOption('crosstable_show_test_name', TRUE)
+    if(missing(padding_v)) padding_v = getOption('crosstable_padding_v', NULL)
+    if(missing(remove_header_keys)) remove_header_keys = getOption('crosstable_remove_header_keys', NULL)
+    # if(missing(generic_labels)) generic_labels = getOption('crosstable_generic_labels', NULL)
+    if(missing(fontsizes)) fontsizes = list(
+        body=getOption('crosstable_fontsize_body', 11),
+        subheaders=getOption('crosstable_fontsize_subheaders', 11),
+        header=getOption('crosstable_fontsize_header', 11)
+    )
+    
+    
+    
+    
     border1 = fp_border(color = "black", style = "solid", width = 1)
     border2 = fp_border(color = "black", style = "solid", width = 1.5)
     labs.names = setdiff(names(x), generic_labels)

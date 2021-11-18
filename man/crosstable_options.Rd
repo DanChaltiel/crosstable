@@ -13,7 +13,7 @@ For setting \code{crosstable()} arguments globally:
 
 For flextables:
 \itemize{
-\item \code{crosstable_autofit}, \code{crosstable_compact}, and \code{crosstable_show_test_name}: default arguments for \code{\link[=as_flextable]{as_flextable()}}.
+\item \code{crosstable_keep_id}, \code{crosstable_autofit}, \code{crosstable_compact}, \code{crosstable_remove_header_keys}, and \code{crosstable_show_test_name}: default arguments for \code{\link[=as_flextable]{as_flextable()}}.
 \item \code{crosstable_compact_padding}: left-padding for non-headers rows when \code{compact=TRUE}.
 \item \code{crosstable_padding_v}: vertical padding (body).
 \item \code{crosstable_fontsize_body}, \code{crosstable_fontsize_header}, and \code{crosstable_fontsize_subheaders}: font sizes for, respectively for normal, header and subheader rows. Subheaders are only considered when \code{compact=TRUE}.

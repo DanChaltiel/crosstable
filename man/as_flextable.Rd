@@ -14,13 +14,11 @@
   x,
   keep_id = FALSE,
   by_header = NULL,
-  autofit = getOption("crosstable_autofit", TRUE),
-  compact = getOption("crosstable_compact", FALSE),
-  show_test_name = getOption("crosstable_show_test_name", TRUE),
-  fontsizes = list(body = getOption("crosstable_fontsize_body", 11), subheaders =
-    getOption("crosstable_fontsize_subheaders", 11), header =
-    getOption("crosstable_fontsize_header", 11)),
-  padding_v = getOption("crosstable_padding_v", NULL),
+  autofit = TRUE,
+  compact = FALSE,
+  show_test_name = TRUE,
+  fontsizes = list(body = 11, subheaders = 11, header = 11),
+  padding_v = NULL,
   remove_header_keys = FALSE,
   generic_labels = list(id = ".id", variable = "variable", value = "value", total =
     "Total", label = "label", test = "test", effect = "effect"),
