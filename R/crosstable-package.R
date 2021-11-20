@@ -18,6 +18,7 @@
 #' 
 #' For setting `crosstable()` arguments globally:
 #'  + `crosstable_total`, `crosstable_percent_pattern`, `crosstable_percent_digits`, `crosstable_showNA`, `crosstable_label`, `crosstable_funs`, `crosstable_funs_arg`, `crosstable_cor_method`, `crosstable_unique_numeric`, `crosstable_date_format`, `crosstable_times`, `crosstable_followup`, `crosstable_test_arg`, and `crosstable_effect_args`
+#'  + `crosstable_zero_percent`: set to TRUE so that proportions are not displayed if `n==0`
 #' 
 #' For flextables:
 #'  + `crosstable_keep_id`, `crosstable_autofit`, `crosstable_compact`, `crosstable_remove_header_keys`, and `crosstable_show_test_name`: default arguments for [as_flextable()].

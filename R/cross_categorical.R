@@ -50,7 +50,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
     tbd = table(x, useNA = "no") %>%
         as.data.frame(stringsAsFactors=FALSE) %>%
         select(x=1, n=2) #needed for an odd bug on fedora-devel
-    
+    zero_percent = getOption("crosstable_zero_percent", FALSE)
     rtn = tbd %>% 
         mutate(
             p_row=1,
@@ -60,7 +60,8 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
                           ~confint_proportion(.x, n, method="wilson")),
             across(starts_with("p_"), 
                    ~format_fixed(.x, digits=digits, percent=TRUE)), 
-            value=ifelse(is.na(x), .data$n, glue(percent_pattern))
+            value=ifelse(is.na(x)|is.na(by)|.data$n==0&zero_percent, 
+                         .data$n, glue(percent_pattern))
         ) %>% 
         select(variable="x", value="value")
     .showNA = showNA=="always" || showNA=="ifany" && (anyNA(x))
@@ -99,6 +100,7 @@ summarize_categorical_by = function(x, by,
         abort(c("`percent_pattern` should only consider variables {n}, {p_cell}, {p_row}, and {p_col}", #TODO and CI
                 i=glue('percent_pattern: "{percent_pattern}"'), x=dummy$error$message))
     }
+    zero_percent = getOption("crosstable_zero_percent", FALSE)
     
     
     nn = table(x, by, useNA=showNA)
@@ -115,13 +117,12 @@ summarize_categorical_by = function(x, by,
             across_unpack(-c("x", "by", "n"), 
                           ~confint_proportion(.x, n, method="wilson")),
             across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE)), 
-            value=ifelse(is.na(x)|is.na(by), .data$n, glue(percent_pattern))
+            value=ifelse(is.na(x)|is.na(by)|.data$n==0&zero_percent, 
+                         .data$n, glue(percent_pattern))
         ) %>%
         transmute(variable=replace_na(x, "NA"), by=.data$by, value=.data$value) %>%
         pivot_wider(names_from="by", values_from = "value")
     
-    #TODO documentation @section percent_pattern, dire Wilson
-    #TODO documentation @section total total ignore NA else sum is different cols/row, ie cyl~vs
     pattern_vars = get_glue_vars(percent_pattern)
     if(2 %in% total){
         mt = margin.table(nn, margin=2) %>% as.numeric()
