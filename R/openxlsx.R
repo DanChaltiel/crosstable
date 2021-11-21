@@ -132,8 +132,8 @@ addToWorksheet = function(wb, ct, sheetname, show_test_name = TRUE,
     
     if(has_by && !multiple_by) {
         openxlsx::mergeCells(wb, sheet=sheetname, cols=by_cols+1, rows=2)
-        openxlsx::addStyle(wb, sheet=sheetname, style = border2, rows = 3, cols = by_cols+1,
-                           gridExpand = TRUE, stack=TRUE)
+        openxlsx::addStyle(wb, sheet=sheetname, style=border2, rows=3, cols=by_cols+1,
+                           gridExpand=TRUE, stack=TRUE)
         walk(not_by_cols+1, ~{
             openxlsx::mergeCells(wb, sheet=sheetname, cols=.x, rows=2:3)
         })

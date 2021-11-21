@@ -7,7 +7,7 @@
 generate_autofit_macro()
 }
 \value{
-nothing
+Nothing, called for its side effects
 }
 \description{
 This function generates a file that can be imported into MS Word in order to use a macro for autofitting all tables in a document at once. This macro file should be imported only once per computer.

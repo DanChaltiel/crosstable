@@ -689,7 +689,7 @@ write_and_open = function(doc, docx.file){
 #'  
 #'  This process will make the macro accessible from any Word file on this computer. Note that, in the Editor, you can also drag the module to your document project to make the macro accessible only from this file. The file will have to be named with the `docm` extension though.
 #'
-#' @return nothing
+#' @return Nothing, called for its side effects
 #' @author Dan Chaltiel
 #' @export
 generate_autofit_macro = function(){
