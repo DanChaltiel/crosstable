@@ -546,6 +546,29 @@ body_add_gg2 = function(doc, value, width = 6, height = 5,
 
 
 
+#' Replace text on several bookmarks at once
+#'
+#' @param doc a `rdocx` object
+#' @param ... named
+#' 
+#' @importFrom officer body_replace_text_at_bkm
+#' @importFrom purrr iwalk safely
+#' @return The docx object `doc`
+#' @author Dan Chaltiel
+#' @export
+body_replace_text_at_bkms = function(doc, ...){
+    l=list(...)
+    #TODO tester qu'il y a bien un nom à chaque élément!
+    iwalk(l, ~{
+        .x = glue(.x, .envir=parent.frame())
+        x = safely(body_replace_text_at_bkm)(doc, .y, .x)
+        if(is.null(x$result)) warning(x$error$message, call.=FALSE)
+        else doc = x$result
+    })
+    doc
+}
+
+
 #' Adds a standard footnote explaining the abbreviations used in a crosstable
 #' 
 #' Use it below [body_add_crosstable()].
