@@ -67,7 +67,7 @@ test_that("Compacting inside or outside as_flextable.crosstable gives the same r
 
 
 test_that("Flextable: by_header", {
-    options(tidyselect_verbosity = "silent")
+    rlang::local_options(tidyselect_verbosity = "silent")
     ct = crosstable(esoph, by="tobgp")
     ft=ct %>% as_flextable(by_header="blabla")
     
