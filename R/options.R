@@ -47,11 +47,6 @@
 #' @param crosstable_style_heading For specifying styles used by headings on different levels. Levels will be pasted in the end (e.g. use `"title"` if your level 2 heading style is `"title2"`).
 #' @param crosstable_style_list_ordered,crosstable_style_list_unordered For specifying styles used by lists in the `rdocx` template. Needed for [body_add_list()] to work.
 #' 
-#'   
-#' @sparam crosstable_total,crosstable_percent_pattern,crosstable_percent_digits,crosstable_showNA,crosstable_label,crosstable_funs,crosstable_funs_arg,crosstable_cor_method,crosstable_unique_numeric,crosstable_date_format,crosstable_times,crosstable_followup,crosstable_test_arg,crosstable_effect_args, For setting [crosstable()] arguments globally
-#' @sparam crosstable_keep_id,crosstable_autofit,crosstable_compact,crosstable_remove_header_keys,crosstable_show_test_name,crosstable_compact_padding,crosstable_padding_v,crosstable_header_show_n,crosstable_fontsize_body,crosstable_fontsize_header,crosstable_fontsize_subheaders, For setting [as_flextable()] arguments globally. Subheaders are only considered when `compact=TRUE`.
-#' @sparam crosstable_style_normal,crosstable_style_character,crosstable_style_strong,crosstable_style_image,crosstable_style_legend, For specifying styles in {officer} `rdocx` output.
-#'
 #' @return Nothing, called for its side effects
 #' @export
 crosstable_options = function(reset=FALSE, 
