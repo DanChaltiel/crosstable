@@ -414,6 +414,7 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
         class(rtn) = c("crosstable_multiby", "crosstable", "tbl_df", "tbl", "data.frame")
         
     } else {
+        data_y2 = data_y
         rtn = cross_by(data_x=data_x, data_y=data_y, funs=funs, funs_arg=funs_arg,
                        percent_pattern=percent_pattern, percent_digits=percent_digits, 
                        total=total, showNA=showNA,
@@ -421,7 +422,6 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
                        effect=effect, effect_args=effect_args, label=label)
         class(rtn) = c("crosstable", "tbl_df", "tbl", "data.frame")
     }
-    
     # Attributes and return -----------------------------------------------
     debug$x_class = x_class
     debug$y_class = y_class
@@ -435,10 +435,12 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     if(is_null(byname) || is_empty(byname)){
         attr(rtn, "by") = NULL
         attr(rtn, "by_label") = NULL
+        attr(rtn, "by_table") = NULL
         attr(rtn, "by_levels") = NULL
     } else {
         attr(rtn, "by") = byname
         attr(rtn, "by_label") = get_label(data_y)
+        attr(rtn, "by_table") = table(data_y2)
         attr(rtn, "by_levels") = by_levels
     }
     return(rtn)

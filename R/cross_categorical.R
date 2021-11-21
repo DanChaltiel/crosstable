@@ -60,7 +60,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
                           ~confint_proportion(.x, n, method="wilson")),
             across(starts_with("p_"), 
                    ~format_fixed(.x, digits=digits, percent=TRUE)), 
-            value=ifelse(is.na(x)|is.na(by)|.data$n==0&zero_percent, 
+            value=ifelse(is.na(x)|.data$n==0&zero_percent, 
                          .data$n, glue(percent_pattern))
         ) %>% 
         select(variable="x", value="value")
