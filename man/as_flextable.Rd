@@ -20,6 +20,7 @@
   fontsizes = list(body = 11, subheaders = 11, header = 11),
   padding_v = NULL,
   remove_header_keys = FALSE,
+  header_show_n = FALSE,
   generic_labels = list(id = ".id", variable = "variable", value = "value", total =
     "Total", label = "label", test = "test", effect = "effect"),
   ...
@@ -44,6 +45,8 @@
 
 \item{remove_header_keys}{if \code{TRUE} and \code{x} has several \code{by} strata, header will only display values}
 
+\item{header_show_n}{show the size (\code{N=xx}) of each terminal \code{by} strata in their header}
+
 \item{generic_labels}{names of the crosstable default columns. Useful for translation for instance.}
 
 \item{...}{unused}
@@ -60,9 +63,9 @@ a flextable
 #Crosstables
 library(crosstable)
 library(dplyr)
-options(crosstable_fontsize_header=14)
-options(crosstable_fontsize_subheaders=10)
-options(crosstable_fontsize_body=8)
+crosstable_options(crosstable_fontsize_header=14, 
+                   crosstable_fontsize_subheaders=10, 
+                   crosstable_fontsize_body=8)
 crosstable(iris) \%>\% as_flextable()
 crosstable(mtcars2, by=c(am, vs)) \%>\% as_flextable()
 crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE) \%>\% 
