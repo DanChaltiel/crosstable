@@ -381,25 +381,6 @@ confint_proportion = function(p, n,
     return(rtn)
 }
 
-#' Return the number of non NA observations
-#'
-#' @export
-#' @return integer, number of non NA observations
-#' @param x a vector
-#' @author David Hajage
-N = function(x) {
-    sum(!is.na(x))
-}
-
-#' Return the number of NA observations
-#'
-#' @export
-#' @return integer, number of NA observations
-#' @param x a vector
-#' @author David Hajage
-na = function(x) {
-    sum(is.na(x))
-}
 
 
 #' Small improvement around [stringr::str_wrap()] in case there is no whitespace

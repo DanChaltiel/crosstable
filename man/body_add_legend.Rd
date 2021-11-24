@@ -15,6 +15,7 @@ body_add_table_legend(
   name_format = NULL,
   legend_name = "Table",
   seqfield = "SEQ Table \\\\* Arabic",
+  par_before = FALSE,
   legacy = FALSE
 )
 
@@ -27,6 +28,7 @@ body_add_figure_legend(
   name_format = NULL,
   legend_name = "Figure",
   seqfield = "SEQ Figure \\\\* Arabic",
+  par_after = FALSE,
   legacy = FALSE
 )
 }

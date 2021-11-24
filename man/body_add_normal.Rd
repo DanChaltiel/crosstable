@@ -14,7 +14,7 @@ body_add_normal(doc, ..., .sep = "", squish = TRUE)
 
 \item{.sep}{Separator used to separate elements.}
 
-\item{squish}{Whether to squish the result (remove trailing and repeated spaces). Default to \code{TRUE}.}
+\item{squish}{Whether to squish the result (remove trailing and repeated spaces). Default to \code{TRUE}. Allows to add multiline paragraph without breaking the string.}
 }
 \value{
 a new doc object
