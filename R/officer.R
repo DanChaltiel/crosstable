@@ -64,7 +64,7 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #' @param doc the doc object (created with the `read_docx` function of `officer` package)
 #' @param ... one or several character strings, pasted using `.sep`. As with `glue::glue()`, expressions enclosed by braces will be evaluated as R code. If more than one variable is passed, all should be of length 1.
 #' @param .sep Separator used to separate elements.
-#' @param squish Whether to squish the result (remove trailing and repeated spaces). Default to `TRUE`.
+#' @param squish Whether to squish the result (remove trailing and repeated spaces). Default to `TRUE`. Allows to add multiline paragraph without breaking the string.
 #'
 #' @return a new doc object
 #' 
@@ -89,6 +89,7 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #'     body_add_normal(info_rows)                                              #vector style
 #' #write_and_open(doc)
 body_add_normal = function(doc, ..., .sep="", squish=TRUE) {
+    if(missing(squish)) squish = getOption("crosstable_normal_squish", TRUE)
     dots = list(...)
     normal_style = getOption('crosstable_style_normal', doc$default_styles$paragraph)
     lengths = map_dbl(dots, length)
@@ -97,14 +98,13 @@ body_add_normal = function(doc, ..., .sep="", squish=TRUE) {
         value = glue(..., .sep=.sep, .envir=parent.frame())
         if(squish) value = str_squish(value)
         if(length(value) > 0 && str_detect(value, "\\\\@ref\\((.*?)\\)")){
-            # doc = body_add_par(doc, "") %>% parse_reference(value)
             doc = body_add_par(doc, "") %>% parse_reference(value)
         } else{
             doc = body_add_par(doc, value, style=normal_style)
         }
     } else if(length(dots)==1) { #one vector (of 1 or more) -> recursive call
         for(i in dots[[1]]){
-            doc = body_add_normal(doc, i, .sep=.sep)
+            doc = body_add_normal(doc, i, .sep=.sep, squish=squish)
         }
     } else { #several vectors of which at least one is length 2+
         abort(c("body_add_normal() only accepts either one vector of any length or several vectors of length 1", 
@@ -154,6 +154,7 @@ body_add_glued = function(...){
 #' #write_and_open(doc)
 body_add_title = function(doc, value, level = 1, squish=TRUE, 
                           style = getOption('crosstable_style_heading', "heading")) {
+    if(missing(squish)) squish = getOption("crosstable_title_squish", TRUE)
     value = glue(value, .envir = parent.frame())
     if(squish) value = str_squish(value)
     style = paste(style, level)
