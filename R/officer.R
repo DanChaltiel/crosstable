@@ -115,16 +115,6 @@ body_add_normal = function(doc, ..., .sep="", squish=TRUE) {
     doc
 }
 
-#' @usage NULL
-#' @importFrom lifecycle deprecate_warn
-#' @rdname body_add_normal
-#' @author Dan Chaltiel
-#' @export
-body_add_glued = function(...){
-    deprecate_warn("0.2.0", "body_add_glued()", "body_add_normal()")# nocov
-    body_add_normal(...)# nocov
-}
-
 
 
 
@@ -365,7 +355,12 @@ body_add_table_legend = function(doc, legend, bookmark=NULL,
                                  name_format=NULL,
                                  legend_name="Table", 
                                  seqfield="SEQ Table \\* Arabic", 
+                                 par_before=FALSE,
                                  legacy=FALSE){
+    if(missing(par_before)) par_before = getOption("crosstable_table_legend_par_before", FALSE)
+    if(par_before){
+        doc=body_add_normal(doc, "")
+    }
     body_add_legend(doc=doc, legend=legend, legend_name=legend_name,
                     bookmark=bookmark, legend_style=legend_style,
                     name_format=name_format, seqfield=seqfield, 
@@ -381,11 +376,17 @@ body_add_figure_legend = function(doc, legend, bookmark=NULL,
                                   name_format=NULL,
                                   legend_name="Figure", 
                                   seqfield="SEQ Figure \\* Arabic", 
+                                  par_after=FALSE,
                                   legacy=FALSE){
-    body_add_legend(doc=doc, legend=legend, legend_name=legend_name,
+    if(missing(par_after)) par_after = getOption("crosstable_figure_legend_par_after", FALSE)
+    doc = body_add_legend(doc=doc, legend=legend, legend_name=legend_name,
                     bookmark=bookmark, legend_style=legend_style,
                     name_format=name_format, seqfield=seqfield, 
                     style=style, legacy=legacy)
+    if(par_after){
+        doc=body_add_normal(doc, "")
+    }
+    doc
 }
 
 
@@ -499,7 +500,6 @@ body_add_img2 = function(doc, src, width, height,
     to_units = function(x) x/c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units] 
     body_add_img(x=doc, src=src, width=to_units(width), height=to_units(height), ...)
 }
-
 
 
 
@@ -801,3 +801,18 @@ parse_reference_legacy = function(doc, value){
 }
 
 # nocov end
+
+
+
+# Deprecated --------------------------------------------------------------
+
+
+#' @usage NULL
+#' @importFrom lifecycle deprecate_warn
+#' @rdname body_add_normal
+#' @author Dan Chaltiel
+#' @export
+body_add_glued = function(...){
+    deprecate_warn("0.2.0", "body_add_glued()", "body_add_normal()")# nocov
+    body_add_normal(...)# nocov
+}
