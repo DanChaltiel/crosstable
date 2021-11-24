@@ -41,6 +41,7 @@ utils::globalVariables(c("x", "y", "ct", "col_keys", "p_col", "where"))
 #' @importFrom tidyselect vars_select eval_select everything any_of 
 #' @importFrom dplyr select mutate_if n_distinct across
 #' @importFrom purrr map map_lgl map_chr map_dfc pmap_dfr
+#' @importFrom forcats as_factor
 #' @importFrom stringr str_detect str_split
 #' @importFrom glue glue
 #' @importFrom lifecycle deprecated is_present deprecate_warn deprecate_stop
@@ -267,8 +268,8 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
                    ~ .x %>% as.character() %>% set_label(get_label(.x))),
             across(where(~is.numeric.and.not.surv(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric),
                    ~{
-                       .x = as.character(.x) %>% set_label(get_label(.x))
-                       class(.x) = c("unique_numeric", "character")
+                       .x = mixedsort(.x) %>% as_factor() %>% set_label(get_label(.x))
+                       class(.x) = c("unique_numeric", class(.x))
                        .x
                    }),
         )
@@ -280,8 +281,8 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
                    ~ .x %>% as.character() %>% set_label(get_label(.x))),
             across(where(~is.numeric.and.not.surv(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric), 
                    ~{
-                       .x = as.character(.x) %>% set_label(get_label(.x))
-                       class(.x) = c("unique_numeric", "character")
+                       .x = mixedsort(.x) %>% as_factor() %>% set_label(get_label(.x))
+                       class(.x) = c("unique_numeric", class(.x))
                        .x
                    })
         )
