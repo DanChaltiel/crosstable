@@ -90,9 +90,6 @@ set_label = function(x, value, object=FALSE){
         return(x)
     }
     attr(x, "label") = value
-    if (!"labelled" %in% class(x)) {
-        class(x) = c("labelled", class(x))
-    }
     return(x)
 }
 
@@ -125,8 +122,8 @@ copy_label_from = function(x, from){
 #' @aliases remove_label
 #' @seealso [get_label], [set_label], [import_labels], [expss::unlab]
 #' @examples 
-#' mtcars2 %>% remove_labels %>% crosstable(1:2) #no labels
-#' mtcars2$hp %>% remove_labels %>% get_label #numeric
+#' mtcars2 %>% remove_labels %>% crosstable(mpg) #no label
+#' mtcars2$hp %>% remove_labels %>% get_label() #NULL
 remove_labels = function(x){
     if (is.null(x)) 
         return(x)

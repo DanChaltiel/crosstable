@@ -100,9 +100,6 @@ test_that("Removing labels", {
     expect_type(x, "double")
     expect_type(x2, "double")
     
-    expect_s3_class(x, c("labelled", "numeric"))
-    expect_s3_class(x2, NA)
-    
     #limit case
     expect_null(remove_label(NULL))
 })
