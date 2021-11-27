@@ -411,10 +411,8 @@ str_wrap2 = function(x, width, ...){
 #' @keywords internal
 #' @noRd
 mixedsort = function(x, decreasing=FALSE, na.last=TRUE, blank.last=FALSE, 
-                     numeric.type=c("decimal", "roman"), 
                      roman.case=c("upper", "lower", "both"), 
                      scientific=TRUE){
-    numeric.type <- match.arg(numeric.type)
     roman.case <- match.arg(roman.case)
     if(length(x)==0) return(NULL)
     if(length(x)==1) return(x)
@@ -423,21 +421,13 @@ mixedsort = function(x, decreasing=FALSE, na.last=TRUE, blank.last=FALSE,
     }
     
     delim <- "\\$\\@\\$"
-    if(numeric.type == "decimal") {
-        if(scientific) {
-            regex <- "((?:(?i)(?:[-+]?)(?:(?=[.]?[0123456789])(?:[0123456789]*)(?:(?:[.])(?:[0123456789]{0,}))?)(?:(?:[eE])(?:(?:[-+]?)(?:[0123456789]+))|)))"
-        }
-        else {
-            regex <- "((?:(?i)(?:[-+]?)(?:(?=[.]?[0123456789])(?:[0123456789]*)(?:(?:[.])(?:[0123456789]{0,}))?)))"
-        }
-        numeric <- function(x) as.numeric(x)
-    } else if(numeric.type == "roman") {
-        regex <- switch(roman.case, both = "([IVXCLDMivxcldm]+)", 
-                        upper = "([IVXCLDM]+)", lower = "([ivxcldm]+)")
-        numeric <- function(x) roman2int(x)
-    } else {
-        stop("Unknown value for numeric.type: ", numeric.type)
+    if(scientific) {
+        regex <- "((?:(?i)(?:[-+]?)(?:(?=[.]?[0123456789])(?:[0123456789]*)(?:(?:[.])(?:[0123456789]{0,}))?)(?:(?:[eE])(?:(?:[-+]?)(?:[0123456789]+))|)))"
     }
+    else {
+        regex <- "((?:(?i)(?:[-+]?)(?:(?=[.]?[0123456789])(?:[0123456789]*)(?:(?:[.])(?:[0123456789]{0,}))?)))"
+    }
+    numeric <- function(x) as.numeric(x)
     nonnumeric <- function(x) ifelse(is.na(numeric(x)), toupper(x), NA)
     x <- as.character(x)
     which.nas <- which(is.na(x))
