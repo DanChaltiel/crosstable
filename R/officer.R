@@ -296,7 +296,9 @@ body_add_crosstable_list = function(doc, l, fun="title2", ...){
 body_add_flextable_list = body_add_crosstable_list
 
 
-#' Add a table legend to an `officer` document
+#' Add a legend to a table or a figure 
+#' 
+#' Add a legend to a table or a figure in an `officer` document. Legends can be reffered to using the `@ref` syntax in [body_add_normal()] (see examples for some use cases). Table legends should be inserted before the table while figure legends should be inserted after the figure.
 #'
 #' @param doc a docx object
 #' @param legend the table legend. As with [glue::glue()], expressions enclosed by braces will be evaluated as R code.
@@ -306,6 +308,7 @@ body_add_flextable_list = body_add_crosstable_list
 #' @param legend_name name before the numbering. Default to either "Table" or "Figure".
 #' @param style deprecated in favor of `name_format`.
 #' @param seqfield Keep default. Otherwise, you may figure it out doing this: in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.
+#' @param par_before,par_after should an empty paragraph be inserted before/after the legend?
 #' @param legacy use the old version of this function, if you cannot update `{officer}` to v0.4+
 #' 
 #' @return The docx object `doc`

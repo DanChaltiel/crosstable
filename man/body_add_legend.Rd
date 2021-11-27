@@ -4,7 +4,7 @@
 \alias{body_add_legend}
 \alias{body_add_table_legend}
 \alias{body_add_figure_legend}
-\title{Add a table legend to an \code{officer} document}
+\title{Add a legend to a table or a figure}
 \usage{
 body_add_table_legend(
   doc,
@@ -49,13 +49,15 @@ body_add_figure_legend(
 
 \item{seqfield}{Keep default. Otherwise, you may figure it out doing this: in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.}
 
+\item{par_before, par_after}{should an empty paragraph be inserted before/after the legend?}
+
 \item{legacy}{use the old version of this function, if you cannot update \code{{officer}} to v0.4+}
 }
 \value{
 The docx object \code{doc}
 }
 \description{
-Add a table legend to an \code{officer} document
+Add a legend to a table or a figure in an \code{officer} document. Legends can be reffered to using the \verb{@ref} syntax in \code{\link[=body_add_normal]{body_add_normal()}} (see examples for some use cases). Table legends should be inserted before the table while figure legends should be inserted after the figure.
 }
 \section{Warning}{
 

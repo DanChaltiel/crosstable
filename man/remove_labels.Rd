@@ -17,8 +17,8 @@ An object of the same type as \code{x}, with no labels
 Use \code{remove_labels()} to remove the label from an object or to recursively remove all the labels from a collection of objects (such as a list or a data.frame). \cr \cr This can be useful with functions reacting badly to labelled objects.
 }
 \examples{
-mtcars2 \%>\% remove_labels \%>\% crosstable(1:2) #no labels
-mtcars2$hp \%>\% remove_labels \%>\% get_label #numeric
+mtcars2 \%>\% remove_labels \%>\% crosstable(mpg) #no label
+mtcars2$hp \%>\% remove_labels \%>\% get_label() #NULL
 }
 \seealso{
 \link{get_label}, \link{set_label}, \link{import_labels}, \link[expss:unlab]{expss::unlab}

@@ -1,5 +1,5 @@
 
-utils::globalVariables(c("x", "y", "ct", "col_keys", "p_col", "where"))
+utils::globalVariables(c(".", "x", "y", "ct", "col_keys", "p_col", "where"))
 
 #' Easily describe datasets
 #' 
@@ -15,19 +15,20 @@ utils::globalVariables(c("x", "y", "ct", "col_keys", "p_col", "where"))
 #' @param funs_arg Additional parameters for `funs`, e.g. `digits` (the number of decimal places) for the default [cross_summary()]. Ultimately, these arguments are passed to [format_fixed()].
 #' @param total one of \["none", "row", "column" or "both"] to indicate whether to add total rows and/or columns. Default to `none`.
 #' @param percent_pattern Pattern used to describe proportions in categorical data. Syntax uses a [glue::glue()] specification, see section below for more details. Default to `"{n} ({p_col})"` if `by` is null and `"{n} ({p_row})"` if it is not.
-#' @param percent_digits Number of digits for percentages
-#' @param unique_numeric The number of non-missing different levels a variable should have to be considered as numeric
-#' @param showNA Whether to show NA in categorical variables (one of \code{c("ifany", "always", "no")}, like in \code{table()})
+#' @param percent_digits Number of digits for percentages.
+#' @param num_digits Number of digits for numeric summaries.
+#' @param unique_numeric The number of non-missing different levels a variable should have to be considered as numeric.
+#' @param showNA Whether to show NA in categorical variables (one of \code{c("ifany", "always", "no")}, like in \code{table()}).
 #' @param label Whether to show labels. See [import_labels()] or [set_label()]for how to add labels to the dataset columns.
 #' @param cor_method One of `c("pearson", "kendall", "spearman")` to indicate which correlation coefficient is to be used.
-#' @param times When using formula with [survival::Surv()] objects, which times to summarize
-#' @param followup When using formula with [survival::Surv()] objects, whether to display follow-up time
-#' @param test Whether to perform tests
+#' @param times When using formula with [survival::Surv()] objects, which times to summarize.
+#' @param followup When using formula with [survival::Surv()] objects, whether to display follow-up time.
+#' @param test Whether to perform tests.
 #' @param test_args See \code{\link{crosstable_test_args}} to override default testing behaviour.
-#' @param effect Whether to compute a effect measure
+#' @param effect Whether to compute a effect measure.
 #' @param effect_args See \code{\link{crosstable_effect_args}} to override default behaviour.
 #' @param margin Deprecated in favor of `percent_pattern`. One of \["row", "column", "cell", "none", or "all"]. Default to `row`.
-#' @param .vars Deprecated
+#' @param .vars Deprecated in favor of `cols`.
 #' @inheritParams format_fixed
 #' 
 #' @section `percent_pattern`:
@@ -60,7 +61,7 @@ utils::globalVariables(c("x", "y", "ct", "col_keys", "p_col", "where"))
 #' #tidyselection, custom functions
 #' library(dplyr)
 #' crosstable(mtcars2, c(ends_with("t"), starts_with("c")), by=vs, 
-#'            funs=c(mean, quantile), funs_arg = list(probs=c(.25,.75)))
+#'            funs=c(mean, quantile), funs_arg=list(probs=c(.25,.75)))
 #' 
 #' #margin and totals, multiple by
 #' crosstable(mtcars2, c(disp, cyl), by=c(am, vs), 

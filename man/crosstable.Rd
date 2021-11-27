@@ -13,6 +13,7 @@ crosstable(
   total = c("none", "row", "column", "both"),
   percent_pattern = "{n} ({p_row})",
   percent_digits = 2,
+  num_digits = 1,
   showNA = c("ifany", "always", "no"),
   label = TRUE,
   funs = c(` ` = cross_summary),
@@ -45,9 +46,11 @@ is.crosstable(x)
 
 \item{percent_pattern}{Pattern used to describe proportions in categorical data. Syntax uses a \code{\link[glue:glue]{glue::glue()}} specification, see section below for more details. Default to \code{"{n} ({p_col})"} if \code{by} is null and \code{"{n} ({p_row})"} if it is not.}
 
-\item{percent_digits}{Number of digits for percentages}
+\item{percent_digits}{Number of digits for percentages.}
 
-\item{showNA}{Whether to show NA in categorical variables (one of \code{c("ifany", "always", "no")}, like in \code{table()})}
+\item{num_digits}{Number of digits for numeric summaries.}
+
+\item{showNA}{Whether to show NA in categorical variables (one of \code{c("ifany", "always", "no")}, like in \code{table()}).}
 
 \item{label}{Whether to show labels. See \code{\link[=import_labels]{import_labels()}} or \code{\link[=set_label]{set_label()}}for how to add labels to the dataset columns.}
 
@@ -57,25 +60,25 @@ is.crosstable(x)
 
 \item{cor_method}{One of \code{c("pearson", "kendall", "spearman")} to indicate which correlation coefficient is to be used.}
 
-\item{unique_numeric}{The number of non-missing different levels a variable should have to be considered as numeric}
+\item{unique_numeric}{The number of non-missing different levels a variable should have to be considered as numeric.}
 
 \item{date_format}{if \code{x} is a vector of Date or POSIXt, the format to apply (see \link{strptime} for formats)}
 
-\item{times}{When using formula with \code{\link[survival:Surv]{survival::Surv()}} objects, which times to summarize}
+\item{times}{When using formula with \code{\link[survival:Surv]{survival::Surv()}} objects, which times to summarize.}
 
-\item{followup}{When using formula with \code{\link[survival:Surv]{survival::Surv()}} objects, whether to display follow-up time}
+\item{followup}{When using formula with \code{\link[survival:Surv]{survival::Surv()}} objects, whether to display follow-up time.}
 
-\item{test}{Whether to perform tests}
+\item{test}{Whether to perform tests.}
 
 \item{test_args}{See \code{\link{crosstable_test_args}} to override default testing behaviour.}
 
-\item{effect}{Whether to compute a effect measure}
+\item{effect}{Whether to compute a effect measure.}
 
 \item{effect_args}{See \code{\link{crosstable_effect_args}} to override default behaviour.}
 
 \item{margin}{Deprecated in favor of \code{percent_pattern}. One of ["row", "column", "cell", "none", or "all"]. Default to \code{row}.}
 
-\item{.vars}{Deprecated}
+\item{.vars}{Deprecated in favor of \code{cols}.}
 
 \item{x}{a numeric vector to format}
 }
@@ -102,7 +105,7 @@ crosstable(mtcars2)
 #tidyselection, custom functions
 library(dplyr)
 crosstable(mtcars2, c(ends_with("t"), starts_with("c")), by=vs, 
-           funs=c(mean, quantile), funs_arg = list(probs=c(.25,.75)))
+           funs=c(mean, quantile), funs_arg=list(probs=c(.25,.75)))
 
 #margin and totals, multiple by
 crosstable(mtcars2, c(disp, cyl), by=c(am, vs), 

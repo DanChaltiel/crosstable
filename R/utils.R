@@ -115,7 +115,7 @@ check_dots_unnamed = function(){
 
 # Function handling --------------------------------------------------------
 
-#' @source methods::formalArgs
+#' @source exact burgle of methods::formalArgs
 #' @keywords internal
 #' @noRd
 formalArgs = function (def){
