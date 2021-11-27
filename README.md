@@ -15,11 +15,11 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/crosstable?color=blue)]
 [![Last
 Commit](https://img.shields.io/github/last-commit/DanChaltiel/crosstable)](https://github.com/DanChaltiel/crosstable)
 [![Codecov test
-coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/master/graph/badge.svg)](https://app.codecov.io/gh/DanChaltiel/crosstable?branch=master)
+coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/main/graph/badge.svg)](https://app.codecov.io/gh/DanChaltiel/crosstable?branch=main)
 [![R build
 status](https://github.com/DanChaltiel/crosstable/workflows/R-CMD-check/badge.svg)](https://github.com/DanChaltiel/crosstable/actions)
 <!-- [![Dependencies](https://tinyverse.netlify.com/badge/crosstable)](https://cran.r-project.org/package=crosstable)  -->
-<!-- [![Build Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=master)](https://travis-ci.org/DanChaltiel/crosstable) -->
+<!-- [![Build Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=main)](https://travis-ci.org/DanChaltiel/crosstable) -->
 <!-- badges: end -->
 
 Crosstable is a package centered on a single function, `crosstable`,
@@ -30,15 +30,15 @@ create automatized reports.
 ## Installation
 
 ``` r
-# Install last version available on CRAN (v0.2.2)
+# Install last version available on CRAN (v0.3.1)
 install.packages("crosstable")
 
 # Install development version on Github
 devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 
 # Install specific version (for reproducibility purpose)
-devtools::install_github("DanChaltiel/crosstable@v0.2.2-CRAN", build_vignettes=TRUE) #last tag
-devtools::install_github("DanChaltiel/crosstable@ff4aaae", build_vignettes=TRUE) #last commit
+devtools::install_github("DanChaltiel/crosstable@v0.3.1", build_vignettes=TRUE) #last tag
+devtools::install_github("DanChaltiel/crosstable@8bc07e0", build_vignettes=TRUE) #last commit
 ```
 
 Note that, for reproducibility purpose, an even better solution would be
@@ -72,7 +72,8 @@ issue.
 ``` r
 library(crosstable)
 library(dplyr)
-ct1 = crosstable(mtcars2, c(disp, vs), by=am, margin=c("row", "col"), total="both") %>%
+ct1 = crosstable(mtcars2, c(disp, vs), by=am, total="both", 
+                 percent_pattern="{n} ({p_row}/{p_col})", percent_digits=0) %>%
   as_flextable()
 ```
 
@@ -99,7 +100,7 @@ to learn how).
 Here is a more advanced example:
 
 ``` r
-ct2 = crosstable(mtcars2, c(starts_with("c"), ends_with("t")), by=c(am, vs), label=FALSE,
+ct2 = crosstable(mtcars2, c(starts_with("cy"), ends_with("at")), by=c(am, vs), label=FALSE,
                  funs=c(mean, quantile), funs_arg=list(probs=c(.25,.75), digits=3)) %>% 
   as_flextable(compact=TRUE)
 ```
