@@ -91,7 +91,8 @@ utils::globalVariables(c(".", "x", "y", "ct", "col_keys", "p_col", "where"))
 #'            percent_pattern="col={p_col}, row={p_row} ({ifelse(n<5, str_lo, str_high)})")
 crosstable = function(data, cols=NULL, ..., by=NULL, 
                       total = c("none", "row", "column", "both"),
-                      percent_pattern = "{n} ({p_row})", percent_digits = 2, 
+                      percent_pattern = "{n} ({p_row})", 
+                      percent_digits = 2, num_digits = 1, 
                       showNA = c("ifany", "always", "no"), label = TRUE, 
                       funs = c(" " = cross_summary), funs_arg=list(), 
                       cor_method = c("pearson", "kendall", "spearman"), 
@@ -125,7 +126,11 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
                                                  crosstable_test_args())
     if(missing(effect_args)) effect_args = getOption("crosstable_effect_args",
                                                      crosstable_effect_args())
+    if(missing(num_digits)) num_digits = getOption("crosstable_num_digits",  1)
     
+    if(!"dig" %in% names(funs_arg)){
+        funs_arg = c(funs_arg, list(dig=num_digits))
+    }
     # Arguments checks ----------------------------------------------------
     
     check_dots_unnamed()
@@ -328,7 +333,8 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
                   class="crosstable_wrong_byclass_error")
         }
         if(is.numeric(y_var)){
-            if(!identical(funs, c(` `=cross_summary)) || length(funs_arg)>0){
+            tmp=funs_arg[!names(funs_arg) %in% c("dig", "date_format")]
+            if(!identical(funs, c(` `=cross_summary)) || length(tmp)>0){
                 warn("`funs` and `funs_arg` arguments will not be used if `by` is numeric.",
                      class="crosstable_funs_by_warning")
             }
