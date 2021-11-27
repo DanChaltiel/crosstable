@@ -107,7 +107,7 @@ below to see their documentation.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9000</span>
       </span>
     </div>
 
@@ -198,14 +198,13 @@ below to see their documentation.</p>
   <span class='va'>x</span>,
   keep_id <span class='op'>=</span> <span class='cn'>FALSE</span>,
   by_header <span class='op'>=</span> <span class='cn'>NULL</span>,
-  autofit <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_autofit"</span>, <span class='cn'>TRUE</span><span class='op'>)</span>,
-  compact <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_compact"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
-  show_test_name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_show_test_name"</span>, <span class='cn'>TRUE</span><span class='op'>)</span>,
-  fontsizes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>body <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_fontsize_body"</span>, <span class='fl'>11</span><span class='op'>)</span>, subheaders <span class='op'>=</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_fontsize_subheaders"</span>, <span class='fl'>11</span><span class='op'>)</span>, header <span class='op'>=</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_fontsize_header"</span>, <span class='fl'>11</span><span class='op'>)</span><span class='op'>)</span>,
-  padding_v <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"crosstable_padding_v"</span>, <span class='cn'>NULL</span><span class='op'>)</span>,
+  autofit <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  compact <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show_test_name <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  fontsizes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>body <span class='op'>=</span> <span class='fl'>11</span>, subheaders <span class='op'>=</span> <span class='fl'>11</span>, header <span class='op'>=</span> <span class='fl'>11</span><span class='op'>)</span>,
+  padding_v <span class='op'>=</span> <span class='cn'>NULL</span>,
   remove_header_keys <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  header_show_n <span class='op'>=</span> <span class='cn'>FALSE</span>,
   generic_labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>".id"</span>, variable <span class='op'>=</span> <span class='st'>"variable"</span>, value <span class='op'>=</span> <span class='st'>"value"</span>, total <span class='op'>=</span>
     <span class='st'>"Total"</span>, label <span class='op'>=</span> <span class='st'>"label"</span>, test <span class='op'>=</span> <span class='st'>"test"</span>, effect <span class='op'>=</span> <span class='st'>"effect"</span><span class='op'>)</span>,
   <span class='va'>...</span>
@@ -251,6 +250,10 @@ below to see their documentation.</p>
       <td><p>if <code>TRUE</code> and <code>x</code> has several <code>by</code> strata, header will only display values</p></td>
     </tr>
     <tr>
+      <th>header_show_n</th>
+      <td><p>show the size (<code>N=xx</code>) of each terminal <code>by</code> strata in their header</p></td>
+    </tr>
+    <tr>
       <th>generic_labels</th>
       <td><p>names of the crosstable default columns. Useful for translation for instance.</p></td>
     </tr>
@@ -288,9 +291,9 @@ below to see their documentation.</p>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span> The following objects are masked from ‘package:base’:</span>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-msg co'><span class='r-pr'>#&gt;</span>     intersect, setdiff, setequal, union</span>
-<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>crosstable_fontsize_header<span class='op'>=</span><span class='fl'>14</span><span class='op'>)</span></span>
-<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>crosstable_fontsize_subheaders<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span></span>
-<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>crosstable_fontsize_body<span class='op'>=</span><span class='fl'>8</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='crosstable_options.html'>crosstable_options</a></span><span class='op'>(</span>crosstable_fontsize_header<span class='op'>=</span><span class='fl'>14</span>, </span>
+<span class='r-in'>                   crosstable_fontsize_subheaders<span class='op'>=</span><span class='fl'>10</span>, </span>
+<span class='r-in'>                   crosstable_fontsize_body<span class='op'>=</span><span class='fl'>8</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>as_flextable</span><span class='op'>(</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> a flextable object.</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> col_keys: `label`, `variable`, `value` </span>

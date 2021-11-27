@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add a table legend to an officer document — body_add_legend • crosstable</title>
+<title>Add a legend to a table or a figure — body_add_legend • crosstable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -54,8 +54,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Add a table legend to an officer document — body_add_legend" />
-<meta property="og:description" content="Add a table legend to an officer document" />
+<meta property="og:title" content="Add a legend to a table or a figure — body_add_legend" />
+<meta property="og:description" content="Add a legend to a table or a figure in an officer document. Legends can be referred to using the @ref syntax in body_add_normal() (see examples for some use cases). Table legends should be inserted before the table while figure legends should be inserted after the figure." />
 <meta property="og:image" content="https://danchaltiel.github.io/crosstable/apple-touch-icon-180x180.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary" />
@@ -102,7 +102,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9000</span>
       </span>
     </div>
 
@@ -174,13 +174,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add a table legend to an <code>officer</code> document</h1>
+    <h1>Add a legend to a table or a figure</h1>
     <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/officer.R'><code>R/officer.R</code></a></small>
     <div class="hidden name"><code>body_add_legend.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Add a table legend to an <code>officer</code> document</p>
+    <p>Add a legend to a table or a figure in an <code>officer</code> document. Legends can be referred to using the <code>@ref</code> syntax in <code><a href='body_add_normal.html'>body_add_normal()</a></code> (see examples for some use cases). Table legends should be inserted before the table while figure legends should be inserted after the figure.</p>
     </div>
 
     <pre class="usage"><span class='fu'>body_add_table_legend</span><span class='op'>(</span>
@@ -192,6 +192,7 @@
   name_format <span class='op'>=</span> <span class='cn'>NULL</span>,
   legend_name <span class='op'>=</span> <span class='st'>"Table"</span>,
   seqfield <span class='op'>=</span> <span class='st'>"SEQ Table \\* Arabic"</span>,
+  par_before <span class='op'>=</span> <span class='cn'>FALSE</span>,
   legacy <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span>
 
@@ -204,6 +205,7 @@
   name_format <span class='op'>=</span> <span class='cn'>NULL</span>,
   legend_name <span class='op'>=</span> <span class='st'>"Figure"</span>,
   seqfield <span class='op'>=</span> <span class='st'>"SEQ Figure \\* Arabic"</span>,
+  par_after <span class='op'>=</span> <span class='cn'>FALSE</span>,
   legacy <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
@@ -241,6 +243,10 @@
     <tr>
       <th>seqfield</th>
       <td><p>Keep default. Otherwise, you may figure it out doing this: in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.</p></td>
+    </tr>
+    <tr>
+      <th>par_before, par_after</th>
+      <td><p>should an empty paragraph be inserted before/after the legend?</p></td>
     </tr>
     <tr>
       <th>legacy</th>

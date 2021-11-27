@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Default arguments for calculating and displaying tests in crosstable() — crosstable_test_args • crosstable</title>
+<title>See which crosstable option is currently set. — crosstable_peek_options • crosstable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -54,8 +54,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Default arguments for calculating and displaying tests in crosstable() — crosstable_test_args" />
-<meta property="og:description" content="This is the starting point for refining the testing algorithm used in crosstable. Users can provide their own functions for test.~." />
+<meta property="og:title" content="See which crosstable option is currently set. — crosstable_peek_options" />
+<meta property="og:description" content="See which crosstable option is currently set." />
 <meta property="og:image" content="https://danchaltiel.github.io/crosstable/apple-touch-icon-180x180.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary" />
@@ -174,52 +174,30 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Default arguments for calculating and displaying tests in <code><a href='crosstable.html'>crosstable()</a></code></h1>
-    <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/test.R'><code>R/test.R</code></a></small>
-    <div class="hidden name"><code>crosstable_test_args.Rd</code></div>
+    <h1>See which <code>crosstable</code> option is currently set.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/options.R'><code>R/options.R</code></a></small>
+    <div class="hidden name"><code>crosstable_peek_options.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This is the starting point for refining the testing algorithm used in crosstable. Users can provide their own functions for test.~.</p>
+    <p>See which <code>crosstable</code> option is currently set.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>crosstable_test_args</span><span class='op'>(</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>crosstable_peek_options</span><span class='op'>(</span>keep_null <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>keep_null</th>
+      <td><p>set to TRUE to get a list</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list with testing parameters:</p><ul>
-<li><p><code>test_summarize</code> - a function of two arguments (continuous variable and grouping variable), used to compare continuous variable. Must return a list of two components: <code>p.value</code> and <code>method</code>. See <code><a href='test_summarize_auto.html'>test_summarize_auto</a></code> or <code><a href='test_summarize_linear_contrasts.html'>test_summarize_linear_contrasts</a></code> for some examples of such functions.</p></li>
-<li><p><code>test_tabular</code> - a function of two arguments (two categorical variables), used to test association between two categorical variables.  Must return a list of two components: <code>p.value</code> and <code>method</code>. See <code><a href='test_tabular_auto.html'>test_tabular_auto</a></code> for example.</p></li>
-<li><p><code>test_correlation</code> - a function of three arguments (two continuous variables plus the correlation method), used to test association between two continuous variables.  Like <code>cor.test</code>, it must return a list of at least <code>estimate</code>, <code>p.value</code>, and <code>method</code>, with also <code>conf.int</code> optionally. See <code><a href='test_correlation_auto.html'>test_correlation_auto</a></code> for example.</p></li>
-<li><p><code>test_survival</code> - a function of one argument (the formula <code>surv~by</code>), used to compare survival estimations. Must return a list of two components: <code>p.value</code> and <code>method</code>. See <code><a href='test_survival_logrank.html'>test_survival_logrank</a></code> for example.</p></li>
-<li><p><code>test_display</code> - function used to display the test result. See <code><a href='display_test.html'>display_test</a></code>.</p></li>
-<li><p><code>plim</code> - number of digits for the p value</p></li>
-<li><p><code>show_method</code> - whether to display the test name (logical)</p></li>
-</ul>
+    <p>A named list of crosstable options</p>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='test_summarize_auto.html'>test_summarize_auto</a></code>, <code><a href='test_tabular_auto.html'>test_tabular_auto</a></code>, <code><a href='test_survival_logrank.html'>test_survival_logrank</a></code>, <code><a href='test_summarize_linear_contrasts.html'>test_summarize_linear_contrasts</a></code>, <code><a href='display_test.html'>display_test</a></code></p></div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p>Dan Chaltiel</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span></span>
-<span class='r-in'><span class='va'>my_test_args</span><span class='op'>=</span><span class='fu'>crosstable_test_args</span><span class='op'>(</span><span class='op'>)</span></span>
-<span class='r-in'><span class='va'>my_test_args</span><span class='op'>$</span><span class='va'>test_summarize</span> <span class='op'>=</span> <span class='va'>test_summarize_linear_contrasts</span></span>
-<span class='r-in'><span class='va'>iris</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
-<span class='r-in'>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>Petal.Width.qt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"Q"</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/ranking.html'>ntile</a></span><span class='op'>(</span><span class='va'>Petal.Width</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>ordered</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
-<span class='r-in'>  <span class='fu'><a href='crosstable.html'>crosstable</a></span><span class='op'>(</span><span class='va'>Petal.Length</span> <span class='op'>~</span> <span class='va'>Petal.Width.qt</span>, test<span class='op'>=</span><span class='cn'>TRUE</span>, test_args <span class='op'>=</span> <span class='va'>my_test_args</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 4 × 9</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   .id          label        variable   Q1     Q2     Q3     Q4    Q5    test    </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> Petal.Length Petal.Length Min / Max  1.0 /… 1.3 /… 3.6 /… 4.5 … 4.9 … <span style='color: #949494;'>"</span>p valu…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> Petal.Length Petal.Length Med [IQR]  1.4 [… 1.6 [… 4.3 [… 5.0 … 5.6 … <span style='color: #949494;'>"</span>p valu…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> Petal.Length Petal.Length Mean (std) 1.4 (… 2.2 (… 4.4 (… 5.1 … 5.7 … <span style='color: #949494;'>"</span>p valu…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> Petal.Length Petal.Length N (NA)     30 (0) 30 (0) 30 (0) 30 (… 30 (… <span style='color: #949494;'>"</span>p valu…</span>
-</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

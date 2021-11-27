@@ -55,39 +55,7 @@
   
 
 <meta property="og:title" content="Options for the package crosstable — crosstable_options" />
-<meta property="og:description" content="Here is a comprehensive list of all options that you can set globally.
-For setting crosstable() arguments globally:
-crosstable_total, crosstable_percent_pattern, crosstable_percent_digits, crosstable_showNA, crosstable_label, crosstable_funs, crosstable_funs_arg, crosstable_cor_method, crosstable_unique_numeric, crosstable_date_format, crosstable_times, crosstable_followup, crosstable_test_arg, and crosstable_effect_args
-
-
-For flextables:
-crosstable_autofit, crosstable_compact, and crosstable_show_test_name: default arguments for as_flextable().
-crosstable_compact_padding: left-padding for non-headers rows when compact=TRUE.
-crosstable_padding_v: vertical padding (body).
-crosstable_fontsize_body, crosstable_fontsize_header, and crosstable_fontsize_subheaders: font sizes for, respectively for normal, header and subheader rows. Subheaders are only considered when compact=TRUE.
-crosstable_wrap_id: if id contains no spaces, wrap it with this maximum number of characters.
-
-
-For specifying styles in officer docx output:
-crosstable_style_normal
-crosstable_style_character: used in cross-references
-crosstable_style_heading
-crosstable_style_strong
-crosstable_style_image
-crosstable_style_legend
-crosstable_style_list_ordered and crosstable_style_list_unordered, mandatory for body_add_list() to work.
-
-
-Verbosity:
-crosstable_verbosity_autotesting: one of default, quiet, or verbose
-
-
-Misc:
-crosstable_only_round: default argument for format_fixed()
-crosstable_units: default units in body_add_gg2() and body_add_img2()
-crosstable_peek_docx: behavior of peek(), which will open a docx if TRUE and an xlsx if FALSE
-
-" />
+<meta property="og:description" content="Use this function to manage your crosstable parameters globally while taking advantage of autocompletion. Use crosstable_peek_options() to see which option is currently set." />
 <meta property="og:image" content="https://danchaltiel.github.io/crosstable/apple-touch-icon-180x180.png" />
 <meta property="og:image:alt" content="Crosstable: easy dataset description" />
 <meta name="twitter:card" content="summary" />
@@ -134,7 +102,7 @@ crosstable_peek_docx: behavior of peek(), which will open a docx if TRUE and an 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9000</span>
       </span>
     </div>
 
@@ -207,48 +175,241 @@ crosstable_peek_docx: behavior of peek(), which will open a docx if TRUE and an 
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Options for the package <code>crosstable</code></h1>
-    <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/crosstable-package.R'><code>R/crosstable-package.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/R/options.R'><code>R/options.R</code></a></small>
     <div class="hidden name"><code>crosstable_options.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Here is a comprehensive list of all options that you can set globally.</p>
-<p>For setting <code><a href='crosstable.html'>crosstable()</a></code> arguments globally:</p><ul>
-<li><p><code>crosstable_total</code>, <code>crosstable_percent_pattern</code>, <code>crosstable_percent_digits</code>, <code>crosstable_showNA</code>, <code>crosstable_label</code>, <code>crosstable_funs</code>, <code>crosstable_funs_arg</code>, <code>crosstable_cor_method</code>, <code>crosstable_unique_numeric</code>, <code>crosstable_date_format</code>, <code>crosstable_times</code>, <code>crosstable_followup</code>, <code>crosstable_test_arg</code>, and <code>crosstable_effect_args</code></p></li>
-</ul>
-
-<p>For flextables:</p><ul>
-<li><p><code>crosstable_autofit</code>, <code>crosstable_compact</code>, and <code>crosstable_show_test_name</code>: default arguments for <code><a href='as_flextable.crosstable.html'>as_flextable()</a></code>.</p></li>
-<li><p><code>crosstable_compact_padding</code>: left-padding for non-headers rows when <code>compact=TRUE</code>.</p></li>
-<li><p><code>crosstable_padding_v</code>: vertical padding (body).</p></li>
-<li><p><code>crosstable_fontsize_body</code>, <code>crosstable_fontsize_header</code>, and <code>crosstable_fontsize_subheaders</code>: font sizes for, respectively for normal, header and subheader rows. Subheaders are only considered when <code>compact=TRUE</code>.</p></li>
-<li><p><code>crosstable_wrap_id</code>: if <code>id</code> contains no spaces, wrap it with this maximum number of characters.</p></li>
-</ul>
-
-<p>For specifying styles in officer docx output:</p><ul>
-<li><p><code>crosstable_style_normal</code></p></li>
-<li><p><code>crosstable_style_character</code>: used in cross-references</p></li>
-<li><p><code>crosstable_style_heading</code></p></li>
-<li><p><code>crosstable_style_strong</code></p></li>
-<li><p><code>crosstable_style_image</code></p></li>
-<li><p><code>crosstable_style_legend</code></p></li>
-<li><p><code>crosstable_style_list_ordered</code> and <code>crosstable_style_list_unordered</code>, mandatory for <code><a href='body_add_list.html'>body_add_list()</a></code> to work.</p></li>
-</ul>
-
-<p>Verbosity:</p><ul>
-<li><p><code>crosstable_verbosity_autotesting</code>: one of <code>default</code>, <code>quiet</code>, or <code>verbose</code></p></li>
-</ul>
-
-<p>Misc:</p><ul>
-<li><p><code>crosstable_only_round</code>: default argument for <code><a href='format_fixed.html'>format_fixed()</a></code></p></li>
-<li><p><code>crosstable_units</code>: default units in <code><a href='body_add_gg2.html'>body_add_gg2()</a></code> and <code><a href='body_add_img2.html'>body_add_img2()</a></code></p></li>
-<li><p><code>crosstable_peek_docx</code>: behavior of <code><a href='peek.html'>peek()</a></code>, which will open a <code>docx</code> if <code>TRUE</code> and an <code>xlsx</code> if <code>FALSE</code></p></li>
-</ul>
-
+    <p>Use this function to manage your <code>crosstable</code> parameters globally while taking advantage of autocompletion. Use <code><a href='crosstable_peek_options.html'>crosstable_peek_options()</a></code> to see which option is currently set.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>crosstable_options</span><span class='op'>(</span>
+  reset <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>crosstable_zero_percent</span>,
+  <span class='va'>crosstable_verbosity_autotesting</span>,
+  <span class='va'>crosstable_verbosity_duplicate_cols</span>,
+  <span class='va'>crosstable_wrap_id</span>,
+  <span class='va'>crosstable_only_round</span>,
+  <span class='va'>crosstable_units</span>,
+  <span class='va'>crosstable_peek_docx</span>,
+  <span class='va'>crosstable_compact_padding</span>,
+  <span class='va'>crosstable_total</span>,
+  <span class='va'>crosstable_percent_pattern</span>,
+  <span class='va'>crosstable_percent_digits</span>,
+  <span class='va'>crosstable_num_digits</span>,
+  <span class='va'>crosstable_showNA</span>,
+  <span class='va'>crosstable_label</span>,
+  <span class='va'>crosstable_funs</span>,
+  <span class='va'>crosstable_funs_arg</span>,
+  <span class='va'>crosstable_cor_method</span>,
+  <span class='va'>crosstable_unique_numeric</span>,
+  <span class='va'>crosstable_date_format</span>,
+  <span class='va'>crosstable_times</span>,
+  <span class='va'>crosstable_followup</span>,
+  <span class='va'>crosstable_test_arg</span>,
+  <span class='va'>crosstable_effect_args</span>,
+  <span class='va'>crosstable_keep_id</span>,
+  <span class='va'>crosstable_autofit</span>,
+  <span class='va'>crosstable_compact</span>,
+  <span class='va'>crosstable_remove_header_keys</span>,
+  <span class='va'>crosstable_show_test_name</span>,
+  <span class='va'>crosstable_padding_v</span>,
+  <span class='va'>crosstable_header_show_n</span>,
+  <span class='va'>crosstable_fontsize_body</span>,
+  <span class='va'>crosstable_fontsize_header</span>,
+  <span class='va'>crosstable_fontsize_subheaders</span>,
+  <span class='va'>crosstable_normal_squish</span>,
+  <span class='va'>crosstable_title_squish</span>,
+  <span class='va'>crosstable_style_normal</span>,
+  <span class='va'>crosstable_style_character</span>,
+  <span class='va'>crosstable_style_strong</span>,
+  <span class='va'>crosstable_style_image</span>,
+  <span class='va'>crosstable_style_legend</span>,
+  <span class='va'>crosstable_style_heading</span>,
+  <span class='va'>crosstable_style_list_ordered</span>,
+  <span class='va'>crosstable_style_list_unordered</span>
+<span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>reset</th>
+      <td><p>if <code>TRUE</code>, set all these options back to default</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_zero_percent</th>
+      <td><p>set to TRUE so that proportions are not displayed if <code>n==0</code></p></td>
+    </tr>
+    <tr>
+      <th>crosstable_verbosity_autotesting</th>
+      <td><p>one of <code>default</code>, <code>quiet</code>, or <code>verbose</code></p></td>
+    </tr>
+    <tr>
+      <th>crosstable_verbosity_duplicate_cols</th>
+      <td><p>one of <code>default</code>, <code>quiet</code>, or <code>verbose</code>.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_wrap_id</th>
+      <td><p>if <code>id</code> contains no spaces, wrap it with this maximum number of characters.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_only_round</th>
+      <td><p>default argument for <code><a href='format_fixed.html'>format_fixed()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>crosstable_units</th>
+      <td><p>default units in <code><a href='body_add_gg2.html'>body_add_gg2()</a></code> and <code><a href='body_add_img2.html'>body_add_img2()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>crosstable_peek_docx</th>
+      <td><p>behavior of <code><a href='peek.html'>peek()</a></code>, which will open a <code>docx</code> if <code>TRUE</code> (default) and an <code>xlsx</code> if <code>FALSE</code></p></td>
+    </tr>
+    <tr>
+      <th>crosstable_compact_padding</th>
+      <td><p>in flextables, left-padding for non-headers rows when <code>compact=TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_total</th>
+      <td><p>For setting <code><a href='crosstable.html'>crosstable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_percent_pattern</th>
+      <td><p>For setting <code><a href='crosstable.html'>crosstable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_percent_digits</th>
+      <td><p>For setting <code><a href='crosstable.html'>crosstable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_num_digits</th>
+      <td><p>For setting <code><a href='crosstable.html'>crosstable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_showNA</th>
+      <td><p>For setting <code><a href='crosstable.html'>crosstable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_label</th>
+      <td><p>For setting <code><a href='crosstable.html'>crosstable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_funs</th>
+      <td><p>For setting <code><a href='crosstable.html'>crosstable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_funs_arg</th>
+      <td><p>For setting <code><a href='crosstable.html'>crosstable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_cor_method</th>
+      <td><p>For setting <code><a href='crosstable.html'>crosstable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_unique_numeric</th>
+      <td><p>For setting <code><a href='crosstable.html'>crosstable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_date_format</th>
+      <td><p>For setting <code><a href='crosstable.html'>crosstable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_times</th>
+      <td><p>For setting <code><a href='crosstable.html'>crosstable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_followup</th>
+      <td><p>For setting <code><a href='crosstable.html'>crosstable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_test_arg</th>
+      <td><p>For setting <code><a href='crosstable.html'>crosstable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_effect_args</th>
+      <td><p>For setting <code><a href='crosstable.html'>crosstable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_keep_id</th>
+      <td><p>For setting <code><a href='as_flextable.crosstable.html'>as_flextable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_autofit</th>
+      <td><p>For setting <code><a href='as_flextable.crosstable.html'>as_flextable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_compact</th>
+      <td><p>For setting <code><a href='as_flextable.crosstable.html'>as_flextable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_remove_header_keys</th>
+      <td><p>For setting <code><a href='as_flextable.crosstable.html'>as_flextable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_show_test_name</th>
+      <td><p>For setting <code><a href='as_flextable.crosstable.html'>as_flextable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_padding_v</th>
+      <td><p>For setting <code><a href='as_flextable.crosstable.html'>as_flextable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_header_show_n</th>
+      <td><p>For setting <code><a href='as_flextable.crosstable.html'>as_flextable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_fontsize_body</th>
+      <td><p>For setting <code><a href='as_flextable.crosstable.html'>as_flextable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_fontsize_header</th>
+      <td><p>For setting <code><a href='as_flextable.crosstable.html'>as_flextable()</a></code> arguments globally.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_fontsize_subheaders</th>
+      <td><p>For setting <code><a href='as_flextable.crosstable.html'>as_flextable()</a></code> arguments globally. Subheaders are only considered when <code>compact=TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_normal_squish</th>
+      <td><p>Should you squish text in normal paragraphs?</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_title_squish</th>
+      <td><p>Should you squish text in headers paragraphs?</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_style_normal</th>
+      <td><p>For specifying styles used in your officer template.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_style_character</th>
+      <td><p>For specifying styles used in your officer template.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_style_strong</th>
+      <td><p>For specifying styles used in your officer template.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_style_image</th>
+      <td><p>For specifying styles used in your officer template.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_style_legend</th>
+      <td><p>For specifying styles used in your officer template.</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_style_heading</th>
+      <td><p>For specifying styles used by headings on different levels. Levels will be pasted in the end (e.g. use <code>"title"</code> if your level 2 heading style is <code>"title2"</code>).</p></td>
+    </tr>
+    <tr>
+      <th>crosstable_style_list_ordered, crosstable_style_list_unordered</th>
+      <td><p>For specifying styles used by lists in the <code>rdocx</code> template. Needed for <code><a href='body_add_list.html'>body_add_list()</a></code> to work.</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Nothing, called for its side effects</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

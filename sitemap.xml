@@ -43,6 +43,9 @@
     <loc>https://danchaltiel.github.io/crosstable//reference/body_add_title.html</loc>
   </url>
   <url>
+    <loc>https://danchaltiel.github.io/crosstable//reference/body_replace_text_at_bkms.html</loc>
+  </url>
+  <url>
     <loc>https://danchaltiel.github.io/crosstable//reference/compact.html</loc>
   </url>
   <url>
@@ -62,6 +65,9 @@
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable//reference/crosstable_options.html</loc>
+  </url>
+  <url>
+    <loc>https://danchaltiel.github.io/crosstable//reference/crosstable_peek_options.html</loc>
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable//reference/crosstable_test_args.html</loc>

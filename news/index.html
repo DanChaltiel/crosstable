@@ -101,7 +101,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosstable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.9000</span>
       </span>
     </div>
 
@@ -177,13 +177,46 @@
       <small>Source: <a href='https://github.com/DanChaltiel/crosstable/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="crosstable-030-xxx" class="section level1">
-<h1 class="page-header" data-toc-text="0.3.0">
-<a href="#crosstable-030-xxx" class="anchor"></a><small> Unreleased </small>crosstable 0.3.0 <sub><sup>(xxx)</sup></sub>
+    <div id="crosstable-032-2021-11-27" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.2">
+<a href="#crosstable-032-2021-11-27" class="anchor"></a><small> Unreleased </small>crosstable 0.3.2 <sub><sup>(2021-11-27)</sup></sub>
 </h1>
 <div id="new-features" class="section level4">
 <h4 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h4>
+<ul>
+<li>Global options management is now easier thanks to <code><a href="../reference/crosstable_options.html">crosstable_options()</a></code> and autocompletion. Almost every argument can now be set using options. See <code><a href="../reference/crosstable_options.html">?crosstable_options</a></code> for further details</li>
+<li>You can also use <code><a href="../reference/crosstable_peek_options.html">crosstable_peek_options()</a></code> to see which crosstable option is currently set.</li>
+<li>New argument <code>num_digits</code> in <code><a href="../reference/crosstable.html">crosstable()</a></code>. It was about time!</li>
+<li>New argument <code>header_show_n</code> for <code><a href="../reference/as_flextable.crosstable.html">as_flextable()</a></code>, which adds the group size (<code>N=xx</code>) to the header of the flextable.</li>
+<li>New arguments (and global options) <code>par_before</code> and <code>par_after</code> in respectively <code><a href="../reference/body_add_legend.html">body_add_table_legend()</a></code> and <code><a href="../reference/body_add_legend.html">body_add_figure_legend()</a></code>, which add an empty paragraph before/after the legend (for readability).</li>
+<li>New function for {officer}: <code><a href="../reference/body_replace_text_at_bkms.html">body_replace_text_at_bkms()</a></code>, to replace several bookmarks at once.</li>
+<li>New global option <code>crosstable_options(crosstable_zero_percent=FALSE)</code>, which removes percentages whenever <code>n==0</code> (as it would always be 0%). I should add it as an argument of <code><a href="../reference/crosstable.html">crosstable()</a></code> one day…</li>
+</ul>
+</div>
+<div id="improvements" class="section level4">
+<h4 class="hasAnchor">
+<a href="#improvements" class="anchor"></a>Improvements</h4>
+<ul>
+<li>Better sorting when numeric variables are treated as categorical (before, 10 was sorted before 2).</li>
+<li>Removed the labelled class which caused too many problems for little to no improvement. See <a href="https://github.com/larmarange/labelled/issues/111" class="uri">https://github.com/larmarange/labelled/issues/111</a>.</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level4">
+<h4 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h4>
+<ul>
+<li>fixed a bug in <code><a href="../reference/crosstable.html">crosstable()</a></code> occurring when one of <code>funs</code> does not have ellipsis (…) and <code>funs_arg</code> contains an unused argument.</li>
+</ul>
+</div>
+</div>
+    <div id="crosstable-031-2021-11-14" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.1">
+<a href="#crosstable-031-2021-11-14" class="anchor"></a><small> 2021-11-14 </small>crosstable 0.3.1 <sub><sup>(2021-11-14)</sup></sub>
+</h1>
+<div id="new-features-1" class="section level4">
+<h4 class="hasAnchor">
+<a href="#new-features-1" class="anchor"></a>New features</h4>
 <ul>
 <li>New parameter <code>percent_pattern</code> in replacement of <code>crosstable(margin=x)</code> for better control over proportion format. Introduces the possibility of displaying confidence intervals (using Wilson score method) along with proportions.</li>
 <li>New function <code><a href="../reference/body_add_crosstable_list.html">body_add_crosstable_list()</a></code> to add a list of crosstables all at once, separated by some customizable titles. Also works with flextables and plain old dataframes.</li>
@@ -191,9 +224,9 @@
 <li>New global options <code>crosstable_{arg}</code> for almost all arguments. See <code><a href="../reference/crosstable_options.html">?crosstable_options</a></code> for more details.</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level4">
+<div id="bug-fixes-1" class="section level4">
 <h4 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h4>
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h4>
 <ul>
 <li>fixed a bug in <code><a href="../reference/as_flextable.crosstable.html">as_flextable()</a></code> occurring when <code>showNA=TRUE</code> (header row was disappearing)</li>
 <li>fixed a bug occurring very randomly, when rounding caused <code><a href="../reference/format_fixed.html">format_fixed()</a></code> to return a numeric value (“Error: Can’t combine <code>..1$value</code> <character> and <code>..2$value</code> <double>.”)</double></character>
@@ -216,9 +249,9 @@
 <h1 class="page-header" data-toc-text="0.2.2">
 <a href="#crosstable-022-2021-10-18" class="anchor"></a><small> 2021-10-19 </small>crosstable 0.2.2 <sub><sup>(2021-10-18)</sup></sub>
 </h1>
-<div id="new-features-1" class="section level4">
+<div id="new-features-2" class="section level4">
 <h4 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New features</h4>
+<a href="#new-features-2" class="anchor"></a>New features</h4>
 <ul>
 <li>Added support for multiple <code>by</code>! You can now write <code>crosstable(mtcars, c(mpg, gear), by=c(am, vs)) %&gt;% as_flextable()</code>.</li>
 <li>Added a macro that can autofit every table in the document at once. This macro can be generated using the function <code><a href="../reference/generate_autofit_macro.html">generate_autofit_macro()</a></code> which creates a file that should then be imported into MS Word.</li>
@@ -244,9 +277,9 @@
 <code><a href="../reference/docx_bookmarks2.html">docx_bookmarks2()</a></code> gains a <code>target</code> parameter.</li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level4">
+<div id="bug-fixes-2" class="section level4">
 <h4 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h4>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h4>
 <ul>
 <li>
 <code>effect</code> calculation now takes into account the reference level (first level of a factor).</li>
@@ -373,9 +406,9 @@ Use the <code>bookmark</code> argument to set a reference, then write <code>"\\@
 <h1 class="page-header" data-toc-text="0.1.1">
 <a href="#crosstable-011-2020-06-07" class="anchor"></a><small> Unreleased </small>crosstable 0.1.1 <sub><sup>(2020-06-07)</sup></sub>
 </h1>
-<div id="new-features-and-behaviors" class="section level3">
-<h3 class="hasAnchor">
-<a href="#new-features-and-behaviors" class="anchor"></a>New features and behaviors</h3>
+<div id="new-features-and-behaviors" class="section level4">
+<h4 class="hasAnchor">
+<a href="#new-features-and-behaviors" class="anchor"></a>New features and behaviors</h4>
 <ul>
 <li>Added <code><a href="../reference/format_fixed.html">format_fixed()</a></code>, rounding with the right number of decimals (including zeros)</li>
 <li>Added <code><a href="../reference/import_labels.html">import_labels()</a></code>, which apply labels taken from a source dataframe (name, label) to another dataframe</li>
@@ -383,9 +416,9 @@ Use the <code>bookmark</code> argument to set a reference, then write <code>"\\@
 <li>Columns of unsupported class are dropped with a warning instead of failing with an error</li>
 </ul>
 </div>
-<div id="misc-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#misc-1" class="anchor"></a>Misc</h3>
+<div id="misc-1" class="section level4">
+<h4 class="hasAnchor">
+<a href="#misc-1" class="anchor"></a>Misc</h4>
 <ul>
 <li>Method <code><a href="../reference/as_flextable.crosstable.html">cross_to_flextable()</a></code> (<code><a href="../reference/as_flextable.crosstable.html">ctf()</a></code>) was deprecated and renamed <code><a href="../reference/as_flextable.crosstable.html">as_flextable()</a></code> (<a href="https://github.com/davidgohel/flextable/issues/207"><a href='https://github.com/DanChaltiel/crosstable/issues/207'>#207</a></a>)</li>
 <li>Reexporting pipes and tidyselect helpers so that user does not have to load these libraries</li>
