@@ -57,17 +57,14 @@
       [[1]]
                  .id           label variable value
       1 Sepal.Length Length of Sepal     mean   5.8
-      2  Sepal.Width  Width of Sepal     mean   3.1
       
       [[2]]
                  .id           label variable value
       1 Sepal.Length Length of Sepal   "mean"   5.8
-      2  Sepal.Width  Width of Sepal   "mean"   3.1
       
       [[3]]
                  .id           label variable value
       1 Sepal.Length Length of Sepal  My mean   5.8
-      2  Sepal.Width  Width of Sepal  My mean   3.1
       
       [[4]]
                  .id           label                 variable         value
@@ -75,10 +72,6 @@
       2 Sepal.Length Length of Sepal  cross_summary Med [IQR] 5.8 [5.1;6.4]
       3 Sepal.Length Length of Sepal cross_summary Mean (std)     5.8 (0.8)
       4 Sepal.Length Length of Sepal     cross_summary N (NA)       150 (0)
-      5  Sepal.Width  Width of Sepal  cross_summary Min / Max     2.0 / 4.4
-      6  Sepal.Width  Width of Sepal  cross_summary Med [IQR] 3.0 [2.8;3.3]
-      7  Sepal.Width  Width of Sepal cross_summary Mean (std)     3.1 (0.4)
-      8  Sepal.Width  Width of Sepal     cross_summary N (NA)       150 (0)
       
       [[5]]
                  .id           label   variable         value
@@ -86,10 +79,6 @@
       2 Sepal.Length Length of Sepal  Med [IQR] 5.8 [5.1;6.4]
       3 Sepal.Length Length of Sepal Mean (std)     5.8 (0.8)
       4 Sepal.Length Length of Sepal     N (NA)       150 (0)
-      5  Sepal.Width  Width of Sepal  Min / Max     2.0 / 4.4
-      6  Sepal.Width  Width of Sepal  Med [IQR] 3.0 [2.8;3.3]
-      7  Sepal.Width  Width of Sepal Mean (std)     3.1 (0.4)
-      8  Sepal.Width  Width of Sepal     N (NA)       150 (0)
       
       [[6]]
                  .id           label   variable         value
@@ -97,20 +86,14 @@
       2 Sepal.Length Length of Sepal  Med [IQR] 5.8 [5.1;6.4]
       3 Sepal.Length Length of Sepal Mean (std)     5.8 (0.8)
       4 Sepal.Length Length of Sepal     N (NA)       150 (0)
-      5  Sepal.Width  Width of Sepal  Min / Max     2.0 / 4.4
-      6  Sepal.Width  Width of Sepal  Med [IQR] 3.0 [2.8;3.3]
-      7  Sepal.Width  Width of Sepal Mean (std)     3.1 (0.4)
-      8  Sepal.Width  Width of Sepal     N (NA)       150 (0)
       
       [[7]]
                  .id           label variable value
       1 Sepal.Length Length of Sepal    first   5.1
-      2  Sepal.Width  Width of Sepal    first   3.5
       
       [[8]]
                  .id           label variable value
       1 Sepal.Length Length of Sepal    first   5.1
-      2  Sepal.Width  Width of Sepal    first   3.5
       
 
 # One function by
@@ -121,17 +104,14 @@
       [[1]]
                  .id           label variable setosa versicolor virginica
       1 Sepal.Length Length of Sepal     mean    5.0        5.9       6.6
-      2  Sepal.Width  Width of Sepal     mean    3.4        2.8       3.0
       
       [[2]]
                  .id           label variable setosa versicolor virginica
       1 Sepal.Length Length of Sepal   "mean"    5.0        5.9       6.6
-      2  Sepal.Width  Width of Sepal   "mean"    3.4        2.8       3.0
       
       [[3]]
                  .id           label variable setosa versicolor virginica
       1 Sepal.Length Length of Sepal  My mean    5.0        5.9       6.6
-      2  Sepal.Width  Width of Sepal  My mean    3.4        2.8       3.0
       
       [[4]]
                  .id           label                 variable        setosa
@@ -139,19 +119,11 @@
       2 Sepal.Length Length of Sepal  cross_summary Med [IQR] 5.0 [4.8;5.2]
       3 Sepal.Length Length of Sepal cross_summary Mean (std)     5.0 (0.4)
       4 Sepal.Length Length of Sepal     cross_summary N (NA)        50 (0)
-      5  Sepal.Width  Width of Sepal  cross_summary Min / Max     2.3 / 4.4
-      6  Sepal.Width  Width of Sepal  cross_summary Med [IQR] 3.4 [3.2;3.7]
-      7  Sepal.Width  Width of Sepal cross_summary Mean (std)     3.4 (0.4)
-      8  Sepal.Width  Width of Sepal     cross_summary N (NA)        50 (0)
            versicolor     virginica
       1     4.9 / 7.0     4.9 / 7.9
       2 5.9 [5.6;6.3] 6.5 [6.2;6.9]
       3     5.9 (0.5)     6.6 (0.6)
       4        50 (0)        50 (0)
-      5     2.0 / 3.4     2.2 / 3.8
-      6 2.8 [2.5;3.0] 3.0 [2.8;3.2]
-      7     2.8 (0.3)     3.0 (0.3)
-      8        50 (0)        50 (0)
       
       [[5]]
                  .id           label   variable        setosa    versicolor
@@ -159,19 +131,11 @@
       2 Sepal.Length Length of Sepal  Med [IQR] 5.0 [4.8;5.2] 5.9 [5.6;6.3]
       3 Sepal.Length Length of Sepal Mean (std)     5.0 (0.4)     5.9 (0.5)
       4 Sepal.Length Length of Sepal     N (NA)        50 (0)        50 (0)
-      5  Sepal.Width  Width of Sepal  Min / Max     2.3 / 4.4     2.0 / 3.4
-      6  Sepal.Width  Width of Sepal  Med [IQR] 3.4 [3.2;3.7] 2.8 [2.5;3.0]
-      7  Sepal.Width  Width of Sepal Mean (std)     3.4 (0.4)     2.8 (0.3)
-      8  Sepal.Width  Width of Sepal     N (NA)        50 (0)        50 (0)
             virginica
       1     4.9 / 7.9
       2 6.5 [6.2;6.9]
       3     6.6 (0.6)
       4        50 (0)
-      5     2.2 / 3.8
-      6 3.0 [2.8;3.2]
-      7     3.0 (0.3)
-      8        50 (0)
       
       [[6]]
                  .id           label   variable        setosa    versicolor
@@ -179,28 +143,18 @@
       2 Sepal.Length Length of Sepal  Med [IQR] 5.0 [4.8;5.2] 5.9 [5.6;6.3]
       3 Sepal.Length Length of Sepal Mean (std)     5.0 (0.4)     5.9 (0.5)
       4 Sepal.Length Length of Sepal     N (NA)        50 (0)        50 (0)
-      5  Sepal.Width  Width of Sepal  Min / Max     2.3 / 4.4     2.0 / 3.4
-      6  Sepal.Width  Width of Sepal  Med [IQR] 3.4 [3.2;3.7] 2.8 [2.5;3.0]
-      7  Sepal.Width  Width of Sepal Mean (std)     3.4 (0.4)     2.8 (0.3)
-      8  Sepal.Width  Width of Sepal     N (NA)        50 (0)        50 (0)
             virginica
       1     4.9 / 7.9
       2 6.5 [6.2;6.9]
       3     6.6 (0.6)
       4        50 (0)
-      5     2.2 / 3.8
-      6 3.0 [2.8;3.2]
-      7     3.0 (0.3)
-      8        50 (0)
       
       [[7]]
                  .id           label variable setosa versicolor virginica
       1 Sepal.Length Length of Sepal    first    5.1        7.0       6.3
-      2  Sepal.Width  Width of Sepal    first    3.5        3.2       3.3
       
       [[8]]
                  .id           label variable setosa versicolor virginica
       1 Sepal.Length Length of Sepal    first    5.1        7.0       6.3
-      2  Sepal.Width  Width of Sepal    first    3.5        3.2       3.3
       
 

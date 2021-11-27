@@ -6,7 +6,7 @@ options(stringsAsFactors = FALSE)
 options(testthat.progress.max_fails = 50)
 # options(width = 200)
 
-options(crosstable_verbosity_autotesting="quiet")
+crosstable_options(crosstable_verbosity_autotesting="quiet")
 options(lifecycle_verbosity="warning")
 # if(testthat::is_testing()){
 # print(is_parallel())
@@ -16,6 +16,7 @@ if(FALSE){
     # prettycode::prettycode()
 }
 
+# crosstable_options(crosstable_unique_numeric = 8)
 # options(warn = 2)
 # options(warn = 1)
 # options(tidyselect_verbosity = "verbose") #quiet or verbose
