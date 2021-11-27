@@ -58,6 +58,8 @@ crosstable_options(
 
 \item{crosstable_verbosity_autotesting}{one of \code{default}, \code{quiet}, or \code{verbose}}
 
+\item{crosstable_verbosity_duplicate_cols}{one of \code{default}, \code{quiet}, or \code{verbose}.}
+
 \item{crosstable_wrap_id}{if \code{id} contains no spaces, wrap it with this maximum number of characters.}
 
 \item{crosstable_only_round}{default argument for \code{\link[=format_fixed]{format_fixed()}}}
@@ -135,8 +137,6 @@ crosstable_options(
 \item{crosstable_style_heading}{For specifying styles used by headings on different levels. Levels will be pasted in the end (e.g. use \code{"title"} if your level 2 heading style is \code{"title2"}).}
 
 \item{crosstable_style_list_ordered, crosstable_style_list_unordered}{For specifying styles used by lists in the \code{rdocx} template. Needed for \code{\link[=body_add_list]{body_add_list()}} to work.}
-
-\item{crosstable_verbose_duplicate_cols}{one of \code{default}, \code{quiet}, or \code{verbose}.}
 }
 \value{
 Nothing, called for its side effects

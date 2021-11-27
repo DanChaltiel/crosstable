@@ -8,7 +8,7 @@
 #' @param crosstable_zero_percent set to TRUE so that proportions are not displayed if `n==0`
 #' @param crosstable_wrap_id if `id` contains no spaces, wrap it with this maximum number of characters.
 #' @param crosstable_verbosity_autotesting one of `default`, `quiet`, or `verbose`
-#' @param crosstable_verbose_duplicate_cols one of `default`, `quiet`, or `verbose`.
+#' @param crosstable_verbosity_duplicate_cols one of `default`, `quiet`, or `verbose`.
 #' @param crosstable_only_round default argument for [format_fixed()]
 #' @param crosstable_units default units in [body_add_gg2()] and [body_add_img2()]
 #' @param crosstable_peek_docx behavior of [peek()], which will open a `docx` if `TRUE` (default) and an `xlsx` if `FALSE`

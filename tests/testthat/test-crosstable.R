@@ -49,7 +49,7 @@ test_that('Warn: contains both `NA` and "NA"', {
 })
 
 test_that('Warn: Duplicate columns are removed from `cols`', {
-  rlang::local_options(crosstable_verbose_duplicate_cols=TRUE)
+  rlang::local_options(crosstable_verbosity_duplicate_cols="verbose")
   crosstable(mtcars3, c(mpg, gear, am, vs), by=c(am, vs)) %>% 
     expect_warning(class="crosstable_duplicate_cols_warning")
 })
