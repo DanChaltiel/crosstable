@@ -50,7 +50,11 @@ cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
 #' @noRd
 summarize_numeric_single = function(x, funs, funs_arg){
     imap_dfr(funs, ~{
-        v = do.call(.x, c(list(x), funs_arg))
+        funs_arg2 = funs_arg
+        if(!"..." %in% formalArgs(.x)){
+            funs_arg2 = funs_arg[formalArgs(.x)] %>% discard(is.null)
+        }
+        v = do.call(.x, c(list(x), funs_arg2))
         if(length(v)<2){
             variable = .y
         } else {
@@ -84,7 +88,6 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
                                     effect, effect_args){
     assert_numeric(x)
     assert_scalar(showNA)
-    .=NULL #mute the R CMD Check note
     .na=.effect=.test=.total=NULL
     .showNA = showNA == "always" | (showNA == "ifany" && anyNA(by))
     
