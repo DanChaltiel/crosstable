@@ -267,14 +267,14 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     ncol_x = if(is.null(data_x)) 0 else ncol(data_x)
     ncol_y = if(is.null(data_y)) 0 else ncol(data_y)
     
-    # Data-management -----------------------------------------------------
+    # Unique Numerics ---------------------------------------------------------
     if(ncol_x>0){
         data_x = data_x %>% mutate(
             across(where(is.logical),
                    ~ .x %>% as.character() %>% set_label(get_label(.x))),
             across(where(~is.numeric.and.not.surv(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric),
                    ~{
-                       .x = mixedsort(.x) %>% as_factor() %>% set_label(get_label(.x))
+                       .x = factor(.x, labels=unique(mixedsort(.x))) %>% set_label(get_label(.x))
                        class(.x) = c("unique_numeric", class(.x))
                        .x
                    }),
@@ -287,14 +287,14 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
                    ~ .x %>% as.character() %>% set_label(get_label(.x))),
             across(where(~is.numeric.and.not.surv(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric), 
                    ~{
-                       .x = mixedsort(.x) %>% as_factor() %>% set_label(get_label(.x))
+                       .x = factor(.x, labels=unique(mixedsort(.x))) %>% set_label(get_label(.x))
                        class(.x) = c("unique_numeric", class(.x))
                        .x
                    })
         )
     }
-    # Return checks -------------------------------------------------------
     
+    # Return checks -------------------------------------------------------
     if(ncol_x==0) {
         warn("Variable selection in crosstable ended with no variable to describe",
              class="crosstable_empty_warning")
@@ -430,6 +430,7 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
                        effect=effect, effect_args=effect_args, label=label)
         class(rtn) = c("crosstable", "tbl_df", "tbl", "data.frame")
     }
+    
     # Attributes and return -----------------------------------------------
     debug$x_class = x_class
     debug$y_class = y_class
