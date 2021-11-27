@@ -298,7 +298,7 @@ body_add_flextable_list = body_add_crosstable_list
 
 #' Add a legend to a table or a figure 
 #' 
-#' Add a legend to a table or a figure in an `officer` document. Legends can be reffered to using the `@ref` syntax in [body_add_normal()] (see examples for some use cases). Table legends should be inserted before the table while figure legends should be inserted after the figure.
+#' Add a legend to a table or a figure in an `officer` document. Legends can be referred to using the `@ref` syntax in [body_add_normal()] (see examples for some use cases). Table legends should be inserted before the table while figure legends should be inserted after the figure.
 #'
 #' @param doc a docx object
 #' @param legend the table legend. As with [glue::glue()], expressions enclosed by braces will be evaluated as R code.

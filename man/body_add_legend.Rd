@@ -57,7 +57,7 @@ body_add_figure_legend(
 The docx object \code{doc}
 }
 \description{
-Add a legend to a table or a figure in an \code{officer} document. Legends can be reffered to using the \verb{@ref} syntax in \code{\link[=body_add_normal]{body_add_normal()}} (see examples for some use cases). Table legends should be inserted before the table while figure legends should be inserted after the figure.
+Add a legend to a table or a figure in an \code{officer} document. Legends can be referred to using the \verb{@ref} syntax in \code{\link[=body_add_normal]{body_add_normal()}} (see examples for some use cases). Table legends should be inserted before the table while figure legends should be inserted after the figure.
 }
 \section{Warning}{
 
