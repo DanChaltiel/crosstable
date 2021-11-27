@@ -1,6 +1,28 @@
 <!-- https://style.tidyverse.org/news.html -->
 
-# crosstable 0.3.0 <sub><sup>(xxx)</sup></sub>
+# crosstable 0.3.2 <sub><sup>(2021-11-27)</sup></sub>
+
+#### New features
+
+* Global options management is now easier thanks to `crosstable_options()` and autocompletion. Almost every argument can now be set using options. See `?crosstable_options` for further details
+* You can also use `crosstable_peek_options()` to see which crosstable option is currently set.
+* New argument `num_digits` in `crosstable()`. It was about time!
+* New argument `header_show_n` for `as_flextable()`, which adds the group size (`N=xx`) to the header of the flextable.
+* New arguments (and global options) `par_before` and `par_after` in respectively `body_add_table_legend()` and `body_add_figure_legend()`, which add an empty paragraph before/after the legend (for readability).
+* New function for {officer}: `body_replace_text_at_bkms()`, to replace several bookmarks at once.
+* New global option `crosstable_options(crosstable_zero_percent=FALSE)`, which removes percentages whenever `n==0` (as it would always be 0%). I should add it as an argument of `crosstable()` one day...
+
+#### Improvements
+
+* Better sorting when numeric variables are treated as categorical (before, 10 was sorted before 2).
+* Removed the labelled class which caused too many problems for little to no improvement. See https://github.com/larmarange/labelled/issues/111.
+
+#### Bug fixes
+
+* fixed a bug in `crosstable()` occurring when one of `funs` does not have ellipsis (...) and `funs_arg` contains an unused argument.
+
+
+# crosstable 0.3.1 <sub><sup>(2021-11-14)</sup></sub>
 
 #### New features
 
@@ -9,7 +31,6 @@
 * New argument `crosstable_padding_v` for `as_flextable()` to manage vertical padding. Also available as the global option `crosstable_padding_v`.
 * New global options `crosstable_{arg}` for almost all arguments. See `?crosstable_options` for more details.
 
-
 #### Bug fixes
 
 * fixed a bug in `as_flextable()` occurring when `showNA=TRUE` (header row was disappearing)
@@ -17,11 +38,11 @@
 * crosstable now shows all unused levels in `by` when it is a factor 
 * removed extra bold columns in compacted crosstables displayed as flextables
 
-
 #### Internal
 
 * renamed branch `master` to `main`
 * use a lot more snapshots in tests
+
 
 # crosstable 0.2.2 <sub><sup>(2021-10-18)</sup></sub>
 
@@ -33,7 +54,6 @@
 * `body_add_title()` and `body_add_xxx_legend)` gain a glue functionality. You can now write `body_add_title("The iris dataset (nrow={nrow(iris)})", 1)`.
 * `as_workbook()` can now take a named list of crosstables, that will be considered as sheets. 
 * New parameter `percent` in `format_fixed(percent=TRUE/FALSE)` to easily format percentages.
-
 
 #### Minor changes
 
@@ -47,7 +67,6 @@
 * `effect` calculation now takes into account the reference level (first level of a factor).
 * `body_add_crosstable()` rightly takes `body_fontsize` and `header_fontsize` into account.
 * Added few more warnings, so that you know what went wrong.
-
 
 #### Internal
 * burgled 2 functions using `burglr::burgle()` to avoid dependency: `nortest::ad.test()` and `DescTools::CochranArmitageTest()`.
@@ -90,10 +109,12 @@ Use the `bookmark` argument to set a reference, then write `"\\@ref(my_bkm)"` in
 * `moystd()` has been renamed to `meansd()`.
 * `body_add_glued()` has been superseded by `body_add_normal()`, which inherits all functionalities and more.
 
+
 # crosstable 0.1.5 <sub><sup>(2020-08-02)</sup></sub>
 
 * added minimal support for `gt` tables (with `as_gt()`) for those who like them better than `flextable`s
 * improved working with `officer`: added `body_add_figure_legend()` and `fontsize` options for `body_add_crosstable()`
+
 
 # crosstable 0.1.4 <sub><sup>(2020-07-16)</sup></sub>
 
@@ -103,10 +124,12 @@ Use the `bookmark` argument to set a reference, then write `"\\@ref(my_bkm)"` in
 * multiple, numerous bug fixes
 * renamed `moystd()` to `meansd()`
 
+
 # crosstable 0.1.3 <sub><sup>(2020-06-29)</sup></sub>
 
 * Added support for description of `Date` variables. Format can be specified in `funs_arg` with the `date_format` key. 
 * Removed some dependencies to ease installation
+
 
 # crosstable 0.1.2 <sub><sup>(2020-06-10)</sup></sub>
 
@@ -115,16 +138,17 @@ Use the `bookmark` argument to set a reference, then write `"\\@ref(my_bkm)"` in
 * Better error messages
 * Bug fixes
 
+
 # crosstable 0.1.1 <sub><sup>(2020-06-07)</sup></sub>
 
-### New features and behaviors
+#### New features and behaviors
 
 * Added `format_fixed()`, rounding with the right number of decimals (including zeros)
 * Added `import_labels()`, which apply labels taken from a source dataframe (name, label) to another dataframe
 * Added `margin="none"` option, to remove percentages and keep only counts
 * Columns of unsupported class are dropped with a warning instead of failing with an error
 
-### Misc
+#### Misc
 
 * Method `cross_to_flextable()` (`ctf()`) was deprecated and renamed `as_flextable()` ([#207](https://github.com/davidgohel/flextable/issues/207))
 * Reexporting pipes and tidyselect helpers so that user does not have to load these libraries
