@@ -255,8 +255,8 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     
     duplicate_cols = intersect(byname, names(data_x))
     
-    verbose_duplicate_cols = getOption("crosstable_verbose_duplicate_cols", FALSE)
-    if(length(duplicate_cols)>0 && verbose_duplicate_cols){
+    verbosity_duplicate_cols = getOption("crosstable_verbosity_duplicate_cols", "default")
+    if(length(duplicate_cols)>0 && verbosity_duplicate_cols=="verbose"){
         warn(c("Some columns were selected in `by` and in `cols` and were removed from the latter.", 
                i=glue("Columns automatically removed from `cols`: [{x}]", 
                       x=paste(duplicate_cols, collapse=", "))), 

@@ -3,11 +3,12 @@
 #' 
 #' Use this function to manage your `crosstable` parameters globally while taking advantage of autocompletion. Use [crosstable_peek_options()] to see which option is currently set.
 #'
-#' @param reset if `TRUE`, set all these options to default
+#' @param reset if `TRUE`, set all these options back to default
 #' 
 #' @param crosstable_zero_percent set to TRUE so that proportions are not displayed if `n==0`
 #' @param crosstable_wrap_id if `id` contains no spaces, wrap it with this maximum number of characters.
 #' @param crosstable_verbosity_autotesting one of `default`, `quiet`, or `verbose`
+#' @param crosstable_verbose_duplicate_cols one of `default`, `quiet`, or `verbose`.
 #' @param crosstable_only_round default argument for [format_fixed()]
 #' @param crosstable_units default units in [body_add_gg2()] and [body_add_img2()]
 #' @param crosstable_peek_docx behavior of [peek()], which will open a `docx` if `TRUE` (default) and an `xlsx` if `FALSE`
@@ -16,6 +17,7 @@
 #' @param crosstable_total For setting [crosstable()] arguments globally. 
 #' @param crosstable_percent_pattern For setting [crosstable()] arguments globally. 
 #' @param crosstable_percent_digits For setting [crosstable()] arguments globally. 
+#' @param crosstable_num_digits For setting [crosstable()] arguments globally. 
 #' @param crosstable_showNA For setting [crosstable()] arguments globally. 
 #' @param crosstable_label For setting [crosstable()] arguments globally. 
 #' @param crosstable_funs For setting [crosstable()] arguments globally. 
@@ -39,6 +41,8 @@
 #' @param crosstable_fontsize_header For setting [as_flextable()] arguments globally. 
 #' @param crosstable_fontsize_subheaders For setting [as_flextable()] arguments globally. Subheaders are only considered when `compact=TRUE`.
 #' 
+#' @param crosstable_normal_squish Should you squish text in normal paragraphs?
+#' @param crosstable_title_squish Should you squish text in headers paragraphs?
 #' @param crosstable_style_normal For specifying styles used in your {officer} template. 
 #' @param crosstable_style_character For specifying styles used in your {officer} template. 
 #' @param crosstable_style_strong For specifying styles used in your {officer} template. 
@@ -52,15 +56,18 @@
 crosstable_options = function(reset=FALSE, 
                               crosstable_zero_percent, 
                               crosstable_verbosity_autotesting, 
+                              crosstable_verbosity_duplicate_cols,
                               crosstable_wrap_id, 
                               crosstable_only_round, 
                               crosstable_units, 
                               crosstable_peek_docx,
                               crosstable_compact_padding, 
                               #crosstable()
-                              crosstable_total, crosstable_percent_pattern, crosstable_percent_digits, crosstable_showNA, crosstable_label, crosstable_funs, crosstable_funs_arg, crosstable_cor_method, crosstable_unique_numeric, crosstable_date_format, crosstable_times, crosstable_followup, crosstable_test_arg, crosstable_effect_args, 
+                              crosstable_total, crosstable_percent_pattern, crosstable_percent_digits, crosstable_num_digits, crosstable_showNA, crosstable_label, crosstable_funs, crosstable_funs_arg, crosstable_cor_method, crosstable_unique_numeric, crosstable_date_format, crosstable_times, crosstable_followup, crosstable_test_arg, crosstable_effect_args, 
                               #as_flextable()
                               crosstable_keep_id, crosstable_autofit, crosstable_compact, crosstable_remove_header_keys, crosstable_show_test_name, crosstable_padding_v, crosstable_header_show_n, crosstable_fontsize_body, crosstable_fontsize_header, crosstable_fontsize_subheaders, 
+                              #officer
+                              crosstable_normal_squish, crosstable_title_squish, 
                               #styles
                               crosstable_style_normal, crosstable_style_character, crosstable_style_strong, crosstable_style_image, crosstable_style_legend, crosstable_style_heading, crosstable_style_list_ordered, crosstable_style_list_unordered){
     
@@ -73,7 +80,7 @@ crosstable_options = function(reset=FALSE,
         return(invisible())
     }
     
-    argg = as.list(match.call())[-1] %>% map(as.character)
+    argg = as.list(match.call())[-1]
     do.call(options, argg)
     invisible()
 }

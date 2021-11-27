@@ -8,6 +8,7 @@ crosstable_options(
   reset = FALSE,
   crosstable_zero_percent,
   crosstable_verbosity_autotesting,
+  crosstable_verbosity_duplicate_cols,
   crosstable_wrap_id,
   crosstable_only_round,
   crosstable_units,
@@ -16,6 +17,7 @@ crosstable_options(
   crosstable_total,
   crosstable_percent_pattern,
   crosstable_percent_digits,
+  crosstable_num_digits,
   crosstable_showNA,
   crosstable_label,
   crosstable_funs,
@@ -37,6 +39,8 @@ crosstable_options(
   crosstable_fontsize_body,
   crosstable_fontsize_header,
   crosstable_fontsize_subheaders,
+  crosstable_normal_squish,
+  crosstable_title_squish,
   crosstable_style_normal,
   crosstable_style_character,
   crosstable_style_strong,
@@ -48,7 +52,7 @@ crosstable_options(
 )
 }
 \arguments{
-\item{reset}{if \code{TRUE}, set all these options to default}
+\item{reset}{if \code{TRUE}, set all these options back to default}
 
 \item{crosstable_zero_percent}{set to TRUE so that proportions are not displayed if \code{n==0}}
 
@@ -69,6 +73,8 @@ crosstable_options(
 \item{crosstable_percent_pattern}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
 \item{crosstable_percent_digits}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{crosstable_num_digits}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
 \item{crosstable_showNA}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
@@ -112,6 +118,10 @@ crosstable_options(
 
 \item{crosstable_fontsize_subheaders}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally. Subheaders are only considered when \code{compact=TRUE}.}
 
+\item{crosstable_normal_squish}{Should you squish text in normal paragraphs?}
+
+\item{crosstable_title_squish}{Should you squish text in headers paragraphs?}
+
 \item{crosstable_style_normal}{For specifying styles used in your {officer} template.}
 
 \item{crosstable_style_character}{For specifying styles used in your {officer} template.}
@@ -125,6 +135,8 @@ crosstable_options(
 \item{crosstable_style_heading}{For specifying styles used by headings on different levels. Levels will be pasted in the end (e.g. use \code{"title"} if your level 2 heading style is \code{"title2"}).}
 
 \item{crosstable_style_list_ordered, crosstable_style_list_unordered}{For specifying styles used by lists in the \code{rdocx} template. Needed for \code{\link[=body_add_list]{body_add_list()}} to work.}
+
+\item{crosstable_verbose_duplicate_cols}{one of \code{default}, \code{quiet}, or \code{verbose}.}
 }
 \value{
 Nothing, called for its side effects
