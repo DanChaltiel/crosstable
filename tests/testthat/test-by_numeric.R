@@ -24,10 +24,11 @@ test_that("numeric by numeric", {
 
 # By numeric=factor minimum of unique levels  ---------------------------------------
 test_that("by factor if numeric <= 3 levels", {
-    x10 = crosstable(mtcars, cyl, by=vs, total="both", margin="all")
+    x10 = crosstable(mtcars2, cyl, by=vs, total="both", margin="all")
     x10 %>% as_flextable()
     x10 = as.data.frame(x10)
-    expect_identical(x10[3,4], "14 (43.75% / 100.00% / 77.78%)")
+    
+    expect_identical(x10[3,5], "14 (43.75% / 100.00% / 77.78%)")
     expect_equal(dim(x10), c(4,6))
     expect_equal(sum(is.na(x10)), 0)
 })
@@ -45,7 +46,6 @@ test_that("Functions work", {
 })
 
 test_that("Function arguments work", {
-    name = "test_funs_arg.Rds"
     x = crosstable(mtcars3, c(disp, hp, am), by=vs, funs=c(meansd, quantile),
                    funs_arg = list(dig=3, probs=c(0.25,0.75)),
                    total=T, showNA="always")
@@ -61,14 +61,14 @@ test_that("One function", {
     bar3=function(x, dig=1, ...) c(minmax(x, dig=dig, ...), nna(x))
     
     cross_list = list(
-        crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=mean),
-        crosstable(iris2, c(Sepal.Length, Sepal.Width), funs="mean"),
-        crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=c("My mean" = mean)),
-        crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=cross_summary),
-        crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=c(" " = cross_summary)),
-        crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=list(" " = cross_summary)),
-        crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=c("first"=function(xx) xx[1])),
-        crosstable(iris2, c(Sepal.Length, Sepal.Width), funs=c("first"=~.x[1]))
+        crosstable(iris2, c(Sepal.Length), funs=mean),
+        crosstable(iris2, c(Sepal.Length), funs="mean"),
+        crosstable(iris2, c(Sepal.Length), funs=c("My mean" = mean)),
+        crosstable(iris2, c(Sepal.Length), funs=cross_summary),
+        crosstable(iris2, c(Sepal.Length), funs=c(" " = cross_summary)),
+        crosstable(iris2, c(Sepal.Length), funs=list(" " = cross_summary)),
+        crosstable(iris2, c(Sepal.Length), funs=c("first"=function(xx) xx[1])),
+        crosstable(iris2, c(Sepal.Length), funs=c("first"=~.x[1]))
     ) %>% map(as.data.frame)
     expect_snapshot(cross_list, error=FALSE)
     
@@ -86,14 +86,14 @@ test_that("One function by", {
     bar3=function(x, dig=1, ...) c(minmax(x, dig=dig, ...), nna(x))
     
     cross_list = list(
-        crosstable(iris2, c(Sepal.Length, Sepal.Width), by=Species, funs=mean),
-        crosstable(iris2, c(Sepal.Length, Sepal.Width), by=Species, funs="mean"),
-        crosstable(iris2, c(Sepal.Length, Sepal.Width), by=Species, funs=c("My mean" = mean)),
-        crosstable(iris2, c(Sepal.Length, Sepal.Width), by=Species, funs=cross_summary),
-        crosstable(iris2, c(Sepal.Length, Sepal.Width), by=Species, funs=c(" " = cross_summary)),
-        crosstable(iris2, c(Sepal.Length, Sepal.Width), by=Species, funs=list(" " = cross_summary)),
-        crosstable(iris2, c(Sepal.Length, Sepal.Width), by=Species, funs=c("first"=function(xx) xx[1])),
-        crosstable(iris2, c(Sepal.Length, Sepal.Width), by=Species, funs=c("first"=~.x[1]))
+        crosstable(iris2, c(Sepal.Length), by=Species, funs=mean),
+        crosstable(iris2, c(Sepal.Length), by=Species, funs="mean"),
+        crosstable(iris2, c(Sepal.Length), by=Species, funs=c("My mean" = mean)),
+        crosstable(iris2, c(Sepal.Length), by=Species, funs=cross_summary),
+        crosstable(iris2, c(Sepal.Length), by=Species, funs=c(" " = cross_summary)),
+        crosstable(iris2, c(Sepal.Length), by=Species, funs=list(" " = cross_summary)),
+        crosstable(iris2, c(Sepal.Length), by=Species, funs=c("first"=function(xx) xx[1])),
+        crosstable(iris2, c(Sepal.Length), by=Species, funs=c("first"=~.x[1]))
     ) %>% map(as.data.frame)
     expect_snapshot(cross_list, error=FALSE)
     
