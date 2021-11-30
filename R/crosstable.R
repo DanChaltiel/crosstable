@@ -274,7 +274,8 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
                    ~ .x %>% as.character() %>% set_label(get_label(.x))),
             across(where(~is.numeric.and.not.surv(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric),
                    ~{
-                       .x = factor(.x, labels=unique(mixedsort(.x))) %>% set_label(get_label(.x))
+                       levels = na.omit(unique(mixedsort(.x)))
+                       .x = factor(.x, labels=levels) %>% set_label(get_label(.x))
                        class(.x) = c("unique_numeric", class(.x))
                        .x
                    }),
@@ -287,7 +288,8 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
                    ~ .x %>% as.character() %>% set_label(get_label(.x))),
             across(where(~is.numeric.and.not.surv(.x) && n_distinct(.x, na.rm=TRUE)<=unique_numeric), 
                    ~{
-                       .x = factor(.x, labels=unique(mixedsort(.x))) %>% set_label(get_label(.x))
+                       levels = na.omit(unique(mixedsort(.x)))
+                       .x = factor(.x, labels=levels) %>% set_label(get_label(.x))
                        class(.x) = c("unique_numeric", class(.x))
                        .x
                    })
