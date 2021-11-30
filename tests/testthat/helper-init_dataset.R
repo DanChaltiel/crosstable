@@ -32,6 +32,8 @@ library(officer, warn.conflicts = FALSE)
 set.seed(1234)
 mtcars3 = as_tibble(mtcars2)
 mtcars3$cyl[1:5] = NA
+mtcars3$gear=as.numeric(mtcars3$gear)
+mtcars3$gear[20:25] = NA
 mtcars3$vs[5:12] = NA
 mtcars3$cyl3 = mtcars3$cyl==3
 mtcars3$cyl6 = mtcars3$cyl==6

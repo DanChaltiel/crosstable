@@ -126,9 +126,7 @@ test_that("Margins with totals", {
 })
 
 
-
 # Percent pattern ---------------------------------------------------------
-
 
 test_that("Percent pattern", {
     
@@ -151,7 +149,28 @@ test_that("Percent pattern", {
     }) 
 })
 
+
+# Unique numeric ----------------------------------------------------------
+
+test_that("Unique numeric", {
+    expect_type(mtcars3$gear, "double")
+    expect_type(mtcars3$carb, "double")
+    expect_snapshot({
+        x0=crosstable(mtcars3, gear)
+        as.data.frame(x0)
+        as_flextable(x0)
+        x1=crosstable(mtcars3, carb)
+        as.data.frame(x1)
+        as_flextable(x1)
+        x2=crosstable(mtcars3, carb, unique_numeric=9)
+        as.data.frame(x2)
+        as_flextable(x2)
+    }) 
+})
+
+
 # By dummy ---------------------------------------------------------
+
 test_that("By dummy", {
     
     expect_snapshot({
@@ -196,11 +215,6 @@ test_that("By multiple", {
         as.data.frame(x4)
         as_flextable(x4)
     }) 
-    # expect_equal(dim(x1), c(7,27))
-    # expect_equal(dim(x2), c(7,15))
-    # expect_equal(dim(x3), c(8,28))
-    # expect_equal(dim(x4), c(11,5))
-    # expect_equal(dim(x5), c(34,10))
 })
 
 
