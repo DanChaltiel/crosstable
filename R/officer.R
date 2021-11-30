@@ -760,13 +760,13 @@ parse_reference = function(doc, value, style){
         return(parse_reference_legacy(doc, value))
     }
     par_not_ref = str_split(value, "\\\\@ref\\(.*?\\)")[[1]]
-    par_ref = stringr::str_extract_all(value, "\\\\@ref\\(.*?\\)")[[1]]
+    par_ref = str_extract_all(value, "\\\\@ref\\(.*?\\)")[[1]]
     #altern: https://stackoverflow.com/a/43876294/3888000
     altern = c(par_not_ref, par_ref)[order(c(seq_along(par_not_ref)*2 - 1, seq_along(par_ref)*2))] 
     
     par_list = map(altern, ~{
         if(str_detect(.x, "\\\\@ref")){
-            bkm = stringr::str_match(.x, "\\\\@ref\\((.*?)\\)")[,2]
+            bkm = str_match(.x, "\\\\@ref\\((.*?)\\)")[,2]
             run_word_field(glue(' REF {bkm} \\h '))
         } else {
             ftext(.x)
@@ -774,7 +774,7 @@ parse_reference = function(doc, value, style){
     })
     
     p=do.call(fpar, args=par_list)
-    body_add_fpar(doc, p)
+    body_add_fpar(doc, p, style)
 }
 
 # nocov start
