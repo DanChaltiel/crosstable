@@ -63,6 +63,7 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #'
 #' @param doc the doc object (created with the `read_docx` function of `officer` package)
 #' @param ... one or several character strings, pasted using `.sep`. As with `glue::glue()`, expressions enclosed by braces will be evaluated as R code. If more than one variable is passed, all should be of length 1.
+#' @param style Style for normal text. Best set with [crosstable_options()].
 #' @param .sep Separator used to separate elements.
 #' @param squish Whether to squish the result (remove trailing and repeated spaces). Default to `TRUE`. Allows to add multiline paragraph without breaking the string.
 #'
@@ -87,20 +88,22 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #'     body_add_normal("Table iris has", ncol(iris), "columns.", .sep=" ") %>% #paste style
 #'     body_add_normal("However, table mtcars has {ncol(mtcars)} columns") %>% #glue style
 #'     body_add_normal(info_rows)                                              #vector style
-#' #write_and_open(doc)
-body_add_normal = function(doc, ..., .sep="", squish=TRUE) {
+#' write_and_open(doc)
+body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE) {
     if(missing(squish)) squish = getOption("crosstable_normal_squish", TRUE)
     dots = list(...)
-    normal_style = getOption('crosstable_style_normal', doc$default_styles$paragraph)
+    if(is.null(style)){
+        style = getOption('crosstable_style_normal', doc$default_styles$paragraph)
+    }
     lengths = map_dbl(dots, length)
     
     if(all(lengths==1)){ #one or several vectors of length 1
         value = glue(..., .sep=.sep, .envir=parent.frame())
         if(squish) value = str_squish(value)
         if(length(value) > 0 && str_detect(value, "\\\\@ref\\((.*?)\\)")){
-            doc = body_add_par(doc, "") %>% parse_reference(value)
+            doc = parse_reference(doc, value, style)
         } else{
-            doc = body_add_par(doc, value, style=normal_style)
+            doc = body_add_par(doc, value, style=style)
         }
     } else if(length(dots)==1) { #one vector (of 1 or more) -> recursive call
         for(i in dots[[1]]){
@@ -752,7 +755,7 @@ generate_autofit_macro = function(){
 #' 
 #' @keywords internal
 #' @noRd
-parse_reference = function(doc, value){
+parse_reference = function(doc, value, style){
     if(packageVersion("officer")<"0.4"){
         return(parse_reference_legacy(doc, value))
     }
@@ -812,8 +815,9 @@ parse_reference_legacy = function(doc, value){
 
 #' @usage NULL
 #' @importFrom lifecycle deprecate_warn
-#' @rdname body_add_normal
+#' @aliases body_add_normal
 #' @author Dan Chaltiel
+#' @keywords internal
 #' @export
 body_add_glued = function(...){
     deprecate_warn("0.2.0", "body_add_glued()", "body_add_normal()")# nocov

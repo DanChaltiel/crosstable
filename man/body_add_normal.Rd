@@ -2,10 +2,9 @@
 % Please edit documentation in R/officer.R
 \name{body_add_normal}
 \alias{body_add_normal}
-\alias{body_add_glued}
 \title{Add a new paragraph with default style}
 \usage{
-body_add_normal(doc, ..., .sep = "", squish = TRUE)
+body_add_normal(doc, ..., .sep = "", style = NULL, squish = TRUE)
 }
 \arguments{
 \item{doc}{the doc object (created with the \code{read_docx} function of \code{officer} package)}
@@ -13,6 +12,8 @@ body_add_normal(doc, ..., .sep = "", squish = TRUE)
 \item{...}{one or several character strings, pasted using \code{.sep}. As with \code{glue::glue()}, expressions enclosed by braces will be evaluated as R code. If more than one variable is passed, all should be of length 1.}
 
 \item{.sep}{Separator used to separate elements.}
+
+\item{style}{Style for normal text. Best set with \code{\link[=crosstable_options]{crosstable_options()}}.}
 
 \item{squish}{Whether to squish the result (remove trailing and repeated spaces). Default to \code{TRUE}. Allows to add multiline paragraph without breaking the string.}
 }
@@ -35,10 +36,8 @@ doc = read_docx()  \%>\%
     body_add_normal("Table iris has", ncol(iris), "columns.", .sep=" ") \%>\% #paste style
     body_add_normal("However, table mtcars has {ncol(mtcars)} columns") \%>\% #glue style
     body_add_normal(info_rows)                                              #vector style
-#write_and_open(doc)
+write_and_open(doc)
 }
 \author{
-Dan Chaltiel
-
 Dan Chaltiel
 }
