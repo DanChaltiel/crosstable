@@ -153,6 +153,9 @@ test_that("Percent pattern", {
 # Unique numeric ----------------------------------------------------------
 
 test_that("Unique numeric", {
+    mtcars3$gear=as.numeric(mtcars3$gear)
+    mtcars3$gear[20:25] = NA                         
+    
     expect_type(mtcars3$gear, "double")
     expect_type(mtcars3$carb, "double")
     expect_snapshot({

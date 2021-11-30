@@ -1275,6 +1275,78 @@
       4                  13 (0)
       5              7 (77.78%)
 
+# Unique numeric
+
+    Code
+      x0 = crosstable(mtcars3, gear)
+      as.data.frame(x0)
+    Output
+         .id label variable       value
+      1 gear  gear        1 10 (38.46%)
+      2 gear  gear        2 11 (42.31%)
+      3 gear  gear        3  5 (19.23%)
+      4 gear  gear       NA           6
+    Code
+      as_flextable(x0)
+    Output
+      a flextable object.
+      col_keys: `label`, `variable`, `value` 
+      header has 1 row(s) 
+      body has 4 row(s) 
+      original dataset sample: 
+         .id label variable       value
+      1 gear  gear        1 10 (38.46%)
+      2 gear  gear        2 11 (42.31%)
+      3 gear  gear        3  5 (19.23%)
+      4 gear  gear       NA           6
+    Code
+      x1 = crosstable(mtcars3, carb)
+      as.data.frame(x1)
+    Output
+         .id                 label   variable         value
+      1 carb Number of carburetors  Min / Max     1.0 / 8.0
+      2 carb Number of carburetors  Med [IQR] 2.0 [2.0;4.0]
+      3 carb Number of carburetors Mean (std)     2.8 (1.6)
+      4 carb Number of carburetors     N (NA)        32 (0)
+    Code
+      as_flextable(x1)
+    Output
+      a flextable object.
+      col_keys: `label`, `variable`, `value` 
+      header has 1 row(s) 
+      body has 4 row(s) 
+      original dataset sample: 
+         .id                 label   variable         value
+      1 carb Number of carburetors  Min / Max     1.0 / 8.0
+      2 carb Number of carburetors  Med [IQR] 2.0 [2.0;4.0]
+      3 carb Number of carburetors Mean (std)     2.8 (1.6)
+      4 carb Number of carburetors     N (NA)        32 (0)
+    Code
+      x2 = crosstable(mtcars3, carb, unique_numeric = 9)
+      as.data.frame(x2)
+    Output
+         .id                 label variable       value
+      1 carb Number of carburetors        1  7 (21.88%)
+      2 carb Number of carburetors        2 10 (31.25%)
+      3 carb Number of carburetors        3   3 (9.38%)
+      4 carb Number of carburetors        4 10 (31.25%)
+      5 carb Number of carburetors        6   1 (3.12%)
+      6 carb Number of carburetors        8   1 (3.12%)
+    Code
+      as_flextable(x2)
+    Output
+      a flextable object.
+      col_keys: `label`, `variable`, `value` 
+      header has 1 row(s) 
+      body has 6 row(s) 
+      original dataset sample: 
+         .id                 label variable       value
+      1 carb Number of carburetors        1  7 (21.88%)
+      2 carb Number of carburetors        2 10 (31.25%)
+      3 carb Number of carburetors        3   3 (9.38%)
+      4 carb Number of carburetors        4 10 (31.25%)
+      5 carb Number of carburetors        6   1 (3.12%)
+
 # By dummy
 
     Code
