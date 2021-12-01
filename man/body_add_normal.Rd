@@ -2,6 +2,7 @@
 % Please edit documentation in R/officer.R
 \name{body_add_normal}
 \alias{body_add_normal}
+\alias{body_add_glued}
 \title{Add a new paragraph with default style}
 \usage{
 body_add_normal(doc, ..., .sep = "", style = NULL, squish = TRUE)
