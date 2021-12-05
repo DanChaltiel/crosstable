@@ -58,8 +58,10 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 
 #' Add a new paragraph with default style 
 #' 
-#' Add a new paragraph in an `officer` document with default style. Variables can be inserted as multiple strings (`paste()` style) or enclosed by braces (`glue()` style). 
-#' References to any bookmark can be inserted using the syntax "\\@ref(bookmark)". See an example in [body_add_table_legend()].
+#' Add a new paragraph in an `officer` document with default style.\cr
+#' Variables can be inserted in the text as multiple strings (`paste()` style) or enclosed by braces (`glue()` style).  \cr
+#' Basic markdown syntax is available: `**bold**`, `*italic*`, and `_underlined_`. \cr
+#' References to any bookmark can be inserted using the syntax `\\@ref(bookmark)`.
 #'
 #' @param doc the doc object (created with the `read_docx` function of `officer` package)
 #' @param ... one or several character strings, pasted using `.sep`. As with `glue::glue()`, expressions enclosed by braces will be evaluated as R code. If more than one variable is passed, all should be of length 1.
@@ -88,6 +90,12 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #'     body_add_normal("Table iris has", ncol(iris), "columns.", .sep=" ") %>% #paste style
 #'     body_add_normal("However, table mtcars has {ncol(mtcars)} columns") %>% #glue style
 #'     body_add_normal(info_rows)                                              #vector style
+#' doc = doc %>% 
+#'     body_add_normal("You can write in *italic1*, _underlined1_, and **bold1**, 
+#'                     and also add references, for instance a ref to Table \\@ref(my_table).
+#'                     Multiple spaces are ignored (squished) so that you can enter multiline text.") %>% 
+#'     body_add_normal("Here I should use `body_add_crosstable` to add a table before the legend.") %>% 
+#'     body_add_table_legend("My pretty table", bookmark="my_table")
 #' write_and_open(doc)
 body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE) {
     if(missing(squish)) squish = getOption("crosstable_normal_squish", TRUE)
@@ -100,11 +108,8 @@ body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE) {
     if(all(lengths==1)){ #one or several vectors of length 1
         value = glue(..., .sep=.sep, .envir=parent.frame())
         if(squish) value = str_squish(value)
-        if(length(value) > 0 && str_detect(value, "\\\\@ref\\((.*?)\\)")){
-            doc = parse_reference(doc, value, style)
-        } else{
-            doc = body_add_par(doc, value, style=style)
-        }
+        
+        doc = body_add_parsed(doc, value, style)
     } else if(length(dots)==1) { #one vector (of 1 or more) -> recursive call
         for(i in dots[[1]]){
             doc = body_add_normal(doc, i, .sep=.sep, squish=squish)
@@ -151,7 +156,8 @@ body_add_title = function(doc, value, level = 1, squish=TRUE,
     value = glue(value, .envir = parent.frame())
     if(squish) value = str_squish(value)
     style = paste(style, level)
-    body_add_par(doc, value, style = style)
+    # body_add_par(doc, value, style = style)
+    body_add_parsed(doc, value, style = style)
 }
 
 
@@ -209,7 +215,7 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
                   class="officer_lists_style_error") #nocov
         }
     }
-    body_add_par(doc, value, style=style, ...)
+    body_add_parsed(doc, value, style=style, ...)
 }
 
 
@@ -743,70 +749,65 @@ generate_autofit_macro = function(){
 # Internal utils ---------------------------------------------------------
 
 
-#' Recursive helper function 
-#' Replace every string containing a reference to a table/figure by the 
-#' docx-formatted cross-reference
+#' Parse value for multiple regexp to unravel formats (bold, italic and underline) and reference calls.
 #' 
 #' @importFrom stringr str_split str_detect str_match str_extract_all
 #' @importFrom glue glue
 #' @importFrom utils packageVersion
-#' @importFrom purrr map
-#' @importFrom officer run_word_field ftext body_add_fpar
+#' @importFrom purrr map map_lgl discard set_names
+#' @importFrom rlang warn
+#' @importFrom officer run_word_field ftext body_add_fpar fp_text_lite
 #' 
 #' @keywords internal
 #' @noRd
-parse_reference = function(doc, value, style){
+body_add_parsed = function(doc, value, style){
     if(packageVersion("officer")<"0.4"){
-        return(parse_reference_legacy(doc, value))
+        warn("This function needs package {officer} v0.4+ to work. You won't be able to add formatted text or references until you update this package.")
+        return(doc)
     }
-    par_not_ref = str_split(value, "\\\\@ref\\(.*?\\)")[[1]]
-    par_ref = str_extract_all(value, "\\\\@ref\\(.*?\\)")[[1]]
-    #altern: https://stackoverflow.com/a/43876294/3888000
-    altern = c(par_not_ref, par_ref)[order(c(seq_along(par_not_ref)*2 - 1, seq_along(par_ref)*2))] 
+    
+    regex = list(
+        bold = "\\*\\*(.+?)\\*\\*",
+        underlined = "_(.+?)_",
+        italic = "(?<!\\*)\\*(?!\\*)(.+?)(?<!\\*)\\*(?!\\*)",
+        ref = "\\\\@ref\\(.*?\\)"
+    )
+    rex_all = paste(regex, collapse="|")
+    
+    
+    par_not_format = str_split(value, rex_all)[[1]]
+    par_format = str_extract_all(value, rex_all)[[1]]
+    
+    # #altern: https://stackoverflow.com/a/43876294/3888000
+    altern = c(par_not_format, par_format)[order(c(seq_along(par_not_format)*2 - 1, 
+                                                   seq_along(par_format)*2))]
     
     par_list = map(altern, ~{
-        if(str_detect(.x, "\\\\@ref")){
+        .format = map_lgl(regex, function(pat) str_detect(.x, pattern=pat)) %>% 
+            discard(isFALSE) %>% names()
+        
+        if(length(.format)==0) return(ftext(.x))
+        
+        if(any(.format=="ref")){
             bkm = str_match(.x, "\\\\@ref\\((.*?)\\)")[,2]
-            run_word_field(glue(' REF {bkm} \\h '))
-        } else {
-            ftext(.x)
+            return(run_word_field(glue(' REF {bkm} \\h ')))
         }
+        rex = regex[.format]
+        for(i in rex){
+            .x = str_match(.x, i)[[2]]
+        }
+        
+        x = rep(TRUE, length(.format)) %>% set_names(.format) %>% as.list()
+        fp = do.call(fp_text_lite, x)
+        
+        ftext(.x, fp)
     })
+    
     
     p=do.call(fpar, args=par_list)
     body_add_fpar(doc, p, style)
 }
 
-# nocov start
-
-#' @importFrom stringr str_detect str_match_all
-#' @importFrom glue glue
-#' @importFrom rlang abort
-#' @importFrom officer slip_in_text slip_in_seqfield
-#' @keywords internal
-#' @noRd
-parse_reference_legacy = function(doc, value){
-    normal_style_character = getOption('crosstable_style_character', doc$default_styles$character)
-    
-    if(!str_detect(value, "\\\\@ref\\((.*?)\\)")){ #recursion out
-        doc = doc %>% 
-            slip_in_text(value, style=normal_style_character, pos='after')
-        return(doc)
-    }
-    
-    x = str_match_all(value, "(.*?)\\\\@ref\\((.*?)\\)(.*)")
-    x = unlist(x[[1]][-1])
-    if(length(x)!=3) #1rd (.*) is not greedy
-        abort(c("This error should not have happened, please report a bug.", # nocov
-                i="function = crosstable:::parse_reference"), x=x)           # nocov
-    doc = doc %>% 
-        slip_in_text(x[1], style=normal_style_character, pos='after') %>% 
-        slip_in_seqfield(str = glue(' REF {x[2]} \\h '),  
-                         style=normal_style_character, pos='after') %>%
-        parse_reference(x[3])
-}
-
-# nocov end
 
 
 
@@ -815,9 +816,7 @@ parse_reference_legacy = function(doc, value){
 
 #' @usage NULL
 #' @importFrom lifecycle deprecate_warn
-#' @aliases body_add_normal
-#' @author Dan Chaltiel
-#' @keywords internal
+#' @rdname body_add_normal
 #' @export
 body_add_glued = function(...){
     deprecate_warn("0.2.0", "body_add_glued()", "body_add_normal()")# nocov

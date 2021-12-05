@@ -24,8 +24,10 @@ a new doc object
 The docx object \code{doc}
 }
 \description{
-Add a new paragraph in an \code{officer} document with default style. Variables can be inserted as multiple strings (\code{paste()} style) or enclosed by braces (\code{glue()} style).
-References to any bookmark can be inserted using the syntax "\\@ref(bookmark)". See an example in \code{\link[=body_add_table_legend]{body_add_table_legend()}}.
+Add a new paragraph in an \code{officer} document with default style.\cr
+Variables can be inserted in the text as multiple strings (\code{paste()} style) or enclosed by braces (\code{glue()} style).  \cr
+Basic markdown syntax is available: \verb{**bold**}, \verb{*italic*}, and \verb{_underlined_}. \cr
+References to any bookmark can be inserted using the syntax \verb{\\\\@ref(bookmark)}.
 }
 \examples{
 library(officer)
@@ -37,6 +39,12 @@ doc = read_docx()  \%>\%
     body_add_normal("Table iris has", ncol(iris), "columns.", .sep=" ") \%>\% #paste style
     body_add_normal("However, table mtcars has {ncol(mtcars)} columns") \%>\% #glue style
     body_add_normal(info_rows)                                              #vector style
+doc = doc \%>\% 
+    body_add_normal("You can write in *italic1*, _underlined1_, and **bold1**, 
+                    and also add references, for instance a ref to Table \\\\@ref(my_table).
+                    Multiple spaces are ignored (squished) so that you can enter multiline text.") \%>\% 
+    body_add_normal("Here I should use `body_add_crosstable` to add a table before the legend.") \%>\% 
+    body_add_table_legend("My pretty table", bookmark="my_table")
 write_and_open(doc)
 }
 \author{
