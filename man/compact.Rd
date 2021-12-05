@@ -16,7 +16,13 @@
   ...
 )
 
-\method{compact}{crosstable}(data, name_from = c("label", ".id"), name_to = "variable", ...)
+\method{compact}{crosstable}(
+  data,
+  name_from = c("label", ".id"),
+  name_to = "variable",
+  keep_id = FALSE,
+  ...
+)
 }
 \arguments{
 \item{data}{the object to compact}
@@ -30,6 +36,8 @@
 \item{rtn_flextable}{whether to return a formatted \code{\link[=flextable]{flextable()}} object or a simple \code{data.frame}}
 
 \item{...}{additional arguments (not used)}
+
+\item{keep_id}{\code{glue} pattern to keep the column name along with the label. If \code{TRUE}, default to \code{"{label} ({.id})"}.}
 }
 \value{
 a compacted data.frame

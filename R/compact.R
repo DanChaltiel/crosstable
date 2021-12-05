@@ -64,6 +64,8 @@ compact.data.frame = function(data, name_from, name_to="variable", wrap_cols=NUL
 #' @description NULL
 #' @rdname compact
 #'
+#' @param keep_id `glue` pattern to keep the column name along with the label. If `TRUE`, default to `"{label} ({.id})"`.
+#'
 #' @author Dan Chaltiel
 #' @export
 #' @importFrom dplyr select %>% .data intersect
@@ -76,12 +78,16 @@ compact.data.frame = function(data, name_from, name_to="variable", wrap_cols=NUL
 #' x=crosstable(mtcars2, c(disp,hp,am), by=vs, test=TRUE, effect=TRUE)
 #' compact(x)
 #' compact(x, name_from=".id")
-compact.crosstable = function(data, name_from=c("label", ".id"), name_to="variable", ...){
+compact.crosstable = function(data, name_from=c("label", ".id"), name_to="variable", keep_id=FALSE, ...){
     by_levels = attr(data, "by_levels")
     by = attr(data, "by")
     name_from = match.arg(name_from)
     wrap_cols = intersect(names(data), c("test", "effect"))
     if(name_from=="label") rcol=".id" else rcol="label"
+    if(!isFALSE(keep_id)) {
+        if(isTRUE(keep_id)) keep_id = "{label} ({.id})"
+        data = data %>% mutate(label = glue(keep_id))
+    }
     
     rtn = data %>% 
         select(-any_of(rcol)) %>% 
