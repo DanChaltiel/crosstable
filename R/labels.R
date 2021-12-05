@@ -86,6 +86,8 @@ set_label = function(x, value, object=FALSE){
                 x[[each]] = set_label(x[[each]], value[[each]])
         } else {
             abort("`value` must be either length 1 or the same as `x`")
+            #TODO faire des tests pour ces deux nouvelles conditions !
+            #TODO mtcars %>% copy_label_from(mtcars2) ?
         }
         return(x)
     }
@@ -156,13 +158,13 @@ remove_label = remove_labels
 #' @export
 #'
 #' @examples
-#' library(dplyr)
-#' mtcars2 %>% 
-#'   select(1:5) %>% 
-#'   rename_dataframe_with_labels()
-rename_dataframe_with_labels = function(df){
+#' rename_dataframe_with_labels(mtcars2[,1:5], except=5) %>% names
+#' rename_dataframe_with_labels(iris2, except=Sepal.Length) %>% names
+rename_dataframe_with_labels = function(df, except=NULL){
     assert_data_frame(df, null.ok=TRUE)
-    names(df) = get_label(df)
+    except = eval_select(enquo(except), data=df)
+    if(length(except)==0) except = ncol(df)+1
+    names(df)[-except] = get_label(df)[-except]
     df
 }
 
