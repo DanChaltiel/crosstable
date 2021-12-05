@@ -5,7 +5,15 @@
 \alias{body_add_glued}
 \title{Add a new paragraph with default style}
 \usage{
-body_add_normal(doc, ..., .sep = "", style = NULL, squish = TRUE)
+body_add_normal(
+  doc,
+  ...,
+  .sep = "",
+  style = NULL,
+  squish = TRUE,
+  parse_ref = TRUE,
+  parse_format = TRUE
+)
 }
 \arguments{
 \item{doc}{the doc object (created with the \code{read_docx} function of \code{officer} package)}
@@ -38,12 +46,14 @@ info_rows = c("Also, table iris has {nrow(iris)} rows.",
 doc = read_docx()  \%>\% 
     body_add_normal("Table iris has", ncol(iris), "columns.", .sep=" ") \%>\% #paste style
     body_add_normal("However, table mtcars has {ncol(mtcars)} columns") \%>\% #glue style
-    body_add_normal(info_rows)                                              #vector style
+    body_add_normal(info_rows)                                          \%>\% #vector style
+    body_add_normal("")                                              
 doc = doc \%>\% 
-    body_add_normal("You can write in *italic1*, _underlined1_, and **bold1**, 
-                    and also add references, for instance a ref to Table \\\\@ref(my_table).
+    body_add_normal("You can write text in *italic1*, _underlined1_, and **bold1**, 
+                    and also add * **references** *, for instance a ref to Table \\\\@ref(my_table).
                     Multiple spaces are ignored (squished) so that you can enter multiline text.") \%>\% 
-    body_add_normal("Here I should use `body_add_crosstable` to add a table before the legend.") \%>\% 
+    body_add_normal("Here I should use `body_add_crosstable()` to add a table before the legend.", 
+                    parse_format=FALSE) \%>\% 
     body_add_table_legend("My pretty table", bookmark="my_table")
 write_and_open(doc)
 }

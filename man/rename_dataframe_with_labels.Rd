@@ -4,7 +4,7 @@
 \alias{rename_dataframe_with_labels}
 \title{Rename every column of a dataframe with its label}
 \usage{
-rename_dataframe_with_labels(df)
+rename_dataframe_with_labels(df, except = NULL)
 }
 \arguments{
 \item{df}{a data.frame}
@@ -16,10 +16,8 @@ A dataframe, as \code{df}, which names are copied from the label attribute
 Rename every column of a dataframe with its label
 }
 \examples{
-library(dplyr)
-mtcars2 \%>\% 
-  select(1:5) \%>\% 
-  rename_dataframe_with_labels()
+rename_dataframe_with_labels(mtcars2[,1:5], except=5) \%>\% names
+rename_dataframe_with_labels(iris2, except=Sepal.Length) \%>\% names
 }
 \author{
 Dan Chaltiel
