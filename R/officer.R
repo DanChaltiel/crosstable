@@ -89,15 +89,17 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #' doc = read_docx()  %>% 
 #'     body_add_normal("Table iris has", ncol(iris), "columns.", .sep=" ") %>% #paste style
 #'     body_add_normal("However, table mtcars has {ncol(mtcars)} columns") %>% #glue style
-#'     body_add_normal(info_rows)                                              #vector style
+#'     body_add_normal(info_rows)                                          %>% #vector style
+#'     body_add_normal("")                                              
 #' doc = doc %>% 
-#'     body_add_normal("You can write in *italic1*, _underlined1_, and **bold1**, 
-#'                     and also add references, for instance a ref to Table \\@ref(my_table).
+#'     body_add_normal("You can write text in *italic1*, _underlined1_, and **bold1**, 
+#'                     and also add * **references** *, for instance a ref to Table \\@ref(my_table).
 #'                     Multiple spaces are ignored (squished) so that you can enter multiline text.") %>% 
-#'     body_add_normal("Here I should use `body_add_crosstable` to add a table before the legend.") %>% 
+#'     body_add_normal("Here I should use `body_add_crosstable()` to add a table before the legend.", 
+#'                     parse_format=FALSE) %>% 
 #'     body_add_table_legend("My pretty table", bookmark="my_table")
 #' write_and_open(doc)
-body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE) {
+body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, parse_ref=TRUE, parse_format=TRUE) {
     if(missing(squish)) squish = getOption("crosstable_normal_squish", TRUE)
     dots = list(...)
     if(is.null(style)){
@@ -109,7 +111,7 @@ body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE) {
         value = glue(..., .sep=.sep, .envir=parent.frame())
         if(squish) value = str_squish(value)
         
-        doc = body_add_parsed(doc, value, style)
+        doc = body_add_parsed(doc, value, style, parse_ref, parse_format)
     } else if(length(dots)==1) { #one vector (of 1 or more) -> recursive call
         for(i in dots[[1]]){
             doc = body_add_normal(doc, i, .sep=.sep, squish=squish)
@@ -760,20 +762,27 @@ generate_autofit_macro = function(){
 #' 
 #' @keywords internal
 #' @noRd
-body_add_parsed = function(doc, value, style){
+body_add_parsed = function(doc, value, style, parse_ref, parse_format){
     if(packageVersion("officer")<"0.4"){
         warn("This function needs package {officer} v0.4+ to work. You won't be able to add formatted text or references until you update this package.")
         return(doc)
     }
-    
-    regex = list(
-        bold = "\\*\\*(.+?)\\*\\*",
-        underlined = "_(.+?)_",
-        italic = "(?<!\\*)\\*(?!\\*)(.+?)(?<!\\*)\\*(?!\\*)",
+    if(isFALSE(parse_ref) && isFALSE(parse_format)){
+        body_add_par(doc, value, style)
+    }
+    reg_r = list(
         ref = "\\\\@ref\\(.*?\\)"
     )
+    reg_f = list(
+        bold = "\\*\\*(.+?)\\*\\*",
+        underlined = "_(.+?)_",
+        italic = "(?<!\\*)\\*(?!\\*)(.+?)(?<!\\*)\\*(?!\\*)"
+        # code = "`(.+?)`"
+    )
+    if(isFALSE(parse_ref)) reg_r = list()
+    if(isFALSE(parse_format)) reg_f = list()
+    regex = c(reg_f, reg_r)
     rex_all = paste(regex, collapse="|")
-    
     
     par_not_format = str_split(value, rex_all)[[1]]
     par_format = str_extract_all(value, rex_all)[[1]]
@@ -781,7 +790,6 @@ body_add_parsed = function(doc, value, style){
     # #altern: https://stackoverflow.com/a/43876294/3888000
     altern = c(par_not_format, par_format)[order(c(seq_along(par_not_format)*2 - 1, 
                                                    seq_along(par_format)*2))]
-    
     par_list = map(altern, ~{
         .format = map_lgl(regex, function(pat) str_detect(.x, pattern=pat)) %>% 
             discard(isFALSE) %>% names()
@@ -794,11 +802,13 @@ body_add_parsed = function(doc, value, style){
         }
         rex = regex[.format]
         for(i in rex){
-            .x = str_match(.x, i)[[2]]
+            if(str_detect(.x, i)){
+                .x = str_match(.x, i)[[2]]
+            }
         }
         
-        x = rep(TRUE, length(.format)) %>% set_names(.format) %>% as.list()
-        fp = do.call(fp_text_lite, x)
+        fp_args = rep(TRUE, length(.format)) %>% set_names(.format) %>% as.list()
+        fp = do.call(fp_text_lite, fp_args)
         
         ftext(.x, fp)
     })
