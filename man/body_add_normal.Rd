@@ -11,8 +11,7 @@ body_add_normal(
   .sep = "",
   style = NULL,
   squish = TRUE,
-  parse_ref = TRUE,
-  parse_format = TRUE
+  parse = c("ref", "format", "code")
 )
 }
 \arguments{
@@ -49,11 +48,10 @@ doc = read_docx()  \%>\%
     body_add_normal(info_rows)                                          \%>\% #vector style
     body_add_normal("")                                              
 doc = doc \%>\% 
-    body_add_normal("You can write text in *italic1*, _underlined1_, and **bold1**, 
-                    and also add * **references** *, for instance a ref to Table \\\\@ref(my_table).
+    body_add_normal("You can write text in *italic1*, _underlined1_, **bold1**, and `code`, 
+                    and you can also add * **references** *, for instance a ref to Table \\\\@ref(my_table).
                     Multiple spaces are ignored (squished) so that you can enter multiline text.") \%>\% 
-    body_add_normal("Here I should use `body_add_crosstable()` to add a table before the legend.", 
-                    parse_format=FALSE) \%>\% 
+    body_add_normal("Here I should use `body_add_crosstable()` to add a table before the legend.") \%>\% 
     body_add_table_legend("My pretty table", bookmark="my_table")
 write_and_open(doc)
 }

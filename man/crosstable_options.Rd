@@ -13,6 +13,7 @@ crosstable_options(
   crosstable_only_round,
   crosstable_units,
   crosstable_peek_docx,
+  crosstable_font_code,
   crosstable_compact_padding,
   crosstable_total,
   crosstable_percent_pattern,
@@ -67,6 +68,8 @@ crosstable_options(
 \item{crosstable_units}{default units in \code{\link[=body_add_gg2]{body_add_gg2()}} and \code{\link[=body_add_img2]{body_add_img2()}}}
 
 \item{crosstable_peek_docx}{behavior of \code{\link[=peek]{peek()}}, which will open a \code{docx} if \code{TRUE} (default) and an \code{xlsx} if \code{FALSE}}
+
+\item{crosstable_font_code}{font familly used to show code, most likely a monospaced typeface such as Consolas (default)}
 
 \item{crosstable_compact_padding}{in flextables, left-padding for non-headers rows when \code{compact=TRUE}.}
 

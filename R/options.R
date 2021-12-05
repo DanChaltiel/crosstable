@@ -12,6 +12,7 @@
 #' @param crosstable_only_round default argument for [format_fixed()]
 #' @param crosstable_units default units in [body_add_gg2()] and [body_add_img2()]
 #' @param crosstable_peek_docx behavior of [peek()], which will open a `docx` if `TRUE` (default) and an `xlsx` if `FALSE`
+#' @param crosstable_font_code font familly used to show code, most likely a monospaced typeface such as Consolas (default)
 #' @param crosstable_compact_padding in flextables, left-padding for non-headers rows when `compact=TRUE`.
 #' 
 #' @param crosstable_total For setting [crosstable()] arguments globally. 
@@ -61,6 +62,7 @@ crosstable_options = function(reset=FALSE,
                               crosstable_only_round, 
                               crosstable_units, 
                               crosstable_peek_docx,
+                              crosstable_font_code, 
                               crosstable_compact_padding, 
                               #crosstable()
                               crosstable_total, crosstable_percent_pattern, crosstable_percent_digits, crosstable_num_digits, crosstable_showNA, crosstable_label, crosstable_funs, crosstable_funs_arg, crosstable_cor_method, crosstable_unique_numeric, crosstable_date_format, crosstable_times, crosstable_followup, crosstable_test_arg, crosstable_effect_args, 

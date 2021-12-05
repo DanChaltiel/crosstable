@@ -92,14 +92,13 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #'     body_add_normal(info_rows)                                          %>% #vector style
 #'     body_add_normal("")                                              
 #' doc = doc %>% 
-#'     body_add_normal("You can write text in *italic1*, _underlined1_, and **bold1**, 
-#'                     and also add * **references** *, for instance a ref to Table \\@ref(my_table).
+#'     body_add_normal("You can write text in *italic1*, _underlined1_, **bold1**, and `code`, 
+#'                     and you can also add * **references** *, for instance a ref to Table \\@ref(my_table).
 #'                     Multiple spaces are ignored (squished) so that you can enter multiline text.") %>% 
-#'     body_add_normal("Here I should use `body_add_crosstable()` to add a table before the legend.", 
-#'                     parse_format=FALSE) %>% 
+#'     body_add_normal("Here I should use `body_add_crosstable()` to add a table before the legend.") %>% 
 #'     body_add_table_legend("My pretty table", bookmark="my_table")
 #' write_and_open(doc)
-body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, parse_ref=TRUE, parse_format=TRUE) {
+body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, parse=c("ref", "format", "code")) {
     if(missing(squish)) squish = getOption("crosstable_normal_squish", TRUE)
     dots = list(...)
     if(is.null(style)){
@@ -110,8 +109,10 @@ body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, parse_ref
     if(all(lengths==1)){ #one or several vectors of length 1
         value = glue(..., .sep=.sep, .envir=parent.frame())
         if(squish) value = str_squish(value)
-        
-        doc = body_add_parsed(doc, value, style, parse_ref, parse_format)
+        parse_ref = "ref" %in% parse
+        parse_format = "format" %in% parse
+        parse_code = "code" %in% parse
+        doc = body_add_parsed(doc, value, style, parse_ref, parse_format, parse_code)
     } else if(length(dots)==1) { #one vector (of 1 or more) -> recursive call
         for(i in dots[[1]]){
             doc = body_add_normal(doc, i, .sep=.sep, squish=squish)
@@ -762,7 +763,7 @@ generate_autofit_macro = function(){
 #' 
 #' @keywords internal
 #' @noRd
-body_add_parsed = function(doc, value, style, parse_ref, parse_format){
+body_add_parsed = function(doc, value, style, parse_ref, parse_format, parse_code){
     if(packageVersion("officer")<"0.4"){
         warn("This function needs package {officer} v0.4+ to work. You won't be able to add formatted text or references until you update this package.")
         return(doc)
@@ -777,11 +778,14 @@ body_add_parsed = function(doc, value, style, parse_ref, parse_format){
         bold = "\\*\\*(.+?)\\*\\*",
         underlined = "_(.+?)_",
         italic = "(?<!\\*)\\*(?!\\*)(.+?)(?<!\\*)\\*(?!\\*)"
-        # code = "`(.+?)`"
+    )
+    reg_c = list(
+        code = "`(.+?)`"
     )
     if(isFALSE(parse_ref)) reg_r = list()
     if(isFALSE(parse_format)) reg_f = list()
-    regex = c(reg_f, reg_r)
+    if(isFALSE(parse_code)) reg_c = list()
+    regex = c(reg_f, reg_r, reg_c)
     rex_all = paste(regex, collapse="|")
     
     par_not_format = str_split(value, rex_all)[[1]]
@@ -799,6 +803,10 @@ body_add_parsed = function(doc, value, style, parse_ref, parse_format){
         if(any(.format=="ref")){
             bkm = str_match(.x, "\\\\@ref\\((.*?)\\)")[,2]
             return(run_word_field(glue(' REF {bkm} \\h ')))
+        }
+        if(any(.format=="code")){
+            fp = fp_text_lite(font.family=getOption("crosstable_font_code", "Consolas"))
+            return( ftext(.x, fp))
         }
         rex = regex[.format]
         for(i in rex){
