@@ -123,8 +123,11 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
         title_rows = which(rows)+(0:(sum(rows)-1))
         padded_rows = 1:nrow(rtn)
         padded_rows = padded_rows[!padded_rows %in% title_rows]
+        header_labels = names(rtn) %>% recode(!!generic_labels$variable:="")
+        hl = set_names("", generic_labels$variable)
         rtn = rtn %>% 
             flextable() %>% 
+            set_header_labels(values=hl) %>% 
             fontsize(size=fontsizes$body) %>%
             fontsize(i=title_rows, size=fontsizes$subheaders) %>%
             border(title_rows, border.top = fp_border()) %>%
