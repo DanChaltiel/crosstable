@@ -27,32 +27,32 @@
 )
 }
 \arguments{
-\item{x}{the result of \code{\link[=crosstable]{crosstable()}}}
+\item{x}{the result of \code{\link[=crosstable]{crosstable()}}.}
 
-\item{keep_id}{whether to keep the \code{.id} column}
+\item{keep_id}{whether to keep the \code{.id} column.}
 
-\item{by_header}{a string to override the \code{by} header}
+\item{by_header}{a string to override the \code{by} header.}
 
-\item{autofit}{whether to use \code{\link[flextable:autofit]{flextable::autofit()}} on the table}
+\item{autofit}{whether to use \code{\link[flextable:autofit]{flextable::autofit()}} on the table.}
 
-\item{compact}{whether to compact the table}
+\item{compact}{whether to compact the table. If \code{TRUE}, see \code{\link[=compact.crosstable]{compact.crosstable()}} to see how to use \code{keep_id}.}
 
-\item{show_test_name}{in the \code{test} column, show the test name}
+\item{show_test_name}{in the \code{test} column, show the test name.}
 
 \item{fontsizes}{font sizes as a list of keys \code{c(body, subheaders, header)}. If set through arguments instead of options, all 3 names should be specified.}
 
-\item{padding_v}{vertical padding (body)}
+\item{padding_v}{vertical padding (body).}
 
-\item{remove_header_keys}{if \code{TRUE} and \code{x} has several \code{by} strata, header will only display values}
+\item{remove_header_keys}{if \code{TRUE} and \code{x} has several \code{by} strata, header will only display values.}
 
-\item{header_show_n}{show the size (\code{N=xx}) of each terminal \code{by} strata in their header}
+\item{header_show_n}{show the size (\code{N=xx}) of each terminal \code{by} strata in their header.}
 
 \item{generic_labels}{names of the crosstable default columns. Useful for translation for instance.}
 
-\item{...}{unused}
+\item{...}{unused.}
 }
 \value{
-a flextable
+a flextable.
 }
 \section{Methods (by class)}{
 \itemize{

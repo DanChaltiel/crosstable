@@ -2,20 +2,20 @@
 
 #' Turns a `crosstable` object into a formatted `flextable`
 #'
-#' @param x the result of [crosstable()]
-#' @param keep_id whether to keep the `.id` column
-#' @param by_header a string to override the `by` header
-#' @param autofit whether to use [flextable::autofit()] on the table
-#' @param compact whether to compact the table
-#' @param show_test_name in the `test` column, show the test name
+#' @param x the result of [crosstable()].
+#' @param keep_id whether to keep the `.id` column. 
+#' @param by_header a string to override the `by` header.
+#' @param autofit whether to use [flextable::autofit()] on the table.
+#' @param compact whether to compact the table. If `TRUE`, see [compact.crosstable()] to see how to use `keep_id`.
+#' @param show_test_name in the `test` column, show the test name.
 #' @param fontsizes font sizes as a list of keys `c(body, subheaders, header)`. If set through arguments instead of options, all 3 names should be specified.
-#' @param padding_v vertical padding (body)
-#' @param remove_header_keys if `TRUE` and `x` has several `by` strata, header will only display values
-#' @param header_show_n show the size (`N=xx`) of each terminal `by` strata in their header
+#' @param padding_v vertical padding (body).
+#' @param remove_header_keys if `TRUE` and `x` has several `by` strata, header will only display values.
+#' @param header_show_n show the size (`N=xx`) of each terminal `by` strata in their header.
 #' @param generic_labels names of the crosstable default columns. Useful for translation for instance. 
-#' @param ... unused
+#' @param ... unused.
 #' 
-#' @return a flextable
+#' @return a flextable.
 #'
 #' @author Dan Chaltiel
 #' @aliases ctf cross_to_flextable to_flextable
@@ -24,7 +24,7 @@
 #' 
 #' @importFrom dplyr select lead sym %>%
 #' @importFrom stringr str_replace str_replace_all str_remove
-#' @importFrom flextable flextable autofit add_header_row merge_v merge_h bold align hline_top hline_bottom border_inner_h hline fix_border_issues padding as_flextable fontsize vline vline_left vline_right set_header_df
+#' @importFrom flextable flextable autofit add_header_row set_header_labels merge_v merge_h bold align hline_top hline_bottom border_inner_h hline fix_border_issues padding as_flextable fontsize vline vline_left vline_right set_header_df
 #' @importFrom officer fp_border
 #' @importFrom checkmate assert_class vname
 #' @importFrom tibble as_tibble
@@ -63,18 +63,19 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
                                    ...) {
     assert_class(x, "crosstable", .var.name=vname(x))
     
-    if(missing(keep_id)) keep_id = getOption("crosstable_keep_id", FALSE)
-    if(missing(autofit)) autofit = getOption('crosstable_autofit', TRUE)
-    if(missing(compact)) compact = getOption('crosstable_compact', FALSE)
-    if(missing(show_test_name)) show_test_name = getOption('crosstable_show_test_name', TRUE)
-    if(missing(padding_v)) padding_v = getOption('crosstable_padding_v', NULL)
-    if(missing(header_show_n)) header_show_n = getOption('crosstable_header_show_n', FALSE)
-    if(missing(remove_header_keys)) remove_header_keys = getOption('crosstable_remove_header_keys', FALSE)
-    # if(missing(generic_labels)) generic_labels = getOption('crosstable_generic_labels', NULL)
+    if(missing(keep_id)) keep_id = getOption("crosstable_keep_id", keep_id)
+    if(missing(autofit)) autofit = getOption('crosstable_autofit', autofit)
+    if(missing(compact)) compact = getOption('crosstable_compact', compact)
+    if(missing(show_test_name)) show_test_name = getOption('crosstable_show_test_name', show_test_name)
+    if(missing(padding_v)) padding_v = getOption('crosstable_padding_v', padding_v)
+    if(missing(remove_header_keys)) remove_header_keys = getOption('crosstable_remove_header_keys',
+                                                                   remove_header_keys)
+    if(missing(header_show_n)) header_show_n = getOption('crosstable_header_show_n', header_show_n)
+    if(missing(generic_labels)) generic_labels = getOption('crosstable_generic_labels', generic_labels)
     if(missing(fontsizes)) fontsizes = list(
-        body=getOption('crosstable_fontsize_body', 11),
-        subheaders=getOption('crosstable_fontsize_subheaders', 11),
-        header=getOption('crosstable_fontsize_header', 11)
+        body=getOption('crosstable_fontsize_body', fontsizes$body),
+        subheaders=getOption('crosstable_fontsize_subheaders', fontsizes$subheaders),
+        header=getOption('crosstable_fontsize_header', fontsizes$header)
     )
     
     border1 = fp_border(color = "black", style = "solid", width = 1)
@@ -106,7 +107,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
         x[[test]] = str_remove(x[[test]], "\\n\\(.*\\)")
     }
     if (compact && !inherits(x, "compacted_crosstable")) {
-        x = compact.crosstable(x)
+        x = compact.crosstable(x, keep_id=keep_id)
     }
     
     rtn = replace(x, is.na(x), "NA")
