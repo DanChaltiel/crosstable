@@ -13,8 +13,10 @@ crosstable_options(
   crosstable_only_round,
   crosstable_units,
   crosstable_peek_docx,
-  crosstable_font_code,
   crosstable_compact_padding,
+  crosstable_font_code,
+  crosstable_table_legend_par_before,
+  crosstable_figure_legend_par_after,
   crosstable_total,
   crosstable_percent_pattern,
   crosstable_percent_digits,
@@ -69,9 +71,13 @@ crosstable_options(
 
 \item{crosstable_peek_docx}{behavior of \code{\link[=peek]{peek()}}, which will open a \code{docx} if \code{TRUE} (default) and an \code{xlsx} if \code{FALSE}}
 
+\item{crosstable_compact_padding}{in flextables, left-padding for non-headers rows when \code{compact=TRUE}.}
+
 \item{crosstable_font_code}{font familly used to show code, most likely a monospaced typeface such as Consolas (default)}
 
-\item{crosstable_compact_padding}{in flextables, left-padding for non-headers rows when \code{compact=TRUE}.}
+\item{crosstable_table_legend_par_before}{whether to add an empty paragraph before all table legends}
+
+\item{crosstable_figure_legend_par_after}{whether to add an empty paragraph after all figure legends}
 
 \item{crosstable_total}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
