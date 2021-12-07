@@ -763,7 +763,7 @@ generate_autofit_macro = function(){
 #' 
 #' @keywords internal
 #' @noRd
-body_add_parsed = function(doc, value, style, parse_ref, parse_format, parse_code){
+body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE){
     if(packageVersion("officer")<"0.4"){
         warn("This function needs package {officer} v0.4+ to work. You won't be able to add formatted text or references until you update this package.")
         return(doc)
