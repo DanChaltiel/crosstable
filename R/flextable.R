@@ -22,7 +22,7 @@
 #' @describeIn as_flextable Turns a `crosstable` object into a formatted `flextable`.
 #' @seealso [crosstable()], [flextable::flextable()], [as_gt.crosstable()]
 #' 
-#' @importFrom dplyr select lead sym %>%
+#' @importFrom dplyr %>% select lead sym recode
 #' @importFrom stringr str_replace str_replace_all str_remove
 #' @importFrom flextable flextable autofit add_header_row set_header_labels merge_v merge_h bold align hline_top hline_bottom border_inner_h hline fix_border_issues padding as_flextable fontsize vline vline_left vline_right set_header_df
 #' @importFrom officer fp_border
@@ -39,14 +39,14 @@
 #'                    crosstable_fontsize_subheaders=10, 
 #'                    crosstable_fontsize_body=8)
 #' crosstable(iris) %>% as_flextable()
-#' crosstable(mtcars2, by=c(am, vs)) %>% as_flextable()
+#' crosstable(mtcars2, -model, by=c(am, vs)) %>% as_flextable()
 #' crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE) %>% 
 #'    as_flextable(keep_id=TRUE, autofit=FALSE)
 #' crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE) %>% 
 #'    as_flextable(compact=TRUE)
 #' 
 #' #Renaming (because why not?)
-#' crosstable(mtcars2, by=vs, total="both", test=TRUE, effect=TRUE) %>%
+#' crosstable(mtcars2, -model, by=vs, total="both", test=TRUE, effect=TRUE) %>%
 #'    rename(ID=.id, math=variable, Tot=Total, lab=label, pval=test, fx=effect) %>%
 #'    as_flextable(by_header = "Engine shape", 
 #'                 generic_labels=list(id = "ID", variable = "math", total="Tot", 
@@ -138,10 +138,9 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
         sep.rows = which(rtn[[id]] != lead(rtn[[id]]))
         body_merge = intersect(names(rtn), generic_labels[c("label", "test", "effect", "id")]) %>%
             unlist()
+        cols = rtn %>% names()
         
-        if(keep_id) {
-            cols = rtn %>% names()
-        } else {
+        if(!keep_id) {
             cols = rtn %>% select(-any_of(id)) %>% names()
             body_merge = body_merge[body_merge!=id]
         }
@@ -166,11 +165,13 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
             .col_1 = col_keys
         )
         
+        if(inherits(x, "compacted_crosstable")) {
+            header_mapping[header_mapping$col_keys==generic_labels$variable, -1] = ""
+        }
         if(!is.null(by_header)){
             header_mapping = header_mapping %>% 
                 mutate(.col_2=str_replace(.col_2,byname, by_header))
         }
-        
         if(header_show_n){
             header_mapping = header_mapping %>% 
                 mutate(
@@ -179,6 +180,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
                 ) %>% 
                 select(-n)
         }
+        
         rtn = rtn %>% 
             set_header_df(header_mapping, key = "col_keys") %>%
             merge_h(part = "head")
