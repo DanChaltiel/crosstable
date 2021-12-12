@@ -22,7 +22,7 @@
 #' @importFrom glue glue
 #'
 #' @examples
-#' xx = mtcars2 %>% dplyr::select(1:9)
+#' xx = mtcars2 %>% dplyr::select(2:10)
 #' crosstable(xx) %>% as_gt
 #' crosstable(xx, by=am) %>% as_gt
 #' crosstable(xx, by=cyl, test=TRUE, total=TRUE, effect=TRUE) %>% 
