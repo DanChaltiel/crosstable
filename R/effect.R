@@ -150,47 +150,7 @@ calc_effect_tabular = function(x, by, conf_level=0.95, type=c("OR", "RR", "RD"))
 #' @export
 #' @importFrom stats glm binomial confint.default
 effect_odds_ratio = function(x, by, conf_level=0.95) {
-  return(calc_effect_tabular(x, by, conf_level, type="OR"))
-  tab = table(by, x)
-  nn = paste0("x", colnames(tab)[-1])
-  if(ncol(tab) <= 1 || 
-     nrow(tab) > 2 ||
-     n_distinct(x, na.rm=T)==1 || 
-     n_distinct(by, na.rm=T)==1){
-    return(NULL)
-  }
-  
-  ref_x = colnames(tab)[1]
-  ref_by = rownames(tab)[1]
-  versus_by = rownames(tab)[2] #length==2
-  bynum = ifelse(by==ref_by, 0, 1)
-  
-  mod = glm(bynum ~ x, family=binomial(link="logit"))
-  ci = tryCatch2(exp(confint(mod, level=conf_level)))
-  if (is.null(nrow(ci))) dim(ci) = c(1, length(ci))
-  model_warn(mod, ci, type="glm-logit")
-  if(length(ci)==1 && ci=="error"){
-    ci_inf = ci_sup = NA
-  } else {
-    ci = rbind(ci, matrix(ncol=2, nrow=length(nn)-(nrow(ci)-1), 
-                          dimnames=list(nn[!nn %in% rownames(ci)], NULL)))
-    ci_inf = ci[nn ,"2.5 %"]
-    ci_sup = ci[nn ,"97.5 %"]
-  }
-  if(inherits(mod, "glm")){
-    effect = exp(mod$coef)[-1] 
-    effect = effect[nn]
-  } else {
-    effect = "error"
-    ci_inf = ci_sup = "error"
-  }
-  #TODO faire pareil pour les autres effets
-  effect.name = glue("{colnames(tab)[-1]} vs {ref_x}")
-  effect.type = glue("Odds ratio [{conf_level*100}% Wald CI]")
-  reference = glue(", ref='{versus_by} vs {ref_by}'")
-  summary = tibble(name=effect.name, effect, ci_inf=ci_inf, ci_sup=ci_sup)
-  
-  list(effect.type=effect.type, ref=reference, summary=summary)
+  calc_effect_tabular(x, by, conf_level, type="OR")
 }
 
 
@@ -201,30 +161,7 @@ effect_odds_ratio = function(x, by, conf_level=0.95) {
 #' @importFrom glue glue
 # https://stats.stackexchange.com/a/336624/81974
 effect_relative_risk = function (x, by, conf_level = 0.95) { 
-  return(calc_effect_tabular(x, by, conf_level, type="RR"))
-  tab = table(by, x)
-  if (ncol(tab) <= 1 | nrow(tab) > 2) return(NULL)
-  
-  ref = rownames(tab)[1]
-  versus = rownames(tab)[2]
-  bynum = ifelse(by==ref, 0, 1)
-  mod = tryCatch2(glm(bynum ~ x, family=binomial(link="log")))
-  ci = tryCatch2(exp(confint(mod, level=conf_level)[-1, ]))
-  if (is.null(nrow(ci))) dim(ci) = c(1, length(ci))
-  model_warn(mod, ci, type="glm-log")
-  if(inherits(mod, "glm")){
-    effect = exp(mod$coef)[-1] 
-  } else {
-    effect = "error"
-  }
-  if(length(ci)==1 && ci=="error"){
-    ci = cbind("error", "error")
-  }
-  effect.name = glue("{colnames(tab)[-1]} vs {colnames(tab)[1]}")
-  effect.type = glue("Relative risk [{conf_level*100}% Wald CI]")
-  reference = glue(", ref='{versus} vs {ref}'")
-  summary = tibble(name=effect.name, effect, ci_inf=ci[,1], ci_sup=ci[,2])
-  list(effect.type=effect.type, ref=reference, summary=summary)
+  calc_effect_tabular(x, by, conf_level, type="RR")
 }
 
 
@@ -235,33 +172,7 @@ effect_relative_risk = function (x, by, conf_level = 0.95) {
 #' @importFrom stats glm binomial confint 
 #' @importFrom glue glue 
 effect_risk_difference = function (x, by, conf_level = 0.95) {
-  return(calc_effect_tabular(x, by, conf_level, type="RD"))
-  tab = table(by, x)
-  if (ncol(tab) <= 1 || nrow(tab) > 2) {
-    return(NULL)
-  }
-  ref = rownames(tab)[1]
-  versus = rownames(tab)[2]
-  bynum = ifelse(by==ref, 0, 1)
-  mod = tryCatch2(glm(bynum ~ x, family = binomial(link = "logit")))
-  ci = tryCatch2(confint(mod)[-1, ])
-  if (is.null(nrow(ci))) dim(ci) = c(1, length(ci))
-  model_warn(mod, ci, type="glm-logit")
-  if(inherits(mod, "glm")){
-    effect = mod$coef[-1] 
-  } else {
-    effect = "error"
-  }
-  if(length(ci)==1 && ci=="error"){
-    ci = cbind("error", "error")
-  }
-  
-  
-  effect.name = glue("{colnames(tab)[-1]} vs {colnames(tab)[1]}")
-  effect.type = glue("Risk difference [{conf_level*100}% Wald CI]")
-  reference = glue(", ref='{versus} vs {ref}'")
-  summary = tibble(name=effect.name, effect, ci_inf=ci[,1], ci_sup=ci[,2])
-  list(effect.type=effect.type, ref=reference, summary=summary)
+  calc_effect_tabular(x, by, conf_level, type="RD")
 }
 
 
