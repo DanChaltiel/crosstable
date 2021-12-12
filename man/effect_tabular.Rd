@@ -40,8 +40,4 @@ User can either use or extend these functions to configure effect calculation.
 }
 \author{
 Dan Chaltiel, David Hajage
-
-Dan Chaltiel, David Hajage
-
-Dan Chaltiel, David Hajage
 }

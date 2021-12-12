@@ -1,3 +1,4 @@
+#snapshot_review('effects')
 
 # crosstable_effect_2groups_warning
 
@@ -21,7 +22,7 @@ test_that("Effects: categorical variables", {
     args$effect_tabular = effect_risk_difference
     x=crosstable(mtcars3, am, by=vs, effect=T, effect_args=args)
     expect_match(x$effect[1], "-1.66 [-3.79 to 0.11]", fixed=TRUE)
-})#TODO doc effect dire que ref = 1er level des factors
+})
 
 
 # Numeric variables -------------------------------------------------------
@@ -72,10 +73,25 @@ test_that("Effects: survival variables", {
 })
 
 
+# Survival variables ------------------------------------------------------
+
+test_that("Effects: missing variables", {
+    set.seed(1234)
+    mtcars3$x = ifelse(is.na(mtcars3$vs), "missing", paste0("cyl", mtcars3$cyl))
+    
+    x = crosstable(mtcars3, x, by=vs, effect=T) %>% 
+        expect_warning2(class="crosstable_effect_warning")
+    
+    expect_match(attr(x, "object")$effect[1], "Odds ratio [95% Wald CI]", fixed=TRUE)
+    expect_match(attr(x, "object")$effect[1], "missing vs cyl4", fixed=TRUE)
+})
+
+
 # Warnings ----------------------------------------------------------------
 
 test_that("Effects Warnings", {
     crosstable(mtcars3, by=vs, times=c(0,100,200,400), effect=T) %>%
+        expect_warning("fitted probabilities numerically 0 or 1 occurred") %>%
         expect_warning("fitted probabilities numerically 0 or 1 occurred") %>%
         expect_warning("fitted probabilities numerically 0 or 1 occurred") %>%
         expect_warning(class="crosstable_effect_other_warning")
@@ -94,11 +110,11 @@ test_that("Effects never fail 1", {
     
     names(mtcars3) %>% set_names() %>% map(~{
         set.seed(1234)
-        if(!is_testing()) print(glue("Effect part 1 - variable={.x}"))
         if(can_be_by(mtcars3[[.x]])) {
+            if(!is_testing()) print(glue("Effect part 1 - by={.x}"))
             expect_snapshot({
-                print(glue("Effect part 1 - variable={.x}"))
-                crosstable(mtcars3, by=any_of(.x), effect=T, effect_args=args)$effect %>%
+                print(glue("Effect part 1 - by={.x}"))
+                crosstable(mtcars3, -model, by=any_of(.x), effect=T, effect_args=args)$effect %>%
                     table %>% as.data.frame()
             })
         }
@@ -114,20 +130,20 @@ test_that("Effects never fail 2", {
     args$effect_summarize = diff_mean_boot
     args$effect_tabular = effect_relative_risk
     can_be_by = function(x) !is.numeric(x) && length(unique(x))!=2 && !is.Surv(x) && !is.date(x) && !all(is.na(x)) && !inherits(x, "difftime")
-    
+
     names(mtcars3) %>% set_names() %>% map(~{
         set.seed(1234)
-        if(!is_testing()) print(glue("Effect part 2 - variable={.x}"))
         if(can_be_by(mtcars3[[.x]])) {
+            if(!is_testing()) print(glue("Effect part 2 - by={.x}"))
             expect_snapshot({
-                print(glue("Effect part 2 - variable={.x}"))
-                crosstable(mtcars3, by=any_of(.x), effect=T, effect_args=args)$effect %>%
+                print(glue("Effect part 2 - by={.x}"))
+                crosstable(mtcars3, -model, by=any_of(.x), effect=T, effect_args=args)$effect %>%
                     table %>% as.data.frame()
             })
         }
         return(0)
     })
-    
+
 })
 
 test_that("Effects never fail 3", {
@@ -137,14 +153,14 @@ test_that("Effects never fail 3", {
     args$effect_summarize = diff_median_boot
     args$effect_tabular = effect_risk_difference
     can_be_by = function(x) !is.numeric(x) && length(unique(x))!=2 && !is.Surv(x) && !is.date(x) && !all(is.na(x)) && !inherits(x, "difftime")
-    
+
     names(mtcars3) %>% set_names() %>% map(~{
-        if(!is_testing()) print(glue("Effect part 3 - variable={.x}"))
+        if(!is_testing()) print(glue("Effect part 3 - by={.x}"))
         if(can_be_by(mtcars3[[.x]])) {
             expect_snapshot({
-                print(glue("Effect part 3 - variable={.x}"))
+                print(glue("Effect part 3 - by={.x}"))
                 set.seed(1234)
-                crosstable(mtcars3, by=any_of(.x), effect=T, effect_args=args)$effect %>%
+                crosstable(mtcars3, -model, by=any_of(.x), effect=T, effect_args=args)$effect %>%
                     table %>% as.data.frame()
             })
         }
@@ -153,4 +169,3 @@ test_that("Effects never fail 3", {
 })
 
 
-#snapshot_review('1-effects')
