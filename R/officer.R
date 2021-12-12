@@ -68,6 +68,7 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #' @param style Style for normal text. Best set with [crosstable_options()].
 #' @param .sep Separator used to separate elements.
 #' @param squish Whether to squish the result (remove trailing and repeated spaces). Default to `TRUE`. Allows to add multiline paragraph without breaking the string.
+#' @param parse which format to parse. Default to all formats (`c("ref", "format", "code")`).
 #'
 #' @return a new doc object
 #' 
@@ -75,7 +76,6 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #' @export
 #' @importFrom glue glue glue_collapse
 #' @importFrom officer body_add_par
-#' @importFrom purrr map_dbl
 #' @importFrom stringr str_squish
 #' 
 #' @return The docx object `doc`
@@ -93,9 +93,12 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #'     body_add_normal("")                                              
 #' doc = doc %>% 
 #'     body_add_normal("You can write text in *italic1*, _underlined1_, **bold1**, and `code`, 
-#'                     and you can also add * **references** *, for instance a ref to Table \\@ref(my_table).
-#'                     Multiple spaces are ignored (squished) so that you can enter multiline text.") %>% 
-#'     body_add_normal("Here I should use `body_add_crosstable()` to add a table before the legend.") %>% 
+#'                     and you can also add * **references** *, for instance a ref to Table 
+#'                     \\@ref(my_table). Multiple spaces are ignored (squished) so that you 
+#'                     can enter multiline text.") %>% 
+#'     body_add_normal() %>% 
+#'     body_add_normal("Here I should use `body_add_crosstable()` to add a table before the 
+#'                      legend.") %>% 
 #'     body_add_table_legend("My pretty table", bookmark="my_table")
 #' write_and_open(doc)
 body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, parse=c("ref", "format", "code")) {
@@ -104,10 +107,11 @@ body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, parse=c("
     if(is.null(style)){
         style = getOption('crosstable_style_normal', doc$default_styles$paragraph)
     }
-    lengths = map_dbl(dots, length)
+    if(length(dots)==0) dots=""
+    dots_lengths = lengths(dots)
     
-    if(all(lengths==1)){ #one or several vectors of length 1
-        value = glue(..., .sep=.sep, .envir=parent.frame())
+    if(all(dots_lengths==1)){ #one or several vectors of length 1
+        value = do.call(glue, c(dots, .sep=.sep, .envir=parent.frame()))
         if(squish) value = str_squish(value)
         parse_ref = "ref" %in% parse
         parse_format = "format" %in% parse
@@ -119,7 +123,7 @@ body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, parse=c("
         }
     } else { #several vectors of which at least one is length 2+
         abort(c("body_add_normal() only accepts either one vector of any length or several vectors of length 1", 
-                i=glue("Length of vectors passed: {glue_collapse(lengths, ', ')}")),
+                i=glue("Length of vectors passed: {glue_collapse(dots_lengths, ', ')}")),
               class="officer_wrong_vector_error")
     }
     
