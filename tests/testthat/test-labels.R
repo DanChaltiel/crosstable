@@ -22,7 +22,7 @@ test_that("Labelling dataframes", {
 })
 
 test_that("Labelling unnamed dataframes/lists", {
-    xx_noname = remove_label(mtcars2) %>% unname()
+    xx_noname = mtcars2 %>% as.data.frame() %>% remove_label() %>% unname()
     expect_setequal(get_label(xx_noname), NA)
     expect_setequal(get_label(xx_noname, default="foo"), "foo")
     
