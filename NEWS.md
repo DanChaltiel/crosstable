@@ -1,10 +1,31 @@
 <!-- https://style.tidyverse.org/news.html -->
 
+# crosstable 0.3.3 <sub><sup>(?)</sup></sub>
+
+#### New features
+
+* You can now use basic markdown formats in `body_add_normal()`: \*\*bold\*\*, \*italic\*, \_underlined\_, and `code`.
+* Add `keep_id` argument to `compact.crosstable()` and therefore to `as_flextable(compact=TRUE)`
+
+#### Improvements
+
+* You can now set normal style directly in `body_add_normal()` (it was only doable through options before).
+* Removed the "variable" header in compacted crosstables.
+* Dataset `mtcars2` is now a tibble with the extra variable "model" as its former rownames.
+
+#### Bug fixes
+
+* Fixed a bug when a numeric variables are treated as categorical (failed if one had a `NA` value).
+* Fixed a bug so that `body_add_normal()` can be used without argument.
+* Fixed a bug that caused `body_add_normal()` to add an extra empty paragraph if there was a reference in the text.
+* Fixed a bug in effect when some groups were in table() but not in glm()
+
+
 # crosstable 0.3.2 <sub><sup>(2021-11-27)</sup></sub>
 
 #### New features
 
-* Global options management is now easier thanks to `crosstable_options()` and autocompletion. Almost every argument can now be set using options. See `?crosstable_options` for further details
+* Global options management is now easier thanks to `crosstable_options()` and autocompletion. Almost every argument can now be set using options. See `?crosstable_options` for further details.
 * You can also use `crosstable_peek_options()` to see which crosstable option is currently set.
 * New argument `num_digits` in `crosstable()`. It was about time!
 * New argument `header_show_n` for `as_flextable()`, which adds the group size (`N=xx`) to the header of the flextable.
