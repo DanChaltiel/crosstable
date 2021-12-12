@@ -150,6 +150,7 @@ remove_label = remove_labels
 #' Rename every column of a dataframe with its label
 #'
 #' @param df a data.frame
+#' @param except columns that should not be renamed.
 #' 
 #' @return A dataframe, as `df`, which names are copied from the label attribute
 #'
