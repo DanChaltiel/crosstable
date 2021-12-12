@@ -24,6 +24,8 @@ body_add_normal(
 \item{style}{Style for normal text. Best set with \code{\link[=crosstable_options]{crosstable_options()}}.}
 
 \item{squish}{Whether to squish the result (remove trailing and repeated spaces). Default to \code{TRUE}. Allows to add multiline paragraph without breaking the string.}
+
+\item{parse}{which format to parse. Default to all formats (\code{c("ref", "format", "code")}).}
 }
 \value{
 a new doc object
@@ -49,9 +51,12 @@ doc = read_docx()  \%>\%
     body_add_normal("")                                              
 doc = doc \%>\% 
     body_add_normal("You can write text in *italic1*, _underlined1_, **bold1**, and `code`, 
-                    and you can also add * **references** *, for instance a ref to Table \\\\@ref(my_table).
-                    Multiple spaces are ignored (squished) so that you can enter multiline text.") \%>\% 
-    body_add_normal("Here I should use `body_add_crosstable()` to add a table before the legend.") \%>\% 
+                    and you can also add * **references** *, for instance a ref to Table 
+                    \\\\@ref(my_table). Multiple spaces are ignored (squished) so that you 
+                    can enter multiline text.") \%>\% 
+    body_add_normal() \%>\% 
+    body_add_normal("Here I should use `body_add_crosstable()` to add a table before the 
+                     legend.") \%>\% 
     body_add_table_legend("My pretty table", bookmark="my_table")
 write_and_open(doc)
 }

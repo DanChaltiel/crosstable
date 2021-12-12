@@ -8,6 +8,8 @@ rename_dataframe_with_labels(df, except = NULL)
 }
 \arguments{
 \item{df}{a data.frame}
+
+\item{except}{columns that should not be renamed.}
 }
 \value{
 A dataframe, as \code{df}, which names are copied from the label attribute
