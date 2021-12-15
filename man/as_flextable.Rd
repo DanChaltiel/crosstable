@@ -45,7 +45,7 @@
 
 \item{remove_header_keys}{if \code{TRUE} and \code{x} has several \code{by} strata, header will only display values.}
 
-\item{header_show_n}{show the size (\code{N=xx}) of each terminal \code{by} strata in their header.}
+\item{header_show_n}{numeric vector telling on which depth the group size should be indicated in the header. You can control the pattern using option \code{crosstable_options}. See \code{\link[=crosstable_options]{crosstable_options()}} for details about it. See example for use case.}
 
 \item{generic_labels}{names of the crosstable default columns. Useful for translation for instance.}
 
@@ -67,11 +67,11 @@ crosstable_options(crosstable_fontsize_header=14,
                    crosstable_fontsize_subheaders=10, 
                    crosstable_fontsize_body=8)
 crosstable(iris) \%>\% as_flextable()
-crosstable(mtcars2, -model, by=c(am, vs)) \%>\% as_flextable()
+crosstable(mtcars2, -model, by=c(am, vs)) \%>\% as_flextable(header_show_n=1:2)
 crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE) \%>\% 
    as_flextable(keep_id=TRUE, autofit=FALSE)
 crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE) \%>\% 
-   as_flextable(compact=TRUE)
+   as_flextable(compact=TRUE, header_show_n=TRUE)
 
 #Renaming (because why not?)
 crosstable(mtcars2, -model, by=vs, total="both", test=TRUE, effect=TRUE) \%>\%

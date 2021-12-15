@@ -11,7 +11,7 @@
 #' @param fontsizes font sizes as a list of keys `c(body, subheaders, header)`. If set through arguments instead of options, all 3 names should be specified.
 #' @param padding_v vertical padding (body).
 #' @param remove_header_keys if `TRUE` and `x` has several `by` strata, header will only display values.
-#' @param header_show_n show the size (`N=xx`) of each terminal `by` strata in their header.
+#' @param header_show_n numeric vector telling on which depth the group size should be indicated in the header. You can control the pattern using option `crosstable_options`. See [crosstable_options()] for details about it. See example for use case.
 #' @param generic_labels names of the crosstable default columns. Useful for translation for instance. 
 #' @param ... unused.
 #' 
@@ -39,11 +39,11 @@
 #'                    crosstable_fontsize_subheaders=10, 
 #'                    crosstable_fontsize_body=8)
 #' crosstable(iris) %>% as_flextable()
-#' crosstable(mtcars2, -model, by=c(am, vs)) %>% as_flextable()
+#' crosstable(mtcars2, -model, by=c(am, vs)) %>% as_flextable(header_show_n=1:2)
 #' crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE) %>% 
 #'    as_flextable(keep_id=TRUE, autofit=FALSE)
 #' crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE) %>% 
-#'    as_flextable(compact=TRUE)
+#'    as_flextable(compact=TRUE, header_show_n=TRUE)
 #' 
 #' #Renaming (because why not?)
 #' crosstable(mtcars2, -model, by=vs, total="both", test=TRUE, effect=TRUE) %>%
@@ -71,6 +71,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
     if(missing(remove_header_keys)) remove_header_keys = getOption('crosstable_remove_header_keys',
                                                                    remove_header_keys)
     if(missing(header_show_n)) header_show_n = getOption('crosstable_header_show_n', header_show_n)
+    header_show_n_pattern = getOption('crosstable_header_show_n_pattern', "{.col} (N={.n})")
     if(missing(generic_labels)) generic_labels = getOption('crosstable_generic_labels', generic_labels)
     if(missing(fontsizes)) fontsizes = list(
         body=getOption('crosstable_fontsize_body', fontsizes$body),
@@ -112,12 +113,13 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
     }
     
     rtn = replace(x, is.na(x), "NA")
-    if(!isFALSE(header_show_n)){
-        #TODO warning si length(header_show_n)>1
-        #TODO code inutile ???
-        col_names_n = imap_chr(c(by_table), ~glue("{.y} (n={.x})")) 
-        # rtn = rtn %>% rename_with(~ifelse(.x %in% names(col_names_n), col_names_n[.x], .x))
-    }
+    # if(!isFALSE(header_show_n)){
+    #     #TODO warning si length(header_show_n)>1
+    #     #TODO code inutile ???
+    #     print(header_show_n_pattern)
+    #     col_names_n = imap_chr(c(by_table), ~glue(header_show_n_pattern, .col=.y, .n=.x)) 
+    #     # rtn = rtn %>% rename_with(~ifelse(.x %in% names(col_names_n), col_names_n[.x], .x))
+    # }
     
     if(inherits(x, "compacted_crosstable")) {
         # if(length(by_levels)>1) abort("Cannot compact a crosstable with multiple `by`.")
@@ -174,13 +176,13 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
             header_mapping = header_mapping %>% 
                 mutate(.col_2=str_replace(.col_2,byname, by_header))
         }
-        if(header_show_n>0){
+        if(!isFALSE(header_show_n)){
             header_mapping = header_mapping %>% 
                 mutate(
-                    n = by_table[col_keys], 
-                    .col_1 = ifelse(!is.na(n), glue("{.col_1} (n={n})"), .col_1)
+                    .n = by_table[col_keys], 
+                    .col_1 = ifelse(!is.na(.n), glue(header_show_n_pattern, .col=.col_1), .col_1)
                 ) %>% 
-                select(-n)
+                select(-.n)
         }
         
         rtn = rtn %>% 
@@ -204,131 +206,26 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
         }
         if(!isFALSE(header_show_n)){
             header_show_n = as.numeric(header_show_n)
-            #TODO: header_show_n logical -> numeric, profondeur d'effet
-            #TODO: if(any(header_show_n>max_n)) stop("too deep")
-            
-            # header_mapping=header_mapping %>% 
-            #     mutate(
-            #         n = by_table[col_keys], 
-            #         # x1 = rowsum(n, .col_1),
-            #         # x1 = map_dbl(.col_1, ~sum(n[.col_1==.x])),
-            #         # x2 = map_dbl(.col_2, ~sum(n[.col_2==.x])),
-            #         # x3 = map_dbl(.col_3, ~sum(n[.col_3==.x])),
-            #         # .col_1 = ifelse(!is.na(n), glue("{.col_1} (n={n})"), .col_1),
-            #         # across(".col_1", ~{
-            #         #     
-            #         # })
-            #     )
             xxx = header_mapping
             # header_mapping = xxx
-            # header_mapping$n = by_table[header_mapping$col_keys]
-            .cols_bak = paste0(".col_", 1:length(by_levels))
             .cols = paste0(".col_", 1:length(by_levels))
             header_show_n2 = .cols[as.numeric(header_show_n)]
-            # .cols = .cols[as.numeric(header_show_n)]
             
-            
-            
-            
-            # while(length(.cols)>0){
-            #     lvl = length(by_levels)-length(.cols)+1
-            #     header_mapping = header_mapping %>% 
-            #         group_by(across(.cols)) %>% 
-            #         mutate(
-            #             !!glue("n_{lvl}") := sum(n)
-            #         )
-            #     .cols=.cols[-1]
-            # }
-            # # header_mapping
-            # 
-            # header_mapping = header_mapping %>% 
-            #     mutate(
-            #         across(glue(".col_{header_show_n}"), ~{
-            #             glue("{.col} (n={.n})", 
-            #                  .col=!!sym(glue(".col_{header_show_n}")), 
-            #                  .n=!!sym(glue("n_{header_show_n}")))
-            #         })
-            #     ) %>% 
-            #     select(-starts_with("n"))
-            
-            # browser()
-            while(length(.cols)>0){
-                lvl = length(by_levels)-length(.cols)+1
-                .n = .cols[1]
-                
-                # header_mapping = header_mapping %>%
-                #     group_by(across(.cols)) %>%
-                #     mutate(
-                #         !!paste0("n", .cols[1]) := ifelse(!is.na(sum(n)),
-                #                              glue("{.col} (n={sum(n)})", .col=!!sym(.cols[1])),
-                #                              !!sym(.cols[1]))
-                #     )
-                
-                ##bonne syntaxe mais ne prend pas en compte header_show_n
+            for(i in seq_along(.cols)){
+                .c = .cols[i:length(.cols)]
                 header_mapping = header_mapping %>%
-                    group_by(across(.cols)) %>%
-                    mutate(!!.cols[1] := {
-                        .x = !!sym(.cols[1])
+                    group_by(across(.c)) %>%
+                    mutate(!!.c[1] := {
+                        .x = !!sym(.c[1])
                         .n = sum(by_table[col_keys])
-                        # if(!.cols[1] %in% header_show_n2) .x
-                        # else 
-                            ifelse(!is.na(.n) & .cols[1] %in% header_show_n2, 
-                                   glue("{.x} (n={.n})"), .x)
+                        ifelse(!is.na(.n) & .c[1] %in% header_show_n2, 
+                               glue("{.x} (n={.n})"), .x)
                     })
-                
-                # header_mapping =
-                #     header_mapping %>%
-                #     group_by(across(.cols)) %>%
-                #     mutate(across(.cols[1], .names="n_{.col}", ~{
-                #         .x
-                #         # ifelse(!is.na(sum(n)),
-                #         #        glue("{.col} (n={sum(n)})", .col=.x),
-                #         #        .x)
-                #     })
-                #         # !!paste0("n", .cols[1]) := ifelse(!is.na(sum(n)),
-                #         #                      glue("{.col} (n={sum(n)})", .col=!!sym(.cols[1])),
-                #         #                      !!sym(.cols[1]))
-                #     )
-                .cols=.cols[-1]
             }
             
-            # header_mapping =
-                header_mapping %>% 
+            header_mapping %>% 
                 ungroup() %>% 
-                # mutate(
-                #     across(glue(".col_{header_show_n}"), ~{
-                #         
-                #         # browser()
-                #         # glue("{.col} (n={.n})", 
-                #         #      .col=!!sym(glue(".col_{header_show_n}")), 
-                #         #      .n=!!sym(glue("n.col_{header_show_n}")))
-                #         # !!sym(glue("n.col_{header_show_n}"))
-                #         # 1
-                #     })
-                # ) %>% 
                 select(-starts_with("n"))
-            
-            # header_mapping %>% 
-            #     group_by(.col_3, .col_2, .col_1) %>% 
-            #     mutate(n = by_table[col_keys], 
-            #            n1=sum(n)) %>% 
-            #     group_by(.col_3, .col_2) %>% 
-            #     mutate(n2=sum(n)) %>% 
-            #     group_by(.col_3) %>% 
-            #     mutate(n3=sum(n)) %>% 
-            #     mutate(
-            #         .col_1 = ifelse(!is.na(n1), glue("{.col_1} (n={n1})"), .col_1),
-            #         .col_2 = ifelse(!is.na(n2), glue("{.col_2} (n={n2})"), .col_2),
-            #         .col_3 = ifelse(!is.na(n3), glue("{.col_3} (n={n3})"), .col_3),
-            #     ) %>% 
-            #     select(-starts_with("n"))
-            # 
-            #  header_mapping = header_mapping %>% 
-            #     # mutate(
-            #     #     n = by_table[col_keys], 
-            #     #     .col_1 = ifelse(!is.na(n), glue("{.col_1} (n={n})"), .col_1)
-            #     # ) %>% 
-            #     select(-n)
         }
         border_left_first = sum(rtn$header$col_keys %in% generic_labels[c("label", "variable", "id")])
         border_separations = header_mapping %>% 
