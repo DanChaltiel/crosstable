@@ -428,6 +428,7 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
             style = getOption('crosstable_style_strong', "strong")
         }
         
+        
         rtn = body_add_legend_legacy(doc=doc, legend=legend, legend_name=legend_name,
                                bookmark=bookmark, legend_style=legend_style, style=style, seqfield=seqfield)
         return(rtn)
@@ -436,13 +437,13 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
     if(is_present(style)){
         deprecate_warn("0.2.2", "body_add_X_legend(style)", 
                        "body_add_X_legend(name_format)", 
-                       details="The `style` argument has been ignored. Use `legacy=TRUE` to override.")
+                       details="Therefore, its value has been ignored. Use `legacy=TRUE` to override.")
     }
     # nocov end
 
     fp_text2 = officer::fp_text_lite #v0.4+
     if(is.null(name_format)){
-        name_format = fp_text2(bold=TRUE)
+        name_format = getOption('crosstable_format_legend_name', fp_text2(bold=TRUE))
     }
     fp_size = fp_text2(font.size=name_format$font.size)
     
@@ -472,7 +473,6 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
 #' @noRd
 body_add_legend_legacy = function(doc, legend, legend_name, bookmark, 
                                   legend_style, style, seqfield){
-    # browser()
     legend = glue(legend, .envir = parent.frame())
     rtn = doc %>% 
         body_add_par(value=legend, style=legend_style) %>% 

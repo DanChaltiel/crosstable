@@ -14,6 +14,7 @@
 #' @param crosstable_peek_docx behavior of [peek()], which will open a `docx` if `TRUE` (default) and an `xlsx` if `FALSE`
 #' @param crosstable_compact_padding in flextables, left-padding for non-headers rows when `compact=TRUE`.
 #' @param crosstable_font_code font familly used to show code, most likely a monospaced typeface such as Consolas (default)
+#' @param crosstable_format_legend_name how the legend name ("Table", "Figure") is formated. Default to `officer::fp_text_lite(bold=TRUE)`
 #' @param crosstable_table_legend_par_before whether to add an empty paragraph before all table legends
 #' @param crosstable_figure_legend_par_after whether to add an empty paragraph after all figure legends
 #' @param crosstable_header_show_n_pattern glue pattern used when showing N in the header of flextables. `.col` is the name of the column and `.n` the size of the group. Default to `{.col} (N={.n})`.
@@ -67,6 +68,7 @@ crosstable_options = function(reset=FALSE,
                               crosstable_peek_docx,
                               crosstable_compact_padding, 
                               crosstable_font_code, 
+                              crosstable_format_legend_name,
                               crosstable_table_legend_par_before, 
                               crosstable_figure_legend_par_after, 
                               crosstable_header_show_n_pattern, 
