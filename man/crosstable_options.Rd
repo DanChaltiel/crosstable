@@ -17,6 +17,7 @@ crosstable_options(
   crosstable_font_code,
   crosstable_table_legend_par_before,
   crosstable_figure_legend_par_after,
+  crosstable_header_show_n_pattern,
   crosstable_total,
   crosstable_percent_pattern,
   crosstable_percent_digits,
@@ -78,6 +79,8 @@ crosstable_options(
 \item{crosstable_table_legend_par_before}{whether to add an empty paragraph before all table legends}
 
 \item{crosstable_figure_legend_par_after}{whether to add an empty paragraph after all figure legends}
+
+\item{crosstable_header_show_n_pattern}{glue pattern used when showing N in the header of flextables. \code{.col} is the name of the column and \code{.n} the size of the group. Default to \code{{.col} (N={.n})}.}
 
 \item{crosstable_total}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
