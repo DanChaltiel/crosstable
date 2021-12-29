@@ -12,7 +12,7 @@ A data frame with 150 observations on 5 variables with labels.
 library(dplyr)
 iris2 = iris \%>\% 
     mutate_at("Species", factor) \%>\% 
-    expss::apply_labels( #I also could have used [import_labels] or even `Hmisc::label`
+    expss::apply_labels( #I also could have used [import_labels] or even `labelled::set_variable_labels()`
         Species = "Specie",
         Sepal.Length = "Length of Sepal",
         Sepal.Width = "Width of Sepal",
@@ -28,7 +28,7 @@ iris2
 \description{
 Modified \code{iris} dataset so:
 \itemize{
-\item every column is labelled (using \code{label} attribute from \code{expss} package, compatible with \code{Hmisc} package)
+\item every column is labelled (using \code{label} attribute)
 \item \code{Species} column is considered as factor
 }
 

@@ -11,10 +11,14 @@ A data frame with 32 observations on 11 variables with labels.
 \preformatted{
 library(dplyr)
 mtcars2 = mtcars \%>\% 
-    mutate(vs=ifelse(vs==0, "vshaped", "straight"),
-       am=ifelse(am==0, "auto", "manual")) \%>\% 
-    mutate_at(c("cyl", "gear"), factor) \%>\% 
-    expss::apply_labels( #I also could have used [import_labels] or even `Hmisc::label`
+    mutate(
+       model=rownames(mtcars), 
+       vs=ifelse(vs==0, "vshaped", "straight"),
+       am=ifelse(am==0, "auto", "manual"), 
+       across(c("cyl", "gear"), factor),
+       .before=1
+    ) \%>\% 
+    expss::apply_labels( #I also could have used [import_labels] or even `labelled::set_variable_labels()`
         mpg="Miles/(US) gallon",
         cyl="Number of cylinders",
         disp="Displacement (cu.in.)",
@@ -35,7 +39,8 @@ mtcars2
 \description{
 Modified \code{mtcars} dataset so:
 \itemize{
-\item every column is labelled (using \code{label} attribute from \code{expss} package, compatible with \code{Hmisc} package)
+\item every column is labelled (using \code{label} attribute)
+\item rownames are a character column named \code{model}
 \item \code{gear} and \code{cyl} columns are considered as numerical factors
 \item \code{vs} and \code{am} columns are considered as character vector
 }

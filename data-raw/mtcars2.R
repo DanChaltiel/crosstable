@@ -1,10 +1,11 @@
 
 
-mtcars2 = mtcars %>% 
+mtcars21 = mtcars %>% 
     mutate(model=rownames(mtcars), 
            vs=ifelse(vs==0, "vshaped", "straight"),
-           am=ifelse(am==0, "auto", "manual"), .before=1) %>% 
-    mutate_at(c("cyl", "gear"), factor) %>% 
+           am=ifelse(am==0, "auto", "manual"), 
+           across(c("cyl", "gear"), factor),
+           .before=1) %>% 
     expss::apply_labels( #I also could have used `Hmisc::label`
         model="Model",
         mpg="Miles/(US) gallon",

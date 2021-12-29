@@ -2,7 +2,8 @@
 #'
 #' @description 
 #' Modified `mtcars` dataset so: 
-#'  + every column is labelled (using `label` attribute from `expss` package, compatible with `Hmisc` package) 
+#'  + every column is labelled (using `label` attribute) 
+#'  + rownames are a character column named `model`
 #'  + `gear` and `cyl` columns are considered as numerical factors
 #'  + `vs` and `am` columns are considered as character vector
 #' 
@@ -13,10 +14,14 @@
 #' @source \preformatted{
 #' library(dplyr)
 #' mtcars2 = mtcars \%>\% 
-#'     mutate(vs=ifelse(vs==0, "vshaped", "straight"),
-#'        am=ifelse(am==0, "auto", "manual")) \%>\% 
-#'     mutate_at(c("cyl", "gear"), factor) \%>\% 
-#'     expss::apply_labels( #I also could have used [import_labels] or even `Hmisc::label`
+#'     mutate(
+#'        model=rownames(mtcars), 
+#'        vs=ifelse(vs==0, "vshaped", "straight"),
+#'        am=ifelse(am==0, "auto", "manual"), 
+#'        across(c("cyl", "gear"), factor),
+#'        .before=1
+#'     ) \%>\% 
+#'     expss::apply_labels( #I also could have used [import_labels] or even `labelled::set_variable_labels()`
 #'         mpg="Miles/(US) gallon",
 #'         cyl="Number of cylinders",
 #'         disp="Displacement (cu.in.)",
@@ -43,7 +48,7 @@
 #'
 #' @description 
 #' Modified `iris` dataset so: 
-#'  + every column is labelled (using `label` attribute from `expss` package, compatible with `Hmisc` package) 
+#'  + every column is labelled (using `label` attribute) 
 #'  + `Species` column is considered as factor
 #' 
 #' See \code{\link{iris}} for more informations on the original "Edgar Anderson's Iris Data" dataset.
@@ -54,7 +59,7 @@
 #' library(dplyr)
 #' iris2 = iris \%>\% 
 #'     mutate_at("Species", factor) \%>\% 
-#'     expss::apply_labels( #I also could have used [import_labels] or even `Hmisc::label`
+#'     expss::apply_labels( #I also could have used [import_labels] or even `labelled::set_variable_labels()`
 #'         Species = "Specie",
 #'         Sepal.Length = "Length of Sepal",
 #'         Sepal.Width = "Width of Sepal",
