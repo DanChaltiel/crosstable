@@ -32,7 +32,8 @@ navbar:
 
 
 articles:
-- navbar: ~
+- title: Articles
+  navbar: ~
   contents:
   - crosstable
   - crosstable-selection
