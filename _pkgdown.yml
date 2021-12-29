@@ -8,26 +8,31 @@ home:
 
 
 template:
+  bootstrap: 5
   params:
     bootswatch: flatly
     ganalytics: UA-171705639-1
-    docsearch:
-      api_key: ad0c2995de46e5fb23bc55da3b13faf7
-      index_name: crosstable
   opengraph:
     image:
-      # src: man/figures/hex_sticker_v2.png
       src: apple-touch-icon-180x180.png
       alt: "Crosstable: easy dataset description"
     twitter:
       creator: "@DanChaltiel"
       card: summary
 
+ 
+navbar:
+  structure:
+    left:  [home, intro, articles, reference, news]
+    right: [docsearch, twitter, github]
+  components:
+    twitter:
+        icon: "fab fa-twitter fa-lg"
+        href: http://twitter.com/DanChaltiel
 
 
 articles:
-- title: Main verbs
-  navbar: ~
+- navbar: ~
   contents:
   - crosstable
   - crosstable-selection
@@ -35,12 +40,12 @@ articles:
   - crosstable-install
 
 
-
 reference:
 - title: "Main function"
 - contents: 
   - crosstable
   - crosstable_options
+  - crosstable_peek_options 
 - title: "Datasets"
   desc: "Standard datasets, modified to have labels, characters, and factors"
 - contents: 
@@ -54,6 +59,7 @@ reference:
   - get_label
   - remove_labels
   - apply_labels
+  - rename_dataframe_with_labels
 - title: "Summary functions"
   desc: "Summarise numeric variables"
 - contents: 
@@ -70,7 +76,7 @@ reference:
 - title: "Officer helpers"
   desc: "Used in cooperation with the `officer` package"
 - contents: 
-  - starts_with("body_add_")
+  - starts_with("body_")
   - docx_bookmarks2 
   - write_and_open 
   - generate_autofit_macro  
@@ -81,7 +87,7 @@ reference:
   - compact
   - plim
   - confint_numeric
-  - rename_dataframe_with_labels
+  - is.crosstable
   - peek 
 - title: "Effects and tests"
 - subtitle: "Default parameters"
@@ -96,15 +102,3 @@ reference:
 - contents:
   - display_test
   - starts_with("test_")
- 
- 
- 
-navbar:
-  structure:
-    left:  [home, intro, articles, reference, news]
-    right: [docsearch, twitter, github]
-  components:
-    twitter:
-        icon: "fab fa-twitter fa-lg"
-        href: http://twitter.com/DanChaltiel
-
