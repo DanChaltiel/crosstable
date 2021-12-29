@@ -4,11 +4,11 @@
 #'
 #' @param x the result of [crosstable()].
 #' @param keep_id whether to keep the `.id` column. 
-#' @param by_header a string to override the `by` header.
+#' @param by_header a string to override the header if `x` has only one `by` stratum.
 #' @param autofit whether to use [flextable::autofit()] on the table.
 #' @param compact whether to compact the table. If `TRUE`, see [compact.crosstable()] to see how to use `keep_id`.
 #' @param show_test_name in the `test` column, show the test name.
-#' @param fontsizes font sizes as a list of keys `c(body, subheaders, header)`. If set through arguments instead of options, all 3 names should be specified.
+#' @param fontsizes font sizes as a list of keys. Default to `list(body=11, subheaders=11, header=11)`. If set through arguments instead of options, all 3 names should be specified.
 #' @param padding_v vertical padding (body).
 #' @param remove_header_keys if `TRUE` and `x` has several `by` strata, header will only display values.
 #' @param header_show_n numeric vector telling on which depth the group size should be indicated in the header. You can control the pattern using option `crosstable_options`. See [crosstable_options()] for details about it. See example for use case.
@@ -113,16 +113,8 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
     }
     
     rtn = replace(x, is.na(x), "NA")
-    # if(!isFALSE(header_show_n)){
-    #     #TODO warning si length(header_show_n)>1
-    #     #TODO code inutile ???
-    #     print(header_show_n_pattern)
-    #     col_names_n = imap_chr(c(by_table), ~glue(header_show_n_pattern, .col=.y, .n=.x)) 
-    #     # rtn = rtn %>% rename_with(~ifelse(.x %in% names(col_names_n), col_names_n[.x], .x))
-    # }
     
     if(inherits(x, "compacted_crosstable")) {
-        # if(length(by_levels)>1) abort("Cannot compact a crosstable with multiple `by`.")
         rows = attr(x, "title_rows")
         title_rows = which(rows)+(0:(sum(rows)-1))
         padded_rows = 1:nrow(rtn)
@@ -191,6 +183,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
         
         
     } else if(length(by_levels)>1) {
+        if(!is.null(by_header)) warn("by_header is ignored if the crosstable has several `by` stratum.")
         header_mapping = tibble(col_keys = names(x)) %>% 
             separate(col_keys, into=paste0(".col_", 1:length(by_levels)), 
                      sep=" & ", remove=FALSE, fill="right") %>% 
@@ -198,8 +191,8 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
             mutate(across(starts_with(".col_"), ~ifelse(is.na(.x), col_keys, .x)))
         
         #TODO as_flextable(remove_header_keys) plutôt que logical, pattern avec key, label et value
-        #par exemple pattern_multiby="{.key}={.value}" et pattern_n="" ou "{value} (n={n})"
-        #TODO pattern_n sur toutes les lignes en multiby ?
+        #par exemple header_pattern="{.key}={.value} (n={n})"
+        #mais déjà header_show_n_pattern... ptet plutôt dans crosstable() ?
         if(remove_header_keys){ 
             header_mapping = header_mapping %>% 
                 mutate(across(starts_with(".col_"), ~str_remove(.x, "^.*=")))
