@@ -1,168 +1,186 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//index.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/404.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/apply_labels.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/articles/crosstable-install.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/as_flextable.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/articles/crosstable-report.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/as_gt.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/as_workbook.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/articles/crosstable.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/body_add_crosstable.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/body_add_crosstable_footnote.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/authors.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/body_add_crosstable_list.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/index.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/body_add_gg2.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/news/index.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/body_add_img2.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/apply_labels.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/body_add_legend.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/as_flextable.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/body_add_list.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/as_gt.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/body_add_normal.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/as_workbook.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/body_add_title.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/body_add_crosstable.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/body_replace_text_at_bkms.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/body_add_crosstable_footnote.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/compact.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/body_add_crosstable_list.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/confint_numeric.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/body_add_gg2.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/cross_summary.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/body_add_img2.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/crosstable-package.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/body_add_legend.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/crosstable.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/body_add_list.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/crosstable_effect_args.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/body_add_normal.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/crosstable_options.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/body_add_title.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/crosstable_peek_options.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/body_replace_text_at_bkms.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/crosstable_test_args.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/compact.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/display_effect.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/confint_numeric.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/display_test.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/cross_summary.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/docx_bookmarks2.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/crosstable-package.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/effect_summary.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/crosstable.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/effect_survival.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/crosstable_effect_args.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/effect_tabular.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/crosstable_options.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/format_fixed.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/crosstable_peek_options.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/generate_autofit_macro.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/crosstable_test_args.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/get_label.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/display_effect.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/import_labels.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/display_test.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/iris2.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/docx_bookmarks2.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/mtcars2.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/effect_summary.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/n.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/effect_survival.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/na.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/effect_tabular.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/peek.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/format_fixed.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/plim.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/generate_autofit_macro.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/reexports.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/get_label.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/remove_labels.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/import_labels.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/rename_dataframe_with_labels.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/set_label.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/iris2.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/summaryFunctions.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/is.crosstable.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/test_correlation_auto.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/mtcars2.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/test_summarize_auto.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/n.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/test_summarize_linear_contrasts.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/na.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/test_survival_logrank.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/peek.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/test_tabular_auto.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/plim.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//reference/write_and_open.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/reexports.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//articles/crosstable-install.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/remove_labels.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//articles/crosstable-report.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/rename_dataframe_with_labels.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//articles/crosstable-selection.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/set_label.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable//articles/crosstable.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/summaryFunctions.html</loc>
+  </url>
+  <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/test_correlation_auto.html</loc>
+  </url>
+  <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/test_summarize_auto.html</loc>
+  </url>
+  <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/test_summarize_linear_contrasts.html</loc>
+  </url>
+  <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/test_survival_logrank.html</loc>
+  </url>
+  <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/test_tabular_auto.html</loc>
+  </url>
+  <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/write_and_open.html</loc>
   </url>
 </urlset>
