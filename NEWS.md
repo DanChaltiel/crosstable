@@ -6,19 +6,21 @@
 
 * You can now use basic markdown formats in `body_add_normal()`: \*\*bold\*\*, \*italic\*, \_underlined\_, and `code`.
 * Add `keep_id` argument to `compact.crosstable()` and therefore to `as_flextable(compact=TRUE)`
+* The argument `as_flextable(header_show_n)` now also works if `by` has multiple stratum. 
+* You can use `crosstable_options(crosstable_header_show_n_pattern)` to change the glue pattern of these group sizes. The default is `{.col} (N={.n})`. 
 
 #### Improvements
 
 * You can now set normal style directly in `body_add_normal()` (it was only doable through options before).
 * Removed the "variable" header in compacted crosstables.
-* Dataset `mtcars2` is now a tibble with the extra variable "model" as its former rownames.
+* Dataset `mtcars2` is now a tibble, with its rownames as a column named "model".
 
 #### Bug fixes
 
-* Fixed a bug when a numeric variables are treated as categorical (failed if one had a `NA` value).
-* Fixed a bug so that `body_add_normal()` can be used without argument.
+* Fixed a bug when numeric variables are treated as categorical (failed if one had a `NA` value).
 * Fixed a bug that caused `body_add_normal()` to add an extra empty paragraph if there was a reference in the text.
-* Fixed a bug in effect when some groups were in table() but not in glm()
+* Fixed a bug so that `body_add_normal()` can be used without argument.
+* Fixed a bug in `effect=TRUE` when some groups were present in `table()` but not in `glm()` due to missing values.
 
 
 # crosstable 0.3.2 <sub><sup>(2021-11-27)</sup></sub>
