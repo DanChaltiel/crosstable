@@ -10,7 +10,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 resource_files:
-  - examples/vignette_officer.docx
+  - man/figures/vignette_officer.docx
   - man/figures/officer-example.png
 ---
 
