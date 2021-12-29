@@ -44,7 +44,7 @@
     
     <a class="navbar-brand me-2" href="index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2.9004</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -115,7 +115,7 @@
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="co"># Install specific commit or tagged version (for reproducibility purpose)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable@849ed04"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable@c4e7245"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable@v0.3.2"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Note that, for reproducibility purpose, an even better solution would be to use <a href="https://rstudio.github.io/renv/articles/renv.html" class="external-link"><code>renv</code></a>.</p>
 </div>
@@ -156,7 +156,8 @@
 <span class="va">ct2</span></code></pre></div>
 <p align="center">
 <img src="reference/figures/ct2_mod.png" alt="crosstable2"></p>
-<p>Here, the variables were selected using <code>tidyselect</code> helpers and the summary functions <code>mean</code> and <code>quantile</code> were specified, along with argument <code>probs</code> for the latter. Using <code>label=FALSE</code> allowed to see which variables were selected but it is best to keep the labels in the final table. In <code><a href="reference/as_flextable.html">as_flextable()</a></code>, the <code>compact=TRUE</code> option yields a longer output, which may be more suited in some contexts (for instance for publication), and <code>header_show_n=1:2</code> adds the group sizes for both rows of the header.</p>
+<p>Here, the variables were selected using <code>tidyselect</code> helpers and the summary functions <code>mean</code> and <code>quantile</code> were specified, along with argument <code>probs</code> for the latter. Using <code>label=FALSE</code> allowed to see which variables were selected but it is best to keep the labels in the final table.</p>
+<p>In <code><a href="reference/as_flextable.html">as_flextable()</a></code>, the <code>compact=TRUE</code> option yields a longer output, which may be more suited in some contexts (for instance for publication), and <code>header_show_n=1:2</code> adds the group sizes for both rows of the header.</p>
 </div>
 </div>
 <div class="section level2">
