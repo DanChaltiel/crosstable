@@ -37,7 +37,7 @@ install.packages("crosstable")
 devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 
 # Install specific commit or tagged version (for reproducibility purpose)
-devtools::install_github("DanChaltiel/crosstable@849ed04", build_vignettes=TRUE)
+devtools::install_github("DanChaltiel/crosstable@c4e7245", build_vignettes=TRUE)
 devtools::install_github("DanChaltiel/crosstable@v0.3.2", build_vignettes=TRUE)
 ```
 
@@ -112,10 +112,12 @@ Here, the variables were selected using `tidyselect` helpers and the
 summary functions `mean` and `quantile` were specified, along with
 argument `probs` for the latter. Using `label=FALSE` allowed to see
 which variables were selected but it is best to keep the labels in the
-final table. In `as_flextable()`, the `compact=TRUE` option yields a
-longer output, which may be more suited in some contexts (for instance
-for publication), and `header_show_n=1:2` adds the group sizes for both
-rows of the header.
+final table.
+
+In `as_flextable()`, the `compact=TRUE` option yields a longer output,
+which may be more suited in some contexts (for instance for
+publication), and `header_show_n=1:2` adds the group sizes for both rows
+of the header.
 
 ## Documentation
 
