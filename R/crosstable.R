@@ -462,7 +462,11 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
 # Utils -------------------------------------------------------------------
 
 
-#' @rdname crosstable
+#' Test if an object is a crosstable
+#' 
+#' @param x An object
+#'
+#' @return TRUE if the object inherits from the `crosstable` class.
 #' @export
 is.crosstable = function(x) {
     inherits(x, "crosstable")

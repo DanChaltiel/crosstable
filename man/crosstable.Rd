@@ -2,7 +2,6 @@
 % Please edit documentation in R/crosstable.R
 \name{crosstable}
 \alias{crosstable}
-\alias{is.crosstable}
 \title{Easily describe datasets}
 \usage{
 crosstable(
@@ -30,13 +29,11 @@ crosstable(
   margin = c("row", "column", "cell", "none", "all"),
   .vars
 )
-
-is.crosstable(x)
 }
 \arguments{
 \item{data}{A data.frame}
 
-\item{cols}{The variables to describe. Can be a character or name vector, a tidyselect helper, a (lambda) function that returns a logical, or a formula. See examples or \code{vignette("crosstable-selection")} for more details.}
+\item{cols}{<\code{\link[tidyselect:language]{tidy-select}}> Columns to describe. See examples or \code{vignette("crosstable-selection")} for more details.}
 
 \item{...}{Unused. All parameters after this one must be named.}
 
@@ -79,8 +76,6 @@ is.crosstable(x)
 \item{margin}{Deprecated in favor of \code{percent_pattern}. One of ["row", "column", "cell", "none", or "all"]. Default to \code{row}.}
 
 \item{.vars}{Deprecated in favor of \code{cols}.}
-
-\item{x}{a numeric vector to format}
 }
 \value{
 A \code{data.frame}/\code{tibble} of class \code{crosstable}
@@ -123,7 +118,7 @@ crosstable(mtcars2, my_date, by=vs, date_format="\%d/\%m/\%Y")
 
 #Survival data (using formula syntax)
 library(survival)
-crosstable(aml, Surv(time, status) ~ x,times=c(0,15,30,150), followup=TRUE)
+crosstable(aml, Surv(time, status) ~ x, times=c(0,15,30,150), followup=TRUE)
 
 #Patterns
 crosstable(mtcars2, vs, by=am, percent_digits=0, 
