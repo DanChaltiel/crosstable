@@ -61,7 +61,7 @@ For convenience, this dataset is already packed into {`crosstable`} as `?mtcars2
 
 ```{r dataset}
 library(crosstable)
-library(tidyverse)
+library(dplyr)
 mtcars_labels = read.table(header=TRUE, text="
   name  label
   model 'Model'
