@@ -9,6 +9,9 @@ vignette: >
   %\VignetteIndexEntry{Make automatic reports}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+resource_files:
+  - examples/vignette_officer.docx
+  - man/figures/officer-example.png
 ---
 
 ```{r init, include = FALSE}
@@ -22,68 +25,94 @@ library(crosstable)
 library(dplyr)
 ```
 
-## Embed crosstables in reports
 
-Crosstables can be inserted into automatics reports very easily.
+Being inserted in automatic reporting is the ultimate goal of crosstables.
 
 There are two cases to consider:
-+ You have a lot of text and a few tables? You should use [Rmarkdown](#create-reports-with-rmarkdown).
-+ You have a lot of tables and little text? You should use [officer](#create-reports-with-officer).
+
+ * You have a lot of tables and little text? You probably should use [officer](#create-reports-with-officer).
+ * You have a lot of text and a few tables? You probably should use [Rmarkdown](#create-reports-with-rmarkdown).
 
 ## Create reports with `officer`
 
 The real power of `crosstable` comes out when used with David Gohel's awesome package [`officer` ](https://davidgohel.github.io/officer/), which allows to automatically create MS Word documents. 
 
-Therefore, `crosstable` exports several helper functions to easily output a beautiful report:
+For instance, let's try to create a document like this: 
+![officer example](officer-example.png)
+
+You can also download this example [here](vignette_officer.docx).
+
+### Code
+
+This code will produce the example above.
+
+First, we create 3 crosstables using availables datasets, along with a ggplot. Then, we start a document (using `officer::read_docx()`), add some titles and paragraphs, incorporate our tables and our plot, along with legends, and add some page breaks. Note that the legends have a `bookmark` argument that can be referred to in the text for automatic numbering.
 
 ```{r officer, message=FALSE, warning=FALSE}
 library(officer)
 library(ggplot2)
-ct1=crosstable(iris, by=Species, test=TRUE)
-ct2=crosstable(mtcars2, c(mpg,cyl,disp), by=am, effect=TRUE, total="both", showNA="always")
-ct3=crosstable(esoph)
-options(crosstable_units="cm")
 
+ct1=crosstable(iris, by=Species, test=TRUE)
+ct2=crosstable(mtcars2, c(mpg,cyl,disp), by=am, effect=TRUE, 
+               total="both", showNA="always")
+ct3=crosstable(esoph)
+crosstable_options(
+  crosstable_fontsize_body=8,
+  crosstable_padding_v=0,
+  crosstable_units="cm"
+)
 my_plot = ggplot(data = iris ) +
   geom_point(mapping = aes(Sepal.Length, Petal.Length))
 
 doc = read_docx() %>% #default template
   body_add_title("Dataset iris (nrow={nrow(iris)})", 1) %>%
   body_add_title("Not compacted", 2) %>%
-  body_add_normal("Table \\@ref(table_autotest) is an example. However, automatic testing is bad and I should feel bad.") %>%
+  body_add_normal("Table \\@ref(table_autotest) is an example. However, automatic 
+                  testing is bad and I should feel bad.") %>%
   body_add_crosstable(ct1) %>%
   body_add_table_legend("Automatic testing is bad", bookmark="table_autotest") %>%
-  body_add_normal("Let's add a figure as well. You can see in Figure \\@ref(fig_iris) that sepal length is somehow correlated with petal length.") %>%
-  body_add_figure_legend("Relation between Petal length and Sepal length", bookmark="fig_iris") %>% 
+  body_add_normal("Let's add a figure as well. You can see in Figure \\@ref(fig_iris) 
+                  that sepal length is somehow correlated with petal length.") %>%
+  body_add_figure_legend("Relation between Petal length and Sepal length", 
+                         bookmark="fig_iris") %>% 
   body_add_gg2(my_plot, w=14, h=10, scale=1.5) %>% 
+  body_add_break() %>%
+  
   body_add_title("Compacted", 2) %>%
   body_add_normal("When compacting, you might want to remove the test names.") %>%
   body_add_crosstable(ct1, compact=TRUE, show_test_name=FALSE) %>%
   body_add_break() %>%
+  
   body_add_title("Dataset mtcars2", 1) %>%
-  body_add_normal("This dataset has {nrow(ct3)} rows and {x} columns.", x=ncol(ct3)) %>%
+  body_add_normal("This dataset has {nrow(ct3)} rows and {x} columns.", 
+                  x=ncol(ct3)) %>%
   body_add_normal("Look, there are labels!") %>%
   body_add_crosstable(ct2, compact=TRUE)
 ```
 
-See more useful functions at [https://danchaltiel.github.io/crosstable/reference/index.html#section-officer-helpers](https://danchaltiel.github.io/crosstable/reference/index.html#section-officer-helpers).
+For demonstration purposes, I tried to cover as many features as possible, so it contains multiple syntaxes for the same result. Of course, you should use whatever syntax you are most comfortable with.
+
+You can find other useful functions in the [references](https://danchaltiel.github.io/crosstable/reference/index.html#section-officer-helpers).
 
 ### Output
 
 ```{r save, include=FALSE}
-if(file.exists("../examples"))
+if(file.exists("../examples")){
   print(doc, "../examples/vignette_officer.docx")
+  print(doc, "../docs/articles/vignette_officer.docx")
+}
 ```
 
 To see the resulting Word document, use:
 
 ```{r print, eval=FALSE}
-write_and_open(doc)                   #save and open the docx file in a temporary file for a quick peek
-write_and_open(doc, "my_report.docx") #fails if it is already open
-print(doc, "my_report.docx")          #only save the docx file
+write_and_open(doc, "vignette_officer.docx")
 ```
 
-You can check out the result of the example above [here](https://github.com/DanChaltiel/crosstable/raw/main/examples/vignette_officer.docx).
+While you are still working on your code, you might want to omit the name so that you open the docx file in a temporary file for a quick peek (`write_and_open(doc)`). This will prevent the errors that happen when the file is already open. 
+
+
+You can also use `print(doc, "vignette_officer.docx")` if you don't want the file to open right away.
 
 ### Functions
 

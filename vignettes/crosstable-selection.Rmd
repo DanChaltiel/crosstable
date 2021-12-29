@@ -31,12 +31,12 @@ Please note that tables look better on a white background. If you are using RStu
 
 The simplest case is when you want to describe the whole table, as you need no further argument. If you really want to be more explicit, you also can use `tidyselect::everything()`. All `tidyselect` helpers are re-exported by `dplyr` so we only want to load this latter package.
 
-Here are the 10 first lines of the `mtcars2` dataset:
+Here are the 10 first lines of the `iris2` dataset:
 
 ```{r crosstable-bare}
 library(crosstable)
-ct = crosstable(mtcars2, everything())
-ct %>% head(10) %>% 
+ct = crosstable(iris2, everything()) #or simply `crosstable(iris2)`
+ct %>% 
   as_flextable(keep_id=TRUE)
 ```
 
@@ -69,7 +69,7 @@ crosstable(mtcars2, any_of(qsec), by=vs) %>%
 You can use negation to keep all but some columns:
 
 ```{r crosstable-negation}
-crosstable(mtcars2, c(-mpg, -cyl), by=vs) %>% head(8) %>% #-c(mpg, cyl) would also work
+crosstable(mtcars2, c(-mpg, -cyl, -1), by=vs) %>% head(8) %>% #-c(mpg, cyl, 1) would also work
   as_flextable(keep_id=TRUE)
 ```
 
@@ -79,7 +79,7 @@ crosstable(mtcars2, c(-mpg, -cyl), by=vs) %>% head(8) %>% #-c(mpg, cyl) would al
 This can be useful sometimes, for instance when you want to quickly describe the 3 first columns. 
 
 ```{r crosstable-indice}
-crosstable(mtcars2, 1:3, by=vs) %>% 
+crosstable(mtcars2, 2:4, by=vs) %>% 
   as_flextable(keep_id=TRUE)
 ```
 
@@ -118,7 +118,7 @@ Sometimes, you want to select columns if they meet a set of specifications, for 
 For instance, you might want to keep only `character` variables:
 
 ```{r crosstable-functions1}
-crosstable(mtcars2, where(is.character)) %>% 
+crosstable(mtcars2, c(where(is.character), where(is.factor), -model)) %>% 
   as_flextable(keep_id=TRUE)
 ```
 
