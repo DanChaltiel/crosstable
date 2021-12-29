@@ -342,9 +342,14 @@ diff_mean_student = function(x, by, conf_level = 0.95) {
 #' @author Dan Chaltiel, David Hajage
 #' @export
 #' @importFrom stats confint
-#' @importFrom survival coxph
 effect_survival_coxph = function(x, by, conf_level = 0.95) {
-  mod = tryCatch2(coxph(x~by))
+  
+  if(!requireNamespace("survival", quietly=TRUE)) {
+    abort(glue('Package "survival" is needed for survival data to be described using crosstable.'),
+          class="missing_package_error") # nocov
+  }
+  
+  mod = tryCatch2(survival::coxph(x~by))
   ci = suppressMessages(exp(confint(mod)))
   effect = exp(mod$coef)
   model_warn(mod, ci, type="coxph")
