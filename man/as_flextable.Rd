@@ -31,7 +31,7 @@
 
 \item{keep_id}{whether to keep the \code{.id} column.}
 
-\item{by_header}{a string to override the \code{by} header.}
+\item{by_header}{a string to override the header if \code{x} has only one \code{by} stratum.}
 
 \item{autofit}{whether to use \code{\link[flextable:autofit]{flextable::autofit()}} on the table.}
 
@@ -39,7 +39,7 @@
 
 \item{show_test_name}{in the \code{test} column, show the test name.}
 
-\item{fontsizes}{font sizes as a list of keys \code{c(body, subheaders, header)}. If set through arguments instead of options, all 3 names should be specified.}
+\item{fontsizes}{font sizes as a list of keys. Default to \code{list(body=11, subheaders=11, header=11)}. If set through arguments instead of options, all 3 names should be specified.}
 
 \item{padding_v}{vertical padding (body).}
 
