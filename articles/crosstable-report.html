@@ -254,16 +254,16 @@ In this case, you have to manually update the references inside MS Word: select 
 <span id="cb4-7"><a href="#cb4-7"></a><span class="bn">```{r setup, include=FALSE}</span></span>
 <span id="cb4-8"><a href="#cb4-8"></a><span class="bn">library(crosstable)</span></span>
 <span id="cb4-9"><a href="#cb4-9"></a><span class="bn">library(flextable)</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="bn">library(dplyr) #pour le pipe %&gt;% </span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="bn">```</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a></span>
-<span id="cb4-13"><a href="#cb4-13"></a>Table iris is given in Table \@ref(tab:irisTable).</span>
-<span id="cb4-14"><a href="#cb4-14"></a></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="bn">```{r description, echo=FALSE, results='asis'}</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="bn">cat("&lt;caption&gt; (\\#tab:irisTable) Table Iris &lt;/caption&gt; \n\r ")</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="bn">crosstable(iris, Sepal.Length, Sepal.Width, by=Species, test = TRUE, total="column") %&gt;% as_flextable</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="bn">```</span></span></code></pre></div>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="bn">```</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a></span>
+<span id="cb4-12"><a href="#cb4-12"></a>Table iris is given in Table \@ref(tab:irisTable).</span>
+<span id="cb4-13"><a href="#cb4-13"></a></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="bn">```{r description, echo=FALSE, results='asis'}</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="bn">cat("&lt;caption&gt; (\\#tab:irisTable) Table Iris &lt;/caption&gt; \n\r ")</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="bn">crosstable(iris, Sepal.Length, Sepal.Width, by=Species, test = TRUE, total="column") %&gt;% as_flextable</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="bn">```</span></span></code></pre></div>
 <p>You can example files here: <a href="../examples/vignette_markdown.Rmd">vignette_markdown.Rmd</a> and <a href="../examples/vignette_markdown.docx">vignette_markdown.docx</a>.</p>
+<p>I have to admit that I don’t use RMarkdown a lot with <code>crosstable</code>, so this feature might not be as maintained as others.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
