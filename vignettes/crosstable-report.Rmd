@@ -99,7 +99,7 @@ You can find other useful functions in the [references](https://danchaltiel.gith
 ```{r save, include=FALSE}
 if(file.exists("../examples")){
   print(doc, "../examples/vignette_officer.docx")
-  print(doc, "../docs/articles/vignette_officer.docx")
+  # print(doc, "../docs/articles/vignette_officer.docx")
 }
 ```
 
