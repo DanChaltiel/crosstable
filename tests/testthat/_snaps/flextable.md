@@ -1,8 +1,7 @@
 # flextable header
 
     Code
-      ct = crosstable(mtcars3, cyl, by = c(am, vs))
-      ct %>% af() %>% {
+      ct2 %>% as_flextable() %>% {
         .$header$dataset
       }
     Output
@@ -13,7 +12,7 @@
       1           vs=vshaped             vs=vshaped           vs=NA             vs=NA
       2              am=auto              am=manual         am=auto         am=manual
     Code
-      ct %>% af(remove_header_keys = T) %>% {
+      ct2 %>% as_flextable(remove_header_keys = T) %>% {
         .$header$dataset
       }
     Output
@@ -24,9 +23,14 @@
       1              vshaped                vshaped              NA                NA
       2                 auto                 manual            auto            manual
     Code
-      ct %>% af(header_show_n = TRUE) %>% {
+      ct2 %>% as_flextable(header_show_n = TRUE) %>% {
         .$header$dataset
       }
+    Message <rlang_message>
+      Note: Using an external vector in selections is ambiguous.
+      i Use `all_of(.c)` instead of `.c` to silence this message.
+      i See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
+      This message is displayed once per session.
     Output
         label variable am=auto & vs=straight am=manual & vs=straight
       1 label variable           vs=straight             vs=straight
@@ -35,7 +39,7 @@
       1           vs=vshaped             vs=vshaped           vs=NA             vs=NA
       2        am=auto (n=9)        am=manual (n=6)   am=auto (n=8)   am=manual (n=0)
     Code
-      ct %>% af(header_show_n = 1:2) %>% {
+      ct2 %>% as_flextable(header_show_n = 1:2) %>% {
         .$header$dataset
       }
     Output
