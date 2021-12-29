@@ -1,10 +1,14 @@
 
-#' @importFrom survival is.Surv
 #' @importFrom dplyr mutate select everything mutate_all .data
 #' @keywords internal
 #' @noRd
 cross_survival=function(data_x, data_y, showNA, total, label, surv_digits, times, followup, 
                         margin, test, test_args, effect, effect_args){
+    
+    if(!requireNamespace("survival", quietly=TRUE)) {
+        abort(glue('Package "survival" is needed for survival data to be described using crosstable.'),
+              class="missing_package_error") # nocov
+    }
     
     stopifnot(ncol(data_x)==1 && (is.null(data_y) || ncol(data_y)==1))
     stopifnot(is.Surv(data_x[[1]]))
@@ -39,18 +43,17 @@ cross_survival=function(data_x, data_y, showNA, total, label, surv_digits, times
 
 
 #' @importFrom dplyr tibble summarise mutate pull select everything mutate_all .data
-#' @importFrom survival is.Surv survfit
 #' @importFrom glue glue
 #' @keywords internal
 #' @noRd
 summarize_survival_single = function(surv, times, digits, followup) {
     stopifnot(is.Surv(surv))
-    fit = survfit(surv~1)
+    fit = survival::survfit(surv~1)
     
     if (followup) {
         surv_fu = surv
         surv_fu[,2] = 1-surv_fu[,2]
-        fit_fu = survfit(surv_fu~1)
+        fit_fu = survival::survfit(surv_fu~1)
     }
     
     if (is.null(times)) {
@@ -85,7 +88,6 @@ summarize_survival_single = function(surv, times, digits, followup) {
 #' @importFrom rlang set_names :=
 #' @importFrom checkmate assert
 #' @importFrom glue glue
-#' @importFrom survival survfit
 #' @keywords internal
 #' @noRd
 summarize_survival_by = function(surv, by, times, followup, total, digits, showNA,
@@ -112,7 +114,7 @@ summarize_survival_by = function(surv, by, times, followup, total, digits, showN
         return(rtn)
     }
     
-    fit = survfit(surv~by2)
+    fit = survival::survfit(surv~by2)
     if(is.null(times)) times = sort(fit$time)
     x = summary(fit, times=times, extend=TRUE)
     assert(length(unique(x$strata))>1) #should not happen since by2!=NULL
@@ -132,7 +134,7 @@ summarize_survival_by = function(surv, by, times, followup, total, digits, showN
     if (followup) {
         surv_fu = surv
         surv_fu[,2] = 1-surv_fu[,2]
-        fit_fu = survfit(surv_fu~by2)
+        fit_fu = survival::survfit(surv_fu~by2)
         mediansuiv = round(summary(fit_fu)$table[, "median"], digits = digits)
         suiv=tibble(time=surv[,1], status=surv[,2], by=by2) %>% 
             group_by(by) %>% 

@@ -241,9 +241,18 @@ is.character.or.factor = function(x) {
 #' @author David Hajage
 #' @keywords internal
 #' @noRd
-#' @importFrom  survival is.Surv
 is.numeric.and.not.surv = function(x) {
     is.numeric(x) & !is.Surv(x)
+}
+
+#' test
+#'
+#' @param x x
+#' 
+#' @keywords internal
+#' @noRd
+is.Surv = function(x) {
+    inherits(x, "Surv")
 }
 
 #' test
@@ -365,7 +374,6 @@ confint_proportion = function(p, n,
     a = 1-level
     method = match.arg(method)
     z = qnorm(1-a/2)
-    # browser()
     if(method=="wilson"){
         z2 = z * z
         p1 = p + 0.5 * z2/n

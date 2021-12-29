@@ -1,6 +1,5 @@
 
 #' @importFrom purrr imap_dfr map_dfr imap_chr
-#' @importFrom survival is.Surv
 #' @importFrom glue glue glue_data glue_collapse
 #' @keywords internal
 #' @noRd

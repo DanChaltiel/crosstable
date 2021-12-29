@@ -30,7 +30,6 @@ Imports:
     rlang (>= 0.4.7),
     stats,
     stringr,
-    survival,
     tibble,
     tidyr,
     tidyselect
@@ -50,6 +49,7 @@ Suggests:
     rmarkdown,
     sloop,
     stringi,
+    survival,
     systemfonts,
     testthat,
     withr,
