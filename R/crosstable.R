@@ -8,7 +8,7 @@ utils::globalVariables(c(".", "x", "y", "n", "where", "ct", "col_keys", "p_col",
 #' Can be formatted as an HTML table using [as_flextable()].
 #' 
 #' @param data A data.frame
-#' @param cols The variables to describe. Can be a character or name vector, a tidyselect helper, a (lambda) function that returns a logical, or a formula. See examples or `vignette("crosstable-selection")` for more details.
+#' @param cols <[`tidy-select`][tidyselect::language]> Columns to describe. See examples or `vignette("crosstable-selection")` for more details.
 #' @param ... Unused. All parameters after this one must be named.
 #' @param by The variable to group on. Character or name.
 #' @param funs Functions to apply to numeric variables. Default to [cross_summary()].
@@ -79,7 +79,7 @@ utils::globalVariables(c(".", "x", "y", "n", "where", "ct", "col_keys", "p_col",
 #' 
 #' #Survival data (using formula syntax)
 #' library(survival)
-#' crosstable(aml, Surv(time, status) ~ x,times=c(0,15,30,150), followup=TRUE)
+#' crosstable(aml, Surv(time, status) ~ x, times=c(0,15,30,150), followup=TRUE)
 #' 
 #' #Patterns
 #' crosstable(mtcars2, vs, by=am, percent_digits=0, 
