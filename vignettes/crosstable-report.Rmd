@@ -99,6 +99,7 @@ You can find other useful functions in the [references](https://danchaltiel.gith
 ```{r save, include=FALSE}
 if(file.exists("../examples")){
   print(doc, "../examples/vignette_officer.docx")
+  print(doc, "../man/figures/vignette_officer.docx")
   # print(doc, "../docs/articles/vignette_officer.docx")
 }
 ```
@@ -190,6 +191,7 @@ In this case, you have to manually update the references inside MS Word: select 
 <!-- https://stackoverflow.com/questions/53226493/add-markdown-code-chunk-to-r-markdown-document#comment104859956_53226493 -->
 Knitting (`knitr::knit()` or via **RStudio**) this `Rmd` code also creates a MS-Word file. Here, you can use the power of `bookdown` to generate the automatic numbering of the tables.
 
+
 ````markdown
 
 ---
@@ -200,7 +202,6 @@ output: bookdown::word_document2
 `r ''````{r setup, include=FALSE}
 library(crosstable)
 library(flextable)
-library(dplyr) #pour le pipe %>% 
 ```
 
 Table iris is given in Table \@ref(tab:irisTable).
@@ -214,3 +215,4 @@ crosstable(iris, Sepal.Length, Sepal.Width, by=Species, test = TRUE, total="colu
 
 You can example files here: [vignette_markdown.Rmd](../examples/vignette_markdown.Rmd) and [vignette_markdown.docx](../examples/vignette_markdown.docx).
 
+I have to admit that I don't use RMarkdown a lot with `crosstable`, so this feature might not be as maintained as others.
