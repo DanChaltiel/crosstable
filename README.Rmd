@@ -111,6 +111,8 @@ ct2
 
 ```{r, include=FALSE}
 flextable::save_as_image(ct2, "man/figures/ct2.png")
+file.remove("man/figures/README-usage1-1.png")
+file.remove("man/figures/README-usage2-1.png")
 ```
 
 <p align="center">
