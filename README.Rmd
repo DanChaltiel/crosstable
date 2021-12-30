@@ -16,6 +16,10 @@ knitr::opts_chunk$set(
   out.width="100%"
 )
 library(crosstable)
+crosstable_options(
+  crosstable_fontsize_body = 8,
+  crosstable_padding_v = 0
+)
 # options(Encoding="UTF-8")
 # library(officer)
 # library(flextable)
