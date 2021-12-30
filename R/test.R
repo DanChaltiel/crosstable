@@ -202,10 +202,10 @@ test_correlation_auto = function(x, by, method) {
 #' @return a list with two components: p.value and method
 #' @author Dan Chaltiel, David Hajage
 #' @export
-#' @importFrom survival survdiff
 #' @importFrom stats pchisq
 test_survival_logrank = function(formula) {
-  survdiff.obj = survdiff(formula)
+  assert_survival_is_installed()
+  survdiff.obj = survival::survdiff(formula)
   p = 1-pchisq(survdiff.obj$chisq, length(survdiff.obj$n)-1)
   list(p.value = p, method = "Logrank test")
 }

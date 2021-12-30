@@ -343,11 +343,7 @@ diff_mean_student = function(x, by, conf_level = 0.95) {
 #' @export
 #' @importFrom stats confint
 effect_survival_coxph = function(x, by, conf_level = 0.95) {
-  
-  if(!requireNamespace("survival", quietly=TRUE)) {
-    abort(glue('Package "survival" is needed for survival data to be described using crosstable.'),
-          class="missing_package_error") # nocov
-  }
+  assert_survival_is_installed()
   
   mod = tryCatch2(survival::coxph(x~by))
   ci = suppressMessages(exp(confint(mod)))

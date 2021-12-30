@@ -4,11 +4,7 @@
 #' @noRd
 cross_survival=function(data_x, data_y, showNA, total, label, surv_digits, times, followup, 
                         margin, test, test_args, effect, effect_args){
-    
-    if(!requireNamespace("survival", quietly=TRUE)) {
-        abort(glue('Package "survival" is needed for survival data to be described using crosstable.'),
-              class="missing_package_error") # nocov
-    }
+    assert_survival_is_installed()
     
     stopifnot(ncol(data_x)==1 && (is.null(data_y) || ncol(data_y)==1))
     stopifnot(is.Surv(data_x[[1]]))
