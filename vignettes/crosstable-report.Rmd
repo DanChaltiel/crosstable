@@ -38,9 +38,9 @@ There are two cases to consider:
 The real power of `crosstable` comes out when used with David Gohel's awesome package [`officer` ](https://davidgohel.github.io/officer/), which allows to automatically create MS Word documents. 
 
 For instance, let's try to create a document like this: 
-![officer example](officer-example.png)
+![officer example](man/figures/officer-example.png)
 
-You can also download this example [here](vignette_officer.docx).
+You can also download this example [here](man/figures/vignette_officer.docx).
 
 ### Code
 
