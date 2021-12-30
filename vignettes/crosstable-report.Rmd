@@ -10,7 +10,6 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 resource_files:
-  - man/figures/vignette_officer.docx
   - man/figures/officer-example.png
 ---
 
@@ -38,9 +37,9 @@ There are two cases to consider:
 The real power of `crosstable` comes out when used with David Gohel's awesome package [`officer` ](https://davidgohel.github.io/officer/), which allows to automatically create MS Word documents. 
 
 For instance, let's try to create a document like this: 
-![officer example](man/figures/officer-example.png)
+![officer example](officer-example.png)
 
-You can also download this example [here](man/figures/vignette_officer.docx).
+You can also download this example [here](https://github.com/DanChaltiel/crosstable/raw/main/examples/vignette_officer.docx).
 
 ### Code
 
