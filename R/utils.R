@@ -91,6 +91,17 @@ assert_is_installed = function(pkg, fun) {
     invisible(pkg)
 }
 
+#' @importFrom glue glue
+#' @importFrom rlang abort
+#' @keywords internal
+#' @noRd
+assert_survival_is_installed = function() {
+    if(!requireNamespace("survival", quietly=TRUE)) {
+        abort(glue('Package "survival" is needed for survival data to be described using crosstable.'),
+              class="missing_package_error") # nocov
+    }
+}
+
 
 
 # Arguments name-check ----------------------------------------------------
