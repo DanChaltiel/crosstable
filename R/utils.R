@@ -123,6 +123,26 @@ check_dots_unnamed = function(){
     }
 }
 
+#' @importFrom rlang abort
+#' @importFrom glue glue glue_collapse
+#' @source mimick ellipsis::check_dots_empty
+#' @keywords internal
+#' @noRd
+check_dots_empty = function(){
+    dots = substitute(list(...), env=parent.frame())
+    if(length(eval(dots))>0){
+        print(dots)
+        caller = as.character(sys.call(-1)[1])
+        dotnames = names(dots)
+        named = dotnames[dotnames!=""] %>% glue_collapse("', '", last="', and '")
+        abort(c(glue("Components of `...` should be empty in {caller}()."),
+                "Did you misspecify or forget the name of an argument?",
+                i=glue("Named components: '{named}'")), #TODO aussi unnamed
+              class="rlib_error_dots_nonempty")
+    }
+}
+
+#' Get all unnamed arguments from the parent function
 
 # Function handling --------------------------------------------------------
 

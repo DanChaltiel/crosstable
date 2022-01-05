@@ -368,7 +368,7 @@ body_add_flextable_list = body_add_crosstable_list
 #' write_and_open(x)
 #' #If asked to update fields, press "Yes". Otherwise press Ctrl+A then F9 twice for the references 
 #' #to appear.
-body_add_table_legend = function(doc, legend, bookmark=NULL, 
+body_add_table_legend = function(doc, legend, ..., bookmark=NULL, 
                                  legend_style=getOption('crosstable_style_legend', 
                                                         doc$default_styles$paragraph), 
                                  style=deprecated(), 
@@ -378,6 +378,7 @@ body_add_table_legend = function(doc, legend, bookmark=NULL,
                                  seqfield="SEQ Table \\* Arabic", 
                                  par_before=FALSE,
                                  legacy=FALSE){
+    check_dots_empty()
     if(missing(par_before)) par_before = getOption("crosstable_table_legend_par_before", FALSE)
     if(missing(legend_prefix)) legend_prefix = getOption("crosstable_table_legend_prefix", NULL)
     if(par_before){
@@ -391,7 +392,7 @@ body_add_table_legend = function(doc, legend, bookmark=NULL,
 
 #' @rdname body_add_legend
 #' @export
-body_add_figure_legend = function(doc, legend, bookmark=NULL, 
+body_add_figure_legend = function(doc, legend, ..., bookmark=NULL, 
                                   legend_style=getOption('crosstable_style_legend', 
                                                          doc$default_styles$paragraph), 
                                   style=deprecated(), 
@@ -401,6 +402,7 @@ body_add_figure_legend = function(doc, legend, bookmark=NULL,
                                   seqfield="SEQ Figure \\* Arabic", 
                                   par_after=FALSE,
                                   legacy=FALSE){
+    check_dots_empty()
     if(missing(par_after)) par_after = getOption("crosstable_figure_legend_par_after", FALSE)
     if(missing(legend_prefix)) legend_prefix = getOption("crosstable_figure_legend_prefix", NULL)
     doc = body_add_legend(doc=doc, legend=legend, legend_name=legend_name,
