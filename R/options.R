@@ -17,6 +17,7 @@
 #' @param crosstable_format_legend_name how the legend name ("Table", "Figure") is formated. Default to `officer::fp_text_lite(bold=TRUE)`
 #' @param crosstable_table_legend_par_before whether to add an empty paragraph before all table legends
 #' @param crosstable_figure_legend_par_after whether to add an empty paragraph after all figure legends
+#' @param crosstable_table_legend_prefix,crosstable_figure_legend_prefix a prefix before each legend, after the numbering
 #' @param crosstable_header_show_n_pattern glue pattern used when showing N in the header of flextables. `.col` is the name of the column and `.n` the size of the group. Default to `{.col} (N={.n})`.
 #' 
 #' @param crosstable_total For setting [crosstable()] arguments globally. 
@@ -70,7 +71,9 @@ crosstable_options = function(reset=FALSE,
                               crosstable_font_code, 
                               crosstable_format_legend_name,
                               crosstable_table_legend_par_before, 
+                              crosstable_table_legend_prefix, 
                               crosstable_figure_legend_par_after, 
+                              crosstable_figure_legend_prefix,
                               crosstable_header_show_n_pattern, 
                               #crosstable()
                               crosstable_total, crosstable_percent_pattern, crosstable_percent_digits, crosstable_num_digits, crosstable_showNA, crosstable_label, crosstable_funs, crosstable_funs_arg, crosstable_cor_method, crosstable_unique_numeric, crosstable_date_format, crosstable_times, crosstable_followup, crosstable_test_arg, crosstable_effect_args, 

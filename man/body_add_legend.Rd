@@ -9,9 +9,11 @@
 body_add_table_legend(
   doc,
   legend,
+  ...,
   bookmark = NULL,
   legend_style = getOption("crosstable_style_legend", doc$default_styles$paragraph),
   style = deprecated(),
+  legend_prefix = NULL,
   name_format = NULL,
   legend_name = "Table",
   seqfield = "SEQ Table \\\\* Arabic",
@@ -22,9 +24,11 @@ body_add_table_legend(
 body_add_figure_legend(
   doc,
   legend,
+  ...,
   bookmark = NULL,
   legend_style = getOption("crosstable_style_legend", doc$default_styles$paragraph),
   style = deprecated(),
+  legend_prefix = NULL,
   name_format = NULL,
   legend_name = "Figure",
   seqfield = "SEQ Figure \\\\* Arabic",
@@ -42,6 +46,8 @@ body_add_figure_legend(
 \item{legend_style}{style of of the whole legend. May depend on the docx template. However, if \code{name_format} is provided with a specific \code{font.size}, this size will apply to the whole legend for consistency.}
 
 \item{style}{deprecated in favor of \code{name_format}.}
+
+\item{legend_prefix}{a prefix that comes before the legend, after the numbering}
 
 \item{name_format}{format of the legend's LHS (legend_name + numbering) using \code{\link[officer:fp_text]{officer::fp_text_lite()}} or \code{\link[officer:fp_text]{officer::fp_text()}}. Default to \code{fp_text_lite(bold=TRUE)} in addition to the format defined in \code{legend_style}. Note that the reference to the bookmark will have the same specific format in the text.}
 

@@ -8,6 +8,7 @@
 * Add `keep_id` argument to `compact.crosstable()` and therefore to `as_flextable(compact=TRUE)`
 * The argument `as_flextable(header_show_n)` now also works if `by` has multiple stratum. 
 * You can use `crosstable_options(crosstable_header_show_n_pattern)` to change the glue pattern of these group sizes. The default is `{.col} (N={.n})`. 
+* Functions `body_add_table_legend()` and `body_add_figure_legend()` earn an argument `legend_prefix` (also in `crosstable_options()`). 
 
 #### Improvements
 

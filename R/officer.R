@@ -319,6 +319,7 @@ body_add_flextable_list = body_add_crosstable_list
 #' @param doc a docx object
 #' @param legend the table legend. As with [glue::glue()], expressions enclosed by braces will be evaluated as R code.
 #' @param bookmark the id of the bookmark. This is the id that should then be called in [body_add_normal()] using the `"\\@ref(id)"` syntax.
+#' @param legend_prefix a prefix that comes before the legend, after the numbering
 #' @param legend_style style of of the whole legend. May depend on the docx template. However, if `name_format` is provided with a specific `font.size`, this size will apply to the whole legend for consistency.
 #' @param name_format format of the legend's LHS (legend_name + numbering) using [officer::fp_text_lite()] or [officer::fp_text()]. Default to `fp_text_lite(bold=TRUE)` in addition to the format defined in `legend_style`. Note that the reference to the bookmark will have the same specific format in the text.
 #' @param legend_name name before the numbering. Default to either "Table" or "Figure".
@@ -371,17 +372,19 @@ body_add_table_legend = function(doc, legend, bookmark=NULL,
                                  legend_style=getOption('crosstable_style_legend', 
                                                         doc$default_styles$paragraph), 
                                  style=deprecated(), 
+                                 legend_prefix=NULL,
                                  name_format=NULL,
                                  legend_name="Table", 
                                  seqfield="SEQ Table \\* Arabic", 
                                  par_before=FALSE,
                                  legacy=FALSE){
     if(missing(par_before)) par_before = getOption("crosstable_table_legend_par_before", FALSE)
+    if(missing(legend_prefix)) legend_prefix = getOption("crosstable_table_legend_prefix", NULL)
     if(par_before){
         doc=body_add_normal(doc, "")
     }
     body_add_legend(doc=doc, legend=legend, legend_name=legend_name,
-                    bookmark=bookmark, legend_style=legend_style,
+                    bookmark=bookmark, legend_prefix=legend_prefix, legend_style=legend_style,
                     name_format=name_format, seqfield=seqfield, 
                     style=style, legacy=legacy)
 }
@@ -392,14 +395,16 @@ body_add_figure_legend = function(doc, legend, bookmark=NULL,
                                   legend_style=getOption('crosstable_style_legend', 
                                                          doc$default_styles$paragraph), 
                                   style=deprecated(), 
+                                  legend_prefix=NULL,
                                   name_format=NULL,
                                   legend_name="Figure", 
                                   seqfield="SEQ Figure \\* Arabic", 
                                   par_after=FALSE,
                                   legacy=FALSE){
     if(missing(par_after)) par_after = getOption("crosstable_figure_legend_par_after", FALSE)
+    if(missing(legend_prefix)) legend_prefix = getOption("crosstable_figure_legend_prefix", NULL)
     doc = body_add_legend(doc=doc, legend=legend, legend_name=legend_name,
-                    bookmark=bookmark, legend_style=legend_style,
+                    bookmark=bookmark, legend_prefix=legend_prefix, legend_style=legend_style,
                     name_format=name_format, seqfield=seqfield, 
                     style=style, legacy=legacy)
     if(par_after){
@@ -414,7 +419,7 @@ body_add_figure_legend = function(doc, legend, bookmark=NULL,
 #' @keywords internal
 #' @noRd
 body_add_legend = function(doc, legend, legend_name, bookmark, 
-                           legend_style, name_format, seqfield, 
+                           legend_prefix, legend_style, name_format, seqfield, 
                            style, legacy){
     
     # nocov start
@@ -440,7 +445,8 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
                        details="Therefore, its value has been ignored. Use `legacy=TRUE` to override.")
     }
     # nocov end
-
+    
+    legend = paste0(legend_prefix, legend)
     fp_text2 = officer::fp_text_lite #v0.4+
     if(is.null(name_format)){
         name_format = getOption('crosstable_format_legend_name', fp_text2(bold=TRUE))

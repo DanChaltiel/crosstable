@@ -17,7 +17,9 @@ crosstable_options(
   crosstable_font_code,
   crosstable_format_legend_name,
   crosstable_table_legend_par_before,
+  crosstable_table_legend_prefix,
   crosstable_figure_legend_par_after,
+  crosstable_figure_legend_prefix,
   crosstable_header_show_n_pattern,
   crosstable_total,
   crosstable_percent_pattern,
@@ -80,6 +82,8 @@ crosstable_options(
 \item{crosstable_format_legend_name}{how the legend name ("Table", "Figure") is formated. Default to \code{officer::fp_text_lite(bold=TRUE)}}
 
 \item{crosstable_table_legend_par_before}{whether to add an empty paragraph before all table legends}
+
+\item{crosstable_table_legend_prefix, crosstable_figure_legend_prefix}{a prefix before each legend, after the numbering}
 
 \item{crosstable_figure_legend_par_after}{whether to add an empty paragraph after all figure legends}
 
