@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2.9010</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,7 +87,9 @@
   <span class="va">crosstable_font_code</span>,
   <span class="va">crosstable_format_legend_name</span>,
   <span class="va">crosstable_table_legend_par_before</span>,
+  <span class="va">crosstable_table_legend_prefix</span>,
   <span class="va">crosstable_figure_legend_par_after</span>,
+  <span class="va">crosstable_figure_legend_prefix</span>,
   <span class="va">crosstable_header_show_n_pattern</span>,
   <span class="va">crosstable_total</span>,
   <span class="va">crosstable_percent_pattern</span>,
@@ -153,6 +155,8 @@
 <dd><p>how the legend name ("Table", "Figure") is formated. Default to <code>officer::fp_text_lite(bold=TRUE)</code></p></dd>
 <dt>crosstable_table_legend_par_before</dt>
 <dd><p>whether to add an empty paragraph before all table legends</p></dd>
+<dt>crosstable_table_legend_prefix, crosstable_figure_legend_prefix</dt>
+<dd><p>a prefix before each legend, after the numbering</p></dd>
 <dt>crosstable_figure_legend_par_after</dt>
 <dd><p>whether to add an empty paragraph after all figure legends</p></dd>
 <dt>crosstable_header_show_n_pattern</dt>
