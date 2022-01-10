@@ -26,7 +26,7 @@
       ct2 %>% as_flextable(header_show_n = TRUE) %>% {
         .$header$dataset
       }
-    Message <rlang_message>
+    Message <message>
       Note: Using an external vector in selections is ambiguous.
       i Use `all_of(.c)` instead of `.c` to silence this message.
       i See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
