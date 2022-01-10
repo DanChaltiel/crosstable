@@ -327,6 +327,7 @@ body_add_flextable_list = body_add_crosstable_list
 #' @param seqfield Keep default. Otherwise, you may figure it out doing this: in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.
 #' @param par_before,par_after should an empty paragraph be inserted before/after the legend?
 #' @param legacy use the old version of this function, if you cannot update `{officer}` to v0.4+
+#' @param ... unused
 #' 
 #' @return The docx object `doc`
 #'

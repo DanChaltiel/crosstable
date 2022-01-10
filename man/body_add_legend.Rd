@@ -41,6 +41,8 @@ body_add_figure_legend(
 
 \item{legend}{the table legend. As with \code{\link[glue:glue]{glue::glue()}}, expressions enclosed by braces will be evaluated as R code.}
 
+\item{...}{unused}
+
 \item{bookmark}{the id of the bookmark. This is the id that should then be called in \code{\link[=body_add_normal]{body_add_normal()}} using the \code{"\\\\@ref(id)"} syntax.}
 
 \item{legend_style}{style of of the whole legend. May depend on the docx template. However, if \code{name_format} is provided with a specific \code{font.size}, this size will apply to the whole legend for consistency.}
