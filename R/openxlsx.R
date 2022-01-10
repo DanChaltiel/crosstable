@@ -78,7 +78,7 @@ addToWorksheet = function(wb, ct, sheetname, show_test_name = TRUE,
     has_test = attr(ct, "has_test")
     has_label = attr(ct, "has_label")
     by_label = attr(ct, "by_label")
-    by_levels = attr(ct, "by_levels") %>% lapply(replace_na, replace = "NA") %>% unlist()
+    by_levels = attr(ct, "by_levels") %>% map(replace_na, replace="NA") %>% unlist()
     multiple_by = length(attr(ct, "by_levels"))>1
     
     by = attr(ct, "by")
