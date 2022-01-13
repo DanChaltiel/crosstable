@@ -1,5 +1,5 @@
 
-Sys.setenv(LANG = "en")
+Sys.setenv(LANGUAGE = "en")
 Sys.setenv(TZ='Europe/Paris')
 
 options(stringsAsFactors = FALSE)
