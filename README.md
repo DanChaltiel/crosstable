@@ -37,7 +37,7 @@ install.packages("crosstable")
 devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 
 # Install specific commit or tagged version (for reproducibility purpose)
-devtools::install_github("DanChaltiel/crosstable@c4e7245", build_vignettes=TRUE)
+devtools::install_github("DanChaltiel/crosstable@07110f2", build_vignettes=TRUE)
 devtools::install_github("DanChaltiel/crosstable@v0.3.2", build_vignettes=TRUE)
 ```
 
@@ -52,10 +52,10 @@ website](https://danchaltiel.github.io/crosstable/) for more.
 
 #### Example \#1
 
-> Dear crosstable, please describe columns `disp` and `vs` depending on
-> the levels of column `am`, with totals in both rows and columns, and
-> with proportions formatted with group size, percent on row and percent
-> on column, with no decimals.
+> Dear crosstable, using the `mtcars2` dataset, please describe columns
+> `disp` and `vs` depending on the levels of column `am`, with totals in
+> both rows and columns, and with proportions formatted with group size,
+> percent on row and percent on column, with no decimals.
 
 ``` r
 library(crosstable)
@@ -89,12 +89,12 @@ to learn how).
 
 Here is a more advanced example.
 
-> Dear crosstable, please describe all columns whose name starts with
-> “cy” and those whose name ends with “at”, depending on the levels of
-> both columns `am` and `vs`, without considering labels, applying
-> `mean()` and `quantile()` as summary function, with `probs` 25% and
-> 75% defined for this latter function, and with 3 decimals for numeric
-> variables:
+> Dear crosstable, using the `mtcars2` dataset again, please describe
+> all columns whose name starts with “cy” and those whose name ends with
+> “at”, depending on the levels of both columns `am` and `vs`, without
+> considering labels, applying `mean()` and `quantile()` as summary
+> function, with `probs` 25% and 75% defined for this latter function,
+> and with 3 decimals for numeric variables:
 
 ``` r
 ct2 = crosstable(mtcars2, c(starts_with("cy"), ends_with("at")), by=c(am, vs), 

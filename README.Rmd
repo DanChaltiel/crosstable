@@ -48,7 +48,10 @@ Crosstable is a package centered on a single function, `crosstable`, which easil
 ```{r run-numeric-md, include=FALSE}
 last_cran = pkgsearch::cran_package("crosstable")$Version
 # last_tag = dplyr::last(names(git2r::tags()))
-last_tag = purrr::map_dbl(git2r::tags(), ~as.POSIXct(.x$tagger$when)) %>% sort() %>% names() %>% dplyr::last()
+last_tag = purrr::map_dbl(git2r::tags(), ~{
+  if(is.null(.x$tagger)) return(NA)
+  as.POSIXct(.x$tagger$when)
+}) %>% sort() %>% names() %>% dplyr::last()
 git_head = git2r::revparse_single(git2r::repository(),"HEAD") #sapply(git_head, print)
 last_commit = substr(git_head$sha, 1,7)
 out = c(
@@ -75,7 +78,7 @@ Here are 2 examples to try and show you the main features of `crosstable`. See t
 
 #### Example #1
 
-> Dear crosstable, please describe columns `disp` and `vs` depending on the levels of column `am`, with totals in both rows and columns, and with proportions formatted with group size, percent on row and percent on column, with no decimals.
+> Dear crosstable, using the `mtcars2` dataset, please describe columns `disp` and `vs` depending on the levels of column `am`, with totals in both rows and columns, and with proportions formatted with group size, percent on row and percent on column, with no decimals.
 
 ```{r usage1, eval=TRUE, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
 library(crosstable)
@@ -103,7 +106,7 @@ As `crosstable()` is returning a `data.frame`, we use `as_flextable()` to output
 
 Here is a more advanced example. 
 
-> Dear crosstable, please describe all columns whose name starts with "cy" and those whose name ends with "at", depending on the levels of both columns `am` and `vs`, without considering labels, applying `mean()` and `quantile()` as summary function, with `probs` 25% and 75% defined for this latter function, and with 3 decimals for numeric variables:
+> Dear crosstable, using the `mtcars2` dataset again, please describe all columns whose name starts with "cy" and those whose name ends with "at", depending on the levels of both columns `am` and `vs`, without considering labels, applying `mean()` and `quantile()` as summary function, with `probs` 25% and 75% defined for this latter function, and with 3 decimals for numeric variables:
 
 ```{r usage2, eval=TRUE, echo=TRUE, results="hide", warning=FALSE, message=FALSE}
 ct2 = crosstable(mtcars2, c(starts_with("cy"), ends_with("at")), by=c(am, vs), 
