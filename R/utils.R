@@ -142,7 +142,6 @@ check_dots_empty = function(){
     }
 }
 
-#' Get all unnamed arguments from the parent function
 
 # Function handling --------------------------------------------------------
 
@@ -444,6 +443,32 @@ str_wrap2 = function(x, width, ...){
            str_replace_all(x, paste0("(.{",width,"})"), "\\1\n"))
 }
 
+
+#' @keywords internal
+#' @noRd
+#' @examples
+#' x=1:15;y="foobar"
+#' rec(x,y, sep=", ")
+rec = function(..., sep=getOption("rec_sep", "\n"), sep_int=getOption("rec_sep", ", "), 
+               glue_pattern="{.name} = {.value}", 
+               max_length=getOption("rec_max_length", 10), .envir = parent.frame()){
+    l = as.list(substitute(list(...)))[-1L] %>% unlist() %>% set_names()
+    ll = map(l, eval, envir=.envir)
+    tmp = ll %>% imap(~{
+        .x = as.character(unlist(.x))
+        if(length(.x)>max_length) {
+            .x = c(.x[1:max_length], "...")
+        }
+        if(length(.x)>1){
+            paste0("[", glue_collapse(.x, sep=sep_int), "]")
+        } else {
+            .x
+        }
+    })
+    rtn = glue(glue_pattern, .name=names(tmp), .value=tmp) %>% 
+        glue_collapse(sep=sep)
+    rtn
+}
 
 
 #' @source adapted from gtools::mixedorder() v3.9.2
