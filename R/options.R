@@ -13,8 +13,8 @@
 #' @param crosstable_units default units in [body_add_gg2()] and [body_add_img2()]
 #' @param crosstable_peek_docx behavior of [peek()], which will open a `docx` if `TRUE` (default) and an `xlsx` if `FALSE`
 #' @param crosstable_compact_padding in flextables, left-padding for non-headers rows when `compact=TRUE`.
-#' @param crosstable_font_code font familly used to show code, most likely a monospaced typeface such as Consolas (default)
-#' @param crosstable_format_legend_name how the legend name ("Table", "Figure") is formated. Default to `officer::fp_text_lite(bold=TRUE)`
+#' @param crosstable_font_code font family used to show code, most likely a monospaced typeface such as Consolas (default)
+#' @param crosstable_format_legend_name how the legend name ("Table", "Figure") is formatted. Default to `officer::fp_text_lite(bold=TRUE)`
 #' @param crosstable_table_legend_par_before whether to add an empty paragraph before all table legends
 #' @param crosstable_figure_legend_par_after whether to add an empty paragraph after all figure legends
 #' @param crosstable_table_legend_prefix,crosstable_figure_legend_prefix a prefix before each legend, after the numbering

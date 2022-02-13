@@ -37,7 +37,7 @@ install.packages("crosstable")
 devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 
 # Install specific commit or tagged version (for reproducibility purpose)
-devtools::install_github("DanChaltiel/crosstable@07110f2", build_vignettes=TRUE)
+devtools::install_github("DanChaltiel/crosstable@b6f901b", build_vignettes=TRUE)
 devtools::install_github("DanChaltiel/crosstable@v0.3.2", build_vignettes=TRUE)
 ```
 
@@ -140,7 +140,7 @@ There are lots of other features you can learn about there, for instance
     ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#miscellaneous-1))
 -   variable selection with functions, e.g. `is.numeric`
     ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-predicate-functions))
--   formula interface, allowing to decribe more mutated columns,
+-   formula interface, allowing to describe more mutated columns,
     e.g. `sqrt(mpg)` or `Surv(time, event)`
     ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-a-formula))
 -   automatic computation of statistical tests

@@ -55,7 +55,7 @@ Before starting this vignette, if you are not familiar with `dplyr` and pipes (`
 
 First, since `crosstable()` uses the power of the `label` attribute, let's start by building a labelled dataset. 
 
-In this vignette, we will use a modified version of the `mtcars` famous dataset, which comprises 11 aspects of design and performance for 32 automobiles. Let's modify it to add textual categories, keep ronames as a column, make some numeric variables factors, and add labels from a table using `import_labels()`. 
+In this vignette, we will use a modified version of the `mtcars` famous dataset, which comprises 11 aspects of design and performance for 32 automobiles. Let's modify it to add textual categories, keep row names as a column, make some numeric variables factors, and add labels from a table using `import_labels()`. 
 
 For convenience, this dataset is already packed into {`crosstable`} as `?mtcars2` so don't bother re-creating it for your own tests.
 

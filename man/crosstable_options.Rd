@@ -77,9 +77,9 @@ crosstable_options(
 
 \item{crosstable_compact_padding}{in flextables, left-padding for non-headers rows when \code{compact=TRUE}.}
 
-\item{crosstable_font_code}{font familly used to show code, most likely a monospaced typeface such as Consolas (default)}
+\item{crosstable_font_code}{font family used to show code, most likely a monospaced typeface such as Consolas (default)}
 
-\item{crosstable_format_legend_name}{how the legend name ("Table", "Figure") is formated. Default to \code{officer::fp_text_lite(bold=TRUE)}}
+\item{crosstable_format_legend_name}{how the legend name ("Table", "Figure") is formatted. Default to \code{officer::fp_text_lite(bold=TRUE)}}
 
 \item{crosstable_table_legend_par_before}{whether to add an empty paragraph before all table legends}
 

@@ -45,7 +45,7 @@ You can also download this example [here](https://github.com/DanChaltiel/crossta
 
 This code will produce the example above.
 
-First, we create 3 crosstables using availables datasets, along with a ggplot. Then, we start a document (using `officer::read_docx()`), add some titles and paragraphs, incorporate our tables and our plot, along with legends, and add some page breaks. Note that the legends have a `bookmark` argument that can be referred to in the text for automatic numbering.
+First, we create 3 crosstables using available datasets, along with a ggplot. Then, we start a document (using `officer::read_docx()`), add some titles and paragraphs, incorporate our tables and our plot, along with legends, and add some page breaks. Note that the legends have a `bookmark` argument that can be referred to in the text for automatic numbering.
 
 ```{r officer, message=FALSE, warning=FALSE}
 library(officer)
@@ -214,4 +214,4 @@ crosstable(iris, Sepal.Length, Sepal.Width, by=Species, test = TRUE, total="colu
 
 You can example files here: [vignette_markdown.Rmd](../examples/vignette_markdown.Rmd) and [vignette_markdown.docx](../examples/vignette_markdown.docx).
 
-I have to admit that I don't use RMarkdown a lot with `crosstable`, so this feature might not be as maintained as others.
+I have to admit that I don't use Rmarkdown a lot with `crosstable`, so this feature might not be as maintained as others.
