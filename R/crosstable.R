@@ -400,7 +400,7 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     # Function call -------------------------------------------------------
     by_levels = map(data_y, ~{
         if(is.numeric(.x)) NULL 
-        else if(is.factor(.x)) levels(.x)
+        else if(is.factor(.x)) levels(fct_explicit_na(.x, "NA"))
         else sort(unique(as.character(.x)), na.last=TRUE)
     })
     if(showNA=="no") by_levels = map(by_levels, ~.x[!is.na(.x)])
