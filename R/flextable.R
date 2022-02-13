@@ -163,10 +163,6 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
         if(inherits(x, "compacted_crosstable")) {
             header_mapping[header_mapping$col_keys==generic_labels$variable, -1] = ""
         }
-        if(!is.null(by_header)){
-            header_mapping = header_mapping %>% 
-                mutate(.col_2=str_replace(.col_2,byname, by_header))
-        }
         if(!isFALSE(header_show_n)){
             header_mapping = header_mapping %>% 
                 mutate(
@@ -176,9 +172,15 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
                 select(-.n)
         }
         
-        rtn = rtn %>% 
-            set_header_df(header_mapping, key = "col_keys") %>%
-            merge_h(part = "head")
+        if(!isFALSE(by_header)){
+            if(!is.null(by_header)){
+                header_mapping = header_mapping %>% 
+                    mutate(.col_2=str_replace(.col_2, byname, by_header))
+            }
+            rtn = rtn %>% 
+                set_header_df(header_mapping, key = "col_keys") %>%
+                merge_h(part = "head")
+        }
         
         
     } else if(n_levels>1) {
