@@ -471,6 +471,21 @@ rec = function(..., sep=getOption("rec_sep", "\n"), sep_int=getOption("rec_sep",
 }
 
 
+
+#' enhanced base::factor() with coherance warnings
+#' @keywords internal
+#' @noRd
+#' @source https://github.com/tidyverse/forcats/issues/299
+fct = function(x=character(), levels, labels=levels, ...){
+    miss_x = !x %in% levels
+    if(any(miss_x)){
+        miss_x_s = unique(x[miss_x]) %>% glue_collapse(", ")
+        warn(c("Unknown factor level in `x`, NA generated.", 
+               x=glue("Unknown levels: {miss_x_s}")))
+    }
+    factor(x, levels, labels, ...)
+}
+
 #' @source adapted from gtools::mixedorder() v3.9.2
 #' @keywords internal
 #' @noRd
