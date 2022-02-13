@@ -187,7 +187,10 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
         
         
     } else if(n_levels>1) {
-        if(!is.null(by_header)) warn("by_header is ignored if the crosstable has several `by` stratum.")
+        if(!is.null(by_header)){
+            warn("by_header is ignored if the crosstable has several `by` stratum.", 
+                 class = "crosstable_asflex_byheader_multi")
+        }
         header_mapping = tibble(col_keys = names(x)) %>% 
             separate(col_keys, into=paste0(".col_", seq(n_levels)), 
                      sep=" & ", remove=FALSE, fill="right") %>% 
