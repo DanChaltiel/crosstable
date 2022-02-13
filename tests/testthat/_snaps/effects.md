@@ -10,7 +10,7 @@
     Warning <crosstable_effect_2groups_warning>
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 32 levels
-    Warning <warning>
+    Warning <rlang_warning>
       Unknown or uninitialised column: `effect`.
     Output
       [1] Freq
@@ -28,7 +28,7 @@
     Warning <crosstable_effect_2groups_warning>
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 3 levels
-    Warning <warning>
+    Warning <rlang_warning>
       Unknown or uninitialised column: `effect`.
     Output
       [1] Freq
@@ -104,7 +104,7 @@
     Warning <crosstable_effect_2groups_warning>
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 3 levels
-    Warning <warning>
+    Warning <rlang_warning>
       Unknown or uninitialised column: `effect`.
     Output
       [1] Freq
@@ -190,7 +190,7 @@
     Warning <crosstable_effect_2groups_warning>
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 1 levels
-    Warning <warning>
+    Warning <rlang_warning>
       Unknown or uninitialised column: `effect`.
     Output
       [1] Freq
@@ -208,7 +208,7 @@
     Warning <crosstable_effect_2groups_warning>
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 32 levels
-    Warning <warning>
+    Warning <rlang_warning>
       Unknown or uninitialised column: `effect`.
     Output
       [1] Freq
@@ -226,7 +226,7 @@
     Warning <crosstable_effect_2groups_warning>
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 3 levels
-    Warning <warning>
+    Warning <rlang_warning>
       Unknown or uninitialised column: `effect`.
     Output
       [1] Freq
@@ -312,7 +312,7 @@
     Warning <crosstable_effect_2groups_warning>
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 3 levels
-    Warning <warning>
+    Warning <rlang_warning>
       Unknown or uninitialised column: `effect`.
     Output
       [1] Freq
@@ -406,7 +406,7 @@
     Warning <crosstable_effect_2groups_warning>
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 1 levels
-    Warning <warning>
+    Warning <rlang_warning>
       Unknown or uninitialised column: `effect`.
     Output
       [1] Freq
@@ -425,7 +425,7 @@
     Warning <crosstable_effect_2groups_warning>
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 32 levels
-    Warning <warning>
+    Warning <rlang_warning>
       Unknown or uninitialised column: `effect`.
     Output
       [1] Freq
@@ -444,7 +444,7 @@
     Warning <crosstable_effect_2groups_warning>
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 3 levels
-    Warning <warning>
+    Warning <rlang_warning>
       Unknown or uninitialised column: `effect`.
     Output
       [1] Freq
@@ -524,7 +524,7 @@
     Warning <crosstable_effect_2groups_warning>
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 3 levels
-    Warning <warning>
+    Warning <rlang_warning>
       Unknown or uninitialised column: `effect`.
     Output
       [1] Freq
@@ -614,7 +614,7 @@
     Warning <crosstable_effect_2groups_warning>
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 1 levels
-    Warning <warning>
+    Warning <rlang_warning>
       Unknown or uninitialised column: `effect`.
     Output
       [1] Freq
