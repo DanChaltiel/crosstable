@@ -152,7 +152,7 @@ There are lots of other features you can learn about there, for instance (non-ex
 
 ## Getting help and giving feedback
 
-If you have a question about how to use `crosstable`, please ask on [StackOverflow](https://stackoverflow.com/) with the tag `crosstable`. You can `@DanChaltiel` in a comment if  you are struggling to get answers. Don't forget to add a minimal **repr**oducible **ex**ample to your question, ideally using the [reprex](http://reprex.tidyverse.org/) package.
+If you have a question about how to use `crosstable`, please ask on [StackOverflow](https://stackoverflow.com/) with the tag `crosstable`. You can `@DanChaltiel` in a comment if  you are struggling to get answers. Don't forget to add a minimal **repr**oducible **ex**ample to your question, ideally using the [reprex](https://reprex.tidyverse.org/) package.
 
 If you miss any feature that you think would belong in `crosstable`, please fill a [Feature Request](https://github.com/DanChaltiel/crosstable/issues/new/choose) issue.
 

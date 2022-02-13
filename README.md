@@ -37,7 +37,7 @@ install.packages("crosstable")
 devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 
 # Install specific commit or tagged version (for reproducibility purpose)
-devtools::install_github("DanChaltiel/crosstable@b6f901b", build_vignettes=TRUE)
+devtools::install_github("DanChaltiel/crosstable@a68c656", build_vignettes=TRUE)
 devtools::install_github("DanChaltiel/crosstable@v0.3.2", build_vignettes=TRUE)
 ```
 
@@ -156,7 +156,7 @@ If you have a question about how to use `crosstable`, please ask on
 [StackOverflow](https://stackoverflow.com/) with the tag `crosstable`.
 You can `@DanChaltiel` in a comment if you are struggling to get
 answers. Don’t forget to add a minimal **repr**oducible **ex**ample to
-your question, ideally using the [reprex](http://reprex.tidyverse.org/)
+your question, ideally using the [reprex](https://reprex.tidyverse.org/)
 package.
 
 If you miss any feature that you think would belong in `crosstable`,
