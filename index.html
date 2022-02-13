@@ -44,7 +44,7 @@
     
     <a class="navbar-brand me-2" href="index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2.9012</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2.9013</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -115,7 +115,7 @@
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="co"># Install specific commit or tagged version (for reproducibility purpose)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable@c4e7245"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable@b6f901b"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable@v0.3.2"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Note that, for reproducibility purpose, an even better solution would be to use <a href="https://rstudio.github.io/renv/articles/renv.html" class="external-link"><code>renv</code></a>.</p>
 </div>
@@ -127,7 +127,7 @@
 <h4 id="example-1">Example #1<a class="anchor" aria-label="anchor" href="#example-1"></a>
 </h4>
 <blockquote>
-<p>Dear crosstable, please describe columns <code>disp</code> and <code>vs</code> depending on the levels of column <code>am</code>, with totals in both rows and columns, and with proportions formatted with group size, percent on row and percent on column, with no decimals.</p>
+<p>Dear crosstable, using the <code>mtcars2</code> dataset, please describe columns <code>disp</code> and <code>vs</code> depending on the levels of column <code>am</code>, with totals in both rows and columns, and with proportions formatted with group size, percent on row and percent on column, with no decimals.</p>
 </blockquote>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://danchaltiel.github.io/crosstable/">crosstable</a></span><span class="op">)</span>
@@ -146,7 +146,7 @@
 </h4>
 <p>Here is a more advanced example.</p>
 <blockquote>
-<p>Dear crosstable, please describe all columns whose name starts with “cy” and those whose name ends with “at”, depending on the levels of both columns <code>am</code> and <code>vs</code>, without considering labels, applying <code><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean()</a></code> and <code><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile()</a></code> as summary function, with <code>probs</code> 25% and 75% defined for this latter function, and with 3 decimals for numeric variables:</p>
+<p>Dear crosstable, using the <code>mtcars2</code> dataset again, please describe all columns whose name starts with “cy” and those whose name ends with “at”, depending on the levels of both columns <code>am</code> and <code>vs</code>, without considering labels, applying <code><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean()</a></code> and <code><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile()</a></code> as summary function, with <code>probs</code> 25% and 75% defined for this latter function, and with 3 decimals for numeric variables:</p>
 </blockquote>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ct2</span> <span class="op">=</span> <span class="fu"><a href="reference/crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"cy"</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">ends_with</a></span><span class="op">(</span><span class="st">"at"</span><span class="op">)</span><span class="op">)</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">am</span>, <span class="va">vs</span><span class="op">)</span>, 
@@ -176,7 +176,7 @@
 <ul>
 <li>description of correlation, dates, and survival data (<a href="https://danchaltiel.github.io/crosstable/articles/crosstable.html#miscellaneous-1">link</a>)</li>
 <li>variable selection with functions, e.g. <code>is.numeric</code> (<a href="https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-predicate-functions">link</a>)</li>
-<li>formula interface, allowing to decribe more mutated columns, e.g. <code>sqrt(mpg)</code> or <code>Surv(time, event)</code> (<a href="https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-a-formula">link</a>)</li>
+<li>formula interface, allowing to describe more mutated columns, e.g. <code>sqrt(mpg)</code> or <code>Surv(time, event)</code> (<a href="https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-a-formula">link</a>)</li>
 <li>automatic computation of statistical tests (<a href="https://danchaltiel.github.io/crosstable/articles/crosstable.html#tests">link</a>) and of effect sizes (<a href="https://danchaltiel.github.io/crosstable/articles/crosstable.html#effects">link</a>)</li>
 <li>global options to avoid repeating arguments (<a href="https://danchaltiel.github.io/crosstable/reference/crosstable_options.html">link</a>)</li>
 </ul>
