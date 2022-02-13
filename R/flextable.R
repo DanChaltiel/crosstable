@@ -95,11 +95,10 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
         if(showNA=="always") .x=unique(c(.x, NA))
         replace_na(.x, replace="NA")
     })
+    n_levels = length(by_levels)
     by = attr(x, "by")
     has_by =  !is.null(by)
     if(has_by && is.null(by_label)) by_label=by
-    # if(showNA=="always") by_levels=c(by_levels, "NA")
-    
     
     test=generic_labels$test
     id=generic_labels$id
@@ -151,7 +150,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
             merge_v(j=id, target=body_merge, part = "body")
     }
     
-    if(length(by_levels)==1) {
+    if(n_levels==1) {
         by_levels2 = unlist(by_levels)
         byname = if(has_label) by_label else by
         
@@ -182,13 +181,13 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
             merge_h(part = "head")
         
         
-    } else if(length(by_levels)>1) {
+    } else if(n_levels>1) {
         if(!is.null(by_header)) warn("by_header is ignored if the crosstable has several `by` stratum.")
         header_mapping = tibble(col_keys = names(x)) %>% 
-            separate(col_keys, into=paste0(".col_", 1:length(by_levels)), 
+            separate(col_keys, into=paste0(".col_", seq(n_levels)), 
                      sep=" & ", remove=FALSE, fill="right") %>% 
-            select(col_keys, rev(names(.))) %>% 
-            mutate(across(starts_with(".col_"), ~ifelse(is.na(.x), col_keys, .x)))
+            mutate(across(starts_with(".col_"), ~ifelse(is.na(.x), col_keys, .x))) %>% 
+            select(col_keys, rev(names(.))) 
         
         #TODO as_flextable(remove_header_keys) plutôt que logical, pattern avec key, label et value
         #par exemple header_pattern="{.key}={.value} (n={n})"
@@ -198,10 +197,11 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
                 mutate(across(starts_with(".col_"), ~str_remove(.x, "^.*=")))
         }
         if(!isFALSE(header_show_n)){
+            if(isTRUE(header_show_n)) header_show_n = seq(n_levels)
             header_show_n = as.numeric(header_show_n)
             xxx = header_mapping
             # header_mapping = xxx
-            .cols = paste0(".col_", 1:length(by_levels))
+            .cols = paste0(".col_", seq(n_levels))
             header_show_n2 = .cols[as.numeric(header_show_n)]
             
             for(i in seq_along(.cols)){
@@ -228,7 +228,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
         
         rtn = rtn %>% 
             set_header_df(header_mapping, key = "col_keys") %>%
-            merge_h(i=seq.int(length(by_levels)-1), part = "head") %>%
+            merge_h(i=seq.int(n_levels-1), part = "head") %>%
             border(j=borders_j, border.left=border1, part="all") %>%
             vline_left(border=border1) %>% 
             vline_right(border=border1)
