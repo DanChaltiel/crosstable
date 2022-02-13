@@ -21,6 +21,7 @@
   padding_v = NULL,
   remove_header_keys = FALSE,
   header_show_n = FALSE,
+  header_show_n_pattern = "{.col} (N={.n})",
   generic_labels = list(id = ".id", variable = "variable", value = "value", total =
     "Total", label = "label", test = "test", effect = "effect"),
   ...
@@ -46,6 +47,8 @@
 \item{remove_header_keys}{if \code{TRUE} and \code{x} has several \code{by} strata, header will only display values.}
 
 \item{header_show_n}{numeric vector telling on which depth the group size should be indicated in the header. You can control the pattern using option \code{crosstable_options}. See \code{\link[=crosstable_options]{crosstable_options()}} for details about it. See example for use case.}
+
+\item{header_show_n_pattern}{glue pattern used when \code{header_show_n==TRUE}. \code{.col} is the name of the column and \code{.n} the size of the group. Default to \code{{.col} (N={.n})}; you can use \code{{.col_key}} and \code{{.col_val}} when \code{by} has multiple stratum.}
 
 \item{generic_labels}{names of the crosstable default columns. Useful for translation for instance.}
 

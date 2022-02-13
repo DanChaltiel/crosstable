@@ -12,6 +12,7 @@
 #' @param padding_v vertical padding (body).
 #' @param remove_header_keys if `TRUE` and `x` has several `by` strata, header will only display values.
 #' @param header_show_n numeric vector telling on which depth the group size should be indicated in the header. You can control the pattern using option `crosstable_options`. See [crosstable_options()] for details about it. See example for use case.
+#' @param header_show_n_pattern glue pattern used when `header_show_n==TRUE`. `.col` is the name of the column and `.n` the size of the group. Default to `{.col} (N={.n})`; you can use `{.col_key}` and `{.col_val}` when `by` has multiple stratum.
 #' @param generic_labels names of the crosstable default columns. Useful for translation for instance. 
 #' @param ... unused.
 #' 
@@ -56,7 +57,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
                                    show_test_name=TRUE, 
                                    fontsizes=list(body=11, subheaders=11, header=11), 
                                    padding_v=NULL, remove_header_keys=FALSE,
-                                   header_show_n=FALSE, 
+                                   header_show_n=FALSE, header_show_n_pattern="{.col} (N={.n})", 
                                    generic_labels=list(id=".id", variable="variable", value="value", 
                                                        total="Total", label="label", test="test", 
                                                        effect="effect"), 
@@ -71,7 +72,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
     if(missing(remove_header_keys)) remove_header_keys = getOption('crosstable_remove_header_keys',
                                                                    remove_header_keys)
     if(missing(header_show_n)) header_show_n = getOption('crosstable_header_show_n', header_show_n)
-    header_show_n_pattern = getOption('crosstable_header_show_n_pattern', "{.col} (N={.n})")
+    if(missing(header_show_n_pattern)) header_show_n_pattern = getOption('crosstable_header_show_n_pattern', header_show_n_pattern)
     if(missing(generic_labels)) generic_labels = getOption('crosstable_generic_labels', generic_labels)
     if(missing(fontsizes)) fontsizes = list(
         body=getOption('crosstable_fontsize_body', fontsizes$body),
@@ -99,6 +100,8 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
     by = attr(x, "by")
     has_by =  !is.null(by)
     if(has_by && is.null(by_label)) by_label=by
+    if(isTRUE(by_header)) by_header=NULL
+    if(identical(by_header, "")) by_header=FALSE
     
     test=generic_labels$test
     id=generic_labels$id
@@ -191,36 +194,34 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
             mutate(across(starts_with(".col_"), ~ifelse(is.na(.x), col_keys, .x))) %>% 
             select(col_keys, rev(names(.))) 
         
-        #TODO as_flextable(remove_header_keys) plutôt que logical, pattern avec key, label et value
-        #par exemple header_pattern="{.key}={.value} (n={n})"
-        #mais déjà header_show_n_pattern... ptet plutôt dans crosstable() ?
-        if(remove_header_keys){ 
-            header_mapping = header_mapping %>% 
-                mutate(across(starts_with(".col_"), ~str_remove(.x, "^.*=")))
-        }
         if(!isFALSE(header_show_n)){
             if(isTRUE(header_show_n)) header_show_n = seq(n_levels)
             header_show_n = as.numeric(header_show_n)
-            xxx = header_mapping
-            # header_mapping = xxx
             .cols = paste0(".col_", seq(n_levels))
             header_show_n2 = .cols[as.numeric(header_show_n)]
-            
             for(i in seq_along(.cols)){
                 .c = .cols[i:length(.cols)]
                 header_mapping = header_mapping %>%
                     group_by(across(.c)) %>%
                     mutate(!!.c[1] := {
-                        .x = !!sym(.c[1])
+                        .col = !!sym(.c[1])
+                        .col2 = str_split(.col, "=")[[1]]
+                        .col_key = .col2[1]
+                        .col_val = .col2[2]
                         .n = sum(by_table[col_keys])
                         ifelse(!is.na(.n) & .c[1] %in% header_show_n2, 
-                               glue("{.x} (n={.n})"), .x)
+                               glue(header_show_n_pattern), .col)
                     })
             }
             
             header_mapping %>% 
                 ungroup() %>% 
                 select(-starts_with("n"))
+        }
+        
+        if(remove_header_keys){ 
+            header_mapping = header_mapping %>% 
+                mutate(across(starts_with(".col_"), ~str_remove(.x, "^.*=")))
         }
         border_left_first = sum(rtn$header$col_keys %in% generic_labels[c("label", "variable", "id")])
         border_separations = header_mapping %>% 
