@@ -130,7 +130,6 @@ summarize_categorical_by = function(x, by,
         any_p = pattern_vars %>% str_starts("p") %>% any()
         any_p_ci = pattern_vars %>% str_starts("p_col_") %>% any()
         #TODO si !any_p_ci on garde pattern
-        # browser()
         if(any_p){
             mt2 = margin.table(table(x, by, useNA="no"), margin=2) %>% as.numeric()
             pct = format_fixed(100*prop.table(mt2), digits) %>% paste0("%")
@@ -182,13 +181,6 @@ getTable = function(x, by, type=c("n", "p_cell", "p_row", "p_col")){
     table(x, by, useNA="no") %>% 
         fun() %>%
         as.data.frame(responseName=type, stringsAsFactors=FALSE)
-}
-
-#' @importFrom stringr str_match_all
-#' @keywords internal
-#' @noRd
-get_glue_vars = function(.x){
-    str_match_all(.x, "\\{(.*?)\\}")[[1]][,2]
 }
 
 

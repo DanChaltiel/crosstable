@@ -250,6 +250,12 @@ parse_funs = function(funs){
 }
 
 
+#' @importFrom stringr str_match_all
+#' @keywords internal
+#' @noRd
+get_glue_vars = function(.x){
+    str_match_all(.x, "\\{(.*?)\\}")[[1]][,2]
+}
 
 # Class checking ----------------------------------------------------------
 
