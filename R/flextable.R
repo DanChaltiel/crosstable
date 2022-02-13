@@ -205,7 +205,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
             for(i in seq_along(.cols)){
                 .c = .cols[i:length(.cols)]
                 header_mapping = header_mapping %>%
-                    group_by(across(.c)) %>%
+                    group_by(across(all_of(.c))) %>%
                     mutate(!!.c[1] := {
                         .col = !!sym(.c[1])
                         .col2 = str_split(.col, "=")[[1]]
