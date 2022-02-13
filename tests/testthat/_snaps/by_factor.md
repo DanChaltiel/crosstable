@@ -1628,7 +1628,7 @@
       2  mpg       Miles/(US) gallon  Med [IQR]              21.5 [21.5;21.5]
       3  mpg       Miles/(US) gallon Mean (std)                     21.5 (NA)
       4  mpg       Miles/(US) gallon     N (NA)                         1 (0)
-      5 gear Number of forward gears          3                     1 (7.69%)
+      5 gear Number of forward gears          3                     1 (6.67%)
       6 gear Number of forward gears          4                        0 (0%)
       7 gear Number of forward gears          5                        0 (0%)
         cyl=6 & am=auto & vs=straight cyl=8 & am=auto & vs=straight
@@ -1639,67 +1639,91 @@
       5                        0 (0%)                        0 (0%)
       6                        0 (0%)                        0 (0%)
       7                        0 (0%)                        0 (0%)
-        cyl=4 & am=manual & vs=straight cyl=6 & am=manual & vs=straight
-      1                     21.4 / 33.9                         NA / NA
-      2                30.4 [28.1;31.9]                      NA [NA;NA]
-      3                      29.3 (4.5)                         NA (NA)
-      4                           6 (0)                           0 (0)
+        cyl=NA & am=auto & vs=straight cyl=4 & am=manual & vs=straight
+      1                    21.4 / 21.4                     21.4 / 33.9
+      2               21.4 [21.4;21.4]                30.4 [28.1;31.9]
+      3                      21.4 (NA)                      29.3 (4.5)
+      4                          1 (0)                           6 (0)
+      5                      1 (6.67%)                          0 (0%)
+      6                         0 (0%)                      5 (41.67%)
+      7                         0 (0%)                      1 (20.00%)
+        cyl=6 & am=manual & vs=straight cyl=8 & am=manual & vs=straight
+      1                         NA / NA                         NA / NA
+      2                      NA [NA;NA]                      NA [NA;NA]
+      3                         NA (NA)                         NA (NA)
+      4                           0 (0)                           0 (0)
       5                          0 (0%)                          0 (0%)
-      6                      5 (55.56%)                          0 (0%)
-      7                      1 (20.00%)                          0 (0%)
-        cyl=8 & am=manual & vs=straight cyl=4 & am=auto & vs=vshaped
-      1                         NA / NA                      NA / NA
-      2                      NA [NA;NA]                   NA [NA;NA]
-      3                         NA (NA)                      NA (NA)
-      4                           0 (0)                        0 (0)
-      5                          0 (0%)                       0 (0%)
-      6                          0 (0%)                       0 (0%)
-      7                          0 (0%)                       0 (0%)
+      6                          0 (0%)                          0 (0%)
+      7                          0 (0%)                          0 (0%)
+        cyl=NA & am=manual & vs=straight cyl=4 & am=auto & vs=vshaped
+      1                      22.8 / 22.8                      NA / NA
+      2                 22.8 [22.8;22.8]                   NA [NA;NA]
+      3                        22.8 (NA)                      NA (NA)
+      4                            1 (0)                        0 (0)
+      5                           0 (0%)                       0 (0%)
+      6                        1 (8.33%)                       0 (0%)
+      7                           0 (0%)                       0 (0%)
         cyl=6 & am=auto & vs=vshaped cyl=8 & am=auto & vs=vshaped
       1                      NA / NA                  10.4 / 19.2
       2                   NA [NA;NA]             15.2 [13.3;15.5]
       3                      NA (NA)                   14.6 (2.9)
       4                        0 (0)                        9 (0)
-      5                       0 (0%)                   9 (69.23%)
+      5                       0 (0%)                   9 (60.00%)
       6                       0 (0%)                       0 (0%)
       7                       0 (0%)                       0 (0%)
-        cyl=4 & am=manual & vs=vshaped cyl=6 & am=manual & vs=vshaped
-      1                    26.0 / 26.0                    19.7 / 19.7
-      2               26.0 [26.0;26.0]               19.7 [19.7;19.7]
-      3                      26.0 (NA)                      19.7 (NA)
-      4                          1 (0)                          1 (0)
+        cyl=NA & am=auto & vs=vshaped cyl=4 & am=manual & vs=vshaped
+      1                       NA / NA                    26.0 / 26.0
+      2                    NA [NA;NA]               26.0 [26.0;26.0]
+      3                       NA (NA)                      26.0 (NA)
+      4                         0 (0)                          1 (0)
+      5                        0 (0%)                         0 (0%)
+      6                        0 (0%)                         0 (0%)
+      7                        0 (0%)                     1 (20.00%)
+        cyl=6 & am=manual & vs=vshaped cyl=8 & am=manual & vs=vshaped
+      1                    19.7 / 19.7                    15.0 / 15.8
+      2               19.7 [19.7;19.7]               15.4 [15.2;15.6]
+      3                      19.7 (NA)                     15.4 (0.6)
+      4                          1 (0)                          2 (0)
       5                         0 (0%)                         0 (0%)
       6                         0 (0%)                         0 (0%)
-      7                     1 (20.00%)                     1 (20.00%)
-        cyl=8 & am=manual & vs=vshaped cyl=4 & am=auto & vs=NA
-      1                    15.0 / 15.8             22.8 / 24.4
-      2               15.4 [15.2;15.6]        23.6 [23.2;24.0]
-      3                     15.4 (0.6)              23.6 (1.1)
-      4                          2 (0)                   2 (0)
-      5                         0 (0%)                  0 (0%)
-      6                         0 (0%)              2 (22.22%)
-      7                     2 (40.00%)                  0 (0%)
-        cyl=6 & am=auto & vs=NA cyl=8 & am=auto & vs=NA cyl=4 & am=manual & vs=NA
-      1             17.8 / 19.2             14.3 / 16.4                   NA / NA
-      2        18.1 [18.0;18.6]        15.3 [14.8;15.9]                NA [NA;NA]
-      3              18.4 (0.7)              15.3 (1.5)                   NA (NA)
-      4                   3 (0)                   2 (0)                     0 (0)
-      5               1 (7.69%)              2 (15.38%)                    0 (0%)
-      6              2 (22.22%)                  0 (0%)                    0 (0%)
-      7                  0 (0%)                  0 (0%)                    0 (0%)
-        cyl=6 & am=manual & vs=NA cyl=8 & am=manual & vs=NA               NA
-      1                   NA / NA                   NA / NA      18.7 / 22.8
-      2                NA [NA;NA]                NA [NA;NA] 21.0 [21.0;21.4]
-      3                   NA (NA)                   NA (NA)       21.0 (1.5)
-      4                     0 (0)                     0 (0)            5 (0)
-      5                    0 (0%)                    0 (0%)                2
-      6                    0 (0%)                    0 (0%)                3
-      7                    0 (0%)                    0 (0%)                0
+      7                     1 (20.00%)                     2 (40.00%)
+        cyl=NA & am=manual & vs=vshaped cyl=4 & am=auto & vs=NA
+      1                     21.0 / 21.0             22.8 / 24.4
+      2                21.0 [21.0;21.0]        23.6 [23.2;24.0]
+      3                        21.0 (0)              23.6 (1.1)
+      4                           2 (0)                   2 (0)
+      5                          0 (0%)                  0 (0%)
+      6                      2 (16.67%)              2 (16.67%)
+      7                          0 (0%)                  0 (0%)
+        cyl=6 & am=auto & vs=NA cyl=8 & am=auto & vs=NA cyl=NA & am=auto & vs=NA
+      1             17.8 / 19.2             14.3 / 16.4              18.7 / 18.7
+      2        18.1 [18.0;18.6]        15.3 [14.8;15.9]         18.7 [18.7;18.7]
+      3              18.4 (0.7)              15.3 (1.5)                18.7 (NA)
+      4                   3 (0)                   2 (0)                    1 (0)
+      5               1 (6.67%)              2 (13.33%)                1 (6.67%)
+      6              2 (16.67%)                  0 (0%)                   0 (0%)
+      7                  0 (0%)                  0 (0%)                   0 (0%)
+        cyl=4 & am=manual & vs=NA cyl=6 & am=manual & vs=NA cyl=8 & am=manual & vs=NA
+      1                   NA / NA                   NA / NA                   NA / NA
+      2                NA [NA;NA]                NA [NA;NA]                NA [NA;NA]
+      3                   NA (NA)                   NA (NA)                   NA (NA)
+      4                     0 (0)                     0 (0)                     0 (0)
+      5                    0 (0%)                    0 (0%)                    0 (0%)
+      6                    0 (0%)                    0 (0%)                    0 (0%)
+      7                    0 (0%)                    0 (0%)                    0 (0%)
+        cyl=NA & am=manual & vs=NA
+      1                    NA / NA
+      2                 NA [NA;NA]
+      3                    NA (NA)
+      4                      0 (0)
+      5                     0 (0%)
+      6                     0 (0%)
+      7                     0 (0%)
     Code
       as_flextable(x0)
     Output
       a flextable object.
-      col_keys: `label`, `variable`, `cyl=4 & am=auto & vs=straight`, `cyl=6 & am=auto & vs=straight`, `cyl=8 & am=auto & vs=straight`, `cyl=4 & am=manual & vs=straight`, `cyl=6 & am=manual & vs=straight`, `cyl=8 & am=manual & vs=straight`, `cyl=4 & am=auto & vs=vshaped`, `cyl=6 & am=auto & vs=vshaped`, `cyl=8 & am=auto & vs=vshaped`, `cyl=4 & am=manual & vs=vshaped`, `cyl=6 & am=manual & vs=vshaped`, `cyl=8 & am=manual & vs=vshaped`, `cyl=4 & am=auto & vs=NA`, `cyl=6 & am=auto & vs=NA`, `cyl=8 & am=auto & vs=NA`, `cyl=4 & am=manual & vs=NA`, `cyl=6 & am=manual & vs=NA`, `cyl=8 & am=manual & vs=NA`, `NA` 
+      col_keys: `label`, `variable`, `cyl=4 & am=auto & vs=straight`, `cyl=6 & am=auto & vs=straight`, `cyl=8 & am=auto & vs=straight`, `cyl=NA & am=auto & vs=straight`, `cyl=4 & am=manual & vs=straight`, `cyl=6 & am=manual & vs=straight`, `cyl=8 & am=manual & vs=straight`, `cyl=NA & am=manual & vs=straight`, `cyl=4 & am=auto & vs=vshaped`, `cyl=6 & am=auto & vs=vshaped`, `cyl=8 & am=auto & vs=vshaped`, `cyl=NA & am=auto & vs=vshaped`, `cyl=4 & am=manual & vs=vshaped`, `cyl=6 & am=manual & vs=vshaped`, `cyl=8 & am=manual & vs=vshaped`, `cyl=NA & am=manual & vs=vshaped`, `cyl=4 & am=auto & vs=NA`, `cyl=6 & am=auto & vs=NA`, `cyl=8 & am=auto & vs=NA`, `cyl=NA & am=auto & vs=NA`, `cyl=4 & am=manual & vs=NA`, `cyl=6 & am=manual & vs=NA`, `cyl=8 & am=manual & vs=NA`, `cyl=NA & am=manual & vs=NA` 
       header has 3 row(s) 
       body has 7 row(s) 
       original dataset sample: 
@@ -1708,55 +1732,73 @@
       2  mpg       Miles/(US) gallon  Med [IQR]              21.5 [21.5;21.5]
       3  mpg       Miles/(US) gallon Mean (std)                     21.5 (NA)
       4  mpg       Miles/(US) gallon     N (NA)                         1 (0)
-      5 gear Number of forward gears          3                     1 (7.69%)
+      5 gear Number of forward gears          3                     1 (6.67%)
         cyl=6 & am=auto & vs=straight cyl=8 & am=auto & vs=straight
       1                       NA / NA                       NA / NA
       2                    NA [NA;NA]                    NA [NA;NA]
       3                       NA (NA)                       NA (NA)
       4                         0 (0)                         0 (0)
       5                        0 (0%)                        0 (0%)
-        cyl=4 & am=manual & vs=straight cyl=6 & am=manual & vs=straight
-      1                     21.4 / 33.9                         NA / NA
-      2                30.4 [28.1;31.9]                      NA [NA;NA]
-      3                      29.3 (4.5)                         NA (NA)
-      4                           6 (0)                           0 (0)
+        cyl=NA & am=auto & vs=straight cyl=4 & am=manual & vs=straight
+      1                    21.4 / 21.4                     21.4 / 33.9
+      2               21.4 [21.4;21.4]                30.4 [28.1;31.9]
+      3                      21.4 (NA)                      29.3 (4.5)
+      4                          1 (0)                           6 (0)
+      5                      1 (6.67%)                          0 (0%)
+        cyl=6 & am=manual & vs=straight cyl=8 & am=manual & vs=straight
+      1                         NA / NA                         NA / NA
+      2                      NA [NA;NA]                      NA [NA;NA]
+      3                         NA (NA)                         NA (NA)
+      4                           0 (0)                           0 (0)
       5                          0 (0%)                          0 (0%)
-        cyl=8 & am=manual & vs=straight cyl=4 & am=auto & vs=vshaped
-      1                         NA / NA                      NA / NA
-      2                      NA [NA;NA]                   NA [NA;NA]
-      3                         NA (NA)                      NA (NA)
-      4                           0 (0)                        0 (0)
-      5                          0 (0%)                       0 (0%)
+        cyl=NA & am=manual & vs=straight cyl=4 & am=auto & vs=vshaped
+      1                      22.8 / 22.8                      NA / NA
+      2                 22.8 [22.8;22.8]                   NA [NA;NA]
+      3                        22.8 (NA)                      NA (NA)
+      4                            1 (0)                        0 (0)
+      5                           0 (0%)                       0 (0%)
         cyl=6 & am=auto & vs=vshaped cyl=8 & am=auto & vs=vshaped
       1                      NA / NA                  10.4 / 19.2
       2                   NA [NA;NA]             15.2 [13.3;15.5]
       3                      NA (NA)                   14.6 (2.9)
       4                        0 (0)                        9 (0)
-      5                       0 (0%)                   9 (69.23%)
-        cyl=4 & am=manual & vs=vshaped cyl=6 & am=manual & vs=vshaped
-      1                    26.0 / 26.0                    19.7 / 19.7
-      2               26.0 [26.0;26.0]               19.7 [19.7;19.7]
-      3                      26.0 (NA)                      19.7 (NA)
-      4                          1 (0)                          1 (0)
+      5                       0 (0%)                   9 (60.00%)
+        cyl=NA & am=auto & vs=vshaped cyl=4 & am=manual & vs=vshaped
+      1                       NA / NA                    26.0 / 26.0
+      2                    NA [NA;NA]               26.0 [26.0;26.0]
+      3                       NA (NA)                      26.0 (NA)
+      4                         0 (0)                          1 (0)
+      5                        0 (0%)                         0 (0%)
+        cyl=6 & am=manual & vs=vshaped cyl=8 & am=manual & vs=vshaped
+      1                    19.7 / 19.7                    15.0 / 15.8
+      2               19.7 [19.7;19.7]               15.4 [15.2;15.6]
+      3                      19.7 (NA)                     15.4 (0.6)
+      4                          1 (0)                          2 (0)
       5                         0 (0%)                         0 (0%)
-        cyl=8 & am=manual & vs=vshaped cyl=4 & am=auto & vs=NA
-      1                    15.0 / 15.8             22.8 / 24.4
-      2               15.4 [15.2;15.6]        23.6 [23.2;24.0]
-      3                     15.4 (0.6)              23.6 (1.1)
-      4                          2 (0)                   2 (0)
-      5                         0 (0%)                  0 (0%)
-        cyl=6 & am=auto & vs=NA cyl=8 & am=auto & vs=NA cyl=4 & am=manual & vs=NA
-      1             17.8 / 19.2             14.3 / 16.4                   NA / NA
-      2        18.1 [18.0;18.6]        15.3 [14.8;15.9]                NA [NA;NA]
-      3              18.4 (0.7)              15.3 (1.5)                   NA (NA)
-      4                   3 (0)                   2 (0)                     0 (0)
-      5               1 (7.69%)              2 (15.38%)                    0 (0%)
-        cyl=6 & am=manual & vs=NA cyl=8 & am=manual & vs=NA               NA
-      1                   NA / NA                   NA / NA      18.7 / 22.8
-      2                NA [NA;NA]                NA [NA;NA] 21.0 [21.0;21.4]
-      3                   NA (NA)                   NA (NA)       21.0 (1.5)
-      4                     0 (0)                     0 (0)            5 (0)
-      5                    0 (0%)                    0 (0%)                2
+        cyl=NA & am=manual & vs=vshaped cyl=4 & am=auto & vs=NA
+      1                     21.0 / 21.0             22.8 / 24.4
+      2                21.0 [21.0;21.0]        23.6 [23.2;24.0]
+      3                        21.0 (0)              23.6 (1.1)
+      4                           2 (0)                   2 (0)
+      5                          0 (0%)                  0 (0%)
+        cyl=6 & am=auto & vs=NA cyl=8 & am=auto & vs=NA cyl=NA & am=auto & vs=NA
+      1             17.8 / 19.2             14.3 / 16.4              18.7 / 18.7
+      2        18.1 [18.0;18.6]        15.3 [14.8;15.9]         18.7 [18.7;18.7]
+      3              18.4 (0.7)              15.3 (1.5)                18.7 (NA)
+      4                   3 (0)                   2 (0)                    1 (0)
+      5               1 (6.67%)              2 (13.33%)                1 (6.67%)
+        cyl=4 & am=manual & vs=NA cyl=6 & am=manual & vs=NA cyl=8 & am=manual & vs=NA
+      1                   NA / NA                   NA / NA                   NA / NA
+      2                NA [NA;NA]                NA [NA;NA]                NA [NA;NA]
+      3                   NA (NA)                   NA (NA)                   NA (NA)
+      4                     0 (0)                     0 (0)                     0 (0)
+      5                    0 (0%)                    0 (0%)                    0 (0%)
+        cyl=NA & am=manual & vs=NA
+      1                    NA / NA
+      2                 NA [NA;NA]
+      3                    NA (NA)
+      4                      0 (0)
+      5                     0 (0%)
     Code
       x1 = crosstable(mtcars3, c(mpg, gear), by = c(cyl, am, vs), showNA = FALSE)
       as.data.frame(x1)
@@ -1766,7 +1808,7 @@
       2  mpg       Miles/(US) gallon  Med [IQR]              21.5 [21.5;21.5]
       3  mpg       Miles/(US) gallon Mean (std)                     21.5 (NA)
       4  mpg       Miles/(US) gallon     N (NA)                         1 (0)
-      5 gear Number of forward gears          3                    1 (10.00%)
+      5 gear Number of forward gears          3                     1 (9.09%)
       6 gear Number of forward gears          4                        0 (0%)
       7 gear Number of forward gears          5                        0 (0%)
         cyl=6 & am=auto & vs=straight cyl=8 & am=auto & vs=straight
@@ -1777,51 +1819,67 @@
       5                        0 (0%)                        0 (0%)
       6                        0 (0%)                        0 (0%)
       7                        0 (0%)                        0 (0%)
-        cyl=4 & am=manual & vs=straight cyl=6 & am=manual & vs=straight
-      1                     21.4 / 33.9                         NA / NA
-      2                30.4 [28.1;31.9]                      NA [NA;NA]
-      3                      29.3 (4.5)                         NA (NA)
-      4                           6 (0)                           0 (0)
+        cyl=NA & am=auto & vs=straight cyl=4 & am=manual & vs=straight
+      1                    21.4 / 21.4                     21.4 / 33.9
+      2               21.4 [21.4;21.4]                30.4 [28.1;31.9]
+      3                      21.4 (NA)                      29.3 (4.5)
+      4                          1 (0)                           6 (0)
+      5                      1 (9.09%)                          0 (0%)
+      6                         0 (0%)                      5 (62.50%)
+      7                         0 (0%)                      1 (20.00%)
+        cyl=6 & am=manual & vs=straight cyl=8 & am=manual & vs=straight
+      1                         NA / NA                         NA / NA
+      2                      NA [NA;NA]                      NA [NA;NA]
+      3                         NA (NA)                         NA (NA)
+      4                           0 (0)                           0 (0)
       5                          0 (0%)                          0 (0%)
-      6                     5 (100.00%)                          0 (0%)
-      7                      1 (20.00%)                          0 (0%)
-        cyl=8 & am=manual & vs=straight cyl=4 & am=auto & vs=vshaped
-      1                         NA / NA                      NA / NA
-      2                      NA [NA;NA]                   NA [NA;NA]
-      3                         NA (NA)                      NA (NA)
-      4                           0 (0)                        0 (0)
-      5                          0 (0%)                       0 (0%)
-      6                          0 (0%)                       0 (0%)
-      7                          0 (0%)                       0 (0%)
+      6                          0 (0%)                          0 (0%)
+      7                          0 (0%)                          0 (0%)
+        cyl=NA & am=manual & vs=straight cyl=4 & am=auto & vs=vshaped
+      1                      22.8 / 22.8                      NA / NA
+      2                 22.8 [22.8;22.8]                   NA [NA;NA]
+      3                        22.8 (NA)                      NA (NA)
+      4                            1 (0)                        0 (0)
+      5                           0 (0%)                       0 (0%)
+      6                       1 (12.50%)                       0 (0%)
+      7                           0 (0%)                       0 (0%)
         cyl=6 & am=auto & vs=vshaped cyl=8 & am=auto & vs=vshaped
       1                      NA / NA                  10.4 / 19.2
       2                   NA [NA;NA]             15.2 [13.3;15.5]
       3                      NA (NA)                   14.6 (2.9)
       4                        0 (0)                        9 (0)
-      5                       0 (0%)                   9 (90.00%)
+      5                       0 (0%)                   9 (81.82%)
       6                       0 (0%)                       0 (0%)
       7                       0 (0%)                       0 (0%)
-        cyl=4 & am=manual & vs=vshaped cyl=6 & am=manual & vs=vshaped
-      1                    26.0 / 26.0                    19.7 / 19.7
-      2               26.0 [26.0;26.0]               19.7 [19.7;19.7]
-      3                      26.0 (NA)                      19.7 (NA)
-      4                          1 (0)                          1 (0)
+        cyl=NA & am=auto & vs=vshaped cyl=4 & am=manual & vs=vshaped
+      1                       NA / NA                    26.0 / 26.0
+      2                    NA [NA;NA]               26.0 [26.0;26.0]
+      3                       NA (NA)                      26.0 (NA)
+      4                         0 (0)                          1 (0)
+      5                        0 (0%)                         0 (0%)
+      6                        0 (0%)                         0 (0%)
+      7                        0 (0%)                     1 (20.00%)
+        cyl=6 & am=manual & vs=vshaped cyl=8 & am=manual & vs=vshaped
+      1                    19.7 / 19.7                    15.0 / 15.8
+      2               19.7 [19.7;19.7]               15.4 [15.2;15.6]
+      3                      19.7 (NA)                     15.4 (0.6)
+      4                          1 (0)                          2 (0)
       5                         0 (0%)                         0 (0%)
       6                         0 (0%)                         0 (0%)
-      7                     1 (20.00%)                     1 (20.00%)
-        cyl=8 & am=manual & vs=vshaped
-      1                    15.0 / 15.8
-      2               15.4 [15.2;15.6]
-      3                     15.4 (0.6)
-      4                          2 (0)
-      5                         0 (0%)
-      6                         0 (0%)
-      7                     2 (40.00%)
+      7                     1 (20.00%)                     2 (40.00%)
+        cyl=NA & am=manual & vs=vshaped
+      1                     21.0 / 21.0
+      2                21.0 [21.0;21.0]
+      3                        21.0 (0)
+      4                           2 (0)
+      5                          0 (0%)
+      6                      2 (25.00%)
+      7                          0 (0%)
     Code
       as_flextable(x1)
     Output
       a flextable object.
-      col_keys: `label`, `variable`, `cyl=4 & am=auto & vs=straight`, `cyl=6 & am=auto & vs=straight`, `cyl=8 & am=auto & vs=straight`, `cyl=4 & am=manual & vs=straight`, `cyl=6 & am=manual & vs=straight`, `cyl=8 & am=manual & vs=straight`, `cyl=4 & am=auto & vs=vshaped`, `cyl=6 & am=auto & vs=vshaped`, `cyl=8 & am=auto & vs=vshaped`, `cyl=4 & am=manual & vs=vshaped`, `cyl=6 & am=manual & vs=vshaped`, `cyl=8 & am=manual & vs=vshaped` 
+      col_keys: `label`, `variable`, `cyl=4 & am=auto & vs=straight`, `cyl=6 & am=auto & vs=straight`, `cyl=8 & am=auto & vs=straight`, `cyl=NA & am=auto & vs=straight`, `cyl=4 & am=manual & vs=straight`, `cyl=6 & am=manual & vs=straight`, `cyl=8 & am=manual & vs=straight`, `cyl=NA & am=manual & vs=straight`, `cyl=4 & am=auto & vs=vshaped`, `cyl=6 & am=auto & vs=vshaped`, `cyl=8 & am=auto & vs=vshaped`, `cyl=NA & am=auto & vs=vshaped`, `cyl=4 & am=manual & vs=vshaped`, `cyl=6 & am=manual & vs=vshaped`, `cyl=8 & am=manual & vs=vshaped`, `cyl=NA & am=manual & vs=vshaped` 
       header has 3 row(s) 
       body has 7 row(s) 
       original dataset sample: 
@@ -1830,43 +1888,55 @@
       2  mpg       Miles/(US) gallon  Med [IQR]              21.5 [21.5;21.5]
       3  mpg       Miles/(US) gallon Mean (std)                     21.5 (NA)
       4  mpg       Miles/(US) gallon     N (NA)                         1 (0)
-      5 gear Number of forward gears          3                    1 (10.00%)
+      5 gear Number of forward gears          3                     1 (9.09%)
         cyl=6 & am=auto & vs=straight cyl=8 & am=auto & vs=straight
       1                       NA / NA                       NA / NA
       2                    NA [NA;NA]                    NA [NA;NA]
       3                       NA (NA)                       NA (NA)
       4                         0 (0)                         0 (0)
       5                        0 (0%)                        0 (0%)
-        cyl=4 & am=manual & vs=straight cyl=6 & am=manual & vs=straight
-      1                     21.4 / 33.9                         NA / NA
-      2                30.4 [28.1;31.9]                      NA [NA;NA]
-      3                      29.3 (4.5)                         NA (NA)
-      4                           6 (0)                           0 (0)
+        cyl=NA & am=auto & vs=straight cyl=4 & am=manual & vs=straight
+      1                    21.4 / 21.4                     21.4 / 33.9
+      2               21.4 [21.4;21.4]                30.4 [28.1;31.9]
+      3                      21.4 (NA)                      29.3 (4.5)
+      4                          1 (0)                           6 (0)
+      5                      1 (9.09%)                          0 (0%)
+        cyl=6 & am=manual & vs=straight cyl=8 & am=manual & vs=straight
+      1                         NA / NA                         NA / NA
+      2                      NA [NA;NA]                      NA [NA;NA]
+      3                         NA (NA)                         NA (NA)
+      4                           0 (0)                           0 (0)
       5                          0 (0%)                          0 (0%)
-        cyl=8 & am=manual & vs=straight cyl=4 & am=auto & vs=vshaped
-      1                         NA / NA                      NA / NA
-      2                      NA [NA;NA]                   NA [NA;NA]
-      3                         NA (NA)                      NA (NA)
-      4                           0 (0)                        0 (0)
-      5                          0 (0%)                       0 (0%)
+        cyl=NA & am=manual & vs=straight cyl=4 & am=auto & vs=vshaped
+      1                      22.8 / 22.8                      NA / NA
+      2                 22.8 [22.8;22.8]                   NA [NA;NA]
+      3                        22.8 (NA)                      NA (NA)
+      4                            1 (0)                        0 (0)
+      5                           0 (0%)                       0 (0%)
         cyl=6 & am=auto & vs=vshaped cyl=8 & am=auto & vs=vshaped
       1                      NA / NA                  10.4 / 19.2
       2                   NA [NA;NA]             15.2 [13.3;15.5]
       3                      NA (NA)                   14.6 (2.9)
       4                        0 (0)                        9 (0)
-      5                       0 (0%)                   9 (90.00%)
-        cyl=4 & am=manual & vs=vshaped cyl=6 & am=manual & vs=vshaped
-      1                    26.0 / 26.0                    19.7 / 19.7
-      2               26.0 [26.0;26.0]               19.7 [19.7;19.7]
-      3                      26.0 (NA)                      19.7 (NA)
-      4                          1 (0)                          1 (0)
+      5                       0 (0%)                   9 (81.82%)
+        cyl=NA & am=auto & vs=vshaped cyl=4 & am=manual & vs=vshaped
+      1                       NA / NA                    26.0 / 26.0
+      2                    NA [NA;NA]               26.0 [26.0;26.0]
+      3                       NA (NA)                      26.0 (NA)
+      4                         0 (0)                          1 (0)
+      5                        0 (0%)                         0 (0%)
+        cyl=6 & am=manual & vs=vshaped cyl=8 & am=manual & vs=vshaped
+      1                    19.7 / 19.7                    15.0 / 15.8
+      2               19.7 [19.7;19.7]               15.4 [15.2;15.6]
+      3                      19.7 (NA)                     15.4 (0.6)
+      4                          1 (0)                          2 (0)
       5                         0 (0%)                         0 (0%)
-        cyl=8 & am=manual & vs=vshaped
-      1                    15.0 / 15.8
-      2               15.4 [15.2;15.6]
-      3                     15.4 (0.6)
-      4                          2 (0)
-      5                         0 (0%)
+        cyl=NA & am=manual & vs=vshaped
+      1                     21.0 / 21.0
+      2                21.0 [21.0;21.0]
+      3                        21.0 (0)
+      4                           2 (0)
+      5                          0 (0%)
     Code
       x2 = crosstable(mtcars3, c(mpg, gear), by = c(cyl, am, vs), total = TRUE)
       as.data.frame(x2)
@@ -1876,10 +1946,10 @@
       2  mpg       Miles/(US) gallon  Med [IQR]              21.5 [21.5;21.5]
       3  mpg       Miles/(US) gallon Mean (std)                     21.5 (NA)
       4  mpg       Miles/(US) gallon     N (NA)                         1 (0)
-      5 gear Number of forward gears          3                     1 (7.69%)
+      5 gear Number of forward gears          3                     1 (6.67%)
       6 gear Number of forward gears          4                        0 (0%)
       7 gear Number of forward gears          5                        0 (0%)
-      8 gear Number of forward gears      Total                     1 (3.70%)
+      8 gear Number of forward gears      Total                     1 (3.12%)
         cyl=6 & am=auto & vs=straight cyl=8 & am=auto & vs=straight
       1                       NA / NA                       NA / NA
       2                    NA [NA;NA]                    NA [NA;NA]
@@ -1889,83 +1959,101 @@
       6                        0 (0%)                        0 (0%)
       7                        0 (0%)                        0 (0%)
       8                        0 (0%)                        0 (0%)
-        cyl=4 & am=manual & vs=straight cyl=6 & am=manual & vs=straight
-      1                     21.4 / 33.9                         NA / NA
-      2                30.4 [28.1;31.9]                      NA [NA;NA]
-      3                      29.3 (4.5)                         NA (NA)
-      4                           6 (0)                           0 (0)
+        cyl=NA & am=auto & vs=straight cyl=4 & am=manual & vs=straight
+      1                    21.4 / 21.4                     21.4 / 33.9
+      2               21.4 [21.4;21.4]                30.4 [28.1;31.9]
+      3                      21.4 (NA)                      29.3 (4.5)
+      4                          1 (0)                           6 (0)
+      5                      1 (6.67%)                          0 (0%)
+      6                         0 (0%)                      5 (41.67%)
+      7                         0 (0%)                      1 (20.00%)
+      8                      1 (3.12%)                      6 (18.75%)
+        cyl=6 & am=manual & vs=straight cyl=8 & am=manual & vs=straight
+      1                         NA / NA                         NA / NA
+      2                      NA [NA;NA]                      NA [NA;NA]
+      3                         NA (NA)                         NA (NA)
+      4                           0 (0)                           0 (0)
       5                          0 (0%)                          0 (0%)
-      6                      5 (55.56%)                          0 (0%)
-      7                      1 (20.00%)                          0 (0%)
-      8                      6 (22.22%)                          0 (0%)
-        cyl=8 & am=manual & vs=straight cyl=4 & am=auto & vs=vshaped
-      1                         NA / NA                      NA / NA
-      2                      NA [NA;NA]                   NA [NA;NA]
-      3                         NA (NA)                      NA (NA)
-      4                           0 (0)                        0 (0)
-      5                          0 (0%)                       0 (0%)
-      6                          0 (0%)                       0 (0%)
-      7                          0 (0%)                       0 (0%)
-      8                          0 (0%)                       0 (0%)
+      6                          0 (0%)                          0 (0%)
+      7                          0 (0%)                          0 (0%)
+      8                          0 (0%)                          0 (0%)
+        cyl=NA & am=manual & vs=straight cyl=4 & am=auto & vs=vshaped
+      1                      22.8 / 22.8                      NA / NA
+      2                 22.8 [22.8;22.8]                   NA [NA;NA]
+      3                        22.8 (NA)                      NA (NA)
+      4                            1 (0)                        0 (0)
+      5                           0 (0%)                       0 (0%)
+      6                        1 (8.33%)                       0 (0%)
+      7                           0 (0%)                       0 (0%)
+      8                        1 (3.12%)                       0 (0%)
         cyl=6 & am=auto & vs=vshaped cyl=8 & am=auto & vs=vshaped
       1                      NA / NA                  10.4 / 19.2
       2                   NA [NA;NA]             15.2 [13.3;15.5]
       3                      NA (NA)                   14.6 (2.9)
       4                        0 (0)                        9 (0)
-      5                       0 (0%)                   9 (69.23%)
+      5                       0 (0%)                   9 (60.00%)
       6                       0 (0%)                       0 (0%)
       7                       0 (0%)                       0 (0%)
-      8                       0 (0%)                   9 (33.33%)
-        cyl=4 & am=manual & vs=vshaped cyl=6 & am=manual & vs=vshaped
-      1                    26.0 / 26.0                    19.7 / 19.7
-      2               26.0 [26.0;26.0]               19.7 [19.7;19.7]
-      3                      26.0 (NA)                      19.7 (NA)
-      4                          1 (0)                          1 (0)
+      8                       0 (0%)                   9 (28.12%)
+        cyl=NA & am=auto & vs=vshaped cyl=4 & am=manual & vs=vshaped
+      1                       NA / NA                    26.0 / 26.0
+      2                    NA [NA;NA]               26.0 [26.0;26.0]
+      3                       NA (NA)                      26.0 (NA)
+      4                         0 (0)                          1 (0)
+      5                        0 (0%)                         0 (0%)
+      6                        0 (0%)                         0 (0%)
+      7                        0 (0%)                     1 (20.00%)
+      8                        0 (0%)                      1 (3.12%)
+        cyl=6 & am=manual & vs=vshaped cyl=8 & am=manual & vs=vshaped
+      1                    19.7 / 19.7                    15.0 / 15.8
+      2               19.7 [19.7;19.7]               15.4 [15.2;15.6]
+      3                      19.7 (NA)                     15.4 (0.6)
+      4                          1 (0)                          2 (0)
       5                         0 (0%)                         0 (0%)
       6                         0 (0%)                         0 (0%)
-      7                     1 (20.00%)                     1 (20.00%)
-      8                      1 (3.70%)                      1 (3.70%)
-        cyl=8 & am=manual & vs=vshaped cyl=4 & am=auto & vs=NA
-      1                    15.0 / 15.8             22.8 / 24.4
-      2               15.4 [15.2;15.6]        23.6 [23.2;24.0]
-      3                     15.4 (0.6)              23.6 (1.1)
-      4                          2 (0)                   2 (0)
-      5                         0 (0%)                  0 (0%)
-      6                         0 (0%)              2 (22.22%)
-      7                     2 (40.00%)                  0 (0%)
-      8                      2 (7.41%)               2 (7.41%)
-        cyl=6 & am=auto & vs=NA cyl=8 & am=auto & vs=NA cyl=4 & am=manual & vs=NA
-      1             17.8 / 19.2             14.3 / 16.4                   NA / NA
-      2        18.1 [18.0;18.6]        15.3 [14.8;15.9]                NA [NA;NA]
-      3              18.4 (0.7)              15.3 (1.5)                   NA (NA)
-      4                   3 (0)                   2 (0)                     0 (0)
-      5               1 (7.69%)              2 (15.38%)                    0 (0%)
-      6              2 (22.22%)                  0 (0%)                    0 (0%)
-      7                  0 (0%)                  0 (0%)                    0 (0%)
-      8              3 (11.11%)               2 (7.41%)                    0 (0%)
-        cyl=6 & am=manual & vs=NA cyl=8 & am=manual & vs=NA               NA
-      1                   NA / NA                   NA / NA      18.7 / 22.8
-      2                NA [NA;NA]                NA [NA;NA] 21.0 [21.0;21.4]
-      3                   NA (NA)                   NA (NA)       21.0 (1.5)
-      4                     0 (0)                     0 (0)            5 (0)
-      5                    0 (0%)                    0 (0%)                2
-      6                    0 (0%)                    0 (0%)                3
-      7                    0 (0%)                    0 (0%)                0
-      8                    0 (0%)                    0 (0%)                5
-                   Total
-      1      10.4 / 33.9
-      2 19.2 [15.4;22.8]
-      3       20.1 (6.0)
-      4           32 (0)
-      5      15 (46.88%)
-      6      12 (37.50%)
-      7       5 (15.62%)
-      8     32 (100.00%)
+      7                     1 (20.00%)                     2 (40.00%)
+      8                      1 (3.12%)                      2 (6.25%)
+        cyl=NA & am=manual & vs=vshaped cyl=4 & am=auto & vs=NA
+      1                     21.0 / 21.0             22.8 / 24.4
+      2                21.0 [21.0;21.0]        23.6 [23.2;24.0]
+      3                        21.0 (0)              23.6 (1.1)
+      4                           2 (0)                   2 (0)
+      5                          0 (0%)                  0 (0%)
+      6                      2 (16.67%)              2 (16.67%)
+      7                          0 (0%)                  0 (0%)
+      8                       2 (6.25%)               2 (6.25%)
+        cyl=6 & am=auto & vs=NA cyl=8 & am=auto & vs=NA cyl=NA & am=auto & vs=NA
+      1             17.8 / 19.2             14.3 / 16.4              18.7 / 18.7
+      2        18.1 [18.0;18.6]        15.3 [14.8;15.9]         18.7 [18.7;18.7]
+      3              18.4 (0.7)              15.3 (1.5)                18.7 (NA)
+      4                   3 (0)                   2 (0)                    1 (0)
+      5               1 (6.67%)              2 (13.33%)                1 (6.67%)
+      6              2 (16.67%)                  0 (0%)                   0 (0%)
+      7                  0 (0%)                  0 (0%)                   0 (0%)
+      8               3 (9.38%)               2 (6.25%)                1 (3.12%)
+        cyl=4 & am=manual & vs=NA cyl=6 & am=manual & vs=NA cyl=8 & am=manual & vs=NA
+      1                   NA / NA                   NA / NA                   NA / NA
+      2                NA [NA;NA]                NA [NA;NA]                NA [NA;NA]
+      3                   NA (NA)                   NA (NA)                   NA (NA)
+      4                     0 (0)                     0 (0)                     0 (0)
+      5                    0 (0%)                    0 (0%)                    0 (0%)
+      6                    0 (0%)                    0 (0%)                    0 (0%)
+      7                    0 (0%)                    0 (0%)                    0 (0%)
+      8                    0 (0%)                    0 (0%)                    0 (0%)
+        cyl=NA & am=manual & vs=NA            Total
+      1                    NA / NA      10.4 / 33.9
+      2                 NA [NA;NA] 19.2 [15.4;22.8]
+      3                    NA (NA)       20.1 (6.0)
+      4                      0 (0)           32 (0)
+      5                     0 (0%)      15 (46.88%)
+      6                     0 (0%)      12 (37.50%)
+      7                     0 (0%)       5 (15.62%)
+      8                     0 (0%)     32 (100.00%)
     Code
       as_flextable(x2)
     Output
       a flextable object.
-      col_keys: `label`, `variable`, `cyl=4 & am=auto & vs=straight`, `cyl=6 & am=auto & vs=straight`, `cyl=8 & am=auto & vs=straight`, `cyl=4 & am=manual & vs=straight`, `cyl=6 & am=manual & vs=straight`, `cyl=8 & am=manual & vs=straight`, `cyl=4 & am=auto & vs=vshaped`, `cyl=6 & am=auto & vs=vshaped`, `cyl=8 & am=auto & vs=vshaped`, `cyl=4 & am=manual & vs=vshaped`, `cyl=6 & am=manual & vs=vshaped`, `cyl=8 & am=manual & vs=vshaped`, `cyl=4 & am=auto & vs=NA`, `cyl=6 & am=auto & vs=NA`, `cyl=8 & am=auto & vs=NA`, `cyl=4 & am=manual & vs=NA`, `cyl=6 & am=manual & vs=NA`, `cyl=8 & am=manual & vs=NA`, `NA`, `Total` 
+      col_keys: `label`, `variable`, `cyl=4 & am=auto & vs=straight`, `cyl=6 & am=auto & vs=straight`, `cyl=8 & am=auto & vs=straight`, `cyl=NA & am=auto & vs=straight`, `cyl=4 & am=manual & vs=straight`, `cyl=6 & am=manual & vs=straight`, `cyl=8 & am=manual & vs=straight`, `cyl=NA & am=manual & vs=straight`, `cyl=4 & am=auto & vs=vshaped`, `cyl=6 & am=auto & vs=vshaped`, `cyl=8 & am=auto & vs=vshaped`, `cyl=NA & am=auto & vs=vshaped`, `cyl=4 & am=manual & vs=vshaped`, `cyl=6 & am=manual & vs=vshaped`, `cyl=8 & am=manual & vs=vshaped`, `cyl=NA & am=manual & vs=vshaped`, `cyl=4 & am=auto & vs=NA`, `cyl=6 & am=auto & vs=NA`, `cyl=8 & am=auto & vs=NA`, `cyl=NA & am=auto & vs=NA`, `cyl=4 & am=manual & vs=NA`, `cyl=6 & am=manual & vs=NA`, `cyl=8 & am=manual & vs=NA`, `cyl=NA & am=manual & vs=NA`, `Total` 
       header has 3 row(s) 
       body has 8 row(s) 
       original dataset sample: 
@@ -1974,61 +2062,73 @@
       2  mpg       Miles/(US) gallon  Med [IQR]              21.5 [21.5;21.5]
       3  mpg       Miles/(US) gallon Mean (std)                     21.5 (NA)
       4  mpg       Miles/(US) gallon     N (NA)                         1 (0)
-      5 gear Number of forward gears          3                     1 (7.69%)
+      5 gear Number of forward gears          3                     1 (6.67%)
         cyl=6 & am=auto & vs=straight cyl=8 & am=auto & vs=straight
       1                       NA / NA                       NA / NA
       2                    NA [NA;NA]                    NA [NA;NA]
       3                       NA (NA)                       NA (NA)
       4                         0 (0)                         0 (0)
       5                        0 (0%)                        0 (0%)
-        cyl=4 & am=manual & vs=straight cyl=6 & am=manual & vs=straight
-      1                     21.4 / 33.9                         NA / NA
-      2                30.4 [28.1;31.9]                      NA [NA;NA]
-      3                      29.3 (4.5)                         NA (NA)
-      4                           6 (0)                           0 (0)
+        cyl=NA & am=auto & vs=straight cyl=4 & am=manual & vs=straight
+      1                    21.4 / 21.4                     21.4 / 33.9
+      2               21.4 [21.4;21.4]                30.4 [28.1;31.9]
+      3                      21.4 (NA)                      29.3 (4.5)
+      4                          1 (0)                           6 (0)
+      5                      1 (6.67%)                          0 (0%)
+        cyl=6 & am=manual & vs=straight cyl=8 & am=manual & vs=straight
+      1                         NA / NA                         NA / NA
+      2                      NA [NA;NA]                      NA [NA;NA]
+      3                         NA (NA)                         NA (NA)
+      4                           0 (0)                           0 (0)
       5                          0 (0%)                          0 (0%)
-        cyl=8 & am=manual & vs=straight cyl=4 & am=auto & vs=vshaped
-      1                         NA / NA                      NA / NA
-      2                      NA [NA;NA]                   NA [NA;NA]
-      3                         NA (NA)                      NA (NA)
-      4                           0 (0)                        0 (0)
-      5                          0 (0%)                       0 (0%)
+        cyl=NA & am=manual & vs=straight cyl=4 & am=auto & vs=vshaped
+      1                      22.8 / 22.8                      NA / NA
+      2                 22.8 [22.8;22.8]                   NA [NA;NA]
+      3                        22.8 (NA)                      NA (NA)
+      4                            1 (0)                        0 (0)
+      5                           0 (0%)                       0 (0%)
         cyl=6 & am=auto & vs=vshaped cyl=8 & am=auto & vs=vshaped
       1                      NA / NA                  10.4 / 19.2
       2                   NA [NA;NA]             15.2 [13.3;15.5]
       3                      NA (NA)                   14.6 (2.9)
       4                        0 (0)                        9 (0)
-      5                       0 (0%)                   9 (69.23%)
-        cyl=4 & am=manual & vs=vshaped cyl=6 & am=manual & vs=vshaped
-      1                    26.0 / 26.0                    19.7 / 19.7
-      2               26.0 [26.0;26.0]               19.7 [19.7;19.7]
-      3                      26.0 (NA)                      19.7 (NA)
-      4                          1 (0)                          1 (0)
+      5                       0 (0%)                   9 (60.00%)
+        cyl=NA & am=auto & vs=vshaped cyl=4 & am=manual & vs=vshaped
+      1                       NA / NA                    26.0 / 26.0
+      2                    NA [NA;NA]               26.0 [26.0;26.0]
+      3                       NA (NA)                      26.0 (NA)
+      4                         0 (0)                          1 (0)
+      5                        0 (0%)                         0 (0%)
+        cyl=6 & am=manual & vs=vshaped cyl=8 & am=manual & vs=vshaped
+      1                    19.7 / 19.7                    15.0 / 15.8
+      2               19.7 [19.7;19.7]               15.4 [15.2;15.6]
+      3                      19.7 (NA)                     15.4 (0.6)
+      4                          1 (0)                          2 (0)
       5                         0 (0%)                         0 (0%)
-        cyl=8 & am=manual & vs=vshaped cyl=4 & am=auto & vs=NA
-      1                    15.0 / 15.8             22.8 / 24.4
-      2               15.4 [15.2;15.6]        23.6 [23.2;24.0]
-      3                     15.4 (0.6)              23.6 (1.1)
-      4                          2 (0)                   2 (0)
-      5                         0 (0%)                  0 (0%)
-        cyl=6 & am=auto & vs=NA cyl=8 & am=auto & vs=NA cyl=4 & am=manual & vs=NA
-      1             17.8 / 19.2             14.3 / 16.4                   NA / NA
-      2        18.1 [18.0;18.6]        15.3 [14.8;15.9]                NA [NA;NA]
-      3              18.4 (0.7)              15.3 (1.5)                   NA (NA)
-      4                   3 (0)                   2 (0)                     0 (0)
-      5               1 (7.69%)              2 (15.38%)                    0 (0%)
-        cyl=6 & am=manual & vs=NA cyl=8 & am=manual & vs=NA               NA
-      1                   NA / NA                   NA / NA      18.7 / 22.8
-      2                NA [NA;NA]                NA [NA;NA] 21.0 [21.0;21.4]
-      3                   NA (NA)                   NA (NA)       21.0 (1.5)
-      4                     0 (0)                     0 (0)            5 (0)
-      5                    0 (0%)                    0 (0%)                2
-                   Total
-      1      10.4 / 33.9
-      2 19.2 [15.4;22.8]
-      3       20.1 (6.0)
-      4           32 (0)
-      5      15 (46.88%)
+        cyl=NA & am=manual & vs=vshaped cyl=4 & am=auto & vs=NA
+      1                     21.0 / 21.0             22.8 / 24.4
+      2                21.0 [21.0;21.0]        23.6 [23.2;24.0]
+      3                        21.0 (0)              23.6 (1.1)
+      4                           2 (0)                   2 (0)
+      5                          0 (0%)                  0 (0%)
+        cyl=6 & am=auto & vs=NA cyl=8 & am=auto & vs=NA cyl=NA & am=auto & vs=NA
+      1             17.8 / 19.2             14.3 / 16.4              18.7 / 18.7
+      2        18.1 [18.0;18.6]        15.3 [14.8;15.9]         18.7 [18.7;18.7]
+      3              18.4 (0.7)              15.3 (1.5)                18.7 (NA)
+      4                   3 (0)                   2 (0)                    1 (0)
+      5               1 (6.67%)              2 (13.33%)                1 (6.67%)
+        cyl=4 & am=manual & vs=NA cyl=6 & am=manual & vs=NA cyl=8 & am=manual & vs=NA
+      1                   NA / NA                   NA / NA                   NA / NA
+      2                NA [NA;NA]                NA [NA;NA]                NA [NA;NA]
+      3                   NA (NA)                   NA (NA)                   NA (NA)
+      4                     0 (0)                     0 (0)                     0 (0)
+      5                    0 (0%)                    0 (0%)                    0 (0%)
+        cyl=NA & am=manual & vs=NA            Total
+      1                    NA / NA      10.4 / 33.9
+      2                 NA [NA;NA] 19.2 [15.4;22.8]
+      3                    NA (NA)       20.1 (6.0)
+      4                      0 (0)           32 (0)
+      5                     0 (0%)      15 (46.88%)
     Code
       x3 = crosstable(mtcars3, c(mpg, vs, cyl), by = c(am, dummy))
       as.data.frame(x3)
@@ -2396,7 +2496,7 @@
       x1 %>% as_flextable()
     Output
       a flextable object.
-      col_keys: `label`, `variable`, `cyl=4 & I(am == "auto")=FALSE & vs=straight`, `cyl=6 & I(am == "auto")=FALSE & vs=straight`, `cyl=8 & I(am == "auto")=FALSE & vs=straight`, `cyl=4 & I(am == "auto")=TRUE & vs=straight`, `cyl=6 & I(am == "auto")=TRUE & vs=straight`, `cyl=8 & I(am == "auto")=TRUE & vs=straight`, `cyl=4 & I(am == "auto")=FALSE & vs=vshaped`, `cyl=6 & I(am == "auto")=FALSE & vs=vshaped`, `cyl=8 & I(am == "auto")=FALSE & vs=vshaped`, `cyl=4 & I(am == "auto")=TRUE & vs=vshaped`, `cyl=6 & I(am == "auto")=TRUE & vs=vshaped`, `cyl=8 & I(am == "auto")=TRUE & vs=vshaped`, `cyl=4 & I(am == "auto")=FALSE & vs=NA`, `cyl=6 & I(am == "auto")=FALSE & vs=NA`, `cyl=8 & I(am == "auto")=FALSE & vs=NA`, `cyl=4 & I(am == "auto")=TRUE & vs=NA`, `cyl=6 & I(am == "auto")=TRUE & vs=NA`, `cyl=8 & I(am == "auto")=TRUE & vs=NA`, `NA`, `Total` 
+      col_keys: `label`, `variable`, `cyl=4 & I(am == "auto")=FALSE & vs=straight`, `cyl=6 & I(am == "auto")=FALSE & vs=straight`, `cyl=8 & I(am == "auto")=FALSE & vs=straight`, `cyl=NA & I(am == "auto")=FALSE & vs=straight`, `cyl=4 & I(am == "auto")=TRUE & vs=straight`, `cyl=6 & I(am == "auto")=TRUE & vs=straight`, `cyl=8 & I(am == "auto")=TRUE & vs=straight`, `cyl=NA & I(am == "auto")=TRUE & vs=straight`, `cyl=4 & I(am == "auto")=FALSE & vs=vshaped`, `cyl=6 & I(am == "auto")=FALSE & vs=vshaped`, `cyl=8 & I(am == "auto")=FALSE & vs=vshaped`, `cyl=NA & I(am == "auto")=FALSE & vs=vshaped`, `cyl=4 & I(am == "auto")=TRUE & vs=vshaped`, `cyl=6 & I(am == "auto")=TRUE & vs=vshaped`, `cyl=8 & I(am == "auto")=TRUE & vs=vshaped`, `cyl=NA & I(am == "auto")=TRUE & vs=vshaped`, `cyl=4 & I(am == "auto")=FALSE & vs=NA`, `cyl=6 & I(am == "auto")=FALSE & vs=NA`, `cyl=8 & I(am == "auto")=FALSE & vs=NA`, `cyl=NA & I(am == "auto")=FALSE & vs=NA`, `cyl=4 & I(am == "auto")=TRUE & vs=NA`, `cyl=6 & I(am == "auto")=TRUE & vs=NA`, `cyl=8 & I(am == "auto")=TRUE & vs=NA`, `cyl=NA & I(am == "auto")=TRUE & vs=NA`, `Total` 
       header has 3 row(s) 
       body has 8 row(s) 
       original dataset sample: 
@@ -2424,12 +2524,18 @@
       3                                     NA (NA)
       4                                       0 (0)
       5                                      0 (0%)
+        cyl=NA & I(am == "auto")=FALSE & vs=straight
+      1                                  22.8 / 22.8
+      2                             22.8 [22.8;22.8]
+      3                                    22.8 (NA)
+      4                                        1 (0)
+      5                                       0 (0%)
         cyl=4 & I(am == "auto")=TRUE & vs=straight
       1                                21.5 / 21.5
       2                           21.5 [21.5;21.5]
       3                                  21.5 (NA)
       4                                      1 (0)
-      5                                  1 (7.69%)
+      5                                  1 (6.67%)
         cyl=6 & I(am == "auto")=TRUE & vs=straight
       1                                    NA / NA
       2                                 NA [NA;NA]
@@ -2442,6 +2548,12 @@
       3                                    NA (NA)
       4                                      0 (0)
       5                                     0 (0%)
+        cyl=NA & I(am == "auto")=TRUE & vs=straight
+      1                                 21.4 / 21.4
+      2                            21.4 [21.4;21.4]
+      3                                   21.4 (NA)
+      4                                       1 (0)
+      5                                   1 (6.67%)
         cyl=4 & I(am == "auto")=FALSE & vs=vshaped
       1                                26.0 / 26.0
       2                           26.0 [26.0;26.0]
@@ -2460,6 +2572,12 @@
       3                                 15.4 (0.6)
       4                                      2 (0)
       5                                     0 (0%)
+        cyl=NA & I(am == "auto")=FALSE & vs=vshaped
+      1                                 21.0 / 21.0
+      2                            21.0 [21.0;21.0]
+      3                                    21.0 (0)
+      4                                       2 (0)
+      5                                      0 (0%)
         cyl=4 & I(am == "auto")=TRUE & vs=vshaped
       1                                   NA / NA
       2                                NA [NA;NA]
@@ -2477,29 +2595,41 @@
       2                          15.2 [13.3;15.5]
       3                                14.6 (2.9)
       4                                     9 (0)
-      5                                9 (69.23%)
+      5                                9 (60.00%)
+        cyl=NA & I(am == "auto")=TRUE & vs=vshaped
+      1                                    NA / NA
+      2                                 NA [NA;NA]
+      3                                    NA (NA)
+      4                                      0 (0)
+      5                                     0 (0%)
         cyl=4 & I(am == "auto")=FALSE & vs=NA cyl=6 & I(am == "auto")=FALSE & vs=NA
       1                               NA / NA                               NA / NA
       2                            NA [NA;NA]                            NA [NA;NA]
       3                               NA (NA)                               NA (NA)
       4                                 0 (0)                                 0 (0)
       5                                0 (0%)                                0 (0%)
-        cyl=8 & I(am == "auto")=FALSE & vs=NA cyl=4 & I(am == "auto")=TRUE & vs=NA
-      1                               NA / NA                          22.8 / 24.4
-      2                            NA [NA;NA]                     23.6 [23.2;24.0]
-      3                               NA (NA)                           23.6 (1.1)
-      4                                 0 (0)                                2 (0)
-      5                                0 (0%)                               0 (0%)
-        cyl=6 & I(am == "auto")=TRUE & vs=NA cyl=8 & I(am == "auto")=TRUE & vs=NA
-      1                          17.8 / 19.2                          14.3 / 16.4
-      2                     18.1 [18.0;18.6]                     15.3 [14.8;15.9]
-      3                           18.4 (0.7)                           15.3 (1.5)
-      4                                3 (0)                                2 (0)
-      5                            1 (7.69%)                           2 (15.38%)
-                      NA            Total
-      1      18.7 / 22.8      10.4 / 33.9
-      2 21.0 [21.0;21.4] 19.2 [15.4;22.8]
-      3       21.0 (1.5)       20.1 (6.0)
-      4            5 (0)           32 (0)
-      5                2      15 (46.88%)
+        cyl=8 & I(am == "auto")=FALSE & vs=NA cyl=NA & I(am == "auto")=FALSE & vs=NA
+      1                               NA / NA                                NA / NA
+      2                            NA [NA;NA]                             NA [NA;NA]
+      3                               NA (NA)                                NA (NA)
+      4                                 0 (0)                                  0 (0)
+      5                                0 (0%)                                 0 (0%)
+        cyl=4 & I(am == "auto")=TRUE & vs=NA cyl=6 & I(am == "auto")=TRUE & vs=NA
+      1                          22.8 / 24.4                          17.8 / 19.2
+      2                     23.6 [23.2;24.0]                     18.1 [18.0;18.6]
+      3                           23.6 (1.1)                           18.4 (0.7)
+      4                                2 (0)                                3 (0)
+      5                               0 (0%)                            1 (6.67%)
+        cyl=8 & I(am == "auto")=TRUE & vs=NA cyl=NA & I(am == "auto")=TRUE & vs=NA
+      1                          14.3 / 16.4                           18.7 / 18.7
+      2                     15.3 [14.8;15.9]                      18.7 [18.7;18.7]
+      3                           15.3 (1.5)                             18.7 (NA)
+      4                                2 (0)                                 1 (0)
+      5                           2 (13.33%)                             1 (6.67%)
+                   Total
+      1      10.4 / 33.9
+      2 19.2 [15.4;22.8]
+      3       20.1 (6.0)
+      4           32 (0)
+      5      15 (46.88%)
 
