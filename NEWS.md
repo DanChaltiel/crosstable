@@ -4,8 +4,8 @@
 
 #### New features
 
-* You can now use basic markdown formats in `body_add_normal()`: \*\*bold\*\*, \*italic\*, \_underlined\_, and `code`.
-* Add `keep_id` argument to `compact.crosstable()`, which enabled `as_flextable(compact=TRUE, keep_id=TRUE)`
+* You can now use basic markdown formats in `body_add_normal()`: \*\***bold**\*\*, \**italic*\*, \__underlined_\_, and \``code`\`.
+* New `keep_id` argument in `compact.crosstable()`, which enables `as_flextable(compact=TRUE, keep_id=TRUE)`
 * You can use `as_flextable(header_show_n_pattern)` to change the glue pattern of these group sizes. The default is `{.col} (N={.n})`; you can use `{.col_key}` and `{.col_val}` when `by` has multiple strata. 
 * Functions `body_add_table_legend()` and `body_add_figure_legend()` earn an argument `legend_prefix`. Useful when set through global options, for instance to make every table/figure start with the name of the study.
 * `crosstable_options()` can handle new options for all those new features. 
@@ -15,7 +15,7 @@
 * You can now set normal style directly in `body_add_normal()` (it was only doable through options before).
 * Removed the "variable" header in compacted crosstables.
 * Dataset `mtcars2` is now a tibble, with its rownames as a column named "model".
-* `as_flextable(by_header=FALSE)` now remove the group header (if `by` has only one stratum). 
+* `as_flextable(by_header=FALSE)` now removes the group header (if `by` has only one stratum). 
 * `as_flextable(header_show_n)` now also works if `by` has multiple strata. 
 * `as_flextable(header_show_n=TRUE)` adds group size for all groups.
 
