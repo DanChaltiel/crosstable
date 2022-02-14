@@ -44,7 +44,7 @@
     
     <a class="navbar-brand me-2" href="index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2.9013</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -108,15 +108,15 @@
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Install last version available on CRAN (v0.3.2)</span>
+<code class="sourceCode R"><span class="co"># Install last version available on CRAN (v0.4.0)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"crosstable"</span><span class="op">)</span>
 
 <span class="co"># Install development version on Github</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="co"># Install specific commit or tagged version (for reproducibility purpose)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable@b6f901b"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable@v0.3.2"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable@d30332e"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable@v0.4.0"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Note that, for reproducibility purpose, an even better solution would be to use <a href="https://rstudio.github.io/renv/articles/renv.html" class="external-link"><code>renv</code></a>.</p>
 </div>
 <div class="section level2">
@@ -184,7 +184,7 @@
 <div class="section level2">
 <h2 id="getting-help-and-giving-feedback">Getting help and giving feedback<a class="anchor" aria-label="anchor" href="#getting-help-and-giving-feedback"></a>
 </h2>
-<p>If you have a question about how to use <code>crosstable</code>, please ask on <a href="https://stackoverflow.com/" class="external-link">StackOverflow</a> with the tag <code>crosstable</code>. You can <code>@DanChaltiel</code> in a comment if you are struggling to get answers. Don’t forget to add a minimal <strong>repr</strong>oducible <strong>ex</strong>ample to your question, ideally using the <a href="http://reprex.tidyverse.org/" class="external-link">reprex</a> package.</p>
+<p>If you have a question about how to use <code>crosstable</code>, please ask on <a href="https://stackoverflow.com/" class="external-link">StackOverflow</a> with the tag <code>crosstable</code>. You can <code>@DanChaltiel</code> in a comment if you are struggling to get answers. Don’t forget to add a minimal <strong>repr</strong>oducible <strong>ex</strong>ample to your question, ideally using the <a href="https://reprex.tidyverse.org/" class="external-link">reprex</a> package.</p>
 <p>If you miss any feature that you think would belong in <code>crosstable</code>, please fill a <a href="https://github.com/DanChaltiel/crosstable/issues/new/choose" class="external-link">Feature Request</a> issue.</p>
 <p>If you encounter an unexpected error while using <code>crosstable</code>, please fill a <a href="https://github.com/DanChaltiel/crosstable/issues/new/choose" class="external-link">Bug Report</a> issue. In case of any installation problem, try the solutions proposed in <a href="https://danchaltiel.github.io/crosstable/articles/crosstable-install.html">this article</a> first.</p>
 </div>
@@ -230,7 +230,7 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="http://www.gnu.org/licenses/gpl-3.0.html" class="external-link"><img src="http://img.shields.io/badge/license-GPL--3-brightgreen.svg?style=flat" alt="Package-License"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-blue.svg" alt="Lifecycle: stable"></a></li>
 <li><a href="https://CRAN.R-project.org/package=crosstable" class="external-link"><img src="https://www.r-pkg.org/badges/version/crosstable" alt="CRAN status"></a></li>
 <li><a href="https://r-pkg.org/pkg/crosstable" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/crosstable?color=blue" alt="CRAN RStudio mirror downloads"></a></li>
 <li><a href="https://github.com/DanChaltiel/crosstable" class="external-link"><img src="https://img.shields.io/github/last-commit/DanChaltiel/crosstable" alt="Last Commit"></a></li>
