@@ -1,6 +1,6 @@
 Package: crosstable
 Title: Crosstables for Descriptive Analyses
-Version: 0.3.2.9015
+Version: 0.4.0
 Authors@R: 
     c(person(given = "Dan",
              family = "Chaltiel",
@@ -12,7 +12,7 @@ Authors@R:
              role = "ccp"))
 Description: Create descriptive tables for continuous and categorical variables. 
     Apply summary statistics and counting function, with or without a grouping variable, and create beautiful reports using 'rmarkdown' or 'officer'.
-    You can also compute statistical tests and effect sizes if needed.
+    You can also compute effect sizes and statistical tests if needed.
 License: GPL-3
 URL: https://danchaltiel.github.io/crosstable/, https://github.com/DanChaltiel/crosstable/
 BugReports: https://github.com/DanChaltiel/crosstable/issues/

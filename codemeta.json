@@ -5,7 +5,7 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "crosstable",
-  "description": "Create descriptive tables for continuous and categorical variables. \n    Apply summary statistics and counting function, with or without a grouping variable, and create beautiful reports using 'rmarkdown' or 'officer'.\n    You can also compute statistical tests and effect sizes if needed.",
+  "description": "Create descriptive tables for continuous and categorical variables. \n    Apply summary statistics and counting function, with or without a grouping variable, and create beautiful reports using 'rmarkdown' or 'officer'.\n    You can also compute effect sizes and statistical tests if needed.",
   "name": "crosstable: Crosstables for Descriptive Analyses",
   "codeRepository": "https://github.com/DanChaltiel/crosstable/",
   "relatedLink": [
@@ -14,13 +14,13 @@
   ],
   "issueTracker": "https://github.com/DanChaltiel/crosstable/issues/",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.3.0.9000",
+  "version": "0.4.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.1.1 (2021-08-10)",
+  "runtimePlatform": "R version 4.1.2 (2021-11-01)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -231,6 +231,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "survival",
+      "name": "survival",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=survival"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "systemfonts",
       "name": "systemfonts",
       "provider": {
@@ -361,11 +373,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "methods",
-      "name": "methods"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "officer",
       "name": "officer",
       "provider": {
@@ -420,18 +427,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "survival",
-      "name": "survival",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=survival"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "tibble",
       "name": "tibble",
       "provider": {
@@ -469,7 +464,7 @@
   ],
   "releaseNotes": "https://github.com/DanChaltiel/crosstable/blob/master/NEWS.md",
   "readme": "https://github.com/DanChaltiel/crosstable/blob/main/README.md",
-  "fileSize": "62906.26KB",
+  "fileSize": "69746.257KB",
   "contIntegration": "https://app.codecov.io/gh/DanChaltiel/crosstable?branch=main",
   "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html",
   "keywords": [
