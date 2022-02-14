@@ -95,12 +95,12 @@ test_that("'Test' can be a variable name", {
 test_that("Testing everything", {
     set.seed(1234)
     x = crosstable(mtcars3, c(disp,hp,am,surv), by=vs, margin="all", total="both",
-                   times=c(70,100,200,400), followup=TRUE, funs_arg = list(dig=9),
-                   test=T, effect=T)
+                   times=c(70,100,200,400), followup=TRUE, num_digits=0, percent_digits=0,
+                   test=TRUE, effect=TRUE)
         # expect_warning(class="crosstable_effect_warning")
     ft = as_flextable(x)
     
-    expect_snapshot(x)
+    expect_snapshot(as.data.frame(x))
     expect_snapshot(ft)
 })
 
