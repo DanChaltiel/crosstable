@@ -7,7 +7,7 @@
 
 [![Package-License](http://img.shields.io/badge/license-GPL--3-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html)
 [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+stable](https://img.shields.io/badge/lifecycle-stable-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/crosstable)](https://CRAN.R-project.org/package=crosstable)
 [![CRAN RStudio mirror
@@ -30,15 +30,15 @@ create automatized reports.
 ## Installation
 
 ``` r
-# Install last version available on CRAN (v0.3.2)
+# Install last version available on CRAN (v0.4.0)
 install.packages("crosstable")
 
 # Install development version on Github
 devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 
 # Install specific commit or tagged version (for reproducibility purpose)
-devtools::install_github("DanChaltiel/crosstable@a68c656", build_vignettes=TRUE)
-devtools::install_github("DanChaltiel/crosstable@v0.3.2", build_vignettes=TRUE)
+devtools::install_github("DanChaltiel/crosstable@d30332e", build_vignettes=TRUE)
+devtools::install_github("DanChaltiel/crosstable@v0.4.0", build_vignettes=TRUE)
 ```
 
 Note that, for reproducibility purpose, an even better solution would be

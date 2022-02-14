@@ -1,6 +1,6 @@
 <!-- https://style.tidyverse.org/news.html -->
 
-# crosstable 0.4.0 <sub><sup>(?)</sup></sub>
+# crosstable 0.4.0 <sub><sup>(2022-02-14)</sup></sub>
 
 #### New features
 

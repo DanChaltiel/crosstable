@@ -30,7 +30,7 @@ crosstable_options(
 
 <!-- badges: start -->
 [![Package-License](http://img.shields.io/badge/license-GPL--3-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html) 
-[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN status](https://www.r-pkg.org/badges/version/crosstable)](https://CRAN.R-project.org/package=crosstable)
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/crosstable?color=blue)](https://r-pkg.org/pkg/crosstable)
 [![Last Commit](https://img.shields.io/github/last-commit/DanChaltiel/crosstable)](https://github.com/DanChaltiel/crosstable)
