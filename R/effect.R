@@ -50,7 +50,7 @@ display_effect = function(effect, digits = 4){
     mutate_if(is.numeric, 
               ~formatC(.x, format="f", digits=digits))
   
-  if(all(effect$summary$ci_inf=="error")){
+  if(all(effect$summary$ci_inf=="error", na.rm=TRUE)){
     x$ci = "[CI error]"
   } else {
     x$ci = glue("[{x$ci_inf} to {x$ci_sup}]")

@@ -90,6 +90,7 @@ test_that("Effects: missing variables", {
 # Warnings ----------------------------------------------------------------
 
 test_that("Effects Warnings", {
+    set.seed(1234)
     crosstable(mtcars3, by=vs, times=c(0,100,200,400), effect=T) %>%
         expect_warning("fitted probabilities numerically 0 or 1 occurred") %>%
         expect_warning("fitted probabilities numerically 0 or 1 occurred") %>%
