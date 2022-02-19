@@ -1,5 +1,9 @@
 <!-- https://style.tidyverse.org/news.html -->
 
+# crosstable 0.4.1 <sub><sup>(2022-02-19)</sup></sub>
+
+* Maintenance release to fix CRAN errors.
+
 # crosstable 0.4.0 <sub><sup>(2022-02-14)</sup></sub>
 
 #### New features
