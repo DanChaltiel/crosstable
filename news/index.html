@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,8 +71,8 @@
 <h2 class="pkg-version" data-toc-text="0.4.0" id="crosstable-040-2022-02-14">crosstable 0.4.0 <sub><sup>(2022-02-14)</sup></sub><a class="anchor" aria-label="anchor" href="#crosstable-040-2022-02-14"></a></h2><p class="text-muted">CRAN release: 2022-02-14</p>
 <div class="section level5">
 <h5 id="new-features-0-4-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-4-0"></a></h5>
-<ul><li>You can now use basic markdown formats in <code><a href="../reference/body_add_normal.html">body_add_normal()</a></code>: **bold**, *italic*, _underlined_, and <code>code</code>.</li>
-<li>Add <code>keep_id</code> argument to <code><a href="../reference/compact.html">compact.crosstable()</a></code>, which enabled <code>as_flextable(compact=TRUE, keep_id=TRUE)</code>
+<ul><li>You can now use basic markdown formats in <code><a href="../reference/body_add_normal.html">body_add_normal()</a></code>: **<strong>bold</strong>**, *<em>italic</em>*, _<em>underlined</em>_, and `<code>code</code>`.</li>
+<li>New <code>keep_id</code> argument in <code><a href="../reference/compact.html">compact.crosstable()</a></code>, which enables <code>as_flextable(compact=TRUE, keep_id=TRUE)</code>
 </li>
 <li>You can use <code>as_flextable(header_show_n_pattern)</code> to change the glue pattern of these group sizes. The default is <code>{.col} (N={.n})</code>; you can use <code>{.col_key}</code> and <code>{.col_val}</code> when <code>by</code> has multiple strata.</li>
 <li>Functions <code><a href="../reference/body_add_legend.html">body_add_table_legend()</a></code> and <code><a href="../reference/body_add_legend.html">body_add_figure_legend()</a></code> earn an argument <code>legend_prefix</code>. Useful when set through global options, for instance to make every table/figure start with the name of the study.</li>
@@ -85,7 +85,7 @@
 <li>Removed the “variable” header in compacted crosstables.</li>
 <li>Dataset <code>mtcars2</code> is now a tibble, with its rownames as a column named “model”.</li>
 <li>
-<code>as_flextable(by_header=FALSE)</code> now remove the group header (if <code>by</code> has only one stratum).</li>
+<code>as_flextable(by_header=FALSE)</code> now removes the group header (if <code>by</code> has only one stratum).</li>
 <li>
 <code>as_flextable(header_show_n)</code> now also works if <code>by</code> has multiple strata.</li>
 <li>
