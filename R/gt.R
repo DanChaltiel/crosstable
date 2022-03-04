@@ -53,6 +53,7 @@ as_gt.crosstable = function(x, show_test_name = TRUE,
     if(showNA=="always") by_levels=c(by_levels, "NA")
     
     has_test = attr(x, "has_test")
+    generic_labels = get_generic_labels(generic_labels)
     test=generic_labels$test
     if (has_test && !is.null(x[[test]]) && !show_test_name) {
         x[[test]] = str_remove(x[[test]], "\\n\\(.*\\)")

@@ -82,7 +82,6 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
     
     border1 = fp_border(color = "black", style = "solid", width = 1)
     border2 = fp_border(color = "black", style = "solid", width = 1.5)
-    labs.names = setdiff(names(x), generic_labels)
     
     xattr = attributes(x)
     has_test = attr(x, "has_test")
@@ -103,6 +102,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
     if(isTRUE(by_header)) by_header=NULL
     if(identical(by_header, "")) by_header=FALSE
     
+    generic_labels = get_generic_labels(generic_labels)
     test=generic_labels$test
     id=generic_labels$id
     label=generic_labels$label

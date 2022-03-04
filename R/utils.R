@@ -492,6 +492,23 @@ fct = function(x=character(), levels, labels=levels, ...){
     factor(x, levels, labels, ...)
 }
 
+#' work with generic labels
+#'
+#' @param l a list
+#' @keywords internal
+#' @noRd
+#'
+#' @examples
+#' get_generic_labels(list(value="count"))
+get_generic_labels = function(l=list()){
+    x = list(id = ".id", variable = "variable", value = "value", 
+             total="Total", label = "label", test = "test", 
+             effect="effect")
+    x[names(l)] = l
+    x
+}
+
+
 #' @source adapted from gtools::mixedorder() v3.9.2
 #' @keywords internal
 #' @noRd
