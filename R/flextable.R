@@ -153,7 +153,12 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
             merge_v(j=id, target=body_merge, part = "body")
     }
     
-    if(n_levels==1) {
+    if(n_levels==0) {
+        if(!is.null(by_header)){
+            rtn = rtn %>% 
+                set_header_labels(values=lst(!!generic_labels$value := by_header))
+        }
+    } else if(n_levels==1) {
         by_levels2 = unlist(by_levels)
         byname = if(has_label) by_label else by
         
