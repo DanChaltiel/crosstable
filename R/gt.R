@@ -25,7 +25,7 @@
 #' xx = mtcars2 %>% dplyr::select(2:10)
 #' crosstable(xx) %>% as_gt
 #' crosstable(xx, by=am) %>% as_gt
-#' crosstable(xx, by=cyl, test=TRUE, total=TRUE, effect=TRUE) %>% 
+#' crosstable(xx, by=cyl, test=TRUE, total=TRUE) %>% 
 #'    as_gt(keep_id=TRUE, show_test_name=FALSE, by_header="Cylinders")
 as_gt.crosstable = function(x, show_test_name = TRUE, 
                             by_header = NULL, keep_id = FALSE,
@@ -51,10 +51,13 @@ as_gt.crosstable = function(x, show_test_name = TRUE,
     if(has_by && is.null(by_label)) by_label=by
     showNA = attr(x, "showNA")
     if(showNA=="always") by_levels=c(by_levels, "NA")
-    
     has_test = attr(x, "has_test")
+    
     generic_labels = get_generic_labels(generic_labels)
+    id=generic_labels$id
+    label=generic_labels$label
     test=generic_labels$test
+    
     if (has_test && !is.null(x[[test]]) && !show_test_name) {
         x[[test]] = str_remove(x[[test]], "\\n\\(.*\\)")
     }
@@ -73,11 +76,13 @@ as_gt.crosstable = function(x, show_test_name = TRUE,
             groupname=glue(group_glue)) %>% 
         select(-.data$.id, -.data$label) %>% 
         gt::gt(groupname_col="groupname", rowname_col="variable")
-    
     if(has_by){
         if(!is.null(by_header)) by_label=by_header
         rtn = rtn %>%
             gt::tab_spanner(label=by_label, columns=any_of(by_levels))
+    } else if(!is.null(by_header)){
+        rtn = rtn %>%
+            gt::cols_label(!!generic_labels$value:=by_header)
     }
     
     rtn
@@ -114,4 +119,13 @@ as_gt.default = function(x, ...){
 }
 
 
+# https://github.com/rstudio/gt/issues/632
+# example %>% 
+#     columnwide_summary_rows(
+#         groups = TRUE,
+#         fns = list(
+#             "Income sum in 1995 and 2005" = ~ sum(.$`1995`, .$`2005`),
+#             "Correlation between income in 1995 and in 2005" = ~ cor(.$`1995`, .$`2005`)
+#         )
+#     )
 
