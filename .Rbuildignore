@@ -28,3 +28,4 @@ DEV\.R
 ^pkgdown$
 ^CRAN-RELEASE$
 ^codemeta\.json$
+^CRAN-SUBMISSION$
