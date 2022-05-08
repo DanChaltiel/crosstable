@@ -248,8 +248,8 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     }
     
     one_col_dummy = ncol(data_y)==1 && length(unique(data_y[[1]]))==1
-    if(missing_percent_pattern && length(byname)==0 || one_col_dummy) {
-        percent_pattern = "{n} ({p_col})"
+    if(missing_percent_pattern && (length(byname)==0 || one_col_dummy)) {
+        percent_pattern = getOption("crosstable_percent_pattern", "{n} ({p_row})")
     }
     
     
