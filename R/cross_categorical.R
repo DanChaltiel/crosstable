@@ -71,7 +71,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
     
     if (2 %in% total){
         pattern_vars = get_glue_vars(percent_pattern)
-        any_p = pattern_vars %>% str_starts("p") %>% any()
+        any_p = pattern_vars %>% str_detect("p_row|p_col") %>% any()
         value = glue("{sum(table(x, useNA='always'))} ({format_fixed(100, digits=digits)}%)")
         if(!any_p) value = sum(table(x, useNA="always")) #"always" else sum is different in cols/row
         rtn = rbind(rtn, data.frame(variable="Total", value=value))
@@ -127,8 +127,8 @@ summarize_categorical_by = function(x, by,
     if(2 %in% total){
         mt = margin.table(nn, margin=2) %>% as.numeric()
         line = mt
-        any_p = pattern_vars %>% str_starts("p") %>% any()
         any_p_ci = pattern_vars %>% str_starts("p_col_") %>% any()
+        any_p = pattern_vars %>% str_detect("p_row|p_col") %>% any()
         #TODO si !any_p_ci on garde pattern
         if(any_p){
             mt2 = margin.table(table(x, by, useNA="no"), margin=2) %>% as.numeric()
@@ -141,10 +141,9 @@ summarize_categorical_by = function(x, by,
     
     .effect=.test=.total=NULL
     if(1 %in% total){
-        any_p = pattern_vars %>% str_starts("p") %>% any()
-        # any_pcol = pattern_vars %>% str_starts("pcol") %>% any()
+        any_p = pattern_vars %>% str_detect("p_row|p_col") %>% any()
         any_pcol_ci = pattern_vars %>% str_starts("p_col_") %>% any()
-        percent_pattern2=percent_pattern
+        percent_pattern2 = percent_pattern
         if(any_p && !any_pcol_ci) percent_pattern2="{n} ({p_col})"
         summarize_categorical_single(x=x, showNA=showNA, total=total, 
                                      digits=digits, percent_pattern=percent_pattern2)
