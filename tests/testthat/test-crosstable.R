@@ -5,11 +5,13 @@
 test_that("numeric+factor+surv by nothing", {
   x1=crosstable(mtcars3, c(am,mpg,cyl,surv))
   x1 %>% as_flextable()
+  expect_true(is.crosstable(x1))
   expect_equal(dim(x1), c(38,4))
   expect_equal(sum(is.na(x1)), 1)
   
   x2=crosstable(mtcars3, c(am,mpg,cyl,surv), times=c(0,100,200,400), followup=TRUE)
   x2 %>% as_flextable()
+  expect_true(is.crosstable(x2))
   expect_equal(dim(x2), c(16,4))
   expect_equal(sum(is.na(x2)), 1)
 })
