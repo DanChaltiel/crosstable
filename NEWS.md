@@ -1,5 +1,13 @@
 <!-- https://style.tidyverse.org/news.html -->
 
+# crosstable 0.5.0 <sub><sup>(?)</sup></sub>
+
+#### Bug fixes
+
+* `by_header` can replace the "value" column if `by` has only one stratum, in both `as_gt()` and `as_flextable()` (https://github.com/DanChaltiel/crosstable/issues/9).
+* `percent_pattern` can now contain functions that start by "p" (https://github.com/DanChaltiel/crosstable/issues/10).
+* `percent_pattern` is actually taken into account when `by` has one single level (https://github.com/DanChaltiel/crosstable/issues/13).
+
 # crosstable 0.4.1 <sub><sup>(2022-02-19)</sup></sub>
 
 * Maintenance release to fix CRAN errors.
