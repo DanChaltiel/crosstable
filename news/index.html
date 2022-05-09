@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,9 +68,20 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.4.1" id="crosstable-041-2022-02-19">crosstable 0.4.1 <sub><sup>(2022-02-19)</sup></sub><a class="anchor" aria-label="anchor" href="#crosstable-041-2022-02-19"></a></h2><p class="text-muted">CRAN release: 2022-02-25</p>
-<ul><li>Maintenance release to fix CRAN errors.</li>
+<h2 class="pkg-version" data-toc-text="0.5.0" id="crosstable-050-">crosstable 0.5.0 <sub><sup>(?)</sup></sub><a class="anchor" aria-label="anchor" href="#crosstable-050-"></a></h2>
+<div class="section level5">
+<h5 id="bug-fixes-0-5-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-5-0"></a></h5>
+<ul><li>
+<code>by_header</code> can replace the “value” column if <code>by</code> has only one stratum, in both <code><a href="../reference/as_gt.html">as_gt()</a></code> and <code><a href="../reference/as_flextable.html">as_flextable()</a></code> (<a href="https://github.com/DanChaltiel/crosstable/issues/9" class="external-link uri">https://github.com/DanChaltiel/crosstable/issues/9</a>).</li>
+<li>
+<code>percent_pattern</code> can now contain functions that start by “p” (<a href="https://github.com/DanChaltiel/crosstable/issues/10" class="external-link uri">https://github.com/DanChaltiel/crosstable/issues/10</a>).</li>
+<li>
+<code>percent_pattern</code> is actually taken into account when <code>by</code> has one single level (<a href="https://github.com/DanChaltiel/crosstable/issues/13" class="external-link uri">https://github.com/DanChaltiel/crosstable/issues/13</a>).</li>
 </ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.4.1" id="crosstable-041-2022-02-19">crosstable 0.4.1 <sub><sup>(2022-02-19)</sup></sub><a class="anchor" aria-label="anchor" href="#crosstable-041-2022-02-19"></a></h2><p class="text-muted">CRAN release: 2022-02-25</p>
+<ul><li>Maintenance release to fix CRAN errors.</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4.0" id="crosstable-040-2022-02-14">crosstable 0.4.0 <sub><sup>(2022-02-14)</sup></sub><a class="anchor" aria-label="anchor" href="#crosstable-040-2022-02-14"></a></h2><p class="text-muted">CRAN release: 2022-02-14</p>
 <div class="section level5">
@@ -122,8 +133,7 @@
 </ul></div>
 <div class="section level5">
 <h5 id="bug-fixes-0-3-2">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-3-2"></a></h5>
-<ul><li>fixed a bug in <code><a href="../reference/crosstable.html">crosstable()</a></code> occurring when one of <code>funs</code> does not have ellipsis (…) and <code>funs_arg</code> contains an unused argument.</li>
-</ul></div>
+<ul><li>fixed a bug in <code><a href="../reference/crosstable.html">crosstable()</a></code> occurring when one of <code>funs</code> does not have ellipsis (…) and <code>funs_arg</code> contains an unused argument.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.1" id="crosstable-031-2021-11-14">crosstable 0.3.1 <sub><sup>(2021-11-14)</sup></sub><a class="anchor" aria-label="anchor" href="#crosstable-031-2021-11-14"></a></h2><p class="text-muted">CRAN release: 2021-11-14</p>
@@ -210,8 +220,7 @@
 <ul><li>added <strong>cross-reference functionality</strong> to <code><a href="../reference/body_add_legend.html">body_add_figure_legend()</a></code> and <code><a href="../reference/body_add_legend.html">body_add_table_legend()</a></code>.<br>
 Use the <code>bookmark</code> argument to set a reference, then write <code>"\\@ref(my_bkm)"</code> inside <code><a href="../reference/body_add_normal.html">body_add_normal()</a></code> to call it.</li>
 <li>added docx helpers to add lists: <code><a href="../reference/body_add_list.html">body_add_list()</a></code> and <code><a href="../reference/body_add_list.html">body_add_list_item()</a></code>. These will unfortunately not work with the default <code>officer</code> template.</li>
-<li>added some alternatives for some <code>officer</code> functions:
-<ul><li>
+<li>added some alternatives for some <code>officer</code> functions:<ul><li>
 <code><a href="../reference/docx_bookmarks2.html">docx_bookmarks2()</a></code>, which list bookmarks found in the header and footer as well</li>
 <li>
 <code><a href="../reference/body_add_img2.html">body_add_img2()</a></code>, and <code><a href="../reference/body_add_gg2.html">body_add_gg2()</a></code>, which win a <code>units=c("in", "cm", "mm")</code> argument</li>
@@ -280,8 +289,7 @@ Use the <code>bookmark</code> argument to set a reference, then write <code>"\\@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="crosstable-010-2020-04-09">crosstable 0.1.0 <small>(2020-04-09)</small>
 <a class="anchor" aria-label="anchor" href="#crosstable-010-2020-04-09"></a></h2>
-<ul><li>First release, big changes from the <a href="https://github.com/eusebe/biostat2" class="external-link"><code>biostat2</code></a> package.</li>
-</ul></div>
+<ul><li>First release, big changes from the <a href="https://github.com/eusebe/biostat2" class="external-link"><code>biostat2</code></a> package.</li></ul></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
@@ -291,7 +299,7 @@ Use the <code>bookmark</code> argument to set a reference, then write <code>"\\@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer></div>
