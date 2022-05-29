@@ -1,5 +1,7 @@
 <!-- https://style.tidyverse.org/news.html -->
 
+Crosstables for descriptive analyses. See documentation at danchaltiel.github.io/crosstable/ and browse code at https://github.com/DanChaltiel/crosstable.
+
 # crosstable 0.5.0 <sub><sup>(?)</sup></sub>
 
 #### Bug fixes
