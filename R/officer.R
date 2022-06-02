@@ -426,22 +426,6 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
                            style, legacy){
     
     # nocov start
-    if(packageVersion("officer")<"0.4" || legacy){
-        if(!legacy){
-            warn("You might want to update officer to v0.4+ in order to get the best of crosstable::body_add_xxx_legend().", 
-                 .frequency="once", 
-                 .frequency_id="body_add_xxx_legend_officer_version")
-        }
-        if(is_missing(style)){
-            style = getOption('crosstable_style_strong', "strong")
-        }
-        
-        
-        rtn = body_add_legend_legacy(doc=doc, legend=legend, legend_name=legend_name,
-                               bookmark=bookmark, legend_style=legend_style, style=style, seqfield=seqfield)
-        return(rtn)
-    } 
-    
     if(is_present(style)){
         deprecate_warn("0.2.2", "body_add_X_legend(style)", 
                        "body_add_X_legend(name_format)", 
@@ -473,28 +457,6 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
     
     body_add_fpar(doc, legend_fpar, style=legend_style)
 }
-
-
-# nocov start
-#' @importFrom glue glue
-#' @importFrom officer body_add_par slip_in_text slip_in_seqfield body_bookmark
-#' @keywords internal
-#' @noRd
-body_add_legend_legacy = function(doc, legend, legend_name, bookmark, 
-                                  legend_style, style, seqfield){
-    legend = glue(legend, .envir = parent.frame())
-    rtn = doc %>% 
-        body_add_par(value=legend, style=legend_style) %>% 
-        slip_in_text(str=": ", style=style, pos="before") %>% 
-        slip_in_seqfield(str=seqfield, style=style, pos="before")
-    if(!is.null(bookmark)){
-        rtn = body_bookmark(rtn, bookmark)
-    }
-    slip_in_text(rtn, str=glue("{legend_name} "), style=style, pos="before")
-}
-# nocov end
-
-
 
 #' Alternative to [officer::body_add_img()] which adds a `units` choice
 #' 
