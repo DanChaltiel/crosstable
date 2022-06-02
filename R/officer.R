@@ -10,6 +10,7 @@
 #' @param body_fontsize fontsize of the body
 #' @param header_fontsize fontsize of the header
 #' @param padding_v vertical padding of all table rows
+#' @param allow_break allow table rows to break across pages
 #' @param ... further arguments passed to [as_flextable.crosstable()]
 #'
 #' @author Dan Chaltiel
@@ -33,7 +34,8 @@
 #' if(interactive()) browseURL(dfile)
 body_add_crosstable = function (doc, x, body_fontsize=NULL, 
                                 header_fontsize=ceiling(body_fontsize*1.2), 
-                                padding_v=NULL, ...) {
+                                padding_v=NULL, 
+                                allow_break=TRUE, ...) {
     assert_class(x, "crosstable", .var.name=vname(x))
     
     if(missing(padding_v)) padding_v = getOption("crosstable_padding_v", NULL)
@@ -47,7 +49,7 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
     if(length(padding_v)!=0)
         ft = padding(ft, padding.top=padding_v, padding.bottom=padding_v, part = "body")
     
-    body_add_flextable(doc, ft)
+    body_add_flextable(doc, ft, keepnext=!allow_break)
 }
 
 
