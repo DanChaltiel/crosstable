@@ -43,6 +43,4 @@ mtcars \%>\%
 }
 \author{
 Dan Chaltiel
-
-Dan Chaltiel
 }

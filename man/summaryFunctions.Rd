@@ -91,14 +91,4 @@ minmax(x, date_format="\%d/\%m/\%Y")
 }
 \author{
 Dan Chaltiel, David Hajage
-
-Dan Chaltiel, David Hajage
-
-Dan Chaltiel, David Hajage
-
-Dan Chaltiel, David Hajage
-
-Dan Chaltiel, David Hajage
-
-Dan Chaltiel, David Hajage
 }

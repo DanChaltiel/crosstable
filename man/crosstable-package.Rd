@@ -7,7 +7,7 @@
 \alias{Test-package}
 \title{crosstable: Crosstables for Descriptive Analyses}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
 Create descriptive tables for continuous and categorical variables. Apply summary statistics and counting function, with or without a grouping variable, and create beautiful reports using 'rmarkdown' or 'officer'. You can also compute effect sizes and statistical tests if needed.
 }

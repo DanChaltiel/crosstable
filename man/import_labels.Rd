@@ -67,6 +67,4 @@ mtcars2 \%>\%
 }
 \author{
 Dan Chaltiel
-
-Dan Chaltiel
 }

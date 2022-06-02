@@ -64,11 +64,5 @@ crosstable(xx, by=cyl, test=TRUE, total=TRUE) \%>\%
 }
 \author{
 Dan Chaltiel
-
-Dan Chaltiel
-
-Dan Chaltiel
-
-Dan Chaltiel
 }
 \concept{as_gt methods}

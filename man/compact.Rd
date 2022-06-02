@@ -58,10 +58,4 @@ compact(x, name_from=".id")
 }
 \author{
 Dan Chaltiel
-
-Dan Chaltiel
-
-Dan Chaltiel
-
-Dan Chaltiel
 }
