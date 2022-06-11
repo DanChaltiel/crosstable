@@ -25,7 +25,7 @@ body_add_crosstable(
 
 \item{padding_v}{vertical padding of all table rows}
 
-\item{allow_break}{allow table rows to break across pages}
+\item{allow_break}{allow crosstable rows to break across pages}
 
 \item{...}{further arguments passed to \code{\link[=as_flextable.crosstable]{as_flextable.crosstable()}}}
 }

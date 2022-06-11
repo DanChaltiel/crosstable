@@ -7,6 +7,7 @@ Crosstables for descriptive analyses. See documentation at danchaltiel.github.io
 #### Improvements
 
 * `crosstable_options()` does not need the "crosstable_" prefix anymore, so the autocomplete is less clumsy. Options with the prefix will still work though. `crosstable_options(reset=TRUE)` is deprecated in favor of the new `crosstable_reset_options()`.
+* In MS Word, crosstables will now break across pages by default. You can revert this by using `body_add_crosstable(allow_break=FALSE)` or using `crosstable_options()`. This is the pendant of `keepnext` in officer/flextable.
 
 #### Bug fixes
 
