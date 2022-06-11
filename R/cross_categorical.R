@@ -51,6 +51,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
         as.data.frame(stringsAsFactors=FALSE) %>%
         select(x=1, n=2) #needed for an odd bug on fedora-devel
     zero_percent = getOption("crosstable_zero_percent", FALSE)
+    
     rtn = tbd %>% 
         mutate(
             p_row=1,
@@ -60,7 +61,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
                           ~confint_proportion(.x, n, method="wilson")),
             across(starts_with("p_"), 
                    ~format_fixed(.x, digits=digits, percent=TRUE)), 
-            value=ifelse(is.na(x)|.data$n==0&zero_percent, 
+            value=ifelse(is.na(x) | .data$n==0 & zero_percent, 
                          .data$n, glue(percent_pattern))
         ) %>% 
         select(variable="x", value="value")

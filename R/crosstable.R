@@ -192,7 +192,7 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
     }
     
     # Deprecations --------------------------------------------------------
-    if (!missing(...)) {
+    if(!missing(...)){
         dotsCall = as.character(substitute(list(...))[-1L]) %>% paste(collapse=", ")
         colsCall = as.character(substitute(cols)) %>% paste(collapse=", ")
         bad = glue("`crosstable({dataCall}, {colsCall}, {dotsCall}, ...)`")
@@ -200,14 +200,15 @@ crosstable = function(data, cols=NULL, ..., by=NULL,
         deprecate_warn("0.2.0", "crosstable(...=)", "crosstable(cols=)", 
                        details=glue("Instead of {bad}, write {good}"))
     }
-    if (!missing(.vars)) {
+    if(!missing(.vars)){
         deprecate_stop("0.2.0", "crosstable(.vars=)", "crosstable(cols=)")
         vardots= c(enquos(.vars), enquos(...))
     }
     
     # Logic handle --------------------------------------------------------
-    if(!exists("vardots"))
+    if(!exists("vardots")){
         vardots= c(enquos(cols), enquos(...))
+    }
     
     is_form = tryCatch(suppressWarnings(is_formula(cols)),error=function(e) FALSE)
     is_lamb = tryCatch(suppressWarnings(is_lambda(as_function(cols))), error=function(e) FALSE)

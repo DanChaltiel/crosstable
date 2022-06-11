@@ -1,6 +1,5 @@
 utils::globalVariables(".")
 
-
 # Error and warning handling ----------------------------------------------
 
 #' @source https://stackoverflow.com/a/20578779/3888000 
