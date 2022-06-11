@@ -5,161 +5,170 @@
 \title{Options for the package \code{crosstable}}
 \usage{
 crosstable_options(
-  reset = FALSE,
-  crosstable_zero_percent,
-  crosstable_verbosity_autotesting,
-  crosstable_verbosity_duplicate_cols,
-  crosstable_wrap_id,
-  crosstable_only_round,
-  crosstable_units,
-  crosstable_peek_docx,
-  crosstable_compact_padding,
-  crosstable_font_code,
-  crosstable_format_legend_name,
-  crosstable_table_legend_par_before,
-  crosstable_table_legend_prefix,
-  crosstable_figure_legend_par_after,
-  crosstable_figure_legend_prefix,
-  crosstable_header_show_n_pattern,
-  crosstable_total,
-  crosstable_percent_pattern,
-  crosstable_percent_digits,
-  crosstable_num_digits,
-  crosstable_showNA,
-  crosstable_label,
-  crosstable_funs,
-  crosstable_funs_arg,
-  crosstable_cor_method,
-  crosstable_unique_numeric,
-  crosstable_date_format,
-  crosstable_times,
-  crosstable_followup,
-  crosstable_test_arg,
-  crosstable_effect_args,
-  crosstable_keep_id,
-  crosstable_autofit,
-  crosstable_compact,
-  crosstable_remove_header_keys,
-  crosstable_show_test_name,
-  crosstable_padding_v,
-  crosstable_header_show_n,
-  crosstable_fontsize_body,
-  crosstable_fontsize_header,
-  crosstable_fontsize_subheaders,
-  crosstable_normal_squish,
-  crosstable_title_squish,
-  crosstable_style_normal,
-  crosstable_style_character,
-  crosstable_style_strong,
-  crosstable_style_image,
-  crosstable_style_legend,
-  crosstable_style_heading,
-  crosstable_style_list_ordered,
-  crosstable_style_list_unordered
+  zero_percent,
+  verbosity_autotesting,
+  verbosity_duplicate_cols,
+  wrap_id,
+  only_round,
+  units,
+  peek_docx,
+  compact_padding,
+  font_code,
+  format_legend_name,
+  table_legend_par_before,
+  table_legend_prefix,
+  figure_legend_par_after,
+  figure_legend_prefix,
+  header_show_n_pattern,
+  total,
+  percent_pattern,
+  percent_digits,
+  num_digits,
+  showNA,
+  label,
+  funs,
+  funs_arg,
+  cor_method,
+  unique_numeric,
+  date_format,
+  times,
+  followup,
+  test_arg,
+  effect_args,
+  keep_id,
+  autofit,
+  compact,
+  remove_header_keys,
+  show_test_name,
+  padding_v,
+  header_show_n,
+  fontsize_body,
+  fontsize_header,
+  fontsize_subheaders,
+  normal_squish,
+  title_squish,
+  allow_break,
+  style_normal,
+  style_character,
+  style_strong,
+  style_image,
+  style_legend,
+  style_heading,
+  style_list_ordered,
+  style_list_unordered,
+  ...,
+  reset = deprecated()
 )
 }
 \arguments{
+\item{zero_percent}{set to TRUE so that proportions are not displayed if \code{n==0}}
+
+\item{verbosity_autotesting}{one of \code{default}, \code{quiet}, or \code{verbose}}
+
+\item{verbosity_duplicate_cols}{one of \code{default}, \code{quiet}, or \code{verbose}.}
+
+\item{wrap_id}{if \code{id} contains no spaces, wrap it with this maximum number of characters.}
+
+\item{only_round}{default argument for \code{\link[=format_fixed]{format_fixed()}}}
+
+\item{units}{default units in \code{\link[=body_add_gg2]{body_add_gg2()}} and \code{\link[=body_add_img2]{body_add_img2()}}}
+
+\item{peek_docx}{behavior of \code{\link[=peek]{peek()}}, which will open a \code{docx} if \code{TRUE} (default) and an \code{xlsx} if \code{FALSE}}
+
+\item{compact_padding}{in flextables, left-padding for non-headers rows when \code{compact=TRUE}.}
+
+\item{font_code}{font family used to show code, most likely a monospaced typeface such as Consolas (default)}
+
+\item{format_legend_name}{how the legend name ("Table", "Figure") is formatted. Default to \code{officer::fp_text_lite(bold=TRUE)}}
+
+\item{table_legend_par_before}{whether to add an empty paragraph before all table legends}
+
+\item{table_legend_prefix, figure_legend_prefix}{a prefix before each legend, after the numbering}
+
+\item{figure_legend_par_after}{whether to add an empty paragraph after all figure legends}
+
+\item{header_show_n_pattern}{glue pattern used when showing N in the header of flextables. \code{.col} is the name of the column and \code{.n} the size of the group. Default to \code{{.col} (N={.n})}.}
+
+\item{total}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{percent_pattern}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{percent_digits}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{num_digits}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{showNA}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{label}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{funs}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{funs_arg}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{cor_method}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{unique_numeric}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{date_format}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{times}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{followup}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{test_arg}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{effect_args}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{keep_id}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
+
+\item{autofit}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
+
+\item{compact}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
+
+\item{remove_header_keys}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
+
+\item{show_test_name}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
+
+\item{padding_v}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
+
+\item{header_show_n}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
+
+\item{fontsize_body}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
+
+\item{fontsize_header}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
+
+\item{fontsize_subheaders}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally. Subheaders are only considered when \code{compact=TRUE}.}
+
+\item{normal_squish}{Should you squish text in normal paragraphs?}
+
+\item{title_squish}{Should you squish text in headers paragraphs?}
+
+\item{allow_break}{allow crosstable rows to break across pages}
+
+\item{style_normal}{For specifying styles used in your {officer} template.}
+
+\item{style_character}{For specifying styles used in your {officer} template.}
+
+\item{style_strong}{For specifying styles used in your {officer} template.}
+
+\item{style_image}{For specifying styles used in your {officer} template.}
+
+\item{style_legend}{For specifying styles used in your {officer} template.}
+
+\item{style_heading}{For specifying styles used by headings on different levels. Levels will be pasted in the end (e.g. use \code{"title"} if your level 2 heading style is \code{"title2"}).}
+
+\item{style_list_ordered, style_list_unordered}{For specifying styles used by lists in the \code{rdocx} template. Needed for \code{\link[=body_add_list]{body_add_list()}} to work.}
+
+\item{...}{unused}
+
 \item{reset}{if \code{TRUE}, set all these options back to default}
-
-\item{crosstable_zero_percent}{set to TRUE so that proportions are not displayed if \code{n==0}}
-
-\item{crosstable_verbosity_autotesting}{one of \code{default}, \code{quiet}, or \code{verbose}}
-
-\item{crosstable_verbosity_duplicate_cols}{one of \code{default}, \code{quiet}, or \code{verbose}.}
-
-\item{crosstable_wrap_id}{if \code{id} contains no spaces, wrap it with this maximum number of characters.}
-
-\item{crosstable_only_round}{default argument for \code{\link[=format_fixed]{format_fixed()}}}
-
-\item{crosstable_units}{default units in \code{\link[=body_add_gg2]{body_add_gg2()}} and \code{\link[=body_add_img2]{body_add_img2()}}}
-
-\item{crosstable_peek_docx}{behavior of \code{\link[=peek]{peek()}}, which will open a \code{docx} if \code{TRUE} (default) and an \code{xlsx} if \code{FALSE}}
-
-\item{crosstable_compact_padding}{in flextables, left-padding for non-headers rows when \code{compact=TRUE}.}
-
-\item{crosstable_font_code}{font family used to show code, most likely a monospaced typeface such as Consolas (default)}
-
-\item{crosstable_format_legend_name}{how the legend name ("Table", "Figure") is formatted. Default to \code{officer::fp_text_lite(bold=TRUE)}}
-
-\item{crosstable_table_legend_par_before}{whether to add an empty paragraph before all table legends}
-
-\item{crosstable_table_legend_prefix, crosstable_figure_legend_prefix}{a prefix before each legend, after the numbering}
-
-\item{crosstable_figure_legend_par_after}{whether to add an empty paragraph after all figure legends}
-
-\item{crosstable_header_show_n_pattern}{glue pattern used when showing N in the header of flextables. \code{.col} is the name of the column and \code{.n} the size of the group. Default to \code{{.col} (N={.n})}.}
-
-\item{crosstable_total}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
-
-\item{crosstable_percent_pattern}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
-
-\item{crosstable_percent_digits}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
-
-\item{crosstable_num_digits}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
-
-\item{crosstable_showNA}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
-
-\item{crosstable_label}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
-
-\item{crosstable_funs}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
-
-\item{crosstable_funs_arg}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
-
-\item{crosstable_cor_method}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
-
-\item{crosstable_unique_numeric}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
-
-\item{crosstable_date_format}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
-
-\item{crosstable_times}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
-
-\item{crosstable_followup}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
-
-\item{crosstable_test_arg}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
-
-\item{crosstable_effect_args}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
-
-\item{crosstable_keep_id}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
-
-\item{crosstable_autofit}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
-
-\item{crosstable_compact}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
-
-\item{crosstable_remove_header_keys}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
-
-\item{crosstable_show_test_name}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
-
-\item{crosstable_padding_v}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
-
-\item{crosstable_header_show_n}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
-
-\item{crosstable_fontsize_body}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
-
-\item{crosstable_fontsize_header}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
-
-\item{crosstable_fontsize_subheaders}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally. Subheaders are only considered when \code{compact=TRUE}.}
-
-\item{crosstable_normal_squish}{Should you squish text in normal paragraphs?}
-
-\item{crosstable_title_squish}{Should you squish text in headers paragraphs?}
-
-\item{crosstable_style_normal}{For specifying styles used in your {officer} template.}
-
-\item{crosstable_style_character}{For specifying styles used in your {officer} template.}
-
-\item{crosstable_style_strong}{For specifying styles used in your {officer} template.}
-
-\item{crosstable_style_image}{For specifying styles used in your {officer} template.}
-
-\item{crosstable_style_legend}{For specifying styles used in your {officer} template.}
-
-\item{crosstable_style_heading}{For specifying styles used by headings on different levels. Levels will be pasted in the end (e.g. use \code{"title"} if your level 2 heading style is \code{"title2"}).}
-
-\item{crosstable_style_list_ordered, crosstable_style_list_unordered}{For specifying styles used by lists in the \code{rdocx} template. Needed for \code{\link[=body_add_list]{body_add_list()}} to work.}
 }
 \value{
 Nothing, called for its side effects
 }
 \description{
-Use this function to manage your \code{crosstable} parameters globally while taking advantage of autocompletion. Use \code{\link[=crosstable_peek_options]{crosstable_peek_options()}} to see which option is currently set.
+Use this function to manage your \code{crosstable} parameters globally while taking advantage of autocompletion. Use \code{\link[=crosstable_peek_options]{crosstable_peek_options()}} to see which option is currently set and \code{\link[=crosstable_reset_options]{crosstable_reset_options()}} to set all options back to default.
+}
+\seealso{
+\code{\link[=crosstable_peek_options]{crosstable_peek_options()}} and \code{\link[=crosstable_reset_options]{crosstable_reset_options()}}
 }

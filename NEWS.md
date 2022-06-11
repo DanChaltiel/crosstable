@@ -4,6 +4,10 @@ Crosstables for descriptive analyses. See documentation at danchaltiel.github.io
 
 # crosstable 0.5.0 <sub><sup>(?)</sup></sub>
 
+#### Improvements
+
+* `crosstable_options()` does not need the "crosstable_" prefix anymore, so the autocomplete is less clumsy. Options with the prefix will still work though. `crosstable_options(reset=TRUE)` is deprecated in favor of the new `crosstable_reset_options()`.
+
 #### Bug fixes
 
 * `by_header` can replace the "value" column if `by` has only one stratum, in both `as_gt()` and `as_flextable()` (https://github.com/DanChaltiel/crosstable/issues/9).
