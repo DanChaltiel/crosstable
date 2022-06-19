@@ -94,7 +94,7 @@ crosstable_options = function(zero_percent,
     #TODO externaliser un check_args_crosstable() pour crosstable() et pour crosstable_options()
     if(!missing(reset)){
         deprecate_warn("0.5.0", "crosstable_options(reset)", "crosstable_reset_options()")
-        crosstable_reset_options()
+        crosstable_reset_options(verbose=FALSE)
         return(invisible())
     }
     
