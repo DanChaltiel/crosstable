@@ -37,13 +37,13 @@ Suggests:
     covr,
     crayon,
     xml2,
-    digest, 
+    digest,
     gt,
     expss,
     ggplot2,
     gmodels,
     Hmisc,
-    jsonlite, 
+    jsonlite,
     knitr,
     openxlsx,
     rmarkdown,
@@ -51,9 +51,9 @@ Suggests:
     stringi,
     survival,
     systemfonts,
-    testthat,
+    testthat (>= 3.0.0),
     withr,
-    waldo,
+    waldo
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
