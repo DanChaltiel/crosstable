@@ -97,6 +97,13 @@ expect_cross_bak = function(expr, xnames, byname, dim, expect=c("nothing", "sile
 }
 
 
+snapshot_review_bg = function(...){
+    # brw = function(url) .Call("rs_browseURL", url, PACKAGE="(embedding)")
+    brw = Sys.getenv("R_BROWSER")
+    callr::r_bg(function() testthat::snapshot_review(...),
+                package=TRUE,
+                env = c(R_BROWSER = brw))
+}
 
 
 expect_warning2 = function(object, ...) {
