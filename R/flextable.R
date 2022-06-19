@@ -309,8 +309,13 @@ af = as_flextable.crosstable
 #' @author Dan Chaltiel
 #' @export
 peek = function(x, docx=getOption("crosstable_peek_docx", TRUE), ...) {
+    if(has_method(x, "as_flextable")){
+        x = as_flextable(x, ...)
+    } else if(!inherits(x, "flextable")){
+        x = flextable(x)
+    }
+    assert_class(x, "flextable")
     if(docx){
-        x=as_flextable.crosstable(x, ...)
         print(x, preview="docx")
     } else {
         x=as_workbook(x, ...)

@@ -320,6 +320,21 @@ paste_nameclasses = function(x){
 }
 
 
+#' Test if @param method can be applied to @param x
+#' @param skip speed up the 
+#' @keywords internal
+#' @noRd
+has_method = function(x, method, skip=c("data.frame")){
+    for(i in class(x)){
+        if(i %in% skip) next
+        gen = methods(class=i) %>% attr("info") %>% pull(generic)
+        if(method %in% gen){
+            return(TRUE)
+        }
+    }
+    return(FALSE)
+}
+
 # Misc --------------------------------------------------------------------
 
 
@@ -443,6 +458,7 @@ confint_proportion = function(p, n,
 #' x %>% paste(collapse="") %>% crosstable:::str_wrap2(20) %>% cat
 #' x %>% paste(collapse=" ") %>% crosstable:::str_wrap2(20) %>% cat
 str_wrap2 = function(x, width, ...){
+    assert_count(width)
     ifelse(str_detect(x, " "),
            str_wrap(x, width, ...),
            str_replace_all(x, paste0("(.{",width,"})"), "\\1\n"))
