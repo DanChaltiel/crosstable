@@ -142,6 +142,8 @@ test_that("Import labels: warnings", {
 })
 
 test_that("Import labels: errors", {
+    expect_error(import_labels(iris, iris), 
+                 class="labels_import_missing_col")
     
     #error no save
     remove_last_save()

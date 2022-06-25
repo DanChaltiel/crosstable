@@ -259,13 +259,19 @@ import_labels = function(.tbl, data_label,
         } 
     }
     
+    if(!name_from %in% names(data_label) || !label_from %in% names(data_label)){
+        abort(c(glue('`data_label` should have a column named `{name_from}` and a column named `{label_from}`.'), 
+                i=glue("`names(data_label)`: {glue_collapse(names(data_label), ', ')}")), 
+              class="labels_import_missing_col")
+    }
+    
     duplicates = data_label$name[duplicated(data_label$name)]
     s = if(length(duplicates)>1) "s" else ""
     if(length(duplicates)>0){
         abort(c(glue('Duplicated column name{s} in `data_label`, cannot identify a label uniquely'), 
-                i=glue("Duplicates name{s}: {glue_collapse(duplicates, ', ')}")), 
-              data=list(.tbl=.tbl, data_label=data_label),
-              class="labels_import_dupkey_error")
+                i=glue("Duplicates name{s}: {glue_collapse(duplicates, ', ')}")),
+              class="labels_import_dupkey_error", 
+              data=list(.tbl=.tbl, data_label=data_label))
     }
 
     no_label = names(.tbl)[!names(.tbl) %in% data_label$name]
