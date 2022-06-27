@@ -223,6 +223,7 @@ apply_labels = function(data, ..., warn_missing=FALSE) {
 #' @author Dan Chaltiel
 #' @export
 #' @importFrom glue glue
+#' @importFrom tidyr drop_na
 #' @importFrom tibble column_to_rownames
 #' @importFrom rlang abort warn
 #'
@@ -292,7 +293,10 @@ import_labels = function(.tbl, data_label,
              data=list(.tbl=.tbl, data_label=data_label))
     }
     
-    data_label = as.data.frame(data_label) %>% column_to_rownames(name_from)
+    data_label = as.data.frame(data_label) %>% 
+        select(all_of(c(name_from, label_from))) %>% 
+        drop_na() %>% 
+        column_to_rownames(name_from)
     .tbl %>% imap_dfr(~{
         label = data_label[.y, label_from]
         set_label(.x, label)
