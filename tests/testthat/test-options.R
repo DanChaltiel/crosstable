@@ -29,8 +29,7 @@ test_that("Options work", {
                                  crosstable_units = "cm", crosstable_percent_pattern = "{n}"))
         
         #reset deprecated
-        expect_warning(crosstable_options(reset=TRUE), 
-                       class="lifecycle_warning_deprecated")
+        lifecycle::expect_deprecated(crosstable_options(reset=TRUE))
         
         #default in testing env
         crosstable_options(crosstable_verbosity_autotesting="quiet")

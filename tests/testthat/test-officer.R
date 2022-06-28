@@ -226,8 +226,7 @@ test_that("Officers warnings and errors", {
     # skip_on_os(c("mac", "linux", "solaris"))
     pars1 = c("Paragraphe 1.1", "Paragraphe 1.2")
     pars2 = c("Paragraphe 2.1", "Paragraphe 2.2")
-    expect_error(body_add_normal(read_docx(), pars1, pars2),
-                 class="officer_wrong_vector_error")
+    expect_snapshot_error(body_add_normal(read_docx(), pars1, pars2))
 
     lifecycle::expect_deprecated(body_add_glued(read_docx(), "Paragraphe"))
 })
@@ -291,5 +290,5 @@ test_that("gt is working", {
     
     #by=c(cyl, am) --> error pour l'instant
     x3=crosstable(mtcars2, c(mpg, vs, gear), by=c(cyl, am), total=T)
-    as_gt(x3) %>% expect_error(class="gt_multiby_not_implemented_error")
+    expect_snapshot_error(as_gt(x3))
 })

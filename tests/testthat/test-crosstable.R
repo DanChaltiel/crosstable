@@ -90,7 +90,6 @@ test_that("Functions should return scalar", {
 })
 
 test_that("Named ellipsis", {
-  expect_error(crosstable(mtcars3, foo=vs),
-               class="rlib_error_dots_named")
+  expect_snapshot_error(crosstable(mtcars3, foo=vs))
 })
 
