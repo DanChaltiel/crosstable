@@ -150,24 +150,32 @@ remove_label = remove_labels
 #' Rename every column of a dataframe with its label
 #'
 #' @param df a data.frame
-#' @param except columns that should not be renamed.
+#' @param except <[`tidy-select`][tidyselect::language]> columns that should not be renamed.
 #' 
-#' @return A dataframe, as `df`, which names are copied from the label attribute
+#' @return A dataframe which names are copied from the label attribute
 #'
 #' @importFrom checkmate assert_data_frame
 #' @author Dan Chaltiel
 #' @export
 #'
 #' @examples
-#' rename_dataframe_with_labels(mtcars2[,1:5], except=5) %>% names
-#' rename_dataframe_with_labels(iris2, except=Sepal.Length) %>% names
-rename_dataframe_with_labels = function(df, except=NULL){
+#' rename_with_labels(mtcars2[,1:5], except=5) %>% names()
+#' rename_with_labels(iris2, except=Sepal.Length) %>% names()
+rename_with_labels = function(df, except=NULL){
     assert_data_frame(df, null.ok=TRUE)
     except = eval_select(enquo(except), data=df)
     if(length(except)==0) except = ncol(df)+1
     names(df)[-except] = get_label(df)[-except]
     df
 }
+#' @export
+#' @rdname rename_with_labels
+#' @usage NULL
+rename_dataframe_with_labels=function(...){
+    deprecate_warn("0.5.0", "rename_dataframe_with_labels()", "rename_with_labels()")
+    rename_with_labels(...)
+}
+
 
 
 #' Batch set variable labels 
