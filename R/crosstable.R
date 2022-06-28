@@ -8,7 +8,7 @@ utils::globalVariables(c(".", "x", "y", "n", "where", "ct", "col_keys", "p_col",
 #' Can be formatted as an HTML table using [as_flextable()].
 #' 
 #' @param data A data.frame
-#' @param cols <[`tidy-select`][tidyselect::language]> Columns to describe. See examples or `vignette("crosstable-selection")` for more details.
+#' @param cols <[`tidy-select`][tidyselect::language]> Columns to describe, default to `everything()`. See examples or `vignette("crosstable-selection")` for more details.
 #' @param ... Unused. All parameters after this one must be named.
 #' @param by The variable to group on. Character or name.
 #' @param funs Functions to apply to numeric variables. Default to [cross_summary()].
@@ -89,7 +89,7 @@ utils::globalVariables(c(".", "x", "y", "n", "where", "ct", "col_keys", "p_col",
 #' str_high="n>5"; str_lo="n<=5"
 #' crosstable(mtcars2, vs, by=am, percent_digits=0, 
 #'            percent_pattern="col={p_col}, row={p_row} ({ifelse(n<5, str_lo, str_high)})")
-crosstable = function(data, cols=NULL, ..., by=NULL, 
+crosstable = function(data, cols=everything(), ..., by=NULL, 
                       total = c("none", "row", "column", "both"),
                       percent_pattern = "{n} ({p_row})", 
                       percent_digits = 2, num_digits = 1, 

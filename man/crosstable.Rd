@@ -6,7 +6,7 @@
 \usage{
 crosstable(
   data,
-  cols = NULL,
+  cols = everything(),
   ...,
   by = NULL,
   total = c("none", "row", "column", "both"),
@@ -33,7 +33,7 @@ crosstable(
 \arguments{
 \item{data}{A data.frame}
 
-\item{cols}{<\code{\link[tidyselect:language]{tidy-select}}> Columns to describe. See examples or \code{vignette("crosstable-selection")} for more details.}
+\item{cols}{<\code{\link[tidyselect:language]{tidy-select}}> Columns to describe, default to \code{everything()}. See examples or \code{vignette("crosstable-selection")} for more details.}
 
 \item{...}{Unused. All parameters after this one must be named.}
 
