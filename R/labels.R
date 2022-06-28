@@ -178,6 +178,36 @@ rename_dataframe_with_labels=function(...){
 
 
 
+
+#' Cleans names of a dataframe while retaining old names as labels
+#' 
+#' @param df a data.frame
+#' @param except <[`tidy-select`][tidyselect::language]> columns that should not be renamed.
+#' @param .fun the function used to clean the names. Default function is limited; if the cleaning is not good enough you could use janitor::make_clean_names() 
+#'
+#' @return A dataframe with clean names and label attributes
+#' @author Dan Chaltiel
+#' @export
+#' 
+#' @examples
+#' #options(crosstable_clean_names_fun=janitor::make_clean_names)
+#' x=tibble("name with space"=1, TwoWords=1, "total $ (2009)"=1, àccénts=1)
+#' clean_names_with_labels(x, except=TwoWords) %>% names()
+#' clean_names_with_labels(x, except=TwoWords) %>% get_label()
+clean_names_with_labels = function(df, except=NULL, .fun=getOption("crosstable_clean_names_fun")){
+    assert_data_frame(df, null.ok=TRUE)
+    except = eval_select(enquo(except), data=df)
+    if(length(except)==0) except = ncol(df)+1
+    if(is.null(.fun)) .fun=crosstable_clean_names
+    labs = names(df)
+    names(df)[-except] = .fun(names(df))[-except]
+    
+    set_label(df, labs)
+}
+
+
+
+
 #' Batch set variable labels 
 #' 
 #' This function is a copycat of from expss package v0.10.7 (slightly modified) to avoid having to depend on expss. See [expss::apply_labels()] for more documentation. Note that this version is not compatible with `data.table`.

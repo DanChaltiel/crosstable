@@ -338,6 +338,31 @@ has_method = function(x, method, skip=c("data.frame")){
 # Misc --------------------------------------------------------------------
 
 
+#' Rudimentary function to clean the names
+#' 
+#' Avoids a dependency to janitor.
+#' 
+#' @keywords internal
+#' @noRd
+#' @importFrom stringr str_remove_all
+#' @source janitor:::old_make_clean_names(), tweaked with iconv for accents
+crosstable_clean_names = function(string){
+    old_names <- string
+    new_names <- old_names %>% 
+        gsub("'", "", .) %>% gsub("\"", "", .) %>% gsub("%", "percent", .) %>% 
+        gsub("^[ ]+", "", .) %>% make.names(.) %>% gsub("[.]+", "_", .) %>% 
+        gsub("[_]+", "_", .) %>% tolower(.) %>% gsub("_$", "", .)
+    
+    new_names = new_names %>% str_remove_all("[\r\n]") %>% iconv(to="ASCII//TRANSLIT")
+    
+    dupe_count <- vapply(seq_along(new_names), function(i) {
+        sum(new_names[i] == new_names[1:i])
+    }, integer(1))
+    new_names[dupe_count > 1] <- paste(new_names[dupe_count > 1], dupe_count[dupe_count > 1], sep = "_")
+    new_names
+}
+
+
 #' Computes the standard deviation of a date/datetime with the appropriate unit
 #'
 #' @param x a Date or Posix time
