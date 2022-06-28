@@ -6,12 +6,17 @@ Crosstables for descriptive analyses. See documentation at danchaltiel.github.io
 
 #### Improvements
 
+* New `clean_names_with_labels()` which clean the names of the dataframe but keeps the old names as labels. Obviously inspired by {janitor}.
 * `crosstable_options()` does not need the "crosstable_" prefix anymore, so the autocomplete is less clumsy. Options with the prefix will still work though. `crosstable_options(reset=TRUE)` is deprecated in favor of the new `crosstable_reset_options()`.
 * In MS Word, crosstables will now break across pages by default. You can revert this by using `body_add_crosstable(allow_break=FALSE)` or using `crosstable_options()`. This is the pendant of `keepnext` in officer/flextable.
+* `peek()` is now usable on non-crosstable objects as well. `as_flextable()` method will be applied on the object if available, otherwise `flextable()` will be applied.
+* Better error messages in `import_labels()` when `data_label` doesn't have the right columns.
+* `rename_dataframe_with_labels()` deprecated in favor of `rename_with_labels()`
 
 #### Bug fixes
 
 * `by_header` can replace the "value" column if `by` has only one stratum, in both `as_gt()` and `as_flextable()` (https://github.com/DanChaltiel/crosstable/issues/9).
+* `import_labels()` now works even if there is a missing value in the dataframe.
 * `percent_pattern` can now contain functions that start by "p" (https://github.com/DanChaltiel/crosstable/issues/10).
 * `percent_pattern` is actually taken into account when `by` has one single level (https://github.com/DanChaltiel/crosstable/issues/13).
 
