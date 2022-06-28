@@ -2,11 +2,11 @@ utils::globalVariables(".")
 
 # Error and warning handling ----------------------------------------------
 
-#' @source https://stackoverflow.com/a/20578779/3888000 
+#' @source https://stackoverflow.com/a/20578779/3888000
 #' @keywords internal
 #' @noRd
-#' @examples 
-#' foo=function(){log(-1);warn("outch");message("foo");message("bar");stop("END");1}
+#' @examples
+#' foo=function(){log(-1);warning("outch");message("foo");message("bar");stop("END");1}
 #' x=tryCatch2(foo())
 #' x
 #' attributes(x)
@@ -34,15 +34,15 @@ tryCatch2 = function(expr){
     attr(rtn, "errors") = unique(map_chr(errors, conditionMessage))
     attr(rtn, "warnings") = unique(map_chr(warnings, conditionMessage))
     attr(rtn, "messages") = unique(map_chr(messages, conditionMessage))
-    
+
     x = c(errors, warnings, messages) %>% unique()
     attr(rtn, "overview") = tibble(
-        type=map_chr(x, ~ifelse(inherits(.x, "error"), "Error", 
+        type=map_chr(x, ~ifelse(inherits(.x, "error"), "Error",
                                 ifelse(inherits(.x, "warning"), "Warning", "Message"))),
         class=map_chr(x, ~class(.x) %>% glue_collapse("/")),
         message=map_chr(x, ~conditionMessage(.x))
     )
-    
+
     rtn
 }
 
@@ -65,8 +65,8 @@ condition_overview = function(expr){
 #' x = f() %>% print_warning_class()
 #' x
 print_warning_class = function(expr){
-    withCallingHandlers( 
-        tryCatch(expr), 
+    withCallingHandlers(
+        tryCatch(expr),
         warning = function(w) {
             warning(gettext(w), immediate.=TRUE)
             print(class(w))
@@ -77,26 +77,26 @@ print_warning_class = function(expr){
 
 
 #' @importFrom glue glue
-#' @importFrom rlang abort
 #' @importFrom stringr str_ends
 #' @keywords internal
 #' @noRd
 assert_is_installed = function(pkg, fun) {
     if(!str_ends(fun, "()")) fun=paste0(fun, "()")
     if(!requireNamespace(pkg, quietly=TRUE)) {
-        abort(glue('Package "{pkg}" is needed for function {fun} to work. Please install it.'),
+      #TODO cli
+      cli_abort(glue('Package "{pkg}" is needed for function {fun} to work. Please install it.'),
               class="missing_package_error") # nocov
     }
     invisible(pkg)
 }
 
 #' @importFrom glue glue
-#' @importFrom rlang abort
 #' @keywords internal
 #' @noRd
-assert_survival_is_installed = function() {
+assert_survival_is_installed = function() { #TODO remove this
     if(!requireNamespace("survival", quietly=TRUE)) {
-        abort(glue('Package "survival" is needed for survival data to be described using crosstable.'),
+      #TODO cli
+      cli_abort(glue('Package "survival" is needed for survival data to be described using crosstable.'),
               class="missing_package_error") # nocov
     }
 }
@@ -106,7 +106,6 @@ assert_survival_is_installed = function() {
 # Arguments name-check ----------------------------------------------------
 
 
-#' @importFrom rlang abort
 #' @importFrom glue glue glue_collapse
 #' @source mimick ellipsis::check_dots_unnamed
 #' @keywords internal
@@ -115,14 +114,14 @@ check_dots_unnamed = function(){
     dotnames = names(substitute(list(...), env=parent.frame()))
     if(any(dotnames!="")){
         named = dotnames[dotnames!=""] %>% glue_collapse("', '", last="', and '")
-        abort(c("Components of `...` should never have a name in crosstable().", 
+        #TODO cli
+        cli_abort(c("Components of `...` should never have a name in crosstable().",
                 x="Did you misspecify an argument?",
-                i=glue("Named components: '{named}'")), 
+                i=glue("Named components: '{named}'")),
               class="rlib_error_dots_named")
     }
 }
 
-#' @importFrom rlang abort
 #' @importFrom glue glue glue_collapse
 #' @source mimick ellipsis::check_dots_empty
 #' @keywords internal
@@ -134,7 +133,8 @@ check_dots_empty = function(){
         caller = as.character(sys.call(-1)[1])
         dotnames = names(dots)
         named = dotnames[dotnames!=""] %>% glue_collapse("', '", last="', and '")
-        abort(c(glue("Components of `...` should be empty in {caller}()."),
+        #TODO cli
+        cli_abort(c(glue("Components of `...` should be empty in {caller}()."),
                 "Did you misspecify or forget the name of an argument?",
                 i=glue("Named components: '{named}'")), #TODO aussi unnamed
               class="rlib_error_dots_nonempty")
@@ -166,13 +166,14 @@ get_defined_function = function(name){
     # Filter out function defined in own package.
     envs = lapply(funs, environment)
     funs = funs[! vapply(envs, identical, logical(1L), topenv())]
-    if(length(funs)>1) warn("There are multiple '", name,"' functions loaded. If this causes any trouble, fill an issue on crosstable's github page.") # nocov
+    if(length(funs)>1) #TODO cli
+      cli_warn("There are multiple '", name,"' functions loaded. If this causes any trouble, fill an issue on crosstable's github page.") # nocov
     unlist(funs[1L])
 }
 
 
 
-#' @importFrom rlang as_function is_formula caller_env warn abort
+#' @importFrom rlang as_function is_formula caller_env
 #' @importFrom purrr map map_dbl pmap_chr
 #' @importFrom glue glue glue_collapse
 #' @importFrom stringr str_subset
@@ -184,14 +185,14 @@ parse_funs = function(funs){
     funs = c(funs)
     if(is.null(names(funs))) names(funs)=NA
     caller = caller_env()
-    
+
     #TODO if(!is.list(funs) funs=list(funs))
-    
+
     # fun_call = as.character(as.list(substitute(funs)))
     # fun_call = fun_call[fun_call != "c" & fun_call != "list"]
     # fun_call2 = as.character(as.list(substitute(funs, caller_env())))
     # fun_call2 = fun_call[fun_call != "c" & fun_call != "list"]
-    
+
     if(length(funs)>1) {
         fun_call = as.character(as.list(substitute(funs, caller_env())))
         fun_call = fun_call[fun_call != "c" & fun_call != "list"]
@@ -206,26 +207,28 @@ parse_funs = function(funs){
     if(length(fun_call)!=length(funs)){
         fun_call = as.character(as.list(substitute(funs, caller_env())))
         fun_call = fun_call[fun_call != "c" & fun_call != "list"]
-        # x=list(funs, names(funs), fun_call) 
+        # x=list(funs, names(funs), fun_call)
     }
-    x=list(funs, names(funs), fun_call) 
-    
+    x=list(funs, names(funs), fun_call)
+
     if(map_dbl(x, length) %>% .[.>0] %>% unique() %>% length() != 1){
-        abort(c("Problem with fun_call. This should never happen. Is `funs` syntax correct?", 
+      #TODO cli
+      cli_abort(c("Problem with fun_call. This should never happen. Is `funs` syntax correct?",
                 i=glue("lengths: funs={length(funs)}, names(funs)={length(names(funs))}, fun_call={length(fun_call)}"))) #nocov
     }
-    
+
     names(funs) = pmap_chr(x, ~{
         .f = ..1; .name = ..2; .call = ..3
-        target_name = NULL 
-        
+        target_name = NULL
+
         if(!is.null(.name) && !is.na(.name) && .name!=""){
             target_name=.name
         } else {
             if(is_formula(.f)){
                 target_name = format(.f)
-                warn(c("Anonymous lambda-functions should be named.", 
-                       i=paste0("Instead of: funs=", target_name), 
+                #TODO cli
+                cli_warn(c("Anonymous lambda-functions should be named.",
+                       i=paste0("Instead of: funs=", target_name),
                        i=paste0('Write: funs=c("Some calculation"=', target_name)),
                      class="crosstable_unnamed_lambda_warning")
             } else if(grepl("function *\\(", .call)){
@@ -234,8 +237,9 @@ parse_funs = function(funs){
                 fbody = str_subset(.call2[-1], "[}{]", negate = TRUE) %>% str_squish()
                 if(length(fbody)>1) fbody = paste0(fbody[1], "...")
                 target_name = paste0("function(", fargs ,"){", fbody, "}")
-                warn(c("Anonymous functions should be named.", 
-                       i=paste0("Instead of: funs=", target_name), 
+                #TODO cli
+                cli_warn(c("Anonymous functions should be named.",
+                       i=paste0("Instead of: funs=", target_name),
                        i=paste0('Write: funs=c("Some calculation"=', target_name)),
                      class="crosstable_unnamed_anonymous_warning")
             } else{
@@ -244,7 +248,7 @@ parse_funs = function(funs){
         }
         target_name
     })
-    
+
     map(funs, as_function)
 }
 
@@ -283,7 +287,7 @@ is.numeric.and.not.surv = function(x) {
 #' test
 #'
 #' @param x x
-#' 
+#'
 #' @keywords internal
 #' @noRd
 is.Surv = function(x) {
@@ -315,13 +319,13 @@ paste_classes = function(x){
 #' @keywords internal
 #' @noRd
 paste_nameclasses = function(x){
-    glue("{name} ({class})", name=names(x), 
+    glue("{name} ({class})", name=names(x),
          class=map_chr(x, ~class(remove_label(.x))[1]))
 }
 
 
 #' Test if @param method can be applied to @param x
-#' @param skip speed up the 
+#' @param skip speed up the
 #' @keywords internal
 #' @noRd
 has_method = function(x, method, skip=c("data.frame")){
@@ -339,22 +343,22 @@ has_method = function(x, method, skip=c("data.frame")){
 
 
 #' Rudimentary function to clean the names
-#' 
+#'
 #' Avoids a dependency to janitor.
-#' 
+#'
 #' @keywords internal
 #' @noRd
 #' @importFrom stringr str_remove_all
 #' @source janitor:::old_make_clean_names(), tweaked with iconv for accents
 crosstable_clean_names = function(string){
     old_names <- string
-    new_names <- old_names %>% 
-        gsub("'", "", .) %>% gsub("\"", "", .) %>% gsub("%", "percent", .) %>% 
-        gsub("^[ ]+", "", .) %>% make.names(.) %>% gsub("[.]+", "_", .) %>% 
+    new_names <- old_names %>%
+        gsub("'", "", .) %>% gsub("\"", "", .) %>% gsub("%", "percent", .) %>%
+        gsub("^[ ]+", "", .) %>% make.names(.) %>% gsub("[.]+", "_", .) %>%
         gsub("[_]+", "_", .) %>% tolower(.) %>% gsub("_$", "", .)
-    
+
     new_names = new_names %>% str_remove_all("[\r\n]") %>% iconv(to="ASCII//TRANSLIT")
-    
+
     dupe_count <- vapply(seq_along(new_names), function(i) {
         sum(new_names[i] == new_names[1:i])
     }, integer(1))
@@ -392,7 +396,7 @@ sd_date = function(x, date_unit=c("auto", "seconds", "minutes", "hours", "days",
         lim = limits[unit][length(limits[unit])]
     }
     rtn =sd(as.numeric(x)/lim, na.rm=TRUE)
-    
+
     list(value=rtn, unit=names(lim))
 }
 
@@ -443,7 +447,7 @@ confint_numeric = function(object, level=0.95, B=0){
 #' @note validé avec PropCIs::scoreci
 #' @keywords internal
 #' @noRd
-confint_proportion = function(p, n, 
+confint_proportion = function(p, n,
                               method=c("wilson", "asymptotic"),
                               level=0.95){
     a = 1-level
@@ -460,7 +464,7 @@ confint_proportion = function(p, n,
     } else if(method=="asymptotic"){
         p1 = z*sqrt(p*(1-p)/n)
         rtn = data.frame(inf=p-p1, sup=p+p1)
-    } 
+    }
     return(rtn)
 }
 
@@ -495,8 +499,8 @@ str_wrap2 = function(x, width, ...){
 #' @examples
 #' x=1:15;y="foobar"
 #' rec(x,y, sep=", ")
-rec = function(..., sep=getOption("rec_sep", "\n"), sep_int=getOption("rec_sep", ", "), 
-               glue_pattern="{.name} = {.value}", 
+rec = function(..., sep=getOption("rec_sep", "\n"), sep_int=getOption("rec_sep", ", "),
+               glue_pattern="{.name} = {.value}",
                max_length=getOption("rec_max_length", 10), .envir = parent.frame()){
     l = as.list(substitute(list(...)))[-1L] %>% unlist() %>% set_names()
     ll = map(l, eval, envir=.envir)
@@ -511,7 +515,7 @@ rec = function(..., sep=getOption("rec_sep", "\n"), sep_int=getOption("rec_sep",
             .x
         }
     })
-    rtn = glue(glue_pattern, .name=names(tmp), .value=tmp) %>% 
+    rtn = glue(glue_pattern, .name=names(tmp), .value=tmp) %>%
         glue_collapse(sep=sep)
     rtn
 }
@@ -526,7 +530,8 @@ fct = function(x=character(), levels, labels=levels, ...){
     miss_x = !x %in% levels
     if(any(miss_x)){
         miss_x_s = unique(x[miss_x]) %>% glue_collapse(", ")
-        warn(c("Unknown factor level in `x`, NA generated.", 
+        #TODO cli
+        cli_warn(c("Unknown factor level in `x`, NA generated.",
                x=glue("Unknown levels: {miss_x_s}")))
     }
     factor(x, levels, labels, ...)
@@ -541,8 +546,8 @@ fct = function(x=character(), levels, labels=levels, ...){
 #' @examples
 #' get_generic_labels(list(value="count"))
 get_generic_labels = function(l=list()){
-    x = list(id = ".id", variable = "variable", value = "value", 
-             total="Total", label = "label", test = "test", 
+    x = list(id = ".id", variable = "variable", value = "value",
+             total="Total", label = "label", test = "test",
              effect="effect")
     x[names(l)] = l
     x
@@ -552,8 +557,8 @@ get_generic_labels = function(l=list()){
 #' @source adapted from gtools::mixedorder() v3.9.2
 #' @keywords internal
 #' @noRd
-mixedsort = function(x, decreasing=FALSE, na.last=TRUE, blank.last=FALSE, 
-                     roman.case=c("upper", "lower", "both"), 
+mixedsort = function(x, decreasing=FALSE, na.last=TRUE, blank.last=FALSE,
+                     roman.case=c("upper", "lower", "both"),
                      scientific=TRUE){
     roman.case <- match.arg(roman.case)
     if(length(x)==0) return(NULL)
@@ -561,7 +566,7 @@ mixedsort = function(x, decreasing=FALSE, na.last=TRUE, blank.last=FALSE,
     if(!is.character(x)) {
         return(x[order(x, decreasing=decreasing, na.last=na.last)])
     }
-    
+
     delim <- "\\$\\@\\$"
     if(scientific) {
         regex <- "((?:(?i)(?:[-+]?)(?:(?=[.]?[0123456789])(?:[0123456789]*)(?:(?:[.])(?:[0123456789]{0,}))?)(?:(?:[eE])(?:(?:[-+]?)(?:[0123456789]+))|)))"
@@ -574,7 +579,7 @@ mixedsort = function(x, decreasing=FALSE, na.last=TRUE, blank.last=FALSE,
     x <- as.character(x)
     which.nas <- which(is.na(x))
     which.blanks <- which(x == "")
-    delimited <- gsub(regex, paste(delim, "\\1", delim, sep = ""), 
+    delimited <- gsub(regex, paste(delim, "\\1", delim, sep = ""),
                       x, perl = TRUE)
     step1 <- strsplit(delimited, delim)
     step1 <- lapply(step1, function(x) x[x > ""])
@@ -590,9 +595,9 @@ mixedsort = function(x, decreasing=FALSE, na.last=TRUE, blank.last=FALSE,
     rank.numeric <- sapply(step1.numeric.t, rank)
     rank.character <- sapply(step1.character.t, function(x) as.numeric(factor(x)))
     rank.numeric[!is.na(rank.character)] <- 0
-    rank.character <- t(t(rank.character) + apply(matrix(rank.numeric), 
+    rank.character <- t(t(rank.character) + apply(matrix(rank.numeric),
                                                   2, max, na.rm = TRUE))
-    rank.overall <- ifelse(is.na(rank.character), rank.numeric, 
+    rank.overall <- ifelse(is.na(rank.character), rank.numeric,
                            rank.character)
     order.frame <- as.data.frame(rank.overall)
     if(length(which.nas) > 0) {
@@ -617,7 +622,7 @@ mixedsort = function(x, decreasing=FALSE, na.last=TRUE, blank.last=FALSE,
     order.frame$decreasing <- decreasing
     order.frame$na.last <- NA
     ord <- do.call("order", order.frame)
-    
+
     x[ord]
 }
 

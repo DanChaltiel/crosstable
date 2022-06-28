@@ -4,37 +4,38 @@
 compare_snapshot_doc = function(name){
     doc1 = read_docx(paste0('tests/testthat/docx/4-officer/snap_',name,'.docx'))
     doc2 = read_docx(paste0('tests/testthat/docx/4-officer/snap_',name,'_new.docx'))
-    
+
     x1 = doc1$doc_obj$get() %>% xml2::as_list() %>% jsonlite::serializeJSON(pretty = TRUE)
     x2 = doc2$doc_obj$get() %>% xml2::as_list() %>% jsonlite::serializeJSON(pretty = TRUE)
-    
+
     waldo::compare(x1,x2)
 }
 
 expect_snapshot_doc = function(doc){
     skip_on_os(c("mac", "linux", "solaris"))
     doc_xml = xml2::as_list(doc$doc_obj$get())
-    
+
     sp = testthat:::get_snapshotter()
-    if(is.null(sp)) abort("Can't compare snapshot to reference when testing interactively")
+    if(is.null(sp)) cli_abort("Can't compare snapshot to reference when testing interactively")
     test_file = sp$file
-    test_name = sp$test %>% tolower() %>% 
-        str_replace_all("\\W+", "_") %>% 
+    test_name = sp$test %>% tolower() %>%
+        str_replace_all("\\W+", "_") %>%
         stringi::stri_trans_general(id = "Latin-ASCII")
-    
+
     x = expect_snapshot_value(digest::digest(doc_xml))
-    
+
     folder=paste0("docx/", test_file)
     filename=paste0(folder, "/snap_", test_name, ".docx")
     if(!file.exists(filename)){
         dir.create(folder, recursive=TRUE, showWarnings=FALSE)
         print(doc, filename)
     }
-    
+
     filename_new=paste0(folder, "/snap_", test_name, "_new.docx")
     if(!inherits(x, "expectation_success")){
         print(doc, filename_new)
-        warn(glue("Word document snapshot has changed. Explore changes by running:\n",
+      #TODO cli
+      cli_warn(glue("Word document snapshot has changed. Explore changes by running:\n",
                   "   compare_snapshot_doc('{test_name}')\n",
                   "   browseURL('tests/testthat/{filename}')\n",
                   "   browseURL('tests/testthat/{filename_new}')\n\n"))
@@ -103,7 +104,7 @@ test_that("crosstables: Double with effects", {
         body_add_crosstable(compact(ct), show_test_name=FALSE) %>%
         body_add_table_legend(paste0(i, ", compacted before function")) %>%
         body_add_break()
-    
+
     # expect_snapshot_doc(doc)
     expect_true(TRUE)
 })
@@ -129,7 +130,7 @@ test_that("crosstables: Triple", {
         body_add_crosstable(compact(ct), show_test_name=FALSE) %>%
         body_add_table_legend(paste0(i, ", compacted before function")) %>%
         body_add_break()
-    
+
     # expect_snapshot_doc(doc)
     expect_true(TRUE)
 })
@@ -164,7 +165,7 @@ test_that("crosstables helpers", {
         body_add_gg2(p, w=140, h=100, scale=1.5, units="mm") %>%
         body_add_crosstable_footnote() %>%
         body_add_break()
-    
+
     # expect_snapshot_doc(doc)
     expect_true(TRUE)
 })
@@ -192,7 +193,7 @@ test_that("Utils functions", {
         body_add_gg2(p, w=14, h=10, scale=1.5) %>%
         body_add_gg2(p, w=14/2.5, h=10/2.5, scale=1.5, units="in") %>%
         identity()
-    
+
     # expect_snapshot_doc(doc)
     expect_true(TRUE)
 })
@@ -207,10 +208,10 @@ test_that("Legend fields", {
         body_add_normal("As you can see in Table \\@ref(tab1) and in Figure \\@ref(fig1), ",
                         "the iris dataset is about flowers.") %>%
         body_add_table_legend("This is a crosstable", bookmark="tab1") %>%
-        body_add_table_legend("This is a crosstable with bold legend", 
+        body_add_table_legend("This is a crosstable with bold legend",
                               name_format=fp, bookmark="tab2") %>%
-        body_add_table_legend("This is a crosstable with bold legend", 
-                              name_format=fp2, legend_style="Normal", 
+        body_add_table_legend("This is a crosstable with bold legend",
+                              name_format=fp2, legend_style="Normal",
                               bookmark="tab2") %>%
         body_add_figure_legend("This is a figure", bookmark="fig1") %>%
         identity()
@@ -242,7 +243,7 @@ test_that("Officers warnings and errors", {
 
 test_that("openxlsx is working", {
     set.seed(1234)
-    
+
     #by=NULL
     x1=crosstable(mtcars2, c(mpg, vs, gear), total=T, test=T)
     wb1=as_workbook(x1, keep_id=FALSE)
@@ -253,14 +254,14 @@ test_that("openxlsx is working", {
     x2=crosstable(mtcars2, c(mpg, vs, gear), by=cyl, total=T, test=T)
     wb3=as_workbook(x2, keep_id=FALSE)
     wb4=as_workbook(x2, keep_id=TRUE)
-    
+
     #by=c(cyl, am)
     x3=crosstable(mtcars2, c(mpg, vs, gear), by=c(cyl, am), total=T)
     wb5=as_workbook(x3, keep_id=FALSE)
 
     xl=list("with by"=x2, noby=x1, x3)
     wb6=as_workbook(xl)
-    
+
     if(!is_testing()){
         openxlsx::saveWorkbook(wb1, file = "tests/testthat/xlsx/test_openxlsx1.xlsx", overwrite = TRUE)
         openxlsx::saveWorkbook(wb2, file = "tests/testthat/xlsx/test_openxlsx2.xlsx", overwrite = TRUE)
@@ -287,7 +288,7 @@ test_that("gt is working", {
     x2=crosstable(mtcars2, c(mpg, vs, gear), by=cyl, total=T, test=T)
     as_gt(x2)
     as_gt(x2, keep_id=TRUE, show_test_name=FALSE, by_header="Cylinders")
-    
+
     #by=c(cyl, am) --> error pour l'instant
     x3=crosstable(mtcars2, c(mpg, vs, gear), by=c(cyl, am), total=T)
     expect_snapshot_error(as_gt(x3))
