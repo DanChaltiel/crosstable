@@ -36,21 +36,21 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
                                 header_fontsize=ceiling(body_fontsize*1.2),
                                 padding_v=NULL,
                                 allow_break=TRUE, ...) {
-    assert_class(x, "crosstable", .var.name=vname(x))
+  assert_class(x, "crosstable", .var.name=vname(x))
 
-    if(missing(padding_v)) padding_v = getOption("crosstable_padding_v", NULL)
-    if(missing(body_fontsize)) body_fontsize = getOption("crosstable_fontsize_body", NULL)
-    if(missing(header_fontsize)) header_fontsize = getOption("crosstable_fontsize_header", NULL)
-    if(missing(allow_break)) allow_break = getOption("crosstable_allow_break", TRUE)
-    ft = as_flextable(x, ...)
-    if(length(body_fontsize)!=0)
-        ft = fontsize(ft, size = body_fontsize, part = "body")
-    if(length(header_fontsize)!=0)
-        ft = fontsize(ft, size = header_fontsize, part = "header")
-    if(length(padding_v)!=0)
-        ft = padding(ft, padding.top=padding_v, padding.bottom=padding_v, part = "body")
+  if(missing(padding_v)) padding_v = getOption("crosstable_padding_v", NULL)
+  if(missing(body_fontsize)) body_fontsize = getOption("crosstable_fontsize_body", NULL)
+  if(missing(header_fontsize)) header_fontsize = getOption("crosstable_fontsize_header", NULL)
+  if(missing(allow_break)) allow_break = getOption("crosstable_allow_break", TRUE)
+  ft = as_flextable(x, ...)
+  if(length(body_fontsize)!=0)
+    ft = fontsize(ft, size = body_fontsize, part = "body")
+  if(length(header_fontsize)!=0)
+    ft = fontsize(ft, size = header_fontsize, part = "header")
+  if(length(padding_v)!=0)
+    ft = padding(ft, padding.top=padding_v, padding.bottom=padding_v, part = "body")
 
-    body_add_flextable(doc, ft, keepnext=!allow_break)
+  body_add_flextable(doc, ft, keepnext=!allow_break)
 }
 
 
@@ -105,33 +105,33 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #'     body_add_table_legend("My pretty table", bookmark="my_table")
 #' write_and_open(doc)
 body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, parse=c("ref", "format", "code")) {
-    if(missing(squish)) squish = getOption("crosstable_normal_squish", TRUE)
-    dots = list(...)
-    if(is.null(style)){
-        style = getOption('crosstable_style_normal', doc$default_styles$paragraph)
-    }
-    if(length(dots)==0) dots=""
-    dots_lengths = lengths(dots)
+  if(missing(squish)) squish = getOption("crosstable_normal_squish", TRUE)
+  dots = list(...)
+  if(is.null(style)){
+    style = getOption('crosstable_style_normal', doc$default_styles$paragraph)
+  }
+  if(length(dots)==0) dots=""
+  dots_lengths = lengths(dots)
 
-    if(all(dots_lengths==1)){ #one or several vectors of length 1
-        value = do.call(glue, c(dots, .sep=.sep, .envir=parent.frame()))
-        if(squish) value = str_squish(value)
-        parse_ref = "ref" %in% parse
-        parse_format = "format" %in% parse
-        parse_code = "code" %in% parse
-        doc = body_add_parsed(doc, value, style, parse_ref, parse_format, parse_code)
-    } else if(length(dots)==1) { #one vector (of 1 or more) -> recursive call
-        for(i in dots[[1]]){
-            doc = body_add_normal(doc, i, .sep=.sep, squish=squish)
-        }
-    } else { #several vectors of which at least one is length 2+
-      #TODO cli
-      cli_abort(c("body_add_normal() only accepts either one vector of any length or several vectors of length 1",
+  if(all(dots_lengths==1)){ #one or several vectors of length 1
+    value = do.call(glue, c(dots, .sep=.sep, .envir=parent.frame()))
+    if(squish) value = str_squish(value)
+    parse_ref = "ref" %in% parse
+    parse_format = "format" %in% parse
+    parse_code = "code" %in% parse
+    doc = body_add_parsed(doc, value, style, parse_ref, parse_format, parse_code)
+  } else if(length(dots)==1) { #one vector (of 1 or more) -> recursive call
+    for(i in dots[[1]]){
+      doc = body_add_normal(doc, i, .sep=.sep, squish=squish)
+    }
+  } else { #several vectors of which at least one is length 2+
+    #TODO cli
+    cli_abort(c("body_add_normal() only accepts either one vector of any length or several vectors of length 1",
                 i=glue("Length of vectors passed: {glue_collapse(dots_lengths, ', ')}")),
               class="officer_wrong_vector_error")
-    }
+  }
 
-    doc
+  doc
 }
 
 
@@ -163,12 +163,12 @@ body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, parse=c("
 #' #write_and_open(doc)
 body_add_title = function(doc, value, level = 1, squish=TRUE,
                           style = getOption('crosstable_style_heading', "heading")) {
-    if(missing(squish)) squish = getOption("crosstable_title_squish", TRUE)
-    value = glue(value, .envir = parent.frame())
-    if(squish) value = str_squish(value)
-    style = paste(style, level)
-    # body_add_par(doc, value, style = style)
-    body_add_parsed(doc, value, style = style)
+  if(missing(squish)) squish = getOption("crosstable_title_squish", TRUE)
+  value = glue(value, .envir = parent.frame())
+  if(squish) value = str_squish(value)
+  style = paste(style, level)
+  # body_add_par(doc, value, style = style)
+  body_add_parsed(doc, value, style = style)
 }
 
 
@@ -205,28 +205,28 @@ body_add_title = function(doc, value, level = 1, squish=TRUE,
 #'  write_and_open()
 #' }
 body_add_list = function(doc, value, ordered=FALSE, style=NULL, ...){
-    for(i in value){
-        doc = body_add_list_item(doc, i, ordered=ordered, style=style, ...)
-    }
-    doc
+  for(i in value){
+    doc = body_add_list_item(doc, i, ordered=ordered, style=style, ...)
+  }
+  doc
 }
 
 #' @rdname body_add_list
 #' @author Dan Chaltiel
 #' @export
 body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
-    if(is.null(style)){
-        if(ordered){
-            style = getOption('crosstable_style_list_ordered', NULL)
-        } else {
-            style = getOption('crosstable_style_list_unordered', NULL)
-        }
-        if(is.null(style)){
-            cli_abort("Ordered lists and bullet lists are not supported by the default officer template. You have to set them in a custom template and use either the `style` argument or crosstable options. See `?body_add_list` examples for more details.",
-                  class="officer_lists_style_error") #nocov
-        }
+  if(is.null(style)){
+    if(ordered){
+      style = getOption('crosstable_style_list_ordered', NULL)
+    } else {
+      style = getOption('crosstable_style_list_unordered', NULL)
     }
-    body_add_parsed(doc, value, style=style, ...)
+    if(is.null(style)){
+      cli_abort("Ordered lists and bullet lists are not supported by the default officer template. You have to set them in a custom template and use either the `style` argument or crosstable options. See `?body_add_list` examples for more details.",
+                class="officer_lists_style_error") #nocov
+    }
+  }
+  body_add_parsed(doc, value, style=style, ...)
 }
 
 
@@ -267,49 +267,49 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #'     body_add_crosstable_list(ctl, fun=myfun, body_fontsize=8) %>%
 #'     write_and_open()
 body_add_crosstable_list = function(doc, l, fun="title2", ...){
-    assert_list(l)
-    assert_named(l)
-    l = map(l, ~{
-        if(!is.crosstable(.x) && is.data.frame(.x)) .x = flextable(.x)
-        assert_multi_class(.x, c("flextable", "crosstable"))
-        .x
-    })
+  assert_list(l)
+  assert_named(l)
+  l = map(l, ~{
+    if(!is.crosstable(.x) && is.data.frame(.x)) .x = flextable(.x)
+    assert_multi_class(.x, c("flextable", "crosstable"))
+    .x
+  })
 
-    if(is_string(fun)){
-        if(fun=="title2") fun=function(doc, .name) body_add_title(doc, .name, 2)
-        else if(fun=="title3") fun=function(doc, .name) body_add_title(doc, .name, 3)
-        else if(fun=="title4") fun=function(doc, .name) body_add_title(doc, .name, 4)
-        else if(fun=="newline") fun=function(doc, .name) body_add_normal(doc, "")
-        else {
-          #TODO cli
-          cli_abort(c('`fun` should be either a function or a member of c("title2", "title3", "title4", "newline")',
-                    i=glue("Current value: '{fun}'")),
-                  class="body_add_crosstable_list_fun_name")
-        }
-    } else if(is.null(fun)) fun=function(doc, .name) doc
-    assert_class(fun, "function")
-
-    if(!identical(formalArgs(fun), c("doc", ".name"))){
+  if(is_string(fun)){
+    if(fun=="title2") fun=function(doc, .name) body_add_title(doc, .name, 2)
+    else if(fun=="title3") fun=function(doc, .name) body_add_title(doc, .name, 3)
+    else if(fun=="title4") fun=function(doc, .name) body_add_title(doc, .name, 4)
+    else if(fun=="newline") fun=function(doc, .name) body_add_normal(doc, "")
+    else {
       #TODO cli
-      cli_abort(c('`fun` should be of the form `function(doc, .name)`',
+      cli_abort(c('`fun` should be either a function or a member of c("title2", "title3", "title4", "newline")',
+                  i=glue("Current value: '{fun}'")),
+                class="body_add_crosstable_list_fun_name")
+    }
+  } else if(is.null(fun)) fun=function(doc, .name) doc
+  assert_class(fun, "function")
+
+  if(!identical(formalArgs(fun), c("doc", ".name"))){
+    #TODO cli
+    cli_abort(c('`fun` should be of the form `function(doc, .name)`',
                 i=paste0("Current arg names: ", paste0(formalArgs(fun), collapse=", "))),
               class="body_add_crosstable_list_fun_args")
-    }
+  }
 
-    argnames = names(list(...))
-    for(i in names(l)){
-        x=l[[i]]
-        doc = doc %>% fun(.name=i)
-        if(is.crosstable(x)) {
-            args = intersect(argnames, names(as.list(args(body_add_crosstable))))
-            doc = do.call(body_add_crosstable, c(list(doc=doc, x=x), list(...)[args]))
-        } else {
-            args = intersect(argnames, names(as.list(args(body_add_flextable))))
-            doc = do.call(body_add_flextable, c(list(x=doc, value=x), list(...)[args]))
-        }
+  argnames = names(list(...))
+  for(i in names(l)){
+    x=l[[i]]
+    doc = doc %>% fun(.name=i)
+    if(is.crosstable(x)) {
+      args = intersect(argnames, names(as.list(args(body_add_crosstable))))
+      doc = do.call(body_add_crosstable, c(list(doc=doc, x=x), list(...)[args]))
+    } else {
+      args = intersect(argnames, names(as.list(args(body_add_flextable))))
+      doc = do.call(body_add_flextable, c(list(x=doc, value=x), list(...)[args]))
     }
+  }
 
-    doc
+  doc
 }
 
 #' @rdname body_add_crosstable_list
@@ -384,16 +384,16 @@ body_add_table_legend = function(doc, legend, ..., bookmark=NULL,
                                  seqfield="SEQ Table \\* Arabic",
                                  par_before=FALSE,
                                  legacy=FALSE){
-    check_dots_empty()
-    if(missing(par_before)) par_before = getOption("crosstable_table_legend_par_before", FALSE)
-    if(missing(legend_prefix)) legend_prefix = getOption("crosstable_table_legend_prefix", NULL)
-    if(par_before){
-        doc=body_add_normal(doc, "")
-    }
-    body_add_legend(doc=doc, legend=legend, legend_name=legend_name,
-                    bookmark=bookmark, legend_prefix=legend_prefix, legend_style=legend_style,
-                    name_format=name_format, seqfield=seqfield,
-                    style=style, legacy=legacy)
+  check_dots_empty()
+  if(missing(par_before)) par_before = getOption("crosstable_table_legend_par_before", FALSE)
+  if(missing(legend_prefix)) legend_prefix = getOption("crosstable_table_legend_prefix", NULL)
+  if(par_before){
+    doc=body_add_normal(doc, "")
+  }
+  body_add_legend(doc=doc, legend=legend, legend_name=legend_name,
+                  bookmark=bookmark, legend_prefix=legend_prefix, legend_style=legend_style,
+                  name_format=name_format, seqfield=seqfield,
+                  style=style, legacy=legacy)
 }
 
 #' @rdname body_add_legend
@@ -408,17 +408,17 @@ body_add_figure_legend = function(doc, legend, ..., bookmark=NULL,
                                   seqfield="SEQ Figure \\* Arabic",
                                   par_after=FALSE,
                                   legacy=FALSE){
-    check_dots_empty()
-    if(missing(par_after)) par_after = getOption("crosstable_figure_legend_par_after", FALSE)
-    if(missing(legend_prefix)) legend_prefix = getOption("crosstable_figure_legend_prefix", NULL)
-    doc = body_add_legend(doc=doc, legend=legend, legend_name=legend_name,
-                    bookmark=bookmark, legend_prefix=legend_prefix, legend_style=legend_style,
-                    name_format=name_format, seqfield=seqfield,
-                    style=style, legacy=legacy)
-    if(par_after){
-        doc=body_add_normal(doc, "")
-    }
-    doc
+  check_dots_empty()
+  if(missing(par_after)) par_after = getOption("crosstable_figure_legend_par_after", FALSE)
+  if(missing(legend_prefix)) legend_prefix = getOption("crosstable_figure_legend_prefix", NULL)
+  doc = body_add_legend(doc=doc, legend=legend, legend_name=legend_name,
+                        bookmark=bookmark, legend_prefix=legend_prefix, legend_style=legend_style,
+                        name_format=name_format, seqfield=seqfield,
+                        style=style, legacy=legacy)
+  if(par_after){
+    doc=body_add_normal(doc, "")
+  }
+  doc
 }
 
 
@@ -430,37 +430,37 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
                            legend_prefix, legend_style, name_format, seqfield,
                            style, legacy){
 
-    # nocov start
-    if(is_present(style)){
-        deprecate_warn("0.2.2", "body_add_X_legend(style)",
-                       "body_add_X_legend(name_format)",
-                       details="Therefore, its value has been ignored. Use `legacy=TRUE` to override.")
-    }
-    # nocov end
+  # nocov start
+  if(is_present(style)){
+    deprecate_warn("0.2.2", "body_add_X_legend(style)",
+                   "body_add_X_legend(name_format)",
+                   details="Therefore, its value has been ignored. Use `legacy=TRUE` to override.")
+  }
+  # nocov end
 
-    legend = paste0(legend_prefix, legend)
-    fp_text2 = officer::fp_text_lite #v0.4+
-    if(is.null(name_format)){
-        name_format = getOption('crosstable_format_legend_name', fp_text2(bold=TRUE))
-    }
-    fp_size = fp_text2(font.size=name_format$font.size)
+  legend = paste0(legend_prefix, legend)
+  fp_text2 = officer::fp_text_lite #v0.4+
+  if(is.null(name_format)){
+    name_format = getOption('crosstable_format_legend_name', fp_text2(bold=TRUE))
+  }
+  fp_size = fp_text2(font.size=name_format$font.size)
 
-    legend = glue(legend, .envir = parent.frame())
-    legend_name = paste0(legend_name, " ")
+  legend = glue(legend, .envir = parent.frame())
+  legend_name = paste0(legend_name, " ")
 
-    bkm = run_word_field(seqfield, prop=name_format)
-    if(!is.null(bookmark)){
-        bkm = run_bookmark(bookmark, bkm)
-    }
+  bkm = run_word_field(seqfield, prop=name_format)
+  if(!is.null(bookmark)){
+    bkm = run_bookmark(bookmark, bkm)
+  }
 
-    legend_fpar = fpar(
-        ftext(legend_name, name_format),
-        bkm,
-        ftext(": ", name_format),
-        ftext(legend, fp_size)
-    )
+  legend_fpar = fpar(
+    ftext(legend_name, name_format),
+    bkm,
+    ftext(": ", name_format),
+    ftext(legend, fp_size)
+  )
 
-    body_add_fpar(doc, legend_fpar, style=legend_style)
+  body_add_fpar(doc, legend_fpar, style=legend_style)
 }
 
 #' Alternative to [officer::body_add_img()] which adds a `units` choice
@@ -491,9 +491,9 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
 body_add_img2 = function(doc, src, width, height,
                          units = getOption("crosstable_units", "in"),
                          ...){
-    units = match.arg(units, c("in", "cm", "mm"))
-    to_units = function(x) x/c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units]
-    body_add_img(x=doc, src=src, width=to_units(width), height=to_units(height), ...)
+  units = match.arg(units, c("in", "cm", "mm"))
+  to_units = function(x) x/c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units]
+  body_add_img(x=doc, src=src, width=to_units(width), height=to_units(height), ...)
 }
 
 
@@ -531,13 +531,13 @@ body_add_gg2 = function(doc, value, width = 6, height = 5,
                         units = getOption("crosstable_units", "in"),
                         style = getOption("crosstable_style_image", doc$default_styles$paragraph),
                         res = 300, ... ){
-    assert_is_installed("ggplot2", "body_add_gg2()")
-    assert_class(value, "ggplot")
-    units = match.arg(units, c("in", "cm", "mm"))
-    file = tempfile(fileext=".png")
-    ggplot2::ggsave(file, value, width=width, height=height, units=units, dpi=res, ...)
-    on.exit(unlink(file))
-    body_add_img2(doc, src=file, style=style, width=width, height=height, units=units)
+  assert_is_installed("ggplot2", "body_add_gg2()")
+  assert_class(value, "ggplot")
+  units = match.arg(units, c("in", "cm", "mm"))
+  file = tempfile(fileext=".png")
+  ggplot2::ggsave(file, value, width=width, height=height, units=units, dpi=res, ...)
+  on.exit(unlink(file))
+  body_add_img2(doc, src=file, style=style, width=width, height=height, units=units)
 }
 
 
@@ -553,15 +553,15 @@ body_add_gg2 = function(doc, value, width = 6, height = 5,
 #' @author Dan Chaltiel
 #' @export
 body_replace_text_at_bkms = function(doc, ...){
-    l=list(...)
-    #TODO tester qu'il y a bien un nom à chaque élément!
-    iwalk(l, ~{
-        .x = glue(.x, .envir=parent.frame())
-        x = safely(body_replace_text_at_bkm)(doc, .y, .x)
-        if(is.null(x$result)) warning(x$error$message, call.=FALSE)
-        else doc = x$result
-    })
-    doc
+  l=list(...)
+  #TODO tester qu'il y a bien un nom à chaque élément!
+  iwalk(l, ~{
+    .x = glue(.x, .envir=parent.frame())
+    x = safely(body_replace_text_at_bkm)(doc, .y, .x)
+    if(is.null(x$result)) warning(x$error$message, call.=FALSE)
+    else doc = x$result
+  })
+  doc
 }
 
 
@@ -577,7 +577,7 @@ body_replace_text_at_bkms = function(doc, ...){
 #' @author Dan Chaltiel
 #' @export
 body_add_crosstable_footnote = function(doc){
-    body_add_normal(doc, "Med: median, IQR: interquartile range, Std: standard deviation. Percentages are expressed in column.")
+  body_add_normal(doc, "Med: median, IQR: interquartile range, Std: standard deviation. Percentages are expressed in column.")
 }
 
 
@@ -586,8 +586,8 @@ body_add_crosstable_footnote = function(doc){
 # Officer helpers ---------------------------------------------------------
 
 crosstable_luafilters = function(){
-    x = system.file(package="crosstable", "rmarkdown/page-break.lua")
-    paste0("--lua-filter=", x)
+  x = system.file(package="crosstable", "rmarkdown/page-break.lua")
+  paste0("--lua-filter=", x)
 }
 
 #' List Word bookmarks, including the ones in header and footer
@@ -605,28 +605,28 @@ crosstable_luafilters = function(){
 #' @export
 docx_bookmarks2 = function(x, return_vector=FALSE,
                            target=c("all", "header", "body", "footer")) {#nocov start
-    #cannot test nor add examples as there is officer::body_bookmark() but no officer::head_bookmark()
+  #cannot test nor add examples as there is officer::body_bookmark() but no officer::head_bookmark()
 
-    assert_class(x, "rdocx")
-    assert_is_installed("xml2", "docx_bookmarks2()")
-    target = match.arg(target)
-    doc_ = xml2::xml_find_all(x$doc_obj$get(), "//w:bookmarkStart[@w:name]")
-    doc_ = setdiff(xml2::xml_attr(doc_, "name"), "_GoBack")
-    head_ = sapply(x$headers, function(h) {
-        tmp = xml2::xml_find_all(h$get(), "//w:bookmarkStart[@w:name]")
-        setdiff(xml2::xml_attr(tmp, "name"), "_GoBack")
-    })
-    foot_ = sapply(x$footers, function(f) {
-        tmp = xml2::xml_find_all(f$get(), "//w:bookmarkStart[@w:name]")
-        setdiff(xml2::xml_attr(tmp, "name"), "_GoBack")
-    })
+  assert_class(x, "rdocx")
+  assert_is_installed("xml2", "docx_bookmarks2()")
+  target = match.arg(target)
+  doc_ = xml2::xml_find_all(x$doc_obj$get(), "//w:bookmarkStart[@w:name]")
+  doc_ = setdiff(xml2::xml_attr(doc_, "name"), "_GoBack")
+  head_ = sapply(x$headers, function(h) {
+    tmp = xml2::xml_find_all(h$get(), "//w:bookmarkStart[@w:name]")
+    setdiff(xml2::xml_attr(tmp, "name"), "_GoBack")
+  })
+  foot_ = sapply(x$footers, function(f) {
+    tmp = xml2::xml_find_all(f$get(), "//w:bookmarkStart[@w:name]")
+    setdiff(xml2::xml_attr(tmp, "name"), "_GoBack")
+  })
 
-    rtn = list(header=unname(unlist(head_)), body=unname(unlist(doc_)), footer=unname(unlist(foot_)))
-    if(target!="all"){
-        rtn = rtn[target]
-    }
-    if(return_vector) return(unname(unlist(rtn)))
-    rtn
+  rtn = list(header=unname(unlist(head_)), body=unname(unlist(doc_)), footer=unname(unlist(foot_)))
+  if(target!="all"){
+    rtn = rtn[target]
+  }
+  if(return_vector) return(unname(unlist(rtn)))
+  rtn
 }#nocov end
 
 
@@ -659,36 +659,36 @@ docx_bookmarks2 = function(x, return_vector=FALSE,
 # nocov start
 write_and_open = function(doc, docx.file){
 
-    #checking if the file is already open... by removing it
-    tryCatch({
-        if(missing(docx.file) || is.null(docx.file)){
-            docx.file = tempfile(fileext=".docx")
-        } else if(file.exists(docx.file)) {
-            file.remove(docx.file)
-        }
-    }, warning=function(w) {
-        message(w)
-        if(str_detect(w$message, "Permission denied")){
-          #TODO cli
-            cli_abort(c("Permission denied. Is the file already open?", glue("File: {docx.file}")),
-                  class="permission_denied")
-        }
-    })
+  #checking if the file is already open... by removing it
+  tryCatch({
+    if(missing(docx.file) || is.null(docx.file)){
+      docx.file = tempfile(fileext=".docx")
+    } else if(file.exists(docx.file)) {
+      file.remove(docx.file)
+    }
+  }, warning=function(w) {
+    message(w)
+    if(str_detect(w$message, "Permission denied")){
+      #TODO cli
+      cli_abort(c("Permission denied. Is the file already open?", glue("File: {docx.file}")),
+                class="permission_denied")
+    }
+  })
 
-    tryCatch({
-        print(doc, target=docx.file)
-        if(interactive()) browseURL(docx.file)
-    }, error=function(e) {
-        if(str_detect(e$message, "Permission denied")){
-          #TODO cli
-          cli_abort(c("Permission denied. Is the file already open?", glue("File: {docx.file}")),
-                  class="permission_denied")
-        }
-        stop(e)
-    }, warning=function(w) {
-        warning(w)
-    }, finally={}
-    )
+  tryCatch({
+    print(doc, target=docx.file)
+    if(interactive()) browseURL(docx.file)
+  }, error=function(e) {
+    if(str_detect(e$message, "Permission denied")){
+      #TODO cli
+      cli_abort(c("Permission denied. Is the file already open?", glue("File: {docx.file}")),
+                class="permission_denied")
+    }
+    stop(e)
+  }, warning=function(w) {
+    warning(w)
+  }, finally={}
+  )
 
 }    # nocov end
 
@@ -713,19 +713,19 @@ write_and_open = function(doc, docx.file){
 #' @author Dan Chaltiel
 #' @export
 generate_autofit_macro = function(){
-    fileConn<-file("crosstable_autofit.bas")
-    writeLines(c(
-        'Attribute VB_Name = "CrosstableMacros"',
-        'Sub CrosstableAutofitAll()',
-        '\tDim t As Table',
-        '\tFor Each t In ActiveDocument.Tables',
-        '\t\tt.AutoFitBehavior wdAutoFitContent',
-        '\t\tt.AutoFitBehavior wdAutoFitWindow',
-        '\tNext t',
-        'End Sub'
-    ), fileConn)
-    close(fileConn)
-    invisible(NULL)
+  fileConn<-file("crosstable_autofit.bas")
+  writeLines(c(
+    'Attribute VB_Name = "CrosstableMacros"',
+    'Sub CrosstableAutofitAll()',
+    '\tDim t As Table',
+    '\tFor Each t In ActiveDocument.Tables',
+    '\t\tt.AutoFitBehavior wdAutoFitContent',
+    '\t\tt.AutoFitBehavior wdAutoFitWindow',
+    '\tNext t',
+    'End Sub'
+  ), fileConn)
+  close(fileConn)
+  invisible(NULL)
 }
 
 # nocov end
@@ -744,66 +744,66 @@ generate_autofit_macro = function(){
 #' @keywords internal
 #' @noRd
 body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE){
-    if(packageVersion("officer")<"0.4"){
-        cli_warn("This function needs package {officer} v0.4+ to work. You won't be able to add formatted text or references until you update this package.")
-        return(doc)
+  if(packageVersion("officer")<"0.4"){
+    cli_warn("This function needs package {officer} v0.4+ to work. You won't be able to add formatted text or references until you update this package.")
+    return(doc)
+  }
+  if(isFALSE(parse_ref) && isFALSE(parse_format)){
+    body_add_par(doc, value, style)
+  }
+  reg_r = list(
+    ref = "\\\\@ref\\(.*?\\)"
+  )
+  reg_f = list(
+    bold = "\\*\\*(.+?)\\*\\*",
+    underlined = "_(.+?)_",
+    italic = "(?<!\\*)\\*(?!\\*)(.+?)(?<!\\*)\\*(?!\\*)"
+  )
+  reg_c = list(
+    code = "`(.+?)`"
+  )
+  if(isFALSE(parse_ref)) reg_r = list()
+  if(isFALSE(parse_format)) reg_f = list()
+  if(isFALSE(parse_code)) reg_c = list()
+  regex = c(reg_f, reg_r, reg_c)
+  rex_all = paste(regex, collapse="|")
+
+  par_not_format = str_split(value, rex_all)[[1]]
+  par_format = str_extract_all(value, rex_all)[[1]]
+
+  # #altern: https://stackoverflow.com/a/43876294/3888000
+  altern = c(par_not_format, par_format)[order(c(seq_along(par_not_format)*2 - 1,
+                                                 seq_along(par_format)*2))]
+  par_list = map(altern, ~{
+    .format = map_lgl(regex, function(pat) str_detect(.x, pattern=pat)) %>%
+      discard(isFALSE) %>% names()
+
+    if(length(.format)==0) return(ftext(.x))
+
+    if(any(.format=="ref")){
+      bkm = str_match(.x, "\\\\@ref\\((.*?)\\)")[,2]
+      return(run_word_field(glue(' REF {bkm} \\h ')))
     }
-    if(isFALSE(parse_ref) && isFALSE(parse_format)){
-        body_add_par(doc, value, style)
+    if(any(.format=="code")){
+      fp = fp_text_lite(font.family=getOption("crosstable_font_code", "Consolas"))
+      return( ftext(.x, fp))
     }
-    reg_r = list(
-        ref = "\\\\@ref\\(.*?\\)"
-    )
-    reg_f = list(
-        bold = "\\*\\*(.+?)\\*\\*",
-        underlined = "_(.+?)_",
-        italic = "(?<!\\*)\\*(?!\\*)(.+?)(?<!\\*)\\*(?!\\*)"
-    )
-    reg_c = list(
-        code = "`(.+?)`"
-    )
-    if(isFALSE(parse_ref)) reg_r = list()
-    if(isFALSE(parse_format)) reg_f = list()
-    if(isFALSE(parse_code)) reg_c = list()
-    regex = c(reg_f, reg_r, reg_c)
-    rex_all = paste(regex, collapse="|")
+    rex = regex[.format]
+    for(i in rex){
+      if(str_detect(.x, i)){
+        .x = str_match(.x, i)[[2]]
+      }
+    }
 
-    par_not_format = str_split(value, rex_all)[[1]]
-    par_format = str_extract_all(value, rex_all)[[1]]
+    fp_args = rep(TRUE, length(.format)) %>% set_names(.format) %>% as.list()
+    fp = do.call(fp_text_lite, fp_args)
 
-    # #altern: https://stackoverflow.com/a/43876294/3888000
-    altern = c(par_not_format, par_format)[order(c(seq_along(par_not_format)*2 - 1,
-                                                   seq_along(par_format)*2))]
-    par_list = map(altern, ~{
-        .format = map_lgl(regex, function(pat) str_detect(.x, pattern=pat)) %>%
-            discard(isFALSE) %>% names()
-
-        if(length(.format)==0) return(ftext(.x))
-
-        if(any(.format=="ref")){
-            bkm = str_match(.x, "\\\\@ref\\((.*?)\\)")[,2]
-            return(run_word_field(glue(' REF {bkm} \\h ')))
-        }
-        if(any(.format=="code")){
-            fp = fp_text_lite(font.family=getOption("crosstable_font_code", "Consolas"))
-            return( ftext(.x, fp))
-        }
-        rex = regex[.format]
-        for(i in rex){
-            if(str_detect(.x, i)){
-                .x = str_match(.x, i)[[2]]
-            }
-        }
-
-        fp_args = rep(TRUE, length(.format)) %>% set_names(.format) %>% as.list()
-        fp = do.call(fp_text_lite, fp_args)
-
-        ftext(.x, fp)
-    })
+    ftext(.x, fp)
+  })
 
 
-    p=do.call(fpar, args=par_list)
-    body_add_fpar(doc, p, style)
+  p=do.call(fpar, args=par_list)
+  body_add_fpar(doc, p, style)
 }
 
 
@@ -817,6 +817,6 @@ body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE,
 #' @rdname body_add_normal
 #' @export
 body_add_glued = function(...){
-    deprecate_warn("0.2.0", "body_add_glued()", "body_add_normal()")# nocov
-    body_add_normal(...)# nocov
+  deprecate_warn("0.2.0", "body_add_glued()", "body_add_normal()")# nocov
+  body_add_normal(...)# nocov
 }

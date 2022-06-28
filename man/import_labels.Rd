@@ -50,14 +50,14 @@ iris_label = data.frame(
   label=c("Length of Sepals", "Width of Sepals",
           "Length of Petals", "Width of Petals", "Specie name")
 )
-iris \%>\% 
-  import_labels(iris_label) \%>\% 
+iris \%>\%
+  import_labels(iris_label) \%>\%
   crosstable
-  
+
 #save the labels, use some dplyr label-removing function, then retrieve the labels
 library(dplyr)
 mtcars2 \%>\%
-  save_labels() \%>\% 
+  save_labels() \%>\%
   transmute(disp=as.numeric(disp)+1) \%>\%
   import_labels(verbose_label=FALSE) \%>\% #
   crosstable(disp)

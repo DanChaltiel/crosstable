@@ -21,9 +21,9 @@ As it tests if the file is writable, this function also prevents \code{officer::
 library(officer)
 library(crosstable)
 mytable = crosstable(mtcars2)
-doc = read_docx() \%>\% 
+doc = read_docx() \%>\%
     body_add_crosstable(mytable)
-    
+
 write_and_open(doc)
 \dontrun{
 write_and_open(doc, "example.docx")

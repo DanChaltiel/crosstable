@@ -22,7 +22,7 @@ This function is a copycat of from expss package v0.10.7 (slightly modified) to 
 \examples{
 iris \%>\%
   apply_labels(Sepal.Length="Length of Sepal",
-               Sepal.Width="Width of Sepal") \%>\% 
+               Sepal.Width="Width of Sepal") \%>\%
   crosstable()
 }
 \author{

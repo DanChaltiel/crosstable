@@ -38,13 +38,13 @@ library(openxlsx)
 target = tempfile(fileext=".xlsx")
 
 x=crosstable(mtcars2, c(mpg, vs, gear), total=TRUE, test=TRUE)
-as_workbook(x, keep_id=TRUE) \%>\% 
+as_workbook(x, keep_id=TRUE) \%>\%
     saveWorkbook(file=target)
 if(interactive()) browseURL(target)
 
 target = tempfile(fileext=".xlsx")
 x2=list(iris=crosstable(iris2), crosstable(mtcars2))
-as_workbook(x2, keep_id=TRUE) \%>\% 
+as_workbook(x2, keep_id=TRUE) \%>\%
     saveWorkbook(file=target)
 if(interactive()) browseURL(target)
 }

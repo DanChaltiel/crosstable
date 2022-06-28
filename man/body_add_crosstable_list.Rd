@@ -31,17 +31,17 @@ ctl = list(iris2=crosstable(iris2, 1),
            "just a flextable"=flextable::flextable(mtcars2[1:5,1:5]))
 
 myfun = function(doc, .name){
-    doc \%>\% 
+    doc \%>\%
         body_add_title(" This is table '{.name}' as a flex/crosstable", level=2) \%>\%
         body_add_normal("Here is the table:")
 }
 
-read_docx() \%>\% 
-    body_add_title("Separated by subtitle", 1) \%>\% 
-    body_add_crosstable_list(ctl, fun="title2") \%>\% 
-    body_add_title("Separated by new line", 1) \%>\% 
-    body_add_crosstable_list(ctl, fun="newline") \%>\% 
-    body_add_title("Separated using a custom function", 1) \%>\% 
-    body_add_crosstable_list(ctl, fun=myfun, body_fontsize=8) \%>\% 
+read_docx() \%>\%
+    body_add_title("Separated by subtitle", 1) \%>\%
+    body_add_crosstable_list(ctl, fun="title2") \%>\%
+    body_add_title("Separated by new line", 1) \%>\%
+    body_add_crosstable_list(ctl, fun="newline") \%>\%
+    body_add_title("Separated using a custom function", 1) \%>\%
+    body_add_crosstable_list(ctl, fun=myfun, body_fontsize=8) \%>\%
     write_and_open()
 }

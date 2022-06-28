@@ -17,46 +17,46 @@
 #' @importFrom dplyr lag mutate mutate_at mutate_all vars
 #' @importFrom officer fp_border
 #' @importFrom flextable align bold border
-#' 
+#'
 #' @return a compacted data.frame
-#' 
-#' @examples 
+#'
+#' @examples
 #' #dataframes
 #' x=iris[c(1:5,51:55,101:105),]
 #' compact(x, name_from="Species")
 #' compact(x, name_from="Species", name_to="Petal.Length")
 compact.data.frame = function(data, name_from, name_to="variable", wrap_cols=NULL, rtn_flextable=FALSE, ...){
-    id = (data[[name_from]]!=lag(data[[name_from]])) %>% replace_na(TRUE)
-    rtn = data.frame()
-    for(i in 1:sum(id)) {
-        x1 = which(id)[i]
-        x2 = which(id)[i+1]-1
-        if(is.na(x2)) x2 = nrow(data)
-        row = data[1,] %>% mutate_all(~"") %>% mutate(!!sym(name_to):=data[x1,name_from]) %>% 
-            mutate_all(as.character)
-        rows = data[x1:x2,] %>% mutate_all(as.character)
-        if(is.null(rows[[name_to]])) rows[[name_to]]=""
-        rtn = rbind(rtn, row, rows)
-    }
-    
-    id2 = which(id)+(0:(sum(id)-1))
-    rtn = rtn %>% 
-        select(any_of(name_to), everything(), -any_of(name_from)) %>% 
-        mutate_at(vars(any_of(wrap_cols)), ~{
-            xx=.x
-            xx[id2]=lead(xx)[id2]
-            xx[-id2]=""
-            xx
-        })
-    
-    if(rtn_flextable){
-        rtn = rtn %>% flextable %>% border(id2, border.top = fp_border()) %>%
-            bold(id2) %>% align(id2, align="left")
-    }
-    
-    rownames(rtn) = NULL #resets row numbers
-    attr(rtn, "title_rows") = id
-    rtn
+  id = (data[[name_from]]!=lag(data[[name_from]])) %>% replace_na(TRUE)
+  rtn = data.frame()
+  for(i in 1:sum(id)) {
+    x1 = which(id)[i]
+    x2 = which(id)[i+1]-1
+    if(is.na(x2)) x2 = nrow(data)
+    row = data[1,] %>% mutate_all(~"") %>% mutate(!!sym(name_to):=data[x1,name_from]) %>%
+      mutate_all(as.character)
+    rows = data[x1:x2,] %>% mutate_all(as.character)
+    if(is.null(rows[[name_to]])) rows[[name_to]]=""
+    rtn = rbind(rtn, row, rows)
+  }
+
+  id2 = which(id)+(0:(sum(id)-1))
+  rtn = rtn %>%
+    select(any_of(name_to), everything(), -any_of(name_from)) %>%
+    mutate_at(vars(any_of(wrap_cols)), ~{
+      xx=.x
+      xx[id2]=lead(xx)[id2]
+      xx[-id2]=""
+      xx
+    })
+
+  if(rtn_flextable){
+    rtn = rtn %>% flextable %>% border(id2, border.top = fp_border()) %>%
+      bold(id2) %>% align(id2, align="left")
+  }
+
+  rownames(rtn) = NULL #resets row numbers
+  attr(rtn, "title_rows") = id
+  rtn
 }
 
 
@@ -69,35 +69,35 @@ compact.data.frame = function(data, name_from, name_to="variable", wrap_cols=NUL
 #' @author Dan Chaltiel
 #' @export
 #' @importFrom dplyr select %>% .data intersect
-#' @importFrom stringr str_subset 
-#' @importFrom tidyselect any_of 
-#' 
-#' @examples 
-#' 
+#' @importFrom stringr str_subset
+#' @importFrom tidyselect any_of
+#'
+#' @examples
+#'
 #' #crosstables
 #' x=crosstable(mtcars2, c(disp,hp,am), by=vs, test=TRUE, effect=TRUE)
 #' compact(x)
 #' compact(x, name_from=".id")
 compact.crosstable = function(data, name_from=c("label", ".id"), name_to="variable", keep_id=FALSE, ...){
-    by_levels = attr(data, "by_levels")
-    by = attr(data, "by")
-    name_from = match.arg(name_from)
-    wrap_cols = intersect(names(data), c("test", "effect"))
-    if(name_from=="label") rcol=".id" else rcol="label"
-    if(!isFALSE(keep_id)) {
-        if(isTRUE(keep_id)) keep_id = "{label} ({.id})"
-        data = data %>% mutate(label = glue(keep_id))
-    }
-    
-    rtn = data %>% 
-        select(-any_of(rcol)) %>% 
-        compact.data.frame(name_from=name_from, name_to=name_to, 
-                           wrap_cols=wrap_cols, rtn_flextable=FALSE)
-    
-    new_attr_names = setdiff(names(attributes(data)), names(attributes(rtn)))
-    attributes(rtn) = c(attributes(rtn), attributes(data)[new_attr_names])
-    class(rtn) = c("crosstable", "compacted_crosstable", "data.frame")
-    rtn
+  by_levels = attr(data, "by_levels")
+  by = attr(data, "by")
+  name_from = match.arg(name_from)
+  wrap_cols = intersect(names(data), c("test", "effect"))
+  if(name_from=="label") rcol=".id" else rcol="label"
+  if(!isFALSE(keep_id)) {
+    if(isTRUE(keep_id)) keep_id = "{label} ({.id})"
+    data = data %>% mutate(label = glue(keep_id))
+  }
+
+  rtn = data %>%
+    select(-any_of(rcol)) %>%
+    compact.data.frame(name_from=name_from, name_to=name_to,
+                       wrap_cols=wrap_cols, rtn_flextable=FALSE)
+
+  new_attr_names = setdiff(names(attributes(data)), names(attributes(rtn)))
+  attributes(rtn) = c(attributes(rtn), attributes(data)[new_attr_names])
+  class(rtn) = c("crosstable", "compacted_crosstable", "data.frame")
+  rtn
 }
 
 
@@ -109,11 +109,11 @@ compact.crosstable = function(data, name_from=c("label", ".id"), name_to="variab
 #' @author Dan Chaltiel
 #' @export
 compact.default = function(data, ...) {
-    fn=get_defined_function('compact')
-    if(is.null(fn) || is.null(fn[[1L]])) 
-      cli_abort('could not find function "compact" for objects of class other than `crosstable` or `dataframe`', 
-                class="compact_notfound_error")
-    fn[[1L]](data, ...)
+  fn=get_defined_function('compact')
+  if(is.null(fn) || is.null(fn[[1L]]))
+    cli_abort('could not find function "compact" for objects of class other than `crosstable` or `dataframe`',
+              class="compact_notfound_error")
+  fn[[1L]](data, ...)
 }
 
 
@@ -121,11 +121,11 @@ compact.default = function(data, ...) {
 #' Generic function to compact a table (publication formatting)
 #' @description NULL
 #' @usage NULL
-#' 
+#'
 #' @author Dan Chaltiel
 #' @export
 compact = function(data, ...){
-    UseMethod("compact")
+  UseMethod("compact")
 }
 
 

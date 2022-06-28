@@ -30,12 +30,12 @@ Copy the label from one variable to another
 }
 \examples{
 library(dplyr)
-mtcars \%>\% 
+mtcars \%>\%
    mutate(mpg2=set_label(mpg, "Miles per gallon"),
-          mpg3=mpg \%>\% copy_label_from(mpg2)) \%>\% 
+          mpg3=mpg \%>\% copy_label_from(mpg2)) \%>\%
    crosstable(c(mpg, mpg2, mpg3))
-mtcars \%>\% 
-   copy_label_from(mtcars2[,1:11]) \%>\% 
+mtcars \%>\%
+   copy_label_from(mtcars2[,1:11]) \%>\%
    crosstable(c(mpg, vs))
 }
 \seealso{

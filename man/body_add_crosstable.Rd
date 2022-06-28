@@ -39,9 +39,9 @@ The docx object \code{doc}
 #Officer
 library(officer)
 mytable = crosstable(mtcars2)
-doc = read_docx() \%>\% 
-    body_add_crosstable(mytable) \%>\% 
-    body_add_break \%>\% 
+doc = read_docx() \%>\%
+    body_add_crosstable(mytable) \%>\%
+    body_add_break \%>\%
     body_add_crosstable(mytable, compact=TRUE)
 
 dfile = tempfile(fileext=".docx")

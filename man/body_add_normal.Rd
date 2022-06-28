@@ -42,21 +42,21 @@ References to any bookmark can be inserted using the syntax \verb{\\\\@ref(bookm
 library(officer)
 library(crosstable)
 
-info_rows = c("Also, table iris has {nrow(iris)} rows.", 
+info_rows = c("Also, table iris has {nrow(iris)} rows.",
               "And table mtcars has {nrow(mtcars)} rows.")
-doc = read_docx()  \%>\% 
+doc = read_docx()  \%>\%
     body_add_normal("Table iris has", ncol(iris), "columns.", .sep=" ") \%>\% #paste style
     body_add_normal("However, table mtcars has {ncol(mtcars)} columns") \%>\% #glue style
     body_add_normal(info_rows)                                          \%>\% #vector style
-    body_add_normal("")                                              
-doc = doc \%>\% 
-    body_add_normal("You can write text in *italic1*, _underlined1_, **bold1**, and `code`, 
-                    and you can also add * **references** *, for instance a ref to Table 
-                    \\\\@ref(my_table). Multiple spaces are ignored (squished) so that you 
-                    can enter multiline text.") \%>\% 
-    body_add_normal() \%>\% 
-    body_add_normal("Here I should use `body_add_crosstable()` to add a table before the 
-                     legend.") \%>\% 
+    body_add_normal("")
+doc = doc \%>\%
+    body_add_normal("You can write text in *italic1*, _underlined1_, **bold1**, and `code`,
+                    and you can also add * **references** *, for instance a ref to Table
+                    \\\\@ref(my_table). Multiple spaces are ignored (squished) so that you
+                    can enter multiline text.") \%>\%
+    body_add_normal() \%>\%
+    body_add_normal("Here I should use `body_add_crosstable()` to add a table before the
+                     legend.") \%>\%
     body_add_table_legend("My pretty table", bookmark="my_table")
 write_and_open(doc)
 }

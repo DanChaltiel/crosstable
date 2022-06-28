@@ -33,9 +33,9 @@ Add a title to an \code{officer} document
 library(officer)
 library(crosstable)
 library(dplyr)
-doc = read_docx() \%>\% 
-   body_add_title("La table iris (nrow={nrow(iris)})", 1) \%>\% 
-   body_add_title("Description", 2) \%>\% 
+doc = read_docx() \%>\%
+   body_add_title("La table iris (nrow={nrow(iris)})", 1) \%>\%
+   body_add_title("Description", 2) \%>\%
    body_add_normal("La table iris a ", ncol(iris), " colonnes.")
 #write_and_open(doc)
 }

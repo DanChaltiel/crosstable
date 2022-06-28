@@ -36,7 +36,7 @@ if(file.exists(img.file)){
     library(officer)
     options(crosstable_units="cm")
     doc = read_docx() \%>\%
-        body_add_normal("This is the R logo.") \%>\% 
+        body_add_normal("This is the R logo.") \%>\%
         body_add_img2(img.file, h=7.6, w=10, style="centered") #or units="cm" without options
     #write_and_open(doc)
 }

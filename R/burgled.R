@@ -40,7 +40,7 @@
   DNAME <- deparse(substitute(x))
   if (!(any(dim(x) == 2))) {
     stop("Cochran-Armitage test for trend must be used with rx2-table",
-      call. = FALSE
+         call. = FALSE
     )
   }
   if (dim(x)[2] != 2) {
@@ -53,17 +53,17 @@
   s2 <- sum(nidot * (Ri - Rbar)^2)
   pdot1 <- sum(x[, 1]) / n
   z <- sum(x[, 1] * (Ri - Rbar)) / sqrt(pdot1 * (1 - pdot1) *
-    s2)
+                                          s2)
   STATISTIC <- z
   alternative <- match.arg(alternative)
   PVAL <- switch(alternative,
-    two.sided = 2 * pnorm(abs(z),
-      lower.tail = FALSE
-    ),
-    increasing = pnorm(z),
-    decreasing = pnorm(z,
-      lower.tail = FALSE
-    )
+                 two.sided = 2 * pnorm(abs(z),
+                                       lower.tail = FALSE
+                 ),
+                 increasing = pnorm(z),
+                 decreasing = pnorm(z,
+                                    lower.tail = FALSE
+                 )
   )
   PARAMETER <- dim(x)[1]
   names(STATISTIC) <- "Z"

@@ -88,20 +88,20 @@ x=read_docx() \%>\%
     body_add_normal("There is Table \\\\@ref(iris_col1) and Table \\\\@ref(iris_col2). ",
                     "The `iris` dataset is about flowers.") \%>\%
     body_add_normal() \%>\%
-    body_add_table_legend("Iris dataset, column 1 (mean={round(mean(iris[[1]]), 2)})", 
+    body_add_table_legend("Iris dataset, column 1 (mean={round(mean(iris[[1]]), 2)})",
                            bookmark="iris_col1") \%>\%
     body_add_crosstable(crosstable(iris[1])) \%>\%
     body_add_normal() \%>\%
-    body_add_table_legend("Iris dataset, column 2 (mean={round(mean(iris[[2]]), 2)})", 
+    body_add_table_legend("Iris dataset, column 2 (mean={round(mean(iris[[2]]), 2)})",
                           bookmark="iris_col2",
                           name_format=fp_italic, legend_style="Balloon Text") \%>\%
-    body_add_crosstable(crosstable(iris[2])) \%>\% 
+    body_add_crosstable(crosstable(iris[2])) \%>\%
     body_add_normal() \%>\%
     body_add_normal("There is also the figure \\\\@ref(iris_fig)") \%>\%
     body_add_gg(p) \%>\%
     body_add_figure_legend("Iris plot", bookmark="iris_fig")
 write_and_open(x)
-#If asked to update fields, press "Yes". Otherwise press Ctrl+A then F9 twice for the references 
+#If asked to update fields, press "Yes". Otherwise press Ctrl+A then F9 twice for the references
 #to appear.
 }
 \author{

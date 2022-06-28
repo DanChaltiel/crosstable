@@ -22,7 +22,7 @@ A character vector if \code{simplify==TRUE}, a list otherwise
 Get label if wanted and available, or default (name) otherwise
 }
 \examples{
-xx=mtcars2 \%>\% 
+xx=mtcars2 \%>\%
   set_label("The mtcars2 dataset", object=TRUE)
 xx$cyl=remove_label(xx$cyl)
 

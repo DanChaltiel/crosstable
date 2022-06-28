@@ -31,7 +31,7 @@ Ordered lists and bullet lists are not supported by the default officer template
 }
 \examples{
 \dontrun{
-#For this example to work, `my_template.docx` should include styles named 
+#For this example to work, `my_template.docx` should include styles named
 #`ordered_list` and `unordered_list`
 
 library(officer)

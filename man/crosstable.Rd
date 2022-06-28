@@ -99,11 +99,11 @@ crosstable(mtcars2)
 
 #tidyselection, custom functions
 library(dplyr)
-crosstable(mtcars2, c(ends_with("t"), starts_with("c")), by=vs, 
+crosstable(mtcars2, c(ends_with("t"), starts_with("c")), by=vs,
            funs=c(mean, quantile), funs_arg=list(probs=c(.25,.75)))
 
 #margin and totals, multiple by
-crosstable(mtcars2, c(disp, cyl), by=c(am, vs), 
+crosstable(mtcars2, c(disp, cyl), by=c(am, vs),
            margin=c("row", "col"), total = "both")
 
 #predicate selection, correlation, effect calculation
@@ -121,12 +121,12 @@ library(survival)
 crosstable(aml, Surv(time, status) ~ x, times=c(0,15,30,150), followup=TRUE)
 
 #Patterns
-crosstable(mtcars2, vs, by=am, percent_digits=0, 
+crosstable(mtcars2, vs, by=am, percent_digits=0,
            percent_pattern="{n} ({p_col} / {p_row})")
 crosstable(mtcars2, vs, by=am, percent_digits=0,
            percent_pattern="N={n} \np[95\%CI] = {p_col} [{p_col_inf}; {p_col_sup}]")
 str_high="n>5"; str_lo="n<=5"
-crosstable(mtcars2, vs, by=am, percent_digits=0, 
+crosstable(mtcars2, vs, by=am, percent_digits=0,
            percent_pattern="col={p_col}, row={p_row} ({ifelse(n<5, str_lo, str_high)})")
 }
 \seealso{

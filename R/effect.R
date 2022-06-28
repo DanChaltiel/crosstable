@@ -378,8 +378,8 @@ model_warn = function(mod, ci, type){
     w = glue_collapse(msg, "', '", last="' and '")
     #TODO cli
     cli_warn(glue("{p} occured when calculating crosstable effects ({type}):\n",
-              "  '{w}' \n{default_warning} \n{default_warning2}"),
-         class="crosstable_effect_warning")
+                  "  '{w}' \n{default_warning} \n{default_warning2}"),
+             class="crosstable_effect_warning")
   }
 
   msg = attr(mod, "errors")
@@ -388,8 +388,8 @@ model_warn = function(mod, ci, type){
     w = glue_collapse(msg, "', '", last="' and '")
     #TODO cli
     cli_warn(glue("An *error* occured when calculating crosstable effects ({type}):\n",
-              "  '{w}' \n{default_warning} \n{default_warning2}"),
-         class="crosstable_effect_error_warning")
+                  "  '{w}' \n{default_warning} \n{default_warning2}"),
+             class="crosstable_effect_error_warning")
     return(glue("Error ({type}: {w})"))
   }
 }

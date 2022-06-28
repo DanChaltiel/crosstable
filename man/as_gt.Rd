@@ -54,7 +54,7 @@ Default method to convert an object to a \code{gt} table
 xx = mtcars2 \%>\% dplyr::select(2:10)
 crosstable(xx) \%>\% as_gt
 crosstable(xx, by=am) \%>\% as_gt
-crosstable(xx, by=cyl, test=TRUE, total=TRUE) \%>\% 
+crosstable(xx, by=cyl, test=TRUE, total=TRUE) \%>\%
    as_gt(keep_id=TRUE, show_test_name=FALSE, by_header="Cylinders")
 }
 \seealso{

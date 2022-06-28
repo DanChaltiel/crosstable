@@ -32,22 +32,22 @@
 #' get_label(list(foo=xx$cyl, bar=xx$mpg))
 #' get_label(list(foo=xx$cyl, bar=xx$mpg), default="Default value")
 get_label = function(x, default=names(x), object=FALSE, simplify=TRUE){
-    if(is.list(x) && !object){
-        if(is.null(default)) default=rep(NA, length(x))
-        if(length(default)>1 && length(x)!=length(default)) {
-            cli_abort("`default` should be either length 1 or the same length as `x`",
-                  class="labels_get_wrong_default_error")
-        }
-        lab = x %>%
-            map(get_label) %>%
-            map2(default, ~{if(is.null(.x)) .y else .x})
-        if(simplify) lab = unlist(lab)
-    } else {
-        lab = attr(x, "label", exact=TRUE)
-        if(is_null(lab)) lab=default
+  if(is.list(x) && !object){
+    if(is.null(default)) default=rep(NA, length(x))
+    if(length(default)>1 && length(x)!=length(default)) {
+      cli_abort("`default` should be either length 1 or the same length as `x`",
+                class="labels_get_wrong_default_error")
     }
+    lab = x %>%
+      map(get_label) %>%
+      map2(default, ~{if(is.null(.x)) .y else .x})
+    if(simplify) lab = unlist(lab)
+  } else {
+    lab = attr(x, "label", exact=TRUE)
+    if(is_null(lab)) lab=default
+  }
 
-    lab
+  lab
 }
 
 
@@ -74,25 +74,25 @@ get_label = function(x, default=names(x), object=FALSE, simplify=TRUE){
 #'    copy_label_from(mtcars2[,1:11]) %>%
 #'    crosstable(c(mpg, vs))
 set_label = function(x, value, object=FALSE){
-    if(is.null(value) || all(is.na(value))) return(x)
-    value = as.character(value)
-    assert_character(value)
-    if(is.list(x) && !object){
-        if(length(value)==1){
-            for (each in seq_along(x))
-                x[[each]] = set_label(x[[each]], value)
-        } else if(length(value)==length(x)){
-            for (each in seq_along(x))
-                x[[each]] = set_label(x[[each]], value[[each]])
-        } else {
-            cli_abort("`value` must be either length 1 or the same as `x`")
-            #TODO faire des tests pour ces deux nouvelles conditions !
-            #TODO mtcars %>% copy_label_from(mtcars2) ?
-        }
-        return(x)
+  if(is.null(value) || all(is.na(value))) return(x)
+  value = as.character(value)
+  assert_character(value)
+  if(is.list(x) && !object){
+    if(length(value)==1){
+      for (each in seq_along(x))
+        x[[each]] = set_label(x[[each]], value)
+    } else if(length(value)==length(x)){
+      for (each in seq_along(x))
+        x[[each]] = set_label(x[[each]], value[[each]])
+    } else {
+      cli_abort("`value` must be either length 1 or the same as `x`")
+      #TODO faire des tests pour ces deux nouvelles conditions !
+      #TODO mtcars %>% copy_label_from(mtcars2) ?
     }
-    attr(x, "label") = value
     return(x)
+  }
+  attr(x, "label") = value
+  return(x)
 }
 
 
@@ -107,7 +107,7 @@ set_label = function(x, value, object=FALSE){
 #' @author Dan Chaltiel
 #' @export
 copy_label_from = function(x, from){
-    set_label(x, get_label(from))
+  set_label(x, get_label(from))
 }
 
 #' Remove all label attributes.
@@ -127,16 +127,16 @@ copy_label_from = function(x, from){
 #' mtcars2 %>% remove_labels %>% crosstable(mpg) #no label
 #' mtcars2$hp %>% remove_labels %>% get_label() #NULL
 remove_labels = function(x){
-    if (is.null(x))
-        return(x)
-    if (is.list(x)) {
-        for (each in seq_along(x))
-            x[[each]] = remove_label(x[[each]])
-        return(x)
-    }
-    attr(x, "label") = NULL
-    class(x) = setdiff(class(x), c("labelled"))
-    x
+  if (is.null(x))
+    return(x)
+  if (is.list(x)) {
+    for (each in seq_along(x))
+      x[[each]] = remove_label(x[[each]])
+    return(x)
+  }
+  attr(x, "label") = NULL
+  class(x) = setdiff(class(x), c("labelled"))
+  x
 }
 
 #' @rdname remove_labels
@@ -162,18 +162,18 @@ remove_label = remove_labels
 #' rename_with_labels(mtcars2[,1:5], except=5) %>% names()
 #' rename_with_labels(iris2, except=Sepal.Length) %>% names()
 rename_with_labels = function(df, except=NULL){
-    assert_data_frame(df, null.ok=TRUE)
-    except = eval_select(enquo(except), data=df)
-    if(length(except)==0) except = ncol(df)+1
-    names(df)[-except] = get_label(df)[-except]
-    df
+  assert_data_frame(df, null.ok=TRUE)
+  except = eval_select(enquo(except), data=df)
+  if(length(except)==0) except = ncol(df)+1
+  names(df)[-except] = get_label(df)[-except]
+  df
 }
 #' @export
 #' @rdname rename_with_labels
 #' @usage NULL
 rename_dataframe_with_labels=function(...){
-    deprecate_warn("0.5.0", "rename_dataframe_with_labels()", "rename_with_labels()")
-    rename_with_labels(...)
+  deprecate_warn("0.5.0", "rename_dataframe_with_labels()", "rename_with_labels()")
+  rename_with_labels(...)
 }
 
 
@@ -195,14 +195,14 @@ rename_dataframe_with_labels=function(...){
 #' clean_names_with_labels(x, except=TwoWords) %>% names()
 #' clean_names_with_labels(x, except=TwoWords) %>% get_label()
 clean_names_with_labels = function(df, except=NULL, .fun=getOption("crosstable_clean_names_fun")){
-    assert_data_frame(df, null.ok=TRUE)
-    except = eval_select(enquo(except), data=df)
-    if(length(except)==0) except = ncol(df)+1
-    if(is.null(.fun)) .fun=crosstable_clean_names
-    labs = names(df)
-    names(df)[-except] = .fun(names(df))[-except]
+  assert_data_frame(df, null.ok=TRUE)
+  except = eval_select(enquo(except), data=df)
+  if(length(except)==0) except = ncol(df)+1
+  if(is.null(.fun)) .fun=crosstable_clean_names
+  labs = names(df)
+  names(df)[-except] = .fun(names(df))[-except]
 
-    set_label(df, labs)
+  set_label(df, labs)
 }
 
 
@@ -228,20 +228,20 @@ clean_names_with_labels = function(df, except=NULL, .fun=getOption("crosstable_c
 #'                Sepal.Width="Width of Sepal") %>%
 #'   crosstable()
 apply_labels = function(data, ..., warn_missing=FALSE) {
-    args = list(...)
-    unknowns = setdiff(names(args), names(data))
-    if (length(unknowns) && warn_missing) {
-      #TODO cli
-      cli_warn("Some names don't exist in `data`: ", paste(unknowns, collapse = ", "),
+  args = list(...)
+  unknowns = setdiff(names(args), names(data))
+  if (length(unknowns) && warn_missing) {
+    #TODO cli
+    cli_warn("Some names don't exist in `data`: ", paste(unknowns, collapse = ", "),
              class="missing_label_warning")
-    }
+  }
 
-    imap_dfr(data, ~{
-        if (.y %in% names(data)) {
-            .x = set_label(.x, args[[.y]])
-        }
-        .x
-    })
+  imap_dfr(data, ~{
+    if (.y %in% names(data)) {
+      .x = set_label(.x, args[[.y]])
+    }
+    .x
+  })
 }
 
 
@@ -282,67 +282,67 @@ import_labels = function(.tbl, data_label,
                          name_from = "name", label_from = "label",
                          verbose_name = FALSE, verbose_label = FALSE,
                          verbose=deprecated()){
-    force(.tbl)
+  force(.tbl)
 
-    if(is_present(verbose)) {
-        deprecate_warn("0.2.0", "import_labels(verbose=)",
-                       details = "Please use the `verbose_name` or the `verbose_label` argument instead.")
-        if(isTRUE(verbose)) verbose_name=verbose_label=TRUE
+  if(is_present(verbose)) {
+    deprecate_warn("0.2.0", "import_labels(verbose=)",
+                   details = "Please use the `verbose_name` or the `verbose_label` argument instead.")
+    if(isTRUE(verbose)) verbose_name=verbose_label=TRUE
+  }
+
+  if(missing(data_label)){
+    data_label = get_last_save()
+    if(is.null(data_label)) {
+      cli_abort("There is no saved labels. Did you forget `data_label` or calling `save_labels()`?",
+                class="labels_import_null_error")
     }
+  }
 
-    if(missing(data_label)){
-        data_label = get_last_save()
-        if(is.null(data_label)) {
-            cli_abort("There is no saved labels. Did you forget `data_label` or calling `save_labels()`?",
-                  class="labels_import_null_error")
-        }
-    }
-
-    if(!name_from %in% names(data_label) || !label_from %in% names(data_label)){
-      #TODO cli
-      cli_abort(c(glue('`data_label` should have a column named `{name_from}` and a column named `{label_from}`.'),
+  if(!name_from %in% names(data_label) || !label_from %in% names(data_label)){
+    #TODO cli
+    cli_abort(c(glue('`data_label` should have a column named `{name_from}` and a column named `{label_from}`.'),
                 i=glue("`names(data_label)`: {glue_collapse(names(data_label), ', ')}")),
               class="labels_import_missing_col")
-    }
+  }
 
-    duplicates = data_label$name[duplicated(data_label$name)]
-    s = if(length(duplicates)>1) "s" else ""
-    if(length(duplicates)>0){
-      #TODO cli
-      cli_abort(c(glue('Duplicated column name{s} in `data_label`, cannot identify a label uniquely'),
+  duplicates = data_label$name[duplicated(data_label$name)]
+  s = if(length(duplicates)>1) "s" else ""
+  if(length(duplicates)>0){
+    #TODO cli
+    cli_abort(c(glue('Duplicated column name{s} in `data_label`, cannot identify a label uniquely'),
                 i=glue("Duplicates name{s}: {glue_collapse(duplicates, ', ')}")),
               class="labels_import_dupkey_error",
               data=list(.tbl=.tbl, data_label=data_label))
-    }
+  }
 
-    no_label = names(.tbl)[!names(.tbl) %in% data_label$name]
-    s = if(length(no_label)>1) "s" else ""
-    if(length(no_label)>0 && verbose_name){
-      #TODO cli
-      cli_warn(c(glue('Variable{s} in `.tbl` did not have any label'),
-                i=glue("Variable{s} without label: {glue_collapse(no_label, ', ')}")),
+  no_label = names(.tbl)[!names(.tbl) %in% data_label$name]
+  s = if(length(no_label)>1) "s" else ""
+  if(length(no_label)>0 && verbose_name){
+    #TODO cli
+    cli_warn(c(glue('Variable{s} in `.tbl` did not have any label'),
+               i=glue("Variable{s} without label: {glue_collapse(no_label, ', ')}")),
              class="missing_label_warning",
              data=list(.tbl=.tbl, data_label=data_label))
-    }
+  }
 
-    not_found = data_label$name[!data_label$name %in% names(.tbl)]
-    s = if(length(not_found)>1) "s" else ""
-    if(length(not_found)>0 && verbose_label){
-      #TODO cli
-      cli_warn(c(glue('Name{s} in `data_label` not found in `.tbl`'),
+  not_found = data_label$name[!data_label$name %in% names(.tbl)]
+  s = if(length(not_found)>1) "s" else ""
+  if(length(not_found)>0 && verbose_label){
+    #TODO cli
+    cli_warn(c(glue('Name{s} in `data_label` not found in `.tbl`'),
                i=glue("Name{s} unused: {glue_collapse(not_found, ', ')}")),
              class="missing_label_name_warning",
              data=list(.tbl=.tbl, data_label=data_label))
-    }
+  }
 
-    data_label = as.data.frame(data_label) %>%
-        select(all_of(c(name_from, label_from))) %>%
-        drop_na() %>%
-        column_to_rownames(name_from)
-    .tbl %>% imap_dfr(~{
-        label = data_label[.y, label_from]
-        set_label(.x, label)
-    })
+  data_label = as.data.frame(data_label) %>%
+    select(all_of(c(name_from, label_from))) %>%
+    drop_na() %>%
+    column_to_rownames(name_from)
+  .tbl %>% imap_dfr(~{
+    label = data_label[.y, label_from]
+    set_label(.x, label)
+  })
 
 }
 
@@ -360,11 +360,11 @@ import_labels = function(.tbl, data_label,
 #'   import_labels(verbose_label=FALSE) %>% #
 #'   crosstable(disp)
 save_labels = function(.tbl){
-    labels_env$last_save = tibble(
-        name=names(.tbl),
-        label=get_label(.tbl)[.data$name]
-    )
-    invisible(.tbl)
+  labels_env$last_save = tibble(
+    name=names(.tbl),
+    label=get_label(.tbl)[.data$name]
+  )
+  invisible(.tbl)
 }
 
 
@@ -377,12 +377,12 @@ labels_env = rlang::env()
 #' @keywords internal
 #' @noRd
 get_last_save = function(){
-    labels_env$last_save
+  labels_env$last_save
 }
 
 #' @keywords internal
 #' @noRd
 remove_last_save = function(){
-    labels_env$last_save = NULL
-    invisible()
+  labels_env$last_save = NULL
+  invisible()
 }
