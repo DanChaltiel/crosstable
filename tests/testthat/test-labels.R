@@ -27,7 +27,7 @@ test_that("Labelling unnamed dataframes/lists", {
     expect_setequal(get_label(xx_noname, default="foo"), "foo")
     
     expect_error(get_label(xx_noname, default=c("foo", "bar")), 
-                 "`default` should be either length 1 or the same length as `x`")
+                 class="labels_get_wrong_default_error")
     
 })
 
@@ -193,7 +193,7 @@ test_that("Save/import", {
 
 
 test_that("rename_dataframe_with_labels ", {
-    x=rename_dataframe_with_labels(mtcars2)
+    x=rename_with_labels(mtcars2)
     expect_equal(names(x), unname(get_label(mtcars2)))
 })
 

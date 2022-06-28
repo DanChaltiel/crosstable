@@ -9,7 +9,7 @@ test_that("Compact method error if list without purrr", {
     ll=list(a = "a", b = NULL, c = integer(0), d = NA, e = list())
     expect_silent(purrr::compact(ll))
     if(is_testing()){
-        expect_error(compact(ll), 'could not find function "compact" for objects of class other than `crosstable` or `dataframe`')
+        expect_error(compact(ll), class="compact_notfound_error")
     }
 })
 

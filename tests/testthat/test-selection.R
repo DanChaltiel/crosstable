@@ -245,19 +245,22 @@ test_that("crosstable limit tests: errors", {
                  class="crosstable_formula_by_error")
     
     #one-sided formula but not a lambda
-    A="foobar" #in helper-crosstable.R
-    expect_error({A="foobar";crosstable(iris2, ~A, by="Species")},
-                 "Can't coerce element 1 from a character to a logical.*")
-    expect_error(crosstable(iris2, ~B, by="Species"),
-                 "object 'B' not found.*")
+    #in helper-crosstable.R
+    expect_snapshot_error({
+        A="foobar"
+        crosstable(iris2, ~A, by="Species")
+    })
+    expect_snapshot_error({
+        crosstable(iris2, ~B, by="Species")
+    })
     
     #wrong functions (returning non-scalar)
     expect_error(crosstable(iris2, ~.x, by="Species"),
-                 "Result 1 must be a single logical, .*", 
-                 class = "rlang_error")
+                 # "Result 1 must be a single logical, .*", 
+                 class = "purrr_error_bad_element_vector")
     expect_error(crosstable(iris2, ~c(is.numeric(.x),is.numeric(.x)), by="Species"),
-                 "Result 1 must be a single logical, .*", 
-                 class = "rlang_error")
+                 # "Result 1 must be a single logical, .*", 
+                 class = "purrr_error_bad_element_vector")
 })
 
 

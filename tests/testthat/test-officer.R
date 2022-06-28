@@ -201,7 +201,6 @@ test_that("Utils functions", {
 test_that("Legend fields", {
     # skip_on_os(c("mac", "linux", "solaris"))
     #cannot use snapshot as fields are identified with uuid
-    #this should also be tested after running devtools::install_version("officer", "0.3.19")
     fp = fp_text_lite(bold=FALSE, italic=FALSE, underlined=TRUE, font.size=15)
     fp2 = fp_text_lite(font.size=9)
     doc = read_docx() %>%
@@ -218,25 +217,6 @@ test_that("Legend fields", {
     # write_and_open(doc)
     expect_true(TRUE)
 })
-
-
-test_that("Legend fields on `officer` previous than 0.4.0", {
-    skip("This should only be ran manually in examples/not_test-officer_v4_legends.R")
-    # devtools::install_version("officer", "0.3.19")
-    #this should also be tested after running devtools::install_version("officer", "0.3.19")
-    doc = read_docx() %>%
-        body_add_normal("As you can see in Table \\@ref(tab1) and in Figure \\@ref(fig1), ",
-                        "the iris dataset is about flowers.") %>%
-        body_add_table_legend("This is a crosstable", bookmark="tab1") %>%
-        body_add_table_legend("This is a crosstable with bold legend", style="strong", bookmark="tab2") %>%
-        body_add_figure_legend("This is a figure", bookmark="fig1") %>%
-        identity()
-    # write_and_open(doc)
-    expect_true(TRUE)
-})
-
-
-
 
 
 # Warnings and errors -----------------------------------------------------
