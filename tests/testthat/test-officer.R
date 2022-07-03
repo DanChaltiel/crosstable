@@ -153,19 +153,25 @@ test_that("crosstables helpers", {
     doc = read_docx() %>%
         body_add_normal("Iris has {nrow(iris)} rows and {x} columns.",
                         x=ncol(iris)) %>%
-        body_add_normal("I can write multiple {x}.", "Just like {y}.",
+        body_add_normal("I can write multiple {x}. ", "Just like {y}.",
                         x="paragraphs", y="this") %>%
+        body_add_normal("You can format in **bold**, *italic*, _underlined_, and `code`, and reference the figure \\@ref(fig1).") %>%
+        body_add_normal("You can ignore refs: formats (**bold**, *italic*, _underlined_), code (`mean(x)+5`), and  refs (figure \\@ref(fig1))", parse=c("format", "code")) %>%
+        body_add_normal("You can ignore formats: formats (**bold**, *italic*, _underlined_), code (`mean(x)+5`), and  refs (figure \\@ref(fig1))", parse=c("ref", "code")) %>%
+        body_add_normal("You can ignore code: formats (**bold**, *italic*, _underlined_), code (`mean(x)+5`), and  refs (figure \\@ref(fig1))", parse=c("ref", "format")) %>%
+        body_add_normal("You can ignore all: formats (**bold**, *italic*, _underlined_), code (`mean(x)+5`), and  refs (figure \\@ref(fig1))", parse=NULL) %>%
         body_add_list(c("Numbered item 1", "Numbered item 2"), ordered = TRUE) %>%
         body_add_list_item("Numbered item 3", ordered = TRUE) %>%
         body_add_list(c("Bullet item 1", "Bullet item 2"), ordered = FALSE) %>%
         body_add_list_item("Bullet item 3", ordered = FALSE) %>%
-        body_add_img2(img.file, h=7.6, w=10, style="Normal") %>%
-        body_add_img2(img.file, h=76, w=100, units="mm") %>%
+        body_add_img2(img.file, h=3, w=5, style="Normal") %>%
+        body_add_img2(img.file, h=7, w=10, units="mm") %>%
+        body_add_figure_legend("legend", bookmark="fig1") %>%
         body_add_gg2(p, w=14, h=10, scale=1.5, style="Normal") %>%
-        body_add_gg2(p, w=140, h=100, scale=1.5, units="mm") %>%
+        body_add_gg2(p, w=14, h=10, scale=1.5, units="mm") %>%
         body_add_crosstable_footnote() %>%
         body_add_break()
-
+    write_and_open(doc)
     # expect_snapshot_doc(doc)
     expect_true(TRUE)
 })

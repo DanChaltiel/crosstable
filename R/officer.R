@@ -746,12 +746,8 @@ generate_autofit_macro = function(){
 #' @keywords internal
 #' @noRd
 body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE){
-  if(packageVersion("officer")<"0.4"){
-    cli_warn("This function needs package {officer} v0.4+ to work. You won't be able to add formatted text or references until you update this package.")
-    return(doc)
-  }
-  if(isFALSE(parse_ref) && isFALSE(parse_format)){
-    body_add_par(doc, value, style)
+  if(isFALSE(parse_ref) && isFALSE(parse_format) && isFALSE(parse_code)){
+    return(body_add_par(doc, value, style))
   }
   reg_r = list(
     ref = "\\\\@ref\\(.*?\\)"

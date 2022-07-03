@@ -15,10 +15,11 @@ Crosstables for descriptive analyses. See documentation at danchaltiel.github.io
 
 #### Bug fixes
 
+* `body_add_crosstable(..., parse=NULL)` will now work as intended .
 * `by_header` can replace the "value" column if `by` has only one stratum, in both `as_gt()` and `as_flextable()` (https://github.com/DanChaltiel/crosstable/issues/9).
-* `import_labels()` now works even if there is a missing value in the dataframe.
 * `percent_pattern` can now contain functions that start by "p" (https://github.com/DanChaltiel/crosstable/issues/10).
 * `percent_pattern` is actually taken into account when `by` has one single level (https://github.com/DanChaltiel/crosstable/issues/13).
+* `import_labels()` now works even if there is a missing value in the dataframe.
 
 # crosstable 0.4.1 <sub><sup>(2022-02-19)</sup></sub>
 
