@@ -347,7 +347,7 @@ body_add_flextable_list = body_add_crosstable_list
 #' @name body_add_legend
 #' @author Dan Chaltiel
 #' @importFrom utils packageVersion
-#' @importFrom rlang is_missing
+#' @importFrom rlang is_missing check_dots_empty
 #' @importFrom lifecycle is_present deprecate_warn
 #' @export
 #'
@@ -409,6 +409,7 @@ body_add_figure_legend = function(doc, legend, ..., bookmark=NULL,
                                   par_after=FALSE,
                                   legacy=FALSE){
   check_dots_empty()
+  # ellipsis::check_dots_empty()
   if(missing(par_after)) par_after = getOption("crosstable_figure_legend_par_after", FALSE)
   if(missing(legend_prefix)) legend_prefix = getOption("crosstable_figure_legend_prefix", NULL)
   doc = body_add_legend(doc=doc, legend=legend, legend_name=legend_name,

@@ -70,7 +70,7 @@ mediqr(iris$Sepal.Length, dig=3)
 nna(iris$Sepal.Length)
 
 #arguments for format_fixed
-x = iris$Sepal.Length/10000 #closer to zero 
+x = iris$Sepal.Length/10000 #closer to zero
 
 meansd(x, dig=3)
 meansd(x, dig=3, zero_digits=NULL) #or NA

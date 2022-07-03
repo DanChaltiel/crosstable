@@ -10,6 +10,7 @@ body_add_img2(
   width,
   height,
   units = getOption("crosstable_units", "in"),
+  style = getOption("crosstable_style_image", doc$default_styles$paragraph),
   ...
 )
 }

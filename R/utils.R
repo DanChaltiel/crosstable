@@ -103,45 +103,6 @@ assert_survival_is_installed = function() { #TODO remove this
 
 
 
-# Arguments name-check ----------------------------------------------------
-
-
-#' @importFrom glue glue glue_collapse
-#' @source mimick ellipsis::check_dots_unnamed
-#' @keywords internal
-#' @noRd
-check_dots_unnamed = function(){
-  dotnames = names(substitute(list(...), env=parent.frame()))
-  if(any(dotnames!="")){
-    named = dotnames[dotnames!=""] %>% glue_collapse("', '", last="', and '")
-    #TODO cli
-    cli_abort(c("Components of `...` should never have a name in crosstable().",
-                x="Did you misspecify an argument?",
-                i=glue("Named components: '{named}'")),
-              class="rlib_error_dots_named")
-  }
-}
-
-#' @importFrom glue glue glue_collapse
-#' @source mimick ellipsis::check_dots_empty
-#' @keywords internal
-#' @noRd
-check_dots_empty = function(){
-  dots = substitute(list(...), env=parent.frame())
-  if(length(eval(dots))>0){
-    print(dots)
-    caller = as.character(sys.call(-1)[1])
-    dotnames = names(dots)
-    named = dotnames[dotnames!=""] %>% glue_collapse("', '", last="', and '")
-    #TODO cli
-    cli_abort(c(glue("Components of `...` should be empty in {caller}()."),
-                "Did you misspecify or forget the name of an argument?",
-                i=glue("Named components: '{named}'")), #TODO aussi unnamed
-              class="rlib_error_dots_nonempty")
-  }
-}
-
-
 # Function handling --------------------------------------------------------
 
 #' @source exact burgle of methods::formalArgs
