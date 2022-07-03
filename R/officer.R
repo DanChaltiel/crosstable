@@ -490,10 +490,11 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
 #' }
 body_add_img2 = function(doc, src, width, height,
                          units = getOption("crosstable_units", "in"),
+                         style = getOption("crosstable_style_image", doc$default_styles$paragraph),
                          ...){
   units = match.arg(units, c("in", "cm", "mm"))
   to_units = function(x) x/c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units]
-  body_add_img(x=doc, src=src, width=to_units(width), height=to_units(height), ...)
+  body_add_img(x=doc, src=src, width=to_units(width), height=to_units(height), style=style, ...)
 }
 
 
