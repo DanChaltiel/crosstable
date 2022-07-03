@@ -2,18 +2,31 @@
 Sys.setenv(LANGUAGE = "en")
 Sys.setenv(TZ='Europe/Paris')
 
-options(stringsAsFactors = FALSE)
-options(testthat.progress.max_fails = 50)
+
+options(
+  encoding="UTF-8",
+  warn=1,
+  warnPartialMatchArgs=TRUE,
+  warnPartialMatchAttr=TRUE,
+  warnPartialMatchDollar=TRUE,
+  stringsAsFactors=FALSE,
+  dplyr.summarise.inform=FALSE,
+  # conflicts.policy="depends.ok",
+  tidyverse.quiet=TRUE,
+  lifecycle_verbosity="warning",
+  testthat.progress.max_fails = 50,
+  width=200
+)
+
 # options(width = 200)
 
-crosstable_options(crosstable_verbosity_autotesting="quiet")
-options(lifecycle_verbosity="warning")
+crosstable_options(verbosity_autotesting="quiet")
 # if(testthat::is_testing()){
 # print(is_parallel())
 
 v=utils::View
 if(FALSE){
-    # prettycode::prettycode()
+  # prettycode::prettycode()
 }
 
 # crosstable_options(crosstable_unique_numeric = 8)
@@ -55,65 +68,65 @@ iris2_num = iris2 %>% select(-Species)
 
 
 expect_cross = function(x, xnames, byname, dim, regex){
-    # expect=match.arg(expect)
-    # if(expect=="nothing"){
-    #     x=eval(expr, envir=caller_env())
-    # }
-    # else if(expect=="silent")
-    #     x=expect_silent(expr)
-    # else if(expect=="warning")
-    #     x=expect_warning(expr, regex)
-    # else
-    #     x=expect_error(expr, regex)
-    expect_s3_class(x, c("data.frame", "crosstable"))
-    expect_equal(dim, dim(x))
-    expect_equal(byname, unname(attr(x, "by")))
-    
-    if(all(xnames %in% names(iris2names)))
-        expect_equal(unname(iris2names[xnames]), unique(as.character(x$.id)))
-    else
-        expect_equal(unname(xnames), unique(x$.id))
+  # expect=match.arg(expect)
+  # if(expect=="nothing"){
+  #     x=eval(expr, envir=caller_env())
+  # }
+  # else if(expect=="silent")
+  #     x=expect_silent(expr)
+  # else if(expect=="warning")
+  #     x=expect_warning(expr, regex)
+  # else
+  #     x=expect_error(expr, regex)
+  expect_s3_class(x, c("data.frame", "crosstable"))
+  expect_equal(dim, dim(x))
+  expect_equal(byname, unname(attr(x, "by")))
+
+  if(all(xnames %in% names(iris2names)))
+    expect_equal(unname(iris2names[xnames]), unique(as.character(x$.id)))
+  else
+    expect_equal(unname(xnames), unique(x$.id))
 }
 
 expect_cross_bak = function(expr, xnames, byname, dim, expect=c("nothing", "silent", "warning", "error"), regex){
-    expect=match.arg(expect)
-    if(expect=="nothing"){
-        x=eval(expr, envir=caller_env())
-    }
-    else if(expect=="silent")
-        x=expect_silent(expr)
-    else if(expect=="warning")
-        x=expect_warning(expr, regex)
-    else
-        x=expect_error(expr, regex)
-    expect_s3_class(x, c("data.frame", "crosstable"))
-    expect_equal(dim, dim(x))
-    expect_equal(byname, unname(attr(x, "by")))
-    
-    if(all(xnames %in% names(iris2names)))
-        expect_equal(unname(iris2names[xnames]), unique(as.character(x$.id)))
-    else
-        expect_equal(unname(xnames), unique(x$.id))
+  expect=match.arg(expect)
+  if(expect=="nothing"){
+    x=eval(expr, envir=caller_env())
+  }
+  else if(expect=="silent")
+    x=expect_silent(expr)
+  else if(expect=="warning")
+    x=expect_warning(expr, regex)
+  else
+    x=expect_error(expr, regex)
+  expect_s3_class(x, c("data.frame", "crosstable"))
+  expect_equal(dim, dim(x))
+  expect_equal(byname, unname(attr(x, "by")))
+
+  if(all(xnames %in% names(iris2names)))
+    expect_equal(unname(iris2names[xnames]), unique(as.character(x$.id)))
+  else
+    expect_equal(unname(xnames), unique(x$.id))
 }
 
 
 snapshot_review_bg = function(...){
-    # brw = function(url) .Call("rs_browseURL", url, PACKAGE="(embedding)")
-    brw = Sys.getenv("R_BROWSER")
-    callr::r_bg(function() testthat::snapshot_review(...),
-                package=TRUE,
-                env = c(R_BROWSER = brw))
+  # brw = function(url) .Call("rs_browseURL", url, PACKAGE="(embedding)")
+  brw = Sys.getenv("R_BROWSER")
+  callr::r_bg(function() testthat::snapshot_review(...),
+              package=TRUE,
+              env = c(R_BROWSER = brw))
 }
 
 
 expect_warning2 = function(object, ...) {
-    rtn = testthat::expect_warning(object, ...)
-    if (inherits(object, "condition")) {
-        attr(rtn, "object") = attr(object, "object")
-    } else{
-        attr(rtn, "object") = object
-    }
-    rtn
+  rtn = testthat::expect_warning(object, ...)
+  if (inherits(object, "condition")) {
+    attr(rtn, "object") = attr(object, "object")
+  } else{
+    attr(rtn, "object") = object
+  }
+  rtn
 }
 
 print('Helper loaded')
