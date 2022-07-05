@@ -100,6 +100,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
   has_by =  !is.null(by)
   if(has_by && is.null(by_label)) by_label=by
   if(isTRUE(by_header)) by_header=NULL
+  if(length(by_header)==1 && is.na(by_header)) by_header=FALSE
   if(identical(by_header, "")) by_header=FALSE
 
   generic_labels = get_generic_labels(generic_labels)
