@@ -97,10 +97,12 @@ summarize_categorical_by = function(x, by,
                        p_cell_inf=1, p_cell_sup=1, p_row_inf=1,
                        p_row_sup=1, p_col_inf=1, p_col_sup=1)
   if(!is.null(dummy$error)){
-    #class(dummy$error) #https://github.com/tidyverse/glue/issues/229
-    #TODO cli
-    cli_abort(c("`percent_pattern` should only consider variables {n}, {p_cell}, {p_row}, and {p_col}", #TODO and CI
-                i=glue('percent_pattern: "{percent_pattern}"'), x=dummy$error$message))
+    #TODO class(dummy$error) #https://github.com/tidyverse/glue/issues/229
+    cli_abort(c("`percent_pattern` should only consider variables {.code n}, {.code p_cell},
+                {.code p_row}, and {.code p_col}",
+                i='percent_pattern: "{percent_pattern}"'),
+              class="crosstable_percent_pattern_wrong_variable_error",
+              call=crosstable_caller$env)
   }
   zero_percent = getOption("crosstable_zero_percent", FALSE)
 
@@ -198,8 +200,7 @@ getTable = function(x, by, type=c("n", "p_cell", "p_row", "p_col")){
 #' get_percent_pattern(margin=c("row", "rows","cells")) #warn
 #' get_percent_pattern(margin=c("row","cells", "rows","column")) #warn
 #' get_percent_pattern(margin=c("foobar", "rows","cells")) #error
-get_percent_pattern = function(margin){
-
+get_percent_pattern = function(margin=c("row", "column", "cell", "none", "all")){
   if(length(margin)==1){
     if(margin %in% list(-1, "none")){
       return("{n}")
@@ -215,22 +216,22 @@ get_percent_pattern = function(margin){
                     p_cell = c(0, "cell", "cells"))
   unexpected = margin[!margin %in% unlist(marginopts)]
   if(length(unexpected)>0){
-    #TODO cli
-    cli_abort(c(glue("Unexpected margin values: `{paste(unexpected, collapse='`, `')}`."),
-                i='Margins should be in c("row", "column", "cell", "none", "all")'),
-              class="XXX") #TODO implement this ERROR
+    cli_abort(c('`margin` must be one of "row", "column", "cell", "none", or "all".',
+                "Problematic value{?s}: {.var {unexpected}}"),
+              class="crosstable_unknown_margin",
+              call=crosstable_caller$env)
   }
   x = marginopts %>%
     map(~{ #not map_dbl :-( # https://github.com/tidyverse/purrr/issues/841
-      rtn = na.omit(match(.x, margin))
+      rtn = margin[margin %in% .x]
       if(length(rtn)>1){
-        a = glue_collapse(margin[rtn], "`, `")
-        #TODO cli
-        cli_warn(glue("Duplicated margins: `{a}`"), class="XXX") #TODO TODO!
+        cli_warn("Duplicated margin{?s}: {.code {rtn}}",
+                 class="crosstable_duplicated_margin",
+                 call=crosstable_caller$env)
       }
       rtn[1]
     }) %>%
     unlist() %>% sort() %>% names()
-  x = glue_collapse(glue("{{{x}}}"), " / ")
+  x = glue_collapse(glue("{{{x}}}"), sep=" / ")
   return(glue("{{n}} ({x})"))
 }

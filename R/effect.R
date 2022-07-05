@@ -367,6 +367,7 @@ effect_survival_coxph = function(x, by, conf_level = 0.95) {
 
 
 
+#' @importFrom cli cli_warn cli_bullets
 #' @keywords internal
 #' @noRd
 model_warn = function(mod, ci, type){
@@ -375,10 +376,10 @@ model_warn = function(mod, ci, type){
   msg = unique(c(attr(mod, "warnings"), attr(ci, "warnings")))
   if(length(msg)>0){
     p = if(length(msg)==1) "A problem" else "Problems"
-    w = glue_collapse(msg, "', '", last="' and '")
-    #TODO cli
-    cli_warn(glue("{p} occured when calculating crosstable effects ({type}):\n",
-                  "  '{w}' \n{default_warning} \n{default_warning2}"),
+    cli_warn(c("{p} occured when calculating crosstable effects ({type}):\n",
+               i="{.val {msg}}",
+               "*"="{default_warning}",
+               "*"="{default_warning2}"),
              class="crosstable_effect_warning")
   }
 
@@ -386,10 +387,11 @@ model_warn = function(mod, ci, type){
   if(length(msg)==0) msg = unique(c(attr(mod, "errors"), attr(ci, "errors")))
   if(length(msg)>0){
     w = glue_collapse(msg, "', '", last="' and '")
-    #TODO cli
-    cli_warn(glue("An *error* occured when calculating crosstable effects ({type}):\n",
-                  "  '{w}' \n{default_warning} \n{default_warning2}"),
+    cli_warn(c("An {.strong error} occured when calculating crosstable effects ({type}):",
+               i="{.val {msg}}",
+               "*"="{default_warning}",
+               "*"="{default_warning2}"),
              class="crosstable_effect_error_warning")
-    return(glue("Error ({type}: {w})"))
+    return(cli_bullets("Error ({type}: {.val {msg}})"))
   }
 }

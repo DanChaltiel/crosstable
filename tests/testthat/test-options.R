@@ -28,8 +28,11 @@ test_that("Options work", {
     expect_identical(x, list(crosstable_zero_percent = TRUE, crosstable_wrap_id=50,
                              crosstable_units = "cm", crosstable_percent_pattern = "{n}"))
 
-    #reset deprecated
+    #reset
+    expect_message(crosstable_reset_options())
+    expect_silent(crosstable_reset_options(quiet=TRUE))
     lifecycle::expect_deprecated(crosstable_options(reset=TRUE))
+    expect_length(crosstable_peek_options(), 0)
 
     #default in testing env
     crosstable_options(crosstable_verbosity_autotesting="quiet")

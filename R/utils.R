@@ -173,9 +173,8 @@ parse_funs = function(funs){
   x=list(funs, names(funs), fun_call)
 
   if(map_dbl(x, length) %>% .[.>0] %>% unique() %>% length() != 1){
-    #TODO cli
     cli_abort(c("Problem with fun_call. This should never happen. Is `funs` syntax correct?",
-                i=glue("lengths: funs={length(funs)}, names(funs)={length(names(funs))}, fun_call={length(fun_call)}"))) #nocov
+                i="lengths: funs={length(funs)}, names(funs)={length(names(funs))}, fun_call={length(fun_call)}")) #nocov
   }
 
   names(funs) = pmap_chr(x, ~{
@@ -187,10 +186,9 @@ parse_funs = function(funs){
     } else {
       if(is_formula(.f)){
         target_name = format(.f)
-        #TODO cli
         cli_warn(c("Anonymous lambda-functions should be named.",
-                   i=paste0("Instead of: funs=", target_name),
-                   i=paste0('Write: funs=c("Some calculation"=', target_name)),
+                   i="Instead of: funs={target_name}",
+                   i='Write: funs=c("Some calculation"={target_name}'),
                  class="crosstable_unnamed_lambda_warning")
       } else if(grepl("function *\\(", .call)){
         .call2 = deparse(substitute(.f))
@@ -198,10 +196,9 @@ parse_funs = function(funs){
         fbody = str_subset(.call2[-1], "[}{]", negate = TRUE) %>% str_squish()
         if(length(fbody)>1) fbody = paste0(fbody[1], "...")
         target_name = paste0("function(", fargs ,"){", fbody, "}")
-        #TODO cli
-        cli_warn(c("Anonymous functions should be named.",
-                   i=paste0("Instead of: funs=", target_name),
-                   i=paste0('Write: funs=c("Some calculation"=', target_name)),
+        warn(c("Anonymous functions should be named.",
+                   i="Instead of: funs={target_name}",
+                   i='Write: funs=c("Some calculation"={target_name}'),
                  class="crosstable_unnamed_anonymous_warning")
       } else{
         target_name = .call
@@ -287,12 +284,13 @@ paste_nameclasses = function(x){
 
 #' Test if @param method can be applied to @param x
 #' @param skip speed up the
-#' @keywords internal
+#' @importFrom methods
+#' @keywords utils internal
 #' @noRd
 has_method = function(x, method, skip=c("data.frame")){
   for(i in class(x)){
     if(i %in% skip) next
-    gen = methods(class=i) %>% attr("info") %>% pull(generic)
+    gen = methods(class=i) %>% attr("info") %>% pull("generic")
     if(method %in% gen){
       return(TRUE)
     }

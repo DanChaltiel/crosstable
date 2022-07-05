@@ -125,10 +125,9 @@ body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, parse=c("
       doc = body_add_normal(doc, i, .sep=.sep, squish=squish)
     }
   } else { #several vectors of which at least one is length 2+
-    #TODO cli
-    cli_abort(c("body_add_normal() only accepts either one vector of any length or several vectors of length 1",
-                i=glue("Length of vectors passed: {glue_collapse(dots_lengths, ', ')}")),
-              class="officer_wrong_vector_error")
+    cli_abort(c("{.fun body_add_normal} only accepts either one vector of any length or several vectors of length 1",
+                i="Length of vectors passed: {.val {dots_lengths}}"),
+              class="crosstable_officer_wrong_vector_error")
   }
 
   doc
@@ -223,7 +222,7 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
     }
     if(is.null(style)){
       cli_abort("Ordered lists and bullet lists are not supported by the default officer template. You have to set them in a custom template and use either the `style` argument or crosstable options. See `?body_add_list` examples for more details.",
-                class="officer_lists_style_error") #nocov
+                class="crosstable_officer_lists_style_error") #nocov
     }
   }
   body_add_parsed(doc, value, style=style, ...)
@@ -282,6 +281,7 @@ body_add_crosstable_list = function(doc, l, fun="title2", ...){
     else if(fun=="newline") fun=function(doc, .name) body_add_normal(doc, "")
     else {
       #TODO cli
+      browser()
       cli_abort(c('`fun` should be either a function or a member of c("title2", "title3", "title4", "newline")',
                   i=glue("Current value: '{fun}'")),
                 class="body_add_crosstable_list_fun_name")
@@ -291,6 +291,7 @@ body_add_crosstable_list = function(doc, l, fun="title2", ...){
 
   if(!identical(formalArgs(fun), c("doc", ".name"))){
     #TODO cli
+    browser()
     cli_abort(c('`fun` should be of the form `function(doc, .name)`',
                 i=paste0("Current arg names: ", paste0(formalArgs(fun), collapse=", "))),
               class="body_add_crosstable_list_fun_args")
@@ -469,6 +470,7 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
 #' @param doc an `rdocx` object
 #' @param src image filename, the basename of the file must not contain any blank.
 #' @param width,height width and height. Can be abbreviated to w and h.
+#' @param style paragraph style
 #' @param units units for width and height
 #' @param ... other arguments to be passed to [officer::body_add_img()]
 #'
@@ -672,8 +674,9 @@ write_and_open = function(doc, docx.file){
     message(w)
     if(str_detect(w$message, "Permission denied")){
       #TODO cli
+      browser()
       cli_abort(c("Permission denied. Is the file already open?", glue("File: {docx.file}")),
-                class="permission_denied")
+                class="crosstable_permission_denied")
     }
   })
 
@@ -683,8 +686,9 @@ write_and_open = function(doc, docx.file){
   }, error=function(e) {
     if(str_detect(e$message, "Permission denied")){
       #TODO cli
+      browser()
       cli_abort(c("Permission denied. Is the file already open?", glue("File: {docx.file}")),
-                class="permission_denied")
+                class="crosstable_permission_denied")
     }
     stop(e)
   }, warning=function(w) {

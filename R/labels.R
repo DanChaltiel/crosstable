@@ -36,7 +36,7 @@ get_label = function(x, default=names(x), object=FALSE, simplify=TRUE){
     if(is.null(default)) default=rep(NA, length(x))
     if(length(default)>1 && length(x)!=length(default)) {
       cli_abort("`default` should be either length 1 or the same length as `x`",
-                class="labels_get_wrong_default_error")
+                class="crosstable_labels_get_wrong_default_error")
     }
     lab = x %>%
       map(get_label) %>%
@@ -168,12 +168,13 @@ rename_with_labels = function(df, except=NULL){
   names(df)[-except] = get_label(df)[-except]
   df
 }
+
 #' @export
 #' @rdname rename_with_labels
 #' @usage NULL
-rename_dataframe_with_labels=function(...){
+rename_dataframe_with_labels=function(df, except=NULL){
   deprecate_warn("0.5.0", "rename_dataframe_with_labels()", "rename_with_labels()")
-  rename_with_labels(...)
+  rename_with_labels(df, except)
 }
 
 
@@ -231,9 +232,9 @@ apply_labels = function(data, ..., warn_missing=FALSE) {
   args = list(...)
   unknowns = setdiff(names(args), names(data))
   if (length(unknowns) && warn_missing) {
-    #TODO cli
-    cli_warn("Some names don't exist in `data`: ", paste(unknowns, collapse = ", "),
-             class="missing_label_warning")
+    cli_warn("Cannot apply a label to unknown column{?s} in `data`: {.var {unknowns}}",
+             class="crosstable_missing_label_warning",
+             call=current_env())
   }
 
   imap_dfr(data, ~{
@@ -253,8 +254,8 @@ apply_labels = function(data, ..., warn_missing=FALSE) {
 #' @param data_label a data.frame from which to import labels. If missing, the function will take the labels from the last dataframe on which [save_labels()] was called.
 #' @param name_from in `data_label`, which column to get the variable name (default to `name`)
 #' @param label_from in `data_label`, which column to get the variable label (default to `label`)
-#' @param verbose_name if TRUE, displays a warning if a variable name is not found in `data_label`
-#' @param verbose_label if TRUE, displays a warning if a label is not found in `.tbl`
+#' @param warn_name if TRUE, displays a warning if a variable name is not found in `data_label`
+#' @param warn_label if TRUE, displays a warning if a label is not found in `.tbl`
 #' @param verbose deprecated
 #'
 #' @return A dataframe, as `.tbl`, with labels
@@ -280,59 +281,48 @@ apply_labels = function(data, ..., warn_missing=FALSE) {
 #'
 import_labels = function(.tbl, data_label,
                          name_from = "name", label_from = "label",
-                         verbose_name = FALSE, verbose_label = FALSE,
+                         warn_name = FALSE, warn_label = FALSE,
                          verbose=deprecated()){
   force(.tbl)
 
   if(is_present(verbose)) {
     deprecate_warn("0.2.0", "import_labels(verbose=)",
-                   details = "Please use the `verbose_name` or the `verbose_label` argument instead.")
-    if(isTRUE(verbose)) verbose_name=verbose_label=TRUE
+                   details = "Please use the `warn_name` or the `warn_label` argument instead.")
+    if(isTRUE(verbose)) warn_name=warn_label=TRUE
   }
 
   if(missing(data_label)){
     data_label = get_last_save()
     if(is.null(data_label)) {
       cli_abort("There is no saved labels. Did you forget `data_label` or calling `save_labels()`?",
-                class="labels_import_null_error")
+                class="crosstable_labels_import_null_error")
     }
   }
 
   if(!name_from %in% names(data_label) || !label_from %in% names(data_label)){
-    #TODO cli
-    cli_abort(c(glue('`data_label` should have a column named `{name_from}` and a column named `{label_from}`.'),
-                i=glue("`names(data_label)`: {glue_collapse(names(data_label), ', ')}")),
-              class="labels_import_missing_col")
+    cli_abort(c('`data_label` should have a column named `{name_from}` and a column named `{label_from}`.',
+                i="`names(data_label)`: {.var {names(data_label)}}"),
+              class="crosstable_labels_import_missing_col")
   }
 
   duplicates = data_label$name[duplicated(data_label$name)]
-  s = if(length(duplicates)>1) "s" else ""
   if(length(duplicates)>0){
-    #TODO cli
-    cli_abort(c(glue('Duplicated column name{s} in `data_label`, cannot identify a label uniquely'),
-                i=glue("Duplicates name{s}: {glue_collapse(duplicates, ', ')}")),
-              class="labels_import_dupkey_error",
-              data=list(.tbl=.tbl, data_label=data_label))
+    cli_abort('Cannot identify a label uniquely because of duplicated name{?s} in `data_label`: {.var {duplicates}}',
+              class="crosstable_labels_import_dupkey_error")
   }
 
   no_label = names(.tbl)[!names(.tbl) %in% data_label$name]
-  s = if(length(no_label)>1) "s" else ""
-  if(length(no_label)>0 && verbose_name){
-    #TODO cli
-    cli_warn(c(glue('Variable{s} in `.tbl` did not have any label'),
-               i=glue("Variable{s} without label: {glue_collapse(no_label, ', ')}")),
-             class="missing_label_warning",
-             data=list(.tbl=.tbl, data_label=data_label))
+  if(length(no_label)>0 && warn_name){
+    cli_warn("Cannot find any label in `data_label` for variable{?s}: {.var {no_label}}",
+             class="crosstable_missing_label_warning",
+             call=current_env())
   }
 
   not_found = data_label$name[!data_label$name %in% names(.tbl)]
-  s = if(length(not_found)>1) "s" else ""
-  if(length(not_found)>0 && verbose_label){
-    #TODO cli
-    cli_warn(c(glue('Name{s} in `data_label` not found in `.tbl`'),
-               i=glue("Name{s} unused: {glue_collapse(not_found, ', ')}")),
-             class="missing_label_name_warning",
-             data=list(.tbl=.tbl, data_label=data_label))
+  if(length(not_found)>0 && isTRUE(warn_label)){
+    cli_warn('Some name{?s} in `data_label` are absent in `.tbl`: {.var {not_found}}.',
+             class="crosstable_missing_label_name_warning",
+             call=current_env())
   }
 
   data_label = as.data.frame(data_label) %>%
@@ -357,7 +347,7 @@ import_labels = function(.tbl, data_label,
 #' mtcars2 %>%
 #'   save_labels() %>%
 #'   transmute(disp=as.numeric(disp)+1) %>%
-#'   import_labels(verbose_label=FALSE) %>% #
+#'   import_labels(warn_label=FALSE) %>% #
 #'   crosstable(disp)
 save_labels = function(.tbl){
   labels_env$last_save = tibble(

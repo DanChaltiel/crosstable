@@ -1,6 +1,9 @@
 
 utils::globalVariables(c(".", "x", "y", "n", "where", "ct", "col_keys", "p_col", ".col_1", ".col_2"))
 
+crosstable_caller = rlang::env()
+
+
 #' Easily describe datasets
 #'
 #' Generate a descriptive table of all chosen columns, as contingency tables for categorical variables and as calculation summaries for numeric variables. If the `by` argument points to one or several categorical variables, `crosstable` will output a description of all columns for each level. Otherwise, if it points to a numeric variable, `crosstable` will calculate correlation coefficients with all other selected numeric columns. Finally, if it points to a `Surv` object, `crosstable` will describe the survival at different times.\cr
@@ -104,7 +107,9 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
                       margin = c("row", "column", "cell", "none", "all"),
                       .vars) {
   debug=list()
+  crosstable_caller$env = rlang::current_env()
   byname = vars_select(names(data), !!!enquos(by))
+  # TODO bypos = eval_select(expr(by), data)
 
   # Options -------------------------------------------------------------
   if(missing(total)) total = getOption("crosstable_total", 0)
@@ -114,6 +119,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
     percent_pattern = getOption("crosstable_percent_pattern", "{n} ({p_row})")
   }
   if(missing(percent_digits)) percent_digits = getOption("crosstable_percent_digits", 2)
+  #TODO maybe_missing
   if(missing(showNA)) showNA = getOption("crosstable_showNA", "ifany")
   if(missing(label)) label = getOption("crosstable_label", TRUE)
   if(missing(funs)) funs = getOption("crosstable_funs",  c(" " = cross_summary))
@@ -155,15 +161,16 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
     if(length(margin)>3){
       cli_abort(c("Margin should be of max length 3",
                   i=glue("margin={paste0(margin, collapse=', ')}")),
-                class="XXX") #TODO TODO!
+                class="crosstable_margin_length_3_error")
     }
     if(missing_percent_pattern) {
       percent_pattern = get_percent_pattern(margin)
     } else {
       cli_warn(c("Argument `margin` is ignored if `percent_pattern` is set.",
-                 i=glue("`margin`={margin}"),
-                 i=glue("`percent_pattern`={percent_pattern}")), #TODO warning
-               class="xxxx")
+                 i='margin="{margin}"',
+                 i='percent_pattern="{percent_pattern}"'),
+               class="crosstable_margin_percent_pattern_warning",
+               call=current_env())
     }
   }
 
@@ -189,6 +196,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
     else freq = "regularly"
     cli_warn("Be aware that automatic global testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.",
              class="crosstable_autotesting_warning",
+             call=current_env(),
              .frequency = freq, .frequency_id="crosstable_global_testing")
   }
 
@@ -216,15 +224,11 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
 
   if(is_form && !is_lamb){
     debug$interface="formula"
-    if(length(enquos(...))>0) {
-      cli_abort("You cannot use additional arguments through ellipsis (`...`) when using formulas with crosstable. Please include them in the formula or use another syntax.",
-                class="crosstable_formula_ellipsis_error")
-    }
     if(!is_empty(byname)){
-      #TODO cli_abort
-      cli_abort(c("`by` argument cannot be used with the formula interface. Please include it in the formula or use another syntax.",
-                  i=paste("formula = ", format(cols)),
-                  i=paste("by = ", paste(as.character(byname), collapse=", "))),
+      cli_abort(c("{.arg by} cannot be used together with the formula interface.
+                  Please include it in the formula or use another syntax.",
+                  i="formula = {format(cols)}",
+                  i="by = {byname}"),
                 class="crosstable_formula_by_error")
     }
     data_x = model.frame(cols[-3], data, na.action = NULL)
@@ -260,11 +264,10 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
 
   verbosity_duplicate_cols = getOption("crosstable_verbosity_duplicate_cols", "default")
   if(length(duplicate_cols)>0 && verbosity_duplicate_cols=="verbose"){
-    #TODO cli_abort
     cli_warn(c("Some columns were selected in `by` and in `cols` and were removed from the latter.",
-               i=glue("Columns automatically removed from `cols`: [{x}]",
-                      x=paste(duplicate_cols, collapse=", "))),
-             class="crosstable_duplicate_cols_warning")
+               i="Columns automatically removed from `cols`: {.code {duplicate_cols}}"),
+             class="crosstable_duplicate_cols_warning",
+             call=current_env())
   }
 
   data_x = select(data_x, -any_of(byname))
@@ -303,7 +306,8 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   # Return checks -------------------------------------------------------
   if(ncol_x==0) {
     cli_warn("Variable selection in crosstable ended with no variable to describe",
-             class="crosstable_empty_warning")
+             class="crosstable_empty_warning",
+             call=current_env())
     rtn=data.frame()
     class(rtn) = c("crosstable", "data.frame")
     attr(rtn, "debug") = debug
@@ -316,17 +320,15 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
     data_y=NULL
 
     if(identical(total, 1)){
-      cli_warn("Crosstable() cannot add total in rows if `by` is NULL",
-               class="crosstable_totalrow_bynull")
+      cli_warn("`crosstable()` cannot add total in rows if `by` is NULL",
+               class="crosstable_totalrow_bynull",
+               call=current_env())
     }
   }
 
   ## At least 1 BY ----
   if(ncol_y>0 && all(is.na(data_y))){
-    #TODO cli_abort
-    cli_abort(glue("`by` columns ({names}) contains only missing values",
-                   s=if(ncol(data_y)>1) "s" else "",
-                   names=paste(names(data_y), collapse=", ")),
+    cli_abort("`by` column{?s} ({names(data_y)}) contain{?s/} only missing values",
               class="crosstable_by_only_missing_error")
   }
 
@@ -334,17 +336,16 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   if(ncol_y==1){
     y_var = data_y[[1]]
     if(!is.numeric.and.not.surv(y_var) && !is.character.or.factor(y_var)){
-      #TODO cli_abort
       cli_abort(c("Crosstable only supports numeric, logical, character or factor `by` columns.",
-                  i=glue("`by` was pointing to the column '{y}' ({yy})",
-                         y=names(data_y), yy=paste_classes(y_var))),
+                  i="`by` is pointing to the column {.code {names(data_y)}} {.cls {class(y_var)}}"),
                 class="crosstable_wrong_byclass_error")
     }
     if(is.numeric(y_var)){
       tmp=funs_arg[!names(funs_arg) %in% c("dig", "date_format")]
       if(!identical(funs, c(` `=cross_summary)) || length(tmp)>0){
         cli_warn("`funs` and `funs_arg` arguments will not be used if `by` is numeric.",
-                 class="crosstable_funs_by_warning")
+                 class="crosstable_funs_by_warning",
+                 call=current_env())
       }
     }
   }
@@ -357,11 +358,10 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
     if(all(is.na(data_y))){
       stop("This should never happen, contact the developper. Code=13547")
     } else if(length(na_cols)>0){
-      #TODO cli_abort
       cli_warn(c("Some `by` columns contains only missing values and were removed.",
-                 i=glue("Automatically removed columns: [{x}]",
-                        x=paste(na_cols, collapse=", "))),
-               class="crosstable_multiby_some_missing_warning")
+                 i="Automatically removed columns: {.code {na_cols}}"),
+               class="crosstable_multiby_some_missing_warning",
+               call=current_env())
       data_y = select(data_y, -any_of(na_cols))
     }
 
@@ -372,17 +372,17 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
     if(length(nameclass_diff)>0){
       message = "Crosstable only supports logical, character or factor `by` columns (multiple)."
       if(ncol(data_y2)==0){
-        #TODO cli_abort
         cli_abort(c(message,
-                    i="All columns were automatically removed from `by`:",
-                    i=glue("[{x}]",x=paste(nameclass_diff, collapse=", "))),
-                  class="crosstable_multiby_wrong_class_error")
+                    i="All columns were problematic:",
+                    i="{.code {nameclass_diff}}"),
+                  class="crosstable_multiby_wrong_class_error",
+                  call=current_env())
       } else {
-        #TODO cli_abort
         cli_warn(c(message,
                    i="Columns automatically removed from `by`:",
-                   i=glue("[{x}]",x=paste(nameclass_diff, collapse=", "))),
-                 class="crosstable_multiby_wrong_class_warning")
+                   i="{.code {nameclass_diff}}"),
+                 class="crosstable_multiby_wrong_class_warning",
+                 call=current_env())
       }
     }
     data_y = data_y2
@@ -391,12 +391,14 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
     #tests and effects
     if(test==TRUE) {
       cli_warn("Cannot perform tests with multiple `by` strata.",
-               class="crosstable_multiby_test_warning")
+               class="crosstable_multiby_test_warning",
+               call=current_env())
       test=FALSE
     }
     if(effect==TRUE) {
       cli_warn("Cannot compute effects with multiple `by` strata.",
-               class="crosstable_multiby_effect_warning")
+               class="crosstable_multiby_effect_warning",
+               call=current_env())
       effect=FALSE
     }
   }

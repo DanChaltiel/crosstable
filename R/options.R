@@ -144,18 +144,19 @@ crosstable_peek_options = function(keep_null=FALSE){
 
 #' Reset all `crosstable` options.
 #'
-#' @param keep_null set to TRUE to get a list
+#' @param quiet set to `TRUE` to remove the message.
 #'
 #' @return Nothing, called for its side effects
-#' @importFrom rlang set_names inform
+#' @importFrom rlang set_names
+#' @importFrom cli cli_inform
 #' @importFrom purrr map
 #' @export
-crosstable_reset_options = function(verbose=TRUE){
+crosstable_reset_options = function(quiet=FALSE){
   args_ok = names(formals(crosstable_options)) %>% .[!. %in% c("...", "reset")]
   argg = args_ok %>% set_names() %>% map(~NULL)
   names(argg) = paste0("crosstable_", names(argg))
   options(argg)
-  if(isTRUE(verbose)) inform("All crosstable options were set back to default.") #nocov
+  if(isFALSE(quiet)) cli_inform("All crosstable options were set back to default.") #nocov
   return(invisible())
 }
 
