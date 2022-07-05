@@ -35,6 +35,7 @@ Imports:
     tidyr,
     tidyselect
 Suggests: 
+    callr,
     covr,
     crayon,
     xml2,
