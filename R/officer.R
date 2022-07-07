@@ -535,7 +535,7 @@ body_add_gg2 = function(doc, value, width = 6, height = 5,
                         units = getOption("crosstable_units", "in"),
                         style = getOption("crosstable_style_image", doc$default_styles$paragraph),
                         res = 300, ... ){
-  assert_is_installed("ggplot2", "body_add_gg2()")
+  check_installed("ggplot2", reason="for function `body_add_gg2()` to work.")
   assert_class(value, "ggplot")
   units = match.arg(units, c("in", "cm", "mm"))
   file = tempfile(fileext=".png")
@@ -612,7 +612,7 @@ docx_bookmarks2 = function(x, return_vector=FALSE,
   #cannot test nor add examples as there is officer::body_bookmark() but no officer::head_bookmark()
 
   assert_class(x, "rdocx")
-  assert_is_installed("xml2", "docx_bookmarks2()")
+  check_installed("xml2", reason="for function `docx_bookmarks2()` to work.")
   target = match.arg(target)
   doc_ = xml2::xml_find_all(x$doc_obj$get(), "//w:bookmarkStart[@w:name]")
   doc_ = setdiff(xml2::xml_attr(doc_, "name"), "_GoBack")

@@ -119,7 +119,7 @@ ct_compact.crosstable = function(data, name_from=c("label", ".id"), name_to="var
 
 
 #' @description NULL
-#' @rdname compact
+#' @rdname ct_compact
 #' @usage NULL
 #' @export
 ct_compact.default = function(data, ...) {

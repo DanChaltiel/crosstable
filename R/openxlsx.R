@@ -14,6 +14,7 @@
 #' @export
 #' @importFrom checkmate assert_class vname
 #' @importFrom stringr str_remove
+#' @importFrom rlang check_installed
 #' @importFrom purrr walk
 #' @importFrom tidyr replace_na
 #' @importFrom dplyr %>% mutate across everything any_of lag lead select
@@ -39,7 +40,7 @@ as_workbook = function(x, show_test_name=TRUE,
                                            total="Total", label = "label", test = "test",
                                            effect="effect"),
                        ...){
-  assert_is_installed("openxlsx", "as_workbook()")
+  check_installed("openxlsx", reason="for function `as_workbook()` to work.")
 
   if(!inherits(x, "list")){
     x=list("crosstable"=x)

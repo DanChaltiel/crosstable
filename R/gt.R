@@ -99,7 +99,7 @@ as_gt.crosstable = function(x, show_test_name = TRUE,
 #' @author Dan Chaltiel
 #' @export
 as_gt = function(x, ...){
-  assert_is_installed("gt", "as_gt()")
+  check_installed("gt", reason="for function `as_gt()` to work.")
   UseMethod("as_gt")
 }
 

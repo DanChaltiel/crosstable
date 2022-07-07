@@ -204,7 +204,7 @@ test_correlation_auto = function(x, by, method) {
 #' @export
 #' @importFrom stats pchisq
 test_survival_logrank = function(formula) {
-  assert_survival_is_installed()
+  check_installed("survival", reason="for survival data to be described using `crosstable()`.")
   survdiff.obj = survival::survdiff(formula)
   p = 1-pchisq(survdiff.obj$chisq, length(survdiff.obj$n)-1)
   list(p.value = p, method = "Logrank test")
@@ -232,7 +232,7 @@ test_survival_logrank = function(formula) {
 #'   mutate(Petal.Width.qt = paste0("Q", ntile(Petal.Width, 5)) %>% ordered()) %>%
 #'   crosstable(Petal.Length ~ Petal.Width.qt, test=TRUE, test_args = my_test_args)
 test_summarize_linear_contrasts = function(x, y){
-  assert_is_installed("gmodels", "test_summarize_linear_contrasts()")
+  check_installed("gmodels", reason="for function `test_summarize_linear_contrasts()` to work.")
   x = as.numeric(x)
   stopifnot(is.ordered(y))
   levels_seq = 1:length(levels(y))
@@ -406,7 +406,7 @@ test_tabular_auto2 = function (x, y) {
   if(is.ordered(x) & is.ordered(y)){
     test = cor.test(as.numeric(x), as.numeric(y), method = "spearman", exact = FALSE)
   } else if((is.ordered(x) | is.ordered(y)) & any(dim(tab)==2)){
-    # assert_is_installed("DescTools", "CochranArmitageTest() in test_tabular_auto2()")
+    # check_installed("DescTools", reason="for function `CochranArmitageTest()` in `test_tabular_auto2()` to work.")
     # test = DescTools::CochranArmitageTest(tab, alternative = "two.sided")
     test = CochranArmitageTest(tab, alternative = "two.sided")
   } else{

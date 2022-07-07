@@ -76,33 +76,6 @@ print_warning_class = function(expr){
 }
 
 
-#' @importFrom glue glue
-#' @importFrom stringr str_ends
-#' @keywords internal
-#' @noRd
-assert_is_installed = function(pkg, fun) {
-  if(!str_ends(fun, "()")) fun=paste0(fun, "()")
-  if(!requireNamespace(pkg, quietly=TRUE)) {
-    #TODO cli
-    cli_abort(glue('Package "{pkg}" is needed for function {fun} to work. Please install it.'),
-              class="missing_package_error") # nocov
-  }
-  invisible(pkg)
-}
-
-#' @importFrom glue glue
-#' @keywords internal
-#' @noRd
-assert_survival_is_installed = function() { #TODO remove this
-  if(!requireNamespace("survival", quietly=TRUE)) {
-    #TODO cli
-    cli_abort(glue('Package "survival" is needed for survival data to be described using crosstable.'),
-              class="missing_package_error") # nocov
-  }
-}
-
-
-
 # Function handling --------------------------------------------------------
 
 #' @source exact burgle of methods::formalArgs
@@ -284,8 +257,9 @@ paste_nameclasses = function(x){
 
 #' Test if @param method can be applied to @param x
 #' @param skip speed up the
-#' @importFrom methods
-#' @keywords utils internal
+#' @importFrom utils methods
+#' @importFrom dplyr pull
+#' @keywords internal
 #' @noRd
 has_method = function(x, method, skip=c("data.frame")){
   for(i in class(x)){

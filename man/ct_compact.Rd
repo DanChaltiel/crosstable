@@ -4,6 +4,7 @@
 \alias{ct_compact}
 \alias{ct_compact.data.frame}
 \alias{ct_compact.crosstable}
+\alias{ct_compact.default}
 \alias{compact}
 \alias{compact.data.frame}
 \alias{compact.crosstable}
