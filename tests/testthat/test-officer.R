@@ -249,7 +249,7 @@ test_that("Officers warnings and errors", {
   expect_error(body_add_crosstable_list(read_docx(), ll, fun="foobar"),
                class="body_add_crosstable_list_fun_name")
   expect_error(body_add_crosstable_list(read_docx(), ll, fun=function(x, y) x),
-               class="body_add_crosstable_list_fun_name")
+               class="body_add_crosstable_list_fun_args")
   expect_error(body_add_crosstable_list(read_docx(), ll, fun=function(doc, .name) .name),
                class="body_add_crosstable_list_return")
 })

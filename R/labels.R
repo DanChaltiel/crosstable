@@ -192,7 +192,7 @@ rename_dataframe_with_labels=function(df, except=NULL){
 #'
 #' @examples
 #' #options(crosstable_clean_names_fun=janitor::make_clean_names)
-#' x=tibble("name with space"=1, TwoWords=1, "total $ (2009)"=1, àccénts=1)
+#' x=data.frame("name with space"=1, TwoWords=1, "total $ (2009)"=1, àccénts=1)
 #' clean_names_with_labels(x, except=TwoWords) %>% names()
 #' clean_names_with_labels(x, except=TwoWords) %>% get_label()
 clean_names_with_labels = function(df, except=NULL, .fun=getOption("crosstable_clean_names_fun")){

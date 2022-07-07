@@ -9,5 +9,5 @@
 
 # gt is working
 
-    `as_gt` is not implemented for multi-by crosstables yet.
+    `as_gt()` is not implemented for multi-by crosstables yet.
 
