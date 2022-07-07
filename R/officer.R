@@ -267,7 +267,10 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #'     write_and_open()
 body_add_crosstable_list = function(doc, l, fun="title2", ...){
   assert_list(l)
-  assert_named(l)
+  if(is.null(names(l))){
+    cli_abort("Crosstable list {.var l} must have names.",
+              class="body_add_crosstable_list_named")
+  }
   l = map(l, ~{
     if(!is.crosstable(.x) && is.data.frame(.x)) .x = flextable(.x)
     assert_multi_class(.x, c("flextable", "crosstable"))
@@ -280,20 +283,16 @@ body_add_crosstable_list = function(doc, l, fun="title2", ...){
     else if(fun=="title4") fun=function(doc, .name) body_add_title(doc, .name, 4)
     else if(fun=="newline") fun=function(doc, .name) body_add_normal(doc, "")
     else {
-      #TODO cli
-      browser()
-      cli_abort(c('`fun` should be either a function or a member of c("title2", "title3", "title4", "newline")',
-                  i=glue("Current value: '{fun}'")),
+      cli_abort('`fun` should be either a function or one of
+                {.val {c("title2", "title3", "title4", "newline")}}, not {.val {fun}}',
                 class="body_add_crosstable_list_fun_name")
     }
   } else if(is.null(fun)) fun=function(doc, .name) doc
   assert_class(fun, "function")
 
   if(!identical(formalArgs(fun), c("doc", ".name"))){
-    #TODO cli
-    browser()
     cli_abort(c('`fun` should be of the form `function(doc, .name)`',
-                i=paste0("Current arg names: ", paste0(formalArgs(fun), collapse=", "))),
+                i="Current arg names: {formalArgs(fun)}"),
               class="body_add_crosstable_list_fun_args")
   }
 
@@ -301,6 +300,10 @@ body_add_crosstable_list = function(doc, l, fun="title2", ...){
   for(i in names(l)){
     x=l[[i]]
     doc = doc %>% fun(.name=i)
+    if(!inherits(doc, "rdocx")){
+      cli_abort('fun(doc, .name)` shoud return a {.cls rdocx} value.',
+                class="body_add_crosstable_list_return")
+    }
     if(is.crosstable(x)) {
       args = intersect(argnames, names(as.list(args(body_add_crosstable))))
       doc = do.call(body_add_crosstable, c(list(doc=doc, x=x), list(...)[args]))
@@ -673,10 +676,9 @@ write_and_open = function(doc, docx.file){
   }, warning=function(w) {
     message(w)
     if(str_detect(w$message, "Permission denied")){
-      #TODO cli
-      browser()
-      cli_abort(c("Permission denied. Is the file already open?", glue("File: {docx.file}")),
-                class="crosstable_permission_denied")
+      cli_abort(c("Permission denied. Is the file already open?", #nocov
+                  i="File: {docx.file}"), #nocov
+                class="crosstable_permission_denied") #nocov
     }
   })
 
@@ -685,10 +687,9 @@ write_and_open = function(doc, docx.file){
     if(interactive()) browseURL(docx.file)
   }, error=function(e) {
     if(str_detect(e$message, "Permission denied")){
-      #TODO cli
-      browser()
-      cli_abort(c("Permission denied. Is the file already open?", glue("File: {docx.file}")),
-                class="crosstable_permission_denied")
+      cli_abort(c("Permission denied. Is the file already open?",  #nocov
+                  i="File: {docx.file}"), #nocov
+                class="crosstable_permission_denied") #nocov
     }
     stop(e)
   }, warning=function(w) {

@@ -57,9 +57,8 @@ as_workbook = function(x, show_test_name=TRUE,
     }
     assert_class(.x, "crosstable", .var.name=vname(ct))
     if(inherits(.x, "compacted_crosstable")) {
-      #TODO cli
-      cli_warn(c("`as_workbook()` is not implemented for compacted crosstable yet.",
-                 i=glue("Sheet: {.name}")),
+      cli_warn(c("{.fun as_workbook} is not implemented for compacted crosstable yet.",
+                 i="Sheet: {.name}"),
                class="compact_not_implemented_error")
       next
     }

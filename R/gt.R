@@ -36,11 +36,11 @@ as_gt.crosstable = function(x, show_test_name = TRUE,
 
   assert_class(x, "crosstable", .var.name=vname(x))
   if (inherits(x, "compacted_crosstable")) {
-    cli_abort("`as_gt` is not implemented for compacted crosstables yet.",
+    cli_abort("{.fun as_gt} is not implemented for compacted crosstables yet.",
               class="gt_compact_not_implemented_error")
   }
   if (inherits(x, "crosstable_multiby")) {
-    cli_abort("`as_gt` is not implemented for multi-by crosstables yet.",
+    cli_abort("{.fun as_gt} is not implemented for multi-by crosstables yet.",
               class="gt_multiby_not_implemented_error")
   }
 

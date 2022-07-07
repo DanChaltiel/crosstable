@@ -100,8 +100,9 @@ get_defined_function = function(name){
   # Filter out function defined in own package.
   envs = lapply(funs, environment)
   funs = funs[! vapply(envs, identical, logical(1L), topenv())]
-  if(length(funs)>1) #TODO cli
-    cli_warn("There are multiple '", name,"' functions loaded. If this causes any trouble, fill an issue on crosstable's github page.") # nocov
+  if(length(funs)>1) {
+    cli_warn("There are multiple {.fun {name}} functions loaded. If this causes any trouble, fill an issue on crosstable's github page.") # nocov
+  }
   unlist(funs[1L])
 }
 
@@ -462,10 +463,9 @@ rec = function(..., sep=getOption("rec_sep", "\n"), sep_int=getOption("rec_sep",
 fct = function(x=character(), levels, labels=levels, ...){
   miss_x = !x %in% levels
   if(any(miss_x)){
-    miss_x_s = unique(x[miss_x]) %>% glue_collapse(", ")
-    #TODO cli
+    miss_x_s = unique(x[miss_x])
     cli_warn(c("Unknown factor level in `x`, NA generated.",
-               x=glue("Unknown levels: {miss_x_s}")))
+               x="Unknown levels: {.val {miss_x_s}}"))
   }
   factor(x, levels, labels, ...)
 }
