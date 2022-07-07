@@ -143,6 +143,7 @@ test_that("crosstables: Triple", {
 
 test_that("crosstables helpers", {
   # skip_on_os(c("mac", "linux", "solaris"))
+  skip("Run `test-officer > crosstables helpers` manually one in a while!")
   rlang::local_options(crosstable_style_list_ordered="toc 1",
                        crosstable_style_list_unordered="toc 2",
                        crosstable_style_image="centered",
@@ -235,10 +236,10 @@ test_that("Officers warnings and errors", {
   pars1 = c("Paragraphe 1.1", "Paragraphe 1.2")
   pars2 = c("Paragraphe 2.1", "Paragraphe 2.2")
   expect_error(body_add_normal(read_docx(), pars1, pars2),
-               class="officer_wrong_vector_error")
-  expect_error(body_add_table_legend(read_docx(), "xxx", foo=1, fun=mean, 5),
-               class="crosstable_error_dots_nonempty")
-  body_add_table_legend(read_docx(), "xxx", foo=1, fun=mean, 5) %>% condition_overview()
+               class="crosstable_officer_wrong_vector_error")
+
+  expect_snapshot_error(body_add_table_legend(read_docx(), "xxx", foo=1, fun=mean, 5))#rlib_error_dots_nonempty
+
   lifecycle::expect_deprecated(body_add_glued(read_docx(), "Paragraphe"))
 })
 

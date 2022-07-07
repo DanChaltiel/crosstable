@@ -5,10 +5,10 @@
     Output
       Effect part 1 - by=model
     Code
-      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
+      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args)$effect %>% table %>%
         as.data.frame()
     Condition
-      Warning:
+      Warning in `crosstable()`:
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 32 levels
       Warning:
@@ -24,10 +24,10 @@
     Output
       Effect part 1 - by=cyl
     Code
-      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
+      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args)$effect %>% table %>%
         as.data.frame()
     Condition
-      Warning:
+      Warning in `crosstable()`:
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 3 levels
       Warning:
@@ -43,21 +43,21 @@
     Output
       Effect part 1 - by=vs
     Code
-      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
+      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args)$effect %>% table %>%
         as.data.frame()
     Condition
       Warning:
       A problem occured when calculating crosstable effects (glm-logit):
-        'glm.fit: fitted probabilities numerically 0 or 1 occurred' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      i "glm.fit: fitted probabilities numerically 0 or 1 occurred"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
       Warning:
       Problems occured when calculating crosstable effects (glm-logit):
-        'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      i "glm.fit: fitted probabilities numerically 0 or 1 occurred" and "collapsing to unique 'x' values"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
       Warning:
-      Cannot calculate crosstable effects for variables 'cyl3', 'dummy', 'dummy_na', 'dummy_na2', and 'dummy2'
+      Cannot calculate crosstable effects for variables `cyl3`, `dummy`, `dummy_na`, `dummy_na2`, and `dummy2`
     Output
                                                                                                                                      .
       1                               Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 102.00 [63.49 to 140.51]
@@ -103,10 +103,10 @@
     Output
       Effect part 1 - by=gear
     Code
-      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
+      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args)$effect %>% table %>%
         as.data.frame()
     Condition
-      Warning:
+      Warning in `crosstable()`:
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 3 levels
       Warning:
@@ -122,31 +122,34 @@
     Output
       Effect part 1 - by=cyl6
     Code
-      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
+      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args)$effect %>% table %>%
         as.data.frame()
     Condition
       Warning:
       Problems occured when calculating crosstable effects (glm-logit):
-        'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      i "glm.fit: fitted probabilities numerically 0 or 1 occurred" and "collapsing to unique 'x' values"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
       Warning:
-      An *error* occured when calculating crosstable effects (glm-logit):
-        'need at least two non-NA values to interpolate' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
-      Warning:
-      A problem occured when calculating crosstable effects (glm-logit):
-        'glm.fit: fitted probabilities numerically 0 or 1 occurred' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      An error occured when calculating crosstable effects (glm-logit):
+      i "need at least two non-NA values to interpolate"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
+    Message
+      Error (glm-logit: "need at least two non-NA values to interpolate")
+    Condition
       Warning:
       A problem occured when calculating crosstable effects (glm-logit):
-        'glm.fit: fitted probabilities numerically 0 or 1 occurred' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      i "glm.fit: fitted probabilities numerically 0 or 1 occurred"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
       Warning:
-      Cannot calculate crosstable effects for variables 'cyl3', 'dummy', 'dummy_na', 'dummy_na2', and 'dummy2'
+      A problem occured when calculating crosstable effects (glm-logit):
+      i "glm.fit: fitted probabilities numerically 0 or 1 occurred"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
+      Warning:
+      Cannot calculate crosstable effects for variables `cyl3`, `dummy`, `dummy_na`, `dummy_na2`, and `dummy2`
     Output
                                                                                                                              .
       1                                   Difference in means (Welch CI), ref='FALSE'\nTRUE minus FALSE: -1.44 [-4.62 to 1.74]
@@ -192,12 +195,12 @@
     Output
       Effect part 1 - by=dummy
     Code
-      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
+      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args)$effect %>% table %>%
         as.data.frame()
     Condition
-      Warning:
+      Warning in `crosstable()`:
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
-      i `by` has 1 levels
+      i `by` has 1 level
       Warning:
       Unknown or uninitialised column: `effect`.
     Output
@@ -211,10 +214,10 @@
     Output
       Effect part 2 - by=model
     Code
-      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
+      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args)$effect %>% table %>%
         as.data.frame()
     Condition
-      Warning:
+      Warning in `crosstable()`:
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 32 levels
       Warning:
@@ -230,10 +233,10 @@
     Output
       Effect part 2 - by=cyl
     Code
-      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
+      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args)$effect %>% table %>%
         as.data.frame()
     Condition
-      Warning:
+      Warning in `crosstable()`:
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 3 levels
       Warning:
@@ -249,31 +252,47 @@
     Output
       Effect part 2 - by=vs
     Code
-      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
+      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args)$effect %>% table %>%
         as.data.frame()
     Condition
       Warning:
-      An *error* occured when calculating crosstable effects (glm-log):
-        'no valid set of coefficients has been found: please supply starting values' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      An error occured when calculating crosstable effects (glm-log):
+      i "no valid set of coefficients has been found: please supply starting values"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
+    Message
+      Error (glm-log: "no valid set of coefficients has been found: please supply
+      starting values")
+    Condition
       Warning:
-      An *error* occured when calculating crosstable effects (glm-log):
-        'no valid set of coefficients has been found: please supply starting values' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      An error occured when calculating crosstable effects (glm-log):
+      i "no valid set of coefficients has been found: please supply starting values"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
+    Message
+      Error (glm-log: "no valid set of coefficients has been found: please supply
+      starting values")
+    Condition
       Warning:
-      An *error* occured when calculating crosstable effects (glm-log):
-        'no valid set of coefficients has been found: please supply starting values' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      An error occured when calculating crosstable effects (glm-log):
+      i "no valid set of coefficients has been found: please supply starting values"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
+    Message
+      Error (glm-log: "no valid set of coefficients has been found: please supply
+      starting values")
+    Condition
       Warning:
-      An *error* occured when calculating crosstable effects (glm-log):
-        'no valid set of coefficients has been found: please supply starting values' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      An error occured when calculating crosstable effects (glm-log):
+      i "no valid set of coefficients has been found: please supply starting values"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
+    Message
+      Error (glm-log: "no valid set of coefficients has been found: please supply
+      starting values")
+    Condition
       Warning:
-      Cannot calculate crosstable effects for variables 'cyl3', 'dummy', 'dummy_na', 'dummy_na2', and 'dummy2'
+      Cannot calculate crosstable effects for variables `cyl3`, `dummy`, `dummy_na`, `dummy_na2`, and `dummy2`
     Output
                                                                                                                          .
       1                 Difference in means (bootstrap CI), ref='straight'\nvshaped minus straight: -0.54 [-0.97 to -0.11]
@@ -321,10 +340,10 @@
     Output
       Effect part 2 - by=gear
     Code
-      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
+      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args)$effect %>% table %>%
         as.data.frame()
     Condition
-      Warning:
+      Warning in `crosstable()`:
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 3 levels
       Warning:
@@ -340,36 +359,48 @@
     Output
       Effect part 2 - by=cyl6
     Code
-      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
+      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args)$effect %>% table %>%
         as.data.frame()
     Condition
       Warning:
-      An *error* occured when calculating crosstable effects (glm-log):
-        'no valid set of coefficients has been found: please supply starting values' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      An error occured when calculating crosstable effects (glm-log):
+      i "no valid set of coefficients has been found: please supply starting values"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
+    Message
+      Error (glm-log: "no valid set of coefficients has been found: please supply
+      starting values")
+    Condition
       Warning:
       A problem occured when calculating crosstable effects (glm-log):
-        'glm.fit: fitted probabilities numerically 0 or 1 occurred' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      i "glm.fit: fitted probabilities numerically 0 or 1 occurred"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
       Warning:
-      An *error* occured when calculating crosstable effects (glm-log):
-        'no valid set of coefficients has been found: please supply starting values' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      An error occured when calculating crosstable effects (glm-log):
+      i "no valid set of coefficients has been found: please supply starting values"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
+    Message
+      Error (glm-log: "no valid set of coefficients has been found: please supply
+      starting values")
+    Condition
       Warning:
       A problem occured when calculating crosstable effects (glm-log):
-        'glm.fit: fitted probabilities numerically 0 or 1 occurred' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      i "glm.fit: fitted probabilities numerically 0 or 1 occurred"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
       Warning:
-      An *error* occured when calculating crosstable effects (glm-log):
-        'no valid set of coefficients has been found: please supply starting values' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      An error occured when calculating crosstable effects (glm-log):
+      i "no valid set of coefficients has been found: please supply starting values"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
+    Message
+      Error (glm-log: "no valid set of coefficients has been found: please supply
+      starting values")
+    Condition
       Warning:
-      Cannot calculate crosstable effects for variables 'cyl3', 'dummy', 'dummy_na', 'dummy_na2', and 'dummy2'
+      Cannot calculate crosstable effects for variables `cyl3`, `dummy`, `dummy_na`, `dummy_na2`, and `dummy2`
     Output
                                                                                                                     .
       1                      Difference in means (bootstrap CI), ref='FALSE'\nTRUE minus FALSE: -0.05 [-0.64 to 0.53]
@@ -417,12 +448,12 @@
     Output
       Effect part 2 - by=dummy
     Code
-      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
+      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args)$effect %>% table %>%
         as.data.frame()
     Condition
-      Warning:
+      Warning in `crosstable()`:
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
-      i `by` has 1 levels
+      i `by` has 1 level
       Warning:
       Unknown or uninitialised column: `effect`.
     Output
@@ -437,10 +468,10 @@
       Effect part 3 - by=model
     Code
       set.seed(1234)
-      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
+      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args)$effect %>% table %>%
         as.data.frame()
     Condition
-      Warning:
+      Warning in `crosstable()`:
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 32 levels
       Warning:
@@ -457,10 +488,10 @@
       Effect part 3 - by=cyl
     Code
       set.seed(1234)
-      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
+      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args)$effect %>% table %>%
         as.data.frame()
     Condition
-      Warning:
+      Warning in `crosstable()`:
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 3 levels
       Warning:
@@ -477,21 +508,21 @@
       Effect part 3 - by=vs
     Code
       set.seed(1234)
-      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
+      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args)$effect %>% table %>%
         as.data.frame()
     Condition
       Warning:
       A problem occured when calculating crosstable effects (glm-logit):
-        'glm.fit: fitted probabilities numerically 0 or 1 occurred' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      i "glm.fit: fitted probabilities numerically 0 or 1 occurred"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
       Warning:
       Problems occured when calculating crosstable effects (glm-logit):
-        'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      i "glm.fit: fitted probabilities numerically 0 or 1 occurred" and "collapsing to unique 'x' values"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
       Warning:
-      Cannot calculate crosstable effects for variables 'cyl3', 'dummy', 'dummy_na', 'dummy_na2', and 'dummy2'
+      Cannot calculate crosstable effects for variables `cyl3`, `dummy`, `dummy_na`, `dummy_na2`, and `dummy2`
     Output
                                                                                                                                  .
       1                        Difference in medians (bootstrap CI), ref='straight'\nvshaped minus straight: -0.28 [-1.08 to 1.56]
@@ -540,10 +571,10 @@
       Effect part 3 - by=gear
     Code
       set.seed(1234)
-      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
+      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args)$effect %>% table %>%
         as.data.frame()
     Condition
-      Warning:
+      Warning in `crosstable()`:
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
       i `by` has 3 levels
       Warning:
@@ -560,31 +591,34 @@
       Effect part 3 - by=cyl6
     Code
       set.seed(1234)
-      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
+      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args)$effect %>% table %>%
         as.data.frame()
     Condition
       Warning:
       Problems occured when calculating crosstable effects (glm-logit):
-        'glm.fit: fitted probabilities numerically 0 or 1 occurred' and 'collapsing to unique 'x' values' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      i "glm.fit: fitted probabilities numerically 0 or 1 occurred" and "collapsing to unique 'x' values"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
       Warning:
-      An *error* occured when calculating crosstable effects (glm-logit):
-        'need at least two non-NA values to interpolate' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
-      Warning:
-      A problem occured when calculating crosstable effects (glm-logit):
-        'glm.fit: fitted probabilities numerically 0 or 1 occurred' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      An error occured when calculating crosstable effects (glm-logit):
+      i "need at least two non-NA values to interpolate"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
+    Message
+      Error (glm-logit: "need at least two non-NA values to interpolate")
+    Condition
       Warning:
       A problem occured when calculating crosstable effects (glm-logit):
-        'glm.fit: fitted probabilities numerically 0 or 1 occurred' 
-      You might want to check for complete separation or extreme outliers. 
-      Applying `forcats::fct_rev()` to some columns might help too.
+      i "glm.fit: fitted probabilities numerically 0 or 1 occurred"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
       Warning:
-      Cannot calculate crosstable effects for variables 'cyl3', 'dummy', 'dummy_na', 'dummy_na2', and 'dummy2'
+      A problem occured when calculating crosstable effects (glm-logit):
+      i "glm.fit: fitted probabilities numerically 0 or 1 occurred"
+      * You might want to check for complete separation or extreme outliers.
+      * Applying `forcats::fct_rev()` to some columns might help too.
+      Warning:
+      Cannot calculate crosstable effects for variables `cyl3`, `dummy`, `dummy_na`, `dummy_na2`, and `dummy2`
     Output
                                                                                                                       .
       1                 Difference in medians (bootstrap CI), ref='FALSE'\nTRUE minus FALSE: -108.20 [-152.71 to 77.61]
@@ -633,12 +667,12 @@
       Effect part 3 - by=dummy
     Code
       set.seed(1234)
-      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = args)$effect %>% table %>%
+      crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args)$effect %>% table %>%
         as.data.frame()
     Condition
-      Warning:
+      Warning in `crosstable()`:
       Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.
-      i `by` has 1 levels
+      i `by` has 1 level
       Warning:
       Unknown or uninitialised column: `effect`.
     Output

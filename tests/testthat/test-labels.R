@@ -27,7 +27,7 @@ test_that("Labelling unnamed dataframes/lists", {
   expect_setequal(get_label(xx_noname, default="foo"), "foo")
 
   expect_error(get_label(xx_noname, default=c("foo", "bar")),
-               class="labels_get_wrong_default_error")
+               class="crosstable_labels_get_wrong_default_error")
 
 })
 
@@ -112,7 +112,7 @@ test_that("Removing labels", {
 #missing one name
 iris_label = tibble::tribble(
   ~name,          ~label,
-  "Sepal.Length", "Length of Sepals",
+  # "Sepal.Length", "Length of Sepals",
   # "Sepal.Width",  "Width of Sepals",
   "Petal.Length", "Length of Petals",
   "Petal.Width",  "Width of Petals",
@@ -120,46 +120,44 @@ iris_label = tibble::tribble(
 )
 
 #missing one variable
-df = iris %>% select(-Petal.Width)
+df = iris %>% select(-Petal.Width, -Species)
 
 test_that("Import labels: standard is OK", {
   df2 = import_labels(df, iris_label)
-  expect_equal(get_label(df2$Sepal.Length), "Length of Sepals")
   expect_null(get_label(df2$Sepal.Width))
   expect_equal(get_label(df2$Petal.Length), "Length of Petals")
-  expect_equal(get_label(df2$Species), "Specie name")
 })
 
 test_that("Import labels: warnings", {
-  import_labels(df, iris_label, verbose_label = T) %>%
-    expect_warning(class="missing_label_name_warning")
-  import_labels(df, iris_label, verbose_name = T) %>%
-    expect_warning(class="missing_label_warning")
+  import_labels(df, iris_label, warn_name = T) %>%
+    expect_warning(class="crosstable_missing_label_warning")
+  import_labels(df, iris_label, warn_label = T) %>%
+    expect_warning(class="crosstable_missing_label_name_warning")
   #both
-  import_labels(df, iris_label, verbose_label = T, verbose_name = T) %>%
-    expect_warning(class="missing_label_name_warning") %>%
-    expect_warning(class="missing_label_warning")
+  import_labels(df, iris_label, warn_label = T, warn_name = T) %>%
+    expect_warning(class="crosstable_missing_label_name_warning") %>%
+    expect_warning(class="crosstable_missing_label_warning")
 })
 
 test_that("Import labels: errors", {
   expect_error(import_labels(iris, iris),
-               class="labels_import_missing_col")
+               class="crosstable_labels_import_missing_col")
 
   #error no save
   remove_last_save()
   expect_error(import_labels(iris),
-               class="labels_import_null_error")
+               class="crosstable_labels_import_null_error")
 
   #error duplicates
   iris_label_dup = iris_label
-  iris_label_dup[5,] = list("Petal.Length", "xxxxx")
-  iris_label_dup[6,] = list("Petal.Width",  "ttttt")
+  iris_label_dup[4,] = list("Petal.Length", "xxxxx")
+  iris_label_dup[5,] = list("Petal.Width",  "ttttt")
   expect_error(import_labels(iris, iris_label_dup),
-               class="labels_import_dupkey_error")
+               class="crosstable_labels_import_dupkey_error")
 
   #deprecation
   import_labels(iris, iris_label, verbose=TRUE) %>%
-    expect_warning(class="missing_label_warning") %>%
+    expect_warning(class="crosstable_missing_label_warning") %>%
     lifecycle::expect_deprecated()
 })
 
@@ -171,6 +169,9 @@ test_that("Applying labels", {
                c(Sepal.Length = "Length of Sepals", Sepal.Width = "Sepal.Width",
                  Petal.Length = "Petal.Length", Petal.Width = "Width of Petals",
                  Species = "Species"))
+
+  expect_warning(apply_labels(iris, xxx="xxx", warn_missing=TRUE),
+                 class="crosstable_missing_label_warning")
 })
 
 

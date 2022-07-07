@@ -226,8 +226,6 @@ test_that("crosstable limit tests: warnings", {
   x = iris2 %>% mutate(xx=list(1))
   expect_warning(crosstable(x, c(xx, Species)),
                  class="crosstable_wrong_col_class_warning")
-
-  iris2 %>% nest(data=-Species) %>% crosstable(c(data, Species))
 })
 
 test_that("crosstable limit tests: deprecated features", {

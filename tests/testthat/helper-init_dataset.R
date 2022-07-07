@@ -5,10 +5,12 @@ Sys.setenv(TZ='Europe/Paris')
 
 options(
   encoding="UTF-8",
-  warn=1,
-  warnPartialMatchArgs=TRUE,
-  warnPartialMatchAttr=TRUE,
-  warnPartialMatchDollar=TRUE,
+  # warn=0, #default, stacks
+  warn=1, #immediate.=TRUE
+  # warn=2, #error
+  # warnPartialMatchArgs=TRUE,
+  # warnPartialMatchAttr=TRUE,
+  # warnPartialMatchDollar=TRUE,
   stringsAsFactors=FALSE,
   dplyr.summarise.inform=FALSE,
   # conflicts.policy="depends.ok",

@@ -8,7 +8,7 @@ gt <- as_gt(ct, generic_labels=list(value="count"))
 
 test_that("Options work", {
   local({
-    crosstable_reset_options(verbose=FALSE)
+    crosstable_reset_options(quiet=TRUE)
     x=crosstable_peek_options()
     expect_length(x, 0)
 

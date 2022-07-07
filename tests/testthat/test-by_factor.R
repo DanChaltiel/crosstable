@@ -123,6 +123,15 @@ test_that("Margins with totals", {
     as.data.frame(x6)
     as_flextable(x6)
   })
+
+  expect_error(crosstable(mtcars3, am, margin=c("row", "column", "cell", "none", "all")),
+               class="crosstable_margin_length_3_error")
+  expect_error(crosstable(mtcars3, am, margin=c("row", "foo", "bar")),
+               class="crosstable_unknown_margin")
+  expect_warning(crosstable(mtcars3, am, margin=c("row"), percent_pattern="N={n}"),
+                 class="crosstable_margin_percent_pattern_warning")
+  expect_warning(crosstable(mtcars3, am, margin=c("row", 1, "col")),
+                 class="crosstable_duplicated_margin")
 })
 
 
@@ -147,6 +156,10 @@ test_that("Percent pattern", {
     as.data.frame(x3)
     as_flextable(x3)
   })
+
+  expect_error(crosstable(mtcars3, cyl, by=vs, percent_pattern="N={n} \nrow={p_row}, col={xxx}"),
+               class="crosstable_percent_pattern_wrong_variable_error")
+
 })
 
 
