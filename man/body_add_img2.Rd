@@ -23,6 +23,8 @@ body_add_img2(
 
 \item{units}{units for width and height}
 
+\item{style}{paragraph style}
+
 \item{...}{other arguments to be passed to \code{\link[officer:body_add_img]{officer::body_add_img()}}}
 }
 \value{

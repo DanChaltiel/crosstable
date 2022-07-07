@@ -4,10 +4,10 @@
 \alias{crosstable_reset_options}
 \title{Reset all \code{crosstable} options.}
 \usage{
-crosstable_reset_options(verbose = TRUE)
+crosstable_reset_options(quiet = FALSE)
 }
 \arguments{
-\item{keep_null}{set to TRUE to get a list}
+\item{quiet}{set to \code{TRUE} to remove the message.}
 }
 \value{
 Nothing, called for its side effects

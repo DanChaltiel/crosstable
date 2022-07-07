@@ -36,7 +36,7 @@
 
 \item{autofit}{whether to use \code{\link[flextable:autofit]{flextable::autofit()}} on the table.}
 
-\item{compact}{whether to compact the table. If \code{TRUE}, see \code{\link[=compact.crosstable]{compact.crosstable()}} to see how to use \code{keep_id}.}
+\item{compact}{whether to compact the table. If \code{TRUE}, see \code{\link[=ct_compact.crosstable]{ct_compact.crosstable()}} to see how to use \code{keep_id}.}
 
 \item{show_test_name}{in the \code{test} column, show the test name.}
 
