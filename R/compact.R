@@ -1,13 +1,27 @@
 
-#' @name compact
+
+#' Generic function to compact a table (publication formatting)
 #' @description NULL
-#' @param data  the object to compact
+#' @rdname ct_compact
+#' @usage NULL
+#'
+#' @author Dan Chaltiel
+#' @export
+ct_compact = function(data, ...){
+  UseMethod("ct_compact")
+}
+
+
+
+#' @name ct_compact
+#' @description NULL
+#' @param data the object to compact
 #' @param name_from name of the column to be collapsed when compacting
 #' @param name_to name of the column that will receive the collapsed column. Will be created if it doesn't exist.
 #' @param wrap_cols name of the columns to wrap
 #' @param rtn_flextable whether to return a formatted [flextable()] object or a simple `data.frame`
 #' @param ... additional arguments (not used)
-#' @rdname compact
+#' @rdname ct_compact
 #'
 #' @author Dan Chaltiel
 #' @export
@@ -23,9 +37,11 @@
 #' @examples
 #' #dataframes
 #' x=iris[c(1:5,51:55,101:105),]
-#' compact(x, name_from="Species")
-#' compact(x, name_from="Species", name_to="Petal.Length")
-compact.data.frame = function(data, name_from, name_to="variable", wrap_cols=NULL, rtn_flextable=FALSE, ...){
+#' ct_compact(x, name_from="Species")
+#' ct_compact(x, name_from="Species", name_to="Petal.Length")
+ct_compact.data.frame = function(data, name_from, name_to="variable", wrap_cols=NULL, rtn_flextable=FALSE, ...){
+  assert_scalar(name_from)
+  assert_scalar(name_to)
   id = (data[[name_from]]!=lag(data[[name_from]])) %>% replace_na(TRUE)
   rtn = data.frame()
   for(i in 1:sum(id)) {
@@ -62,7 +78,7 @@ compact.data.frame = function(data, name_from, name_to="variable", wrap_cols=NUL
 
 
 #' @description NULL
-#' @rdname compact
+#' @rdname ct_compact
 #'
 #' @param keep_id `glue` pattern to keep the column name along with the label. If `TRUE`, default to `"{label} ({.id})"`.
 #'
@@ -76,9 +92,9 @@ compact.data.frame = function(data, name_from, name_to="variable", wrap_cols=NUL
 #'
 #' #crosstables
 #' x=crosstable(mtcars2, c(disp,hp,am), by=vs, test=TRUE, effect=TRUE)
-#' compact(x)
-#' compact(x, name_from=".id")
-compact.crosstable = function(data, name_from=c("label", ".id"), name_to="variable", keep_id=FALSE, ...){
+#' ct_compact(x)
+#' ct_compact(x, name_from=".id")
+ct_compact.crosstable = function(data, name_from=c("label", ".id"), name_to="variable", keep_id=FALSE, ...){
   by_levels = attr(data, "by_levels")
   by = attr(data, "by")
   name_from = match.arg(name_from)
@@ -91,7 +107,7 @@ compact.crosstable = function(data, name_from=c("label", ".id"), name_to="variab
 
   rtn = data %>%
     select(-any_of(rcol)) %>%
-    compact.data.frame(name_from=name_from, name_to=name_to,
+    ct_compact.data.frame(name_from=name_from, name_to=name_to,
                        wrap_cols=wrap_cols, rtn_flextable=FALSE)
 
   new_attr_names = setdiff(names(attributes(data)), names(attributes(rtn)))
@@ -105,8 +121,47 @@ compact.crosstable = function(data, name_from=c("label", ".id"), name_to="variab
 #' @description NULL
 #' @rdname compact
 #' @usage NULL
-#'
-#' @author Dan Chaltiel
+#' @export
+ct_compact.default = function(data, ...) {
+  cli_abort("{.fun ct_compact} is not defined for object of class {.cls {class(data)}}",
+            class="ct_compact_notfound_error")
+}
+
+
+
+
+# Deprecated --------------------------------------------------------------
+
+
+#' @description NULL
+#' @rdname ct_compact
+#' @usage NULL
+#' @export
+compact = function(data, ...){
+  UseMethod("compact")
+}
+
+#' @description NULL
+#' @rdname ct_compact
+#' @usage NULL
+#' @export
+compact.data.frame = function(data, ...){
+  deprecate_warn("0.5.0", "compact.data.frame()", "ct_compact.data.frame()", details="Or use purrr::compact()")
+  ct_compact.data.frame(data, ...)
+}
+
+#' @description NULL
+#' @rdname ct_compact
+#' @usage NULL
+#' @export
+compact.crosstable = function(data, ...){
+  deprecate_warn("0.5.0", "compact.crosstable()", "ct_compact.crosstable()")
+  ct_compact.crosstable(data, ...)
+}
+
+#' @description NULL
+#' @rdname ct_compact
+#' @usage NULL
 #' @export
 compact.default = function(data, ...) {
   fn=get_defined_function('compact')
@@ -115,18 +170,3 @@ compact.default = function(data, ...) {
               class="compact_notfound_error")
   fn[[1L]](data, ...)
 }
-
-
-
-#' Generic function to compact a table (publication formatting)
-#' @description NULL
-#' @usage NULL
-#'
-#' @author Dan Chaltiel
-#' @export
-compact = function(data, ...){
-  UseMethod("compact")
-}
-
-
-

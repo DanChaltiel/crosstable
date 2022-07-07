@@ -76,7 +76,7 @@ test_that("crosstables: Simple", {
     body_add_break() %>%
     body_add_normal("Look, there are labels!") %>%
     body_add_title("Compacted before function", 2) %>%
-    body_add_crosstable(compact(ct), show_test_name=FALSE) %>%
+    body_add_crosstable(ct_compact(ct), show_test_name=FALSE) %>%
     body_add_table_legend(paste0(i, ", compacted before function")) %>%
     body_add_break()
 
@@ -102,7 +102,7 @@ test_that("crosstables: Double with effects", {
     body_add_break() %>%
     body_add_normal("Look, there are labels!") %>%
     body_add_title("Compacted before function", 2) %>%
-    body_add_crosstable(compact(ct), show_test_name=FALSE) %>%
+    body_add_crosstable(ct_compact(ct), show_test_name=FALSE) %>%
     body_add_table_legend(paste0(i, ", compacted before function")) %>%
     body_add_break()
 
@@ -128,7 +128,7 @@ test_that("crosstables: Triple", {
     body_add_break() %>%
     body_add_normal("Look, there are labels!") %>%
     body_add_title("Compacted before function", 2) %>%
-    body_add_crosstable(compact(ct), show_test_name=FALSE) %>%
+    body_add_crosstable(ct_compact(ct), show_test_name=FALSE) %>%
     body_add_table_legend(paste0(i, ", compacted before function")) %>%
     body_add_break()
 

@@ -6,7 +6,7 @@
 #' @param keep_id whether to keep the `.id` column.
 #' @param by_header a string to override the header if `x` has only one `by` stratum.
 #' @param autofit whether to use [flextable::autofit()] on the table.
-#' @param compact whether to compact the table. If `TRUE`, see [compact.crosstable()] to see how to use `keep_id`.
+#' @param compact whether to compact the table. If `TRUE`, see [ct_compact.crosstable()] to see how to use `keep_id`.
 #' @param show_test_name in the `test` column, show the test name.
 #' @param fontsizes font sizes as a list of keys. Default to `list(body=11, subheaders=11, header=11)`. If set through arguments instead of options, all 3 names should be specified.
 #' @param padding_v vertical padding (body).
@@ -112,7 +112,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
     x[[test]] = str_remove(x[[test]], "\\n\\(.*\\)")
   }
   if (compact && !inherits(x, "compacted_crosstable")) {
-    x = compact.crosstable(x, keep_id=keep_id)
+    x = ct_compact.crosstable(x, keep_id=keep_id)
   }
 
   rtn = replace(x, is.na(x), "NA")
