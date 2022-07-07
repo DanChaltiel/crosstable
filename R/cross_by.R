@@ -76,11 +76,11 @@ cross_by = function(data_x, data_y, funs, funs_arg, percent_pattern, total, perc
     if(is.null(data_y)){
       cli_warn("Could not describe column{?s} of wrong class: {errors_s}",
                class = "crosstable_wrong_col_class_warning",
-               call = caller)
+               call = crosstable_caller$env)
     } else {
       cli_warn("Could not cross {qty(errors_s)} column{?s} {errors_s} by column {by_col})",
                class = "crosstable_wrong_col_class_by_warning",
-               call = caller)
+               call = crosstable_caller$env)
     }
   }
 
