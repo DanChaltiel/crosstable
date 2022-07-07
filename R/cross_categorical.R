@@ -55,9 +55,12 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
   rtn = tbd %>%
     mutate(
       p_row=1,
-      p_col=.data$n/sum(.data$n),
+      n_col=sum(.data$n, na.rm=TRUE),
+      n_row=.data$n,
+      n_tot=.data$n_col,
+      p_col=.data$n/.data$n_col,
       p_cell=p_col,
-      across_unpack(-c("x", "n"),
+      across_unpack(starts_with("p"),
                     ~confint_proportion(.x, n, method="wilson")),
       across(starts_with("p_"),
              ~format_fixed(.x, digits=digits, percent=TRUE)),
@@ -93,38 +96,32 @@ summarize_categorical_by = function(x, by,
                                     percent_pattern, margin,
                                     showNA, total, digits,
                                     test, test_args, effect, effect_args){
-  dummy = safely(glue)(percent_pattern, n=1, p_cell=1, p_row=1, p_col=1,
-                       p_cell_inf=1, p_cell_sup=1, p_row_inf=1,
-                       p_row_sup=1, p_col_inf=1, p_col_sup=1)
-  if(!is.null(dummy$error)){
-    #TODO class(dummy$error) #https://github.com/tidyverse/glue/issues/229
-    cli_abort(c("`percent_pattern` should only consider variables {.code n}, {.code p_cell},
-                {.code p_row}, and {.code p_col}",
-                i='percent_pattern: "{percent_pattern}"'),
-              class="crosstable_percent_pattern_wrong_variable_error",
-              call=crosstable_caller$env)
-  }
   zero_percent = getOption("crosstable_zero_percent", FALSE)
-
 
   nn = table(x, by, useNA=showNA)
   .tbl = as.data.frame(nn, responseName="Freq", stringsAsFactors=FALSE)
 
   table_n = as.data.frame(nn, responseName="n", stringsAsFactors=FALSE)
+  n_row = marginSums(nn, margin=1) %>% as.data.frame(responseName="n_row")
+  n_col = marginSums(nn, margin=2) %>% as.data.frame(responseName="n_col")
+  n_tot = sum(nn)
   table_p_cell = getTable(x, by, type="p_cell")
   table_p_row =  getTable(x, by, type="p_row")
   table_p_col =  getTable(x, by, type="p_col")
 
   rtn = reduce(list(table_n, table_p_cell, table_p_row, table_p_col),
                left_join, by=c("x", "by")) %>%
+    left_join(n_row, by="x") %>%
+    left_join(n_col, by="by") %>%
     mutate(
-      across_unpack(-c("x", "by", "n"),
+      n_tot=n_tot,
+      across_unpack(starts_with("p_"),
                     ~confint_proportion(.x, n, method="wilson")),
-      across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE)),
-      value=ifelse(is.na(x)|is.na(by)|.data$n==0&zero_percent,
-                   .data$n, glue(percent_pattern))
+      across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE))
     ) %>%
-    transmute(variable=replace_na(x, "NA"), by=.data$by, value=.data$value) %>%
+    transmute(variable=replace_na(x, "NA"), by=.data$by,
+              value=ifelse(is.na(x)|is.na(by)|.data$n==0&zero_percent,
+                           .data$n, glue(percent_pattern))) %>%
     pivot_wider(names_from="by", values_from = "value")
 
   pattern_vars = get_glue_vars(percent_pattern)

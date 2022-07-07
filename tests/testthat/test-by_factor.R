@@ -8,7 +8,6 @@
 
 # showNA ------------------------------------------------------------------
 
-
 test_that("showNA with NA in by", {
   expect_true(anyNA(mtcars3$vs))
   expect_snapshot({
@@ -139,22 +138,31 @@ test_that("Margins with totals", {
 
 test_that("Percent pattern", {
 
+  #TODO percent_pattern as list
+  ULTIMATE_PATTERN=list(body="N={n} \nCol: p[95%CI] = {p_col} ({n}/{n_col}): [{p_col_inf}; {p_col_sup}] \nRow:p[95%CI] = {p_row} ({n}/{n_row}): [{p_row_inf}; {p_row_sup}]",
+                        total_row="N={n} \nRow:p[95%CI] = {p_row} ({n}/{n_row}): [{p_row_inf}; {p_row_sup}]",
+                        total_col="N={n} \nCol: p[95%CI] = {p_col} ({n}/{n_col}): [{p_col_inf}; {p_col_sup}]")
+
+  ULTIMATE_PATTERN="N={n}
+                    Cell: p[95%CI] = {p_cell} ({n}/{n_tot}): [{p_cell_inf}; {p_cell_sup}]
+                    Col: p[95%CI] = {p_col} ({n}/{n_col}): [{p_col_inf}; {p_col_sup}]
+                    Row:p[95%CI] = {p_row} ({n}/{n_row}): [{p_row_inf}; {p_row_sup}]"
   expect_snapshot({
+    #no by
     x0=crosstable(mtcars3, cyl,
-                  percent_pattern="N={n} \nrow={p_row}, col={p_col}")
+                  percent_digits=0, total=TRUE, showNA="always",
+                  percent_pattern=ULTIMATE_PATTERN)
     as.data.frame(x0)
-    as_flextable(x0)
-    x1=crosstable(mtcars3, cyl, total=TRUE,
-                  percent_pattern="N={n} \np[95%CI] = {p_col} [{p_col_inf}; {p_col_sup}]")
+    #by=am
+    x1=crosstable(mtcars3, cyl, by=am,
+                  percent_digits=0, total=TRUE, showNA="always",
+                  percent_pattern=ULTIMATE_PATTERN)
     as.data.frame(x1)
-    as_flextable(x1)
-    x2=crosstable(mtcars3, cyl, showNA="always",
-                  percent_pattern="N={n} \nrow={p_row}, col={p_col}")
+    #multiby
+    x2=crosstable(mtcars3, c(mpg, vs, cyl), by=c(am, dummy),
+                  percent_digits=0, total=TRUE, showNA="always",
+                  percent_pattern=ULTIMATE_PATTERN)
     as.data.frame(x2)
-    as_flextable(x2)
-    x3=crosstable(mtcars3, c(mpg, vs, cyl), by=c(am, dummy))
-    as.data.frame(x3)
-    as_flextable(x3)
   })
 
   expect_error(crosstable(mtcars3, cyl, by=vs, percent_pattern="N={n} \nrow={p_row}, col={xxx}"),

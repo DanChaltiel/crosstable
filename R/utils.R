@@ -275,6 +275,25 @@ has_method = function(x, method, skip=c("data.frame")){
 
 # Misc --------------------------------------------------------------------
 
+#' @keywords internal
+#' @noRd
+check_percent_pattern = function(percent_pattern){
+  dummy = safely(glue)(percent_pattern, n=1, n_row=1, n_col=1, n_tot=1, p_cell=1, p_row=1, p_col=1,
+                       p_cell_inf=1, p_cell_sup=1, p_row_inf=1,
+                       p_row_sup=1, p_col_inf=1, p_col_sup=1)
+  #TODO class(dummy$error) #https://github.com/tidyverse/glue/issues/229
+  if(!is.null(dummy$error)){
+    ok = c("n", "n_tot", "n_row", "n_col", "p_cell", "p_row", "p_col")
+    ok2 = c("p_xxx_inf", "p_xxx_sup")
+    percent_pattern = str_remove_all(percent_pattern, "\n")
+    cli_abort(c("Could not resolve a variable used in `percent_pattern`.",
+                i='Authorized variables are {.code {ok}}, along with {.code {ok2}} for proportions.',
+                i='Provided {.code percent_pattern}: {.code {percent_pattern}}',
+                x="Error: {.val {dummy$error$message}}"),
+              class="crosstable_percent_pattern_wrong_variable_error",
+              call=crosstable_caller$env)
+  }
+}
 
 #' Rudimentary function to clean the names
 #'

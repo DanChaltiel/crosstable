@@ -4,9 +4,13 @@ Crosstables for descriptive analyses. See documentation at danchaltiel.github.io
 
 # crosstable 0.5.0 <sub><sup>(?)</sup></sub>
 
-#### Changes
+#### New features
 
 -   New `clean_names_with_labels()` which clean the names of the dataframe but keeps the old names as labels. Obviously inspired by {janitor}.
+-   New variables `n_col`, `n_row`, and `n_tot` available for `percent_pattern`. For instance, one can now write `crosstable(mtcars2, cyl, percent_pattern="{p_col} ({n}/{n_col})")`.
+
+#### Improvements
+
 -   `crosstable_options()` does not need the "crosstable\_" prefix anymore, so the autocomplete is less clumsy. Options with the prefix will still work though. `crosstable_options(reset=TRUE)` is deprecated in favor of the new `crosstable_reset_options()`.
 -   In MS Word, crosstables will now break across pages by default. You can revert this by using `body_add_crosstable(allow_break=FALSE)` or using `crosstable_options()`. This is the pendant of `keepnext` in officer/flextable.
 -   `peek()` is now usable on non-crosstable objects as well. `as_flextable()` method will be applied on the object if available, otherwise `flextable()` will be applied.

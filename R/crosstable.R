@@ -187,6 +187,8 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
     total = unname(unlist(totalopts[total]))
   }
   reportAssertions(coll)
+  check_percent_pattern(percent_pattern)
+  # percent_pattern=str_squish(percent_pattern)
 
   if(!is.null(date_format)) funs_arg = c(funs_arg, list(date_format=date_format))
 

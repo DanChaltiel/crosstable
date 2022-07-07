@@ -1159,121 +1159,132 @@
 # Percent pattern
 
     Code
-      x0 = crosstable(mtcars3, cyl, percent_pattern = "N={n} \nrow={p_row}, col={p_col}")
+      x0 = crosstable(mtcars3, cyl, percent_digits = 0, total = TRUE, showNA = "always",
+        percent_pattern = ULTIMATE_PATTERN)
       as.data.frame(x0)
     Output
-        .id               label variable                          value
-      1 cyl Number of cylinders        4 N=10 \nrow=100.00%, col=37.04%
-      2 cyl Number of cylinders        6  N=4 \nrow=100.00%, col=14.81%
-      3 cyl Number of cylinders        8 N=13 \nrow=100.00%, col=48.15%
-      4 cyl Number of cylinders       NA                              5
+        .id               label variable
+      1 cyl Number of cylinders        4
+      2 cyl Number of cylinders        6
+      3 cyl Number of cylinders        8
+      4 cyl Number of cylinders       NA
+      5 cyl Number of cylinders    Total
+                                                                                                                                    value
+      1 N=10\nCell: p[95%CI] = 37% (10/27): [15%; 66%]\nCol: p[95%CI] = 37% (10/27): [15%; 66%]\nRow:p[95%CI] = 100% (10/10): [72%; 100%]
+      2        N=4\nCell: p[95%CI] = 15% (4/27): [2%; 62%]\nCol: p[95%CI] = 15% (4/27): [2%; 62%]\nRow:p[95%CI] = 100% (4/4): [51%; 100%]
+      3 N=13\nCell: p[95%CI] = 48% (13/27): [25%; 72%]\nCol: p[95%CI] = 48% (13/27): [25%; 72%]\nRow:p[95%CI] = 100% (13/13): [77%; 100%]
+      4                                                                                                                                 5
+      5                                                                                                                         32 (100%)
     Code
-      as_flextable(x0)
-    Output
-      a flextable object.
-      col_keys: `label`, `variable`, `value` 
-      header has 1 row(s) 
-      body has 4 row(s) 
-      original dataset sample: 
-        .id               label variable                          value
-      1 cyl Number of cylinders        4 N=10 \nrow=100.00%, col=37.04%
-      2 cyl Number of cylinders        6  N=4 \nrow=100.00%, col=14.81%
-      3 cyl Number of cylinders        8 N=13 \nrow=100.00%, col=48.15%
-      4 cyl Number of cylinders       NA                              5
-    Code
-      x1 = crosstable(mtcars3, cyl, total = TRUE, percent_pattern = "N={n} \np[95%CI] = {p_col} [{p_col_inf}; {p_col_sup}]")
+      x1 = crosstable(mtcars3, cyl, by = am, percent_digits = 0, total = TRUE,
+        showNA = "always", percent_pattern = ULTIMATE_PATTERN)
       as.data.frame(x1)
     Output
-        .id               label variable                                     value
-      1 cyl Number of cylinders        4 N=10 \np[95%CI] = 37.04% [14.94%; 66.33%]
-      2 cyl Number of cylinders        6   N=4 \np[95%CI] = 14.81% [1.80%; 62.31%]
-      3 cyl Number of cylinders        8 N=13 \np[95%CI] = 48.15% [24.70%; 72.44%]
-      4 cyl Number of cylinders       NA                                         5
-      5 cyl Number of cylinders    Total                              32 (100.00%)
+        .id               label variable
+      1 cyl Number of cylinders        4
+      2 cyl Number of cylinders        6
+      3 cyl Number of cylinders        8
+      4 cyl Number of cylinders       NA
+      5 cyl Number of cylinders    Total
+                                                                                                                                   auto
+      1        N=3\nCell: p[95%CI] = 11% (3/32): [1%; 65%]\nCol: p[95%CI] = 18% (3/19): [2%; 70%]\nRow:p[95%CI] = 30% (3/10): [5%; 77%]
+      2        N=3\nCell: p[95%CI] = 11% (3/32): [1%; 65%]\nCol: p[95%CI] = 18% (3/19): [2%; 70%]\nRow:p[95%CI] = 75% (3/4): [26%; 96%]
+      3 N=11\nCell: p[95%CI] = 41% (11/32): [18%; 68%]\nCol: p[95%CI] = 65% (11/19): [36%; 86%]\nRow:p[95%CI] = 85% (11/13): [55%; 96%]
+      4                                                                                                                               2
+      5                                                                                                                        19 (63%)
+                                                                                                                             manual
+      1  N=7\nCell: p[95%CI] = 26% (7/32): [7%; 62%]\nCol: p[95%CI] = 70% (7/13): [35%; 91%]\nRow:p[95%CI] = 70% (7/10): [35%; 91%]
+      2 N=1\nCell: p[95%CI] = 4% (1/32): [0.04%; 81%]\nCol: p[95%CI] = 10% (1/13): [0.2%; 83%]\nRow:p[95%CI] = 25% (1/4): [1%; 88%]
+      3   N=2\nCell: p[95%CI] = 7% (2/32): [0.3%; 71%]\nCol: p[95%CI] = 20% (2/13): [2%; 78%]\nRow:p[95%CI] = 15% (2/13): [1%; 75%]
+      4                                                                                                                           3
+      5                                                                                                                    13 (37%)
+        NA
+      1  0
+      2  0
+      3  0
+      4  0
+      5  0
+                                                                                                                                    Total
+      1 N=10\nCell: p[95%CI] = 37% (10/27): [15%; 66%]\nCol: p[95%CI] = 37% (10/27): [15%; 66%]\nRow:p[95%CI] = 100% (10/10): [72%; 100%]
+      2        N=4\nCell: p[95%CI] = 15% (4/27): [2%; 62%]\nCol: p[95%CI] = 15% (4/27): [2%; 62%]\nRow:p[95%CI] = 100% (4/4): [51%; 100%]
+      3 N=13\nCell: p[95%CI] = 48% (13/27): [25%; 72%]\nCol: p[95%CI] = 48% (13/27): [25%; 72%]\nRow:p[95%CI] = 100% (13/13): [77%; 100%]
+      4                                                                                                                                 5
+      5                                                                                                                         32 (100%)
     Code
-      as_flextable(x1)
-    Output
-      a flextable object.
-      col_keys: `label`, `variable`, `value` 
-      header has 1 row(s) 
-      body has 5 row(s) 
-      original dataset sample: 
-        .id               label variable                                     value
-      1 cyl Number of cylinders        4 N=10 \np[95%CI] = 37.04% [14.94%; 66.33%]
-      2 cyl Number of cylinders        6   N=4 \np[95%CI] = 14.81% [1.80%; 62.31%]
-      3 cyl Number of cylinders        8 N=13 \np[95%CI] = 48.15% [24.70%; 72.44%]
-      4 cyl Number of cylinders       NA                                         5
-      5 cyl Number of cylinders    Total                              32 (100.00%)
-    Code
-      x2 = crosstable(mtcars3, cyl, showNA = "always", percent_pattern = "N={n} \nrow={p_row}, col={p_col}")
+      x2 = crosstable(mtcars3, c(mpg, vs, cyl), by = c(am, dummy), percent_digits = 0,
+      total = TRUE, showNA = "always", percent_pattern = ULTIMATE_PATTERN)
       as.data.frame(x2)
     Output
-        .id               label variable                          value
-      1 cyl Number of cylinders        4 N=10 \nrow=100.00%, col=37.04%
-      2 cyl Number of cylinders        6  N=4 \nrow=100.00%, col=14.81%
-      3 cyl Number of cylinders        8 N=13 \nrow=100.00%, col=48.15%
-      4 cyl Number of cylinders       NA                              5
-    Code
-      as_flextable(x2)
-    Output
-      a flextable object.
-      col_keys: `label`, `variable`, `value` 
-      header has 1 row(s) 
-      body has 4 row(s) 
-      original dataset sample: 
-        .id               label variable                          value
-      1 cyl Number of cylinders        4 N=10 \nrow=100.00%, col=37.04%
-      2 cyl Number of cylinders        6  N=4 \nrow=100.00%, col=14.81%
-      3 cyl Number of cylinders        8 N=13 \nrow=100.00%, col=48.15%
-      4 cyl Number of cylinders       NA                              5
-    Code
-      x3 = crosstable(mtcars3, c(mpg, vs, cyl), by = c(am, dummy))
-      as.data.frame(x3)
-    Output
-         .id               label   variable am=auto & dummy=dummy
-      1  mpg   Miles/(US) gallon  Min / Max           10.4 / 24.4
-      2  mpg   Miles/(US) gallon  Med [IQR]      17.3 [14.9;19.2]
-      3  mpg   Miles/(US) gallon Mean (std)            17.1 (3.8)
-      4  mpg   Miles/(US) gallon     N (NA)                19 (0)
-      5   vs              Engine   straight            2 (22.22%)
-      6   vs              Engine    vshaped            9 (60.00%)
-      7   vs              Engine         NA                     8
-      8  cyl Number of cylinders          4            3 (30.00%)
-      9  cyl Number of cylinders          6            3 (75.00%)
-      10 cyl Number of cylinders          8           11 (84.62%)
-      11 cyl Number of cylinders         NA                     2
-         am=manual & dummy=dummy
-      1              15.0 / 33.9
-      2         22.8 [21.0;30.4]
-      3               24.4 (6.2)
-      4                   13 (0)
-      5               7 (77.78%)
-      6               6 (40.00%)
-      7                        0
-      8               7 (70.00%)
-      9               1 (25.00%)
-      10              2 (15.38%)
-      11                       3
-    Code
-      as_flextable(x3)
-    Output
-      a flextable object.
-      col_keys: `label`, `variable`, `am=auto & dummy=dummy`, `am=manual & dummy=dummy` 
-      header has 2 row(s) 
-      body has 11 row(s) 
-      original dataset sample: 
-        .id             label   variable am=auto & dummy=dummy
-      1 mpg Miles/(US) gallon  Min / Max           10.4 / 24.4
-      2 mpg Miles/(US) gallon  Med [IQR]      17.3 [14.9;19.2]
-      3 mpg Miles/(US) gallon Mean (std)            17.1 (3.8)
-      4 mpg Miles/(US) gallon     N (NA)                19 (0)
-      5  vs            Engine   straight            2 (22.22%)
-        am=manual & dummy=dummy
-      1             15.0 / 33.9
-      2        22.8 [21.0;30.4]
-      3              24.4 (6.2)
-      4                  13 (0)
-      5              7 (77.78%)
+         .id               label   variable
+      1  mpg   Miles/(US) gallon  Min / Max
+      2  mpg   Miles/(US) gallon  Med [IQR]
+      3  mpg   Miles/(US) gallon Mean (std)
+      4  mpg   Miles/(US) gallon     N (NA)
+      5   vs              Engine   straight
+      6   vs              Engine    vshaped
+      7   vs              Engine         NA
+      8   vs              Engine      Total
+      9  cyl Number of cylinders          4
+      10 cyl Number of cylinders          6
+      11 cyl Number of cylinders          8
+      12 cyl Number of cylinders         NA
+      13 cyl Number of cylinders      Total
+                                                                                                                   am=auto & dummy=dummy
+      1                                                                                                                      10.4 / 24.4
+      2                                                                                                                 17.3 [14.9;19.2]
+      3                                                                                                                       17.1 (3.8)
+      4                                                                                                                           19 (0)
+      5         N=2\nCell: p[95%CI] = 8% (2/32): [0.3%; 71%]\nCol: p[95%CI] = 18% (2/19): [1%; 77%]\nRow:p[95%CI] = 22% (2/9): [2%; 79%]
+      6      N=9\nCell: p[95%CI] = 38% (9/32): [14%; 68%]\nCol: p[95%CI] = 82% (9/19): [49%; 95%]\nRow:p[95%CI] = 60% (9/15): [30%; 84%]
+      7                                                                                                                                8
+      8                                                                                                                         19 (46%)
+      9         N=3\nCell: p[95%CI] = 11% (3/32): [1%; 65%]\nCol: p[95%CI] = 18% (3/19): [2%; 70%]\nRow:p[95%CI] = 30% (3/10): [5%; 77%]
+      10        N=3\nCell: p[95%CI] = 11% (3/32): [1%; 65%]\nCol: p[95%CI] = 18% (3/19): [2%; 70%]\nRow:p[95%CI] = 75% (3/4): [26%; 96%]
+      11 N=11\nCell: p[95%CI] = 41% (11/32): [18%; 68%]\nCol: p[95%CI] = 65% (11/19): [36%; 86%]\nRow:p[95%CI] = 85% (11/13): [55%; 96%]
+      12                                                                                                                               2
+      13                                                                                                                        19 (63%)
+                                                                                                             am=manual & dummy=dummy
+      1                                                                                                                  15.0 / 33.9
+      2                                                                                                             22.8 [21.0;30.4]
+      3                                                                                                                   24.4 (6.2)
+      4                                                                                                                       13 (0)
+      5    N=7\nCell: p[95%CI] = 29% (7/32): [9%; 65%]\nCol: p[95%CI] = 54% (7/13): [23%; 82%]\nRow:p[95%CI] = 78% (7/9): [41%; 95%]
+      6   N=6\nCell: p[95%CI] = 25% (6/32): [6%; 64%]\nCol: p[95%CI] = 46% (6/13): [16%; 79%]\nRow:p[95%CI] = 40% (6/15): [13%; 75%]
+      7                                                                                                                            0
+      8                                                                                                                     13 (54%)
+      9   N=7\nCell: p[95%CI] = 26% (7/32): [7%; 62%]\nCol: p[95%CI] = 70% (7/13): [35%; 91%]\nRow:p[95%CI] = 70% (7/10): [35%; 91%]
+      10 N=1\nCell: p[95%CI] = 4% (1/32): [0.04%; 81%]\nCol: p[95%CI] = 10% (1/13): [0.2%; 83%]\nRow:p[95%CI] = 25% (1/4): [1%; 88%]
+      11   N=2\nCell: p[95%CI] = 7% (2/32): [0.3%; 71%]\nCol: p[95%CI] = 20% (2/13): [2%; 78%]\nRow:p[95%CI] = 15% (2/13): [1%; 75%]
+      12                                                                                                                           3
+      13                                                                                                                    13 (37%)
+            NA
+      1  no NA
+      2  no NA
+      3  no NA
+      4  no NA
+      5      0
+      6      0
+      7      0
+      8      0
+      9      0
+      10     0
+      11     0
+      12     0
+      13     0
+                                                                                                                                     Total
+      1                                                                                                                        10.4 / 33.9
+      2                                                                                                                   19.2 [15.4;22.8]
+      3                                                                                                                         20.1 (6.0)
+      4                                                                                                                             32 (0)
+      5       N=9\nCell: p[95%CI] = 38% (9/24): [14%; 68%]\nCol: p[95%CI] = 38% (9/24): [14%; 68%]\nRow:p[95%CI] = 100% (9/9): [70%; 100%]
+      6  N=15\nCell: p[95%CI] = 62% (15/24): [38%; 82%]\nCol: p[95%CI] = 62% (15/24): [38%; 82%]\nRow:p[95%CI] = 100% (15/15): [80%; 100%]
+      7                                                                                                                                  8
+      8                                                                                                                          32 (100%)
+      9  N=10\nCell: p[95%CI] = 37% (10/27): [15%; 66%]\nCol: p[95%CI] = 37% (10/27): [15%; 66%]\nRow:p[95%CI] = 100% (10/10): [72%; 100%]
+      10        N=4\nCell: p[95%CI] = 15% (4/27): [2%; 62%]\nCol: p[95%CI] = 15% (4/27): [2%; 62%]\nRow:p[95%CI] = 100% (4/4): [51%; 100%]
+      11 N=13\nCell: p[95%CI] = 48% (13/27): [25%; 72%]\nCol: p[95%CI] = 48% (13/27): [25%; 72%]\nRow:p[95%CI] = 100% (13/13): [77%; 100%]
+      12                                                                                                                                 5
+      13                                                                                                                         32 (100%)
 
 # Unique numeric
 
