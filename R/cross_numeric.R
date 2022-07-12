@@ -69,7 +69,7 @@ summarize_numeric_single = function(x, funs, funs_arg){
     }
 
     data.frame(variable=variable, value=v) %>%
-      mutate_if(is.numeric, format_fixed, !!!funs_arg)
+      mutate_if(~is.numeric(.x)||is.date(.x), format_fixed, !!!funs_arg)
   })
 }
 
