@@ -33,15 +33,21 @@
 #' iris %>%
 #'   mutate(Petal.Width.qt = paste0("Q", ntile(Petal.Width, 5)) %>% ordered()) %>%
 #'   crosstable(Petal.Length ~ Petal.Width.qt, test=TRUE, test_args = my_test_args)
-crosstable_test_args = function(){
+crosstable_test_args = function(test_summarize = test_summarize_auto,
+                                test_tabular = test_tabular_auto,
+                                test_correlation = test_correlation_auto,
+                                test_survival = test_survival_logrank,
+                                test_display = display_test,
+                                plim = 4,
+                                show_method = TRUE){
   list(
-    test_summarize = test_summarize_auto,
-    test_tabular = test_tabular_auto,
-    test_correlation = test_correlation_auto,
-    test_survival = test_survival_logrank,
-    test_display = display_test,
-    plim = 4,
-    show_method = TRUE
+    test_summarize = test_summarize,
+    test_tabular = test_tabular,
+    test_correlation = test_correlation,
+    test_survival = test_survival,
+    test_display = test_display,
+    plim = plim,
+    show_method = show_method
   )
 }
 

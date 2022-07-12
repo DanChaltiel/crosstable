@@ -1,6 +1,4 @@
-<!-- https://style.tidyverse.org/news.html -->
-
-Crosstables for descriptive analyses. See documentation at danchaltiel.github.io/crosstable/ and browse code at <https://github.com/DanChaltiel/crosstable>.
+Crosstables for descriptive analyses. See documentation at <https://danchaltiel.github.io/crosstable> and browse code at <https://github.com/DanChaltiel/crosstable>.
 
 # crosstable 0.5.0 <sub><sup>(?)</sup></sub>
 
@@ -12,6 +10,7 @@ Crosstables for descriptive analyses. See documentation at danchaltiel.github.io
 #### Improvements
 
 -   `crosstable_options()` does not need the "crosstable\_" prefix anymore, so the autocomplete is less clumsy. Options with the prefix will still work though. `crosstable_options(reset=TRUE)` is deprecated in favor of the new `crosstable_reset_options()`.
+-   `crosstable_test_args()` and `crosstable_effect_args()` now have arguments to easily control the non-default parameters.
 -   In MS Word, crosstables will now break across pages by default. You can revert this by using `body_add_crosstable(allow_break=FALSE)` or using `crosstable_options()`. This is the pendant of `keepnext` in officer/flextable.
 -   `peek()` is now usable on non-crosstable objects as well. `as_flextable()` method will be applied on the object if available, otherwise `flextable()` will be applied.
 -   Better error messages in `import_labels()` when `data_label` doesn't have the right columns.

@@ -15,14 +15,19 @@
 #'
 #' @author Dan Chaltiel
 #' @export
-crosstable_effect_args = function(){
+crosstable_effect_args = function(effect_summarize = diff_mean_auto,
+                                  effect_tabular = effect_odds_ratio,
+                                  effect_survival = effect_survival_coxph,
+                                  effect_display = display_effect,
+                                  conf_level = 0.95,
+                                  digits = 2){
   list(
-    effect_summarize = diff_mean_auto,
-    effect_tabular = effect_odds_ratio,
-    effect_survival = effect_survival_coxph,
-    effect_display = display_effect,
-    conf_level = 0.95,
-    digits = 2
+    effect_summarize = effect_summarize,
+    effect_tabular = effect_tabular,
+    effect_survival = effect_survival,
+    effect_display = effect_display,
+    conf_level = conf_level,
+    digits = digits
   )
 }
 
