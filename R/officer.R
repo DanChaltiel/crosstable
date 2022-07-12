@@ -428,7 +428,7 @@ body_add_figure_legend = function(doc, legend, ..., bookmark=NULL,
 
 
 #' @importFrom glue glue
-#' @importFrom officer ftext fpar run_bookmark run_word_field body_add_fpar
+#' @importFrom officer ftext fpar run_bookmark run_word_field body_add_fpar fp_text_lite
 #' @keywords internal
 #' @noRd
 body_add_legend = function(doc, legend, legend_name, bookmark,
@@ -444,11 +444,10 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
   # nocov end
 
   legend = paste0(legend_prefix, legend)
-  fp_text2 = officer::fp_text_lite #v0.4+
   if(is.null(name_format)){
-    name_format = getOption('crosstable_format_legend_name', fp_text2(bold=TRUE))
+    name_format = getOption('crosstable_format_legend_name', fp_text_lite(bold=TRUE))
   }
-  fp_size = fp_text2(font.size=name_format$font.size)
+  fp_size = fp_text_lite(font.size=name_format$font.size)
 
   legend = glue(legend, .envir = parent.frame())
   legend_name = paste0(legend_name, " ")
