@@ -161,8 +161,8 @@ parse_funs = function(funs){
       if(is_formula(.f)){
         target_name = format(.f)
         cli_warn(c("Anonymous lambda-functions should be named.",
-                   i="Instead of: funs={target_name}",
-                   i='Write: funs=c("Some calculation"={target_name}'),
+                   i="Instead of: {.code funs={target_name}}",
+                   i='Write: {.code funs=c("Some calculation"={target_name}}'),
                  class="crosstable_unnamed_lambda_warning")
       } else if(grepl("function *\\(", .call)){
         .call2 = deparse(substitute(.f))
@@ -170,9 +170,9 @@ parse_funs = function(funs){
         fbody = str_subset(.call2[-1], "[}{]", negate = TRUE) %>% str_squish()
         if(length(fbody)>1) fbody = paste0(fbody[1], "...")
         target_name = paste0("function(", fargs ,"){", fbody, "}")
-        warn(c("Anonymous functions should be named.",
-                   i="Instead of: funs={target_name}",
-                   i='Write: funs=c("Some calculation"={target_name}'),
+        cli_warn(c("Anonymous functions should be named.",
+                   i="Instead of: {.code funs={target_name}}",
+                   i='Write: {.code funs=c("Some calculation"={target_name}}'),
                  class="crosstable_unnamed_anonymous_warning")
       } else{
         target_name = .call
