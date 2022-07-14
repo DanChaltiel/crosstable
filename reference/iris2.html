@@ -26,7 +26,7 @@ See iris for more informations on the original &quot;Edgar Anderson's Iris Data&
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9008</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,7 +86,7 @@ See iris for more informations on the original &quot;Edgar Anderson's Iris Data&
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="va">iris2</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="va">iris2</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -96,25 +96,26 @@ See iris for more informations on the original &quot;Edgar Anderson's Iris Data&
     <div class="section level2">
     <h2 id="source">Source<a class="anchor" aria-label="anchor" href="#source"></a></h2>
     
-<div class="sourceCode"><pre><code><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
-<span class="va">iris2</span> <span class="op">=</span> <span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html" class="external-link">mutate_at</a></span><span class="op">(</span><span class="st">"Species"</span>, <span class="va">factor</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-    <span class="fu">expss</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/expss/man/apply_labels.html" class="external-link">apply_labels</a></span><span class="op">(</span> <span class="co">#I also could have used [import_labels] or even `labelled::set_variable_labels()`</span>
-        Species <span class="op">=</span> <span class="st">"Specie"</span>,
-        Sepal.Length <span class="op">=</span> <span class="st">"Length of Sepal"</span>,
-        Sepal.Width <span class="op">=</span> <span class="st">"Width of Sepal"</span>,
-        Petal.Length <span class="op">=</span> <span class="st">"Length of Petal"</span>,
-        Petal.Width <span class="op">=</span> <span class="st">"Width of Petal"</span>
-    <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-    <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode"><pre><code><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="va">iris2</span> <span class="op">=</span> <span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html" class="external-link">mutate_at</a></span><span class="op">(</span><span class="st">"Species"</span>, <span class="va">factor</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu">expss</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/expss/man/apply_labels.html" class="external-link">apply_labels</a></span><span class="op">(</span> <span class="co">#I also could have used [import_labels] or even `labelled::set_variable_labels()`</span></span>
+<span>        Species <span class="op">=</span> <span class="st">"Specie"</span>,</span>
+<span>        Sepal.Length <span class="op">=</span> <span class="st">"Length of Sepal"</span>,</span>
+<span>        Sepal.Width <span class="op">=</span> <span class="st">"Width of Sepal"</span>,</span>
+<span>        Petal.Length <span class="op">=</span> <span class="st">"Length of Petal"</span>,</span>
+<span>        Petal.Width <span class="op">=</span> <span class="st">"Width of Petal"</span></span>
+<span>    <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://danchaltiel.github.io/crosstable/">crosstable</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ct</span><span class="op">=</span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">iris2</span>, by<span class="op">=</span><span class="va">Species</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ct</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://danchaltiel.github.io/crosstable/">crosstable</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ct</span><span class="op">=</span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">iris2</span>, by<span class="op">=</span><span class="va">Species</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ct</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 16 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .id          label           variable   setosa        versicolor    virginica</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span>
@@ -134,7 +135,7 @@ See iris for more informations on the original &quot;Edgar Anderson's Iris Data&
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> Petal.Width  Width of Petal  Med [IQR]  0.2 [0.2;0.3] 1.3 [1.2;1.5] 2.0 [1.8…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> Petal.Width  Width of Petal  Mean (std) 0.2 (0.1)     1.3 (0.2)     2.0 (0.3)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> Petal.Width  Width of Petal  N (NA)     50 (0)        50 (0)        50 (0)   </span>
-<span class="r-in"><span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">ct</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">ct</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `label`, `variable`, `setosa`, `versicolor`, `virginica` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 2 row(s) </span>
@@ -163,7 +164,7 @@ See iris for more informations on the original &quot;Edgar Anderson's Iris Data&
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

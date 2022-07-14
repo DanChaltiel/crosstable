@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9008</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,19 +74,53 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">crosstable_test_args</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">crosstable_test_args</span><span class="op">(</span></span>
+<span>  test_summarize <span class="op">=</span> <span class="va">test_summarize_auto</span>,</span>
+<span>  test_tabular <span class="op">=</span> <span class="va">test_tabular_auto</span>,</span>
+<span>  test_correlation <span class="op">=</span> <span class="va">test_correlation_auto</span>,</span>
+<span>  test_survival <span class="op">=</span> <span class="va">test_survival_logrank</span>,</span>
+<span>  test_display <span class="op">=</span> <span class="va">display_test</span>,</span>
+<span>  plim <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  show_method <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
+    <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+    <dl><dt>test_summarize</dt>
+<dd><p>a function of two arguments (continuous variable and grouping variable), used to compare continuous variable. Must return a list of two components: <code>p.value</code> and <code>method</code>. See <code><a href="test_summarize_auto.html">test_summarize_auto</a></code> or <code><a href="test_summarize_linear_contrasts.html">test_summarize_linear_contrasts</a></code> for some examples of such functions.</p></dd>
+
+
+<dt>test_tabular</dt>
+<dd><p>a function of two arguments (two categorical variables), used to test association between two categorical variables.  Must return a list of two components: <code>p.value</code> and <code>method</code>. See <code><a href="test_tabular_auto.html">test_tabular_auto</a></code> for example.</p></dd>
+
+
+<dt>test_correlation</dt>
+<dd><p>a function of three arguments (two continuous variables plus the correlation method), used to test association between two continuous variables.  Like <code>cor.test</code>, it must return a list of at least <code>estimate</code>, <code>p.value</code>, and <code>method</code>, with also <code>conf.int</code> optionally. See <code><a href="test_correlation_auto.html">test_correlation_auto</a></code> for example.</p></dd>
+
+
+<dt>test_survival</dt>
+<dd><p>a function of one argument (the formula <code>surv~by</code>), used to compare survival estimations. Must return a list of two components: <code>p.value</code> and <code>method</code>. See <code><a href="test_survival_logrank.html">test_survival_logrank</a></code> for example.</p></dd>
+
+
+<dt>test_display</dt>
+<dd><p>function used to display the test result. See <code><a href="display_test.html">display_test</a></code>.</p></dd>
+
+
+<dt>plim</dt>
+<dd><p>number of digits for the p value.</p></dd>
+
+
+<dt>show_method</dt>
+<dd><p>whether to display the test name (logical).</p></dd>
+
+</dl></div>
+    <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A list with testing parameters:</p><ul><li><p><code>test_summarize</code> - a function of two arguments (continuous variable and grouping variable), used to compare continuous variable. Must return a list of two components: <code>p.value</code> and <code>method</code>. See <code><a href="test_summarize_auto.html">test_summarize_auto</a></code> or <code><a href="test_summarize_linear_contrasts.html">test_summarize_linear_contrasts</a></code> for some examples of such functions.</p></li>
-<li><p><code>test_tabular</code> - a function of two arguments (two categorical variables), used to test association between two categorical variables.  Must return a list of two components: <code>p.value</code> and <code>method</code>. See <code><a href="test_tabular_auto.html">test_tabular_auto</a></code> for example.</p></li>
-<li><p><code>test_correlation</code> - a function of three arguments (two continuous variables plus the correlation method), used to test association between two continuous variables.  Like <code>cor.test</code>, it must return a list of at least <code>estimate</code>, <code>p.value</code>, and <code>method</code>, with also <code>conf.int</code> optionally. See <code><a href="test_correlation_auto.html">test_correlation_auto</a></code> for example.</p></li>
-<li><p><code>test_survival</code> - a function of one argument (the formula <code>surv~by</code>), used to compare survival estimations. Must return a list of two components: <code>p.value</code> and <code>method</code>. See <code><a href="test_survival_logrank.html">test_survival_logrank</a></code> for example.</p></li>
-<li><p><code>test_display</code> - function used to display the test result. See <code><a href="display_test.html">display_test</a></code>.</p></li>
-<li><p><code>plim</code> - number of digits for the p value</p></li>
-<li><p><code>show_method</code> - whether to display the test name (logical)</p></li>
-</ul></div>
+    
+
+<p>A list with test parameters</p>
+    </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="test_summarize_auto.html">test_summarize_auto</a></code>, <code><a href="test_tabular_auto.html">test_tabular_auto</a></code>, <code><a href="test_survival_logrank.html">test_survival_logrank</a></code>, <code><a href="test_summarize_linear_contrasts.html">test_summarize_linear_contrasts</a></code>, <code><a href="display_test.html">display_test</a></code></p></div>
@@ -98,12 +132,12 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">my_test_args</span><span class="op">=</span><span class="fu">crosstable_test_args</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">my_test_args</span><span class="op">$</span><span class="va">test_summarize</span> <span class="op">=</span> <span class="va">test_summarize_linear_contrasts</span></span>
-<span class="r-in"><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Petal.Width.qt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Q"</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html" class="external-link">ntile</a></span><span class="op">(</span><span class="va">Petal.Width</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">ordered</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">Petal.Length</span> <span class="op">~</span> <span class="va">Petal.Width.qt</span>, test<span class="op">=</span><span class="cn">TRUE</span>, test_args <span class="op">=</span> <span class="va">my_test_args</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">my_test_args</span><span class="op">=</span><span class="fu">crosstable_test_args</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">my_test_args</span><span class="op">$</span><span class="va">test_summarize</span> <span class="op">=</span> <span class="va">test_summarize_linear_contrasts</span></span></span>
+<span class="r-in"><span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Petal.Width.qt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Q"</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html" class="external-link">ntile</a></span><span class="op">(</span><span class="va">Petal.Width</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">ordered</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">Petal.Length</span> <span class="op">~</span> <span class="va">Petal.Width.qt</span>, test<span class="op">=</span><span class="cn">TRUE</span>, test_args <span class="op">=</span> <span class="va">my_test_args</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .id          label        variable   Q1          Q2    Q3    Q4    Q5    test </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
@@ -122,7 +156,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

@@ -30,7 +30,7 @@ as_flextable
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9008</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,57 +93,84 @@ below to see their documentation.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for crosstable</span>
-<span class="fu">as_flextable</span><span class="op">(</span>
-  <span class="va">x</span>,
-  keep_id <span class="op">=</span> <span class="cn">FALSE</span>,
-  by_header <span class="op">=</span> <span class="cn">NULL</span>,
-  autofit <span class="op">=</span> <span class="cn">TRUE</span>,
-  compact <span class="op">=</span> <span class="cn">FALSE</span>,
-  show_test_name <span class="op">=</span> <span class="cn">TRUE</span>,
-  fontsizes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>body <span class="op">=</span> <span class="fl">11</span>, subheaders <span class="op">=</span> <span class="fl">11</span>, header <span class="op">=</span> <span class="fl">11</span><span class="op">)</span>,
-  padding_v <span class="op">=</span> <span class="cn">NULL</span>,
-  remove_header_keys <span class="op">=</span> <span class="cn">FALSE</span>,
-  header_show_n <span class="op">=</span> <span class="cn">FALSE</span>,
-  header_show_n_pattern <span class="op">=</span> <span class="st">"{.col} (N={.n})"</span>,
-  generic_labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">".id"</span>, variable <span class="op">=</span> <span class="st">"variable"</span>, value <span class="op">=</span> <span class="st">"value"</span>, total <span class="op">=</span>
-    <span class="st">"Total"</span>, label <span class="op">=</span> <span class="st">"label"</span>, test <span class="op">=</span> <span class="st">"test"</span>, effect <span class="op">=</span> <span class="st">"effect"</span><span class="op">)</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for crosstable</span></span>
+<span><span class="fu">as_flextable</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  keep_id <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  by_header <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  autofit <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  compact <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  show_test_name <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  fontsizes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>body <span class="op">=</span> <span class="fl">11</span>, subheaders <span class="op">=</span> <span class="fl">11</span>, header <span class="op">=</span> <span class="fl">11</span><span class="op">)</span>,</span>
+<span>  padding_v <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  remove_header_keys <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  header_show_n <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  header_show_n_pattern <span class="op">=</span> <span class="st">"{.col} (N={.n})"</span>,</span>
+<span>  generic_labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">".id"</span>, variable <span class="op">=</span> <span class="st">"variable"</span>, value <span class="op">=</span> <span class="st">"value"</span>, total <span class="op">=</span></span>
+<span>    <span class="st">"Total"</span>, label <span class="op">=</span> <span class="st">"label"</span>, test <span class="op">=</span> <span class="st">"test"</span>, effect <span class="op">=</span> <span class="st">"effect"</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>the result of <code><a href="crosstable.html">crosstable()</a></code>.</p></dd>
+
+
 <dt>keep_id</dt>
 <dd><p>whether to keep the <code>.id</code> column.</p></dd>
+
+
 <dt>by_header</dt>
 <dd><p>a string to override the header if <code>x</code> has only one <code>by</code> stratum.</p></dd>
+
+
 <dt>autofit</dt>
 <dd><p>whether to use <code><a href="https://davidgohel.github.io/flextable/reference/autofit.html" class="external-link">flextable::autofit()</a></code> on the table.</p></dd>
+
+
 <dt>compact</dt>
-<dd><p>whether to compact the table. If <code>TRUE</code>, see <code><a href="compact.html">compact.crosstable()</a></code> to see how to use <code>keep_id</code>.</p></dd>
+<dd><p>whether to compact the table. If <code>TRUE</code>, see <code><a href="ct_compact.html">ct_compact.crosstable()</a></code> to see how to use <code>keep_id</code>.</p></dd>
+
+
 <dt>show_test_name</dt>
 <dd><p>in the <code>test</code> column, show the test name.</p></dd>
+
+
 <dt>fontsizes</dt>
 <dd><p>font sizes as a list of keys. Default to <code>list(body=11, subheaders=11, header=11)</code>. If set through arguments instead of options, all 3 names should be specified.</p></dd>
+
+
 <dt>padding_v</dt>
 <dd><p>vertical padding (body).</p></dd>
+
+
 <dt>remove_header_keys</dt>
 <dd><p>if <code>TRUE</code> and <code>x</code> has several <code>by</code> strata, header will only display values.</p></dd>
+
+
 <dt>header_show_n</dt>
 <dd><p>numeric vector telling on which depth the group size should be indicated in the header. You can control the pattern using option <code>crosstable_options</code>. See <code><a href="crosstable_options.html">crosstable_options()</a></code> for details about it. See example for use case.</p></dd>
+
+
 <dt>header_show_n_pattern</dt>
 <dd><p>glue pattern used when <code>header_show_n==TRUE</code>. <code>.col</code> is the name of the column and <code>.n</code> the size of the group. Default to <code>{.col} (N={.n})</code>; you can use <code>{.col_key}</code> and <code>{.col_val}</code> when <code>by</code> has multiple stratum.</p></dd>
+
+
 <dt>generic_labels</dt>
 <dd><p>names of the crosstable default columns. Useful for translation for instance.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>unused.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>a flextable.</p>
+    
+
+<p>a flextable.</p>
     </div>
     <div class="section level2">
     <h2 id="methods-by-class-">Methods (by class)<a class="anchor" aria-label="anchor" href="#methods-by-class-"></a></h2>
@@ -161,9 +188,9 @@ below to see their documentation.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#Crosstables</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://danchaltiel.github.io/crosstable/">crosstable</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#Crosstables</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://danchaltiel.github.io/crosstable/">crosstable</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘dplyr’</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:stats’:</span>
@@ -172,10 +199,10 @@ below to see their documentation.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from ‘package:base’:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     intersect, setdiff, setequal, union</span>
-<span class="r-in"><span class="fu"><a href="crosstable_options.html">crosstable_options</a></span><span class="op">(</span>crosstable_fontsize_header<span class="op">=</span><span class="fl">14</span>, </span>
-<span class="r-in">                   crosstable_fontsize_subheaders<span class="op">=</span><span class="fl">10</span>, </span>
-<span class="r-in">                   crosstable_fontsize_body<span class="op">=</span><span class="fl">8</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">as_flextable</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="crosstable_options.html">crosstable_options</a></span><span class="op">(</span>crosstable_fontsize_header<span class="op">=</span><span class="fl">14</span>,</span></span>
+<span class="r-in"><span>                   crosstable_fontsize_subheaders<span class="op">=</span><span class="fl">10</span>,</span></span>
+<span class="r-in"><span>                   crosstable_fontsize_body<span class="op">=</span><span class="fl">8</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">as_flextable</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `label`, `variable`, `value` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
@@ -187,7 +214,7 @@ below to see their documentation.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 Sepal.Length Sepal.Length Mean (std)     5.8 (0.8)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 Sepal.Length Sepal.Length     N (NA)       150 (0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5  Sepal.Width  Sepal.Width  Min / Max     2.0 / 4.4</span>
-<span class="r-in"><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="op">-</span><span class="va">model</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">am</span>, <span class="va">vs</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">as_flextable</span><span class="op">(</span>header_show_n<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="op">-</span><span class="va">model</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">am</span>, <span class="va">vs</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">as_flextable</span><span class="op">(</span>header_show_n<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `label`, `variable`, `am=auto &amp; vs=straight`, `am=manual &amp; vs=straight`, `am=auto &amp; vs=vshaped`, `am=manual &amp; vs=vshaped` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 2 row(s) </span>
@@ -205,8 +232,8 @@ below to see their documentation.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3              28.4 (4.8)           15.1 (2.8)             19.8 (4.0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                   7 (0)               12 (0)                  6 (0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5              7 (63.64%)               0 (0%)              1 (9.09%)</span>
-<span class="r-in"><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, cols<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">cyl</span><span class="op">)</span>, by<span class="op">=</span><span class="va">am</span>, effect<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span class="r-in">   <span class="fu">as_flextable</span><span class="op">(</span>keep_id<span class="op">=</span><span class="cn">TRUE</span>, autofit<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, cols<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">cyl</span><span class="op">)</span>, by<span class="op">=</span><span class="va">am</span>, effect<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>   <span class="fu">as_flextable</span><span class="op">(</span>keep_id<span class="op">=</span><span class="cn">TRUE</span>, autofit<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `.id`, `label`, `variable`, `auto`, `manual`, `effect` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 2 row(s) </span>
@@ -224,8 +251,8 @@ below to see their documentation.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                     Difference in means (t-test CI), ref='auto'\nmanual minus auto: 7.24 [3.64 to 10.85]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                     Difference in means (t-test CI), ref='auto'\nmanual minus auto: 7.24 [3.64 to 10.85]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 Odds ratio [95% Wald CI], ref='manual vs auto'\n6 vs 4: 0.28 [0.03 to 1.99]\n8 vs 4: 0.06 [0.01 to 0.39]</span>
-<span class="r-in"><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, cols<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">cyl</span><span class="op">)</span>, by<span class="op">=</span><span class="va">am</span>, effect<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span class="r-in">   <span class="fu">as_flextable</span><span class="op">(</span>compact<span class="op">=</span><span class="cn">TRUE</span>, header_show_n<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, cols<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">cyl</span><span class="op">)</span>, by<span class="op">=</span><span class="va">am</span>, effect<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>   <span class="fu">as_flextable</span><span class="op">(</span>compact<span class="op">=</span><span class="cn">TRUE</span>, header_show_n<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `variable`, `auto`, `manual`, `effect` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 2 row(s) </span>
@@ -243,19 +270,21 @@ below to see their documentation.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                                     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                                     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                     </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#Renaming (because why not?)</span></span>
-<span class="r-in"><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="op">-</span><span class="va">model</span>, by<span class="op">=</span><span class="va">vs</span>, total<span class="op">=</span><span class="st">"both"</span>, test<span class="op">=</span><span class="cn">TRUE</span>, effect<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>ID<span class="op">=</span><span class="va">.id</span>, math<span class="op">=</span><span class="va">variable</span>, Tot<span class="op">=</span><span class="va">Total</span>, lab<span class="op">=</span><span class="va">label</span>, pval<span class="op">=</span><span class="va">test</span>, fx<span class="op">=</span><span class="va">effect</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">   <span class="fu">as_flextable</span><span class="op">(</span>by_header <span class="op">=</span> <span class="st">"Engine shape"</span>, </span>
-<span class="r-in">                generic_labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"ID"</span>, variable <span class="op">=</span> <span class="st">"math"</span>, total<span class="op">=</span><span class="st">"Tot"</span>, </span>
-<span class="r-in">                                    label <span class="op">=</span> <span class="st">"lab"</span>, test <span class="op">=</span> <span class="st">"pval"</span>, effect<span class="op">=</span><span class="st">"fx"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Be aware that automatic global testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#Renaming (because why not?)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="op">-</span><span class="va">model</span>, by<span class="op">=</span><span class="va">vs</span>, total<span class="op">=</span><span class="st">"both"</span>, test<span class="op">=</span><span class="cn">TRUE</span>, effect<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>ID<span class="op">=</span><span class="va">.id</span>, math<span class="op">=</span><span class="va">variable</span>, Tot<span class="op">=</span><span class="va">Total</span>, lab<span class="op">=</span><span class="va">label</span>, pval<span class="op">=</span><span class="va">test</span>, fx<span class="op">=</span><span class="va">effect</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>   <span class="fu">as_flextable</span><span class="op">(</span>by_header <span class="op">=</span> <span class="st">"Engine shape"</span>,</span></span>
+<span class="r-in"><span>                generic_labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"ID"</span>, variable <span class="op">=</span> <span class="st">"math"</span>, total<span class="op">=</span><span class="st">"Tot"</span>,</span></span>
+<span class="r-in"><span>                                    label <span class="op">=</span> <span class="st">"lab"</span>, test <span class="op">=</span> <span class="st">"pval"</span>, effect<span class="op">=</span><span class="st">"fx"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Be aware that automatic global testing should only be done in an exploratory</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> context, as it would cause extensive alpha inflation otherwise.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Problems occured when calculating crosstable effects (glm-logit):</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   'glm.fit: fitted probabilities numerically 0 or 1 occurred', 'glm.fit: algorithm did not converge' and 'collapsing to unique 'x' values' </span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> You might want to check for complete separation or extreme outliers. </span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Applying `forcats::fct_rev()` to some columns might help too.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #0000BB;">"glm.fit: fitted probabilities numerically 0 or 1 occurred"</span>, <span style="color: #0000BB;">"glm.fit:</span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">algorithm did not converge"</span>, and <span style="color: #0000BB;">"collapsing to unique 'x' values"</span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> You might want to check for complete separation or extreme outliers.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Applying `forcats::fct_rev()` to some columns might help too.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `lab`, `math`, `straight`, `vshaped`, `Tot`, `fx`, `pval` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 2 row(s) </span>
@@ -296,7 +325,7 @@ below to see their documentation.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

@@ -18,7 +18,7 @@ save_labels saves the labels from a data.frame in a temporary variable that can 
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9008</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,40 +77,57 @@ save_labels saves the labels from a data.frame in a temporary variable that can 
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">import_labels</span><span class="op">(</span>
-  <span class="va">.tbl</span>,
-  <span class="va">data_label</span>,
-  name_from <span class="op">=</span> <span class="st">"name"</span>,
-  label_from <span class="op">=</span> <span class="st">"label"</span>,
-  verbose_name <span class="op">=</span> <span class="cn">FALSE</span>,
-  verbose_label <span class="op">=</span> <span class="cn">FALSE</span>,
-  verbose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Deprecated.html" class="external-link">deprecated</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="fu">save_labels</span><span class="op">(</span><span class="va">.tbl</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">import_labels</span><span class="op">(</span></span>
+<span>  <span class="va">.tbl</span>,</span>
+<span>  <span class="va">data_label</span>,</span>
+<span>  name_from <span class="op">=</span> <span class="st">"name"</span>,</span>
+<span>  label_from <span class="op">=</span> <span class="st">"label"</span>,</span>
+<span>  warn_name <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  warn_label <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">save_labels</span><span class="op">(</span><span class="va">.tbl</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>.tbl</dt>
 <dd><p>the data.frame to be labelled</p></dd>
+
+
 <dt>data_label</dt>
 <dd><p>a data.frame from which to import labels. If missing, the function will take the labels from the last dataframe on which <code>save_labels()</code> was called.</p></dd>
+
+
 <dt>name_from</dt>
 <dd><p>in <code>data_label</code>, which column to get the variable name (default to <code>name</code>)</p></dd>
+
+
 <dt>label_from</dt>
 <dd><p>in <code>data_label</code>, which column to get the variable label (default to <code>label</code>)</p></dd>
-<dt>verbose_name</dt>
+
+
+<dt>warn_name</dt>
 <dd><p>if TRUE, displays a warning if a variable name is not found in <code>data_label</code></p></dd>
-<dt>verbose_label</dt>
+
+
+<dt>warn_label</dt>
 <dd><p>if TRUE, displays a warning if a label is not found in <code>.tbl</code></p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>deprecated</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A dataframe, as <code>.tbl</code>, with labels
-<code>.tbl</code> invisibly. Used only for its side effects.</p>
+    
+
+<p>A dataframe, as <code>.tbl</code>, with labels</p>
+
+
+<p><code>.tbl</code> invisibly. Used only for its side effects.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -119,21 +136,20 @@ save_labels saves the labels from a data.frame in a temporary variable that can 
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Dan Chaltiel</p>
-<p>Dan Chaltiel</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#import the labels from a data.frame to another</span></span>
-<span class="r-in"><span class="va">iris_label</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">  name<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>,</span>
-<span class="r-in">         <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>, <span class="st">"Species"</span><span class="op">)</span>,</span>
-<span class="r-in">  label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Length of Sepals"</span>, <span class="st">"Width of Sepals"</span>,</span>
-<span class="r-in">          <span class="st">"Length of Petals"</span>, <span class="st">"Width of Petals"</span>, <span class="st">"Specie name"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span class="r-in">  <span class="fu">import_labels</span><span class="op">(</span><span class="va">iris_label</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span class="r-in">  <span class="va">crosstable</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#import the labels from a data.frame to another</span></span></span>
+<span class="r-in"><span><span class="va">iris_label</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  name<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span>,</span></span>
+<span class="r-in"><span>         <span class="st">"Petal.Length"</span>, <span class="st">"Petal.Width"</span>, <span class="st">"Species"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Length of Sepals"</span>, <span class="st">"Width of Sepals"</span>,</span></span>
+<span class="r-in"><span>          <span class="st">"Length of Petals"</span>, <span class="st">"Width of Petals"</span>, <span class="st">"Specie name"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">import_labels</span><span class="op">(</span><span class="va">iris_label</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="va">crosstable</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 19 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .id          label            variable   value        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
@@ -156,14 +172,14 @@ save_labels saves the labels from a data.frame in a temporary variable that can 
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> Species      Specie name      setosa     50 (33.33%)  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> Species      Specie name      versicolor 50 (33.33%)  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> Species      Specie name      virginica  50 (33.33%)  </span>
-<span class="r-in">  </span>
-<span class="r-in"><span class="co">#save the labels, use some dplyr label-removing function, then retrieve the labels</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mtcars2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">save_labels</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span class="r-in">  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">transmute</a></span><span class="op">(</span>disp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">disp</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">import_labels</span><span class="op">(</span>verbose_label<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co">#</span></span>
-<span class="r-in">  <span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">disp</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#save the labels, use some dplyr label-removing function, then retrieve the labels</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mtcars2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">save_labels</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">transmute</a></span><span class="op">(</span>disp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">disp</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">import_labels</span><span class="op">(</span>warn_label<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co">#</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">disp</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .id   label                 variable   value              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              </span>
@@ -182,7 +198,7 @@ save_labels saves the labels from a data.frame in a temporary variable that can 
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

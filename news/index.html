@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9008</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,13 +70,40 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.0" id="crosstable-050-">crosstable 0.5.0 <sub><sup>(?)</sup></sub><a class="anchor" aria-label="anchor" href="#crosstable-050-"></a></h2>
 <div class="section level5">
+<h5 id="new-features-0-5-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-5-0"></a></h5>
+<ul><li>New <code><a href="../reference/clean_names_with_labels.html">clean_names_with_labels()</a></code> which clean the names of the dataframe but keeps the old names as labels. Obviously inspired by {janitor}.</li>
+<li>New variables <code>n_col</code>, <code>n_row</code>, and <code>n_tot</code> available for <code>percent_pattern</code>. For instance, one can now write <code>crosstable(mtcars2, cyl, percent_pattern="{p_col} ({n}/{n_col})")</code>.</li>
+</ul></div>
+<div class="section level5">
+<h5 id="improvements-0-5-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-0-5-0"></a></h5>
+<ul><li>
+<code><a href="../reference/crosstable_options.html">crosstable_options()</a></code> does not need the “crosstable_” prefix anymore, so the autocomplete is less clumsy. Options with the prefix will still work though. <code>crosstable_options(reset=TRUE)</code> is deprecated in favor of the new <code><a href="../reference/crosstable_reset_options.html">crosstable_reset_options()</a></code>.</li>
+<li>
+<code><a href="../reference/crosstable_test_args.html">crosstable_test_args()</a></code> and <code><a href="../reference/crosstable_effect_args.html">crosstable_effect_args()</a></code> now have arguments to easily control the non-default parameters.</li>
+<li>In MS Word, crosstables will now break across pages by default. You can revert this by using <code>body_add_crosstable(allow_break=FALSE)</code> or using <code><a href="../reference/crosstable_options.html">crosstable_options()</a></code>. This is the pendant of <code>keepnext</code> in officer/flextable.</li>
+<li>
+<code><a href="../reference/peek.html">peek()</a></code> is now usable on non-crosstable objects as well. <code><a href="../reference/as_flextable.html">as_flextable()</a></code> method will be applied on the object if available, otherwise <code><a href="https://davidgohel.github.io/flextable/reference/flextable.html" class="external-link">flextable()</a></code> will be applied.</li>
+<li>Better error messages in <code><a href="../reference/import_labels.html">import_labels()</a></code> when <code>data_label</code> doesn’t have the right columns.</li>
+</ul></div>
+<div class="section level5">
+<h5 id="deprecations-0-5-0">Deprecations<a class="anchor" aria-label="anchor" href="#deprecations-0-5-0"></a></h5>
+<ul><li>
+<code><a href="../reference/rename_with_labels.html">rename_dataframe_with_labels()</a></code> is now deprecated in favor of the better named <code><a href="../reference/rename_with_labels.html">rename_with_labels()</a></code>.</li>
+<li>
+<code><a href="../reference/ct_compact.html">compact()</a></code> is now deprecated in favor of <code><a href="../reference/ct_compact.html">ct_compact()</a></code> to avoid the conflict with <code><a href="https://purrr.tidyverse.org/reference/keep.html" class="external-link">purrr::compact()</a></code>. It will be removed in the next version.</li>
+</ul></div>
+<div class="section level5">
 <h5 id="bug-fixes-0-5-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-5-0"></a></h5>
 <ul><li>
+<code>body_add_crosstable(..., parse=NULL)</code> will now work as intended .</li>
+<li>
 <code>by_header</code> can replace the “value” column if <code>by</code> has only one stratum, in both <code><a href="../reference/as_gt.html">as_gt()</a></code> and <code><a href="../reference/as_flextable.html">as_flextable()</a></code> (<a href="https://github.com/DanChaltiel/crosstable/issues/9" class="external-link uri">https://github.com/DanChaltiel/crosstable/issues/9</a>).</li>
 <li>
 <code>percent_pattern</code> can now contain functions that start by “p” (<a href="https://github.com/DanChaltiel/crosstable/issues/10" class="external-link uri">https://github.com/DanChaltiel/crosstable/issues/10</a>).</li>
 <li>
 <code>percent_pattern</code> is actually taken into account when <code>by</code> has one single level (<a href="https://github.com/DanChaltiel/crosstable/issues/13" class="external-link uri">https://github.com/DanChaltiel/crosstable/issues/13</a>).</li>
+<li>
+<code><a href="../reference/import_labels.html">import_labels()</a></code> now works even if there is a missing value in the dataframe.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -87,7 +114,7 @@
 <div class="section level5">
 <h5 id="new-features-0-4-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-4-0"></a></h5>
 <ul><li>You can now use basic markdown formats in <code><a href="../reference/body_add_normal.html">body_add_normal()</a></code>: **<strong>bold</strong>**, *<em>italic</em>*, _<em>underlined</em>_, and `<code>code</code>`.</li>
-<li>New <code>keep_id</code> argument in <code><a href="../reference/compact.html">compact.crosstable()</a></code>, which enables <code>as_flextable(compact=TRUE, keep_id=TRUE)</code>
+<li>New <code>keep_id</code> argument in <code><a href="../reference/ct_compact.html">compact.crosstable()</a></code>, which enables <code>as_flextable(compact=TRUE, keep_id=TRUE)</code>
 </li>
 <li>You can use <code>as_flextable(header_show_n_pattern)</code> to change the glue pattern of these group sizes. The default is <code>{.col} (N={.n})</code>; you can use <code>{.col_key}</code> and <code>{.col_val}</code> when <code>by</code> has multiple strata.</li>
 <li>Functions <code><a href="../reference/body_add_legend.html">body_add_table_legend()</a></code> and <code><a href="../reference/body_add_legend.html">body_add_figure_legend()</a></code> earn an argument <code>legend_prefix</code>. Useful when set through global options, for instance to make every table/figure start with the name of the study.</li>
@@ -207,7 +234,7 @@
 <div class="section level5">
 <h5 id="misc-0-2-0">Misc<a class="anchor" aria-label="anchor" href="#misc-0-2-0"></a></h5>
 <ul><li>added lots of global options for easier implementation. See <code><a href="../reference/crosstable_options.html">?crosstable_options</a></code> for the comprehensive list.</li>
-<li>added label helpers: <code><a href="../reference/apply_labels.html">apply_labels()</a></code> (inspired by <code>expss</code>’s), <code><a href="../reference/set_label.html">copy_label_from()</a></code> and <code><a href="../reference/rename_dataframe_with_labels.html">rename_dataframe_with_labels()</a></code>
+<li>added label helpers: <code><a href="../reference/apply_labels.html">apply_labels()</a></code> (inspired by <code>expss</code>’s), <code><a href="../reference/set_label.html">copy_label_from()</a></code> and <code><a href="../reference/rename_with_labels.html">rename_dataframe_with_labels()</a></code>
 </li>
 <li>added <code><a href="../reference/as_workbook.html">as_workbook()</a></code> to export a crosstable as a formatted <code>openxlsx</code> Excel workbook, for copypasting purpose.</li>
 <li>added <code><a href="../reference/peek.html">peek()</a></code> to open a crosstable in a temporary Word document, as copy-pasting in RStudio’s viewer is very limited.</li>
@@ -220,13 +247,13 @@
 <ul><li>added <strong>cross-reference functionality</strong> to <code><a href="../reference/body_add_legend.html">body_add_figure_legend()</a></code> and <code><a href="../reference/body_add_legend.html">body_add_table_legend()</a></code>.<br>
 Use the <code>bookmark</code> argument to set a reference, then write <code>"\\@ref(my_bkm)"</code> inside <code><a href="../reference/body_add_normal.html">body_add_normal()</a></code> to call it.</li>
 <li>added docx helpers to add lists: <code><a href="../reference/body_add_list.html">body_add_list()</a></code> and <code><a href="../reference/body_add_list.html">body_add_list_item()</a></code>. These will unfortunately not work with the default <code>officer</code> template.</li>
-<li>added some alternatives for some <code>officer</code> functions:<ul><li>
+<li>added some alternatives for some <code>officer</code> functions:</li>
+<li>
 <code><a href="../reference/docx_bookmarks2.html">docx_bookmarks2()</a></code>, which list bookmarks found in the header and footer as well</li>
 <li>
 <code><a href="../reference/body_add_img2.html">body_add_img2()</a></code>, and <code><a href="../reference/body_add_gg2.html">body_add_gg2()</a></code>, which win a <code>units=c("in", "cm", "mm")</code> argument</li>
 <li>
 <code><a href="../reference/write_and_open.html">write_and_open()</a></code>, an alternative to <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> for documents, which tries to open it right away.</li>
-</ul></li>
 </ul></div>
 <div class="section level5">
 <h5 id="deprecations-0-2-0">Deprecations<a class="anchor" aria-label="anchor" href="#deprecations-0-2-0"></a></h5>
@@ -263,7 +290,7 @@ Use the <code>bookmark</code> argument to set a reference, then write <code>"\\@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.2" id="crosstable-012-2020-06-10">crosstable 0.1.2 <sub><sup>(2020-06-10)</sup></sub><a class="anchor" aria-label="anchor" href="#crosstable-012-2020-06-10"></a></h2>
 <ul><li>Effect refactoring: better error/warning handling</li>
-<li>Name sanitation: replacing “.” by "_" in function names</li>
+<li>Name sanitation: replacing “.” by “_” in function names</li>
 <li>Better error messages</li>
 <li>Bug fixes</li>
 </ul></div>
@@ -282,7 +309,7 @@ Use the <code>bookmark</code> argument to set a reference, then write <code>"\\@
 <li>Reexporting pipes and tidyselect helpers so that user does not have to load these libraries</li>
 <li>Computing time optimization (speed x2.6!)</li>
 <li>Fixed bug in normality testing</li>
-<li>Fixed bug in <code><a href="../reference/compact.html">compact()</a></code>
+<li>Fixed bug in <code><a href="../reference/ct_compact.html">compact()</a></code>
 </li>
 </ul></div>
 </div>
@@ -299,7 +326,7 @@ Use the <code>bookmark</code> argument to set a reference, then write <code>"\\@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

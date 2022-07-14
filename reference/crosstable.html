@@ -20,7 +20,7 @@ Can be formatted as an HTML table using as_flextable()."><meta property="og:imag
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9008</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,85 +79,134 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">crosstable</span><span class="op">(</span>
-  <span class="va">data</span>,
-  cols <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>,
-  by <span class="op">=</span> <span class="cn">NULL</span>,
-  total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"row"</span>, <span class="st">"column"</span>, <span class="st">"both"</span><span class="op">)</span>,
-  percent_pattern <span class="op">=</span> <span class="st">"{n} ({p_row})"</span>,
-  percent_digits <span class="op">=</span> <span class="fl">2</span>,
-  num_digits <span class="op">=</span> <span class="fl">1</span>,
-  showNA <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ifany"</span>, <span class="st">"always"</span>, <span class="st">"no"</span><span class="op">)</span>,
-  label <span class="op">=</span> <span class="cn">TRUE</span>,
-  funs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>` ` <span class="op">=</span> <span class="va">cross_summary</span><span class="op">)</span>,
-  funs_arg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,
-  cor_method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pearson"</span>, <span class="st">"kendall"</span>, <span class="st">"spearman"</span><span class="op">)</span>,
-  unique_numeric <span class="op">=</span> <span class="fl">3</span>,
-  date_format <span class="op">=</span> <span class="cn">NULL</span>,
-  times <span class="op">=</span> <span class="cn">NULL</span>,
-  followup <span class="op">=</span> <span class="cn">FALSE</span>,
-  test <span class="op">=</span> <span class="cn">FALSE</span>,
-  test_args <span class="op">=</span> <span class="fu"><a href="crosstable_test_args.html">crosstable_test_args</a></span><span class="op">(</span><span class="op">)</span>,
-  effect <span class="op">=</span> <span class="cn">FALSE</span>,
-  effect_args <span class="op">=</span> <span class="fu"><a href="crosstable_effect_args.html">crosstable_effect_args</a></span><span class="op">(</span><span class="op">)</span>,
-  margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"row"</span>, <span class="st">"column"</span>, <span class="st">"cell"</span>, <span class="st">"none"</span>, <span class="st">"all"</span><span class="op">)</span>,
-  <span class="va">.vars</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">crosstable</span><span class="op">(</span></span>
+<span>  <span class="va">data</span>,</span>
+<span>  cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  by <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"row"</span>, <span class="st">"column"</span>, <span class="st">"both"</span><span class="op">)</span>,</span>
+<span>  percent_pattern <span class="op">=</span> <span class="st">"{n} ({p_row})"</span>,</span>
+<span>  percent_digits <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  num_digits <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  showNA <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ifany"</span>, <span class="st">"always"</span>, <span class="st">"no"</span><span class="op">)</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  funs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>` ` <span class="op">=</span> <span class="va">cross_summary</span><span class="op">)</span>,</span>
+<span>  funs_arg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  cor_method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pearson"</span>, <span class="st">"kendall"</span>, <span class="st">"spearman"</span><span class="op">)</span>,</span>
+<span>  unique_numeric <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  date_format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  times <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  followup <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  test <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  test_args <span class="op">=</span> <span class="fu"><a href="crosstable_test_args.html">crosstable_test_args</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  effect <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  effect_args <span class="op">=</span> <span class="fu"><a href="crosstable_effect_args.html">crosstable_effect_args</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"row"</span>, <span class="st">"column"</span>, <span class="st">"cell"</span>, <span class="st">"none"</span>, <span class="st">"all"</span><span class="op">)</span>,</span>
+<span>  <span class="va">.vars</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>A data.frame</p></dd>
+
+
 <dt>cols</dt>
-<dd><p>&lt;<code><a href="https://tidyselect.r-lib.org/reference/language.html" class="external-link">tidy-select</a></code>&gt; Columns to describe. See examples or <code><a href="../articles/crosstable-selection.html">vignette("crosstable-selection")</a></code> for more details.</p></dd>
+<dd><p>&lt;<code><a href="https://tidyselect.r-lib.org/reference/language.html" class="external-link">tidy-select</a></code>&gt; Columns to describe, default to <code><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything()</a></code>. See examples or <code><a href="../articles/crosstable-selection.html">vignette("crosstable-selection")</a></code> for more details.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Unused. All parameters after this one must be named.</p></dd>
+
+
 <dt>by</dt>
 <dd><p>The variable to group on. Character or name.</p></dd>
+
+
 <dt>total</dt>
 <dd><p>one of ["none", "row", "column" or "both"] to indicate whether to add total rows and/or columns. Default to <code>none</code>.</p></dd>
+
+
 <dt>percent_pattern</dt>
 <dd><p>Pattern used to describe proportions in categorical data. Syntax uses a <code><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue::glue()</a></code> specification, see section below for more details. Default to <code>"{n} ({p_col})"</code> if <code>by</code> is null and <code>"{n} ({p_row})"</code> if it is not.</p></dd>
+
+
 <dt>percent_digits</dt>
 <dd><p>Number of digits for percentages.</p></dd>
+
+
 <dt>num_digits</dt>
 <dd><p>Number of digits for numeric summaries.</p></dd>
+
+
 <dt>showNA</dt>
 <dd><p>Whether to show NA in categorical variables (one of <code>c("ifany", "always", "no")</code>, like in <code><a href="https://rdrr.io/r/base/table.html" class="external-link">table()</a></code>).</p></dd>
+
+
 <dt>label</dt>
 <dd><p>Whether to show labels. See <code><a href="import_labels.html">import_labels()</a></code> or <code><a href="set_label.html">set_label()</a></code>for how to add labels to the dataset columns.</p></dd>
+
+
 <dt>funs</dt>
 <dd><p>Functions to apply to numeric variables. Default to <code><a href="cross_summary.html">cross_summary()</a></code>.</p></dd>
+
+
 <dt>funs_arg</dt>
 <dd><p>Additional parameters for <code>funs</code>, e.g. <code>digits</code> (the number of decimal places) for the default <code><a href="cross_summary.html">cross_summary()</a></code>. Ultimately, these arguments are passed to <code><a href="format_fixed.html">format_fixed()</a></code>.</p></dd>
+
+
 <dt>cor_method</dt>
 <dd><p>One of <code>c("pearson", "kendall", "spearman")</code> to indicate which correlation coefficient is to be used.</p></dd>
+
+
 <dt>unique_numeric</dt>
 <dd><p>The number of non-missing different levels a variable should have to be considered as numeric.</p></dd>
+
+
 <dt>date_format</dt>
 <dd><p>if <code>x</code> is a vector of Date or POSIXt, the format to apply (see <a href="https://rdrr.io/r/base/strptime.html" class="external-link">strptime</a> for formats)</p></dd>
+
+
 <dt>times</dt>
 <dd><p>When using formula with <code><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">survival::Surv()</a></code> objects, which times to summarize.</p></dd>
+
+
 <dt>followup</dt>
 <dd><p>When using formula with <code><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">survival::Surv()</a></code> objects, whether to display follow-up time.</p></dd>
+
+
 <dt>test</dt>
 <dd><p>Whether to perform tests.</p></dd>
+
+
 <dt>test_args</dt>
 <dd><p>See <code><a href="crosstable_test_args.html">crosstable_test_args</a></code> to override default testing behaviour.</p></dd>
+
+
 <dt>effect</dt>
 <dd><p>Whether to compute a effect measure.</p></dd>
+
+
 <dt>effect_args</dt>
 <dd><p>See <code><a href="crosstable_effect_args.html">crosstable_effect_args</a></code> to override default behaviour.</p></dd>
+
+
 <dt>margin</dt>
 <dd><p>Deprecated in favor of <code>percent_pattern</code>. One of ["row", "column", "cell", "none", or "all"]. Default to <code>row</code>.</p></dd>
+
+
 <dt>.vars</dt>
 <dd><p>Deprecated in favor of <code>cols</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>data.frame</code>/<code>tibble</code> of class <code>crosstable</code></p>
+    
+
+<p>A <code>data.frame</code>/<code>tibble</code> of class <code>crosstable</code></p>
+
+
     </div>
     <div class="section level2">
     <h2 id="percent-pattern"><code>percent_pattern</code><a class="anchor" aria-label="anchor" href="#percent-pattern"></a></h2>
@@ -177,8 +226,8 @@ For each proportion, a confidence interval is also calculated using <a href="htt
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#whole table</span></span>
-<span class="r-in"><span class="fu">crosstable</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#whole table</span></span></span>
+<span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 19 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .id          label        variable   value        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
@@ -201,7 +250,7 @@ For each proportion, a confidence interval is also calculated using <a href="htt
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> Species      Species      setosa     50 (33.33%)  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> Species      Species      versicolor 50 (33.33%)  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> Species      Species      virginica  50 (33.33%)  </span>
-<span class="r-in"><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 38 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .id   label variable   value              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              </span>
@@ -216,7 +265,7 @@ For each proportion, a confidence interval is also calculated using <a href="htt
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> disp  disp  Med [IQR]  196.3 [120.8;326.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> disp  disp  Mean (std) 230.7 (123.9)      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 28 more rows</span></span>
-<span class="r-in"><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 78 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .id   label variable           value    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span>
@@ -231,11 +280,11 @@ For each proportion, a confidence interval is also calculated using <a href="htt
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> model Model Fiat 128           1 (3.12%)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> model Model Fiat X1-9          1 (3.12%)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 68 more rows</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#tidyselection, custom functions</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">ends_with</a></span><span class="op">(</span><span class="st">"t"</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"c"</span><span class="op">)</span><span class="op">)</span>, by<span class="op">=</span><span class="va">vs</span>, </span>
-<span class="r-in">           funs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">mean</span>, <span class="va">quantile</span><span class="op">)</span>, funs_arg<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>probs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.25</span>,<span class="fl">.75</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#tidyselection, custom functions</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">ends_with</a></span><span class="op">(</span><span class="st">"t"</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"c"</span><span class="op">)</span><span class="op">)</span>, by<span class="op">=</span><span class="va">vs</span>,</span></span>
+<span class="r-in"><span>           funs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">mean</span>, <span class="va">quantile</span><span class="op">)</span>, funs_arg<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>probs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.25</span>,<span class="fl">.75</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .id   label                 variable     straight    vshaped     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
@@ -251,10 +300,10 @@ For each proportion, a confidence interval is also calculated using <a href="htt
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> carb  Number of carburetors mean         1.8         3.6         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> carb  Number of carburetors quantile 25% 1.0         2.2         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> carb  Number of carburetors quantile 75% 2.0         4.0         </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#margin and totals, multiple by</span></span>
-<span class="r-in"><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">disp</span>, <span class="va">cyl</span><span class="op">)</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">am</span>, <span class="va">vs</span><span class="op">)</span>, </span>
-<span class="r-in">           margin<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"row"</span>, <span class="st">"col"</span><span class="op">)</span>, total <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#margin and totals, multiple by</span></span></span>
+<span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">disp</span>, <span class="va">cyl</span><span class="op">)</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">am</span>, <span class="va">vs</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           margin<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"row"</span>, <span class="st">"col"</span><span class="op">)</span>, total <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 8</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .id   label        variable `am=auto &amp; vs=…` `am=manual &amp; v…` `am=auto &amp; vs=…`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
@@ -262,14 +311,14 @@ For each proportion, a confidence interval is also calculated using <a href="htt
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> disp  Displacemen… Med [IQ… 167.6 [143.8;19… 79.0 [77.2;101.… 355.0 [296.9;41…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> disp  Displacemen… Mean (s… 175.1 (49.1)     89.8 (18.8)      357.6 (71.8)    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> disp  Displacemen… N (NA)   7 (0)            7 (0)            12 (0)          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> cyl   Number of c… 4        3 (27.27% / 42.… 7 (63.64% / 100… 0 (0% / 0%)     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> cyl   Number of c… 4        3 (42.86% / 27.… 7 (100.00% / 63… 0 (0% / 0%)     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> cyl   Number of c… 6        4 (57.14% / 57.… 0 (0% / 0%)      0 (0% / 0%)     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> cyl   Number of c… 8        0 (0% / 0%)      0 (0% / 0%)      12 (85.71% / 10…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> cyl   Number of c… 8        0 (0% / 0%)      0 (0% / 0%)      12 (100.00% / 8…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> cyl   Number of c… Total    7 (21.88%)       7 (21.88%)       12 (37.50%)     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2 more variables: `am=manual &amp; vs=vshaped` &lt;chr&gt;, Total &lt;chr&gt;</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#predicate selection, correlation, effect calculation</span></span>
-<span class="r-in"><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, by<span class="op">=</span><span class="va">hp</span>, effect<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#predicate selection, correlation, effect calculation</span></span></span>
+<span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, by<span class="op">=</span><span class="va">hp</span>, effect<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .id   label                 variable `Gross horsepower`           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                        </span>
@@ -279,9 +328,9 @@ For each proportion, a confidence interval is also calculated using <a href="htt
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> wt    Weight (1000 lbs)     pearson  <span style="color: #949494;">"</span>0.66 \n95%CI [0.4;0.82]<span style="color: #949494;">"</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> qsec  1/4 mile time         pearson  <span style="color: #949494;">"</span>-0.71 \n95%CI [-0.85;-0.48]<span style="color: #949494;">"</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> carb  Number of carburetors pearson  <span style="color: #949494;">"</span>0.75 \n95%CI [0.54;0.87]<span style="color: #949494;">"</span>   </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#lambda selection &amp; statistical tests</span></span>
-<span class="r-in"><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">is.numeric</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">&gt;</span><span class="fl">50</span>, by<span class="op">=</span><span class="va">vs</span>, test<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#lambda selection &amp; statistical tests</span></span></span>
+<span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">is.numeric</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">&gt;</span><span class="fl">50</span>, by<span class="op">=</span><span class="va">vs</span>, test<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .id   label                 variable   straight           vshaped        test </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
@@ -293,10 +342,10 @@ For each proportion, a confidence interval is also calculated using <a href="htt
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> hp    Gross horsepower      Med [IQR]  96.0 [66.0;109.8]  180.0 [156.2;… <span style="color: #949494;">"</span>p v…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> hp    Gross horsepower      Mean (std) 91.4 (24.4)        189.7 (60.3)   <span style="color: #949494;">"</span>p v…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> hp    Gross horsepower      N (NA)     14 (0)             18 (0)         <span style="color: #949494;">"</span>p v…</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#Dates</span></span>
-<span class="r-in"><span class="va">mtcars2</span><span class="op">$</span><span class="va">my_date</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">mtcars2</span><span class="op">$</span><span class="va">hp</span> , origin<span class="op">=</span><span class="st">"2010-01-01"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="set_label.html">set_label</a></span><span class="op">(</span><span class="st">"Some nonsense date"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="va">my_date</span>, by<span class="op">=</span><span class="va">vs</span>, date_format<span class="op">=</span><span class="st">"%d/%m/%Y"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#Dates</span></span></span>
+<span class="r-in"><span><span class="va">mtcars2</span><span class="op">$</span><span class="va">my_date</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">mtcars2</span><span class="op">$</span><span class="va">hp</span> , origin<span class="op">=</span><span class="st">"2010-01-01"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="set_label.html">set_label</a></span><span class="op">(</span><span class="st">"Some nonsense date"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="va">my_date</span>, by<span class="op">=</span><span class="va">vs</span>, date_format<span class="op">=</span><span class="st">"%d/%m/%Y"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .id     label              variable   straight                         vshaped</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
@@ -304,10 +353,10 @@ For each proportion, a confidence interval is also calculated using <a href="htt
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> my_date Some nonsense date Med [IQR]  07/04/2010 [08/03/2010;21/04/20… 30/06/…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> my_date Some nonsense date Mean (std) 02/04/2010 (24.4 days)           09/07/…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> my_date Some nonsense date N (NA)     14 (0)                           18 (0) </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#Survival data (using formula syntax)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">crosstable</span><span class="op">(</span><span class="va">aml</span>, <span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">status</span><span class="op">)</span> <span class="op">~</span> <span class="va">x</span>, times<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">15</span>,<span class="fl">30</span>,<span class="fl">150</span><span class="op">)</span>, followup<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#Survival data (using formula syntax)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">aml</span>, <span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">status</span><span class="op">)</span> <span class="op">~</span> <span class="va">x</span>, times<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">15</span>,<span class="fl">30</span>,<span class="fl">150</span><span class="op">)</span>, followup<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .id                label              variable        Maintained Nonmaintained</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
@@ -317,28 +366,31 @@ For each proportion, a confidence interval is also calculated using <a href="htt
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Surv(time, status) Surv(time, status) t=150           0.18 (3/1) 0 (3/0)      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Surv(time, status) Surv(time, status) Median follow … 103 [13 ;… NA [16 ; 45] </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Surv(time, status) Surv(time, status) Median survival 31         23           </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#Patterns</span></span>
-<span class="r-in"><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="va">vs</span>, by<span class="op">=</span><span class="va">am</span>, percent_digits<span class="op">=</span><span class="fl">0</span>, </span>
-<span class="r-in">           percent_pattern<span class="op">=</span><span class="st">"{n} ({p_col} / {p_row})"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#Patterns</span></span></span>
+<span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="va">vs</span>, by<span class="op">=</span><span class="va">am</span>, percent_digits<span class="op">=</span><span class="fl">0</span>,</span></span>
+<span class="r-in"><span>           percent_pattern<span class="op">=</span><span class="st">"{n} ({p_col} / {p_row})"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .id   label  variable auto           manual       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> vs    Engine straight 7 (37% / 50%)  7 (54% / 50%)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> vs    Engine vshaped  12 (63% / 67%) 6 (46% / 33%)</span>
-<span class="r-in"><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="va">vs</span>, by<span class="op">=</span><span class="va">am</span>, percent_digits<span class="op">=</span><span class="fl">0</span>,</span>
-<span class="r-in">           percent_pattern<span class="op">=</span><span class="st">"N={n} \np[95%CI] = {p_col} [{p_col_inf}; {p_col_sup}]"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="va">vs</span>, by<span class="op">=</span><span class="va">am</span>, percent_digits<span class="op">=</span><span class="fl">0</span>,</span></span>
+<span class="r-in"><span>           percent_pattern<span class="op">=</span><span class="st">"N={n} \np[95%CI] = {p_col} [{p_col_inf}; {p_col_sup}]"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .id   label  variable auto                               manual               </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> vs    Engine straight <span style="color: #949494;">"</span>N=7 \np[95%CI] = 37% [12%; 71%]<span style="color: #949494;">"</span>  <span style="color: #949494;">"</span>N=7 \np[95%CI] = 54…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> vs    Engine vshaped  <span style="color: #949494;">"</span>N=12 \np[95%CI] = 63% [36%; 84%]<span style="color: #949494;">"</span> <span style="color: #949494;">"</span>N=6 \np[95%CI] = 46…</span>
-<span class="r-in"><span class="va">str_high</span><span class="op">=</span><span class="st">"n&gt;5"</span>; <span class="va">str_lo</span><span class="op">=</span><span class="st">"n&lt;=5"</span></span>
-<span class="r-in"><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="va">vs</span>, by<span class="op">=</span><span class="va">am</span>, percent_digits<span class="op">=</span><span class="fl">0</span>, </span>
-<span class="r-in">           percent_pattern<span class="op">=</span><span class="st">"col={p_col}, row={p_row} ({ifelse(n&lt;5, str_lo, str_high)})"</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in summarize_categorical_by(data_x[[1]], data_y[[1]], percent_pattern = percent_pattern,     showNA = showNA, total = total, digits = percent_digits,     test = test, test_args = test_args, effect = effect, effect_args = effect_args):</span> `percent_pattern` should only consider variables {n}, {p_cell}, {p_row}, and {p_col}</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">ℹ</span> percent_pattern: "col={p_col}, row={p_row} ({ifelse(n&lt;5, str_lo, str_high)})"</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> object 'str_lo' not found</span>
+<span class="r-in"><span><span class="va">str_high</span><span class="op">=</span><span class="st">"n&gt;5"</span>; <span class="va">str_lo</span><span class="op">=</span><span class="st">"n&lt;=5"</span></span></span>
+<span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="va">vs</span>, by<span class="op">=</span><span class="va">am</span>, percent_digits<span class="op">=</span><span class="fl">0</span>,</span></span>
+<span class="r-in"><span>           percent_pattern<span class="op">=</span><span class="st">"col={p_col}, row={p_row} ({ifelse(n&lt;5, str_lo, str_high)})"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in crosstable(mtcars2, vs, by = am, percent_digits = 0, percent_pattern = "col={p_col}, row={p_row} ({ifelse(n&lt;5, str_lo, str_high)})"):</span> Could not resolve a variable used in `percent_pattern`.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Authorized variables are `n`, `n_tot`, `n_row`, `n_col`, `p_cell`, `p_row`,</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span>   and `p_col`, along with `p_xxx_inf` and `p_xxx_sup` for proportions.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Provided `percent_pattern`: `col={p_col}, row={p_row} ({ifelse(n&lt;5, str_lo,</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span>   str_high)})`</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> Error: <span style="color: #0000BB;">"object 'str_lo' not found"</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -350,7 +402,7 @@ For each proportion, a confidence interval is also calculated using <a href="htt
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

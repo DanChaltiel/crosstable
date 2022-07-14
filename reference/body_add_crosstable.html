@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9008</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,34 +74,54 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">body_add_crosstable</span><span class="op">(</span>
-  <span class="va">doc</span>,
-  <span class="va">x</span>,
-  body_fontsize <span class="op">=</span> <span class="cn">NULL</span>,
-  header_fontsize <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="va">body_fontsize</span> <span class="op">*</span> <span class="fl">1.2</span><span class="op">)</span>,
-  padding_v <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">body_add_crosstable</span><span class="op">(</span></span>
+<span>  <span class="va">doc</span>,</span>
+<span>  <span class="va">x</span>,</span>
+<span>  body_fontsize <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  header_fontsize <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="va">body_fontsize</span> <span class="op">*</span> <span class="fl">1.2</span><span class="op">)</span>,</span>
+<span>  padding_v <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  allow_break <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>doc</dt>
 <dd><p>a <code>rdocx</code> object, created by <code><a href="https://davidgohel.github.io/officer/reference/read_docx.html" class="external-link">officer::read_docx()</a></code></p></dd>
+
+
 <dt>x</dt>
 <dd><p>a <code>crosstable</code> object</p></dd>
+
+
 <dt>body_fontsize</dt>
 <dd><p>fontsize of the body</p></dd>
+
+
 <dt>header_fontsize</dt>
 <dd><p>fontsize of the header</p></dd>
+
+
 <dt>padding_v</dt>
 <dd><p>vertical padding of all table rows</p></dd>
+
+
+<dt>allow_break</dt>
+<dd><p>allow crosstable rows to break across pages</p></dd>
+
+
 <dt>...</dt>
 <dd><p>further arguments passed to <code><a href="as_flextable.html">as_flextable.crosstable()</a></code></p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The docx object <code>doc</code></p>
+    
+
+<p>The docx object <code>doc</code></p>
+
+
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -110,17 +130,17 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#Officer</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mytable</span> <span class="op">=</span> <span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/read_docx.html" class="external-link">read_docx</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span class="r-in">    <span class="fu">body_add_crosstable</span><span class="op">(</span><span class="va">mytable</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span class="r-in">    <span class="va">body_add_break</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span class="r-in">    <span class="fu">body_add_crosstable</span><span class="op">(</span><span class="va">mytable</span>, compact<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">dfile</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext<span class="op">=</span><span class="st">".docx"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="va">dfile</span><span class="op">)</span></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/browseURL.html" class="external-link">browseURL</a></span><span class="op">(</span><span class="va">dfile</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#Officer</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mytable</span> <span class="op">=</span> <span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/read_docx.html" class="external-link">read_docx</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu">body_add_crosstable</span><span class="op">(</span><span class="va">mytable</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="va">body_add_break</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu">body_add_crosstable</span><span class="op">(</span><span class="va">mytable</span>, compact<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dfile</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext<span class="op">=</span><span class="st">".docx"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="va">dfile</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/browseURL.html" class="external-link">browseURL</a></span><span class="op">(</span><span class="va">dfile</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -132,7 +152,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

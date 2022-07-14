@@ -70,7 +70,7 @@
     <loc>https://danchaltiel.github.io/crosstable/reference/body_replace_text_at_bkms.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable/reference/compact.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/clean_names_with_labels.html</loc>
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/confint_numeric.html</loc>
@@ -94,7 +94,13 @@
     <loc>https://danchaltiel.github.io/crosstable/reference/crosstable_peek_options.html</loc>
   </url>
   <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/crosstable_reset_options.html</loc>
+  </url>
+  <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/crosstable_test_args.html</loc>
+  </url>
+  <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/ct_compact.html</loc>
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/display_effect.html</loc>
@@ -157,7 +163,7 @@
     <loc>https://danchaltiel.github.io/crosstable/reference/remove_labels.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable/reference/rename_dataframe_with_labels.html</loc>
+    <loc>https://danchaltiel.github.io/crosstable/reference/rename_with_labels.html</loc>
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/set_label.html</loc>

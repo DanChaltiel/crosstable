@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9008</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,48 +74,59 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">body_add_crosstable_list</span><span class="op">(</span><span class="va">doc</span>, <span class="va">l</span>, fun <span class="op">=</span> <span class="st">"title2"</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">body_add_flextable_list</span><span class="op">(</span><span class="va">doc</span>, <span class="va">l</span>, fun <span class="op">=</span> <span class="st">"title2"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">body_add_crosstable_list</span><span class="op">(</span><span class="va">doc</span>, <span class="va">l</span>, fun <span class="op">=</span> <span class="st">"title2"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">body_add_flextable_list</span><span class="op">(</span><span class="va">doc</span>, <span class="va">l</span>, fun <span class="op">=</span> <span class="st">"title2"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>doc</dt>
 <dd><p>a <code>rdocx</code> object, created by <code><a href="https://davidgohel.github.io/officer/reference/read_docx.html" class="external-link">officer::read_docx()</a></code></p></dd>
+
+
 <dt>l</dt>
 <dd><p>a named list of tables. Plain dataframes will be converted to flextables.</p></dd>
+
+
 <dt>fun</dt>
 <dd><p>a function to be used before each table, most likely to add some kind of title. Should be of the form <code>function(doc, .name)</code> where <code>.name</code> is the name of the current crosstable of the list. You can also pass <code>"title2"</code> to add the name as a title of level 2 between each table, <code>"newline"</code> to simply add a new line, or even NULL to not separate them (beware that the table might merge then).</p></dd>
+
+
 <dt>...</dt>
 <dd><p>arguments passed on to <code><a href="body_add_crosstable.html">body_add_crosstable()</a></code> or <code>body_add_flextable()</code></p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The docx object <code>doc</code></p>
+    
+
+<p>The docx object <code>doc</code></p>
+
+
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ctl</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>iris2<span class="op">=</span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">iris2</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span class="r-in">           mtcars2<span class="op">=</span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span class="r-in">           <span class="st">"just a flextable"</span><span class="op">=</span><span class="fu">flextable</span><span class="fu">::</span><span class="fu"><a href="https://davidgohel.github.io/flextable/reference/flextable.html" class="external-link">flextable</a></span><span class="op">(</span><span class="va">mtcars2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">myfun</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">doc</span>, <span class="va">.name</span><span class="op">)</span><span class="op">{</span></span>
-<span class="r-in">    <span class="va">doc</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span class="r-in">        <span class="fu"><a href="body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">" This is table '{.name}' as a flex/crosstable"</span>, level<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">        <span class="fu"><a href="body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"Here is the table:"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://davidgohel.github.io/officer/reference/read_docx.html" class="external-link">read_docx</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span class="r-in">    <span class="fu"><a href="body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Separated by subtitle"</span>, <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span class="r-in">    <span class="fu">body_add_crosstable_list</span><span class="op">(</span><span class="va">ctl</span>, fun<span class="op">=</span><span class="st">"title2"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span class="r-in">    <span class="fu"><a href="body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Separated by new line"</span>, <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span class="r-in">    <span class="fu">body_add_crosstable_list</span><span class="op">(</span><span class="va">ctl</span>, fun<span class="op">=</span><span class="st">"newline"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span class="r-in">    <span class="fu"><a href="body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Separated using a custom function"</span>, <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span class="r-in">    <span class="fu">body_add_crosstable_list</span><span class="op">(</span><span class="va">ctl</span>, fun<span class="op">=</span><span class="va">myfun</span>, body_fontsize<span class="op">=</span><span class="fl">8</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span class="r-in">    <span class="fu"><a href="write_and_open.html">write_and_open</a></span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ctl</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>iris2<span class="op">=</span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">iris2</span>, <span class="fl">1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           mtcars2<span class="op">=</span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fl">1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           <span class="st">"just a flextable"</span><span class="op">=</span><span class="fu">flextable</span><span class="fu">::</span><span class="fu"><a href="https://davidgohel.github.io/flextable/reference/flextable.html" class="external-link">flextable</a></span><span class="op">(</span><span class="va">mtcars2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">myfun</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">doc</span>, <span class="va">.name</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">doc</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>        <span class="fu"><a href="body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">" This is table '{.name}' as a flex/crosstable"</span>, level<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>        <span class="fu"><a href="body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"Here is the table:"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://davidgohel.github.io/officer/reference/read_docx.html" class="external-link">read_docx</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Separated by subtitle"</span>, <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu">body_add_crosstable_list</span><span class="op">(</span><span class="va">ctl</span>, fun<span class="op">=</span><span class="st">"title2"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Separated by new line"</span>, <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu">body_add_crosstable_list</span><span class="op">(</span><span class="va">ctl</span>, fun<span class="op">=</span><span class="st">"newline"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Separated using a custom function"</span>, <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu">body_add_crosstable_list</span><span class="op">(</span><span class="va">ctl</span>, fun<span class="op">=</span><span class="va">myfun</span>, body_fontsize<span class="op">=</span><span class="fl">8</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="write_and_open.html">write_and_open</a></span><span class="op">(</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -127,7 +138,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>
