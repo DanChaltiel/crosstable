@@ -3,20 +3,15 @@
 #'
 #' This is the starting point for refining the testing algorithm used in crosstable. Users can provide their own functions for test.~.
 #'
-#' @return A list with testing parameters:
-#' \itemize{
-#'   \item `test_summarize` - a function of two arguments (continuous variable and grouping variable), used to compare continuous variable. Must return a list of two components: `p.value` and `method`. See [`test_summarize_auto`] or [`test_summarize_linear_contrasts`] for some examples of such functions.
+#' @param test_summarize a function of two arguments (continuous variable and grouping variable), used to compare continuous variable. Must return a list of two components: `p.value` and `method`. See [`test_summarize_auto`] or [`test_summarize_linear_contrasts`] for some examples of such functions.
+#' @param test_tabular a function of two arguments (two categorical variables), used to test association between two categorical variables.  Must return a list of two components: `p.value` and `method`. See [`test_tabular_auto`] for example.
+#' @param test_correlation a function of three arguments (two continuous variables plus the correlation method), used to test association between two continuous variables.  Like `cor.test`, it must return a list of at least `estimate`, `p.value`, and `method`, with also `conf.int` optionally. See [`test_correlation_auto`] for example.
+#' @param test_survival a function of one argument (the formula `surv~by`), used to compare survival estimations. Must return a list of two components: `p.value` and `method`. See [`test_survival_logrank`] for example.
+#' @param test_display function used to display the test result. See [`display_test`].
+#' @param plim number of digits for the p value.
+#' @param show_method whether to display the test name (logical).
 #'
-#'   \item `test_tabular` - a function of two arguments (two categorical variables), used to test association between two categorical variables.  Must return a list of two components: `p.value` and `method`. See [`test_tabular_auto`] for example.
-#'
-#'   \item `test_correlation` - a function of three arguments (two continuous variables plus the correlation method), used to test association between two continuous variables.  Like `cor.test`, it must return a list of at least `estimate`, `p.value`, and `method`, with also `conf.int` optionally. See [`test_correlation_auto`] for example.
-#'
-#'   \item `test_survival` - a function of one argument (the formula `surv~by`), used to compare survival estimations. Must return a list of two components: `p.value` and `method`. See [`test_survival_logrank`] for example.
-#'
-#'   \item `test_display` - function used to display the test result. See [`display_test`].
-#'   \item `plim` - number of digits for the p value
-#'   \item `show_method` - whether to display the test name (logical)
-#' }
+#' @return A list with test parameters
 #'
 #' @aliases test_args
 #'

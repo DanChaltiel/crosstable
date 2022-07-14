@@ -20,7 +20,7 @@ template:
       creator: "@DanChaltiel"
       card: summary
 
- 
+
 navbar:
   structure:
     left:  [home, intro, articles, reference, news]
@@ -43,56 +43,58 @@ articles:
 
 reference:
 - title: "Main function"
-- contents: 
+- contents:
   - crosstable
   - crosstable_options
-  - crosstable_peek_options 
+  - crosstable_peek_options
+  - crosstable_reset_options
 - title: "Datasets"
   desc: "Standard datasets, modified to have labels, characters, and factors"
-- contents: 
+- contents:
   - iris2
   - mtcars2
 - title: "Labelling"
   desc: "Handle label attributes (compatible with Hmisc, expss, haven...)"
-- contents: 
+- contents:
   - import_labels
   - set_label
   - get_label
   - remove_labels
   - apply_labels
   - rename_dataframe_with_labels
+  - clean_names_with_labels
 - title: "Summary functions"
   desc: "Summarise numeric variables"
-- contents: 
+- contents:
   - summaryFunctions
   - cross_summary
   - na
   - "N"
 - title: "Visualization"
   desc: "Visualize a crosstable in various formats"
-- contents: 
+- contents:
   - as_gt.crosstable
   - as_workbook
   - as_flextable
 - title: "Officer helpers"
   desc: "Used in cooperation with the `officer` package"
-- contents: 
+- contents:
   - starts_with("body_")
-  - docx_bookmarks2 
-  - write_and_open 
-  - generate_autofit_macro  
+  - docx_bookmarks2
+  - write_and_open
+  - generate_autofit_macro
 - title: "Utils"
   desc: "Practical functions for various purposes"
-- contents: 
+- contents:
   - format_fixed
   - compact
   - plim
   - confint_numeric
   - is.crosstable
-  - peek 
+  - peek
 - title: "Effects and tests"
 - subtitle: "Default parameters"
-- contents: 
+- contents:
   - crosstable_effect_args
   - crosstable_test_args
 - subtitle: "Effects"

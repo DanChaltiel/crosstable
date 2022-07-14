@@ -5,23 +5,33 @@
 \alias{test_args}
 \title{Default arguments for calculating and displaying tests in \code{\link[=crosstable]{crosstable()}}}
 \usage{
-crosstable_test_args()
+crosstable_test_args(
+  test_summarize = test_summarize_auto,
+  test_tabular = test_tabular_auto,
+  test_correlation = test_correlation_auto,
+  test_survival = test_survival_logrank,
+  test_display = display_test,
+  plim = 4,
+  show_method = TRUE
+)
+}
+\arguments{
+\item{test_summarize}{a function of two arguments (continuous variable and grouping variable), used to compare continuous variable. Must return a list of two components: \code{p.value} and \code{method}. See \code{\link{test_summarize_auto}} or \code{\link{test_summarize_linear_contrasts}} for some examples of such functions.}
+
+\item{test_tabular}{a function of two arguments (two categorical variables), used to test association between two categorical variables.  Must return a list of two components: \code{p.value} and \code{method}. See \code{\link{test_tabular_auto}} for example.}
+
+\item{test_correlation}{a function of three arguments (two continuous variables plus the correlation method), used to test association between two continuous variables.  Like \code{cor.test}, it must return a list of at least \code{estimate}, \code{p.value}, and \code{method}, with also \code{conf.int} optionally. See \code{\link{test_correlation_auto}} for example.}
+
+\item{test_survival}{a function of one argument (the formula \code{surv~by}), used to compare survival estimations. Must return a list of two components: \code{p.value} and \code{method}. See \code{\link{test_survival_logrank}} for example.}
+
+\item{test_display}{function used to display the test result. See \code{\link{display_test}}.}
+
+\item{plim}{number of digits for the p value.}
+
+\item{show_method}{whether to display the test name (logical).}
 }
 \value{
-A list with testing parameters:
-\itemize{
-\item \code{test_summarize} - a function of two arguments (continuous variable and grouping variable), used to compare continuous variable. Must return a list of two components: \code{p.value} and \code{method}. See \code{\link{test_summarize_auto}} or \code{\link{test_summarize_linear_contrasts}} for some examples of such functions.
-
-\item \code{test_tabular} - a function of two arguments (two categorical variables), used to test association between two categorical variables.  Must return a list of two components: \code{p.value} and \code{method}. See \code{\link{test_tabular_auto}} for example.
-
-\item \code{test_correlation} - a function of three arguments (two continuous variables plus the correlation method), used to test association between two continuous variables.  Like \code{cor.test}, it must return a list of at least \code{estimate}, \code{p.value}, and \code{method}, with also \code{conf.int} optionally. See \code{\link{test_correlation_auto}} for example.
-
-\item \code{test_survival} - a function of one argument (the formula \code{surv~by}), used to compare survival estimations. Must return a list of two components: \code{p.value} and \code{method}. See \code{\link{test_survival_logrank}} for example.
-
-\item \code{test_display} - function used to display the test result. See \code{\link{display_test}}.
-\item \code{plim} - number of digits for the p value
-\item \code{show_method} - whether to display the test name (logical)
-}
+A list with test parameters
 }
 \description{
 This is the starting point for refining the testing algorithm used in crosstable. Users can provide their own functions for test.~.

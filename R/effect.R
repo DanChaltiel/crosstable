@@ -3,15 +3,14 @@
 #'
 #' This helper function provides default parameters for defining how the effect sizes should be computed. It belongs to the `effect_args` argument of the [crosstable()] function. See [effect_summary], [effect_tabular], and [effect_survival] for more insight.
 #'
-#' @return A list with testing parameters:
-#' \itemize{
-#'   \item `effect_summarize` - a function of three arguments (continuous variable, grouping variable and conf_level), used to compare continuous variable. Returns a list of five components: `effect` (the effect value(s)), `ci` (the matrix of confidence interval(s)), `effect.name` (the interpretation(s) of the effect value(s)), `effect.type` (the description of the measure used) and `conf_level` (the confidence interval level). See [diff_mean_auto()], [diff_mean_student()], [diff_mean_boot()], or [diff_median()] for some examples of such functions. Users can provide their own function.
-#'   \item `effect_tabular` - a function of three arguments (two categorical variables and conf_level) used to measure the associations between two factors. Returns a list of five components: `effect` (the effect value(s)), `ci` (the matrix of confidence interval(s)), `effect.name` (the interpretation(s) of the effect value(s)), `effect.type` (the description of the measure used) and `conf_level` (the confidence interval level). See [effect_odds_ratio()], [effect_relative_risk()], or [effect_risk_difference()] for some examples of such functions. Users can provide their own function.
-#'   \item `effect_survival` - a function of two argument (a formula and conf_level), used to measure the association between a censored and a factor. Returns the same components as created by `effect_summarize`. See [effect_survival_coxph()]. Users can provide their own function.
-#'   \item `effect_display` - a function to format the effect. See [display_effect()].
-#'   \item `conf_level` - the desired confidence interval level
-#'   \item `digits` - the decimal places
-#' }
+#' @param effect_summarize a function of three arguments (continuous variable, grouping variable and conf_level), used to compare continuous variable. Returns a list of five components: `effect` (the effect value(s)), `ci` (the matrix of confidence interval(s)), `effect.name` (the interpretation(s) of the effect value(s)), `effect.type` (the description of the measure used) and `conf_level` (the confidence interval level). Users can use [diff_mean_auto()], [diff_mean_student()], [diff_mean_boot()], or [diff_median()], or their custom own function.
+#' @param effect_tabular a function of three arguments (two categorical variables and conf_level) used to measure the associations between two factors. Returns a list of five components: `effect` (the effect value(s)), `ci` (the matrix of confidence interval(s)), `effect.name` (the interpretation(s) of the effect value(s)), `effect.type` (the description of the measure used) and `conf_level` (the confidence interval level).Users can use [effect_odds_ratio()], [effect_relative_risk()], or [effect_risk_difference()], or their custom own function.
+#' @param effect_survival a function of two argument (a formula and conf_level), used to measure the association between a censored and a factor. Returns the same components as created by `effect_summarize`.Users can use [effect_survival_coxph()] or their custom own function.
+#' @param effect_display a function to format the effect. See [display_effect()].
+#' @param conf_level the desired confidence interval level
+#' @param digits the decimal places
+#'
+#' @return A list with effect parameters
 #'
 #' @author Dan Chaltiel
 #' @export

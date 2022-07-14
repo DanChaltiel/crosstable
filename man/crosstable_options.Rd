@@ -5,21 +5,11 @@
 \title{Options for the package \code{crosstable}}
 \usage{
 crosstable_options(
-  zero_percent,
-  verbosity_autotesting,
-  verbosity_duplicate_cols,
-  wrap_id,
-  only_round,
-  units,
-  peek_docx,
-  compact_padding,
-  font_code,
-  format_legend_name,
-  table_legend_par_before,
-  table_legend_prefix,
-  figure_legend_par_after,
-  figure_legend_prefix,
-  header_show_n_pattern,
+  ...,
+  zero_percent = FALSE,
+  only_round = FALSE,
+  verbosity_autotesting = "default",
+  verbosity_duplicate_cols = "default",
   total,
   percent_pattern,
   percent_digits,
@@ -35,6 +25,9 @@ crosstable_options(
   followup,
   test_arg,
   effect_args,
+  wrap_id = 70,
+  compact_padding = 25,
+  header_show_n_pattern = "{.col} (N={.n})",
   keep_id,
   autofit,
   compact,
@@ -45,6 +38,14 @@ crosstable_options(
   fontsize_body,
   fontsize_header,
   fontsize_subheaders,
+  units = "in",
+  peek_docx = TRUE,
+  font_code = "Consolas",
+  format_legend_name,
+  table_legend_par_before,
+  table_legend_prefix,
+  figure_legend_par_after,
+  figure_legend_prefix,
   normal_squish,
   title_squish,
   allow_break,
@@ -56,38 +57,19 @@ crosstable_options(
   style_heading,
   style_list_ordered,
   style_list_unordered,
-  ...,
   reset = deprecated()
 )
 }
 \arguments{
+\item{...}{unused}
+
 \item{zero_percent}{set to TRUE so that proportions are not displayed if \code{n==0}}
+
+\item{only_round}{default argument for \code{\link[=format_fixed]{format_fixed()}}}
 
 \item{verbosity_autotesting}{one of \code{default}, \code{quiet}, or \code{verbose}}
 
 \item{verbosity_duplicate_cols}{one of \code{default}, \code{quiet}, or \code{verbose}.}
-
-\item{wrap_id}{if \code{id} contains no spaces, wrap it with this maximum number of characters.}
-
-\item{only_round}{default argument for \code{\link[=format_fixed]{format_fixed()}}}
-
-\item{units}{default units in \code{\link[=body_add_gg2]{body_add_gg2()}} and \code{\link[=body_add_img2]{body_add_img2()}}}
-
-\item{peek_docx}{behavior of \code{\link[=peek]{peek()}}, which will open a \code{docx} if \code{TRUE} (default) and an \code{xlsx} if \code{FALSE}}
-
-\item{compact_padding}{in flextables, left-padding for non-headers rows when \code{compact=TRUE}.}
-
-\item{font_code}{font family used to show code, most likely a monospaced typeface such as Consolas (default)}
-
-\item{format_legend_name}{how the legend name ("Table", "Figure") is formatted. Default to \code{officer::fp_text_lite(bold=TRUE)}}
-
-\item{table_legend_par_before}{whether to add an empty paragraph before all table legends}
-
-\item{table_legend_prefix, figure_legend_prefix}{a prefix before each legend, after the numbering}
-
-\item{figure_legend_par_after}{whether to add an empty paragraph after all figure legends}
-
-\item{header_show_n_pattern}{glue pattern used when showing N in the header of flextables. \code{.col} is the name of the column and \code{.n} the size of the group. Default to \code{{.col} (N={.n})}.}
 
 \item{total}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
@@ -119,6 +101,12 @@ crosstable_options(
 
 \item{effect_args}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
+\item{wrap_id}{if \code{id} contains no spaces, wrap it with this maximum number of characters.}
+
+\item{compact_padding}{in flextables, left-padding for non-headers rows when \code{compact=TRUE}.}
+
+\item{header_show_n_pattern}{glue pattern used when showing N in the header of flextables. \code{.col} is the name of the column and \code{.n} the size of the group. Default to \code{{.col} (N={.n})}.}
+
 \item{keep_id}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
 
 \item{autofit}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
@@ -139,6 +127,20 @@ crosstable_options(
 
 \item{fontsize_subheaders}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally. Subheaders are only considered when \code{compact=TRUE}.}
 
+\item{units}{default units in \code{\link[=body_add_gg2]{body_add_gg2()}} and \code{\link[=body_add_img2]{body_add_img2()}}}
+
+\item{peek_docx}{behavior of \code{\link[=peek]{peek()}}, which will open a \code{docx} if \code{TRUE} (default) and an \code{xlsx} if \code{FALSE}}
+
+\item{font_code}{font family used to show code, most likely a monospaced typeface such as Consolas (default)}
+
+\item{format_legend_name}{how the legend name ("Table", "Figure") is formatted. Default to \code{officer::fp_text_lite(bold=TRUE)}}
+
+\item{table_legend_par_before}{whether to add an empty paragraph before all table legends}
+
+\item{table_legend_prefix, figure_legend_prefix}{a prefix before each legend, after the numbering}
+
+\item{figure_legend_par_after}{whether to add an empty paragraph after all figure legends}
+
 \item{normal_squish}{Should you squish text in normal paragraphs?}
 
 \item{title_squish}{Should you squish text in headers paragraphs?}
@@ -158,8 +160,6 @@ crosstable_options(
 \item{style_heading}{For specifying styles used by headings on different levels. Levels will be pasted in the end (e.g. use \code{"title"} if your level 2 heading style is \code{"title2"}).}
 
 \item{style_list_ordered, style_list_unordered}{For specifying styles used by lists in the \code{rdocx} template. Needed for \code{\link[=body_add_list]{body_add_list()}} to work.}
-
-\item{...}{unused}
 
 \item{reset}{if \code{TRUE}, set all these options back to default}
 }
