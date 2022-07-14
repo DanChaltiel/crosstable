@@ -112,14 +112,13 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   # TODO bypos = eval_select(expr(by), data)
 
   # Options -------------------------------------------------------------
-  if(missing(total)) total = getOption("crosstable_total", 0)
   missing_percent_pattern = FALSE
   if(missing(percent_pattern)) {
     missing_percent_pattern = TRUE
     percent_pattern = getOption("crosstable_percent_pattern", "{n} ({p_row})")
   }
+  if(missing(total)) total = getOption("crosstable_total", 0)
   if(missing(percent_digits)) percent_digits = getOption("crosstable_percent_digits", 2)
-  #TODO maybe_missing
   if(missing(showNA)) showNA = getOption("crosstable_showNA", "ifany")
   if(missing(label)) label = getOption("crosstable_label", TRUE)
   if(missing(funs)) funs = getOption("crosstable_funs",  c(" " = cross_summary))

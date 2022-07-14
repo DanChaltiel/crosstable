@@ -25,8 +25,8 @@ test_that("Options work", {
                    class="crosstable_unknown_option_warning")
 
     x=crosstable_peek_options()
-    expect_identical(x, list(crosstable_zero_percent = TRUE, crosstable_wrap_id=50,
-                             crosstable_units = "cm", crosstable_percent_pattern = "{n}"))
+    expect_mapequal(x, list(crosstable_zero_percent = TRUE, crosstable_wrap_id=50,
+                            crosstable_units = "cm", crosstable_percent_pattern = "{n}"))
 
     #reset
     expect_message(crosstable_reset_options())
@@ -37,4 +37,80 @@ test_that("Options work", {
     #default in testing env
     crosstable_options(crosstable_verbosity_autotesting="quiet")
   })
+})
+
+
+test_that("All options work", {
+  crosstable_reset_options(quiet=TRUE)
+  # withr::deferred_clear()
+
+  # crosstable()
+  ct_noopt = crosstable(mtcars3, c(cyl, carb, qsec_posix, surv), by=vs, test=TRUE, effect=TRUE) %>%
+    suppressWarnings()
+  # local_options(
+  crosstable_options(
+    zero_percent=TRUE,
+    only_round=TRUE,
+    verbosity_autotesting="quiet",
+    verbosity_duplicate_cols="quiet",
+    total="both",
+    percent_pattern="{n} ({p_row}, {p_col})",
+    percent_digits=0,
+    num_digits=0,
+    showNA="always",
+    label=FALSE,
+    funs=meansd,
+    # funs=c("Mean (SD)"=meansd),
+    funs_arg=list(na.rm=FALSE),
+    cor_method="kendall",
+    unique_numeric=4,
+    date_format="%d/%m/%Y",
+    times=c(0,100),
+    followup=TRUE,
+    test_arg = crosstable_test_args(plim=1),
+    effect_args = crosstable_effect_args(conf_level=0.7)
+  )
+  ct_opt = crosstable(mtcars3, c(cyl, carb, qsec_posix, surv), by=vs, test=TRUE, effect=TRUE) %>%
+    suppressWarnings()
+  expect_snapshot({
+    as.data.frame(ct_noopt)
+    as.data.frame(ct_opt)
+  })
+
+
+  #as_flextable()
+  ft_noopt = as_flextable(ct_opt)
+  # local_options(
+  crosstable_options(
+    wrap_id=30,
+    compact_padding=40,
+    header_show_n_pattern="{.col}={.n}", #default="{.col} (N={.n})"
+    keep_id=TRUE,
+    autofit=FALSE,
+    compact=TRUE,
+    remove_header_keys=TRUE, #unused, only multiby
+    show_test_name=FALSE,
+    padding_v=0,
+    header_show_n=TRUE,
+    fontsize_body=8,
+    fontsize_header=8,
+    fontsize_subheaders=8
+  )
+  ft_opt = as_flextable(ct_opt)
+
+  expect_snapshot({
+    ft_opt
+    ft_opt
+  })
+
+  # x = crosstable(mtcars3, c(cyl, carb, qsec_posix, surv), by=vs)
+  # print(af(x))
+
+
+  # expect_snapshot({
+  #   x = crosstable(mtcars3, c(cyl, carb, qsec_posix, surv), by=vs)
+  #   as.data.frame(x)
+  # })
+  crosstable_reset_options(quiet=TRUE)
+  crosstable_options(verbosity_autotesting="quiet")
 })
