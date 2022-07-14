@@ -115,44 +115,35 @@ get_defined_function = function(name){
 #' @keywords internal
 #' @noRd
 parse_funs = function(funs){
-  # browser()
-  # fun_quo=enquo(funs)
   funs = c(funs)
+  if(!is.list(funs)) funs=as.list(funs)
   if(is.null(names(funs))) names(funs)=NA
-  caller = caller_env()
-
-  #TODO if(!is.list(funs) funs=list(funs))
-
-  # fun_call = as.character(as.list(substitute(funs)))
-  # fun_call = fun_call[fun_call != "c" & fun_call != "list"]
-  # fun_call2 = as.character(as.list(substitute(funs, caller_env())))
-  # fun_call2 = fun_call[fun_call != "c" & fun_call != "list"]
 
   if(length(funs)>1) {
     fun_call = as.character(as.list(substitute(funs, caller_env())))
     fun_call = fun_call[fun_call != "c" & fun_call != "list"]
   } else {
     fun_call = deparse(substitute(funs, caller_env()))
+    if(str_starts(fun_call[1], "function ?\\(")){
+      fun_call="function(x){}"
+    }
+    #TODO ajouter fun_call2 comme au dessus pour enlever c()
+    # crosstable(mtcars3, c(carb, qsec_posix), funs=c(meansd))
+    # browser()
   }
-  # print(fun_call)
-  # print(deparse(substitute(funs, caller_env())))
-  # print(deparse(substitute(funs)))
-  # print(deparse(substitute(list(funs), caller_env())))
-  # browser()
+
   if(length(fun_call)!=length(funs)){
     fun_call = as.character(as.list(substitute(funs, caller_env())))
     fun_call = fun_call[fun_call != "c" & fun_call != "list"]
-    # x=list(funs, names(funs), fun_call)
   }
   x=list(funs, names(funs), fun_call)
 
-  if(map_dbl(x, length) %>% .[.>0] %>% unique() %>% length() != 1){
-    cli_abort(c("Problem with fun_call. This should never happen. Is `funs` syntax correct?",
-                i="lengths: funs={length(funs)}, names(funs)={length(names(funs))}, fun_call={length(fun_call)}")) #nocov
+  if(lengths(x) %>% .[.>0] %>% unique() %>% length() != 1){
+    cli_abort(c("Problem with fun_call in parse_funs(). This should never happen. Is `funs` syntax correct?",
+                x="lengths: funs={length(funs)}, names(funs)={length(names(funs))}, fun_call={length(fun_call)}")) #nocov
   }
 
-  names(funs) = pmap_chr(x, ~{
-    .f = ..1; .name = ..2; .call = ..3
+  names(funs) = pmap_chr(x, function(.f, .name, .call){
     target_name = NULL
 
     if(!is.null(.name) && !is.na(.name) && .name!=""){
