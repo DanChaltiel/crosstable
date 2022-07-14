@@ -99,7 +99,6 @@ calc_effect_tabular = function(x, by, conf_level=0.95, type=c("OR", "RR", "RD"))
   if(ncol(tab) <= 1 || nrow(tab) > 2) return(NULL)
   if(n_distinct(x, na.rm=T)==1 || n_distinct(by, na.rm=T)==1) return(NULL)
 
-
   ref_x = colnames(tab)[1]
   ref_by = rownames(tab)[1]
   versus_by = rownames(tab)[2] #length==2
@@ -129,8 +128,8 @@ calc_effect_tabular = function(x, by, conf_level=0.95, type=c("OR", "RR", "RD"))
   } else {
     ci = rbind(ci, matrix(ncol=2, nrow=length(nn)-(nrow(ci)-1),
                           dimnames=list(nn[!nn %in% rownames(ci)], NULL)))
-    ci_inf = ci[nn ,"2.5 %"]
-    ci_sup = ci[nn ,"97.5 %"]
+    ci_inf = ci[nn, 1]
+    ci_sup = ci[nn, 2]
   }
   if(inherits(mod, "glm")){
     if(type=="RD") effect = mod$coef[-1]
