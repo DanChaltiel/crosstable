@@ -18,7 +18,7 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
   }
 
   if(is.null(data_y)){
-    rtn=summarize_categorical_single(data_x,
+    rtn=summarize_categorical_single(data_x[[1]],
                                      percent_pattern=percent_pattern, showNA=showNA,
                                      total=total, digits=percent_digits)
   } else if(is.character.or.factor(data_y[[1]])){
@@ -47,38 +47,46 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
 #' @keywords internal
 #' @noRd
 summarize_categorical_single = function(x, showNA, total, digits, percent_pattern){
-  tbd = table(x, useNA = "no") %>%
-    as.data.frame(stringsAsFactors=FALSE) %>%
+  # assert_data_frame(x)
+  # tbd = table(x, useNA = "no") %>%
+  tbd = table(x, useNA = "always") %>%
+    as.data.frame() %>%
     select(x=1, n=2) #needed for an odd bug on fedora-devel
   zero_percent = getOption("crosstable_zero_percent", FALSE)
 
   rtn = tbd %>%
     mutate(
-      p_row=1,
-      n_col=sum(.data$n, na.rm=TRUE),
-      n_row=.data$n,
-      n_tot=.data$n_col,
+      n_col=sum(.data$n[!is.na(.data$x)], na.rm=TRUE),
+      n_row=.data$n_col, n_tot=.data$n_col,
+      n_col_na=sum(.data$n, na.rm=TRUE),
+      n_row_na=.data$n_col_na, n_tot_na=.data$n_col_na,
       p_col=.data$n/.data$n_col,
-      p_cell=p_col,
-      across_unpack(starts_with("p"),
-                    ~confint_proportion(.x, n, method="wilson")),
-      across(starts_with("p_"),
-             ~format_fixed(.x, digits=digits, percent=TRUE)),
-      value=ifelse(is.na(x) | .data$n==0 & zero_percent,
-                   .data$n, glue(percent_pattern))
+      p_row=p_col, p_cell=p_col,
+      p_col_na=.data$n/.data$n_col_na,
+      p_row_na=p_col_na, p_cell_na=p_col_na
     ) %>%
-    select(variable="x", value="value")
+    getTableCI(digits=digits) %>%
+    transmute(variable=replace_na(x, "NA"),
+              value=ifelse(is.na(x) | .data$n==0 & zero_percent,
+                           .data$n, glue(percent_pattern$body)))
   .showNA = showNA=="always" || showNA=="ifany" && (anyNA(x))
-  if(.showNA){
-    rtn = rbind(rtn, data.frame(variable="NA", value=sum(is.na(x))))
+  # if(.showNA){
+  #   rtn = rbind(rtn, data.frame(variable="NA", value=sum(is.na(x))))
+  # }
+  if(!.showNA){
+    rtn = filter(rtn, variable!="NA")
   }
 
-  if (2 %in% total){
-    pattern_vars = get_glue_vars(percent_pattern)
-    any_p = pattern_vars %>% str_detect("p_row|p_col|p_cell") %>% any()
-    value = glue("{sum(table(x, useNA='always'))} ({format_fixed(100, digits=digits)}%)")
-    if(!any_p) value = sum(table(x, useNA="always")) #"always" else sum is different in cols/row
-    rtn = rbind(rtn, data.frame(variable="Total", value=value))
+  if(2 %in% total){
+    .total = tibble(variable="Total",
+                    n=length(x), n_row=n, n_col=n, n_tot=n,
+                    p_cell=1, p_row=p_cell, p_col=p_cell) %>%
+      mutate(across_unpack(matches("^[pn]"), ~tibble(na=.x))) %>%
+      getTableCI(digits=digits) %>%
+      transmute(variable,
+                value=ifelse(.data$n==0 & zero_percent, .data$n,
+                             glue(percent_pattern$total_all)))
+    rtn = bind_rows(rtn, .total)
   }
 
   rtn %>% mutate_all(as.character)
@@ -90,6 +98,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
 #' @importFrom purrr map reduce safely
 #' @importFrom tidyr unite pivot_wider
 #' @importFrom glue glue
+#' @importFrom tidyselect peek_vars
 #' @keywords internal
 #' @noRd
 summarize_categorical_by = function(x, by,
@@ -99,53 +108,116 @@ summarize_categorical_by = function(x, by,
   zero_percent = getOption("crosstable_zero_percent", FALSE)
 
   nn = table(x, by, useNA=showNA)
-  .tbl = as.data.frame(nn, responseName="Freq", stringsAsFactors=FALSE)
+  nn2 = table(x, by, useNA="no")
+  nn3 = table(x, by, useNA="ifany")
+  .tbl = as.data.frame(nn, responseName="Freq")
 
-  table_n = as.data.frame(nn, responseName="n", stringsAsFactors=FALSE)
-  n_row = marginSums(nn, margin=1) %>% as.data.frame(responseName="n_row")
-  n_col = marginSums(nn, margin=2) %>% as.data.frame(responseName="n_col")
-  n_tot = sum(nn)
-  table_p_cell = getTable(x, by, type="p_cell")
-  table_p_row =  getTable(x, by, type="p_row")
-  table_p_col =  getTable(x, by, type="p_col")
+  table_n = as.data.frame(nn, responseName="n")
+  # n_row = marginSums(nn, margin=1) %>% as.data.frame(responseName="n_row")
+  # n_col = marginSums(nn, margin=2) %>% as.data.frame(responseName="n_col")
+  table_n_row = marginSums(nn2, margin=1) %>% as.data.frame(responseName="n_row")
+  table_n_col = marginSums(nn2, margin=2) %>% as.data.frame(responseName="n_col")
+  table_n_row_na = marginSums(nn3, margin=1) %>% as.data.frame(responseName="n_row_na")
+  table_n_col_na = marginSums(nn3, margin=2) %>% as.data.frame(responseName="n_col_na")
+  n_tot = sum(nn2)
+  n_tot_na = sum(nn3)
 
-  rtn = reduce(list(table_n, table_p_cell, table_p_row, table_p_col),
-               left_join, by=c("x", "by")) %>%
-    left_join(n_row, by="x") %>%
-    left_join(n_col, by="by") %>%
-    mutate(
-      n_tot=n_tot,
-      across_unpack(starts_with("p_"),
-                    ~confint_proportion(.x, n, method="wilson")),
-      across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE))
-    ) %>%
+  # n_row = table(x, useNA="no") %>% as.data.frame(responseName="n_row")
+  # n_col = table(by, useNA="no") %>% as.data.frame(responseName="n_col")
+  # n_row = table(x, useNA=showNA) %>% as.data.frame(responseName="n_row")
+  # n_col = table(by, useNA=showNA) %>% as.data.frame(responseName="n_col")
+  # n_row = table(x, useNA="no") %>% as.data.frame(responseName="n_row")
+  # n_col = table(by, useNA="no") %>% as.data.frame(responseName="n_col")
+  # n_tot = table(x, by, useNA="no") %>% sum(na.rm=TRUE)
+
+  # table_p_cell = getTable(x, by, type="p_cell")
+  # table_p_row =  getTable(x, by, type="p_row")
+  # table_p_col =  getTable(x, by, type="p_col")
+
+  table_p_cell = proportions(nn2, margin=NULL) %>% as.data.frame(responseName="p_cell")
+  table_p_row  = proportions(nn2, margin=1) %>% as.data.frame(responseName="p_row")
+  table_p_col  = proportions(nn2, margin=2) %>% as.data.frame(responseName="p_col")
+  table_p_cell_na = proportions(nn3, margin=NULL) %>% as.data.frame(responseName="p_cell_na")
+  table_p_row_na  = proportions(nn3, margin=1) %>% as.data.frame(responseName="p_row_na")
+  table_p_col_na  = proportions(nn3, margin=2) %>% as.data.frame(responseName="p_col_na")
+
+  .table = reduce(list(table_n, table_p_cell, table_p_row, table_p_col,
+                       table_p_cell_na, table_p_row_na, table_p_col_na),
+                  left_join, by=c("x", "by")) %>%
+    left_join(table_n_row, by="x") %>%
+    left_join(table_n_row_na, by="x") %>%
+    left_join(table_n_col, by="by") %>%
+    left_join(table_n_col_na, by="by") %>%
+    mutate(n_tot=.env$n_tot, n_tot_na=.env$n_tot_na) %>%
+    getTableCI(digits=digits) %>%
+    relocate(x, by, n, sort(peek_vars()))
+
+  rtn = .table %>%
+    # mutate(
+    #   across_unpack(starts_with("p_"),
+    #                 ~confint_proportion(.x, n, method="wilson")),
+    #   across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE))
+    # ) %>%
     transmute(variable=replace_na(x, "NA"), by=.data$by,
               value=ifelse(is.na(x)|is.na(by)|.data$n==0&zero_percent,
-                           .data$n, glue(percent_pattern))) %>%
+                           .data$n, glue(percent_pattern$body))) %>%
     pivot_wider(names_from="by", values_from = "value")
 
-  pattern_vars = get_glue_vars(percent_pattern)
   if(2 %in% total){
-    mt = margin.table(nn, margin=2) %>% as.numeric()
-    line = mt
-    any_p_ci = pattern_vars %>% str_starts("p_col_") %>% any()
-    any_p = pattern_vars %>% str_detect("p_row|p_col|p_cell") %>% any()
-    #TODO si !any_p_ci on garde pattern
-    if(any_p){
-      mt2 = margin.table(table(x, by, useNA="no"), margin=2) %>% as.numeric()
-      pct = format_fixed(100*prop.table(mt2), digits) %>% paste0("%")
-      length(pct) = length(mt) #expands with NA
-      line = paste0(mt,ifelse(is.na(pct), "", glue(" ({pct})")))
-    }
-    rtn=rbind(rtn, c("Total", line))
+    ms = marginSums(nn3, margin=2) %>% as.data.frame(responseName="n_col")
+    ms_na = marginSums(nn3, margin=2) %>% as.data.frame(responseName="n_col_na")
+    if(nrow(table_n_col)>nrow(ms)) ms = add_row(ms) #TODO utile ?
+
+    line = ms %>%
+      left_join(ms_na, by="by") %>%
+      as_tibble() %>%
+      mutate(
+        n_col = replace_na(n_col, 0), #TODO utile ?
+        n=n_col,
+        n_tot=sum(n_col[!is.na(by)]),
+        n_tot_na=sum(n_col),
+        n_row=n_tot,
+        p_col=n_col/n_tot,
+        p_row=p_col, p_cell=p_col,
+        n_row_na=n_tot_na,
+        p_col_na=n_col_na/n_tot_na,
+        p_row_na=p_col_na, p_cell_na=p_col_na
+      ) %>%
+      getTableCI(digits=digits) %>%
+      transmute(x=fct_explicit_na(.data$by, "NA"),
+                value=ifelse(is.na(by) | .data$n==0&zero_percent, .data$n,
+                             glue(percent_pattern$total_row))) %>%
+      pivot_wider(names_from="x", values_from = "value") %>%
+      mutate(variable="Total")
+
+    rtn=bind_rows(rtn, line)
   }
+
+  # pattern_vars = get_glue_vars(percent_pattern$body)
+  # if(2 %in% total){
+  #   mt = marginSums(nn, margin=2) %>% as.numeric()
+  #   line = mt
+  #   any_p_ci = pattern_vars %>% str_starts("p_col_") %>% any()
+  #   any_p = pattern_vars %>% str_detect("p_row|p_col|p_cell") %>% any()
+  #   #TODO si !any_p_ci on garde pattern
+  #
+  #   if(any_p){
+  #     mt2 = margin.table(table(x, by, useNA="no"), margin=2) %>% as.numeric()
+  #     pct = format_fixed(100*prop.table(mt2), digits) %>% paste0("%")
+  #     length(pct) = length(mt) #expands with NA
+  #     line = paste0(mt,ifelse(is.na(pct), "", glue(" ({pct})")))
+  #   }
+  #   rtn=rbind(rtn, c("Total", line))
+  # }
 
   .effect=.test=.total=NULL
   if(1 %in% total){
-    any_p = pattern_vars %>% str_detect("p_row|p_col|p_cell") %>% any()
-    any_pcol_ci = pattern_vars %>% str_starts("p_col_") %>% any()
+    # any_p = pattern_vars %>% str_detect("p_row|p_col|p_cell") %>% any()
+    # any_pcol_ci = pattern_vars %>% str_starts("p_col_") %>% any()
+    # percent_pattern2 = percent_pattern
     percent_pattern2 = percent_pattern
-    if(any_p && !any_pcol_ci) percent_pattern2="{n} ({p_col})"
+    percent_pattern2$body=percent_pattern$total_col
+    # if(any_p && !any_pcol_ci) percent_pattern2="{n} ({p_col})"
     .total = summarize_categorical_single(x=x, showNA=showNA, total=total,
                                           digits=digits, percent_pattern=percent_pattern2)$value
   }
@@ -160,6 +232,8 @@ summarize_categorical_by = function(x, by,
   rtn %>%
     mutate(Total=.total, effect=.effect, test=.test) %>%
     mutate_all(as.character)
+
+  # browser()
 }
 
 
@@ -172,13 +246,30 @@ summarize_categorical_by = function(x, by,
 getTable = function(x, by, type=c("n", "p_cell", "p_row", "p_col")){
   fun = switch(type,
                n=identity,
-               p_cell=as_function(~.x/sum(.x, na.rm=TRUE)),
-               p_row=as_function(~prop.table(.x, margin=1)),
-               p_col=as_function(~prop.table(.x, margin=2))
+               p_cell=as_function(~proportions(.x)),
+               p_row=as_function(~proportions(.x, margin=1)),
+               p_col=as_function(~proportions(.x, margin=2))
   )
-  table(x, by, useNA="no") %>%
+  useNA = if(type=="p_cell") "always" else "no"
+  table(x, by, useNA=useNA) %>%
     fun() %>%
-    as.data.frame(responseName=type, stringsAsFactors=FALSE)
+    as.data.frame(responseName=type)
+}
+
+#' @importFrom rlang as_function
+#' @keywords internal
+#' @noRd
+getTableCI = function(x, digits, method="wilson"){
+  x %>%
+    mutate(
+      across_unpack(p_cell, ~confint_proportion(.x, n_tot, method=method)),
+      across_unpack(p_col,  ~confint_proportion(.x, n_col, method=method)),
+      across_unpack(p_row,  ~confint_proportion(.x, n_row, method=method)),
+      across_unpack(p_cell_na, ~confint_proportion(.x, n_tot_na, method=method)),
+      across_unpack(p_col_na,  ~confint_proportion(.x, n_col_na, method=method)),
+      across_unpack(p_row_na,  ~confint_proportion(.x, n_row_na, method=method)),
+      across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE))
+    )
 }
 
 
@@ -198,14 +289,36 @@ getTable = function(x, by, type=c("n", "p_cell", "p_row", "p_col")){
 #' get_percent_pattern(margin=c("row","cells", "rows","column")) #warn
 #' get_percent_pattern(margin=c("foobar", "rows","cells")) #error
 get_percent_pattern = function(margin=c("row", "column", "cell", "none", "all")){
+  rtn = list(
+    body="{n} ({p_col})",
+    total_row="{n} ({p_col})",
+    total_col="{n} ({p_row})",
+    total_all="{n} ({p_cell})"
+  )
   if(length(margin)==1){
     if(margin %in% list(-1, "none")){
-      return("{n}")
+      rtn = map(rtn, ~"{n}")
+      return(rtn)
     } else if(isTRUE(margin)){
-      return("{n} ({p_row} / {p_col})")
+      rtn$body = "{n} ({p_row} / {p_col})"
+      return(rtn)
     } else if(margin=="all"){
-      return("{n} ({p_cell} / {p_row} / {p_col})")
+      rtn$body = "{n} ({p_cell} / {p_row} / {p_col})"
+      return(rtn)
     }
+  }
+  if(any(margin %in% c("row", "column", "cell")) && any(margin %in% c("none", "all"))){
+    cli_abort(c('{.code margin=c("row", "column", "cell")} cannot be combined
+                with {.code margin=c("none", "all")}',
+                "Input margin: {.val {margin}}"),
+              class="crosstable_incompatible_margin",
+              call=crosstable_caller$env)
+  }
+  if(any(margin=="none") && any(margin=="all")){
+    cli_abort(c('{.code margin="none"} cannot be combined with {.code margin="all"}',
+                "Input margin: {.val {margin}}"),
+              class="crosstable_incompatible_margin2",
+              call=crosstable_caller$env)
   }
 
   marginopts = list(p_row = c(1, "row", "rows"),
@@ -230,5 +343,6 @@ get_percent_pattern = function(margin=c("row", "column", "cell", "none", "all"))
     }) %>%
     unlist() %>% sort() %>% names()
   x = glue_collapse(glue("{{{x}}}"), sep=" / ")
-  return(glue("{{n}} ({x})"))
+  rtn$body = glue("{{n}} ({x})")
+  rtn
 }
