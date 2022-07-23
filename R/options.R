@@ -40,8 +40,8 @@
 #' @param padding_v For setting [as_flextable()] arguments globally.
 #' @param header_show_n For setting [as_flextable()] arguments globally.
 #' @param fontsize_body For setting [as_flextable()] arguments globally.
-#' @param fontsize_header For setting [as_flextable()] arguments globally.
 #' @param fontsize_subheaders For setting [as_flextable()] arguments globally. Subheaders are only considered when `compact=TRUE`.
+#' @param fontsize_header For setting [as_flextable()] arguments globally.
 #'
 #--- Officer ---
 #' @param format_legend_name how the legend name ("Table", "Figure") is formatted. Default to `officer::fp_text_lite(bold=TRUE)`
@@ -79,7 +79,7 @@ crosstable_options = function(
     compact_padding=25,
     header_show_n_pattern="{.col} (N={.n})",
     keep_id, autofit, compact, remove_header_keys, show_test_name, padding_v,
-    header_show_n, fontsize_body, fontsize_header, fontsize_subheaders,
+    header_show_n, fontsize_body, fontsize_subheaders, fontsize_header,
     #officer
     units="in",
     peek_docx=TRUE,
@@ -93,6 +93,7 @@ crosstable_options = function(
     #styles
     style_normal, style_character, style_strong, style_image,
     style_legend, style_heading, style_list_ordered, style_list_unordered,
+    .local=FALSE,
     reset=deprecated()
 ){
 
@@ -110,6 +111,7 @@ crosstable_options = function(
 
   unknown_argdot = argdot[!names(argdot) %in% argdot_ok]
   argg = argg[!names(argg) %in% names(unknown_argdot)]
+  argg = argg[names(argg)!=".local"]
   if(length(unknown_argdot)>0){
     cli::cli_warn(c("Unknown crosstable option{?s} were ignored: {names(unknown_argdot)}."),
                   class="crosstable_unknown_option_warning")
@@ -126,7 +128,11 @@ crosstable_options = function(
                   class="crosstable_dupl_option_warning")
   }
 
-  do.call(options, argg)
+  if(.local){
+    argg = c(argg, .frame = caller_env())
+    do.call(local_options, argg)
+  }
+  else do.call(options, argg)
   invisible()
 }
 
