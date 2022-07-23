@@ -5,7 +5,11 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 #### New features
 
 -   New `clean_names_with_labels()` which clean the names of the dataframe but keeps the old names as labels. Obviously inspired by {janitor}.
--   New variables `n_col`, `n_row`, and `n_tot` available for `percent_pattern`. For instance, one can now write `crosstable(mtcars2, cyl, percent_pattern="{p_col} ({n}/{n_col})")`.
+-   New variables `n_col`, `n_row`, and `n_tot` available for `percent_pattern`. Also, every variable has now its counterpart with the `_na` suffix which accounts for missing values. For instance, one can now write: 
+```r
+    crosstable(mtcars2, cyl, percent_pattern="{p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]")
+    crosstable(mtcars2, cyl, percent_pattern="{p_col_na} ({n}/{n_col_na}) [95%CI: {p_col_inf}; {p_col_sup}]")
+```
 
 #### Improvements
 
@@ -27,6 +31,7 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 -   `percent_pattern` can now contain functions that start by "p" (<https://github.com/DanChaltiel/crosstable/issues/10>).
 -   `percent_pattern` is actually taken into account when `by` has one single level (<https://github.com/DanChaltiel/crosstable/issues/13>).
 -   `import_labels()` now works even if there is a missing value in the dataframe.
+-   Minor other bugfixes
 
 # crosstable 0.4.1 <sub><sup>(2022-02-19)</sup></sub>
 

@@ -68,7 +68,8 @@ test_that("All options work", {
     times=c(0,100),
     followup=TRUE,
     test_arg = crosstable_test_args(plim=1),
-    effect_args = crosstable_effect_args(conf_level=0.7)
+    effect_args = crosstable_effect_args(conf_level=0.7),
+    .local=TRUE
   )
   ct_opt = crosstable(mtcars3, c(cyl, carb, qsec_posix, surv), by=vs, test=TRUE, effect=TRUE) %>%
     suppressWarnings()
@@ -84,17 +85,18 @@ test_that("All options work", {
   crosstable_options(
     wrap_id=30,
     compact_padding=40,
-    header_show_n_pattern="{.col}={.n}", #default="{.col} (N={.n})"
+    header_show_n_pattern="{.col}={.n}",
     keep_id=TRUE,
     autofit=FALSE,
     compact=TRUE,
-    remove_header_keys=TRUE, #unused, only multiby
+    remove_header_keys=TRUE,
     show_test_name=FALSE,
     padding_v=0,
     header_show_n=TRUE,
     fontsize_body=8,
-    fontsize_header=8,
-    fontsize_subheaders=8
+    fontsize_subheaders=9,
+    fontsize_header=10,
+    .local=TRUE
   )
   ft_opt = as_flextable(ct_opt)
 
@@ -111,6 +113,4 @@ test_that("All options work", {
   #   x = crosstable(mtcars3, c(cyl, carb, qsec_posix, surv), by=vs)
   #   as.data.frame(x)
   # })
-  crosstable_reset_options(quiet=TRUE)
-  crosstable_options(verbosity_autotesting="quiet")
 })

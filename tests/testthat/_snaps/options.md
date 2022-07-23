@@ -263,7 +263,7 @@
       2         cyl        cyl                              6                     0
       3         cyl        cyl                              8                     0
       4         cyl        cyl                             NA                     2
-      5         cyl        cyl                          Total               9 (35%)
+      5         cyl        cyl                          Total                9 (38)
       6        carb       carb function(x, na.rm, dig, ...){}                 1 (0)
       7  qsec_posix qsec_posix function(x, na.rm, dig, ...){} 19/01/2010 (23 hours)
       8        surv       surv                            t=0               1 (0/9)
@@ -275,7 +275,7 @@
       2           1 (100, 8)                   3              4 (15)
       3         11 (100, 85)                   2             13 (48)
       4                    2                   1                   5
-      5             15 (65%)                   8           32 (100%)
+      5              15 (62)                   8            32 (100)
       6                4 (2)               3 (1)               3 (2)
       7  17/01/2010 (1 days) 19/01/2010 (2 days) 18/01/2010 (2 days)
       8             1 (0/15)             1 (0/8)            1 (0/32)

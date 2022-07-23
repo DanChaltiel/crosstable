@@ -127,6 +127,10 @@ test_that("Margins with totals", {
                class="crosstable_margin_length_3_error")
   expect_error(crosstable(mtcars3, am, margin=c("row", "foo", "bar")),
                class="crosstable_unknown_margin")
+  expect_error(crosstable(mtcars3, c(am, cyl), by = vs, total = "both", margin = c("row", "none")),
+               class="crosstable_incompatible_margin")
+  expect_error(crosstable(mtcars3, c(am, cyl), by = vs, total = "both", margin = c("all", "none")),
+               class="crosstable_incompatible_margin2")
   expect_warning(crosstable(mtcars3, am, margin=c("row"), percent_pattern="N={n}"),
                  class="crosstable_margin_percent_pattern_warning")
   expect_warning(crosstable(mtcars3, am, margin=c("row", 1, "col")),
@@ -137,16 +141,42 @@ test_that("Margins with totals", {
 # Percent pattern ---------------------------------------------------------
 
 test_that("Percent pattern", {
+  crosstable(mtcars3, cyl, percent_pattern="{p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]", total=TRUE)
+  crosstable(mtcars3, cyl, percent_pattern="{p_col_na} ({n}/{n_col_na}) [95%CI: {p_col_na_inf}; {p_col_na_sup}]", total=TRUE)
 
   #TODO percent_pattern as list
-  ULTIMATE_PATTERN=list(body="N={n} \nCol: p[95%CI] = {p_col} ({n}/{n_col}): [{p_col_inf}; {p_col_sup}] \nRow:p[95%CI] = {p_row} ({n}/{n_row}): [{p_row_inf}; {p_row_sup}]",
-                        total_row="N={n} \nRow:p[95%CI] = {p_row} ({n}/{n_row}): [{p_row_inf}; {p_row_sup}]",
-                        total_col="N={n} \nCol: p[95%CI] = {p_col} ({n}/{n_col}): [{p_col_inf}; {p_col_sup}]")
+  ULTIMATE_PATTERN=list(body="Cell: p = {p_cell} ({n}/{n_tot}) [95%CI {p_cell_inf}; {p_cell_sup}]
+                        Col: p = {p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}] \nRow:p = {p_row} ({n}/{n_row}): [95%CI: {p_row_inf}; {p_row_sup}]",
+                        total_row="N={n} \nRow:p = {p_row} ({n}/{n_row}) [95%CI: {p_row_inf}; {p_row_sup}]",
+                        total_col="N={n} \nCol: p = {p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]",
+                        total_all="N={n} (100%) [95%CI: {p_col_inf}; {p_col_sup}]")
+  ULTIMATE_PATTERN_NA=list(body="Cell: p = {p_cell_na} ({n}/{n_tot_na}) [95%CI {p_cell_na_inf}; {p_cell_na_sup}]
+                        Col: p = {p_col_na} ({n}/{n_col_na}) [95%CI: {p_col_na_inf}; {p_col_na_sup}] \nRow:p = {p_row_na} ({n}/{n_row_na}): [95%CI: {p_row_na_inf}; {p_row_na_sup}]",
+                        total_row="N={n} \nRow:p = {p_row_na} ({n}/{n_row_na}) [95%CI: {p_row_na_inf}; {p_row_na_sup}]",
+                        total_col="N={n} \nCol: p = {p_col_na} ({n}/{n_col_na}) [95%CI: {p_col_na_inf}; {p_col_na_sup}]",
+                        total_all="N={n} (100%) [95%CI: {p_col_na_inf}; {p_col_na_sup}]")
+
+  ULTIMATE_PATTERN2=list(body="N={n} \nCol: p = {p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}] \nRow:p[95%CI] = {p_row} ({n}/{n_row}): [95%CI: {p_row_inf}; {p_row_sup}]",
+                         # total_row="N={n} \nRow:p = {p_row} ({n}/{n_row}) [95%CI: {p_row_inf}; {p_row_sup}]", #TODO
+                         total_col="N={n} \nCol: p = {p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]",
+                         total_all="N={n} (100%) {p_col_inf}")
+
+  x1=crosstable(mtcars3, cyl, by=vs,
+                # x1=crosstable(mtcars3, cyl, by=am,
+                percent_digits=0, total=TRUE, showNA="always",
+                percent_pattern=ULTIMATE_PATTERN)
+  af(x1)
+
+  crosstable(mtcars2, cyl, total = "both") %>% af
+  crosstable(mtcars2, cyl, by=am, total = "both") %>% af
+  crosstable(mtcars2, cyl, by=am, total = "both", percent_pattern=ULTIMATE_PATTERN) %>% af
+  crosstable(mtcars3, c(am, cyl), by = vs, total = "both", margin = "none")
+
 
   ULTIMATE_PATTERN="N={n}
-                    Cell: p[95%CI] = {p_cell} ({n}/{n_tot}): [{p_cell_inf}; {p_cell_sup}]
-                    Col: p[95%CI] = {p_col} ({n}/{n_col}): [{p_col_inf}; {p_col_sup}]
-                    Row:p[95%CI] = {p_row} ({n}/{n_row}): [{p_row_inf}; {p_row_sup}]"
+                    Cell: p = {p_cell} ({n}/{n_tot}) [95%CI {p_cell_inf}; {p_cell_sup}]
+                    Col: p = {p_col} ({n}/{n_col}) [95%CI {p_col_inf}; {p_col_sup}]
+                    Row:p = {p_row} ({n}/{n_row}) [95%CI {p_row_inf}; {p_row_sup}]"
   expect_snapshot({
     #no by
     x0=crosstable(mtcars3, cyl,

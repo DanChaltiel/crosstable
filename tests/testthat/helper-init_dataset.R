@@ -15,9 +15,10 @@ options(
   dplyr.summarise.inform=FALSE,
   # conflicts.policy="depends.ok",
   tidyverse.quiet=TRUE,
-  lifecycle_verbosity="warning",
-  testthat.progress.max_fails = 50,
-  width=200
+  tidyselect_verbosity ="verbose",#quiet or verbose
+  lifecycle_verbosity="warning", #NULL, "quiet", "warning" or "error"
+  # lifecycle_verbosity="verbose",
+  testthat.progress.max_fails = 50
 )
 
 # options(width = 200)
@@ -31,11 +32,6 @@ if(FALSE){
   # prettycode::prettycode()
 }
 
-# crosstable_options(crosstable_unique_numeric = 8)
-# options(warn = 2)
-# options(warn = 1)
-# options(tidyselect_verbosity = "verbose") #quiet or verbose
-# options(lifecycle_verbosity = "error") #NULL, "quiet", "warning" or "error"
 
 library(dplyr, warn.conflicts = FALSE)
 library(crosstable, warn.conflicts = FALSE)
