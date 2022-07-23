@@ -269,9 +269,18 @@ has_method = function(x, method, skip=c("data.frame")){
 #' @keywords internal
 #' @noRd
 check_percent_pattern = function(percent_pattern){
-  dummy = safely(glue)(percent_pattern, n=1, n_row=1, n_col=1, n_tot=1, p_cell=1, p_row=1, p_col=1,
-                       p_cell_inf=1, p_cell_sup=1, p_row_inf=1,
-                       p_row_sup=1, p_col_inf=1, p_col_sup=1)
+  x=c("cell", "row", "col")
+  n=c("n", "n_row", "n_col", "n_tot", "n_row_na", "n_col_na", "n_tot_na")
+  p=paste0("p_", x)
+  p_na=paste0(p, "_na")
+  p_ci=map(p, ~paste0(.x, c("_inf", "_sup")))
+  p_na_ci=map(p_na, ~paste0(.x, c("_inf", "_sup")))
+
+  nm = list(n, p, p_na, p_ci, p_na_ci) %>% unlist()
+  arg = rep(1, length(nm)) %>% set_names(nm) %>% as.list()
+  arg = c(percent_pattern, arg)
+  dummy = do.call(safely(glue), arg)
+
   #TODO class(dummy$error) #https://github.com/tidyverse/glue/issues/229
   if(!is.null(dummy$error)){
     ok = c("n", "n_tot", "n_row", "n_col", "p_cell", "p_row", "p_col")
@@ -572,8 +581,69 @@ mixedsort = function(x, decreasing=FALSE, na.last=TRUE, blank.last=FALSE,
 
 # dplyr -------------------------------------------------------------------
 
+#' @keywords internal
+#' @noRd
 #' @source https://github.com/tidyverse/dplyr/issues/5563#issuecomment-721769342
 across_unpack = function(...) {
   out = across(...)
   tidyr::unpack(out, names(out), names_sep = "_")
 }
+
+#' @keywords internal
+#' @noRd
+as.data.frame.table = function(...) {
+  base::as.data.frame.table(..., stringsAsFactors=FALSE)
+}
+
+
+
+
+get_variables_formula = function(data, f){
+  if(!is_empty(byname)){
+    cli_abort(c("{.arg by} cannot be used together with the formula interface.
+                  Please include it in the formula or use another syntax.",
+                i="formula = {format(f)}",
+                i="by = {byname}"),
+              class="crosstable_formula_by_error")
+  }
+  data_x = model.frame(f[-3], data, na.action = NULL)
+  data_y = model.frame(f[-2], data, na.action = NULL)
+  list(x=data_x, y=data_y)
+}
+
+
+get_variables = function(data, cols, by, dots){
+  # byname = vars_select(names(data), !!by)
+  # byloc = eval_select(by, data)
+  # vardots= c(dots, list(cols))
+  # browser()
+  data_x = data %>% select(!!cols, !!!dots) %>% as.data.frame()
+  data_y = data %>% select(!!by) %>% as.data.frame()
+
+  return(list(x=data_x, y=data_y))
+
+  # if(vardots %>% map_lgl(quo_is_null) %>% all())
+  #   vardots=quos(everything())
+  #
+  # target_env = caller_env()
+  # vardots2=vardots %>%
+  #   map(quo_squash) %>%
+  #   map(function(.f){
+  #     try({attr(.f, ".Environment") = target_env}, silent = TRUE)
+  #     if (!is_quosures(.f) && is_formula(.f) && length(.f) <= 2 && is_lambda(as_function(.f))){
+  #       .f = as_function(.f)
+  #     }
+  #     set_env(enquo(.f), target_env)
+  #   })
+  #
+  # xloc = eval_select(expr(c(!!!vardots2)), data = data)
+  # xloc = eval_select(vardots2, data)
+  # xloc = eval_select(vardots, data)
+  # data_x = data %>% select(any_of(xloc)) %>% as.data.frame()
+  # data_y = data %>% select(any_of(byname)) %>% as.data.frame()
+  # list(x=data_x, y=data_y)
+}
+
+
+#' crosstable(mtcars3, c(mpg, gear), x=1)
+#' crosstable(mtcars3, c(mpg, gear), am, by=vs)

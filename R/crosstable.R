@@ -104,19 +104,17 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
                       times = NULL, followup = FALSE,
                       test = FALSE, test_args = crosstable_test_args(),
                       effect = FALSE, effect_args = crosstable_effect_args(),
-                      margin = c("row", "column", "cell", "none", "all"),
-                      .vars) {
+                      margin = deprecated(),
+                      .vars = deprecated()) {
   debug=list()
+  local_options(stringsAsFactors=FALSE)
   crosstable_caller$env = rlang::current_env()
-  byname = vars_select(names(data), !!!enquos(by))
+  # byname = vars_select(names(data), !!!enquos(by))
   # TODO bypos = eval_select(expr(by), data)
 
   # Options -------------------------------------------------------------
-  missing_percent_pattern = FALSE
-  if(missing(percent_pattern)) {
-    missing_percent_pattern = TRUE
-    percent_pattern = getOption("crosstable_percent_pattern", "{n} ({p_row})")
-  }
+  missing_percent_pattern = missing(percent_pattern)
+
   if(missing(total)) total = getOption("crosstable_total", 0)
   if(missing(percent_digits)) percent_digits = getOption("crosstable_percent_digits", 2)
   if(missing(showNA)) showNA = getOption("crosstable_showNA", "ifany")
@@ -128,14 +126,13 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   if(missing(date_format)) date_format = getOption("crosstable_date_format",  NULL)
   if(missing(times)) times = getOption("crosstable_times", NULL)
   if(missing(followup)) followup = getOption("crosstable_followup", followup)
-  if(missing(test_args)) test_args = getOption("crosstable_test_args",
-                                               crosstable_test_args())
-  if(missing(effect_args)) effect_args = getOption("crosstable_effect_args",
-                                                   crosstable_effect_args())
+  if(missing(test_args)) test_args = getOption("crosstable_test_args", crosstable_test_args())
+  if(missing(effect_args)) effect_args = getOption("crosstable_effect_args", crosstable_effect_args())
   if(missing(num_digits)) num_digits = getOption("crosstable_num_digits",  1)
 
   if(!"dig" %in% names(funs_arg)){
     funs_arg = c(funs_arg, list(dig=num_digits))
+    #TODO warning/error si "dig" %in% names(funs_arg) && !missing(num_digits)
   }
   # Arguments checks ----------------------------------------------------
 
@@ -144,17 +141,31 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   assert_data_frame(data, null.ok=FALSE, add=coll)
   dataCall = deparse(substitute(data))
   data = as.data.frame(data)
-  assert_string(percent_pattern, add=coll)
+  assert_multi_class(percent_pattern, c("list", "character"), add=coll)
   assert_count(percent_digits, add=coll)
-  assert_logical(label, add=coll)
-  assert_logical(followup, add=coll)
-  assert_logical(test, add=coll)
-  assert_logical(effect, add=coll)
+  assert_logical(label, len=1, add=coll)
+  assert_logical(followup, len=1, add=coll)
+  assert_logical(test, len=1, add=coll)
+  assert_logical(effect, len=1, add=coll)
   assert_list(funs_arg, add=coll)
   if(isFALSE(showNA)) showNA="no"
   if(isTRUE(showNA)) showNA="always"
   showNA = match.arg(showNA)
   cor_method = match.arg(cor_method)
+
+  if(is.null(total)) total = 0
+  else if(isTRUE(total)) total = 1:2
+  else if(is.character(total)) {
+    assert_choice(total, c("none", "both", "all", "row", "col", "column"), add=coll)
+    totalopts = list(all = 1:2,
+                     both = 1:2,
+                     row = 1,
+                     col = 2,
+                     column = 2,
+                     none = 0)
+    total = unname(unlist(totalopts[total]))
+  }
+  reportAssertions(coll)
 
   if(!missing(margin)){
     if(length(margin)>3){
@@ -172,22 +183,15 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
                call=current_env())
     }
   }
-
-  if(is.null(total)) total = 0
-  else if(isTRUE(total)) total = 1:2
-  else if(is.character(total)) {
-    assert_choice(total, c("none", "both", "all", "row", "col", "column"), add=coll)
-    totalopts = list(all = 1:2,
-                     both = 1:2,
-                     row = 1,
-                     col = 2,
-                     column = 2,
-                     none = 0)
-    total = unname(unlist(totalopts[total]))
+  if(length(percent_pattern)==1){
+    percent_pattern = list(
+      body=percent_pattern,
+      total_row="{n} ({p_col})",
+      total_col="{n} ({p_row})",
+      total_all="{n} ({p_cell})"
+    )
   }
-  reportAssertions(coll)
-  check_percent_pattern(percent_pattern)
-  # percent_pattern=str_squish(percent_pattern)
+  walk(percent_pattern, check_percent_pattern)
 
   if(!is.null(date_format)) funs_arg = c(funs_arg, list(date_format=date_format))
 
@@ -203,66 +207,39 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
 
   # Deprecations --------------------------------------------------------
   if(!missing(...)){
-    dotsCall = as.character(substitute(list(...))[-1L]) %>% paste(collapse=", ")
-    colsCall = as.character(substitute(cols)) %>% paste(collapse=", ")
+    colsCalls = substitute(cols) %>% map(deparse) %>% discard(~.x=="c")
+    dotsCalls = substitute(list(...))[-1L] %>% map(deparse)
+    colsCall = deparse(substitute(cols)) %>% paste(collapse=", ")
+    dotsCall = deparse(substitute(list(...))[-1L]) %>% paste(collapse=", ")
+    dotsCall = dotsCalls %>% paste(collapse=", ")
+    goodcall = c(colsCalls, dotsCalls) %>% paste(collapse=", ")
     bad = glue("`crosstable({dataCall}, {colsCall}, {dotsCall}, ...)`")
-    good = glue("`crosstable({dataCall}, c({colsCall}, {dotsCall}), ...)`")
+    good = glue("`crosstable({dataCall}, c({goodcall}), ...)`")
+    # browser()
     deprecate_warn("0.2.0", "crosstable(...=)", "crosstable(cols=)",
                    details=glue("Instead of {bad}, write {good}"))
   }
   if(!missing(.vars)){
     deprecate_stop("0.2.0", "crosstable(.vars=)", "crosstable(cols=)")
-    vardots= c(enquos(.vars), enquos(...))
   }
 
-  # Logic handle --------------------------------------------------------
-  if(!exists("vardots")){
-    vardots= c(enquos(cols), enquos(...))
-  }
 
-  is_form = tryCatch(suppressWarnings(is_formula(cols)),error=function(e) FALSE)
-  is_lamb = tryCatch(suppressWarnings(is_lambda(as_function(cols))), error=function(e) FALSE)
+  # # Logic handle --------------------------------------------------------
+  # browser()
 
-  if(is_form && !is_lamb){
+  cols_is_form = enquo(cols) %>% quo_get_expr() %>% is_formula()
+  if(cols_is_form){
     debug$interface="formula"
-    if(!is_empty(byname)){
-      cli_abort(c("{.arg by} cannot be used together with the formula interface.
-                  Please include it in the formula or use another syntax.",
-                  i="formula = {format(cols)}",
-                  i="by = {byname}"),
-                class="crosstable_formula_by_error")
-    }
-    data_x = model.frame(cols[-3], data, na.action = NULL)
-    data_y = model.frame(cols[-2], data, na.action = NULL)
-    byname = names(data_y)
+    v = get_variables_formula(data, cols)
   } else {
     debug$interface="quosure"
-    if(vardots %>% map_lgl(quo_is_null) %>% all)
-      vardots=quos(everything())
-
-    target_env = caller_env()
-    vardots2=vardots %>%
-      map(quo_squash) %>%
-      map(function(.f){
-        try({attr(.f, ".Environment") = target_env}, silent = TRUE)
-        if (!is_quosures(.f) && is_formula(.f) && length(.f) <= 2 && is_lambda(as_function(.f))){
-          .f = as_function(.f)
-        }
-        set_env(enquo(.f), target_env)
-      })
-    xloc = eval_select(expr(c(!!!vardots2)), data = data)
-    data_x = data %>% select(any_of(xloc)) %>% as.data.frame()
-    data_y = data %>% select(any_of(byname)) %>% as.data.frame()
+    v = get_variables(data, enquo(cols), enquo(by), enquos(...))
   }
-
-  one_col_dummy = ncol(data_y)==1 && length(unique(data_y[[1]]))==1
-  if(missing_percent_pattern && (length(byname)==0 || one_col_dummy)) {
-    percent_pattern = getOption("crosstable_percent_pattern", "{n} ({p_col})")
-  }
-
-
+  data_x=v$x
+  data_y=v$y
+  byname = names(data_y)
+  #TODO test duplicate in formula?
   duplicate_cols = intersect(byname, names(data_x))
-
   verbosity_duplicate_cols = getOption("crosstable_verbosity_duplicate_cols", "default")
   if(length(duplicate_cols)>0 && verbosity_duplicate_cols=="verbose"){
     cli_warn(c("Some columns were selected in `by` and in `cols` and were removed from the latter.",
@@ -274,6 +251,65 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   data_x = select(data_x, -any_of(byname))
   ncol_x = if(is.null(data_x)) 0 else ncol(data_x)
   ncol_y = if(is.null(data_y)) 0 else ncol(data_y)
+
+
+  # if(!exists("vardots")){
+  #   vardots= c(enquos(cols), enquos(...))
+  # }
+  #
+  # is_form = tryCatch(suppressWarnings(is_formula(cols)),error=function(e) FALSE)
+  # is_lamb = tryCatch(suppressWarnings(is_lambda(as_function(cols))), error=function(e) FALSE)
+  #
+  # if(is_form && !is_lamb){
+  #   debug$interface="formula"
+  #   if(!is_empty(byname)){
+  #     cli_abort(c("{.arg by} cannot be used together with the formula interface.
+  #                 Please include it in the formula or use another syntax.",
+  #                 i="formula = {format(cols)}",
+  #                 i="by = {byname}"),
+  #               class="crosstable_formula_by_error")
+  #   }
+  #   data_x = model.frame(cols[-3], data, na.action = NULL)
+  #   data_y = model.frame(cols[-2], data, na.action = NULL)
+  #   byname = names(data_y)
+  # } else {
+  #   debug$interface="quosure"
+  #   if(vardots %>% map_lgl(quo_is_null) %>% all)
+  #     vardots=quos(everything())
+  #
+  #   target_env = caller_env()
+  #   vardots2=vardots %>%
+  #     map(quo_squash) %>%
+  #     map(function(.f){
+  #       try({attr(.f, ".Environment") = target_env}, silent = TRUE)
+  #       if (!is_quosures(.f) && is_formula(.f) && length(.f) <= 2 && is_lambda(as_function(.f))){
+  #         .f = as_function(.f)
+  #       }
+  #       set_env(enquo(.f), target_env)
+  #     })
+  #   xloc = eval_select(expr(c(!!!vardots2)), data = data)
+  #   data_x = data %>% select(any_of(xloc)) %>% as.data.frame()
+  #   data_y = data %>% select(any_of(byname)) %>% as.data.frame()
+  # }
+  #
+  # if(missing_percent_pattern && missing(margin)) {
+  #   one_col_dummy = ncol(data_y)==1 && length(unique(data_y[[1]]))==1
+  #   default = if(one_col_dummy||length(byname)==0) "{n} ({p_col})" else "{n} ({p_row})"
+  #   percent_pattern$body = getOption("crosstable_percent_pattern", default)
+  # }
+  #
+  # duplicate_cols = intersect(byname, names(data_x))
+  # verbosity_duplicate_cols = getOption("crosstable_verbosity_duplicate_cols", "default")
+  # if(length(duplicate_cols)>0 && verbosity_duplicate_cols=="verbose"){
+  #   cli_warn(c("Some columns were selected in `by` and in `cols` and were removed from the latter.",
+  #              i="Columns automatically removed from `cols`: {.code {duplicate_cols}}"),
+  #            class="crosstable_duplicate_cols_warning",
+  #            call=current_env())
+  # }
+  #
+  # data_x = select(data_x, -any_of(byname))
+  # ncol_x = if(is.null(data_x)) 0 else ncol(data_x)
+  # ncol_y = if(is.null(data_y)) 0 else ncol(data_y)
 
   # Unique Numerics ---------------------------------------------------------
   if(ncol_x>0){
@@ -483,4 +519,3 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
 is.crosstable = function(x) {
   inherits(x, "crosstable")
 }
-
