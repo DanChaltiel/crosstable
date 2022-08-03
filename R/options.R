@@ -61,6 +61,7 @@
 #' @param style_legend For specifying styles used in your {officer} template.
 #' @param style_heading For specifying styles used by headings on different levels. Levels will be pasted in the end (e.g. use `"title"` if your level 2 heading style is `"title2"`).
 #' @param style_list_ordered,style_list_unordered For specifying styles used by lists in the `rdocx` template. Needed for [body_add_list()] to work.
+#' @param .local if TRUE, the effect will only apply to the local frame (thanks to `rlang::local_options()`)
 #'
 #' @seealso [crosstable_peek_options()] and [crosstable_reset_options()]
 #' @return Nothing, called for its side effects

@@ -36,8 +36,8 @@ crosstable_options(
   padding_v,
   header_show_n,
   fontsize_body,
-  fontsize_header,
   fontsize_subheaders,
+  fontsize_header,
   units = "in",
   peek_docx = TRUE,
   font_code = "Consolas",
@@ -57,6 +57,7 @@ crosstable_options(
   style_heading,
   style_list_ordered,
   style_list_unordered,
+  .local = FALSE,
   reset = deprecated()
 )
 }
@@ -123,9 +124,9 @@ crosstable_options(
 
 \item{fontsize_body}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
 
-\item{fontsize_header}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
-
 \item{fontsize_subheaders}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally. Subheaders are only considered when \code{compact=TRUE}.}
+
+\item{fontsize_header}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
 
 \item{units}{default units in \code{\link[=body_add_gg2]{body_add_gg2()}} and \code{\link[=body_add_img2]{body_add_img2()}}}
 
@@ -160,6 +161,8 @@ crosstable_options(
 \item{style_heading}{For specifying styles used by headings on different levels. Levels will be pasted in the end (e.g. use \code{"title"} if your level 2 heading style is \code{"title2"}).}
 
 \item{style_list_ordered, style_list_unordered}{For specifying styles used by lists in the \code{rdocx} template. Needed for \code{\link[=body_add_list]{body_add_list()}} to work.}
+
+\item{.local}{if TRUE, the effect will only apply to the local frame (thanks to \code{rlang::local_options()})}
 
 \item{reset}{if \code{TRUE}, set all these options back to default}
 }

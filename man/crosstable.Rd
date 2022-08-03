@@ -26,8 +26,8 @@ crosstable(
   test_args = crosstable_test_args(),
   effect = FALSE,
   effect_args = crosstable_effect_args(),
-  margin = c("row", "column", "cell", "none", "all"),
-  .vars
+  margin = deprecated(),
+  .vars = deprecated()
 )
 }
 \arguments{

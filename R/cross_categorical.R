@@ -1,5 +1,4 @@
 
-
 #' @importFrom dplyr select mutate mutate_all everything .data
 #' @keywords internal
 #' @noRd
@@ -70,11 +69,9 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
               value=ifelse(is.na(x) | .data$n==0 & zero_percent,
                            .data$n, glue(percent_pattern$body)))
   .showNA = showNA=="always" || showNA=="ifany" && (anyNA(x))
-  # if(.showNA){
-  #   rtn = rbind(rtn, data.frame(variable="NA", value=sum(is.na(x))))
-  # }
+
   if(!.showNA){
-    rtn = filter(rtn, variable!="NA")
+    rtn = filter(rtn, .data$variable!="NA")
   }
 
   if(2 %in% total){
@@ -83,7 +80,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
                     p_cell=1, p_row=p_cell, p_col=p_cell) %>%
       mutate(across_unpack(matches("^[pn]"), ~tibble(na=.x))) %>%
       getTableCI(digits=digits) %>%
-      transmute(variable,
+      transmute(.data$variable,
                 value=ifelse(.data$n==0 & zero_percent, .data$n,
                              glue(percent_pattern$total_all)))
     rtn = bind_rows(rtn, .total)
@@ -260,6 +257,7 @@ getTable = function(x, by, type=c("n", "p_cell", "p_row", "p_col")){
 #' @keywords internal
 #' @noRd
 getTableCI = function(x, digits, method="wilson"){
+  browser()
   x %>%
     mutate(
       across_unpack(p_cell, ~confint_proportion(.x, n_tot, method=method)),
@@ -346,3 +344,18 @@ get_percent_pattern = function(margin=c("row", "column", "cell", "none", "all"))
   rtn$body = glue("{{n}} ({x})")
   rtn
 }
+
+
+# Global Variables -----------------------------------------------------------------------------
+
+#@include utils.r
+#add all combinations to global variables
+x=c("cell", "row", "col")
+n=c("n", "n_row", "n_col", "n_tot", "n_row_na", "n_col_na", "n_tot_na")
+p=paste0("p_", x)
+p_na=paste0(p, "_na")
+p_ci=map(p, ~paste0(.x, c("_inf", "_sup")))
+p_na_ci=map(p_na, ~paste0(.x, c("_inf", "_sup")))
+nm = c(n, p, p_na, p_ci, p_na_ci) %>% unlist()
+# nm = percent_pattern_variables()
+utils::globalVariables(nm)

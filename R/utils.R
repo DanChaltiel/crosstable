@@ -268,15 +268,29 @@ has_method = function(x, method, skip=c("data.frame")){
 
 #' @keywords internal
 #' @noRd
-check_percent_pattern = function(percent_pattern){
+percent_pattern_variables = function(){
   x=c("cell", "row", "col")
   n=c("n", "n_row", "n_col", "n_tot", "n_row_na", "n_col_na", "n_tot_na")
   p=paste0("p_", x)
   p_na=paste0(p, "_na")
   p_ci=map(p, ~paste0(.x, c("_inf", "_sup")))
   p_na_ci=map(p_na, ~paste0(.x, c("_inf", "_sup")))
+  c(n, p, p_na, p_ci, p_na_ci) %>% unlist()
+}
 
-  nm = list(n, p, p_na, p_ci, p_na_ci) %>% unlist()
+
+#' @keywords internal
+#' @noRd
+check_percent_pattern = function(percent_pattern){
+  # x=c("cell", "row", "col")
+  # n=c("n", "n_row", "n_col", "n_tot", "n_row_na", "n_col_na", "n_tot_na")
+  # p=paste0("p_", x)
+  # p_na=paste0(p, "_na")
+  # p_ci=map(p, ~paste0(.x, c("_inf", "_sup")))
+  # p_na_ci=map(p_na, ~paste0(.x, c("_inf", "_sup")))
+  # nm = list(n, p, p_na, p_ci, p_na_ci) %>% unlist()
+
+  nm = percent_pattern_variables()
   arg = rep(1, length(nm)) %>% set_names(nm) %>% as.list()
   arg = c(percent_pattern, arg)
   dummy = do.call(safely(glue), arg)
@@ -593,4 +607,10 @@ across_unpack = function(...) {
 #' @noRd
 as.data.frame.table = function(...) {
   base::as.data.frame.table(..., stringsAsFactors=FALSE)
+}
+
+#' @keywords internal
+#' @noRd
+is_one_sided = function(x) {
+  is_formula(x) && length(x) == 2
 }
