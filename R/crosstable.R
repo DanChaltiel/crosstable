@@ -17,7 +17,7 @@ crosstable_caller = rlang::env()
 #' @param funs Functions to apply to numeric variables. Default to [cross_summary()].
 #' @param funs_arg Additional parameters for `funs`, e.g. `digits` (the number of decimal places) for the default [cross_summary()]. Ultimately, these arguments are passed to [format_fixed()].
 #' @param total one of \["none", "row", "column" or "both"] to indicate whether to add total rows and/or columns. Default to `none`.
-#' @param percent_pattern Pattern used to describe proportions in categorical data. Syntax uses a [glue::glue()] specification, see section below for more details. Default to `"{n} ({p_col})"` if `by` is null and `"{n} ({p_row})"` if it is not.
+#' @param percent_pattern Pattern used to describe proportions in categorical data. Syntax uses a [glue::glue()] specification, see the **section** below for more details. Default to `"{n} ({p_col})"` if `by` is null and `"{n} ({p_row})"` if it is not.
 #' @param percent_digits Number of digits for percentages.
 #' @param num_digits Number of digits for numeric summaries.
 #' @param unique_numeric The number of non-missing different levels a variable should have to be considered as numeric.
@@ -34,9 +34,13 @@ crosstable_caller = rlang::env()
 #' @param .vars Deprecated in favor of `cols`.
 #' @inheritParams format_fixed
 #'
-#' @section `percent_pattern`:
-#' The `percent_pattern` argument is a single string that uses the glue syntax, where variables are put in double curly braces (`{{x}}`). Count is expressed as `{{n}}` and proportions as `{{p_row}}`, `{{p_col}}`, and `{{p_cell}}`, depending on which way they are calculated. \cr
-#' For each proportion, a confidence interval is also calculated using [Wilson score](https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval) and can be expressed as `{{p_xxx_inf}}` and `{{p_xxx_sup}}`. See examples for practical applications.
+#' @section About `percent_pattern`:
+#' The `percent_pattern` argument is very powerful but can be difficult to understand at first :
+#' * It is usually a single string that uses the glue syntax, where variables are put in curly braces (`{x}`).
+#' * Counts are expressed as `{n}`, `{n_row}`, `{n_col}`, and `{n_tot}`, and proportions as `{p_row}`, `{p_col}`, and `{p_cell}`, depending on the margin on which they are calculated.
+#' * For each variable, a version including missing values in the total is proposed as `{n_xxx_na}` or `{p_xxx_na}`.
+#' * For each proportion, a confidence interval is also calculated using [Wilson score](https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval) and can be expressed as `{p_xxx_inf}` and `{p_xxx_sup}`. See examples for practical applications.
+#' * Alternatively, `percent_pattern` can be a list of characters with names `body`, `total_row`, `total_col`, and `total_all` to also control the pattern in other parts of the crosstable than the body.
 #'
 #' @author Dan Chaltiel
 #' @export

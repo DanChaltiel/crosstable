@@ -41,7 +41,7 @@ crosstable(
 
 \item{total}{one of ["none", "row", "column" or "both"] to indicate whether to add total rows and/or columns. Default to \code{none}.}
 
-\item{percent_pattern}{Pattern used to describe proportions in categorical data. Syntax uses a \code{\link[glue:glue]{glue::glue()}} specification, see section below for more details. Default to \code{"{n} ({p_col})"} if \code{by} is null and \code{"{n} ({p_row})"} if it is not.}
+\item{percent_pattern}{Pattern used to describe proportions in categorical data. Syntax uses a \code{\link[glue:glue]{glue::glue()}} specification, see the \strong{section} below for more details. Default to \code{"{n} ({p_col})"} if \code{by} is null and \code{"{n} ({p_row})"} if it is not.}
 
 \item{percent_digits}{Number of digits for percentages.}
 
@@ -85,10 +85,16 @@ Generate a descriptive table of all chosen columns, as contingency tables for ca
 \cr
 Can be formatted as an HTML table using \code{\link[=as_flextable]{as_flextable()}}.
 }
-\section{\code{percent_pattern}}{
+\section{About \code{percent_pattern}}{
 
-The \code{percent_pattern} argument is a single string that uses the glue syntax, where variables are put in double curly braces (\code{{{x}}}). Count is expressed as \code{{{n}}} and proportions as \code{{{p_row}}}, \code{{{p_col}}}, and \code{{{p_cell}}}, depending on which way they are calculated. \cr
-For each proportion, a confidence interval is also calculated using \href{https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval}{Wilson score} and can be expressed as \code{{{p_xxx_inf}}} and \code{{{p_xxx_sup}}}. See examples for practical applications.
+The \code{percent_pattern} argument is very powerful but can be difficult to understand at first :
+\itemize{
+\item It is usually a single string that uses the glue syntax, where variables are put in curly braces (\code{{x}}).
+\item Counts are expressed as \code{{n}}, \code{{n_row}}, \code{{n_col}}, and \code{{n_tot}}, and proportions as \code{{p_row}}, \code{{p_col}}, and \code{{p_cell}}, depending on the margin on which they are calculated.
+\item For each variable, a version including missing values in the total is proposed as \code{{n_xxx_na}} or \code{{p_xxx_na}}.
+\item For each proportion, a confidence interval is also calculated using \href{https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval}{Wilson score} and can be expressed as \code{{p_xxx_inf}} and \code{{p_xxx_sup}}. See examples for practical applications.
+\item Alternatively, \code{percent_pattern} can be a list of characters with names \code{body}, \code{total_row}, \code{total_col}, and \code{total_all} to also control the pattern in other parts of the crosstable than the body.
+}
 }
 
 \examples{

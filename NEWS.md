@@ -10,6 +10,7 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
     crosstable(mtcars2, cyl, percent_pattern="{p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]")
     crosstable(mtcars2, cyl, percent_pattern="{p_col_na} ({n}/{n_col_na}) [95%CI: {p_col_inf}; {p_col_sup}]")
 ```
+- `percent_pattern` can now be a list of characters with names `body`, `total_row`, `total_col`, and `total_all` to also control the pattern in other parts of the crosstable than the body.
 
 #### Improvements
 
