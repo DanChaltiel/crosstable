@@ -185,13 +185,30 @@ test_that("crosstable with formula", {
     crosstable(iris2, everything()),
     xnames=c("SL", "SW", "PL", "PW", "Sp"), byname=NULL, dim=c(19,4))
 
-  #there can be a bug when formula are longer than 500 characters (because of deparse)
-  x=paste0("I(Sepal.Length^", (1:50)/10, ")", collapse=" + ")
-  ff = paste0("",x," ~ Species")#cf helper-crosstable.R
-  mytable = crosstable(iris2, as.formula(ff), label=F)
-  expect_equal(nchar(ff), 1097) #>500
-  expect_equal(dim(mytable), c(200,6))
-  expect_s3_class(mytable, c("data.frame", "crosstable"))
+  #test that there is no error when formula is longer than 500 characters (caused by deparse)
+  x = crosstable(iris2, I(Sepal.Length^0.1) + I(Sepal.Length^0.2) + I(Sepal.Length^0.3) +
+               I(Sepal.Length^0.4) + I(Sepal.Length^0.5) + I(Sepal.Length^0.6) +
+               I(Sepal.Length^0.7) + I(Sepal.Length^0.8) + I(Sepal.Length^0.9) +
+               I(Sepal.Length^1.0) + I(Sepal.Length^1.1) + I(Sepal.Length^1.2) +
+               I(Sepal.Length^1.3) + I(Sepal.Length^1.4) + I(Sepal.Length^1.5) +
+               I(Sepal.Length^1.6) + I(Sepal.Length^1.7) + I(Sepal.Length^1.8) +
+               I(Sepal.Length^1.9) + I(Sepal.Length^2.0) + I(Sepal.Length^2.1) +
+               I(Sepal.Length^2.2) + I(Sepal.Length^2.3) + I(Sepal.Length^2.4) +
+               I(Sepal.Length^2.5) + I(Sepal.Length^2.6) + I(Sepal.Length^2.7) +
+               I(Sepal.Length^2.8) + I(Sepal.Length^2.9) + I(Sepal.Length^3.0) +
+               I(Sepal.Length^3.1) + I(Sepal.Length^3.2) + I(Sepal.Length^3.3) +
+               I(Sepal.Length^3.4) + I(Sepal.Length^3.5) + I(Sepal.Length^3.6) +
+               I(Sepal.Length^3.7) + I(Sepal.Length^3.8) + I(Sepal.Length^3.9) +
+               I(Sepal.Length^4.0) + I(Sepal.Length^4.1) + I(Sepal.Length^4.2) +
+               I(Sepal.Length^4.3) + I(Sepal.Length^4.4) + I(Sepal.Length^4.5) + #nchar=1097
+               I(Sepal.Length^4.6) + I(Sepal.Length^4.7) + I(Sepal.Length^4.8) +
+               I(Sepal.Length^4.9) + I(Sepal.Length^5.0) ~ Species, label=F)
+  expect_equal(dim(x), c(200,6))
+  expect_s3_class(x, c("data.frame", "crosstable"))
+
+  #you unfortunately cannot call an external formula
+  ff = "Sepal.Length+Sepal.Width~Species"
+  expect_error(crosstable(iris2, as.formula(ff), label=F))
 })
 
 
