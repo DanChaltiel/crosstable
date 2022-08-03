@@ -129,7 +129,7 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 
 
 <dt>percent_pattern</dt>
-<dd><p>Pattern used to describe proportions in categorical data. Syntax uses a <code><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue::glue()</a></code> specification, see section below for more details. Default to <code>"{n} ({p_col})"</code> if <code>by</code> is null and <code>"{n} ({p_row})"</code> if it is not.</p></dd>
+<dd><p>Pattern used to describe proportions in categorical data. Syntax uses a <code><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue::glue()</a></code> specification, see the <strong>section</strong> below for more details. Default to <code>"{n} ({p_col})"</code> if <code>by</code> is null and <code>"{n} ({p_row})"</code> if it is not.</p></dd>
 
 
 <dt>percent_digits</dt>
@@ -209,12 +209,15 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 
     </div>
     <div class="section level2">
-    <h2 id="percent-pattern"><code>percent_pattern</code><a class="anchor" aria-label="anchor" href="#percent-pattern"></a></h2>
+    <h2 id="about-percent-pattern">About <code>percent_pattern</code><a class="anchor" aria-label="anchor" href="#about-percent-pattern"></a></h2>
     
 
-<p>The <code>percent_pattern</code> argument is a single string that uses the glue syntax, where variables are put in double curly braces (<code>{{x}}</code>). Count is expressed as <code>{{n}}</code> and proportions as <code>{{p_row}}</code>, <code>{{p_col}}</code>, and <code>{{p_cell}}</code>, depending on which way they are calculated. <br>
-For each proportion, a confidence interval is also calculated using <a href="https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval" class="external-link">Wilson score</a> and can be expressed as <code>{{p_xxx_inf}}</code> and <code>{{p_xxx_sup}}</code>. See examples for practical applications.</p>
-    </div>
+<p>The <code>percent_pattern</code> argument is very powerful but can be difficult to understand at first :</p><ul><li><p>It is usually a single string that uses the glue syntax, where variables are put in curly braces (<code>{x}</code>).</p></li>
+<li><p>Counts are expressed as <code>{n}</code>, <code>{n_row}</code>, <code>{n_col}</code>, and <code>{n_tot}</code>, and proportions as <code>{p_row}</code>, <code>{p_col}</code>, and <code>{p_cell}</code>, depending on the margin on which they are calculated.</p></li>
+<li><p>For each variable, a version including missing values in the total is proposed as <code>{n_xxx_na}</code> or <code>{p_xxx_na}</code>.</p></li>
+<li><p>For each proportion, a confidence interval is also calculated using <a href="https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval" class="external-link">Wilson score</a> and can be expressed as <code>{p_xxx_inf}</code> and <code>{p_xxx_sup}</code>. See examples for practical applications.</p></li>
+<li><p>Alternatively, <code>percent_pattern</code> can be a list of characters with names <code>body</code>, <code>total_row</code>, <code>total_col</code>, and <code>total_all</code> to also control the pattern in other parts of the crosstable than the body.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>https://danchaltiel.github.io/crosstable/, as_flextable, import_labels</p></div>

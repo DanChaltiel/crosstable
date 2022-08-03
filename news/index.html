@@ -77,7 +77,8 @@
 <code class="sourceCode R"><span></span>
 <span>    <span class="fu"><a href="../reference/crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="va">cyl</span>, percent_pattern<span class="op">=</span><span class="st">"{p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]"</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="../reference/crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="va">cyl</span>, percent_pattern<span class="op">=</span><span class="st">"{p_col_na} ({n}/{n_col_na}) [95%CI: {p_col_inf}; {p_col_sup}]"</span><span class="op">)</span></span></code></pre></div>
-</div>
+<ul><li>
+<code>percent_pattern</code> can now be a list of characters with names <code>body</code>, <code>total_row</code>, <code>total_col</code>, and <code>total_all</code> to also control the pattern in other parts of the crosstable than the body.</li></ul></div>
 <div class="section level5">
 <h5 id="improvements-0-5-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-0-5-0"></a></h5>
 <ul><li>
