@@ -229,8 +229,6 @@ summarize_categorical_by = function(x, by,
   rtn %>%
     mutate(Total=.total, effect=.effect, test=.test) %>%
     mutate_all(as.character)
-
-  # browser()
 }
 
 
@@ -257,7 +255,6 @@ getTable = function(x, by, type=c("n", "p_cell", "p_row", "p_col")){
 #' @keywords internal
 #' @noRd
 getTableCI = function(x, digits, method="wilson"){
-  browser()
   x %>%
     mutate(
       across_unpack(p_cell, ~confint_proportion(.x, n_tot, method=method)),

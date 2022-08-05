@@ -129,7 +129,6 @@ parse_funs = function(funs){
     }
     #TODO ajouter fun_call2 comme au dessus pour enlever c()
     # crosstable(mtcars3, c(carb, qsec_posix), funs=c(meansd))
-    # browser()
   }
 
   if(length(fun_call)!=length(funs)){

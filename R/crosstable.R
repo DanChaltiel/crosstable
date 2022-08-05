@@ -247,8 +247,8 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   } else {
     debug$interface="quosure"
     if(cols_is_lambda) cols=as_function(cols)
-    data_x = data %>% select(!!enquo(cols), !!!enquos(...)) %>% as.data.frame()
-    data_y = data %>% select(!!enquo(by)) %>% as.data.frame()
+    data_x = data %>% select({{cols}}, ...) %>% as.data.frame()
+    data_y = data %>% select({{by}}) %>% as.data.frame()
   }
   byname = names(data_y)
 
