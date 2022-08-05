@@ -20,7 +20,7 @@ Can be formatted as an HTML table using as_flextable()."><meta property="og:imag
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9010</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9011</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -231,15 +231,6 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#whole table</span></span></span>
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 19 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .id          label        variable   value        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
@@ -263,42 +254,6 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> Species      Species      versicolor 50 (33.33%)  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> Species      Species      virginica  50 (33.33%)  </span>
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 38 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .id   label variable   value              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              </span>
@@ -315,51 +270,6 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 28 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span>
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 78 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .id   label variable           value    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span>
@@ -380,15 +290,6 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">ends_with</a></span><span class="op">(</span><span class="st">"t"</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"c"</span><span class="op">)</span><span class="op">)</span>, by<span class="op">=</span><span class="va">vs</span>,</span></span>
 <span class="r-in"><span>           funs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">mean</span>, <span class="va">quantile</span><span class="op">)</span>, funs_arg<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>probs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.25</span>,<span class="fl">.75</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .id   label                 variable     straight    vshaped     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
@@ -408,42 +309,6 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 <span class="r-in"><span><span class="co">#margin and totals, multiple by</span></span></span>
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">disp</span>, <span class="va">cyl</span><span class="op">)</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">am</span>, <span class="va">vs</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>           margin<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"row"</span>, <span class="st">"col"</span><span class="op">)</span>, total <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 8</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .id   label                 variable   am=auto…¹ am=ma…² am=au…³ am=ma…⁴ Total</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
@@ -513,15 +378,6 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 <span class="r-in"><span><span class="co">#Patterns</span></span></span>
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="va">vs</span>, by<span class="op">=</span><span class="va">am</span>, percent_digits<span class="op">=</span><span class="fl">0</span>,</span></span>
 <span class="r-in"><span>           percent_pattern<span class="op">=</span><span class="st">"{n} ({p_col} / {p_row})"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .id   label  variable auto           manual       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
@@ -529,15 +385,6 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> vs    Engine vshaped  12 (63% / 67%) 6 (46% / 33%)</span>
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="va">vs</span>, by<span class="op">=</span><span class="va">am</span>, percent_digits<span class="op">=</span><span class="fl">0</span>,</span></span>
 <span class="r-in"><span>           percent_pattern<span class="op">=</span><span class="st">"N={n} \np[95%CI] = {p_col} [{p_col_inf}; {p_col_sup}]"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .id   label  variable auto                               manual               </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                </span>

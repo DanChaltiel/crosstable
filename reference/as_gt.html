@@ -20,7 +20,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9010</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9011</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -149,39 +149,12 @@ Default method to convert an object to a gt table"><meta property="og:image" con
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">xx</span> <span class="op">=</span> <span class="va">mtcars2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">xx</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">as_gt</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="wgeetsfsib" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="ihxypgezfp" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;style&gt;html {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_table {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_table {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   display: table;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-collapse: collapse;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   margin-left: auto;</span>
@@ -206,7 +179,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-left-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_heading {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_heading {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-align: center;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-color: #FFFFFF;</span>
@@ -218,7 +191,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-right-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_title {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_title {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 125%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-weight: initial;</span>
@@ -230,7 +203,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-width: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_subtitle {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_subtitle {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 85%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-weight: initial;</span>
@@ -242,13 +215,13 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-width: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_bottom_border {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_bottom_border {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-style: solid;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-width: 2px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_col_headings {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_col_headings {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-style: solid;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-width: 2px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-color: #D3D3D3;</span>
@@ -263,7 +236,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-right-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_col_heading {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_col_heading {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 100%;</span>
@@ -283,7 +256,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   overflow-x: hidden;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_column_spanner_outer {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_column_spanner_outer {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 100%;</span>
@@ -295,15 +268,15 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 4px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_column_spanner_outer:first-child {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_column_spanner_outer:first-child {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-left: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_column_spanner_outer:last-child {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_column_spanner_outer:last-child {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_column_spanner {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_column_spanner {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-style: solid;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-width: 2px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-color: #D3D3D3;</span>
@@ -315,7 +288,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   width: 100%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_group_heading {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_group_heading {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-top: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-bottom: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-left: 5px;</span>
@@ -340,7 +313,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: middle;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_empty_group_heading {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_empty_group_heading {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding: 0.5px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
@@ -355,15 +328,15 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: middle;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_from_md &gt; :first-child {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_from_md &gt; :first-child {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   margin-top: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_from_md &gt; :last-child {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_from_md &gt; :last-child {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   margin-bottom: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_row {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_row {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-top: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-bottom: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-left: 5px;</span>
@@ -382,7 +355,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   overflow-x: hidden;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_stub {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_stub {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 100%;</span>
@@ -395,7 +368,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 5px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_stub_row_group {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_stub_row_group {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 100%;</span>
@@ -409,11 +382,11 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: top;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_row_group_first td {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_row_group_first td {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-width: 2px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_summary_row {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_summary_row {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-transform: inherit;</span>
@@ -423,16 +396,16 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 5px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_first_summary_row {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_first_summary_row {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-style: solid;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_first_summary_row.thick {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_first_summary_row.thick {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-width: 2px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_last_summary_row {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_last_summary_row {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-top: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-bottom: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-left: 5px;</span>
@@ -442,7 +415,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_grand_summary_row {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_grand_summary_row {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-transform: inherit;</span>
@@ -452,7 +425,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 5px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_first_grand_summary_row {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_first_grand_summary_row {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-top: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-bottom: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-left: 5px;</span>
@@ -462,11 +435,11 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_striped {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_striped {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: rgba(128, 128, 128, 0.05);</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_table_body {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_table_body {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-style: solid;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-width: 2px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-color: #D3D3D3;</span>
@@ -475,7 +448,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_footnotes {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_footnotes {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-style: none;</span>
@@ -489,7 +462,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-right-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_footnote {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_footnote {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   margin: 0px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 90%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-left: 4px;</span>
@@ -498,7 +471,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 5px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_sourcenotes {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_sourcenotes {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-style: none;</span>
@@ -512,7 +485,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-right-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_sourcenote {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_sourcenote {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 90%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-top: 4px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-bottom: 4px;</span>
@@ -520,36 +493,36 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 5px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_left {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_left {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-align: left;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_center {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_center {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-align: center;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_right {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_right {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-align: right;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-variant-numeric: tabular-nums;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_font_normal {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_font_normal {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-weight: normal;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_font_bold {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_font_bold {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-weight: bold;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_font_italic {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_font_italic {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-style: italic;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_super {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_super {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 65%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_two_val_uncert {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_two_val_uncert {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   display: inline-block;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   line-height: 1em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-align: right;</span>
@@ -558,31 +531,31 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   margin-left: 0.1em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_footnote_marks {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_footnote_marks {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-style: italic;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-weight: normal;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 75%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: 0.4em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_asterisk {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_asterisk {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 100%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_slash_mark {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_slash_mark {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 0.7em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   line-height: 0.7em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: 0.15em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_fraction_numerator {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_fraction_numerator {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 0.6em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   line-height: 0.6em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: 0.45em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #wgeetsfsib .gt_fraction_denominator {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #ihxypgezfp .gt_fraction_denominator {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 0.6em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   line-height: 0.6em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: -0.05em;</span>
@@ -692,30 +665,12 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/table&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">xx</span>, by<span class="op">=</span><span class="va">am</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">as_gt</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="nrmwqgmyex" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="guzfnpjvfj" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;style&gt;html {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_table {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_table {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   display: table;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-collapse: collapse;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   margin-left: auto;</span>
@@ -740,7 +695,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-left-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_heading {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_heading {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-align: center;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-color: #FFFFFF;</span>
@@ -752,7 +707,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-right-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_title {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_title {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 125%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-weight: initial;</span>
@@ -764,7 +719,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-width: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_subtitle {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_subtitle {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 85%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-weight: initial;</span>
@@ -776,13 +731,13 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-width: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_bottom_border {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_bottom_border {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-style: solid;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-width: 2px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_col_headings {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_col_headings {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-style: solid;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-width: 2px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-color: #D3D3D3;</span>
@@ -797,7 +752,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-right-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_col_heading {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_col_heading {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 100%;</span>
@@ -817,7 +772,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   overflow-x: hidden;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_column_spanner_outer {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_column_spanner_outer {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 100%;</span>
@@ -829,15 +784,15 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 4px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_column_spanner_outer:first-child {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_column_spanner_outer:first-child {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-left: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_column_spanner_outer:last-child {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_column_spanner_outer:last-child {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_column_spanner {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_column_spanner {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-style: solid;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-width: 2px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-color: #D3D3D3;</span>
@@ -849,7 +804,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   width: 100%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_group_heading {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_group_heading {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-top: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-bottom: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-left: 5px;</span>
@@ -874,7 +829,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: middle;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_empty_group_heading {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_empty_group_heading {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding: 0.5px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
@@ -889,15 +844,15 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: middle;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_from_md &gt; :first-child {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_from_md &gt; :first-child {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   margin-top: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_from_md &gt; :last-child {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_from_md &gt; :last-child {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   margin-bottom: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_row {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_row {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-top: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-bottom: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-left: 5px;</span>
@@ -916,7 +871,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   overflow-x: hidden;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_stub {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_stub {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 100%;</span>
@@ -929,7 +884,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 5px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_stub_row_group {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_stub_row_group {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 100%;</span>
@@ -943,11 +898,11 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: top;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_row_group_first td {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_row_group_first td {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-width: 2px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_summary_row {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_summary_row {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-transform: inherit;</span>
@@ -957,16 +912,16 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 5px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_first_summary_row {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_first_summary_row {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-style: solid;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_first_summary_row.thick {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_first_summary_row.thick {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-width: 2px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_last_summary_row {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_last_summary_row {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-top: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-bottom: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-left: 5px;</span>
@@ -976,7 +931,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_grand_summary_row {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_grand_summary_row {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-transform: inherit;</span>
@@ -986,7 +941,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 5px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_first_grand_summary_row {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_first_grand_summary_row {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-top: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-bottom: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-left: 5px;</span>
@@ -996,11 +951,11 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_striped {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_striped {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: rgba(128, 128, 128, 0.05);</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_table_body {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_table_body {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-style: solid;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-width: 2px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-color: #D3D3D3;</span>
@@ -1009,7 +964,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_footnotes {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_footnotes {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-style: none;</span>
@@ -1023,7 +978,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-right-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_footnote {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_footnote {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   margin: 0px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 90%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-left: 4px;</span>
@@ -1032,7 +987,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 5px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_sourcenotes {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_sourcenotes {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-style: none;</span>
@@ -1046,7 +1001,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-right-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_sourcenote {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_sourcenote {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 90%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-top: 4px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-bottom: 4px;</span>
@@ -1054,36 +1009,36 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 5px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_left {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_left {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-align: left;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_center {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_center {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-align: center;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_right {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_right {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-align: right;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-variant-numeric: tabular-nums;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_font_normal {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_font_normal {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-weight: normal;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_font_bold {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_font_bold {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-weight: bold;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_font_italic {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_font_italic {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-style: italic;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_super {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_super {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 65%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_two_val_uncert {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_two_val_uncert {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   display: inline-block;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   line-height: 1em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-align: right;</span>
@@ -1092,31 +1047,31 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   margin-left: 0.1em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_footnote_marks {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_footnote_marks {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-style: italic;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-weight: normal;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 75%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: 0.4em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_asterisk {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_asterisk {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 100%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_slash_mark {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_slash_mark {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 0.7em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   line-height: 0.7em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: 0.15em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_fraction_numerator {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_fraction_numerator {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 0.6em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   line-height: 0.6em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: 0.45em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #nrmwqgmyex .gt_fraction_denominator {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #guzfnpjvfj .gt_fraction_denominator {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 0.6em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   line-height: 0.6em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: -0.05em;</span>
@@ -1255,84 +1210,12 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 <span class="r-in"><span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">xx</span>, by<span class="op">=</span><span class="va">cyl</span>, test<span class="op">=</span><span class="cn">TRUE</span>, total<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>   <span class="fu">as_gt</span><span class="op">(</span>keep_id<span class="op">=</span><span class="cn">TRUE</span>, show_test_name<span class="op">=</span><span class="cn">FALSE</span>, by_header<span class="op">=</span><span class="st">"Cylinders"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="rnkyncllns" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="xxgxvvwsiy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;style&gt;html {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_table {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_table {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   display: table;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-collapse: collapse;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   margin-left: auto;</span>
@@ -1357,7 +1240,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-left-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_heading {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_heading {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-align: center;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-color: #FFFFFF;</span>
@@ -1369,7 +1252,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-right-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_title {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_title {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 125%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-weight: initial;</span>
@@ -1381,7 +1264,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-width: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_subtitle {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_subtitle {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 85%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-weight: initial;</span>
@@ -1393,13 +1276,13 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-width: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_bottom_border {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_bottom_border {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-style: solid;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-width: 2px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_col_headings {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_col_headings {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-style: solid;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-width: 2px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-color: #D3D3D3;</span>
@@ -1414,7 +1297,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-right-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_col_heading {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_col_heading {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 100%;</span>
@@ -1434,7 +1317,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   overflow-x: hidden;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_column_spanner_outer {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_column_spanner_outer {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 100%;</span>
@@ -1446,15 +1329,15 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 4px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_column_spanner_outer:first-child {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_column_spanner_outer:first-child {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-left: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_column_spanner_outer:last-child {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_column_spanner_outer:last-child {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_column_spanner {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_column_spanner {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-style: solid;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-width: 2px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-color: #D3D3D3;</span>
@@ -1466,7 +1349,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   width: 100%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_group_heading {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_group_heading {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-top: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-bottom: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-left: 5px;</span>
@@ -1491,7 +1374,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: middle;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_empty_group_heading {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_empty_group_heading {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding: 0.5px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
@@ -1506,15 +1389,15 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: middle;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_from_md &gt; :first-child {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_from_md &gt; :first-child {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   margin-top: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_from_md &gt; :last-child {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_from_md &gt; :last-child {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   margin-bottom: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_row {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_row {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-top: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-bottom: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-left: 5px;</span>
@@ -1533,7 +1416,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   overflow-x: hidden;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_stub {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_stub {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 100%;</span>
@@ -1546,7 +1429,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 5px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_stub_row_group {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_stub_row_group {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 100%;</span>
@@ -1560,11 +1443,11 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: top;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_row_group_first td {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_row_group_first td {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-width: 2px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_summary_row {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_summary_row {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-transform: inherit;</span>
@@ -1574,16 +1457,16 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 5px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_first_summary_row {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_first_summary_row {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-style: solid;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_first_summary_row.thick {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_first_summary_row.thick {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-width: 2px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_last_summary_row {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_last_summary_row {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-top: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-bottom: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-left: 5px;</span>
@@ -1593,7 +1476,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_grand_summary_row {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_grand_summary_row {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-transform: inherit;</span>
@@ -1603,7 +1486,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 5px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_first_grand_summary_row {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_first_grand_summary_row {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-top: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-bottom: 8px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-left: 5px;</span>
@@ -1613,11 +1496,11 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_striped {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_striped {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: rgba(128, 128, 128, 0.05);</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_table_body {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_table_body {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-style: solid;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-width: 2px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-top-color: #D3D3D3;</span>
@@ -1626,7 +1509,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_footnotes {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_footnotes {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-style: none;</span>
@@ -1640,7 +1523,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-right-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_footnote {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_footnote {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   margin: 0px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 90%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-left: 4px;</span>
@@ -1649,7 +1532,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 5px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_sourcenotes {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_sourcenotes {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   color: #333333;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background-color: #FFFFFF;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-bottom-style: none;</span>
@@ -1663,7 +1546,7 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   border-right-color: #D3D3D3;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_sourcenote {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_sourcenote {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 90%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-top: 4px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-bottom: 4px;</span>
@@ -1671,36 +1554,36 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   padding-right: 5px;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_left {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_left {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-align: left;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_center {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_center {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-align: center;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_right {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_right {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-align: right;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-variant-numeric: tabular-nums;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_font_normal {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_font_normal {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-weight: normal;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_font_bold {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_font_bold {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-weight: bold;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_font_italic {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_font_italic {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-style: italic;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_super {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_super {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 65%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_two_val_uncert {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_two_val_uncert {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   display: inline-block;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   line-height: 1em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   text-align: right;</span>
@@ -1709,31 +1592,31 @@ Default method to convert an object to a gt table"><meta property="og:image" con
 <span class="r-out co"><span class="r-pr">#&gt;</span>   margin-left: 0.1em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_footnote_marks {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_footnote_marks {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-style: italic;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-weight: normal;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 75%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: 0.4em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_asterisk {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_asterisk {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 100%;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: 0;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_slash_mark {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_slash_mark {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 0.7em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   line-height: 0.7em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: 0.15em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_fraction_numerator {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_fraction_numerator {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 0.6em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   line-height: 0.6em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: 0.45em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #rnkyncllns .gt_fraction_denominator {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #xxgxvvwsiy .gt_fraction_denominator {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   font-size: 0.6em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   line-height: 0.6em;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   vertical-align: -0.05em;</span>

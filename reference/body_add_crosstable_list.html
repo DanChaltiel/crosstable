@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9010</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9011</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -112,15 +112,6 @@
 <span class="r-in"><span><span class="va">ctl</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>iris2<span class="op">=</span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">iris2</span>, <span class="fl">1</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>           mtcars2<span class="op">=</span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fl">1</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>           <span class="st">"just a flextable"</span><span class="op">=</span><span class="fu">flextable</span><span class="fu">::</span><span class="fu"><a href="https://davidgohel.github.io/flextable/reference/flextable.html" class="external-link">flextable</a></span><span class="op">(</span><span class="va">mtcars2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: getTableCI(., digits = digits)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> debug: x %&gt;% mutate(across_unpack(p_cell, ~confint_proportion(.x, n_tot, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     method = method)), across_unpack(p_col, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col, method = method)), across_unpack(p_row, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row, method = method)), across_unpack(p_cell_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_tot_na, method = method)), across_unpack(p_col_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_col_na, method = method)), across_unpack(p_row_na, ~confint_proportion(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     n_row_na, method = method)), across(starts_with("p_"), ~format_fixed(.x, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     digits = digits, percent = TRUE)))</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">myfun</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">doc</span>, <span class="va">.name</span><span class="op">)</span><span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="va">doc</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
