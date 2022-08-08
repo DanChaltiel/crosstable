@@ -164,7 +164,7 @@ crosstable_peek_options = function(keep_null=FALSE){
 #' @importFrom purrr map
 #' @export
 crosstable_reset_options = function(quiet=FALSE){
-  args_ok = names(formals(crosstable_options)) %>% .[!. %in% c("...", "reset")]
+  args_ok = names(formals(crosstable_options)) %>% .[!. %in% c("...", "reset", ".local")]
   argg = args_ok %>% set_names() %>% map(~NULL)
   names(argg) = paste0("crosstable_", names(argg))
   options(argg)

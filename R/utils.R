@@ -160,9 +160,12 @@ parse_funs = function(funs){
         fbody = str_subset(.call2[-1], "[}{]", negate = TRUE) %>% str_squish()
         if(length(fbody)>1) fbody = paste0(fbody[1], "...")
         target_name = paste0("function(", fargs ,"){", fbody, "}")
+        w_opt = NULL
+        if(!is.null(getOption("crosstable_funs", NULL))) w_opt = "{.arg funs} is set through options. Run {.code crosstable_reset_options()} if needed."
         cli_warn(c("Anonymous functions should be named.",
                    i="Instead of: {.code funs={target_name}}",
-                   i='Write: {.code funs=c("Some calculation"={target_name}}'),
+                   i='Write: {.code funs=c("Some calculation"={target_name}}',
+                   "!"=w_opt),
                  class="crosstable_unnamed_anonymous_warning")
       } else{
         target_name = .call
