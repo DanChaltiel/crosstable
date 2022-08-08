@@ -91,6 +91,17 @@ plim = function(p, digits = 4) {
   return(ptxt)
 }
 
+#' Remove missing values
+#'
+#' @param x a vector
+#'
+#' @return the same vector without missing values
+#' @export
+narm = function(x){
+  x[!is.na(x)]
+}
+
+
 
 # Summary functions --------------------------------------------------------
 
