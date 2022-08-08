@@ -9,6 +9,7 @@
 #' @param zero_digits number of significant digits for values rounded to 0 (can be set to NULL to keep the original 0 value)
 #' @param date_format if `x` is a vector of Date or POSIXt, the format to apply (see [strptime] for formats)
 #' @param percent if TRUE, format the values as percentages
+#' @param scientific the power of ten above/under which numbers will be displayed as scientific notation.
 #' @param only_round if TRUE, `format_fixed` simply returns the rounded value. Can be set globally with `options("crosstable_only_round"=TRUE)`.
 #' @param ... unused
 #'
@@ -36,23 +37,35 @@
 #' format_fixed(x2, percent=TRUE, dig=6)
 format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL,
                         percent=FALSE,
+                        scientific=getOption("crosstable_sci", 4),
                         only_round=getOption("crosstable_only_round", FALSE), ...){
   assert_numeric(x)
   assert_numeric(digits)
   assert_logical(percent)
   assert_logical(only_round)
   assert(is.null(zero_digits)||is.na(zero_digits)||is.numeric(zero_digits))
+  scientific = abs(scientific)
   if(is.date(x)){
     if(!is.null(date_format))
       return(format(x, date_format))
     else
       return(format(x))
-  } else  {
+  } else {
+    format = "f"
+    sci = any(abs(x)>=10^scientific | (x!=0 & abs(x)<=10^-scientific), na.rm=TRUE)
+    if(sci) format = "e"
     if(percent) x=x*100
-    if(only_round) return(as.character(round(x, digits)))
-    rtn = ifelse(is.na(x), NA_character_, formatC(x, format='f', digits=digits))
-    if(!is.null(zero_digits) && !is.na(zero_digits)){
-      rtn = ifelse(as.numeric(rtn)==0, as.character(signif(x, digits=zero_digits)), rtn)
+    if(only_round) {
+      if(sci){
+        rtn = sprintf(glue("%.{digits}e"), x)
+      } else {
+        rtn = as.character(round(x, digits))
+      }
+    } else {
+      rtn = ifelse(is.na(x), NA_character_, formatC(x, format=format, digits=digits))
+      if(!is.null(zero_digits) && !is.na(zero_digits)){
+        rtn = ifelse(as.numeric(rtn)==0, as.character(signif(x, digits=zero_digits)), rtn)
+      }
     }
     if(percent) rtn=paste0(rtn, "%")
     return(rtn)

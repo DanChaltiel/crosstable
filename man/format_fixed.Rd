@@ -10,6 +10,7 @@ format_fixed(
   zero_digits = 1,
   date_format = NULL,
   percent = FALSE,
+  scientific = getOption("crosstable_sci", 4),
   only_round = getOption("crosstable_only_round", FALSE),
   ...
 )
@@ -24,6 +25,8 @@ format_fixed(
 \item{date_format}{if \code{x} is a vector of Date or POSIXt, the format to apply (see \link{strptime} for formats)}
 
 \item{percent}{if TRUE, format the values as percentages}
+
+\item{scientific}{the power of ten above/under which numbers will be displayed as scientific notation.}
 
 \item{only_round}{if TRUE, \code{format_fixed} simply returns the rounded value. Can be set globally with \code{options("crosstable_only_round"=TRUE)}.}
 
