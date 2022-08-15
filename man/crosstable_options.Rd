@@ -41,6 +41,7 @@ crosstable_options(
   units = "in",
   peek_docx = TRUE,
   font_code = "Consolas",
+  add_max_cols = 25,
   format_legend_name,
   table_legend_par_before,
   table_legend_prefix,
@@ -57,6 +58,7 @@ crosstable_options(
   style_heading,
   style_list_ordered,
   style_list_unordered,
+  scientific_log,
   .local = FALSE,
   reset = deprecated()
 )
@@ -134,6 +136,8 @@ crosstable_options(
 
 \item{font_code}{font family used to show code, most likely a monospaced typeface such as Consolas (default)}
 
+\item{add_max_cols}{max number of columns a crosstable can have to be added to a Word document}
+
 \item{format_legend_name}{how the legend name ("Table", "Figure") is formatted. Default to \code{officer::fp_text_lite(bold=TRUE)}}
 
 \item{table_legend_par_before}{whether to add an empty paragraph before all table legends}
@@ -161,6 +165,8 @@ crosstable_options(
 \item{style_heading}{For specifying styles used by headings on different levels. Levels will be pasted in the end (e.g. use \code{"title"} if your level 2 heading style is \code{"title2"}).}
 
 \item{style_list_ordered, style_list_unordered}{For specifying styles used by lists in the \code{rdocx} template. Needed for \code{\link[=body_add_list]{body_add_list()}} to work.}
+
+\item{scientific_log}{the maximum power a number can have before being formatted as scientific. Default to 4 so applies on numbers <1e-4 or >1e4.}
 
 \item{.local}{if TRUE, the effect will only apply to the local frame (thanks to \code{rlang::local_options()})}
 

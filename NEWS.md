@@ -16,7 +16,9 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 
 -   `crosstable_options()` does not need the "crosstable\_" prefix anymore, so the autocomplete is less clumsy. Options with the prefix will still work though. `crosstable_options(reset=TRUE)` is deprecated in favor of the new `crosstable_reset_options()`.
 -   `crosstable_test_args()` and `crosstable_effect_args()` now have arguments to easily control the non-default parameters.
+-   Allow scientific notation for big numbers. Default to numbers for `which abs(log10(x))>4`. This can be controlled using options, e.g. `crosstable_options(scientific_log=5)`.
 -   In MS Word, crosstables will now break across pages by default. You can revert this by using `body_add_crosstable(allow_break=FALSE)` or using `crosstable_options()`. This is the pendant of `keepnext` in officer/flextable.
+-   New argument `body_add_crosstable(max_cols=25)`, which limits the size of crosstables in Word documents. This prevents very large tables to be wrongly included. 
 -   `peek()` is now usable on non-crosstable objects as well. `as_flextable()` method will be applied on the object if available, otherwise `flextable()` will be applied.
 -   Better error messages in `import_labels()` when `data_label` doesn't have the right columns.
 

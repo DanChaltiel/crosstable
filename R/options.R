@@ -62,6 +62,7 @@
 #' @param style_legend For specifying styles used in your {officer} template.
 #' @param style_heading For specifying styles used by headings on different levels. Levels will be pasted in the end (e.g. use `"title"` if your level 2 heading style is `"title2"`).
 #' @param style_list_ordered,style_list_unordered For specifying styles used by lists in the `rdocx` template. Needed for [body_add_list()] to work.
+#' @param scientific_log the maximum power a number can have before being formatted as scientific. Default to 4 so applies on numbers <1e-4 or >1e4.
 #' @param .local if TRUE, the effect will only apply to the local frame (thanks to `rlang::local_options()`)
 #'
 #' @seealso [crosstable_peek_options()] and [crosstable_reset_options()]
@@ -96,6 +97,9 @@ crosstable_options = function(
     #styles
     style_normal, style_character, style_strong, style_image,
     style_legend, style_heading, style_list_ordered, style_list_unordered,
+    #misc
+    scientific_log,
+    #...
     .local=FALSE,
     reset=deprecated()
 ){
