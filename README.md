@@ -39,7 +39,7 @@ install.packages("crosstable")
 devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 
 # Install specific commit or tagged version (for reproducibility purpose)
-devtools::install_github("DanChaltiel/crosstable@40f486c", build_vignettes=TRUE)
+devtools::install_github("DanChaltiel/crosstable@590e1bc", build_vignettes=TRUE)
 devtools::install_github("DanChaltiel/crosstable@v0.4.1", build_vignettes=TRUE)
 ```
 
@@ -67,8 +67,8 @@ ct1 = crosstable(mtcars2, c(disp, vs), by=am, total="both",
 ct1
 ```
 
-<p align="center">
-<img src="man/figures/ct1_mod.png" alt="crosstable1">
+<p style="text-align: center;">
+  <img src="man/figures/ct1_mod.png" alt="crosstable1">
 </p>
 
 With only a few arguments, we did select which column to describe
@@ -107,7 +107,7 @@ ct2
 ```
 
 <p align="center">
-<img src="man/figures/ct2_mod.png" alt="crosstable2">
+  <img src="man/figures/ct2_mod.png" alt="crosstable2">
 </p>
 
 Here, the variables were selected using `tidyselect` helpers and the

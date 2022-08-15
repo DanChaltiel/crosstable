@@ -123,8 +123,8 @@ file.remove("man/figures/README-usage1-1.png")
 file.remove("man/figures/README-usage2-1.png")
 ```
 
-<p align="center">
-<img src="man/figures/ct2_mod.png" alt="crosstable2">
+<p style="text-align: center;">
+  <img src="man/figures/ct2_mod.png" alt="crosstable2">
 </p>
 
 
