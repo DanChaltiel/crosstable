@@ -155,7 +155,8 @@ summarize_categorical_by = function(x, by,
     #                 ~confint_proportion(.x, n, method="wilson")),
     #   across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE))
     # ) %>%
-    transmute(variable=replace_na(x, "NA"), by=.data$by,
+    transmute(variable=x %>% str_replace("NA", "'NA'") %>% replace_na("NA"),
+              by=.data$by,
               value=ifelse(is.na(x)|is.na(by)|.data$n==0&zero_percent,
                            .data$n, glue(percent_pattern$body))) %>%
     pivot_wider(names_from="by", values_from = "value")
