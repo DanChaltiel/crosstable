@@ -45,6 +45,7 @@
 #'
 #--- Officer ---
 #' @param format_legend_name how the legend name ("Table", "Figure") is formatted. Default to `officer::fp_text_lite(bold=TRUE)`
+#' @param add_max_cols max number of columns a crosstable can have to be added to a Word document
 #' @param table_legend_par_before whether to add an empty paragraph before all table legends
 #' @param figure_legend_par_after whether to add an empty paragraph after all figure legends
 #' @param table_legend_prefix,figure_legend_prefix a prefix before each legend, after the numbering
@@ -85,6 +86,7 @@ crosstable_options = function(
     units="in",
     peek_docx=TRUE,
     font_code="Consolas",
+    add_max_cols=25,
     format_legend_name,
     table_legend_par_before,
     table_legend_prefix,

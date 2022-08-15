@@ -11,6 +11,7 @@
 #' @param header_fontsize fontsize of the header
 #' @param padding_v vertical padding of all table rows
 #' @param allow_break allow crosstable rows to break across pages
+#' @param max_cols max number of columns for `x`
 #' @param ... further arguments passed to [as_flextable.crosstable()]
 #'
 #' @author Dan Chaltiel
@@ -35,13 +36,21 @@
 body_add_crosstable = function (doc, x, body_fontsize=NULL,
                                 header_fontsize=ceiling(body_fontsize*1.2),
                                 padding_v=NULL,
-                                allow_break=TRUE, ...) {
+                                allow_break=TRUE,
+                                max_cols=25, ...) {
   assert_class(x, "crosstable", .var.name=vname(x))
 
   if(missing(padding_v)) padding_v = getOption("crosstable_padding_v", NULL)
   if(missing(body_fontsize)) body_fontsize = getOption("crosstable_fontsize_body", NULL)
   if(missing(header_fontsize)) header_fontsize = getOption("crosstable_fontsize_header", NULL)
   if(missing(allow_break)) allow_break = getOption("crosstable_allow_break", TRUE)
+  if(missing(max_cols)) max_cols = getOption("crosstable_add_max_cols", 25)
+
+  if(ncol(x)>max_cols){
+    cli_abort(c("The crosstable {.var x} has {ncol(x)} columns, which is higher than {.arg max_cols} ({max_cols}). The resulting document will probably be totally unreadable.",
+                i="To override this error, use {.code body_add_crosstable(max_cols={ncol(x)})} or {.code options(crosstable_add_max_cols={ncol(x)})}"),
+              class="crosstable_body_add_large_error")
+  }
   ft = as_flextable(x, ...)
   if(length(body_fontsize)!=0)
     ft = fontsize(ft, size = body_fontsize, part = "body")

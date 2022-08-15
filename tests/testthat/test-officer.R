@@ -242,6 +242,10 @@ test_that("Officers warnings and errors", {
 
   lifecycle::expect_deprecated(body_add_glued(read_docx(), "Paragraphe"))
 
+  ct = crosstable(mtcars3, vs, by=model)
+  expect_error(body_add_crosstable(read_docx(), ct),
+               class="crosstable_body_add_large_error")
+
   ll = list(crosstable(iris), crosstable(mtcars))
   expect_error(body_add_crosstable_list(read_docx(), ll),
                class="body_add_crosstable_list_named")

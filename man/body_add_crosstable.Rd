@@ -11,6 +11,7 @@ body_add_crosstable(
   header_fontsize = ceiling(body_fontsize * 1.2),
   padding_v = NULL,
   allow_break = TRUE,
+  max_cols = 25,
   ...
 )
 }
@@ -26,6 +27,8 @@ body_add_crosstable(
 \item{padding_v}{vertical padding of all table rows}
 
 \item{allow_break}{allow crosstable rows to break across pages}
+
+\item{max_cols}{max number of columns for \code{x}}
 
 \item{...}{further arguments passed to \code{\link[=as_flextable.crosstable]{as_flextable.crosstable()}}}
 }
