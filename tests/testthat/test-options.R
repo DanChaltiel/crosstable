@@ -42,6 +42,7 @@ test_that("Options work", {
 
 test_that("All options work", {
   crosstable_reset_options(quiet=TRUE)
+  local_reproducible_output(width = 1000)
   # withr::deferred_clear()
 
   # crosstable()
@@ -55,12 +56,12 @@ test_that("All options work", {
     verbosity_duplicate_cols="quiet",
     total="both",
     percent_pattern="{n} ({p_row}, {p_col})",
-    percent_digits=0,
-    num_digits=0,
+    percent_digits=1,
+    num_digits=1,
     showNA="always",
     label=FALSE,
-    funs=meansd,
-    # funs=c("Mean (SD)"=meansd),
+    # funs=meansd,
+    funs=c("Mean (SD)"=meansd),
     funs_arg=list(na.rm=FALSE),
     cor_method="kendall",
     unique_numeric=4,

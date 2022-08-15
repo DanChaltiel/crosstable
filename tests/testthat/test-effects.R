@@ -92,7 +92,6 @@ test_that("Effects: missing variables", {
 test_that("Effects Warnings", {
   set.seed(1234)
 
-
   crosstable(mtcars3, cyl, by=c(am, vs), effect=T) %>%
     expect_warning(class="crosstable_multiby_effect_warning")
 
@@ -105,78 +104,121 @@ test_that("Effects Warnings", {
     expect_warning("fitted probabilities numerically 0 or 1 occurred") %>%
     expect_warning("fitted probabilities numerically 0 or 1 occurred") %>%
     expect_warning("fitted probabilities numerically 0 or 1 occurred") %>%
-    expect_warning(class="crosstable_effect_other_warning")
+    expect_warning(class="crosstable_effect_other_warning") %>%
+    expect_warning(class="crosstable_all_na_warning")
 })
 
 
 # Automatic snapshot tests ------------------------------------------------
 # They sometimes fail on other OS than Windows due to tiny RNG differences
 
+can_be_by = function(x){
+  length(unique(narm(x)))==2 && !all(is.na(x)) &&
+    !is.numeric(x) && !is.Surv(x) && !is.date(x) && !inherits(x, "difftime")
+}
+map_lgl(mtcars3, can_be_by)
 
-test_that("Effects never fail 1", {
-  skip_on_os(c("mac", "linux", "solaris"))
-  rlang::local_options(width = 100)
-  e_args = crosstable_effect_args()
-  can_be_by = function(x) !is.numeric(x) && length(unique(x))!=2 && !is.Surv(x) && !is.date(x) && !all(is.na(x)) && !inherits(x, "difftime")
-
-  names(mtcars3) %>% set_names() %>% map(~{
-    set.seed(1234)
-    if(can_be_by(mtcars3[[.x]])) {
-      if(!is_testing()) print(glue("Effect part 1 - by={.x}"))
+for(.x in names(mtcars3)){
+  set.seed(1234)
+  if(can_be_by(mtcars3[[.x]])) {
+    test_that(glue("Effect - .x='{.x}' - mean/OR (default)"), {
+      skip_on_os(c("mac", "linux", "solaris"))
+      local_reproducible_output(width = 1000)
+      e_args = crosstable_effect_args()
       expect_snapshot({
-        print(glue("Effect part 1 - by={.x}"))
-        crosstable(mtcars3, -model, by=any_of(.x), effect=T, effect_args=e_args)$effect %>%
-          table %>% as.data.frame()
+        crosstable(mtcars3, -model, by=any_of(.x), effect=T, effect_args=e_args) %>%
+          select(.id, any_of("effect")) %>% distinct() %>% as.data.frame()
       })
-    }
-    return(0)
-  })
+    })
 
-})
-
-test_that("Effects never fail 2", {
-  skip_on_os(c("mac", "linux", "solaris"))
-  rlang::local_options(width = 100)
-  e_args = crosstable_effect_args()
-  e_args$effect_summarize = diff_mean_boot
-  e_args$effect_tabular = effect_relative_risk
-  can_be_by = function(x) !is.numeric(x) && length(unique(x))!=2 && !is.Surv(x) && !is.date(x) && !all(is.na(x)) && !inherits(x, "difftime")
-
-  names(mtcars3) %>% set_names() %>% map(~{
-    set.seed(1234)
-    if(can_be_by(mtcars3[[.x]])) {
-      if(!is_testing()) print(glue("Effect part 2 - by={.x}"))
+    test_that(glue("Effect - .x='{.x}' - mean_boot/RR"), {
+      skip_on_os(c("mac", "linux", "solaris"))
+      local_reproducible_output(width = 1000)
+      e_args = crosstable_effect_args()
+      e_args$effect_summarize = diff_mean_boot
+      e_args$effect_tabular = effect_relative_risk
       expect_snapshot({
-        print(glue("Effect part 2 - by={.x}"))
-        crosstable(mtcars3, -model, by=any_of(.x), effect=T, effect_args=e_args)$effect %>%
-          table %>% as.data.frame()
+        crosstable(mtcars3, -model, by=any_of(.x), effect=T, effect_args=e_args) %>%
+          select(.id, any_of("effect")) %>% distinct() %>% as.data.frame()
       })
-    }
-    return(0)
-  })
+    })
 
-})
-
-test_that("Effects never fail 3", {
-  skip_on_os(c("mac", "linux", "solaris"))
-  rlang::local_options(width = 100)
-  e_args = crosstable_effect_args()
-  e_args$effect_summarize = diff_median_boot
-  e_args$effect_tabular = effect_risk_difference
-  can_be_by = function(x) !is.numeric(x) && length(unique(x))!=2 && !is.Surv(x) && !is.date(x) && !all(is.na(x)) && !inherits(x, "difftime")
-
-  names(mtcars3) %>% set_names() %>% map(~{
-    if(!is_testing()) print(glue("Effect part 3 - by={.x}"))
-    if(can_be_by(mtcars3[[.x]])) {
+    test_that(glue("Effect - .x='{.x}' - median/RD"), {
+      skip_on_os(c("mac", "linux", "solaris"))
+      local_reproducible_output(width = 1000)
+      e_args = crosstable_effect_args()
+      e_args$effect_summarize = diff_median_boot
+      e_args$effect_tabular = effect_risk_difference
       expect_snapshot({
-        print(glue("Effect part 3 - by={.x}"))
-        set.seed(1234)
-        crosstable(mtcars3, -model, by=any_of(.x), effect=T, effect_args=e_args)$effect %>%
-          table %>% as.data.frame()
+        crosstable(mtcars3, -model, by=any_of(.x), effect=T, effect_args=e_args) %>%
+          select(.id, any_of("effect")) %>% distinct() %>% as.data.frame()
       })
-    }
-    return(0)
-  })
-})
+    })
+  }
+}
 
 
+# test_that("Effects never fail: mean/OR (default)", {
+#   skip_on_os(c("mac", "linux", "solaris"))
+#   rlang::local_options(width = 100)
+#   e_args = crosstable_effect_args()
+#
+#   names(mtcars3) %>% set_names() %>% map(~{
+#     set.seed(1234)
+#     if(can_be_by(mtcars3[[.x]])) {
+#       if(!is_testing()) print(glue("Effect part 1 - by={.x}"))
+#       expect_snapshot({
+#         print(glue("Effect part 1 - by={.x}"))
+#         crosstable(mtcars3, -model, by=any_of(.x), effect=T, effect_args=e_args) %>%
+#           select(.id, effect) %>% distinct() %>% as.data.frame()
+#       })
+#     }
+#     return(0)
+#   })
+# })
+# test_that("Effects never fail: mean_boot/RR", {
+#   skip_on_os(c("mac", "linux", "solaris"))
+#   rlang::local_options(width = 100)
+#   e_args = crosstable_effect_args()
+#   e_args$effect_summarize = diff_mean_boot
+#   e_args$effect_tabular = effect_relative_risk
+#
+#   names(mtcars3) %>% set_names() %>% map(~{
+#     set.seed(1234)
+#     if(can_be_by(mtcars3[[.x]])) {
+#       if(!is_testing()) print(glue("Effect part 2 - by={.x}"))
+#       expect_snapshot({
+#         print(glue("Effect part 2 - by={.x}"))
+#         crosstable(mtcars3, -model, by=any_of(.x), effect=T, effect_args=e_args) %>%
+#           select(.id, effect) %>% distinct() %>% as.data.frame()
+#       })
+#     }
+#     return(0)
+#   })
+#
+# })
+#
+# test_that("Effects never fail: median/RD", {
+#   skip_on_os(c("mac", "linux", "solaris"))
+#   rlang::local_options(width = 100)
+#   e_args = crosstable_effect_args()
+#   e_args$effect_summarize = diff_median_boot
+#   e_args$effect_tabular = effect_risk_difference
+#
+#   map_lgl(mtcars3, can_be_by)
+#
+#   names(mtcars3) %>% set_names() %>% map(~{
+#     if(!is_testing()) print(glue("Effect part 3 - by={.x}"))
+#     if(can_be_by(mtcars3[[.x]])) {
+#       expect_snapshot({
+#         print(glue("Effect part 3 - by={.x}"))
+#         set.seed(1234)
+#         crosstable(mtcars3, -model, by=any_of(.x), effect=T, effect_args=e_args) %>%
+#           select(.id, effect) %>% distinct() %>% as.data.frame()
+#       })
+#     }
+#     return(0)
+#   })
+# })
+#
+#

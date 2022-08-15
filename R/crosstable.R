@@ -253,7 +253,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   byname = names(data_y)
 
   duplicate_cols = intersect(names(data_y), names(data_x))
-  verbosity_duplicate_cols = getOption("crosstable_verbosity_duplicate_cols", "verbose")
+  verbosity_duplicate_cols = getOption("crosstable_verbosity_duplicate_cols", "default")
   if(length(duplicate_cols)>0 && verbosity_duplicate_cols=="verbose"){
     cli_warn(c("Some columns were selected in `by` and in `cols` and were removed from the latter.",
                i="Columns automatically removed from `cols`: {.code {duplicate_cols}}"),
@@ -267,7 +267,6 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
     cli_warn(c('Cannot describe column{?s} {.var {na_cols}} as {?it/they} contain{?s/} only missing values.'),
              class = "crosstable_all_na_warning",
              call = crosstable_caller$env)
-    return(NULL)
   }
 
   na_cols_y = data_y %>% select(where(~all(is.na(.x)))) %>% names()
@@ -275,7 +274,6 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
     cli_warn(c('Cannot use {.var {na_cols_y}} as `by` column{?s} as {?it/they} contain{?s/} only missing values.'),
              class = "crosstable_all_na_by_warning",
              call = crosstable_caller$env)
-    return(NULL)
   }
 
   data_x = select(data_x, -any_of(c(duplicate_cols, na_cols)))
@@ -339,12 +337,6 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
                class="crosstable_totalrow_bynull",
                call=current_env())
     }
-  }
-
-  ## At least 1 BY ----
-  if(ncol_y>0 && all(is.na(data_y))){
-    cli_abort("`by` column{?s} ({names(data_y)}) contain{?s/} only missing values",
-              class="crosstable_by_only_missing_error")
   }
 
   ## BY one ----

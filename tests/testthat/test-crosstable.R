@@ -47,9 +47,14 @@ test_that("Warn: numeric+factor by numeric: ", {
 test_that('Warn: contains both `NA` and "NA"', {
   x=mtcars3
   x$vs[18:20] = "NA"
-  crosstable(x, c(vs), by=mpg) %>%
-    # expect_warning(class='crosstable_wrong_col_class_by_warning') %>%
+  crosstable(x, vs) %>%
     expect_warning(class='crosstable_na_char_warning')
+})
+
+test_that('Warn: contains only `NA`', {
+  crosstable(mtcars3, dummy_na) %>%
+    expect_warning(class='crosstable_all_na_warning') %>%
+    expect_warning(class='crosstable_empty_warning')
 })
 
 test_that('Warn: Duplicate columns are removed from `cols`', {
@@ -76,11 +81,11 @@ test_that("Warn: Deprecation: moystd", {
 
 test_that("BY class check", {
   #no by survival
-  expect_error(crosstable(mtcars3, by=surv, times=c(0,100,200,400)),
+  expect_error(crosstable(mtcars3, vs, by=surv, times=c(0,100,200,400)),
                class="crosstable_wrong_byclass_error")
   #no by date
   mtcars3$dummy_posix = as.Date(mtcars3$disp, origin="2020-01-01") %>% as.POSIXct
-  expect_error(crosstable(mtcars3, by=dummy_posix),
+  expect_error(crosstable(mtcars3, vs, by=dummy_posix),
                class="crosstable_wrong_byclass_error")
 })
 

@@ -289,7 +289,7 @@ test_that("By multiple warnings", {
   attr(x1, "obj") %>% dim() %>% expect_equal(c(11,5))
 
   x2 = crosstable(mtcars3, c(mpg, gear, cyl), by=c(am, dummy_na, dummy_na2)) %>%
-    expect_warning2(class="crosstable_multiby_some_missing_warning")
+    expect_warning2(class="crosstable_all_na_by_warning")
   attr(x2, "obj") %>% dim() %>% expect_equal(c(11,5))
 
   crosstable(mtcars3, c(mpg, gear, cyl), by=c(am, vs), test=TRUE) %>%
@@ -306,5 +306,5 @@ test_that("By multiple errors", {
 
   #All `by` columns have missing values only
   crosstable(mtcars3, c(mpg, gear, cyl), by=c(dummy_na, dummy_na2)) %>%
-    expect_error(class="crosstable_by_only_missing_error")
+    expect_error(class="crosstable_all_na_by_warning")
 })
