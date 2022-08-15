@@ -253,7 +253,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   byname = names(data_y)
 
   duplicate_cols = intersect(names(data_y), names(data_x))
-  verbosity_duplicate_cols = getOption("crosstable_verbosity_duplicate_cols", "default")
+  verbosity_duplicate_cols = getOption("crosstable_verbosity_duplicate_cols", "verbose")
   if(length(duplicate_cols)>0 && verbosity_duplicate_cols=="verbose"){
     cli_warn(c("Some columns were selected in `by` and in `cols` and were removed from the latter.",
                i="Columns automatically removed from `cols`: {.code {duplicate_cols}}"),
@@ -261,7 +261,25 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
              call=current_env())
   }
 
-  data_x = select(data_x, -any_of(duplicate_cols))
+  na_cols = data_x %>% select(where(~all(is.na(.x)))) %>% names()
+  verbosity_na_cols = getOption("crosstable_verbosity_na_cols", "verbose")
+  if(length(na_cols)>0 && verbosity_na_cols=="verbose"){
+    cli_warn(c('Cannot describe column{?s} {.var {na_cols}} as {?it/they} contain{?s/} only missing values.'),
+             class = "crosstable_all_na_warning",
+             call = crosstable_caller$env)
+    return(NULL)
+  }
+
+  na_cols_y = data_y %>% select(where(~all(is.na(.x)))) %>% names()
+  if(length(na_cols_y)>0 && verbosity_na_cols=="verbose"){
+    cli_warn(c('Cannot use {.var {na_cols_y}} as `by` column{?s} as {?it/they} contain{?s/} only missing values.'),
+             class = "crosstable_all_na_by_warning",
+             call = crosstable_caller$env)
+    return(NULL)
+  }
+
+  data_x = select(data_x, -any_of(c(duplicate_cols, na_cols)))
+  data_y = select(data_y, -any_of(c(na_cols_y)))
   ncol_x = if(is.null(data_x)) 0 else ncol(data_x)
   ncol_y = if(is.null(data_y)) 0 else ncol(data_y)
 
@@ -349,19 +367,6 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
 
   ## multi BY ----
   if(ncol_y>1) {
-
-    #Missing values
-    na_cols = purrr::keep(data_y, ~all(is.na(.x))) %>% names()
-    if(all(is.na(data_y))){
-      stop("This should never happen, contact the developper. Code=13547")
-    } else if(length(na_cols)>0){
-      cli_warn(c("Some `by` columns contains only missing values and were removed.",
-                 i="Automatically removed columns: {.code {na_cols}}"),
-               class="crosstable_multiby_some_missing_warning",
-               call=current_env())
-      data_y = select(data_y, -any_of(na_cols))
-    }
-
 
     #supported classes
     data_y2 = map_dfc(data_y, ~{if(!is.logical(.x)&&!is.character.or.factor(.x)) NULL else .x})

@@ -25,13 +25,6 @@ cross_by = function(data_x, data_y, funs, funs_arg, percent_pattern, total, perc
       .x = as.numeric(.x) %>% set_label(lab)
     }
 
-    if(all(is.na(.x))) {
-      cli_warn(c('Cannot describe column {.var {.y}} as all values are missing'),
-               class = "crosstable_all_na_warning",
-               call = crosstable_caller$env)
-      return(NULL)
-    }
-
     if(anyNA(.x) && "NA" %in% .x) {
       na_string = as.character(which(.x=="NA"))
       na_proper = as.character(which(is.na(.x)))
