@@ -90,6 +90,7 @@ reference:
   - compact
   - plim
   - confint_numeric
+  - narm
   - is.crosstable
   - peek
 - title: "Effects and tests"

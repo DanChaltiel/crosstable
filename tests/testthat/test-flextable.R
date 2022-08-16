@@ -27,6 +27,17 @@ test_that("flextable header by_header (monoby)", {
   })
 })
 
+test_that("flextable generic_labels", {
+  expect_snapshot({
+    ct = crosstable(mtcars2, am, by=vs, total="both", test=TRUE, effect=TRUE) %>%
+      rename(ID=.id, math=variable, Tot=Total, lab=label, pval=test, fx=effect) %>%
+      as_flextable(by_header = "Engine shape",
+                   generic_labels=list(id = "ID", variable = "math", total="Tot",
+                                       label = "lab", test = "pval", effect="fx"))
+    ct$header$dataset
+  })
+})
+
 
 test_that("flextable header header_show_n+pattern", {
   expect_snapshot({

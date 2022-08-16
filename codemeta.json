@@ -1,26 +1,20 @@
 {
-  "@context": [
-    "https://doi.org/10.5063/schema/codemeta-2.0",
-    "http://schema.org"
-  ],
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "crosstable",
-  "description": "Create descriptive tables for continuous and categorical variables. \n    Apply summary statistics and counting function, with or without a grouping variable, and create beautiful reports using 'rmarkdown' or 'officer'.\n    You can also compute effect sizes and statistical tests if needed.",
+  "description": "Create descriptive tables for continuous and categorical variables. Apply summary statistics and counting function, with or without a grouping variable, and create beautiful reports using 'rmarkdown' or 'officer'. You can also compute effect sizes and statistical tests if needed.",
   "name": "crosstable: Crosstables for Descriptive Analyses",
+  "relatedLink": ["https://danchaltiel.github.io/crosstable/", "https://CRAN.R-project.org/package=crosstable"],
   "codeRepository": "https://github.com/DanChaltiel/crosstable/",
-  "relatedLink": [
-    "https://danchaltiel.github.io/crosstable/",
-    "https://CRAN.R-project.org/package=crosstable"
-  ],
   "issueTracker": "https://github.com/DanChaltiel/crosstable/issues/",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.4.0",
+  "version": "0.4.1.9012",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.1.2 (2021-11-01)",
+  "runtimePlatform": "R version 4.2.1 (2022-06-23 ucrt)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -36,9 +30,6 @@
       "@id": "https://orcid.org/0000-0003-3488-779X"
     }
   ],
-  "contributor": {},
-  "copyrightHolder": {},
-  "funder": {},
   "maintainer": [
     {
       "@type": "Person",
@@ -49,6 +40,18 @@
     }
   ],
   "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "callr",
+      "name": "callr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=callr"
+    },
     {
       "@type": "SoftwareApplication",
       "identifier": "covr",
@@ -257,6 +260,7 @@
       "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
+      "version": ">= 3.0.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -290,14 +294,14 @@
       "sameAs": "https://CRAN.R-project.org/package=waldo"
     }
   ],
-  "softwareRequirements": [
-    {
+  "softwareRequirements": {
+    "1": {
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
       "version": ">= 3.1.0"
     },
-    {
+    "2": {
       "@type": "SoftwareApplication",
       "identifier": "checkmate",
       "name": "checkmate",
@@ -309,7 +313,19 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=checkmate"
     },
-    {
+    "3": {
+      "@type": "SoftwareApplication",
+      "identifier": "cli",
+      "name": "cli",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=cli"
+    },
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "dplyr",
       "name": "dplyr",
@@ -322,7 +338,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=dplyr"
     },
-    {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "flextable",
       "name": "flextable",
@@ -335,7 +351,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=flextable"
     },
-    {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "forcats",
       "name": "forcats",
@@ -347,7 +363,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=forcats"
     },
-    {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "glue",
       "name": "glue",
@@ -359,7 +375,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=glue"
     },
-    {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "lifecycle",
       "name": "lifecycle",
@@ -371,10 +387,11 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=lifecycle"
     },
-    {
+    "9": {
       "@type": "SoftwareApplication",
       "identifier": "officer",
       "name": "officer",
+      "version": ">= 0.4",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -383,7 +400,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=officer"
     },
-    {
+    "10": {
       "@type": "SoftwareApplication",
       "identifier": "purrr",
       "name": "purrr",
@@ -395,7 +412,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=purrr"
     },
-    {
+    "11": {
       "@type": "SoftwareApplication",
       "identifier": "rlang",
       "name": "rlang",
@@ -408,12 +425,12 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
-    {
+    "12": {
       "@type": "SoftwareApplication",
       "identifier": "stats",
       "name": "stats"
     },
-    {
+    "13": {
       "@type": "SoftwareApplication",
       "identifier": "stringr",
       "name": "stringr",
@@ -425,7 +442,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=stringr"
     },
-    {
+    "14": {
       "@type": "SoftwareApplication",
       "identifier": "tibble",
       "name": "tibble",
@@ -437,7 +454,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tibble"
     },
-    {
+    "15": {
       "@type": "SoftwareApplication",
       "identifier": "tidyr",
       "name": "tidyr",
@@ -449,7 +466,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tidyr"
     },
-    {
+    "16": {
       "@type": "SoftwareApplication",
       "identifier": "tidyselect",
       "name": "tidyselect",
@@ -460,21 +477,13 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=tidyselect"
-    }
-  ],
+    },
+    "SystemRequirements": null
+  },
+  "fileSize": "1505.19KB",
   "releaseNotes": "https://github.com/DanChaltiel/crosstable/blob/master/NEWS.md",
   "readme": "https://github.com/DanChaltiel/crosstable/blob/main/README.md",
-  "fileSize": "69746.257KB",
-  "contIntegration": "https://app.codecov.io/gh/DanChaltiel/crosstable?branch=main",
+  "contIntegration": ["https://app.codecov.io/gh/DanChaltiel/crosstable?branch=main", "https://github.com/DanChaltiel/crosstable/actions"],
   "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html",
-  "keywords": [
-    "r",
-    "descriptive-statistics",
-    "rstats",
-    "html-report",
-    "frequency-table",
-    "msword",
-    "flextable",
-    "officer"
-  ]
+  "keywords": ["r", "descriptive-statistics", "rstats", "html-report", "frequency-table", "msword", "flextable", "officer"]
 }
