@@ -61,6 +61,19 @@
         label variable auto manual
       1 label variable auto manual
 
+# flextable generic_labels
+
+    Code
+      ct = crosstable(mtcars2, am, by = vs, total = "both", test = TRUE, effect = TRUE) %>%
+        rename(ID = .id, math = variable, Tot = Total, lab = label, pval = test, fx = effect) %>%
+        as_flextable(by_header = "Engine shape", generic_labels = list(id = "ID",
+          variable = "math", total = "Tot", label = "lab", test = "pval", effect = "fx"))
+      ct$header$dataset
+    Output
+        lab math     straight      vshaped Tot fx pval
+      1 lab math Engine shape Engine shape Tot fx pval
+      2 lab math     straight      vshaped Tot fx pval
+
 # flextable header header_show_n+pattern
 
     Code
