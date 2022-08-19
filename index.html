@@ -44,7 +44,7 @@
     
     <a class="navbar-brand me-2" href="index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9011</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,7 +114,7 @@
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Install specific commit or tagged version (for reproducibility purpose)</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable@40f486c"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable@590e1bc"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DanChaltiel/crosstable@v0.4.1"</span>, build_vignettes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Note that, for reproducibility purpose, an even better solution would be to use <a href="https://rstudio.github.io/renv/articles/renv.html" class="external-link"><code>renv</code></a>.</p>
 </div>
@@ -132,7 +132,7 @@
 <span>                 percent_pattern<span class="op">=</span><span class="st">"{n} ({p_row}/{p_col})"</span>, percent_digits<span class="op">=</span><span class="fl">0</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">ct1</span></span></code></pre></div>
-<p align="center"><img src="reference/figures/ct1_mod.png" alt="crosstable1"></p>
+<p style="text-align: center;"><img src="reference/figures/ct1_mod.png" alt="crosstable1"></p>
 <p>With only a few arguments, we did select which column to describe (<code>c(disp, vs)</code>), define a grouping variable (<code>by=am</code>), set the percentage calculation in row/column (<code>percent_pattern=</code>), and ask for totals (<code>total=</code>).</p>
 <p>Since <code>mtcars2</code> is a dataset with labels, they are displayed instead of the variable name (see <a href="https://danchaltiel.github.io/crosstable/articles/crosstable.html#dataset-modified-mtcars">here</a> for how to add some).</p>
 <p>As <code><a href="reference/crosstable.html">crosstable()</a></code> is returning a <code>data.frame</code>, we use <code><a href="reference/as_flextable.html">as_flextable()</a></code> to output a beautiful HTML table. This one can even be exported to MS Word with a few more lines of code (see <a href="https://danchaltiel.github.io/crosstable/articles/crosstable-report.html">here</a> to learn how).</p>

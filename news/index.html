@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9011</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +68,7 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.5.0" id="crosstable-050-">crosstable 0.5.0 <sub><sup>(?)</sup></sub><a class="anchor" aria-label="anchor" href="#crosstable-050-"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.5.0" id="crosstable-050-2022-08-16">crosstable 0.5.0 <sub><sup>2022-08-16</sup></sub><a class="anchor" aria-label="anchor" href="#crosstable-050-2022-08-16"></a></h2><p class="text-muted">CRAN release: 2022-08-16</p>
 <div class="section level5">
 <h5 id="new-features-0-5-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-5-0"></a></h5>
 <ul><li>New <code><a href="../reference/clean_names_with_labels.html">clean_names_with_labels()</a></code> which clean the names of the dataframe but keeps the old names as labels. Obviously inspired by {janitor}.</li>
@@ -85,7 +85,9 @@
 <code><a href="../reference/crosstable_options.html">crosstable_options()</a></code> does not need the “crosstable_” prefix anymore, so the autocomplete is less clumsy. Options with the prefix will still work though. <code>crosstable_options(reset=TRUE)</code> is deprecated in favor of the new <code><a href="../reference/crosstable_reset_options.html">crosstable_reset_options()</a></code>.</li>
 <li>
 <code><a href="../reference/crosstable_test_args.html">crosstable_test_args()</a></code> and <code><a href="../reference/crosstable_effect_args.html">crosstable_effect_args()</a></code> now have arguments to easily control the non-default parameters.</li>
+<li>Allow scientific notation for big numbers. Default to numbers for <code>which abs(log10(x))&gt;4</code>. This can be controlled using options, e.g. <code>crosstable_options(scientific_log=5)</code>.</li>
 <li>In MS Word, crosstables will now break across pages by default. You can revert this by using <code>body_add_crosstable(allow_break=FALSE)</code> or using <code><a href="../reference/crosstable_options.html">crosstable_options()</a></code>. This is the pendant of <code>keepnext</code> in officer/flextable.</li>
+<li>New argument <code>body_add_crosstable(max_cols=25)</code>, which limits the size of crosstables in Word documents. This prevents very large tables to be wrongly included.</li>
 <li>
 <code><a href="../reference/peek.html">peek()</a></code> is now usable on non-crosstable objects as well. <code><a href="../reference/as_flextable.html">as_flextable()</a></code> method will be applied on the object if available, otherwise <code><a href="https://davidgohel.github.io/flextable/reference/flextable.html" class="external-link">flextable()</a></code> will be applied.</li>
 <li>Better error messages in <code><a href="../reference/import_labels.html">import_labels()</a></code> when <code>data_label</code> doesn’t have the right columns.</li>

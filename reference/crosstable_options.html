@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9011</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -111,6 +111,7 @@
 <span>  units <span class="op">=</span> <span class="st">"in"</span>,</span>
 <span>  peek_docx <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  font_code <span class="op">=</span> <span class="st">"Consolas"</span>,</span>
+<span>  add_max_cols <span class="op">=</span> <span class="fl">25</span>,</span>
 <span>  <span class="va">format_legend_name</span>,</span>
 <span>  <span class="va">table_legend_par_before</span>,</span>
 <span>  <span class="va">table_legend_prefix</span>,</span>
@@ -127,6 +128,7 @@
 <span>  <span class="va">style_heading</span>,</span>
 <span>  <span class="va">style_list_ordered</span>,</span>
 <span>  <span class="va">style_list_unordered</span>,</span>
+<span>  <span class="va">scientific_log</span>,</span>
 <span>  .local <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  reset <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -278,6 +280,10 @@
 <dd><p>font family used to show code, most likely a monospaced typeface such as Consolas (default)</p></dd>
 
 
+<dt>add_max_cols</dt>
+<dd><p>max number of columns a crosstable can have to be added to a Word document</p></dd>
+
+
 <dt>format_legend_name</dt>
 <dd><p>how the legend name ("Table", "Figure") is formatted. Default to <code>officer::fp_text_lite(bold=TRUE)</code></p></dd>
 
@@ -332,6 +338,10 @@
 
 <dt>style_list_ordered, style_list_unordered</dt>
 <dd><p>For specifying styles used by lists in the <code>rdocx</code> template. Needed for <code><a href="body_add_list.html">body_add_list()</a></code> to work.</p></dd>
+
+
+<dt>scientific_log</dt>
+<dd><p>the maximum power a number can have before being formatted as scientific. Default to 4 so applies on numbers &lt;1e-4 or &gt;1e4.</p></dd>
 
 
 <dt>.local</dt>

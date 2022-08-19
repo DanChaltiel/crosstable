@@ -30,7 +30,7 @@ as_flextable
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9011</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -272,7 +272,7 @@ below to see their documentation.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                     </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Renaming (because why not?)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="op">-</span><span class="va">model</span>, by<span class="op">=</span><span class="va">vs</span>, total<span class="op">=</span><span class="st">"both"</span>, test<span class="op">=</span><span class="cn">TRUE</span>, effect<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="va">am</span>, by<span class="op">=</span><span class="va">vs</span>, total<span class="op">=</span><span class="st">"both"</span>, test<span class="op">=</span><span class="cn">TRUE</span>, effect<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>ID<span class="op">=</span><span class="va">.id</span>, math<span class="op">=</span><span class="va">variable</span>, Tot<span class="op">=</span><span class="va">Total</span>, lab<span class="op">=</span><span class="va">label</span>, pval<span class="op">=</span><span class="va">test</span>, fx<span class="op">=</span><span class="va">effect</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>   <span class="fu">as_flextable</span><span class="op">(</span>by_header <span class="op">=</span> <span class="st">"Engine shape"</span>,</span></span>
 <span class="r-in"><span>                generic_labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"ID"</span>, variable <span class="op">=</span> <span class="st">"math"</span>, total<span class="op">=</span><span class="st">"Tot"</span>,</span></span>
@@ -280,40 +280,23 @@ below to see their documentation.</p>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Be aware that automatic global testing should only be done in an exploratory</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> context, as it would cause extensive alpha inflation otherwise.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Problems occured when calculating crosstable effects (glm-logit):</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> <span style="color: #0000BB;">"glm.fit: fitted probabilities numerically 0 or 1 occurred"</span>, <span style="color: #0000BB;">"glm.fit:</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">algorithm did not converge"</span>, and <span style="color: #0000BB;">"collapsing to unique 'x' values"</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> You might want to check for complete separation or extreme outliers.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Applying `forcats::fct_rev()` to some columns might help too.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `lab`, `math`, `straight`, `vshaped`, `Tot`, `fx`, `pval` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 2 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 47 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> body has 3 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ID                 lab       math         straight          vshaped</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 mpg   Miles/(US) gallon  Min / Max      17.8 / 33.9      10.4 / 26.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 mpg   Miles/(US) gallon  Med [IQR] 22.8 [21.4;29.6] 15.7 [14.8;19.1]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 mpg   Miles/(US) gallon Mean (std)       24.6 (5.4)       16.6 (3.9)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 mpg   Miles/(US) gallon     N (NA)           14 (0)           18 (0)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 cyl Number of cylinders          4      10 (90.91%)        1 (9.09%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                Tot</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      10.4 / 33.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 19.2 [15.4;22.8]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       20.1 (6.0)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4           32 (0)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      11 (34.38%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                        fx</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                        Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -7.94 [-11.27 to -4.61]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                        Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -7.94 [-11.27 to -4.61]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                        Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -7.94 [-11.27 to -4.61]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                        Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -7.94 [-11.27 to -4.61]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Odds ratio [95% Wald CI], ref='vshaped vs straight'\n6 vs 4: 7.50 [0.72 to 180.02]\n8 vs 4: 3143660128.53 [0.00 to  NA]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      pval</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                  p value: &lt;0.0001 \n(Two Sample t-test)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                  p value: &lt;0.0001 \n(Two Sample t-test)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                  p value: &lt;0.0001 \n(Two Sample t-test)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                  p value: &lt;0.0001 \n(Two Sample t-test)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 p value: &lt;0.0001 \n(Fisher's Exact Test for Count Data)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ID          lab   math    straight     vshaped          Tot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 am Transmission   auto  7 (36.84%) 12 (63.16%)  19 (59.38%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 am Transmission manual  7 (53.85%)  6 (46.15%)  13 (40.62%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 am Transmission  Total 14 (43.75%) 18 (56.25%) 32 (100.00%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                         fx</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Odds ratio [95% Wald CI], ref='vshaped vs straight'\nmanual vs auto: 0.50 [0.11 to 2.08]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Odds ratio [95% Wald CI], ref='vshaped vs straight'\nmanual vs auto: 0.50 [0.11 to 2.08]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Odds ratio [95% Wald CI], ref='vshaped vs straight'\nmanual vs auto: 0.50 [0.11 to 2.08]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                             pval</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 p value: 0.3409 \n(Pearson's Chi-squared test)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 p value: 0.3409 \n(Pearson's Chi-squared test)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 p value: 0.3409 \n(Pearson's Chi-squared test)</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
