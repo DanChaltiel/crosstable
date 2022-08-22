@@ -34,15 +34,15 @@ User can either use or extend these functions to configure effect calculation.
 }
 \section{Functions}{
 \itemize{
-\item \code{diff_mean_auto}: (\strong{Default}) calculate a specific "difference in means" effect based on normality (Shapiro or Anderson test) and variance homogeneity (Bartlett test)
+\item \code{diff_mean_auto()}: (\strong{Default}) calculate a specific "difference in means" effect based on normality (Shapiro or Anderson test) and variance homogeneity (Bartlett test)
 
-\item \code{diff_mean_boot}: calculate a "difference in means" effect with a bootstrapped CI using standard deviation
+\item \code{diff_mean_boot()}: calculate a "difference in means" effect with a bootstrapped CI using standard deviation
 
-\item \code{diff_median_boot}: calculate a "difference in medians" effect with a bootstrapped CI using quantiles#'
+\item \code{diff_median_boot()}: calculate a "difference in medians" effect with a bootstrapped CI using quantiles#'
 
-\item \code{diff_mean_student}: calculate a "difference in means" effect using \code{t.test} confidence intervals
+\item \code{diff_mean_student()}: calculate a "difference in means" effect using \code{t.test} confidence intervals
+
 }}
-
 \seealso{
 \code{\link[=crosstable_effect_args]{crosstable_effect_args()}}
 }

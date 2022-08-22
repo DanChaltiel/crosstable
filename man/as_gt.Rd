@@ -45,11 +45,11 @@ Default method to convert an object to a \code{gt} table
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{crosstable}: For crosstables
+\item \code{as_gt(crosstable)}: For crosstables
 
-\item \code{default}: default function
+\item \code{as_gt(default)}: default function
+
 }}
-
 \examples{
 xx = mtcars2 \%>\% dplyr::select(2:10)
 crosstable(xx) \%>\% as_gt

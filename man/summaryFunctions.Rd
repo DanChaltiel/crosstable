@@ -45,17 +45,17 @@ Summary functions to use with \code{\link[=crosstable]{crosstable()}} or anywher
 }
 \section{Functions}{
 \itemize{
-\item \code{meansd}: returns mean and std error
+\item \code{meansd()}: returns mean and std error
 
-\item \code{meanCI}: returns mean and confidence interval
+\item \code{meanCI()}: returns mean and confidence interval
 
-\item \code{mediqr}: returns median and IQR
+\item \code{mediqr()}: returns median and IQR
 
-\item \code{minmax}: returns minimum and maximum
+\item \code{minmax()}: returns minimum and maximum
 
-\item \code{nna}: returns  number of observations and number of missing values
+\item \code{nna()}: returns  number of observations and number of missing values
+
 }}
-
 \section{Fixed format}{
 
 These functions use \code{\link[=format_fixed]{format_fixed()}} which allows to have trailing zeros after rounded values.

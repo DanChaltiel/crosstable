@@ -28,13 +28,13 @@ User can either use or extend these functions to configure effect calculation.
 }
 \section{Functions}{
 \itemize{
-\item \code{effect_odds_ratio}: (\strong{Default}) calculate the odds ratio
+\item \code{effect_odds_ratio()}: (\strong{Default}) calculate the odds ratio
 
-\item \code{effect_relative_risk}: calculate the relative risk
+\item \code{effect_relative_risk()}: calculate the relative risk
 
-\item \code{effect_risk_difference}: calculate the risk difference
+\item \code{effect_risk_difference()}: calculate the risk difference
+
 }}
-
 \seealso{
 \code{\link[=crosstable_effect_args]{crosstable_effect_args()}}
 }

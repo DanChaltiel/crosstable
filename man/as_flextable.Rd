@@ -59,9 +59,9 @@ a flextable.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{crosstable}: Turns a \code{crosstable} object into a formatted \code{flextable}.
-}}
+\item \code{as_flextable(crosstable)}: Turns a \code{crosstable} object into a formatted \code{flextable}.
 
+}}
 \examples{
 #Crosstables
 library(crosstable)
