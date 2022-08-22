@@ -30,6 +30,7 @@
 #' @importFrom checkmate assert_class vname
 #' @importFrom tibble as_tibble
 #' @importFrom tidyr replace_na separate
+#' @importFrom utils modifyList
 #' @export
 #'
 #' @examples
@@ -103,6 +104,10 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
   if(length(by_header)==1 && is.na(by_header)) by_header=FALSE
   if(identical(by_header, "")) by_header=FALSE
 
+  inner_labels = attr(x, "inner_labels")
+  if(!is.null(inner_labels)){
+    generic_labels = modifyList(generic_labels, inner_labels)
+  }
   generic_labels = get_generic_labels(generic_labels)
   test=generic_labels$test
   id=generic_labels$id
@@ -325,4 +330,9 @@ peek = function(x, docx=getOption("crosstable_peek_docx", TRUE), ...) {
     if(interactive()) browseURL(filename)
   }
   invisible()
+}
+
+
+validate_generic_labels = function(x, generic_labels){
+
 }

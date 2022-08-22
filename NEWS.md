@@ -1,16 +1,25 @@
 Crosstables for descriptive analyses. See documentation at <https://danchaltiel.github.io/crosstable/> and browse code at <https://github.com/DanChaltiel/crosstable>.
 
+# crosstable 0.x.x <sub><sup>(?)</sup></sub>
+
+#### New features
+
+-   New `transpose_crossable()` (or simply `t()`), which pivots a crosstable so that the labels and column names are swapped.
+
 # crosstable 0.5.0 <sub><sup>2022-08-16</sup></sub>
 
 #### New features
 
--   New `clean_names_with_labels()` which clean the names of the dataframe but keeps the old names as labels. Obviously inspired by {janitor}.
--   New variables `n_col`, `n_row`, and `n_tot` available for `percent_pattern`. Also, every variable has now its counterpart with the `_na` suffix which accounts for missing values. For instance, one can now write: 
-```r
+-   New `clean_names_with_labels()` which cleans the names of the dataframe but keeps the old names as labels. Obviously inspired by `{janitor}`.
+-   New variables `n_col`, `n_row`, and `n_tot` available for `percent_pattern`. Also, every variable has now its counterpart with the `_na` suffix which accounts for missing values. \
+    For instance, one can now write:
+
+``` r
     crosstable(mtcars2, cyl, percent_pattern="{p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]")
     crosstable(mtcars2, cyl, percent_pattern="{p_col_na} ({n}/{n_col_na}) [95%CI: {p_col_inf}; {p_col_sup}]")
 ```
-- `percent_pattern` can now be a list of characters with names `body`, `total_row`, `total_col`, and `total_all` to also control the pattern in other parts of the crosstable than the body.
+
+-   `percent_pattern` can now be a list of characters with names `body`, `total_row`, `total_col`, and `total_all` to also control the pattern in other parts of the crosstable than the body.
 
 #### Improvements
 
@@ -18,7 +27,7 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 -   `crosstable_test_args()` and `crosstable_effect_args()` now have arguments to easily control the non-default parameters.
 -   Allow scientific notation for big numbers. Default to numbers for `which abs(log10(x))>4`. This can be controlled using options, e.g. `crosstable_options(scientific_log=5)`.
 -   In MS Word, crosstables will now break across pages by default. You can revert this by using `body_add_crosstable(allow_break=FALSE)` or using `crosstable_options()`. This is the pendant of `keepnext` in officer/flextable.
--   New argument `body_add_crosstable(max_cols=25)`, which limits the size of crosstables in Word documents. This prevents very large tables to be wrongly included. 
+-   New argument `body_add_crosstable(max_cols=25)`, which limits the size of crosstables in Word documents. This prevents very large tables to be wrongly included.
 -   `peek()` is now usable on non-crosstable objects as well. `as_flextable()` method will be applied on the object if available, otherwise `flextable()` will be applied.
 -   Better error messages in `import_labels()` when `data_label` doesn't have the right columns.
 

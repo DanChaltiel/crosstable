@@ -336,6 +336,20 @@ crosstable_clean_names = function(string){
 }
 
 
+#' not the same as attributes(x) = attributes(y)
+#' @keywords internal
+#' @noRd
+attributes_from = function(x, y, replace=FALSE, verbose=FALSE){
+  attr_x = names(attributes(x))
+  attr_y = names(attributes(y))
+  todo = if(isFALSE(replace)) setdiff(attr_y, attr_x) else attr_y
+  if(isTRUE(verbose)) cli_inform("Changing attributes: {.val {todo}}")
+  for(i in todo){
+    attr(x, i) = attr(y, i)
+  }
+  x
+}
+
 #' Computes the standard deviation of a date/datetime with the appropriate unit
 #'
 #' @param x a Date or Posix time
@@ -519,6 +533,18 @@ get_generic_labels = function(l=list()){
            effect="effect")
   x[names(l)] = l
   x
+}
+
+
+
+#' Import from cli if https://github.com/r-lib/cli/issues/506 is accepted
+#' @keywords internal
+#' @importFrom cli ansi_strip
+#' @noRd
+ansi_align_by = function(text, pattern){
+  pos = gregexpr(pattern, ansi_strip(text)) |> unlist()
+  spaces = strrep("\u00a0", max(pos)-pos)
+  stringr::str_replace(text, pattern, paste0(spaces, pattern))
 }
 
 
