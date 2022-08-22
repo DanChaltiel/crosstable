@@ -9,6 +9,7 @@
 # showNA ------------------------------------------------------------------
 
 test_that("showNA with NA in by", {
+  local_reproducible_output(width = 1000)
   expect_true(anyNA(mtcars3$vs))
   expect_snapshot({
     x0=crosstable(mtcars3, c(am,mpg,cyl,surv), by=vs, times=c(0,100,200,400))
@@ -23,6 +24,7 @@ test_that("showNA with NA in by", {
 })
 
 test_that("showNA without NA in by", {
+  local_reproducible_output(width = 1000)
   expect_false(anyNA(mtcars3$am))
   expect_snapshot({
     x0=crosstable(mtcars3, c(vs,mpg,cyl,surv), by=am, times=c(0,100,200,400))
@@ -40,6 +42,7 @@ test_that("showNA without NA in by", {
 # total -------------------------------------------------------------------
 
 test_that("total", {
+  local_reproducible_output(width = 1000)
   expect_snapshot({
     x0=crosstable(mtcars3, c(am,mpg,cyl,surv), by=vs, times=c(0,100,200,400))
     as.data.frame(x0)
@@ -58,7 +61,7 @@ test_that("total", {
 # Margins -----------------------------------------------------------------
 
 test_that("Margins without totals", {
-
+  local_reproducible_output(width = 1000)
   expect_snapshot({
     x0=crosstable(mtcars3, c(am, cyl), by=vs, total="none")
     as.data.frame(x0)
@@ -78,7 +81,7 @@ test_that("Margins without totals", {
 })
 
 test_that("Margins with totals", {
-
+  local_reproducible_output(width = 1000)
   expect_snapshot({
     x0=crosstable(mtcars3, c(am, cyl), by=vs, total="both")
     as.data.frame(x0)
@@ -114,6 +117,7 @@ test_that("Margins with totals", {
 # Percent pattern ---------------------------------------------------------
 
 test_that("Percent pattern", {
+  local_reproducible_output(width = 1000)
   crosstable(mtcars3, cyl, percent_pattern="{p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]", total=TRUE)
   crosstable(mtcars3, cyl, percent_pattern="{p_col_na} ({n}/{n_col_na}) [95%CI: {p_col_na_inf}; {p_col_na_sup}]", total=TRUE)
 
@@ -177,6 +181,7 @@ test_that("Percent pattern", {
 # Unique numeric ----------------------------------------------------------
 
 test_that("Unique numeric", {
+  local_reproducible_output(width = 1000)
   mtcars3$gear=as.numeric(mtcars3$gear)
   mtcars3$gear[20:25] = NA
 
@@ -196,7 +201,7 @@ test_that("Unique numeric", {
 # By dummy ---------------------------------------------------------
 
 test_that("By dummy", {
-
+  local_reproducible_output(width = 1000)
   expect_snapshot({
     x0=crosstable(mtcars3, c(am,mpg,cyl,surv), by=dummy)
     as.data.frame(x0)
@@ -215,7 +220,7 @@ test_that("By dummy", {
 # By multiple -------------------------------------------------------------
 
 test_that("By multiple", {
-
+  local_reproducible_output(width = 1000)
   expect_snapshot({
     x0=crosstable(mtcars3, c(mpg, gear), by=c(cyl, am, vs))
     as.data.frame(x0)
@@ -233,9 +238,11 @@ test_that("By multiple", {
 })
 
 
-test_that("By multiple formula interface", {
+test_that("By multiple (formula)", {
+  local_reproducible_output(width = 1000)
   expect_snapshot({
-    crosstable(mtcars3, mpg+gear~cyl+I(am=="auto")+vs, total=TRUE)
+    x = crosstable(mtcars3, mpg+gear~I(am=="auto")+vs, total=TRUE)
+    as.data.frame(x)
   })
   # expect_equal(dim(x1), c(8,28))
 })
