@@ -28,7 +28,7 @@ Imports:
     lifecycle,
     officer (>= 0.4),
     purrr,
-    rlang (>= 0.4.7),
+    rlang (>= 1.0.0),
     stats,
     stringr,
     tibble,
