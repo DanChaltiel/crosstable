@@ -536,8 +536,7 @@ get_generic_labels = function(l=list()){
 }
 
 
-
-#' Import from cli if https://github.com/r-lib/cli/issues/506 is accepted
+#' Rework when https://github.com/r-lib/cli/issues/229 is merged
 #' @keywords internal
 #' @importFrom cli ansi_strip
 #' @noRd
@@ -545,6 +544,15 @@ ansi_align_by = function(text, pattern){
   pos = gregexpr(pattern, ansi_strip(text)) |> unlist()
   spaces = strrep("\u00a0", max(pos)-pos)
   stringr::str_replace(text, pattern, paste0(spaces, pattern))
+}
+
+
+#' Needed from https://github.com/r-lib/cli/issues/505
+#' @keywords internal
+#' @noRd
+cl = function(...){
+  nm = names(c(...)) %>% str_remove_all("\\d+")
+  c(...) %>% set_names(nm)
 }
 
 
