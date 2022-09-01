@@ -1,4 +1,56 @@
 
+
+
+
+#' Pivot a crosstable
+#'
+#' Pivot a crosstable so the `variable` column is spread across its values.
+#'
+#' @param ct a crosstable
+#'
+#' @export
+#' @importFrom tidyr pivot_longer pivot_wider
+#'
+#' @examples
+#' ct = crosstable(mtcars2, c(mpg, drat, wt, qsec), by=am)
+#' t_ct = t(ct)
+#' as_flextable(t_ct)
+pivot_crosstable = function(ct){
+  by_levels = attr(ct, "by_levels")
+  if(!is.null(by_levels)){
+    cli_abort("You cannot pivot a crosstable where {.arg by} is not {.code NULL}.",
+              class="crosstable_pivot_by")
+  }
+
+  ct %>% mutate(variable=na_if(variable, "NA")) %>% drop_na(variable) %>% count(.id, variable)
+  w = ct %>%
+    filter(variable!="NA") %>%
+    group_by(.id) %>% summarise(variable = paste0("'", variable, "'", collapse=", ")) %>%
+    group_by(variable) %>% summarise(.id = paste0("'", .id, "'", collapse=", ")) %>%
+    mutate(label = glue(".id=c({.id}) --> variable=c({variable})"))
+  if(nrow(w)>1){
+    cli_abort(cl("You cannot transpose a crosstable with multiple `variable` strata.",
+                 i=ansi_align_by(w$label, "-->")),
+              wrap = FALSE,
+              class="crosstable_pivot_multi_var")
+  }
+
+  rtn = pivot_wider(ct, names_from="variable", values_from="value") %>%
+    apply_labels(variable="Variable") %>%
+    attributes_from(ct)
+  rtn[["NA"]] = rtn[["NA"]] %>% replace_na("0")
+  # browser()
+  attr(rtn, "by_levels") = as.list(unique(ct$variable)) %>% set_names()
+  # attr(rtn, "variables") = unique(rtn$.id)
+  attr(rtn, "by") = "variable"
+  attr(rtn, "by_label") = "Variable"
+  class(rtn) = c("pivoted_crosstable", class(ct))
+  rtn
+}
+
+
+
+
 #' Transpose a crosstable
 #'
 #' Pivot a crosstable so the `label` column iw swapped with the `by` row.

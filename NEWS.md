@@ -4,14 +4,15 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 
 #### New features
 
--   New `transpose_crossable()` (or simply `t()`), which pivots a crosstable so that the labels and column names are swapped.
+-   New `transpose_crossable()` (or simply `t()`), which transposes a crosstable so that the labels and column names are swapped.
+-   New `pivot_crossable()` (or simply `t()`), which pivots a crosstable so that the `variable` column is spread as several columns.
 
 # crosstable 0.5.0 <sub><sup>2022-08-16</sup></sub>
 
 #### New features
 
 -   New `clean_names_with_labels()` which cleans the names of the dataframe but keeps the old names as labels. Obviously inspired by `{janitor}`.
--   New variables `n_col`, `n_row`, and `n_tot` available for `percent_pattern`. Also, every variable has now its counterpart with the `_na` suffix which accounts for missing values. \
+-   New variables `n_col`, `n_row`, and `n_tot` available for `percent_pattern`. Also, every variable has now its counterpart with the `_na` suffix which accounts for missing values.\
     For instance, one can now write:
 
 ``` r
