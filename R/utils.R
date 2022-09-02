@@ -428,11 +428,14 @@ confint_numeric = function(object, level=0.95, B=0){
 #' @source binom:::binom.confint
 #' @source https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval
 #' @note validé avec PropCIs::scoreci
+#' @importFrom checkmate assert_numeric assert_integerish
 #' @keywords internal
 #' @noRd
 confint_proportion = function(p, n,
                               method=c("wilson", "asymptotic"),
                               level=0.95){
+  assert_numeric(p, lower=0, upper=1)
+  assert_integerish(n)
   a = 1-level
   method = match.arg(method)
   z = qnorm(1-a/2)

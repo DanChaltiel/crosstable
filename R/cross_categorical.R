@@ -46,8 +46,6 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
 #' @keywords internal
 #' @noRd
 summarize_categorical_single = function(x, showNA, total, digits, percent_pattern){
-  # assert_data_frame(x)
-  # tbd = table(x, useNA = "no") %>%
   tbd = table(x, useNA = "always") %>%
     as.data.frame() %>%
     select(x=1, n=2) #needed for an odd bug on fedora-devel
@@ -62,7 +60,8 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
       p_col=.data$n/.data$n_col,
       p_row=p_col, p_cell=p_col,
       p_col_na=.data$n/.data$n_col_na,
-      p_row_na=p_col_na, p_cell_na=p_col_na
+      p_row_na=p_col_na, p_cell_na=p_col_na,
+      across(c(p_col, p_row, p_cell), ~ifelse(is.na(x), NA, .x))
     ) %>%
     getTableCI(digits=digits) %>%
     transmute(variable=replace_na(x, "NA"),
@@ -119,18 +118,6 @@ summarize_categorical_by = function(x, by,
   n_tot = sum(nn2)
   n_tot_na = sum(nn3)
 
-  # n_row = table(x, useNA="no") %>% as.data.frame(responseName="n_row")
-  # n_col = table(by, useNA="no") %>% as.data.frame(responseName="n_col")
-  # n_row = table(x, useNA=showNA) %>% as.data.frame(responseName="n_row")
-  # n_col = table(by, useNA=showNA) %>% as.data.frame(responseName="n_col")
-  # n_row = table(x, useNA="no") %>% as.data.frame(responseName="n_row")
-  # n_col = table(by, useNA="no") %>% as.data.frame(responseName="n_col")
-  # n_tot = table(x, by, useNA="no") %>% sum(na.rm=TRUE)
-
-  # table_p_cell = getTable(x, by, type="p_cell")
-  # table_p_row =  getTable(x, by, type="p_row")
-  # table_p_col =  getTable(x, by, type="p_col")
-
   table_p_cell = proportions(nn2, margin=NULL) %>% as.data.frame(responseName="p_cell")
   table_p_row  = proportions(nn2, margin=1) %>% as.data.frame(responseName="p_row")
   table_p_col  = proportions(nn2, margin=2) %>% as.data.frame(responseName="p_col")
@@ -145,16 +132,12 @@ summarize_categorical_by = function(x, by,
     left_join(table_n_row_na, by="x") %>%
     left_join(table_n_col, by="by") %>%
     left_join(table_n_col_na, by="by") %>%
-    mutate(n_tot=.env$n_tot, n_tot_na=.env$n_tot_na) %>%
+    mutate(n_tot=.env$n_tot, n_tot_na=.env$n_tot_na,
+           across(c(p_col, p_row, p_cell), ~ifelse(is.na(x), NA, .x))) %>%
     getTableCI(digits=digits) %>%
     relocate(x, by, n, sort(peek_vars()))
 
   rtn = .table %>%
-    # mutate(
-    #   across_unpack(starts_with("p_"),
-    #                 ~confint_proportion(.x, n, method="wilson")),
-    #   across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE))
-    # ) %>%
     transmute(variable=x %>% str_replace("NA", "'NA'") %>% replace_na("NA"),
               by=.data$by,
               value=ifelse(is.na(x)|is.na(by)|.data$n==0&zero_percent,
@@ -179,7 +162,8 @@ summarize_categorical_by = function(x, by,
         p_row=p_col, p_cell=p_col,
         n_row_na=n_tot_na,
         p_col_na=n_col_na/n_tot_na,
-        p_row_na=p_col_na, p_cell_na=p_col_na
+        p_row_na=p_col_na, p_cell_na=p_col_na,
+        across(c(p_col, p_row, p_cell), ~ifelse(is.na(by), NA, .x))
       ) %>%
       getTableCI(digits=digits) %>%
       transmute(x=fct_explicit_na(.data$by, "NA"),

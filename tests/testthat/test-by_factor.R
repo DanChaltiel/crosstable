@@ -39,7 +39,7 @@ test_that("showNA without NA in by", {
 })
 
 
-# total -------------------------------------------------------------------
+# Total -------------------------------------------------------------------
 
 test_that("total", {
   local_reproducible_output(width = 1000)
@@ -175,6 +175,17 @@ test_that("Percent pattern", {
   expect_error(crosstable(mtcars3, cyl, by=vs, percent_pattern="N={n} \nrow={p_row}, col={xxx}"),
                class="crosstable_percent_pattern_wrong_variable_error")
 
+})
+
+
+test_that("tables with lots of NA don't cause error", {
+  df = tibble(
+    x=sample(c("A", "B"), 30, replace=TRUE),
+    y=sample(c("A", "B"), 30, replace=TRUE),
+  )
+  df[1:20,] = NA
+  ct = crosstable(df, x, by=y, total=TRUE)
+  expect_length(ct, 7)
 })
 
 
