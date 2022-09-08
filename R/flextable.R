@@ -225,17 +225,14 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
             .n = sum(by_table[col_keys])
             ifelse(!is.na(.n) & .c[1] %in% header_show_n2,
                    glue(header_show_n_pattern), .col)
-          })
+          }) %>%
+          ungroup()
       }
-
-      header_mapping %>%
-        ungroup() %>%
-        select(-starts_with("n"))
     }
 
     if(remove_header_keys){
       header_mapping = header_mapping %>%
-        mutate(across(starts_with(".col_"), ~str_remove(.x, "^.*=")))
+        mutate(across(-col_keys, ~str_remove(.x, "^.*?=")))
     }
     border_left_first = sum(rtn$header$col_keys %in% generic_labels[c("label", "variable", "id")])
     border_separations = header_mapping %>%

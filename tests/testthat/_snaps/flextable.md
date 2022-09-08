@@ -64,11 +64,11 @@
 # flextable generic_labels
 
     Code
-      ct = crosstable(mtcars2, am, by = vs, total = "both", test = TRUE, effect = TRUE) %>%
+      crosstable(mtcars2, am, by = vs, total = "both", test = TRUE, effect = TRUE) %>%
         rename(ID = .id, math = variable, Tot = Total, lab = label, pval = test, fx = effect) %>%
         as_flextable(by_header = "Engine shape", generic_labels = list(id = "ID",
-          variable = "math", total = "Tot", label = "lab", test = "pval", effect = "fx"))
-      ct$header$dataset
+          variable = "math", total = "Tot", label = "lab", test = "pval", effect = "fx")) %>%
+        get_header_df()
     Output
         lab math     straight      vshaped Tot fx pval
       1 lab math Engine shape Engine shape Tot fx pval
@@ -89,6 +89,19 @@
          am=manual & vs=NA
       1     vs:\nNA\n(N=8)
       2 am:\nmanual\n(N=0)
+
+# flextable header header_show_n+remove_header_keys
+
+    Code
+      ct2 %>% as_flextable(header_show_n = TRUE, remove_header_keys = TRUE) %>%
+        get_header_df()
+    Output
+        label variable am=auto & vs=straight am=manual & vs=straight
+      1 label variable        straight (N=9)          straight (N=9)
+      2 label variable            auto (N=2)            manual (N=7)
+        am=auto & vs=vshaped am=manual & vs=vshaped am=auto & vs=NA am=manual & vs=NA
+      1       vshaped (N=15)         vshaped (N=15)        NA (N=8)          NA (N=8)
+      2           auto (N=9)           manual (N=6)      auto (N=8)      manual (N=0)
 
 # flextable header remove_header_keys
 

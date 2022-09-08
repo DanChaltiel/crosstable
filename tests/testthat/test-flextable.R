@@ -29,12 +29,12 @@ test_that("flextable header by_header (monoby)", {
 
 test_that("flextable generic_labels", {
   expect_snapshot({
-    ct = crosstable(mtcars2, am, by=vs, total="both", test=TRUE, effect=TRUE) %>%
+    crosstable(mtcars2, am, by=vs, total="both", test=TRUE, effect=TRUE) %>%
       rename(ID=.id, math=variable, Tot=Total, lab=label, pval=test, fx=effect) %>%
       as_flextable(by_header = "Engine shape",
                    generic_labels=list(id = "ID", variable = "math", total="Tot",
-                                       label = "lab", test = "pval", effect="fx"))
-    ct$header$dataset
+                                       label = "lab", test = "pval", effect="fx")) %>%
+      get_header_df()
   })
 })
 
@@ -45,6 +45,15 @@ test_that("flextable header header_show_n+pattern", {
       as_flextable(header_show_n=TRUE,
                    header_show_n_pattern="{.col_key}:\n{.col_val}\n(N={.n})",
                    remove_header_keys=T) %>%
+      get_header_df()
+  })
+})
+
+test_that("flextable header header_show_n+remove_header_keys", {
+  expect_snapshot({
+    ct2 %>%
+      as_flextable(header_show_n=TRUE,
+                   remove_header_keys=TRUE) %>%
       get_header_df()
   })
 })
