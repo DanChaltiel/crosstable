@@ -7,6 +7,12 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 -   New `transpose_crossable()` (or simply `t()`), which transposes a crosstable so that the labels and column names are swapped.
 -   New `pivot_crossable()` (or simply `t()`), which pivots a crosstable so that the `variable` column is spread as several columns.
 
+#### Bug fixes
+
+-   Removed unexpected warning "NaNs produced" thrown when calculating percentages in totals while the number of NA is higher than the other classes (#20).
+-   The output is now correct when `header_show_n=TRUE` and `remove_header_keys=TRUE` while using multiple by variables (#21).
+-   Flextables will not have missing columns when using multiple by variables that has same key levels.
+
 # crosstable 0.5.0 <sub><sup>2022-08-16</sup></sub>
 
 #### New features

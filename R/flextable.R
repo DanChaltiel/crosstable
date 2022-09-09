@@ -248,8 +248,9 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
       vline_right(border=border1)
   }
 
+  merge_cols = names(rtn$header$dataset) %>% .[. %in% generic_labels]
   rtn = rtn %>%
-    merge_v(part = "head") %>%
+    merge_v(part = "head", j=merge_cols) %>%
     bold(part = "head") %>%
     align(align = "left", part = "all") %>%
     align(align="center", part="head") %>%
