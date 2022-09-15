@@ -157,6 +157,9 @@
     <loc>https://danchaltiel.github.io/crosstable/reference/peek.html</loc>
   </url>
   <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/pivot_crosstable.html</loc>
+  </url>
+  <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/plim.html</loc>
   </url>
   <url>
@@ -188,6 +191,9 @@
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/test_tabular_auto.html</loc>
+  </url>
+  <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/transpose_crosstable.html</loc>
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/write_and_open.html</loc>
