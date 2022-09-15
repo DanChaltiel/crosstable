@@ -12,9 +12,9 @@
 #' @importFrom tidyr pivot_longer pivot_wider
 #'
 #' @examples
-#' ct = crosstable(mtcars2, c(mpg, drat, wt, qsec), by=am)
-#' t_ct = t(ct)
-#' as_flextable(t_ct)
+#' ct = crosstable(mtcars2, c(mpg, drat, wt, qsec))
+#' p_ct = pivot_crosstable(ct)
+#' as_flextable(p_ct)
 pivot_crosstable = function(ct){
   by_levels = attr(ct, "by_levels")
   if(!is.null(by_levels)){
@@ -39,9 +39,7 @@ pivot_crosstable = function(ct){
     apply_labels(variable="Variable") %>%
     attributes_from(ct)
   rtn[["NA"]] = rtn[["NA"]] %>% replace_na("0")
-  # browser()
-  attr(rtn, "by_levels") = as.list(unique(ct$variable)) %>% set_names()
-  # attr(rtn, "variables") = unique(rtn$.id)
+  attr(rtn, "by_levels") = list(Variable=unique(ct$variable))
   attr(rtn, "by") = "variable"
   attr(rtn, "by_label") = "Variable"
   class(rtn) = c("pivoted_crosstable", class(ct))

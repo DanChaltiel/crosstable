@@ -17,6 +17,6 @@ test_that("pivot", {
   expect_snapshot({
     pivot_crosstable(ct)
     pivot_crosstable(ct) %>% af(T) %>% {.$header$dataset}
-    pivot_crosstable(ct) %>% af(by_header = "hyhfuyre")
+    pivot_crosstable(ct) %>% af(by_header = "foobar")
   })
 })

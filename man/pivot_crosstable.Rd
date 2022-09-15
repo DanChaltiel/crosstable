@@ -7,7 +7,7 @@
 pivot_crosstable(ct)
 }
 \arguments{
-\item{ct}{}
+\item{ct}{a crosstable}
 }
 \description{
 Pivot a crosstable so the \code{variable} column is spread across its values.

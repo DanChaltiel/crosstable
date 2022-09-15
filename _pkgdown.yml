@@ -63,6 +63,11 @@ reference:
   - apply_labels
   - rename_dataframe_with_labels
   - clean_names_with_labels
+- title: "Post-processing"
+  desc: "Modify an already built crosstable"
+- contents:
+  - transpose_crosstable
+  - pivot_crosstable
 - title: "Summary functions"
   desc: "Summarise numeric variables"
 - contents:

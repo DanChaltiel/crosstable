@@ -4,8 +4,19 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 
 #### New features
 
--   New `transpose_crossable()` (or simply `t()`), which transposes a crosstable so that the labels and column names are swapped.
--   New `pivot_crossable()` (or simply `t()`), which pivots a crosstable so that the `variable` column is spread as several columns.
+-   New function `transpose_crossable()` (or simply `t()`), which transposes a crosstable so that the labels and column names are swapped.\
+    ```r
+    ct = crosstable(mtcars2, c(mpg, drat, wt, qsec))
+    t_ct = t(ct)
+    as_flextable(t_ct)
+    ```
+
+-   New function `pivot_crossable()` (or simply `t()`), which pivots a crosstable so that the `variable` column is spread as several columns.\
+    ```r
+    ct = crosstable(mtcars2, c(mpg, drat, wt, qsec))
+    p_ct = pivot_crosstable(ct)
+    as_flextable(p_ct)
+    ```
 
 #### Bug fixes
 
