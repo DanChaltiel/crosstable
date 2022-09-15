@@ -14,20 +14,15 @@
         .$header$dataset
       }
     Output
-        .id label A B C NA
-      1 .id label A B C NA
-      2 .id label A B C NA
-      3 .id label A B C NA
-      4 .id label A B C NA
+        .id label        A        B        C       NA
+      1 .id label Variable Variable Variable Variable
+      2 .id label        A        B        C       NA
     Code
-      pivot_crosstable(ct) %>% af(by_header = "hyhfuyre")
-    Condition
-      Warning:
-      by_header is ignored if the crosstable has several `by` stratum.
+      pivot_crosstable(ct) %>% af(by_header = "foobar")
     Output
       a flextable object.
       col_keys: `label`, `A`, `B`, `C`, `NA` 
-      header has 4 row(s) 
+      header has 2 row(s) 
       body has 3 row(s) 
       original dataset sample: 
         .id label           A           B          C NA

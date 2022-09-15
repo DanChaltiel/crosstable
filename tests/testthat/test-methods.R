@@ -1,5 +1,5 @@
 
-
+set.seed(1)
 ct = tibble(letter=rep(letters[1:10],3), x=rnorm(30), y=rnorm(30), z=rnorm(30)) %>%
   apply_labels(x="the X", y="the Y", z="the Z") %>%
   crosstable(by=letter)

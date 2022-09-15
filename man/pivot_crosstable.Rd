@@ -13,7 +13,7 @@ pivot_crosstable(ct)
 Pivot a crosstable so the \code{variable} column is spread across its values.
 }
 \examples{
-ct = crosstable(mtcars2, c(mpg, drat, wt, qsec), by=am)
-t_ct = t(ct)
-as_flextable(t_ct)
+ct = crosstable(mtcars2, c(mpg, drat, wt, qsec))
+p_ct = pivot_crosstable(ct)
+as_flextable(p_ct)
 }
