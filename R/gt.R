@@ -74,7 +74,7 @@ as_gt.crosstable = function(x, show_test_name = TRUE,
       across(any_of(c("test", "effect")),
              ~ifelse(is.na(lag(.x)) | .x!=lag(.x), .x, "")),
       groupname=glue(group_glue)) %>%
-    select(-.data$.id, -.data$label) %>%
+    select(-".id", -"label") %>%
     gt::gt(groupname_col="groupname", rowname_col="variable")
   if(has_by){
     if(!is.null(by_header)) by_label=by_header

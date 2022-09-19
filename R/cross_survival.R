@@ -30,7 +30,7 @@ cross_survival=function(data_x, data_y, showNA, total, label, surv_digits, times
 
   rtn = rtn %>%
     mutate(.id=names(data_x), label=x_name) %>%
-    select(.data$.id, .data$label, everything()) %>%
+    select(".id", "label", everything()) %>%
     mutate_all(as.character)
 
   rtn
@@ -71,7 +71,7 @@ summarize_survival_single = function(surv, times, digits, followup) {
   }
   rtn=rbind(rtn, c("Median survival", x$table["median"]))
   rtn %>%
-    select(.data$variable, everything()) %>%
+    select("variable", everything()) %>%
     mutate_all(as.character)
 }
 
@@ -103,10 +103,10 @@ summarize_survival_by = function(surv, by, times, followup, total, digits, showN
     cname = as.character(unique(by2))
     rtn = summarize_survival_single(surv, times, digits, followup)
     rtn = rtn %>%
-      rename(!!cname:=.data$value) %>%
+      rename(!!cname:="value") %>%
       mutate(test=if(test) "No test" else NULL,
              effect=if(effect) "No Effect" else NULL) %>%
-      select(.data$variable, everything())
+      select("variable", everything())
     return(rtn)
   }
 
@@ -125,7 +125,7 @@ summarize_survival_by = function(surv, by, times, followup, total, digits, showN
     select(-x) %>%
     set_names(names(table(by2))) %>%
     mutate(variable=paste0("t=", times)) %>%
-    select(.data$variable, everything())
+    select("variable", everything())
 
   if (followup) {
     surv_fu = surv
@@ -153,13 +153,13 @@ summarize_survival_by = function(surv, by, times, followup, total, digits, showN
   }
   if (1 %in% total) {
     rtn_tot = summarize_survival_single(surv, times, digits, followup) %>%
-      rename(Total=.data$value)
+      rename(Total="value")
     rtn = left_join(rtn, rtn_tot, by=c("variable"))
   }
 
 
   rtn %>% mutate(test=.tests, effect=.effect) %>%
-    select(.data$variable, everything())
+    select("variable", everything())
 }
 
 
