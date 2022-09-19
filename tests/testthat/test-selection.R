@@ -272,12 +272,8 @@ test_that("crosstable limit tests: errors", {
   })
 
   #wrong functions (returning non-scalar)
-  expect_error(crosstable(iris2, ~.x, by="Species"),
-               # "Result 1 must be a single logical, .*",
-               class = "purrr_error_bad_element_vector")
-  expect_error(crosstable(iris2, ~c(is.numeric(.x),is.numeric(.x)), by="Species"),
-               # "Result 1 must be a single logical, .*",
-               class = "purrr_error_bad_element_vector")
+  expect_snapshot(crosstable(iris2, ~.x, by="Species"), error = TRUE)
+  expect_snapshot(crosstable(iris2, ~c(is.numeric(.x),is.numeric(.x)), by="Species"), error = TRUE)
 })
 
 

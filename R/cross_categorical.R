@@ -32,7 +32,7 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
 
   rtn = rtn %>%
     mutate(.id=names(data_x), label=x_name) %>%
-    select(.data$.id, .data$label, everything()) %>%
+    select(".id", "label", everything()) %>%
     mutate_all(as.character)
 
   rtn

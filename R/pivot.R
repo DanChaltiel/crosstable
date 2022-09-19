@@ -95,7 +95,7 @@ transpose_crosstable = function(x){
   inner_labels = attr(x, "inner_labels") %>% get_generic_labels()
   col_label = if(is.null(inner_labels)) "label" else inner_labels[["label"]]
 
-  id_label = x %>% select(.id, all_of(col_label)) %>% unique()
+  id_label = x %>% select(".id", all_of(col_label)) %>% unique()
   if(anyDuplicated(id_label[[col_label]])){
     w = id_label %>% group_by(!!sym(col_label)) %>%
       summarise(.id = paste0("'", .id, "'", collapse=", ")) %>%

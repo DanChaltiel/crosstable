@@ -28,14 +28,14 @@ cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
   } else if(!is.date(data_x[[1]]) && is.numeric.and.not.surv(data_y[[1]])){
     rtn = summarize_numeric_numeric(data_x[[1]], data_y[[1]], method=cor_method,
                                     digits=cor_digits, test=test, test_args) %>%
-      rename(!!y_name:=.data$value)
+      rename(!!y_name:="value")
   } else {
     return(NULL)
   }
 
   rtn = rtn %>%
     mutate(.id=names(data_x), label=x_name) %>%
-    select(.data$.id, .data$label, everything()) %>%
+    select(".id", "label", everything()) %>%
     mutate_all(as.character)
 
   rtn
