@@ -57,7 +57,7 @@ git_head = git2r::revparse_single(git2r::repository(),"HEAD") #sapply(git_head, 
 last_commit = substr(git_head$sha, 1,7)
 out = c(
   "```{r install, eval=FALSE}",
-  knit_expand(text='# Install last version available on CRAN (v{{last_cran}})'),
+  '# Install last version available on CRAN',
   'install.packages("crosstable")',
   '', 
   '# Install development version on Github',
