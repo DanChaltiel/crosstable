@@ -112,6 +112,7 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
   }
 
   by(x[by_filter], by[by_filter], summarize_numeric_single, funs=funs, funs_arg=funs_arg) %>%
+    unclass() %>%
     imap_dfr(~{
       if(is.null(.x)) .x=summarize_numeric_single(numeric(0), funs=funs, funs_arg=funs_arg)
       mutate(.x, by=.y, .before=1)
