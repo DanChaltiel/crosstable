@@ -442,6 +442,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   debug$x_class = x_class
   debug$y_class = y_class
   attr(rtn, "debug") = debug
+  attr(rtn, "N") = nrow(data)
   attr(rtn, "showNA") = showNA
   attr(rtn, "variables") = names(data_x)
   attr(rtn, "has_test") = test
