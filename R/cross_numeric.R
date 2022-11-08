@@ -45,7 +45,7 @@ cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
 #' Summarize numeric variables
 #' @importFrom checkmate assert_numeric assert_character
 #' @importFrom tibble rownames_to_column
-#' @importFrom dplyr rename mutate_if
+#' @importFrom dplyr rename
 #' @keywords internal
 #' @noRd
 summarize_numeric_single = function(x, funs, funs_arg){
@@ -69,7 +69,8 @@ summarize_numeric_single = function(x, funs, funs_arg){
     }
 
     data.frame(variable=variable, value=v) %>%
-      mutate_if(~is.numeric(.x)||is.date(.x), format_fixed, !!!funs_arg)
+      mutate(across(where(~is.numeric(.x)||is.date(.x)),
+                    format_fixed, !!!funs_arg))
   })
 }
 

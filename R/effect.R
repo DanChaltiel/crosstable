@@ -51,8 +51,8 @@ display_effect = function(effect, digits = 4){
   }
 
   x = effect$summary %>%
-    mutate_if(is.numeric,
-              ~format_fixed(.x, digits=digits))
+    mutate(across(where(is.numeric),
+                  ~format_fixed(.x, digits=digits)))
 
   if(all(effect$summary$ci_inf=="error", na.rm=TRUE)){
     x$ci = "[CI error]"
