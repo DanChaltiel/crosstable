@@ -28,7 +28,7 @@ ct_compact = function(data, ...){
 #' @importFrom tidyr replace_na
 #' @importFrom rlang :=
 #' @importFrom tidyselect any_of everything
-#' @importFrom dplyr lag mutate mutate_at mutate_all vars
+#' @importFrom dplyr lag mutate mutate_all vars
 #' @importFrom officer fp_border
 #' @importFrom flextable align bold border
 #'
@@ -39,6 +39,8 @@ ct_compact = function(data, ...){
 #' x=iris[c(1:5,51:55,101:105),]
 #' ct_compact(x, name_from="Species")
 #' ct_compact(x, name_from="Species", name_to="Petal.Length")
+#' x$Species2 = substr(x$Species, 1, 1)
+#' ct_compact(x, name_from="Species", wrap_cols="Species2")
 ct_compact.data.frame = function(data, name_from, name_to="variable", wrap_cols=NULL, rtn_flextable=FALSE, ...){
   assert_scalar(name_from)
   assert_scalar(name_to)
@@ -58,12 +60,12 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", wrap_cols=
   id2 = which(id)+(0:(sum(id)-1))
   rtn = rtn %>%
     select(any_of(name_to), everything(), -any_of(name_from)) %>%
-    mutate_at(vars(any_of(wrap_cols)), ~{
+    mutate(across(any_of(wrap_cols), ~{
       xx=.x
       xx[id2]=lead(xx)[id2]
       xx[-id2]=""
       xx
-    })
+    }))
 
   if(rtn_flextable){
     rtn = rtn %>% flextable %>% border(id2, border.top = fp_border()) %>%

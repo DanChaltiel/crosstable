@@ -42,7 +42,7 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
 #' @importFrom checkmate assert_numeric assert_character
 #' @importFrom stringr str_starts
 #' @importFrom glue glue
-#' @importFrom dplyr mutate mutate_at mutate_all vars select .data
+#' @importFrom dplyr mutate mutate_all vars select .data
 #' @keywords internal
 #' @noRd
 summarize_categorical_single = function(x, showNA, total, digits, percent_pattern){
@@ -90,7 +90,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
 
 
 
-#' @importFrom dplyr mutate mutate_at mutate_all transmute vars starts_with left_join pull .data
+#' @importFrom dplyr mutate mutate_all transmute vars starts_with left_join pull .data
 #' @importFrom purrr map reduce safely
 #' @importFrom tidyr unite pivot_wider
 #' @importFrom glue glue

@@ -120,7 +120,7 @@ summarize_survival_by = function(surv, by, times, followup, total, digits, showN
                 event=x$n.event, risk=x$n.risk)
   rtn = tibble(count=as.character(counts), by=x$strata) %>%
     group_by(by) %>% mutate(x=row_number()) %>%
-    # mutate_at(vars(by), ~stringr::str_remove(.x, ".*=")) %>%
+    # mutate(across(by, ~stringr::str_remove(.x, ".*="))) %>%
     pivot_wider(names_from = "by", values_from = "count") %>%
     select(-x) %>%
     set_names(names(table(by2))) %>%
