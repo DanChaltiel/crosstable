@@ -1,10 +1,6 @@
 
-# Deprecation -------------------------------------------------------------
 
-
-
-# Method checks -----------------------------------------------------------
-
+# Purrr compatibility -------------------------------------------------------------------------
 
 test_that("Compact method error if list without purrr", {
     ll=list(a = "a", b = NULL, c = integer(0), d = NA, e = list())
@@ -28,34 +24,34 @@ test_that("Compact method OK with purrr", {
     expect_true("compact.crosstable" %in% x$method)
 })
 
-test_that("Compact method OK with crosstable", {
-    ct=crosstable(mtcars2, disp+hp+cyl+am~vs)
-    expect_silent(ct_compact(ct, name_from=".id"))
-    x1=expect_silent(ct_compact(ct))
-    expect_equal(dim(x1), c(17,3))
-    expect_equal(sum(x1[[1]]==""), 0)
-    expect_equal(sum(x1[[2]]==""), 4)
-
-    x=sloop::s3_dispatch(ct_compact(ct))
-    expect_true(all(c("ct_compact.data.frame", "ct_compact.default") %in% x$method))
-})
+# Method checks -----------------------------------------------------------
 
 test_that("Compact method OK with data.frame", {
     df=iris[c(1:5,51:55,101:105),]
-    x1=expect_silent(ct_compact(df, name_from="Species"))
-    expect_equal(dim(x1), c(18,5))
-    expect_equal(as.character(x1[1,]), c("setosa", "", "", "", ""))
-
     expect_silent(ct_compact(df, name_from="Species", name_to="Petal.Length", rtn_flextable=TRUE))
-    x2=expect_silent(ct_compact(df, name_from="Species", name_to="Petal.Length"))
-    expect_equal(dim(x2), c(18,4))
-    expect_equal(as.character(x2[1,]), c("setosa", "", "", ""))
 
-    x=sloop::s3_dispatch(ct_compact(x1))
-    expect_true(all(c("ct_compact.data.frame", "ct_compact.default") %in% x$method))
-    x=sloop::s3_dispatch(ct_compact(x2))
-    expect_true(all(c("ct_compact.data.frame", "ct_compact.default") %in% x$method))
+    x=sloop::s3_dispatch(ct_compact(df, name_from="Species"))
+    expect_true("ct_compact.data.frame" %in% x$method)
+
+    expect_snapshot({
+      ct_compact(df, name_from="Species")
+      ct_compact(df, name_from="Species", name_to="Petal.Length")
+      df$Species2 = substr(df$Species, 1, 1)
+      ct_compact(df, name_from="Species", name_to="Petal.Length", wrap_cols="Species2")
+    })
 })
+
+test_that("Compact method OK with crosstable", {
+    ct=crosstable(mtcars2, disp+hp+cyl+am~vs)
+    expect_snapshot({
+      ct_compact(ct)
+      ct_compact(ct, name_from=".id")
+    })
+
+    x=sloop::s3_dispatch(ct_compact(ct))
+    expect_true("ct_compact.crosstable" %in% x$method)
+})
+
 
 test_that("Compacting inside or outside as_flextable.crosstable gives the same result", {
     rlang::local_options(tidyselect_verbosity = "quiet")
