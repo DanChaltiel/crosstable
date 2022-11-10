@@ -54,9 +54,9 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", wrap_cols=
     mutate(
       across(everything(), as.character),
       gp = row_number()==1 | !!nf!=lag(!!nf),
-      !!nt:=ifelse(gp, !!nf, !!nt),
-      across(any_of(wrap_cols), ~ifelse(gp, .x, "")),
-      across(-any_of(c(name_to, wrap_cols)), ~ifelse(gp, "", .x)),
+      !!nt:=ifelse(.data$gp, !!nf, !!nt),
+      across(any_of(wrap_cols), ~ifelse(.data$gp, .x, "")),
+      across(-any_of(c(name_to, wrap_cols)), ~ifelse(.data$gp, "", .x)),
     ) %>%
     select(any_of(name_to), everything(), -any_of(name_from), -"gp")
   rownames(rtn) = NULL #resets row numbers
