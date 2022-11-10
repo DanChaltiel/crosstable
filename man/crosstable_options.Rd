@@ -10,6 +10,7 @@ crosstable_options(
   only_round = FALSE,
   verbosity_autotesting = "default",
   verbosity_duplicate_cols = "default",
+  crosstable_fishertest_B = 1e+05,
   total,
   percent_pattern,
   percent_digits,
@@ -73,6 +74,8 @@ crosstable_options(
 \item{verbosity_autotesting}{one of \code{default}, \code{quiet}, or \code{verbose}}
 
 \item{verbosity_duplicate_cols}{one of \code{default}, \code{quiet}, or \code{verbose}.}
+
+\item{crosstable_fishertest_B}{number of simulations to perform when \code{fisher.test()} is failing (FEXACT error 7).}
 
 \item{total}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 

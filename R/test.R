@@ -83,7 +83,7 @@ display_test = function(test, digits = 4, method = TRUE) {
 #' @param x vector
 #' @param y another vector
 #' @return a list with two components: p.value and method
-#' @importFrom stats chisq.test fisher.test
+#' @importFrom stats chisq.test
 #' @export
 #' @author Dan Chaltiel, David Hajage
 test_tabular_auto = function(x, y) {
@@ -94,13 +94,28 @@ test_tabular_auto = function(x, y) {
   else if (all(exp >= 5))
     test = chisq.test(x, y, correct = FALSE)
   else
-    test = fisher.test(x, y)
+    test = fisher_test(x, y)
 
   p = test$p.value
   method = test$method
   list(p.value = p, method = method)
 }
 
+
+#' Prevent `fisher.test()` from failing
+#' @importFrom stats chisq.test fisher.test
+#' @keywords internal
+#' @noRd
+#' @source https://stackoverflow.com/q/17052639/3888000
+fisher_test = function(x, y, B=getOption("crosstable_fishertest_B", 1e5)){
+  tryCatch(
+    fisher.test(x, y),
+    error=function(e){
+      if(!str_detect(e$message, "consider using 'simulate.p.value=TRUE'")) stop(e)
+      fisher.test(x, y, simulate.p.value=TRUE, B=B)
+    }
+  )
+}
 
 
 #' test for mean comparison
@@ -399,7 +414,7 @@ test_summarize_auto.dan = function (x, g) {
 #TODO add CochranArmitageTest
 
 # @importFrom DescTools CochranArmitageTest
-#' @importFrom stats cor.test chisq.test fisher.test
+#' @importFrom stats cor.test chisq.test
 #' @keywords internal
 #' @noRd
 test_tabular_auto2 = function (x, y) {
@@ -416,7 +431,7 @@ test_tabular_auto2 = function (x, y) {
       test = list(p.value = NULL, method = NULL)
     else if (all(exp >= 5))
       test = suppressWarnings(chisq.test(x, y, correct = FALSE))
-    else test = fisher.test(x, y)
+    else test = fisher_test(x, y)
   }
   p = test$p.value
   method = test$method
