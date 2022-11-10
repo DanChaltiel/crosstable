@@ -151,6 +151,7 @@ summarize_categorical_by = function(x, by,
 
     line = ms %>%
       left_join(ms_na, by="by") %>%
+      filter(showNA!="no" | !is.na(by)) %>%
       as_tibble() %>%
       mutate(
         n_col = replace_na(n_col, 0), #TODO utile ?
