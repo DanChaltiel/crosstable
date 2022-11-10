@@ -98,15 +98,14 @@ See iris for more informations on the original &quot;Edgar Anderson's Iris Data&
     
 <div class="sourceCode"><pre><code><span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span><span class="va">iris2</span> <span class="op">=</span> <span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html" class="external-link">mutate_at</a></span><span class="op">(</span><span class="st">"Species"</span>, <span class="va">factor</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span><span class="va">iris2</span> <span class="op">=</span> <span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu">expss</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/expss/man/apply_labels.html" class="external-link">apply_labels</a></span><span class="op">(</span> <span class="co">#I also could have used [import_labels] or even `labelled::set_variable_labels()`</span></span>
 <span>        Species <span class="op">=</span> <span class="st">"Specie"</span>,</span>
 <span>        Sepal.Length <span class="op">=</span> <span class="st">"Length of Sepal"</span>,</span>
 <span>        Sepal.Width <span class="op">=</span> <span class="st">"Width of Sepal"</span>,</span>
 <span>        Petal.Length <span class="op">=</span> <span class="st">"Length of Petal"</span>,</span>
 <span>        Petal.Width <span class="op">=</span> <span class="st">"Width of Petal"</span></span>
-<span>    <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 
     </div>
