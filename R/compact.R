@@ -58,7 +58,7 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", wrap_cols=
       across(any_of(wrap_cols), ~ifelse(gp, .x, "")),
       across(-any_of(c(name_to, wrap_cols)), ~ifelse(gp, "", .x)),
     ) %>%
-    select(any_of(name_to), everything(), -any_of(name_from), -gp)
+    select(any_of(name_to), everything(), -any_of(name_from), -"gp")
   rownames(rtn) = NULL #resets row numbers
 
   if(rtn_flextable){
