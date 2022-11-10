@@ -45,34 +45,28 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", wrap_cols=
   assert_scalar(name_from)
   assert_scalar(name_to)
   id = (data[[name_from]]!=lag(data[[name_from]])) %>% replace_na(TRUE)
-  rtn = data.frame()
-  for(i in 1:sum(id)) {
-    x1 = which(id)[i]
-    x2 = which(id)[i+1]-1
-    if(is.na(x2)) x2 = nrow(data)
-    row = data[1,] %>% mutate_all(~"") %>% mutate(!!sym(name_to):=data[x1,name_from]) %>%
-      mutate_all(as.character)
-    rows = data[x1:x2,] %>% mutate_all(as.character)
-    if(is.null(rows[[name_to]])) rows[[name_to]]=""
-    rtn = rbind(rtn, row, rows)
-  }
 
-  id2 = which(id)+(0:(sum(id)-1))
-  rtn = rtn %>%
-    select(any_of(name_to), everything(), -any_of(name_from)) %>%
-    mutate(across(any_of(wrap_cols), ~{
-      xx=.x
-      xx[id2]=lead(xx)[id2]
-      xx[-id2]=""
-      xx
-    }))
+  nf = sym(name_from)
+  nt = sym(name_to)
+  x = sort(c(seq(nrow(data)), which(id))) #duplicate rows
+  if(is.null(data[[name_to]])) data[[name_to]] = ""
+  rtn = data[x,] %>%
+    mutate(
+      across(everything(), as.character),
+      gp = row_number()==1 | !!nf!=lag(!!nf),
+      !!nt:=ifelse(gp, !!nf, !!nt),
+      across(any_of(wrap_cols), ~ifelse(gp, .x, "")),
+      across(-any_of(c(name_to, wrap_cols)), ~ifelse(gp, "", .x)),
+    ) %>%
+    select(any_of(name_to), everything(), -any_of(name_from), -gp)
+  rownames(rtn) = NULL #resets row numbers
 
   if(rtn_flextable){
+    id2 = which(id)+(0:(sum(id)-1))
     rtn = rtn %>% flextable %>% border(id2, border.top = fp_border()) %>%
       bold(id2) %>% align(id2, align="left")
   }
 
-  rownames(rtn) = NULL #resets row numbers
   attr(rtn, "title_rows") = id
   rtn
 }
@@ -110,7 +104,7 @@ ct_compact.crosstable = function(data, name_from=c("label", ".id"), name_to="var
   rtn = data %>%
     select(-any_of(rcol)) %>%
     ct_compact.data.frame(name_from=name_from, name_to=name_to,
-                       wrap_cols=wrap_cols, rtn_flextable=FALSE)
+                          wrap_cols=wrap_cols, rtn_flextable=FALSE)
 
   new_attr_names = setdiff(names(attributes(data)), names(attributes(rtn)))
   attributes(rtn) = c(attributes(rtn), attributes(data)[new_attr_names])
