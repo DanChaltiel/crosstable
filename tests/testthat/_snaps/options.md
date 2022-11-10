@@ -64,19 +64,19 @@
 ---
 
     Code
-      ft_opt
+      ft_noopt
     Output
       a flextable object.
-      col_keys: `variable`, `straight`, `vshaped`, `NA`, `Total`, `effect`, `test` 
+      col_keys: `label`, `variable`, `straight`, `vshaped`, `NA`, `Total`, `effect`, `test` 
       header has 2 row(s) 
-      body has 15 row(s) 
+      body has 11 row(s) 
       original dataset sample: 
-         variable        straight          vshaped NA      Total                                                                                                                           effect             test
-      1 cyl (cyl)                                                Odds ratio [70% Wald CI], ref='vshaped vs straight'\n6 vs 4: 5.98e+09 [0.00e+00 to NA]\n8 vs 4: 5.98e+09 [1.27e-79 to 2.72e+247] p value: 0.0001 
-      2         4 7 (87.5%, 100%)  1 (12.5%, 7.7%)  2   10 (37%)                                                                                                                                                  
-      3         6               0   1 (100%, 7.7%)  3  4 (14.8%)                                                                                                                                                  
-      4         8               0 11 (100%, 84.6%)  2 13 (48.1%)                                                                                                                                                  
-      5        NA               2                2  1          5                                                                                                                                                  
+        .id label variable        straight          vshaped NA      Total                                                                                                                           effect                                                   test
+      1 cyl   cyl        4 7 (87.5%, 100%)  1 (12.5%, 7.7%)  2   10 (37%) Odds ratio [70% Wald CI], ref='vshaped vs straight'\n6 vs 4: 5.98e+09 [0.00e+00 to NA]\n8 vs 4: 5.98e+09 [1.27e-79 to 2.72e+247] p value: 0.0001 \n(Fisher's Exact Test for Count Data)
+      2 cyl   cyl        6               0   1 (100%, 7.7%)  3  4 (14.8%) Odds ratio [70% Wald CI], ref='vshaped vs straight'\n6 vs 4: 5.98e+09 [0.00e+00 to NA]\n8 vs 4: 5.98e+09 [1.27e-79 to 2.72e+247] p value: 0.0001 \n(Fisher's Exact Test for Count Data)
+      3 cyl   cyl        8               0 11 (100%, 84.6%)  2 13 (48.1%) Odds ratio [70% Wald CI], ref='vshaped vs straight'\n6 vs 4: 5.98e+09 [0.00e+00 to NA]\n8 vs 4: 5.98e+09 [1.27e-79 to 2.72e+247] p value: 0.0001 \n(Fisher's Exact Test for Count Data)
+      4 cyl   cyl       NA               2                2  1          5 Odds ratio [70% Wald CI], ref='vshaped vs straight'\n6 vs 4: 5.98e+09 [0.00e+00 to NA]\n8 vs 4: 5.98e+09 [1.27e-79 to 2.72e+247] p value: 0.0001 \n(Fisher's Exact Test for Count Data)
+      5 cyl   cyl    Total       9 (37.5%)       15 (62.5%)  8  32 (100%) Odds ratio [70% Wald CI], ref='vshaped vs straight'\n6 vs 4: 5.98e+09 [0.00e+00 to NA]\n8 vs 4: 5.98e+09 [1.27e-79 to 2.72e+247] p value: 0.0001 \n(Fisher's Exact Test for Count Data)
     Code
       ft_opt
     Output

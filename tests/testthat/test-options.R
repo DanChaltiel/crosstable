@@ -102,7 +102,7 @@ test_that("All options work", {
   ft_opt = as_flextable(ct_opt)
 
   expect_snapshot({
-    ft_opt
+    ft_noopt
     ft_opt
   })
 
