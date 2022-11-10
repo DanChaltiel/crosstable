@@ -80,6 +80,7 @@
 <span>  only_round <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbosity_autotesting <span class="op">=</span> <span class="st">"default"</span>,</span>
 <span>  verbosity_duplicate_cols <span class="op">=</span> <span class="st">"default"</span>,</span>
+<span>  crosstable_fishertest_B <span class="op">=</span> <span class="fl">1e+05</span>,</span>
 <span>  <span class="va">total</span>,</span>
 <span>  <span class="va">percent_pattern</span>,</span>
 <span>  <span class="va">percent_digits</span>,</span>
@@ -154,6 +155,10 @@
 
 <dt>verbosity_duplicate_cols</dt>
 <dd><p>one of <code>default</code>, <code>quiet</code>, or <code>verbose</code>.</p></dd>
+
+
+<dt>crosstable_fishertest_B</dt>
+<dd><p>number of simulations to perform when <code><a href="https://rdrr.io/r/stats/fisher.test.html" class="external-link">fisher.test()</a></code> is failing (FEXACT error 7).</p></dd>
 
 
 <dt>total</dt>
