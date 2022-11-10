@@ -58,11 +58,6 @@ test_that("crosstable with external character vector", {
     crosstable(iris2, c(all_of(XX), -Sepal.Width), by="Species"),
     xnames=c("SL"), byname="Species", dim=c(4,6)) %>%
     expect_silent()
-
-  crosstable(iris2, XX, by="Species") %>%
-    expect_cross(xnames=c("SL", "SW"), byname="Species", dim=c(8,6)) %>%
-    suppressMessages()
-  # expect_message("external vector")
 })
 
 
