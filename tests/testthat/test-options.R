@@ -43,12 +43,12 @@ test_that("Options work", {
 test_that("All options work", {
   crosstable_reset_options(quiet=TRUE)
   local_reproducible_output(width = 1000)
+  set.seed(1234)
   # withr::deferred_clear()
 
-  # crosstable()
   ct_noopt = crosstable(mtcars3, c(cyl, carb, qsec_posix, surv), by=vs, test=TRUE, effect=TRUE) %>%
     suppressWarnings()
-  # local_options(
+
   crosstable_options(
     zero_percent=TRUE,
     only_round=TRUE,
