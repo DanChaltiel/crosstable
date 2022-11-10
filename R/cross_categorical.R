@@ -1,5 +1,5 @@
 
-#' @importFrom dplyr select mutate mutate_all everything .data
+#' @importFrom dplyr select mutate everything .data
 #' @keywords internal
 #' @noRd
 cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits, percent_pattern,
@@ -33,7 +33,7 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
   rtn = rtn %>%
     mutate(.id=names(data_x), label=x_name) %>%
     select(".id", "label", everything()) %>%
-    mutate_all(as.character)
+    map_df(as.character)
 
   rtn
 }
@@ -42,7 +42,7 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
 #' @importFrom checkmate assert_numeric assert_character
 #' @importFrom stringr str_starts
 #' @importFrom glue glue
-#' @importFrom dplyr mutate mutate_all vars select .data
+#' @importFrom dplyr mutate select .data
 #' @keywords internal
 #' @noRd
 summarize_categorical_single = function(x, showNA, total, digits, percent_pattern){
@@ -85,12 +85,12 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
     rtn = bind_rows(rtn, .total)
   }
 
-  rtn %>% mutate_all(as.character)
+  rtn %>% map_df(as.character)
 }
 
 
 
-#' @importFrom dplyr mutate mutate_all transmute vars starts_with left_join pull .data
+#' @importFrom dplyr mutate transmute starts_with left_join pull .data
 #' @importFrom purrr map reduce safely
 #' @importFrom tidyr unite pivot_wider
 #' @importFrom glue glue
@@ -212,8 +212,8 @@ summarize_categorical_by = function(x, by,
                                    method = test_args$show_method)
   }
   rtn %>%
-    mutate(Total=.total, effect=.effect, test=.test) %>%
-    mutate_all(as.character)
+    mutate(Total=.total, effect=.effect, test=.test,
+           across(everything(), as.character))
 }
 
 

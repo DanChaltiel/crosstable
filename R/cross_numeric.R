@@ -36,7 +36,7 @@ cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
   rtn = rtn %>%
     mutate(.id=names(data_x), label=x_name) %>%
     select(".id", "label", everything()) %>%
-    mutate_all(as.character)
+    map_df(as.character)
 
   rtn
 }
@@ -78,7 +78,7 @@ summarize_numeric_single = function(x, funs, funs_arg){
 #' Summarize numeric by categorical
 #' @importFrom checkmate assert_numeric assert_character assert_scalar
 #' @importFrom tibble tibble
-#' @importFrom dplyr group_by mutate ungroup vars arrange filter .data
+#' @importFrom dplyr group_by mutate ungroup arrange filter .data
 #' @importFrom tidyr nest unnest pivot_wider replace_na
 #' @importFrom purrr map imap reduce
 #' @importFrom forcats fct_explicit_na

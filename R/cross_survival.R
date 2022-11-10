@@ -1,5 +1,5 @@
 
-#' @importFrom dplyr mutate select everything mutate_all .data
+#' @importFrom dplyr mutate select everything .data
 #' @keywords internal
 #' @noRd
 cross_survival=function(data_x, data_y, showNA, total, label, surv_digits, times, followup,
@@ -31,14 +31,14 @@ cross_survival=function(data_x, data_y, showNA, total, label, surv_digits, times
   rtn = rtn %>%
     mutate(.id=names(data_x), label=x_name) %>%
     select(".id", "label", everything()) %>%
-    mutate_all(as.character)
+    map_df(as.character)
 
   rtn
 }
 
 
 
-#' @importFrom dplyr tibble summarise mutate pull select everything mutate_all .data
+#' @importFrom dplyr tibble summarise mutate pull select everything .data
 #' @importFrom glue glue
 #' @keywords internal
 #' @noRd
@@ -72,14 +72,14 @@ summarize_survival_single = function(surv, times, digits, followup) {
   rtn=rbind(rtn, c("Median survival", x$table["median"]))
   rtn %>%
     select("variable", everything()) %>%
-    mutate_all(as.character)
+    map_df(as.character)
 }
 
 
 
 
 
-#' @importFrom dplyr mutate mutate_all rename select everything tibble group_by row_number summarise pull left_join %>%
+#' @importFrom dplyr mutate rename select everything tibble group_by row_number summarise pull left_join %>%
 #' @importFrom tidyr pivot_wider replace_na
 #' @importFrom rlang set_names :=
 #' @importFrom checkmate assert

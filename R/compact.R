@@ -28,7 +28,7 @@ ct_compact = function(data, ...){
 #' @importFrom tidyr replace_na
 #' @importFrom rlang :=
 #' @importFrom tidyselect any_of everything
-#' @importFrom dplyr lag mutate mutate_all vars
+#' @importFrom dplyr lag mutate
 #' @importFrom officer fp_border
 #' @importFrom flextable align bold border
 #'
