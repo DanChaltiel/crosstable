@@ -10,14 +10,14 @@ A data frame with 32 observations on 11 variables with labels.
 \source{
 \preformatted{
 library(dplyr)
-mtcars2 = mtcars \%>\% 
+mtcars2 = mtcars \%>\%
     mutate(
-       model=rownames(mtcars), 
+       model=rownames(mtcars),
        vs=ifelse(vs==0, "vshaped", "straight"),
-       am=ifelse(am==0, "auto", "manual"), 
+       am=ifelse(am==0, "auto", "manual"),
        across(c("cyl", "gear"), factor),
        .before=1
-    ) \%>\% 
+    ) \%>\%
     expss::apply_labels( #I also could have used [import_labels] or even `labelled::set_variable_labels()`
         mpg="Miles/(US) gallon",
         cyl="Number of cylinders",

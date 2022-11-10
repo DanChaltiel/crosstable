@@ -54,6 +54,8 @@ Generic function to compact a table (publication formatting)
 x=iris[c(1:5,51:55,101:105),]
 ct_compact(x, name_from="Species")
 ct_compact(x, name_from="Species", name_to="Petal.Length")
+x$Species2 = substr(x$Species, 1, 1)
+ct_compact(x, name_from="Species", wrap_cols="Species2")
 
 #crosstables
 x=crosstable(mtcars2, c(disp,hp,am), by=vs, test=TRUE, effect=TRUE)

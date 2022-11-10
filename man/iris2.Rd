@@ -10,15 +10,14 @@ A data frame with 150 observations on 5 variables with labels.
 \source{
 \preformatted{
 library(dplyr)
-iris2 = iris \%>\% 
-    mutate_at("Species", factor) \%>\% 
+iris2 = iris \%>\%
     expss::apply_labels( #I also could have used [import_labels] or even `labelled::set_variable_labels()`
         Species = "Specie",
         Sepal.Length = "Length of Sepal",
         Sepal.Width = "Width of Sepal",
         Petal.Length = "Length of Petal",
         Petal.Width = "Width of Petal"
-    ) \%>\% 
+    ) \%>\%
     as_tibble()
 }
 }
