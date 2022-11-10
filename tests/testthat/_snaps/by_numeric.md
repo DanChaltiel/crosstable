@@ -80,8 +80,8 @@
     Condition
       Warning:
       Anonymous functions should be named.
-      i Instead of: `` funs=`function(xx){}` ``
-      i Write: `` funs=c("Some calculation"=`function(xx){}` ``
+      i Instead of: `funs=function(xx){}`
+      i Write: `funs=c("Some calculation"=function(xx){}`
     Output
       # A tibble: 1 x 4
         .id          label           variable       value
@@ -95,8 +95,8 @@
     Condition
       Warning:
       Anonymous functions should be named.
-      i Instead of: `` funs=`function(xx){}` ``
-      i Write: `` funs=c("Some calculation"=`function(xx){}` ``
+      i Instead of: `funs=function(xx){}`
+      i Write: `funs=c("Some calculation"=function(xx){}`
     Output
       # A tibble: 1 x 4
         .id          label           variable       value
@@ -107,8 +107,8 @@
     Condition
       Warning:
       Anonymous lambda-functions should be named.
-      i Instead of: `` funs=`~mean(.x, na.rm = TRUE)` ``
-      i Write: `` funs=c("Some calculation"=`~mean(.x, na.rm = TRUE)` ``
+      i Instead of: `funs=~mean(.x, na.rm = TRUE)`
+      i Write: `funs=c("Some calculation"=~mean(.x, na.rm = TRUE)`
     Output
       # A tibble: 1 x 4
         .id          label           variable                value
@@ -120,12 +120,12 @@
     Condition
       Warning:
       Anonymous lambda-functions should be named.
-      i Instead of: `` funs=`~mean(.x, na.rm = TRUE)` ``
-      i Write: `` funs=c("Some calculation"=`~mean(.x, na.rm = TRUE)` ``
+      i Instead of: `funs=~mean(.x, na.rm = TRUE)`
+      i Write: `funs=c("Some calculation"=~mean(.x, na.rm = TRUE)`
       Warning:
       Anonymous lambda-functions should be named.
-      i Instead of: `` funs=`~sd(.x, na.rm = TRUE)` ``
-      i Write: `` funs=c("Some calculation"=`~sd(.x, na.rm = TRUE)` ``
+      i Instead of: `funs=~sd(.x, na.rm = TRUE)`
+      i Write: `funs=c("Some calculation"=~sd(.x, na.rm = TRUE)`
     Output
       # A tibble: 2 x 4
         .id          label           variable                value
