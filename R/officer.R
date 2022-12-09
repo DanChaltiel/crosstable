@@ -245,9 +245,15 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #'
 #' @param doc a `rdocx` object, created by [officer::read_docx()]
 #' @param l a named list of tables (of class `crosstable`, `flextable`, or `data.frame`).
-#' @param fun a function to be used before each table, most likely to add some kind of title. Should be of the form `function(doc, .name)` where `.name` is the name of the current crosstable of the list. You can also pass `"title2"` to add the name as a title of level 2 between each table, `"newline"` to simply add a new line, or even NULL to not separate them (beware that the table might merge then).
-#' @param fun_after same as `fun` but is used after each table.
+#' @param fun_before a function to be used before each table
+#' @param fun_after a function to be used after each table.
+#' @param fun <deprecated>
 #' @param ... arguments passed on to [body_add_crosstable()] or [body_add_flextable()]
+#'
+#' @section `fun_before` and `fun_after`:
+#' These should be function of the form `function(doc, .name)` where `.name` is the name of the current table of the list.
+#' You can also pass `"title2"` to add the name as a title of level 2 between each table (works for levels 3 and 4 as well), `"newline"` to simply add a new line, or even `NULL` to not separate them (beware that the tables might merge then).
+#' `fun_before` is designed to add a title while `fun_after` is designed to add a table legend (cf. examples).
 #'
 #' @importFrom checkmate assert_list assert_named assert_class assert_multi_class
 #' @importFrom glue glue
@@ -261,23 +267,28 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #'            "Just a flextable"=flextable::flextable(mtcars2[1:5,1:5]),
 #'            "Just a dataframe"=iris2[1:5,1:5])
 #'
-#' myfun = function(doc, .name){
+#' fun1 = function(doc, .name){
 #'     doc %>%
 #'         body_add_title(" This is table '{.name}' as a flex/crosstable", level=2) %>%
 #'         body_add_normal("Here is the table:")
 #' }
-#' myfun2 = function(doc, .name){
-#'   doc %>% body_add_table_legend("{.name}", bookmark=janitor::make_clean_names(.name))
+#' fun2 = function(doc, .name){
+#'   doc %>% body_add_table_legend("{.name}", bookmark=.name)
 #' }
 #' read_docx() %>%
 #'   body_add_title("Separated by subtitle", 1) %>%
 #'   body_add_table_list(ctl, fun="title2") %>%
+#'   body_add_break() %>%
 #'   body_add_title("Separated using a custom function", 1) %>%
-#'   body_add_normal("You can therefore use bookmarks, for instance here are tables \\@ref(iris2), \\@ref#' (just_a_flextable) and \\@ref(just_a_dataframe).") %>%
-#'   body_add_table_list(ctl, fun=myfun, fun_after=myfun2, body_fontsize=8) %>%
+#'   body_add_normal("You can therefore use bookmarks, for instance here are tables \\@ref(iris2), \\@ref(just_a_flextable) and \\@ref(just_a_dataframe).") %>%
+#'   body_add_table_list(ctl, fun_before=fun1, fun_after=fun2, body_fontsize=8) %>%
 #'   write_and_open()
-body_add_table_list = function(doc, l, fun="title2", fun_after=NULL, ...){
+body_add_table_list = function(doc, l, fun_before="title2", fun_after=NULL,
+                               fun=fun_before, ...){
   assert_list(l)
+  if(!missing(fun)){
+    deprecate_warn("5.1.0", "body_add_table_list(fun)", "body_add_table_list(fun_before)")
+  }
   if(!is_named(l)){
     cli_abort(c("List {.var l} must have names for all members.",
                 i="Current names: {names(l)}"),
@@ -362,7 +373,7 @@ body_add_crosstable_list = function(...){
 #'
 #' @param doc a docx object
 #' @param legend the table legend. As with [glue::glue()], expressions enclosed by braces will be evaluated as R code.
-#' @param bookmark the id of the bookmark. This is the id that should then be called in [body_add_normal()] using the `"\\@ref(id)"` syntax.
+#' @param bookmark the id of the bookmark. This is the id that should then be called in [body_add_normal()] using the `"\\@ref(id)"` syntax. Forbidden characters will be removed.
 #' @param legend_prefix a prefix that comes before the legend, after the numbering
 #' @param legend_style style of of the whole legend. May depend on the docx template. However, if `name_format` is provided with a specific `font.size`, this size will apply to the whole legend for consistency.
 #' @param name_format format of the legend's LHS (legend_name + numbering) using [officer::fp_text_lite()] or [officer::fp_text()]. Default to `fp_text_lite(bold=TRUE)` in addition to the format defined in `legend_style`. Note that the reference to the bookmark will have the same specific format in the text.
@@ -376,7 +387,7 @@ body_add_crosstable_list = function(...){
 #' @return The docx object `doc`
 #'
 #' @section Warning:
-#' Be aware that you unfortunately cannot reference a bookmark more than once using this method. Writing: \cr `body_add_normal("Table \\@ref(iris_col1) is about flowers. I like this Table \\@ref(iris_col1).")`\cr
+#' Be aware that you unfortunately cannot reference a bookmark more than once using this method. Writing: \cr `body_add_normal("Table \\@ref(iris_col1) is about flowers. I really like Table \\@ref(iris_col1).")`\cr
 #' will prevent the numbering from applying.
 #' @section What to do if there is still no numbering?:
 #' During the opening of the document, MS Word might ask you to "update the fields", to which you should answer "Yes".  \cr
@@ -432,7 +443,7 @@ body_add_table_legend = function(doc, legend, ..., bookmark=NULL,
   body_add_legend(doc=doc, legend=legend, legend_name=legend_name,
                   bookmark=bookmark, legend_prefix=legend_prefix, legend_style=legend_style,
                   name_format=name_format, seqfield=seqfield,
-                  style=style, legacy=legacy)
+                  style=style, legacy=legacy, envir=parent.frame())
 }
 
 #' @rdname body_add_legend
@@ -454,7 +465,7 @@ body_add_figure_legend = function(doc, legend, ..., bookmark=NULL,
   doc = body_add_legend(doc=doc, legend=legend, legend_name=legend_name,
                         bookmark=bookmark, legend_prefix=legend_prefix, legend_style=legend_style,
                         name_format=name_format, seqfield=seqfield,
-                        style=style, legacy=legacy)
+                        style=style, legacy=legacy, envir=parent.frame())
   if(par_after){
     doc=body_add_normal(doc, "")
   }
@@ -468,7 +479,7 @@ body_add_figure_legend = function(doc, legend, ..., bookmark=NULL,
 #' @noRd
 body_add_legend = function(doc, legend, legend_name, bookmark,
                            legend_prefix, legend_style, name_format, seqfield,
-                           style, legacy){
+                           style, legacy, envir){
 
   # nocov start
   if(is_present(style)){
@@ -484,11 +495,13 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
   }
   fp_size = fp_text_lite(font.size=name_format$font.size)
 
-  legend = glue(legend, .envir = parent.frame())
+  legend = glue(legend, .envir=envir)
   legend_name = paste0(legend_name, " ")
 
   bkm = run_word_field(seqfield, prop=name_format)
   if(!is.null(bookmark)){
+    # browser()
+    bookmark = crosstable_clean_names(bookmark)
     bkm = run_bookmark(bookmark, bkm)
   }
 

@@ -1,3 +1,5 @@
+skip_on_cran()
+skip_on_ci()
 
 # Init --------------------------------------------------------------------
 
@@ -137,17 +139,43 @@ test_that("crosstables: Triple", {
 })
 
 
-
 # Helpers -----------------------------------------------------------------
 
+test_that("Tests body_add_table_list", {
+  ctl = list(iris2=crosstable(iris2, 1),
+             "Just a flextable"=flextable::flextable(mtcars2[1:5,1:5]),
+             "Just a dataframe"=iris2[1:5,1:5])
 
-test_that("crosstables helpers", {
-  # skip_on_os(c("mac", "linux", "solaris"))
-  skip("Run `test-officer > crosstables helpers` manually one in a while!")
+  fun1 = function(doc, .name){
+    doc %>%
+      body_add_title(" This is table '{.name}' as a flex/crosstable", level=2) %>%
+      body_add_normal("Here is the table:")
+  }
+  fun2 = function(doc, .name){
+    doc %>% body_add_table_legend("{.name}", bookmark=.name)
+  }
+  read_docx() %>%
+    body_add_title("Separated by subtitle", 1) %>%
+    body_add_table_list(ctl, fun_before="title2") %>%
+    body_add_break() %>%
+    body_add_title("Separated using a custom function", 1) %>%
+    body_add_normal("You can therefore use bookmarks, for instance here are tables \\@ref(iris2), \\@ref(just_a_flextable) and \\@ref(just_a_dataframe).") %>%
+    body_add_table_list(ctl, fun_before=fun1, fun_after=fun2, body_fontsize=8) %>%
+    write_and_open()
+
+  expect_true(TRUE)
+})
+
+test_that("Crosstables helpers", {
+  skip_on_os(c("mac", "linux", "solaris"))
+  skip_on_cran()
+  # skip("Run `test-officer > crosstables helpers` manually one in a while!")
   rlang::local_options(crosstable_style_list_ordered="toc 1",
                        crosstable_style_list_unordered="toc 2",
                        crosstable_style_image="centered",
                        crosstable_units="cm")
+
+
 
   img.file = file.path( R.home("doc"), "html", "logo.jpg" )
   p = ggplot2::ggplot(data = iris ) +
@@ -177,7 +205,6 @@ test_that("crosstables helpers", {
   # expect_snapshot_doc(doc)
   expect_true(TRUE)
 })
-
 
 test_that("Utils functions", {
   skip_on_os(c("mac", "linux", "solaris"))
@@ -215,15 +242,15 @@ test_that("Legend fields", {
   doc = read_docx() %>%
     body_add_normal("As you can see in Table \\@ref(tab1) and in Figure \\@ref(fig1), ",
                     "the iris dataset is about flowers.") %>%
-    body_add_table_legend("This is a crosstable", bookmark="tab1") %>%
-    body_add_table_legend("This is a crosstable with bold legend",
+    body_add_table_legend("standard format (table)", bookmark="tab1") %>%
+    body_add_figure_legend("standard format (figure)", bookmark="fig1") %>%
+    body_add_table_legend("underlined, size 15",
                           name_format=fp, bookmark="tab2") %>%
-    body_add_table_legend("This is a crosstable with bold legend",
+    body_add_table_legend("size 9",
                           name_format=fp2, legend_style="Normal",
-                          bookmark="tab2") %>%
-    body_add_figure_legend("This is a figure", bookmark="fig1") %>%
+                          bookmark="tab3") %>%
     identity()
-  # write_and_open(doc)
+  write_and_open(doc)
   expect_true(TRUE)
 })
 
@@ -253,12 +280,14 @@ test_that("Officers warnings and errors", {
   expect_error(body_add_table_list(read_docx(), ll),
                class="body_add_table_list_class")
   ll = list(iris=crosstable(iris), mtcars=crosstable(mtcars))
-  expect_error(body_add_table_list(read_docx(), ll, fun="foobar"),
+  expect_error(body_add_table_list(read_docx(), ll,
+                                   fun_before="foobar"),
                class="body_add_table_list_fun_name")
-  expect_error(body_add_table_list(read_docx(), ll, fun=function(x, y) x),
+  expect_error(body_add_table_list(read_docx(), ll,
+                                   fun_before=function(x, y) x),
                class="body_add_table_list_fun_args")
   expect_error(body_add_table_list(read_docx(), ll,
-                                   fun=function(doc, .name) .name),
+                                   fun_before=function(doc, .name) .name),
                class="body_add_table_list_return")
   expect_error(body_add_table_list(read_docx(), ll,
                                    fun_after=function(doc, .name) .name),
