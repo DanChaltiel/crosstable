@@ -238,7 +238,7 @@ test_that("Officers warnings and errors", {
   expect_error(body_add_normal(read_docx(), pars1, pars2),
                class="crosstable_officer_wrong_vector_error")
 
-  expect_snapshot_error(body_add_table_legend(read_docx(), "xxx", foo=1, fun=mean, 5))#rlib_error_dots_nonempty
+  expect_snapshot_error(body_add_table_legend(read_docx(), "xxx", foo=1, fun=mean, 5)) #rlib_error_dots_nonempty
 
   lifecycle::expect_deprecated(body_add_glued(read_docx(), "Paragraphe"))
 
@@ -246,16 +246,23 @@ test_that("Officers warnings and errors", {
   expect_error(body_add_crosstable(read_docx(), ct),
                class="crosstable_body_add_large_error")
 
-  ll = list(crosstable(iris), crosstable(mtcars))
-  expect_error(body_add_crosstable_list(read_docx(), ll),
-               class="body_add_crosstable_list_named")
+  ll = list("a"=crosstable(iris), crosstable(mtcars))
+  expect_error(body_add_table_list(read_docx(), ll),
+               class="body_add_table_list_named")
+  ll = list("a"=crosstable(iris), "b"=5, "c"=lm(am~vs, data=mtcars))
+  expect_error(body_add_table_list(read_docx(), ll),
+               class="body_add_table_list_class")
   ll = list(iris=crosstable(iris), mtcars=crosstable(mtcars))
-  expect_error(body_add_crosstable_list(read_docx(), ll, fun="foobar"),
-               class="body_add_crosstable_list_fun_name")
-  expect_error(body_add_crosstable_list(read_docx(), ll, fun=function(x, y) x),
-               class="body_add_crosstable_list_fun_args")
-  expect_error(body_add_crosstable_list(read_docx(), ll, fun=function(doc, .name) .name),
-               class="body_add_crosstable_list_return")
+  expect_error(body_add_table_list(read_docx(), ll, fun="foobar"),
+               class="body_add_table_list_fun_name")
+  expect_error(body_add_table_list(read_docx(), ll, fun=function(x, y) x),
+               class="body_add_table_list_fun_args")
+  expect_error(body_add_table_list(read_docx(), ll,
+                                   fun=function(doc, .name) .name),
+               class="body_add_table_list_return")
+  expect_error(body_add_table_list(read_docx(), ll,
+                                   fun_after=function(doc, .name) .name),
+               class="body_add_table_list_return2")
 })
 
 

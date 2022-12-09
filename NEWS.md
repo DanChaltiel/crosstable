@@ -17,6 +17,7 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
     p_ct = pivot_crosstable(ct)
     as_flextable(p_ct)
     ```
+-   New function `body_add_table_list()` that replaces `body_add_crosstable_list()` and `body_add_flextable_list()`. It allows crosstables and flextable (and even dataframes, which are turned to flextables first) and has a new argument `fun_after` to control what comes after the table. See examples in `?body_add_table_list`.
 
 
 #### Bug fixes

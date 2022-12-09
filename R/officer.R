@@ -239,13 +239,14 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 
 
 
-#' Add a list of crosstables
+#' Add a list of tables
 #'
-#' Add a list of crosstables in an officer document
+#' Add a list of tables in an officer document. `crosstables` will be added using [body_add_crosstable()] and `flextables` will be added using [flextable::body_add_flextable()]. Plain dataframes will be converted to flextables.
 #'
 #' @param doc a `rdocx` object, created by [officer::read_docx()]
-#' @param l a named list of tables. Plain dataframes will be converted to flextables.
+#' @param l a named list of tables (of class `crosstable`, `flextable`, or `data.frame`).
 #' @param fun a function to be used before each table, most likely to add some kind of title. Should be of the form `function(doc, .name)` where `.name` is the name of the current crosstable of the list. You can also pass `"title2"` to add the name as a title of level 2 between each table, `"newline"` to simply add a new line, or even NULL to not separate them (beware that the table might merge then).
+#' @param fun_after same as `fun` but is used after each table.
 #' @param ... arguments passed on to [body_add_crosstable()] or [body_add_flextable()]
 #'
 #' @importFrom checkmate assert_list assert_named assert_class assert_multi_class
@@ -257,52 +258,62 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #' @examples
 #' library(officer)
 #' ctl = list(iris2=crosstable(iris2, 1),
-#'            mtcars2=crosstable(mtcars2, 1),
-#'            "just a flextable"=flextable::flextable(mtcars2[1:5,1:5]))
+#'            "Just a flextable"=flextable::flextable(mtcars2[1:5,1:5]),
+#'            "Just a dataframe"=iris2[1:5,1:5])
 #'
 #' myfun = function(doc, .name){
 #'     doc %>%
 #'         body_add_title(" This is table '{.name}' as a flex/crosstable", level=2) %>%
 #'         body_add_normal("Here is the table:")
 #' }
-#'
+#' myfun2 = function(doc, .name){
+#'   doc %>% body_add_table_legend("{.name}", bookmark=janitor::make_clean_names(.name))
+#' }
 #' read_docx() %>%
-#'     body_add_title("Separated by subtitle", 1) %>%
-#'     body_add_crosstable_list(ctl, fun="title2") %>%
-#'     body_add_title("Separated by new line", 1) %>%
-#'     body_add_crosstable_list(ctl, fun="newline") %>%
-#'     body_add_title("Separated using a custom function", 1) %>%
-#'     body_add_crosstable_list(ctl, fun=myfun, body_fontsize=8) %>%
-#'     write_and_open()
-body_add_crosstable_list = function(doc, l, fun="title2", ...){
+#'   body_add_title("Separated by subtitle", 1) %>%
+#'   body_add_table_list(ctl, fun="title2") %>%
+#'   body_add_title("Separated using a custom function", 1) %>%
+#'   body_add_normal("You can therefore use bookmarks, for instance here are tables \\@ref(iris2), \\@ref#' (just_a_flextable) and \\@ref(just_a_dataframe).") %>%
+#'   body_add_table_list(ctl, fun=myfun, fun_after=myfun2, body_fontsize=8) %>%
+#'   write_and_open()
+body_add_table_list = function(doc, l, fun="title2", fun_after=NULL, ...){
   assert_list(l)
-  if(is.null(names(l))){
-    cli_abort("Crosstable list {.var l} must have names.",
-              class="body_add_crosstable_list_named")
+  if(!is_named(l)){
+    cli_abort(c("List {.var l} must have names for all members.",
+                i="Current names: {names(l)}"),
+              class="body_add_table_list_named")
   }
   l = map(l, ~{
-    if(!is.crosstable(.x) && is.data.frame(.x)) .x = flextable(.x)
-    assert_multi_class(.x, c("flextable", "crosstable"))
-    .x
+    if(!is.crosstable(.x) && is.data.frame(.x)) flextable(.x) else .x
   })
 
+  wrong_classes = l %>% keep(~!is.crosstable(.x) && !inherits(.x, "flextable"))
+  if(length(wrong_classes)>0){
+    cli_abort(c("{.fun body_add_table_list} only accepts {.cls crosstable}, {.cls flextable}, and {.cls data.frame}.",
+                x="Wrong class{?es} in the list: {.cls {map_chr(wrong_classes, ~class(.x)[1])}}"),
+              class="body_add_table_list_class")
+  }
+
+  fun0 = function(doc, .name) doc
+  if(is.null(fun_after)) fun_after = fun0
   if(is_string(fun)){
     if(fun=="title2") fun=function(doc, .name) body_add_title(doc, .name, 2)
     else if(fun=="title3") fun=function(doc, .name) body_add_title(doc, .name, 3)
     else if(fun=="title4") fun=function(doc, .name) body_add_title(doc, .name, 4)
     else if(fun=="newline") fun=function(doc, .name) body_add_normal(doc, "")
     else {
-      cli_abort('`fun` should be either a function or one of
-                {.val {c("title2", "title3", "title4", "newline")}}, not {.val {fun}}',
-                class="body_add_crosstable_list_fun_name")
+      cli_abort(c('{.arg fun} should be either a function or one of
+                {.val {c("title2", "title3", "title4", "newline")}}',
+                i="Current value: {.val {fun}}"),
+                class="body_add_table_list_fun_name")
     }
-  } else if(is.null(fun)) fun=function(doc, .name) doc
+  } else if(is.null(fun)) fun=fun0
   assert_class(fun, "function")
 
   if(!identical(formalArgs(fun), c("doc", ".name"))){
     cli_abort(c('`fun` should be of the form `function(doc, .name)`',
                 i="Current arg names: {formalArgs(fun)}"),
-              class="body_add_crosstable_list_fun_args")
+              class="body_add_table_list_fun_args")
   }
 
   argnames = names(list(...))
@@ -311,23 +322,38 @@ body_add_crosstable_list = function(doc, l, fun="title2", ...){
     doc = doc %>% fun(.name=i)
     if(!inherits(doc, "rdocx")){
       cli_abort('fun(doc, .name)` shoud return a {.cls rdocx} value.',
-                class="body_add_crosstable_list_return")
+                class="body_add_table_list_return")
     }
     if(is.crosstable(x)) {
       args = intersect(argnames, names(as.list(args(body_add_crosstable))))
       doc = do.call(body_add_crosstable, c(list(doc=doc, x=x), list(...)[args]))
-    } else {
+    } else if(inherits(x, "flextable")) {
       args = intersect(argnames, names(as.list(args(body_add_flextable))))
       doc = do.call(body_add_flextable, c(list(x=doc, value=x), list(...)[args]))
+    }
+
+    doc = doc %>% fun_after(.name=i)
+    if(!inherits(doc, "rdocx")){
+      cli_abort('fun_after(doc, .name)` shoud return a {.cls rdocx} value.',
+                class="body_add_table_list_return2")
     }
   }
 
   doc
 }
 
-#' @rdname body_add_crosstable_list
+#' @rdname body_add_table_list
 #' @export
-body_add_flextable_list = body_add_crosstable_list
+body_add_flextable_list = function(...){
+  deprecate_warn("0.5.0", "body_add_table_list(=")
+  body_add_table_list(...)
+}
+#' @rdname body_add_table_list
+#' @export
+body_add_crosstable_list = function(...){
+  deprecate_warn("0.5.0", "body_add_table_list(=")
+  body_add_table_list(...)
+}
 
 
 #' Add a legend to a table or a figure
