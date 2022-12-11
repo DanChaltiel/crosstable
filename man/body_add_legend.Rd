@@ -43,7 +43,7 @@ body_add_figure_legend(
 
 \item{...}{unused}
 
-\item{bookmark}{the id of the bookmark. This is the id that should then be called in \code{\link[=body_add_normal]{body_add_normal()}} using the \code{"\\\\@ref(id)"} syntax.}
+\item{bookmark}{the id of the bookmark. This is the id that should then be called in \code{\link[=body_add_normal]{body_add_normal()}} using the \code{"\\\\@ref(id)"} syntax. Forbidden characters will be removed.}
 
 \item{legend_style}{style of of the whole legend. May depend on the docx template. However, if \code{name_format} is provided with a specific \code{font.size}, this size will apply to the whole legend for consistency.}
 
@@ -69,7 +69,7 @@ Add a legend to a table or a figure in an \code{officer} document. Legends can b
 }
 \section{Warning}{
 
-Be aware that you unfortunately cannot reference a bookmark more than once using this method. Writing: \cr \code{body_add_normal("Table \\\\@ref(iris_col1) is about flowers. I like this Table \\\\@ref(iris_col1).")}\cr
+Be aware that you unfortunately cannot reference a bookmark more than once using this method. Writing: \cr \code{body_add_normal("Table \\\\@ref(iris_col1) is about flowers. I really like Table \\\\@ref(iris_col1).")}\cr
 will prevent the numbering from applying.
 }
 
