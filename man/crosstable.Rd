@@ -18,6 +18,7 @@ crosstable(
   funs = c(` ` = cross_summary),
   funs_arg = list(),
   cor_method = c("pearson", "kendall", "spearman"),
+  drop_levels = TRUE,
   unique_numeric = 3,
   date_format = NULL,
   times = NULL,
@@ -56,6 +57,8 @@ crosstable(
 \item{funs_arg}{Additional parameters for \code{funs}, e.g. \code{digits} (the number of decimal places) for the default \code{\link[=cross_summary]{cross_summary()}}. Ultimately, these arguments are passed to \code{\link[=format_fixed]{format_fixed()}}.}
 
 \item{cor_method}{One of \code{c("pearson", "kendall", "spearman")} to indicate which correlation coefficient is to be used.}
+
+\item{drop_levels}{Whether to drop unused levels of factor variables. Default to \code{TRUE}.}
 
 \item{unique_numeric}{The number of non-missing different levels a variable should have to be considered as numeric.}
 

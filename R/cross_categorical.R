@@ -1,9 +1,10 @@
 
 #' @importFrom dplyr select mutate everything .data
+#' @importFrom forcats fct_drop
 #' @keywords internal
 #' @noRd
 cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits, percent_pattern,
-                           test, test_args, effect, effect_args){
+                           drop_levels, test, test_args, effect, effect_args){
 
   stopifnot(ncol(data_x)==1 && (is.null(data_y) || ncol(data_y)==1))
   stopifnot(is.character.or.factor(data_x[[1]]))
@@ -14,6 +15,10 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
   } else {
     x_name = names(data_x)
     y_name = names(data_y)
+  }
+  if(isTRUE(drop_levels)){
+    data_x[[1]] = fct_drop(data_x[[1]])
+    data_y[[1]] = fct_drop(data_y[[1]])
   }
 
   if(is.null(data_y)){
