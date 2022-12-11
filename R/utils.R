@@ -271,8 +271,9 @@ has_method = function(x, method, skip=c("data.frame")){
 #' @keywords internal
 #' @noRd
 percent_pattern_variables = function(){
-  x=c("cell", "row", "col")
-  n=c("n", "n_row", "n_col", "n_tot", "n_row_na", "n_col_na", "n_tot_na")
+  x=c("tot", "row", "col")
+  n=c("n", "n_row", "n_col", "n_tot")
+  n_na=c("n", "n_row_na", "n_col_na", "n_tot_na")
   p=paste0("p_", x)
   p_na=paste0(p, "_na")
   p_ci=map(p, ~paste0(.x, c("_inf", "_sup")))
@@ -299,7 +300,7 @@ check_percent_pattern = function(percent_pattern){
 
   #TODO class(dummy$error) #https://github.com/tidyverse/glue/issues/229
   if(!is.null(dummy$error)){
-    ok = c("n", "n_tot", "n_row", "n_col", "p_cell", "p_row", "p_col")
+    ok = c("n", "n_tot", "n_row", "n_col", "p_tot", "p_row", "p_col")
     ok2 = c("p_xxx_inf", "p_xxx_sup")
     percent_pattern = str_remove_all(percent_pattern, "\n")
     cli_abort(c("Could not resolve a variable used in `percent_pattern`.",

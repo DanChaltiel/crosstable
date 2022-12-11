@@ -194,7 +194,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
       body=percent_pattern,
       total_row="{n} ({p_col})",
       total_col="{n} ({p_row})",
-      total_all="{n} ({p_cell})"
+      total_all="{n} ({p_tot})"
     )
   }
   walk(percent_pattern, check_percent_pattern)

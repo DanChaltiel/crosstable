@@ -63,10 +63,10 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
       n_col_na=sum(.data$n, na.rm=TRUE),
       n_row_na=.data$n_col_na, n_tot_na=.data$n_col_na,
       p_col=.data$n/.data$n_col,
-      p_row=p_col, p_cell=p_col,
+      p_row=p_col, p_tot=p_col,
       p_col_na=.data$n/.data$n_col_na,
-      p_row_na=p_col_na, p_cell_na=p_col_na,
-      across(c(p_col, p_row, p_cell), ~ifelse(is.na(x), NA, .x))
+      p_row_na=p_col_na, p_tot_na=p_col_na,
+      across(c(p_col, p_row, p_tot), ~ifelse(is.na(x), NA, .x))
     ) %>%
     getTableCI(digits=digits) %>%
     transmute(variable=replace_na(x, "NA"),
@@ -81,7 +81,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
   if(2 %in% total){
     .total = tibble(variable="Total",
                     n=length(x), n_row=n, n_col=n, n_tot=n,
-                    p_cell=1, p_row=p_cell, p_col=p_cell) %>%
+                    p_tot=1, p_row=p_tot, p_col=p_tot) %>%
       mutate(across_unpack(matches("^[pn]"), ~tibble(na=.x))) %>%
       getTableCI(digits=digits) %>%
       transmute(.data$variable,
@@ -123,22 +123,22 @@ summarize_categorical_by = function(x, by,
   n_tot = sum(nn2)
   n_tot_na = sum(nn3)
 
-  table_p_cell = proportions(nn2, margin=NULL) %>% as.data.frame(responseName="p_cell")
+  table_p_tot = proportions(nn2, margin=NULL) %>% as.data.frame(responseName="p_tot")
   table_p_row  = proportions(nn2, margin=1) %>% as.data.frame(responseName="p_row")
   table_p_col  = proportions(nn2, margin=2) %>% as.data.frame(responseName="p_col")
-  table_p_cell_na = proportions(nn3, margin=NULL) %>% as.data.frame(responseName="p_cell_na")
+  table_p_tot_na = proportions(nn3, margin=NULL) %>% as.data.frame(responseName="p_tot_na")
   table_p_row_na  = proportions(nn3, margin=1) %>% as.data.frame(responseName="p_row_na")
   table_p_col_na  = proportions(nn3, margin=2) %>% as.data.frame(responseName="p_col_na")
 
-  .table = reduce(list(table_n, table_p_cell, table_p_row, table_p_col,
-                       table_p_cell_na, table_p_row_na, table_p_col_na),
+  .table = reduce(list(table_n, table_p_tot, table_p_row, table_p_col,
+                       table_p_tot_na, table_p_row_na, table_p_col_na),
                   left_join, by=c("x", "by")) %>%
     left_join(table_n_row, by="x") %>%
     left_join(table_n_row_na, by="x") %>%
     left_join(table_n_col, by="by") %>%
     left_join(table_n_col_na, by="by") %>%
     mutate(n_tot=.env$n_tot, n_tot_na=.env$n_tot_na,
-           across(c(p_col, p_row, p_cell), ~ifelse(is.na(x), NA, .x))) %>%
+           across(c(p_col, p_row, p_tot), ~ifelse(is.na(x), NA, .x))) %>%
     getTableCI(digits=digits) %>%
     relocate(x, by, n, sort(peek_vars()))
 
@@ -165,11 +165,11 @@ summarize_categorical_by = function(x, by,
         n_tot_na=sum(n_col),
         n_row=n_tot,
         p_col=n_col/n_tot,
-        p_row=p_col, p_cell=p_col,
+        p_row=p_col, p_tot=p_col,
         n_row_na=n_tot_na,
         p_col_na=n_col_na/n_tot_na,
-        p_row_na=p_col_na, p_cell_na=p_col_na,
-        across(c(p_col, p_row, p_cell), ~ifelse(is.na(by), NA, .x))
+        p_row_na=p_col_na, p_tot_na=p_col_na,
+        across(c(p_col, p_row, p_tot), ~ifelse(is.na(by), NA, .x))
       ) %>%
       getTableCI(digits=digits) %>%
       transmute(x=fct_explicit_na(.data$by, "NA"),
@@ -186,7 +186,7 @@ summarize_categorical_by = function(x, by,
   #   mt = marginSums(nn, margin=2) %>% as.numeric()
   #   line = mt
   #   any_p_ci = pattern_vars %>% str_starts("p_col_") %>% any()
-  #   any_p = pattern_vars %>% str_detect("p_row|p_col|p_cell") %>% any()
+  #   any_p = pattern_vars %>% str_detect("p_row|p_col|p_tot") %>% any()
   #   #TODO si !any_p_ci on garde pattern
   #
   #   if(any_p){
@@ -200,7 +200,7 @@ summarize_categorical_by = function(x, by,
 
   .effect=.test=.total=NULL
   if(1 %in% total){
-    # any_p = pattern_vars %>% str_detect("p_row|p_col|p_cell") %>% any()
+    # any_p = pattern_vars %>% str_detect("p_row|p_col|p_tot") %>% any()
     # any_pcol_ci = pattern_vars %>% str_starts("p_col_") %>% any()
     # percent_pattern2 = percent_pattern
     percent_pattern2 = percent_pattern
