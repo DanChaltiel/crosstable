@@ -222,62 +222,29 @@ summarize_categorical_by = function(x, by,
 
 
 
-# Utils -------------------------------------------------------------------
-
-#' @importFrom rlang as_function
-#' @keywords internal
-#' @noRd
-getTable = function(x, by, type=c("n", "p_cell", "p_row", "p_col")){
-  fun = switch(type,
-               n=identity,
-               p_cell=as_function(~proportions(.x)),
-               p_row=as_function(~proportions(.x, margin=1)),
-               p_col=as_function(~proportions(.x, margin=2))
-  )
-  useNA = if(type=="p_cell") "always" else "no"
-  table(x, by, useNA=useNA) %>%
-    fun() %>%
-    as.data.frame(responseName=type)
-}
-
-#' @importFrom rlang as_function
-#' @keywords internal
-#' @noRd
-getTableCI = function(x, digits, method="wilson"){
-  x %>%
-    mutate(
-      across_unpack(p_cell, ~confint_proportion(.x, n_tot, method=method)),
-      across_unpack(p_col,  ~confint_proportion(.x, n_col, method=method)),
-      across_unpack(p_row,  ~confint_proportion(.x, n_row, method=method)),
-      across_unpack(p_cell_na, ~confint_proportion(.x, n_tot_na, method=method)),
-      across_unpack(p_col_na,  ~confint_proportion(.x, n_col_na, method=method)),
-      across_unpack(p_row_na,  ~confint_proportion(.x, n_row_na, method=method)),
-      across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE))
-    )
-}
-
-
+#' Percent pattern helper
+#'
+#' Get a list with pre-filled values for `percent_pattern`.
+#'
+#' @param margin a vector giving the margins to compute.
+#' @param na whether to use `NA`
+#'
+#' @return a list
+#'
+#' @export
 #' @importFrom purrr map
 #' @importFrom glue glue glue_collapse
-#' @keywords internal
-#' @noRd
+#'
 #' @examples
-#' get_percent_pattern(margin=TRUE)
-#' get_percent_pattern(margin=1)
-#' get_percent_pattern(margin=c(1,0,2))
-#' get_percent_pattern(margin=1:2)
-#' get_percent_pattern(margin=2:1)
-#' get_percent_pattern(margin="row")
-#' get_percent_pattern(margin=c("row","cells","column"))
-#' get_percent_pattern(margin=c("row", "rows","cells")) #warn
-#' get_percent_pattern(margin=c("row","cells", "rows","column")) #warn
-#' get_percent_pattern(margin=c("foobar", "rows","cells")) #error
-get_percent_pattern = function(margin=c("row", "column", "cell", "none", "all")){
+#' get_percent_pattern(c("cells","row","column"))
+#' get_percent_pattern(c("cells","row","column"), na=TRUE)
+get_percent_pattern = function(margin=c("row", "column", "cell", "none", "all"), na=FALSE){
+  if(missing(margin)) margin="row"
   rtn = list(
     body="{n} ({p_col})",
     total_row="{n} ({p_col})",
     total_col="{n} ({p_row})",
-    total_all="{n} ({p_cell})"
+    total_all="{n} ({p_tot})"
   )
   if(length(margin)==1){
     if(margin %in% list(-1, "none")){
@@ -287,27 +254,20 @@ get_percent_pattern = function(margin=c("row", "column", "cell", "none", "all"))
       rtn$body = "{n} ({p_row} / {p_col})"
       return(rtn)
     } else if(margin=="all"){
-      rtn$body = "{n} ({p_cell} / {p_row} / {p_col})"
+      rtn$body = "{n} ({p_tot} / {p_row} / {p_col})"
       return(rtn)
     }
   }
-  if(any(margin %in% c("row", "column", "cell")) && any(margin %in% c("none", "all"))){
-    cli_abort(c('{.code margin=c("row", "column", "cell")} cannot be combined
-                with {.code margin=c("none", "all")}',
+  if(any(margin %in% c("none", "all")) && length(margin)>1){
+    cli_abort(c('{.code margin="none"} and {.code margin="all"} cannot be combined with other values',
                 "Input margin: {.val {margin}}"),
               class="crosstable_incompatible_margin",
-              call=crosstable_caller$env)
-  }
-  if(any(margin=="none") && any(margin=="all")){
-    cli_abort(c('{.code margin="none"} cannot be combined with {.code margin="all"}',
-                "Input margin: {.val {margin}}"),
-              class="crosstable_incompatible_margin2",
               call=crosstable_caller$env)
   }
 
   marginopts = list(p_row = c(1, "row", "rows"),
                     p_col = c(2, "col", "cols", "column", "columns"),
-                    p_cell = c(0, "cell", "cells"))
+                    p_tot = c(0, "cell", "cells"))
   unexpected = margin[!margin %in% unlist(marginopts)]
   if(length(unexpected)>0){
     cli_abort(c('`margin` must be one of "row", "column", "cell", "none", or "all".',
@@ -328,9 +288,51 @@ get_percent_pattern = function(margin=c("row", "column", "cell", "none", "all"))
     unlist() %>% sort() %>% names()
   x = glue_collapse(glue("{{{x}}}"), sep=" / ")
   rtn$body = glue("{{n}} ({x})")
+
+  if(isTRUE(na)){
+    # browser()
+    ppv = percent_pattern_variables()
+    ppv = ppv$na %>% set_names(ppv$std)
+    rtn = map(rtn, ~str_replace_all(.x, ppv))
+  }
+
   rtn
 }
 
+
+# Utils -------------------------------------------------------------------
+
+#' @importFrom rlang as_function
+#' @keywords internal
+#' @noRd
+getTable = function(x, by, type=c("n", "p_tot", "p_row", "p_col")){
+  fun = switch(type,
+               n=identity,
+               p_tot=as_function(~proportions(.x)),
+               p_row=as_function(~proportions(.x, margin=1)),
+               p_col=as_function(~proportions(.x, margin=2))
+  )
+  useNA = if(type=="p_tot") "always" else "no"
+  table(x, by, useNA=useNA) %>%
+    fun() %>%
+    as.data.frame(responseName=type)
+}
+
+#' @importFrom rlang as_function
+#' @keywords internal
+#' @noRd
+getTableCI = function(x, digits, method="wilson"){
+  x %>%
+    mutate(
+      across_unpack(p_tot, ~confint_proportion(.x, n_tot, method=method)),
+      across_unpack(p_col,  ~confint_proportion(.x, n_col, method=method)),
+      across_unpack(p_row,  ~confint_proportion(.x, n_row, method=method)),
+      across_unpack(p_tot_na, ~confint_proportion(.x, n_tot_na, method=method)),
+      across_unpack(p_col_na,  ~confint_proportion(.x, n_col_na, method=method)),
+      across_unpack(p_row_na,  ~confint_proportion(.x, n_row_na, method=method)),
+      across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE))
+    )
+}
 
 # Global Variables -----------------------------------------------------------------------------
 

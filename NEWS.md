@@ -1,6 +1,6 @@
 Crosstables for descriptive analyses. See documentation at <https://danchaltiel.github.io/crosstable/> and browse code at <https://github.com/DanChaltiel/crosstable>.
 
-# crosstable 0.x.x <sub><sup>(?)</sup></sub>
+# crosstable 0.6.0 <sub><sup>(?)</sup></sub>
 
 #### New features
 
@@ -17,7 +17,9 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
     p_ct = pivot_crosstable(ct)
     as_flextable(p_ct)
     ```
--   New function `body_add_table_list()` that replaces `body_add_crosstable_list()` and `body_add_flextable_list()`. It allows crosstables and flextable (and even dataframes, which are turned to flextables first) and has a new argument `fun_after` to control what comes after the table. See examples in `?body_add_table_list`.
+-   `body_add_table_list()` now replaces `body_add_crosstable_list()` and `body_add_flextable_list()`. It allows both crosstables and flextable (and even dataframes, which are turned to flextables first) and has a new argument `fun_after` to control what comes after the table. See examples in `?body_add_table_list`.
+
+-   New function `get_percent_pattern()`. See also the new vignette about this `vignette("percent_pattern")`.
 
 #### Breaking changes (minor)
 

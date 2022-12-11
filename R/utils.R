@@ -278,22 +278,16 @@ percent_pattern_variables = function(){
   p_na=paste0(p, "_na")
   p_ci=map(p, ~paste0(.x, c("_inf", "_sup")))
   p_na_ci=map(p_na, ~paste0(.x, c("_inf", "_sup")))
-  c(n, p, p_na, p_ci, p_na_ci) %>% unlist()
+  # c(n, n_na, p, p_na, p_ci, p_na_ci) %>% unlist()
+  list(std=c(n, p, p_ci) %>% unlist(),
+       na=c(n_na, p_na, p_na_ci) %>% unlist())
 }
 
 
 #' @keywords internal
 #' @noRd
 check_percent_pattern = function(percent_pattern){
-  # x=c("cell", "row", "col")
-  # n=c("n", "n_row", "n_col", "n_tot", "n_row_na", "n_col_na", "n_tot_na")
-  # p=paste0("p_", x)
-  # p_na=paste0(p, "_na")
-  # p_ci=map(p, ~paste0(.x, c("_inf", "_sup")))
-  # p_na_ci=map(p_na, ~paste0(.x, c("_inf", "_sup")))
-  # nm = list(n, p, p_na, p_ci, p_na_ci) %>% unlist()
-
-  nm = percent_pattern_variables()
+  nm = percent_pattern_variables() %>% unlist() %>% unique()
   arg = rep(1, length(nm)) %>% set_names(nm) %>% as.list()
   arg = c(percent_pattern, arg)
   dummy = do.call(safely(glue), arg)
