@@ -247,7 +247,7 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #' @param l a named list of tables (of class `crosstable`, `flextable`, or `data.frame`).
 #' @param fun_before a function to be used before each table
 #' @param fun_after a function to be used after each table.
-#' @param fun <deprecated>
+#' @param fun Deprecated
 #' @param ... arguments passed on to [body_add_crosstable()] or [body_add_flextable()]
 #'
 #' @section `fun_before` and `fun_after`:
