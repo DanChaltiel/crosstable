@@ -35,12 +35,22 @@ cross_by = function(data_x, data_y, funs, funs_arg, percent_pattern, total, perc
                call = crosstable_caller$env)
       return(NULL)
     }
-    if(!is.list(.x)){
+    if(!is.list(.x)){ #TODO is.list pour les erreurs, mieux vaudrait une classe spéciale?
       data_x[.y] = .x
       # errors[[.y]] = data.frame(name=.y, class="list")
       # return(NULL)
     }
 
+
+    if(showNA=="no"){
+      if(is.null(data_y)){
+        data_x = data_x %>% filter(!is.na(data_x[[.y]]))
+      } else {
+        cc = !is.na(data_x[[.y]]) & !is.na(data_y[[1]])
+        data_x = data_x %>% filter(cc)
+        data_y = data_y %>% filter(cc)
+      }
+    }
 
     if(is.list(.x)){
       rtn=NULL
