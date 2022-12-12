@@ -21,6 +21,8 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 
 -   New function `get_percent_pattern()`. See also the new vignette about this `vignette("percent_pattern")`.
 
+-   `copy_label_from()` now works on dataframes as well.
+
 #### Breaking changes (minor)
 
 -   `showNA="no"` is now consistent with `gtsummary::tbl_cross(missing="no")` and `janitor::tabyl(show_na=FALSE)` and actually removes all `NA` from the equation, instead of not doing much (#24).
@@ -36,6 +38,8 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 -   Flextables will not have missing columns when using multiple by variables that has same key levels.
 -   String interpolation works as intended in `body_add_xxx_legend()`.
 -   crosstable will not fail if `fisher.test()` fails [#28]
+
+Many thanks to Stephan Daus (@sda030) for his bug reports and feedback on this release.
 
 # crosstable 0.5.0 <sub><sup>2022-08-16</sup></sub>
 

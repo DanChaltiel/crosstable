@@ -71,23 +71,25 @@ get_label = function(x, default=names(x), object=FALSE, simplify=TRUE){
 #'           mpg3=mpg %>% copy_label_from(mpg2)) %>%
 #'    crosstable(c(mpg, mpg2, mpg3))
 #' mtcars %>%
-#'    copy_label_from(mtcars2[,1:11]) %>%
+#'    copy_label_from(mtcars2) %>%
 #'    crosstable(c(mpg, vs))
 set_label = function(x, value, object=FALSE){
   if(is.null(value) || all(is.na(value))) return(x)
-  value = as.character(value)
+  value = map_chr(value, as.character)
   assert_character(value)
   if(is.list(x) && !object){
     if(length(value)==1){
       for (each in seq_along(x))
         x[[each]] = set_label(x[[each]], value)
-    } else if(length(value)==length(x)){
+    } else if(is_named(value)){
+      for (each in intersect(names(value), names(x)))
+        x[[each]] = set_label(x[[each]], value[[each]])
+    }  else if(length(value)==length(x)){
       for (each in seq_along(x))
         x[[each]] = set_label(x[[each]], value[[each]])
     } else {
       cli_abort("`value` must be either length 1 or the same as `x`")
       #TODO faire des tests pour ces deux nouvelles conditions !
-      #TODO mtcars %>% copy_label_from(mtcars2) ?
     }
     return(x)
   }
@@ -100,8 +102,6 @@ set_label = function(x, value, object=FALSE){
 #'
 #' @param x the variable to label
 #' @param from the variable whose label must be copied
-#'
-#' @return An object of the same type as `x`, with the label of `from`
 #'
 #' @rdname set_label
 #' @author Dan Chaltiel

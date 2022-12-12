@@ -20,8 +20,6 @@ copy_label_from(x, from)
 }
 \value{
 An object of the same type as \code{x}, with labels
-
-An object of the same type as \code{x}, with the label of \code{from}
 }
 \description{
 Set the "label" attribute of an object
@@ -35,7 +33,7 @@ mtcars \%>\%
           mpg3=mpg \%>\% copy_label_from(mpg2)) \%>\%
    crosstable(c(mpg, mpg2, mpg3))
 mtcars \%>\%
-   copy_label_from(mtcars2[,1:11]) \%>\%
+   copy_label_from(mtcars2) \%>\%
    crosstable(c(mpg, vs))
 }
 \seealso{
