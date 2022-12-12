@@ -197,7 +197,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
       total_all="{n} ({p_tot})"
     )
   }
-  walk(percent_pattern, check_percent_pattern)
+  check_percent_pattern(percent_pattern)
 
   if(!is.null(date_format)) funs_arg = c(funs_arg, list(date_format=date_format))
 

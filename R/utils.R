@@ -287,23 +287,27 @@ percent_pattern_variables = function(){
 #' @keywords internal
 #' @noRd
 check_percent_pattern = function(percent_pattern){
-  nm = percent_pattern_variables() %>% unlist() %>% unique()
-  arg = rep(1, length(nm)) %>% set_names(nm) %>% as.list()
-  arg = c(percent_pattern, arg)
-  dummy = do.call(safely(glue), arg)
+  assert_subset(names(percent_pattern), c("body", "total_row", "total_col", "total_all"))
+  walk(percent_pattern, ~{
+    nm = percent_pattern_variables() %>% unlist() %>% unique()
+    arg = rep(1, length(nm)) %>% set_names(nm) %>% as.list()
+    arg = c(.x, arg)
+    dummy = do.call(safely(glue), arg)
 
-  #TODO class(dummy$error) #https://github.com/tidyverse/glue/issues/229
-  if(!is.null(dummy$error)){
-    ok = c("n", "n_tot", "n_row", "n_col", "p_tot", "p_row", "p_col")
-    ok2 = c("p_xxx_inf", "p_xxx_sup")
-    percent_pattern = str_remove_all(percent_pattern, "\n")
-    cli_abort(c("Could not resolve a variable used in `percent_pattern`.",
-                i='Authorized variables are {.code {ok}}, along with {.code {ok2}} for proportions.',
-                i='Provided {.code percent_pattern}: {.code {percent_pattern}}',
-                x="Error: {.val {dummy$error$message}}"),
-              class="crosstable_percent_pattern_wrong_variable_error",
-              call=crosstable_caller$env)
-  }
+    # browser()
+    #TODO class(dummy$error) #https://github.com/tidyverse/glue/issues/229
+    if(!is.null(dummy$error)){
+      ok = c("n", "n_tot", "n_row", "n_col", "p_tot", "p_row", "p_col")
+      ok2 = c("p_xxx_inf", "p_xxx_sup")
+      .x = str_remove_all(.x, "\n")
+      cli_abort(c("Could not resolve a variable used in `percent_pattern`.",
+                  i='Authorized variables are {.code {ok}}, along with {.code {ok2}} for proportions.',
+                  i='Provided {.code percent_pattern}: {.code {.x}}',
+                  x="Error: {.val {dummy$error$message}}"),
+                class="crosstable_percent_pattern_wrong_variable_error",
+                call=crosstable_caller$env)
+    }
+  })
 }
 
 #' Rudimentary function to clean the names
