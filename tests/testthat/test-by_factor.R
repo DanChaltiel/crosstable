@@ -106,7 +106,7 @@ test_that("Margins with totals", {
   expect_error(crosstable(mtcars3, c(am, cyl), by = vs, total = "both", margin = c("row", "none")),
                class="crosstable_incompatible_margin")
   expect_error(crosstable(mtcars3, c(am, cyl), by = vs, total = "both", margin = c("all", "none")),
-               class="crosstable_incompatible_margin2")
+               class="crosstable_incompatible_margin")
   expect_warning(crosstable(mtcars3, am, margin=c("row"), percent_pattern="N={n}"),
                  class="crosstable_margin_percent_pattern_warning")
   expect_warning(crosstable(mtcars3, am, margin=c("row", 1, "col")),
@@ -122,12 +122,12 @@ test_that("Percent pattern", {
   crosstable(mtcars3, cyl, percent_pattern="{p_col_na} ({n}/{n_col_na}) [95%CI: {p_col_na_inf}; {p_col_na_sup}]", total=TRUE)
 
   #TODO percent_pattern as list
-  ULTIMATE_PATTERN=list(body="Cell: p = {p_cell} ({n}/{n_tot}) [95%CI {p_cell_inf}; {p_cell_sup}]
+  ULTIMATE_PATTERN=list(body="Cell: p = {p_tot} ({n}/{n_tot}) [95%CI {p_tot_inf}; {p_tot_sup}]
                         Col: p = {p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}] \nRow:p = {p_row} ({n}/{n_row}): [95%CI: {p_row_inf}; {p_row_sup}]",
                         total_row="N={n} \nRow:p = {p_row} ({n}/{n_row}) [95%CI: {p_row_inf}; {p_row_sup}]",
                         total_col="N={n} \nCol: p = {p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]",
                         total_all="N={n} (100%) [95%CI: {p_col_inf}; {p_col_sup}]")
-  ULTIMATE_PATTERN_NA=list(body="Cell: p = {p_cell_na} ({n}/{n_tot_na}) [95%CI {p_cell_na_inf}; {p_cell_na_sup}]
+  ULTIMATE_PATTERN_NA=list(body="Cell: p = {p_tot_na} ({n}/{n_tot_na}) [95%CI {p_tot_na_inf}; {p_tot_na_sup}]
                         Col: p = {p_col_na} ({n}/{n_col_na}) [95%CI: {p_col_na_inf}; {p_col_na_sup}] \nRow:p = {p_row_na} ({n}/{n_row_na}): [95%CI: {p_row_na_inf}; {p_row_na_sup}]",
                         total_row="N={n} \nRow:p = {p_row_na} ({n}/{n_row_na}) [95%CI: {p_row_na_inf}; {p_row_na_sup}]",
                         total_col="N={n} \nCol: p = {p_col_na} ({n}/{n_col_na}) [95%CI: {p_col_na_inf}; {p_col_na_sup}]",
@@ -138,11 +138,52 @@ test_that("Percent pattern", {
                          total_col="N={n} \nCol: p = {p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]",
                          total_all="N={n} (100%) {p_col_inf}")
 
+
+  ULTIMATE_PATTERN=list(
+    body="Cell: p = {p_tot} ({n}/{n_tot}) [95%CI {p_tot_inf}; {p_tot_sup}]
+          Col: p = {p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]
+          Row: p = {p_row} ({n}/{n_row}) [95%CI: {p_row_inf}; {p_row_sup}]",
+    total_row="N={n} \nRow:p = {p_row} ({n}/{n_row}) [95%CI: {p_row_inf}; {p_row_sup}]",
+    total_col="N={n} \nCol: p = {p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]",
+    total_all="N={n} (100%) [95%CI: {p_col_inf}; {p_col_sup}]"
+  )
+
+  ULTIMATE_PATTERN=list(
+    body="N={n}
+          Cell: p = {p_tot} ({n}/{n_tot}) [{p_tot_inf}; {p_tot_sup}]
+          Col: p = {p_col} ({n}/{n_col}) [{p_col_inf}; {p_col_sup}]
+          Row: p = {p_row} ({n}/{n_row}) [{p_row_inf}; {p_row_sup}]
+
+          Cell (NA): p = {p_tot_na} ({n}/{n_tot_na}) [{p_tot_na_inf}; {p_tot_na_sup}]
+          Col (NA): p = {p_col_na} ({n}/{n_col_na}) [{p_col_na_inf}; {p_col_na_sup}]
+          Row (NA): p = {p_row_na} ({n}/{n_row_na}) [{p_row_na_inf}; {p_row_na_sup}]",
+    total_row="N={n}
+               Row: p = {p_row} ({n}/{n_row}) [{p_row_inf}; {p_row_sup}]
+               Row (NA): p = {p_row_na} ({n}/{n_row_na}) [{p_row_na_inf}; {p_row_na_sup}]",
+    total_col="N={n}
+               Col: p = {p_col} ({n}/{n_col}) [{p_col_inf}; {p_col_sup}]
+               Col (NA): p = {p_col_na} ({n}/{n_col_na}) [{p_col_na_inf}; {p_col_na_sup}]",
+    total_all="N={n}
+               P: {p_col} [{p_col_inf}; {p_col_sup}]
+               P (NA): {p_col} [{p_col_na_inf}; {p_col_na_sup}]"
+  )
+
+
+
+
+
+  # x1=crosstable(mtcars3, cyl, by=am,
   x1=crosstable(mtcars3, cyl, by=vs,
-                # x1=crosstable(mtcars3, cyl, by=am,
                 percent_digits=0, total=TRUE, showNA="always",
                 percent_pattern=ULTIMATE_PATTERN)
-  af(x1)
+  af(x1) %>% flextable::theme_box()
+  x2=crosstable(mtcars3, cyl, by=vs,
+                percent_digits=0, total=TRUE, showNA="no",
+                percent_pattern=ULTIMATE_PATTERN)
+  af(x2) %>% flextable::theme_box()
+
+
+
 
   crosstable(mtcars2, cyl, total = "both") %>% af
   crosstable(mtcars2, cyl, by=am, total = "both") %>% af
@@ -151,7 +192,7 @@ test_that("Percent pattern", {
 
 
   ULTIMATE_PATTERN="N={n}
-                    Cell: p = {p_cell} ({n}/{n_tot}) [95%CI {p_cell_inf}; {p_cell_sup}]
+                    Cell: p = {p_tot} ({n}/{n_tot}) [95%CI {p_tot_inf}; {p_tot_sup}]
                     Col: p = {p_col} ({n}/{n_col}) [95%CI {p_col_inf}; {p_col_sup}]
                     Row:p = {p_row} ({n}/{n_row}) [95%CI {p_row_inf}; {p_row_sup}]"
   expect_snapshot({
@@ -283,4 +324,39 @@ test_that("By multiple errors", {
   #All `by` columns have missing values only
   crosstable(mtcars3, c(mpg, gear, cyl), by=c(dummy_na, dummy_na2)) %>%
     expect_error(class="crosstable_all_na_by_warning")
+})
+
+
+test_that("get_percent_pattern()", {
+  local_reproducible_output(width = 1000)
+  expect_snapshot({
+    get_percent_pattern()
+    get_percent_pattern(na=TRUE)
+
+    get_percent_pattern(c("cells","row","column"))
+    get_percent_pattern(c("cells","row","column"), na=TRUE)
+
+    get_percent_pattern(margin=TRUE)
+    get_percent_pattern(margin=1)
+    get_percent_pattern(margin=c(1,0,2))
+    get_percent_pattern(margin=1:2)
+    get_percent_pattern(margin=2:1)
+    get_percent_pattern(margin="row")
+    get_percent_pattern(margin=c("row","cells","column"))
+  })
+})
+
+
+test_that("get_percent_pattern(): errors & warnings", {
+  get_percent_pattern(margin=c("row","rows","cells")) %>%
+    expect_warning(class="crosstable_duplicated_margin")
+  get_percent_pattern(margin=c("row","cells", "rows","column")) %>%
+    expect_warning(class="crosstable_duplicated_margin")
+
+  get_percent_pattern(margin=c("none","rows","cells")) %>%
+    expect_error(class="crosstable_incompatible_margin")
+  get_percent_pattern(margin=c("none","all")) %>%
+    expect_error(class="crosstable_incompatible_margin")
+  get_percent_pattern(margin=c("foobar", "rows","cells")) %>%
+    expect_error(class="crosstable_unknown_margin")
 })

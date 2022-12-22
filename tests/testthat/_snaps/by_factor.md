@@ -805,3 +805,171 @@
       7 gear Number of forward gears          5                          1 (20.00%)                             0 (0%)                         4 (80.00%)                            0 (0%)                        0 (0%)                       0 (0%)       5 (15.62%)
       8 gear Number of forward gears      Total                          7 (21.88%)                          2 (6.25%)                         6 (18.75%)                        9 (28.12%)                        0 (0%)                   8 (25.00%)     32 (100.00%)
 
+# get_percent_pattern()
+
+    Code
+      get_percent_pattern()
+    Output
+      $body
+      {n} ({p_row})
+      
+      $total_row
+      [1] "{n} ({p_col})"
+      
+      $total_col
+      [1] "{n} ({p_row})"
+      
+      $total_all
+      [1] "{n} ({p_tot})"
+      
+    Code
+      get_percent_pattern(na = TRUE)
+    Output
+      $body
+      [1] "{n} ({p_row_na})"
+      
+      $total_row
+      [1] "{n} ({p_col_na})"
+      
+      $total_col
+      [1] "{n} ({p_row_na})"
+      
+      $total_all
+      [1] "{n} ({p_tot_na})"
+      
+    Code
+      get_percent_pattern(c("cells", "row", "column"))
+    Output
+      $body
+      {n} ({p_tot} / {p_col} / {p_row})
+      
+      $total_row
+      [1] "{n} ({p_col})"
+      
+      $total_col
+      [1] "{n} ({p_row})"
+      
+      $total_all
+      [1] "{n} ({p_tot})"
+      
+    Code
+      get_percent_pattern(c("cells", "row", "column"), na = TRUE)
+    Output
+      $body
+      [1] "{n} ({p_tot_na} / {p_col_na} / {p_row_na})"
+      
+      $total_row
+      [1] "{n} ({p_col_na})"
+      
+      $total_col
+      [1] "{n} ({p_row_na})"
+      
+      $total_all
+      [1] "{n} ({p_tot_na})"
+      
+    Code
+      get_percent_pattern(margin = TRUE)
+    Output
+      $body
+      [1] "{n} ({p_row} / {p_col})"
+      
+      $total_row
+      [1] "{n} ({p_col})"
+      
+      $total_col
+      [1] "{n} ({p_row})"
+      
+      $total_all
+      [1] "{n} ({p_tot})"
+      
+    Code
+      get_percent_pattern(margin = 1)
+    Output
+      $body
+      {n} ({p_row})
+      
+      $total_row
+      [1] "{n} ({p_col})"
+      
+      $total_col
+      [1] "{n} ({p_row})"
+      
+      $total_all
+      [1] "{n} ({p_tot})"
+      
+    Code
+      get_percent_pattern(margin = c(1, 0, 2))
+    Output
+      $body
+      {n} ({p_tot} / {p_row} / {p_col})
+      
+      $total_row
+      [1] "{n} ({p_col})"
+      
+      $total_col
+      [1] "{n} ({p_row})"
+      
+      $total_all
+      [1] "{n} ({p_tot})"
+      
+    Code
+      get_percent_pattern(margin = 1:2)
+    Output
+      $body
+      {n} ({p_row} / {p_col})
+      
+      $total_row
+      [1] "{n} ({p_col})"
+      
+      $total_col
+      [1] "{n} ({p_row})"
+      
+      $total_all
+      [1] "{n} ({p_tot})"
+      
+    Code
+      get_percent_pattern(margin = 2:1)
+    Output
+      $body
+      {n} ({p_row} / {p_col})
+      
+      $total_row
+      [1] "{n} ({p_col})"
+      
+      $total_col
+      [1] "{n} ({p_row})"
+      
+      $total_all
+      [1] "{n} ({p_tot})"
+      
+    Code
+      get_percent_pattern(margin = "row")
+    Output
+      $body
+      {n} ({p_row})
+      
+      $total_row
+      [1] "{n} ({p_col})"
+      
+      $total_col
+      [1] "{n} ({p_row})"
+      
+      $total_all
+      [1] "{n} ({p_tot})"
+      
+    Code
+      get_percent_pattern(margin = c("row", "cells", "column"))
+    Output
+      $body
+      {n} ({p_tot} / {p_col} / {p_row})
+      
+      $total_row
+      [1] "{n} ({p_col})"
+      
+      $total_col
+      [1] "{n} ({p_row})"
+      
+      $total_all
+      [1] "{n} ({p_tot})"
+      
+
