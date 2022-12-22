@@ -1,10 +1,12 @@
 
+
+# Options and packages ------------------------------------------------------------------------
+
 Sys.setenv(LANGUAGE = "en")
 Sys.setenv(TZ='Europe/Paris')
-
-
 options(
   encoding="UTF-8",
+  # width = 200,
   # warn=0, #default, stacks
   warn=1, #immediate.=TRUE
   # warn=2, #error
@@ -12,33 +14,28 @@ options(
   # warnPartialMatchAttr=TRUE,
   # warnPartialMatchDollar=TRUE,
   stringsAsFactors=FALSE,
-  dplyr.summarise.inform=FALSE,
   # conflicts.policy="depends.ok",
+  dplyr.summarise.inform=FALSE,
   tidyverse.quiet=TRUE,
   tidyselect_verbosity ="verbose",#quiet or verbose
   lifecycle_verbosity="warning", #NULL, "quiet", "warning" or "error"
   # lifecycle_verbosity="verbose",
   testthat.progress.max_fails = 50
 )
-
-# options(width = 200)
-
 crosstable_options(verbosity_autotesting="quiet")
-# if(testthat::is_testing()){
-# print(is_parallel())
-
-v=utils::View
-if(FALSE){
-  # prettycode::prettycode()
-}
+# prettycode::prettycode()
 
 
-library(dplyr, warn.conflicts = FALSE)
-library(crosstable, warn.conflicts = FALSE)
-library(stats, warn.conflicts = FALSE)
-library(officer, warn.conflicts = FALSE)
-# library(survival, warn.conflicts = FALSE)
-# compact=crosstable::compact
+#'@source https://stackoverflow.com/a/52066708/3888000
+shhh = function(expr) suppressPackageStartupMessages(suppressWarnings(expr))
+shhh(library(dplyr))
+shhh(library(officer))
+shhh(library(crosstable))
+shhh(library(stats))
+# shhh(library(survival))
+
+
+# Dataset -------------------------------------------------------------------------------------
 
 set.seed(1234)
 mtcars3 = as_tibble(mtcars2)
@@ -59,8 +56,9 @@ mtcars3$surv = survival::Surv(mtcars3$disp, mtcars3$am=="manual") %>% set_label(
 mtcars3$diff = difftime(mtcars3$hp_date, mtcars3$qsec_posix, units="days") %>% set_label("Difftime hp_date-qsec_posix (days)")
 
 
+# Functions -----------------------------------------------------------------------------------
 
-# Functions ---------------------------------------------------------------
+v = utils::View
 iris2names = c(SL="Sepal.Length", SW="Sepal.Width", PL="Petal.Length", PW="Petal.Width", Sp="Species")
 iris2_num = iris2 %>% select(-Species)
 
@@ -107,7 +105,6 @@ expect_cross_bak = function(expr, xnames, byname, dim, expect=c("nothing", "sile
     expect_equal(unname(xnames), unique(x$.id))
 }
 
-
 snapshot_review_bg = function(...){
   # brw = function(url) .Call("rs_browseURL", url, PACKAGE="(embedding)")
   brw = Sys.getenv("R_BROWSER")
@@ -115,7 +112,6 @@ snapshot_review_bg = function(...){
               package=TRUE,
               env = c(R_BROWSER = brw))
 }
-
 
 expect_warning2 = function(object, ...) {
   rtn = testthat::expect_warning(object, ...)
@@ -127,4 +123,5 @@ expect_warning2 = function(object, ...) {
   rtn
 }
 
-print('Helper loaded')
+
+print(glue('Helper loaded (is_testing={is_testing()}, is_parallel={is_parallel()})'))
