@@ -2,7 +2,7 @@
 title: "Using `percent_pattern`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{percent_pattern}
+  %\VignetteIndexEntry{Using `percent_pattern`}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

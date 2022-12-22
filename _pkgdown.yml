@@ -39,6 +39,7 @@ articles:
   - crosstable-selection
   - crosstable-report
   - crosstable-install
+  - percent_pattern
 
 
 reference:
@@ -91,6 +92,7 @@ reference:
 - title: "Utils"
   desc: "Practical functions for various purposes"
 - contents:
+  - get_percent_pattern
   - format_fixed
   - compact
   - plim
