@@ -142,7 +142,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
     sep.rows = which(rtn[[id]] != lead(rtn[[id]]))
     body_merge = intersect(names(rtn), generic_labels[c("label", "test", "effect", "id")]) %>%
       unlist()
-    cols = rtn %>% names()
+    cols = names(rtn)
 
     if(!keep_id) {
       cols = rtn %>% select(-any_of(id)) %>% names()

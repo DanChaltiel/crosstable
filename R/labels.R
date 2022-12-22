@@ -88,7 +88,7 @@ set_label = function(x, value, object=FALSE){
       for (each in seq_along(x))
         x[[each]] = set_label(x[[each]], value[[each]])
     } else {
-      cli_abort("`value` must be either length 1 or the same as `x`")
+      cli_abort("{.arg value} must be named or must be either length 1 or the same as `x`")
       #TODO faire des tests pour ces deux nouvelles conditions !
     }
     return(x)

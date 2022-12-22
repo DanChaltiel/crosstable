@@ -14,7 +14,7 @@ test_that("Compact method error if list without purrr", {
 
 test_that("Compact method OK with purrr", {
     ll=list(a = "a", b = NULL, c = integer(0), d = NA, e = list())
-    library(purrr, include.only="compact", warn.conflicts=FALSE)
+    shhh(library(purrr))
     compact=crosstable::compact
     expect_identical(compact(ll), list(a="a",d=NA))
 
