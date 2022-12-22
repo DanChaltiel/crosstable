@@ -20,6 +20,7 @@ crosstable_options(
   funs,
   funs_arg,
   cor_method,
+  drop_levels,
   unique_numeric,
   date_format,
   times,
@@ -94,6 +95,8 @@ crosstable_options(
 \item{funs_arg}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
 \item{cor_method}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{drop_levels}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
 \item{unique_numeric}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 

@@ -18,7 +18,7 @@ crosstable(
   funs = c(` ` = cross_summary),
   funs_arg = list(),
   cor_method = c("pearson", "kendall", "spearman"),
-  drop_levels = TRUE,
+  drop_levels = FALSE,
   unique_numeric = 3,
   date_format = NULL,
   times = NULL,
