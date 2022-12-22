@@ -105,7 +105,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
                       showNA = c("ifany", "always", "no"), label = TRUE,
                       funs = c(" " = cross_summary), funs_arg=list(),
                       cor_method = c("pearson", "kendall", "spearman"),
-                      drop_levels = TRUE,
+                      drop_levels = FALSE,
                       unique_numeric = 3, date_format=NULL,
                       times = NULL, followup = FALSE,
                       test = FALSE, test_args = crosstable_test_args(),
@@ -127,6 +127,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   if(missing(funs)) funs = getOption("crosstable_funs",  c(" " = cross_summary))
   if(missing(funs_arg)) funs_arg = getOption("crosstable_funs_arg",  list())
   if(missing(cor_method)) cor_method = getOption("crosstable_cor_method",  "pearson")
+  if(missing(drop_levels)) drop_levels = getOption("crosstable_drop_levels",  FALSE)
   if(missing(unique_numeric)) unique_numeric = getOption("crosstable_unique_numeric", 3)
   if(missing(date_format)) date_format = getOption("crosstable_date_format",  NULL)
   if(missing(times)) times = getOption("crosstable_times", NULL)

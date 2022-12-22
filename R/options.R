@@ -22,6 +22,7 @@
 #' @param funs For setting [crosstable()] arguments globally.
 #' @param funs_arg For setting [crosstable()] arguments globally.
 #' @param cor_method For setting [crosstable()] arguments globally.
+#' @param drop_levels For setting [crosstable()] arguments globally.
 #' @param unique_numeric For setting [crosstable()] arguments globally.
 #' @param date_format For setting [crosstable()] arguments globally.
 #' @param times For setting [crosstable()] arguments globally.
@@ -78,7 +79,7 @@ crosstable_options = function(
     verbosity_duplicate_cols="default",
     crosstable_fishertest_B=1e5,
     total, percent_pattern, percent_digits, num_digits, showNA, label, funs, funs_arg,
-    cor_method, unique_numeric, date_format, times, followup, test_arg, effect_args,
+    cor_method, drop_levels, unique_numeric, date_format, times, followup, test_arg, effect_args,
     #as_flextable()
     wrap_id=70,
     compact_padding=25,

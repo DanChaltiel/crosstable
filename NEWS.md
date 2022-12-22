@@ -23,11 +23,11 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 
 -   `copy_label_from()` now works on dataframes as well.
 
+-   New argument `crosstable(drop_levels)` to drop unused levels in factors.
+
 #### Breaking changes (minor)
 
 -   `showNA="no"` is now consistent with `gtsummary::tbl_cross(missing="no")` and `janitor::tabyl(show_na=FALSE)` and actually removes all `NA` from the equation, instead of not doing much (#24).
-
--   New argument `crosstable(drop_levels)` to drop unused levels in factors. Default to `TRUE` even though it is new.
 
 -   Renamed `p_cell` to `p_tot` for clarity
 
