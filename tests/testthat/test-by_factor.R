@@ -118,35 +118,36 @@ test_that("Margins with totals", {
 
 test_that("Percent pattern", {
   local_reproducible_output(width = 1000)
-  crosstable(mtcars3, cyl, percent_pattern="{p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]", total=TRUE)
-  crosstable(mtcars3, cyl, percent_pattern="{p_col_na} ({n}/{n_col_na}) [95%CI: {p_col_na_inf}; {p_col_na_sup}]", total=TRUE)
 
-  #TODO percent_pattern as list
-  ULTIMATE_PATTERN=list(body="Cell: p = {p_tot} ({n}/{n_tot}) [95%CI {p_tot_inf}; {p_tot_sup}]
-                        Col: p = {p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}] \nRow:p = {p_row} ({n}/{n_row}): [95%CI: {p_row_inf}; {p_row_sup}]",
-                        total_row="N={n} \nRow:p = {p_row} ({n}/{n_row}) [95%CI: {p_row_inf}; {p_row_sup}]",
-                        total_col="N={n} \nCol: p = {p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]",
-                        total_all="N={n} (100%) [95%CI: {p_col_inf}; {p_col_sup}]")
-  ULTIMATE_PATTERN_NA=list(body="Cell: p = {p_tot_na} ({n}/{n_tot_na}) [95%CI {p_tot_na_inf}; {p_tot_na_sup}]
-                        Col: p = {p_col_na} ({n}/{n_col_na}) [95%CI: {p_col_na_inf}; {p_col_na_sup}] \nRow:p = {p_row_na} ({n}/{n_row_na}): [95%CI: {p_row_na_inf}; {p_row_na_sup}]",
-                        total_row="N={n} \nRow:p = {p_row_na} ({n}/{n_row_na}) [95%CI: {p_row_na_inf}; {p_row_na_sup}]",
-                        total_col="N={n} \nCol: p = {p_col_na} ({n}/{n_col_na}) [95%CI: {p_col_na_inf}; {p_col_na_sup}]",
-                        total_all="N={n} (100%) [95%CI: {p_col_na_inf}; {p_col_na_sup}]")
+  PERCENT_PATTERN="N={n}
+                    Cell: p = {p_tot} ({n}/{n_tot}) [95%CI {p_tot_inf}; {p_tot_sup}]
+                    Col: p = {p_col} ({n}/{n_col}) [95%CI {p_col_inf}; {p_col_sup}]
+                    Row:p = {p_row} ({n}/{n_row}) [95%CI {p_row_inf}; {p_row_sup}]"
+  expect_snapshot({
+    #no by
+    x0=crosstable(mtcars3, cyl,
+                  percent_digits=0, total=TRUE, showNA="always",
+                  percent_pattern=PERCENT_PATTERN)
+    as.data.frame(x0)
+    #by=am
+    x1=crosstable(mtcars3, cyl, by=am,
+                  percent_digits=0, total=TRUE, showNA="always",
+                  percent_pattern=PERCENT_PATTERN)
+    as.data.frame(x1)
+    #multiby
+    x2=crosstable(mtcars3, c(mpg, vs, cyl), by=c(am, dummy),
+                  percent_digits=0, total=TRUE, showNA="always",
+                  percent_pattern=PERCENT_PATTERN)
+    as.data.frame(x2)
+  })
 
-  ULTIMATE_PATTERN2=list(body="N={n} \nCol: p = {p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}] \nRow:p[95%CI] = {p_row} ({n}/{n_row}): [95%CI: {p_row_inf}; {p_row_sup}]",
-                         # total_row="N={n} \nRow:p = {p_row} ({n}/{n_row}) [95%CI: {p_row_inf}; {p_row_sup}]", #TODO
-                         total_col="N={n} \nCol: p = {p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]",
-                         total_all="N={n} (100%) {p_col_inf}")
+  expect_error(crosstable(mtcars3, cyl, by=vs, percent_pattern="N={n} \nrow={p_row}, col={xxx}"),
+               class="crosstable_percent_pattern_wrong_variable_error")
 
+})
 
-  ULTIMATE_PATTERN=list(
-    body="Cell: p = {p_tot} ({n}/{n_tot}) [95%CI {p_tot_inf}; {p_tot_sup}]
-          Col: p = {p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]
-          Row: p = {p_row} ({n}/{n_row}) [95%CI: {p_row_inf}; {p_row_sup}]",
-    total_row="N={n} \nRow:p = {p_row} ({n}/{n_row}) [95%CI: {p_row_inf}; {p_row_sup}]",
-    total_col="N={n} \nCol: p = {p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]",
-    total_all="N={n} (100%) [95%CI: {p_col_inf}; {p_col_sup}]"
-  )
+test_that("Percent pattern - Ultimate", {
+  local_reproducible_output(width = 1000)
 
   ULTIMATE_PATTERN=list(
     body="N={n}
@@ -165,57 +166,21 @@ test_that("Percent pattern", {
                Col (NA): p = {p_col_na} ({n}/{n_col_na}) [{p_col_na_inf}; {p_col_na_sup}]",
     total_all="N={n}
                P: {p_col} [{p_col_inf}; {p_col_sup}]
-               P (NA): {p_col} [{p_col_na_inf}; {p_col_na_sup}]"
+               P (NA): {p_col_na} [{p_col_na_inf}; {p_col_na_sup}]"
   )
 
-
-
-
-
-  # x1=crosstable(mtcars3, cyl, by=am,
-  x1=crosstable(mtcars3, cyl, by=vs,
-                percent_digits=0, total=TRUE, showNA="always",
-                percent_pattern=ULTIMATE_PATTERN)
-  af(x1) %>% flextable::theme_box()
-  x2=crosstable(mtcars3, cyl, by=vs,
-                percent_digits=0, total=TRUE, showNA="no",
-                percent_pattern=ULTIMATE_PATTERN)
-  af(x2) %>% flextable::theme_box()
-
-
-
-
-  crosstable(mtcars2, cyl, total = "both") %>% af
-  crosstable(mtcars2, cyl, by=am, total = "both") %>% af
-  crosstable(mtcars2, cyl, by=am, total = "both", percent_pattern=ULTIMATE_PATTERN) %>% af
-  crosstable(mtcars3, c(am, cyl), by = vs, total = "both", margin = "none")
-
-
-  ULTIMATE_PATTERN="N={n}
-                    Cell: p = {p_tot} ({n}/{n_tot}) [95%CI {p_tot_inf}; {p_tot_sup}]
-                    Col: p = {p_col} ({n}/{n_col}) [95%CI {p_col_inf}; {p_col_sup}]
-                    Row:p = {p_row} ({n}/{n_row}) [95%CI {p_row_inf}; {p_row_sup}]"
   expect_snapshot({
-    #no by
-    x0=crosstable(mtcars3, cyl,
-                  percent_digits=0, total=TRUE, showNA="always",
-                  percent_pattern=ULTIMATE_PATTERN)
-    as.data.frame(x0)
-    #by=am
-    x1=crosstable(mtcars3, cyl, by=am,
+    #showNA="always"
+    x1=crosstable(mtcars3, cyl, by=vs,
                   percent_digits=0, total=TRUE, showNA="always",
                   percent_pattern=ULTIMATE_PATTERN)
     as.data.frame(x1)
-    #multiby
-    x2=crosstable(mtcars3, c(mpg, vs, cyl), by=c(am, dummy),
-                  percent_digits=0, total=TRUE, showNA="always",
+    #showNA="no"
+    x2=crosstable(mtcars3, cyl, by=vs,
+                  percent_digits=0, total=TRUE, showNA="no",
                   percent_pattern=ULTIMATE_PATTERN)
     as.data.frame(x2)
   })
-
-  expect_error(crosstable(mtcars3, cyl, by=vs, percent_pattern="N={n} \nrow={p_row}, col={xxx}"),
-               class="crosstable_percent_pattern_wrong_variable_error")
-
 })
 
 

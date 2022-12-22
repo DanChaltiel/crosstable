@@ -450,7 +450,7 @@
 # Percent pattern
 
     Code
-      x0 = crosstable(mtcars3, cyl, percent_digits = 0, total = TRUE, showNA = "always", percent_pattern = ULTIMATE_PATTERN)
+      x0 = crosstable(mtcars3, cyl, percent_digits = 0, total = TRUE, showNA = "always", percent_pattern = PERCENT_PATTERN)
       as.data.frame(x0)
     Output
         .id               label variable                                                                                                                     value
@@ -460,7 +460,7 @@
       4 cyl Number of cylinders       NA                                                                                                                         5
       5 cyl Number of cylinders    Total                                                                                                                 32 (100%)
     Code
-      x1 = crosstable(mtcars3, cyl, by = am, percent_digits = 0, total = TRUE, showNA = "always", percent_pattern = ULTIMATE_PATTERN)
+      x1 = crosstable(mtcars3, cyl, by = am, percent_digits = 0, total = TRUE, showNA = "always", percent_pattern = PERCENT_PATTERN)
       as.data.frame(x1)
     Output
         .id               label variable                                                                                                                      auto                                                                                                                manual   NA     Total
@@ -470,7 +470,7 @@
       4 cyl Number of cylinders       NA                                                                                                                         2                                                                                                                     3    0         5
       5 cyl Number of cylinders    Total                                                                                                                  19 (59%)                                                                                                              13 (41%) <NA> 32 (100%)
     Code
-      x2 = crosstable(mtcars3, c(mpg, vs, cyl), by = c(am, dummy), percent_digits = 0, total = TRUE, showNA = "always", percent_pattern = ULTIMATE_PATTERN)
+      x2 = crosstable(mtcars3, c(mpg, vs, cyl), by = c(am, dummy), percent_digits = 0, total = TRUE, showNA = "always", percent_pattern = PERCENT_PATTERN)
       as.data.frame(x2)
     Output
          .id               label   variable                                                                                                     am=auto & dummy=dummy                                                                                               am=manual & dummy=dummy    NA            Total
@@ -487,6 +487,28 @@
       11 cyl Number of cylinders          8 N=11\nCell: p = 41% (11/27) [95%CI 25%; 59%]\nCol: p = 65% (11/17) [95%CI 41%; 83%]\nRow:p = 85% (11/13) [95%CI 58%; 96%]     N=2\nCell: p = 7% (2/27) [95%CI 2%; 23%]\nCol: p = 20% (2/10) [95%CI 6%; 51%]\nRow:p = 15% (2/13) [95%CI 4%; 42%]     0         13 (48%)
       12 cyl Number of cylinders         NA                                                                                                                         2                                                                                                                     3     0                5
       13 cyl Number of cylinders      Total                                                                                                                  19 (59%)                                                                                                              13 (41%)  <NA>        32 (100%)
+
+# Percent pattern - Ultimate
+
+    Code
+      x1 = crosstable(mtcars3, cyl, by = vs, percent_digits = 0, total = TRUE, showNA = "always", percent_pattern = ULTIMATE_PATTERN)
+      as.data.frame(x1)
+    Output
+        .id               label variable                                                                                                                                                                                                                 straight                                                                                                                                                                                                                            vshaped NA                                                                       Total
+      1 cyl Number of cylinders        4 N=7\nCell: p = 35% (7/20) [2e+01%; 57%]\nCol: p = 100% (7/7) [65%; 100%]\nRow: p = 88% (7/8) [53%; 98%]\n\nCell (NA): p = 22% (7/32) [11%; 39%]\nCol (NA): p = 78% (7/9) [45%; 94%]\nRow (NA): p = 70% (7/10) [40%; 89%]                    N=1\nCell: p = 5% (1/20) [9e-01%; 24%]\nCol: p = 8% (1/13) [1%; 33%]\nRow: p = 12% (1/8) [2%; 47%]\n\nCell (NA): p = 3% (1/32) [1%; 16%]\nCol (NA): p = 7% (1/15) [1%; 30%]\nRow (NA): p = 10% (1/10) [2%; 40%]  2 N=10\nCol: p = 37% (10/27) [22%; 56%]\nCol (NA): p = 31% (10/32) [18%; 49%]
+      2 cyl Number of cylinders        6               N=0\nCell: p = 0% (0/20) [1e-15%; 16%]\nCol: p = 0% (0/7) [0%; 35%]\nRow: p = 0% (0/1) [0%; 79%]\n\nCell (NA): p = 0% (0/32) [0%; 11%]\nCol (NA): p = 0% (0/9) [0%; 30%]\nRow (NA): p = 0% (0/4) [0%; 49%]                  N=1\nCell: p = 5% (1/20) [9e-01%; 24%]\nCol: p = 8% (1/13) [1%; 33%]\nRow: p = 100% (1/1) [21%; 100%]\n\nCell (NA): p = 3% (1/32) [1%; 16%]\nCol (NA): p = 7% (1/15) [1%; 30%]\nRow (NA): p = 25% (1/4) [5%; 70%]  3      N=4\nCol: p = 15% (4/27) [6%; 32%]\nCol (NA): p = 12% (4/32) [5%; 28%]
+      3 cyl Number of cylinders        8             N=0\nCell: p = 0% (0/20) [1e-15%; 16%]\nCol: p = 0% (0/7) [0%; 35%]\nRow: p = 0% (0/11) [0%; 26%]\n\nCell (NA): p = 0% (0/32) [0%; 11%]\nCol (NA): p = 0% (0/9) [0%; 30%]\nRow (NA): p = 0% (0/13) [0%; 23%] N=11\nCell: p = 55% (11/20) [3e+01%; 74%]\nCol: p = 85% (11/13) [58%; 96%]\nRow: p = 100% (11/11) [74%; 100%]\n\nCell (NA): p = 34% (11/32) [20%; 52%]\nCol (NA): p = 73% (11/15) [48%; 89%]\nRow (NA): p = 85% (11/13) [58%; 96%]  2 N=13\nCol: p = 48% (13/27) [31%; 66%]\nCol (NA): p = 41% (13/32) [26%; 58%]
+      4 cyl Number of cylinders       NA                                                                                                                                                                                                                        2                                                                                                                                                                                                                                  2  1                                                                           5
+      5 cyl Number of cylinders    Total                                                                                                                                                 N=9\nRow: p = 38% (9/24) [21%; 57%]\nRow (NA): p = 28% (9/32) [16%; 45%]                                                                                                                                                        N=15\nRow: p = 62% (15/24) [43%; 79%]\nRow (NA): p = 47% (15/32) [31%; 64%]  8                         N=32\nP: 100% [89%; 100%]\nP (NA): 100% [89%; 100%]
+    Code
+      x2 = crosstable(mtcars3, cyl, by = vs, percent_digits = 0, total = TRUE, showNA = "no", percent_pattern = ULTIMATE_PATTERN)
+      as.data.frame(x2)
+    Output
+        .id               label variable                                                                                                                                                                                                                     straight                                                                                                                                                                                                                                 vshaped                                                                          Total
+      1 cyl Number of cylinders        4 N=7\nCell: p = 35% (7/20) [2e+01%; 57%]\nCol: p = 100% (7/7) [65%; 100%]\nRow: p = 88% (7/8) [53%; 98%]\n\nCell (NA): p = 35% (7/20) [2e+01%; 57%]\nCol (NA): p = 100% (7/7) [65%; 100%]\nRow (NA): p = 88% (7/8) [53%; 98%]                      N=1\nCell: p = 5% (1/20) [9e-01%; 24%]\nCol: p = 8% (1/13) [1%; 33%]\nRow: p = 12% (1/8) [2%; 47%]\n\nCell (NA): p = 5% (1/20) [9e-01%; 24%]\nCol (NA): p = 8% (1/13) [1%; 33%]\nRow (NA): p = 12% (1/8) [2%; 47%]    N=8\nCol: p = 40% (8/20) [22%; 61%]\nCol (NA): p = 40% (8/20) [2e+01%; 61%]
+      2 cyl Number of cylinders        6               N=0\nCell: p = 0% (0/20) [1e-15%; 16%]\nCol: p = 0% (0/7) [0%; 35%]\nRow: p = 0% (0/1) [0%; 79%]\n\nCell (NA): p = 0% (0/20) [1e-15%; 16%]\nCol (NA): p = 0% (0/7) [0%; 35%]\nRow (NA): p = 0% (0/1) [0%; 79%]                N=1\nCell: p = 5% (1/20) [9e-01%; 24%]\nCol: p = 8% (1/13) [1%; 33%]\nRow: p = 100% (1/1) [21%; 100%]\n\nCell (NA): p = 5% (1/20) [9e-01%; 24%]\nCol (NA): p = 8% (1/13) [1%; 33%]\nRow (NA): p = 100% (1/1) [21%; 100%]       N=1\nCol: p = 5% (1/20) [1%; 24%]\nCol (NA): p = 5% (1/20) [9e-01%; 24%]
+      3 cyl Number of cylinders        8             N=0\nCell: p = 0% (0/20) [1e-15%; 16%]\nCol: p = 0% (0/7) [0%; 35%]\nRow: p = 0% (0/11) [0%; 26%]\n\nCell (NA): p = 0% (0/20) [1e-15%; 16%]\nCol (NA): p = 0% (0/7) [0%; 35%]\nRow (NA): p = 0% (0/11) [0%; 26%] N=11\nCell: p = 55% (11/20) [3e+01%; 74%]\nCol: p = 85% (11/13) [58%; 96%]\nRow: p = 100% (11/11) [74%; 100%]\n\nCell (NA): p = 55% (11/20) [3e+01%; 74%]\nCol (NA): p = 85% (11/13) [58%; 96%]\nRow (NA): p = 100% (11/11) [74%; 100%] N=11\nCol: p = 55% (11/20) [34%; 74%]\nCol (NA): p = 55% (11/20) [3e+01%; 74%]
+      4 cyl Number of cylinders    Total                                                                                                                                                     N=7\nRow: p = 35% (7/20) [18%; 57%]\nRow (NA): p = 35% (7/20) [18%; 57%]                                                                                                                                                             N=13\nRow: p = 65% (13/20) [43%; 82%]\nRow (NA): p = 65% (13/20) [43%; 82%]                            N=20\nP: 100% [84%; 100%]\nP (NA): 100% [84%; 100%]
 
 # Unique numeric
 
