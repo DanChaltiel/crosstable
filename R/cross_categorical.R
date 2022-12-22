@@ -318,7 +318,6 @@ getTable = function(x, by, type=c("n", "p_tot", "p_row", "p_col")){
     as.data.frame(responseName=type)
 }
 
-#' @importFrom rlang as_function
 #' @keywords internal
 #' @noRd
 getTableCI = function(x, digits, method="wilson"){
@@ -338,7 +337,7 @@ getTableCI = function(x, digits, method="wilson"){
 
 #@include utils.r
 #add all combinations to global variables
-x=c("cell", "row", "col")
+x=c("cell", "row", "col", "tot")
 n=c("n", "n_row", "n_col", "n_tot", "n_row_na", "n_col_na", "n_tot_na")
 p=paste0("p_", x)
 p_na=paste0(p, "_na")

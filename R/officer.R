@@ -277,10 +277,12 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #' }
 #' read_docx() %>%
 #'   body_add_title("Separated by subtitle", 1) %>%
-#'   body_add_table_list(ctl, fun="title2") %>%
+#'   body_add_table_list(ctl, fun_before="title2") %>%
 #'   body_add_break() %>%
 #'   body_add_title("Separated using a custom function", 1) %>%
-#'   body_add_normal("You can therefore use bookmarks, for instance here are tables \\@ref(iris2), \\@ref(just_a_flextable) and \\@ref(just_a_dataframe).") %>%
+#'   body_add_normal("You can therefore use bookmarks, for instance here are
+#'                    tables \\@ref(iris2), \\@ref(just_a_flextable)
+#'                    and \\@ref(just_a_dataframe).") %>%
 #'   body_add_table_list(ctl, fun_before=fun1, fun_after=fun2, body_fontsize=8) %>%
 #'   write_and_open()
 body_add_table_list = function(doc, l, fun_before="title2", fun_after=NULL,

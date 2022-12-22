@@ -138,7 +138,8 @@ You can find the whole documentation on the [dedicated website](https://danchalt
 
 + `vignette("crosstable")` for a first step-by-step guide on how to use `crosstable` ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html))
 + `vignette("crosstable-report")` for more on creating MS Word reports using either `{officer}` or `Rmarkdown` ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-report.html))
-+ `vignette("crosstable-selection")` for more on variable selection ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html))
++ `vignette("pertent_pattern")` for more on how to use `percent_pattern` ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html))
++ `vignette("crosstable-selection")` for more on variable selection ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html)), although you would better read https://tidyselect.r-lib.org/articles/syntax.html.
 
 
 There are lots of other features you can learn about there, for instance (non-exhaustive list):
