@@ -19,6 +19,9 @@
     <loc>https://danchaltiel.github.io/crosstable/articles/index.html</loc>
   </url>
   <url>
+    <loc>https://danchaltiel.github.io/crosstable/articles/percent_pattern.html</loc>
+  </url>
+  <url>
     <loc>https://danchaltiel.github.io/crosstable/authors.html</loc>
   </url>
   <url>
@@ -46,9 +49,6 @@
     <loc>https://danchaltiel.github.io/crosstable/reference/body_add_crosstable_footnote.html</loc>
   </url>
   <url>
-    <loc>https://danchaltiel.github.io/crosstable/reference/body_add_crosstable_list.html</loc>
-  </url>
-  <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/body_add_gg2.html</loc>
   </url>
   <url>
@@ -62,6 +62,9 @@
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/body_add_normal.html</loc>
+  </url>
+  <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/body_add_table_list.html</loc>
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/body_add_title.html</loc>
@@ -128,6 +131,9 @@
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/get_label.html</loc>
+  </url>
+  <url>
+    <loc>https://danchaltiel.github.io/crosstable/reference/get_percent_pattern.html</loc>
   </url>
   <url>
     <loc>https://danchaltiel.github.io/crosstable/reference/import_labels.html</loc>
