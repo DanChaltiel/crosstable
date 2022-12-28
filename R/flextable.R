@@ -233,9 +233,15 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
             .col_val = .col2[2]
             .n = sum(by_table[col_keys])
             ifelse(!is.na(.n) & .c[1] %in% header_show_n2,
-                   glue(header_show_n_pattern), .col)
+                   glue(header_show_n_pattern$cell), .col)
           }) %>%
           ungroup()
+
+        if(!is.null(header_show_n_pattern$total)){
+          tmp = glue(header_show_n_pattern$total, .n={attr(x,"N")})
+          header_mapping[header_mapping$col_keys=="Total", ".col_2"] = tmp
+          header_mapping[header_mapping$col_keys=="Total", ".col_1"] = tmp
+        }
       }
     }
 
