@@ -23,12 +23,25 @@ template:
 
 navbar:
   structure:
-    left:  [home, intro, articles, reference, news]
+    left:  [home, articles, reference, news]
     right: [docsearch, twitter, github]
   components:
     twitter:
         icon: "fab fa-twitter fa-lg"
         href: http://twitter.com/DanChaltiel
+    articles:
+      text: Articles
+      menu:
+      - text: Get started
+        href: articles/crosstable.html
+      - text: Select columns
+        href: articles/crosstable-selection.html
+      - text: Automatic reporting
+        href: articles/crosstable-report.html
+      - text: Installation troubleshooting
+        href: articles/crosstable-install.html
+      - text: Using `percent_pattern`
+        href: articles/percent_pattern.html
 
 
 articles:
