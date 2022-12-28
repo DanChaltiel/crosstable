@@ -48,7 +48,7 @@
 
 \item{header_show_n}{numeric vector telling on which depth the group size should be indicated in the header. You can control the pattern using option \code{crosstable_options}. See \code{\link[=crosstable_options]{crosstable_options()}} for details about it. See example for use case.}
 
-\item{header_show_n_pattern}{glue pattern used when \code{header_show_n==TRUE}. \code{.col} is the name of the column and \code{.n} the size of the group. Default to \code{{.col} (N={.n})}; you can use \code{{.col_key}} and \code{{.col_val}} when \code{by} has multiple stratum.}
+\item{header_show_n_pattern}{glue pattern used when \code{header_show_n==TRUE}. \code{.col} is the name of the column and \code{.n} the size of the group. Default to \code{{.col} (N={.n})}; you can also use \code{{.col_key}} and \code{{.col_val}} when \code{by} has multiple stratum. To control the "Total" column, enter this as a \code{list} with names "cell" and "total".}
 
 \item{generic_labels}{names of the crosstable default columns. Useful for translation for instance.}
 
@@ -73,8 +73,9 @@ crosstable(iris) \%>\% as_flextable()
 crosstable(mtcars2, -model, by=c(am, vs)) \%>\% as_flextable(header_show_n=1:2)
 crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE) \%>\%
    as_flextable(keep_id=TRUE, autofit=FALSE)
-crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE) \%>\%
-   as_flextable(compact=TRUE, header_show_n=TRUE)
+crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE, total=TRUE) \%>\%
+   as_flextable(compact=TRUE, header_show_n=TRUE,
+                header_show_n_pattern=list(cell="{.col} (N={.n})", total="Total\n(N={.n})"))
 
 #Renaming (because why not?)
 crosstable(mtcars2, am, by=vs, total="both", test=TRUE, effect=TRUE) \%>\%

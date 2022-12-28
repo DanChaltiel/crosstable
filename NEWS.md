@@ -25,11 +25,13 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 
 -   `copy_label_from()` now works on dataframes as well.
 
+-   `as_flextable(header_show_n_pattern)` can now be a list of names `cell` and `total`, so that the "Total" column can be labelled too.
+
 #### Breaking changes (minor)
 
 -   `showNA="no"` is now consistent with `stats::addmargins()`, `gtsummary::tbl_cross(missing="no")` and `janitor::tabyl(show_na=FALSE)` and actually removes all `NA` from the equation, instead of not doing much (#24).
 
--   In `percent_patern`, renamed `p_cell` to `p_tot` for clarity
+-   In `percent_patern`, the proportion relative to the total sample `p_cell` has been renamed to `p_tot` for clarity.
 
 #### Bug fixes
 

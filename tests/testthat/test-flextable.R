@@ -6,7 +6,7 @@ ct3 = crosstable(mtcars3, c(disp, gear), by=c(vs, cyl3, am))
 get_header_df = function(ft) ft$header$dataset
 
 
-test_that("flextable header default", {
+test_that("header default", {
   expect_snapshot({
     ct1 %>% as_flextable() %>% get_header_df()
     ct2 %>% as_flextable() %>% get_header_df()
@@ -14,7 +14,7 @@ test_that("flextable header default", {
   })
 })
 
-test_that("flextable header by_header (monoby)", {
+test_that("header by_header (monoby)", {
   expect_equal(ct1 %>% as_flextable(),
                ct1 %>% as_flextable(by_header=TRUE))
   expect_equal(ct1 %>% as_flextable(by_header=NULL),
@@ -27,7 +27,7 @@ test_that("flextable header by_header (monoby)", {
   })
 })
 
-test_that("flextable generic_labels", {
+test_that("generic_labels", {
   expect_snapshot({
     crosstable(mtcars2, am, by=vs, total="both", test=TRUE, effect=TRUE) %>%
       rename(ID=.id, math=variable, Tot=Total, lab=label, pval=test, fx=effect) %>%
@@ -38,8 +38,22 @@ test_that("flextable generic_labels", {
   })
 })
 
+test_that("get_show_n_pattern", {
+  expect_snapshot({
+    get_show_n_pattern()
+    get_show_n_pattern("a")
+    get_show_n_pattern(list(cell="a"))
+    get_show_n_pattern(list(total="b"))
+    get_show_n_pattern(list(cell="a", total="b"))
+  })
+  get_show_n_pattern(1) %>% expect_error(class="get_show_n_pattern_class")
+  get_show_n_pattern(c("a", "b")) %>% expect_error(class="get_show_n_pattern_class")
+  get_show_n_pattern(list("a", "b")) %>% expect_error(class="get_show_n_pattern_names")
+  get_show_n_pattern(list(cell=1)) %>% expect_error(class="get_show_n_pattern_length")
+})
 
-test_that("flextable header header_show_n+pattern", {
+
+test_that("header header_show_n+pattern", {
   expect_snapshot({
     ct2 %>%
       as_flextable(header_show_n=TRUE,
@@ -49,7 +63,7 @@ test_that("flextable header header_show_n+pattern", {
   })
 })
 
-test_that("flextable header header_show_n+remove_header_keys", {
+test_that("header header_show_n+remove_header_keys", {
   expect_snapshot({
     ct2 %>%
       as_flextable(header_show_n=TRUE,
@@ -62,14 +76,14 @@ test_that("flextable header header_show_n+remove_header_keys", {
 
 # ct2 %>% as_flextable(header_show_n=1:2) %>% get_header_df()
 
-test_that("flextable header remove_header_keys", {
+test_that("header remove_header_keys", {
   expect_snapshot({
     ct1 %>% as_flextable(remove_header_keys=T) %>% get_header_df()
     ct3 %>% as_flextable(remove_header_keys=T) %>% get_header_df()
   })
 })
 
-test_that("flextable header header_show_n", {
+test_that("header header_show_n", {
   expect_snapshot({
     ct1 %>% as_flextable(header_show_n=TRUE) %>% get_header_df()
     ct3 %>% as_flextable(header_show_n=TRUE) %>% get_header_df()
@@ -101,7 +115,7 @@ test_that("flextable header header_show_n", {
 
 
 
-# test_that("flextable header", {
+# test_that("header", {
 #     expect_snapshot({
 #         ct1 %>% as_flextable() %>% get_header_df()
 #         ct2 %>% as_flextable() %>% get_header_df()
@@ -111,7 +125,7 @@ test_that("flextable header header_show_n", {
 
 
 
-# test_that("flextable header", {
+# test_that("header", {
 #     expect_snapshot({
 #         ct2 %>% as_flextable() %>% {.$header$dataset}
 #         ct2 %>% as_flextable(remove_header_keys=T) %>% {.$header$dataset}
