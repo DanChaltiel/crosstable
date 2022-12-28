@@ -47,7 +47,7 @@ crosstable_caller = rlang::env()
 #' @export
 #' @importFrom checkmate makeAssertCollection reportAssertions assert_data_frame assert_count assert_string assert_logical assert_list assert_subset assert_choice
 #' @importFrom rlang quos enquos enquo expr quo_is_null is_null is_quosures is_formula is_string is_empty is_lambda as_function set_env quo_squash caller_env quo_is_missing check_dots_unnamed
-#' @importFrom tidyselect vars_select eval_select everything any_of
+#' @importFrom tidyselect everything any_of
 #' @importFrom dplyr select n_distinct across
 #' @importFrom purrr map map_lgl map_chr map_dfc pmap_dfr
 #' @importFrom forcats as_factor
@@ -115,7 +115,6 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   debug=list()
   local_options(stringsAsFactors=FALSE)
   crosstable_caller$env = rlang::current_env()
-  # TODO bypos = eval_select(expr(by), data)
 
   # Options -------------------------------------------------------------
   missing_percent_pattern = missing(percent_pattern)

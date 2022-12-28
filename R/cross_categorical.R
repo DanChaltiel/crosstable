@@ -97,7 +97,6 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
 #' @importFrom purrr map reduce safely
 #' @importFrom tidyr unite pivot_wider
 #' @importFrom glue glue
-#' @importFrom tidyselect peek_vars
 #' @keywords internal
 #' @noRd
 summarize_categorical_by = function(x, by,
@@ -138,7 +137,7 @@ summarize_categorical_by = function(x, by,
     mutate(n_tot=.env$n_tot, n_tot_na=.env$n_tot_na,
            across(c(p_col, p_row, p_tot), ~ifelse(is.na(x), NA, .x))) %>%
     getTableCI(digits=digits) %>%
-    relocate(x, by, n, sort(peek_vars()))
+    select(x, by, n, order(colnames(.)))
 
   rtn = .table %>%
     transmute(variable=x %>% str_replace("NA", "'NA'") %>% replace_na("NA"),
