@@ -154,6 +154,7 @@ remove_label = remove_labels
 #'
 #' @return A dataframe which names are copied from the label attribute
 #'
+#' @importFrom tidyselect eval_select
 #' @importFrom checkmate assert_data_frame
 #' @author Dan Chaltiel
 #' @export
