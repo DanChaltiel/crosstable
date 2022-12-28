@@ -21,15 +21,15 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 
 -   New function `get_percent_pattern()`. See also the new vignette about this `vignette("percent_pattern")`.
 
--   `copy_label_from()` now works on dataframes as well.
+-   New argument `crosstable(drop_levels=TRUE)` to drop unused levels in factors.
 
--   New argument `crosstable(drop_levels)` to drop unused levels in factors.
+-   `copy_label_from()` now works on dataframes as well.
 
 #### Breaking changes (minor)
 
--   `showNA="no"` is now consistent with `gtsummary::tbl_cross(missing="no")` and `janitor::tabyl(show_na=FALSE)` and actually removes all `NA` from the equation, instead of not doing much (#24).
+-   `showNA="no"` is now consistent with `stats::addmargins()`, `gtsummary::tbl_cross(missing="no")` and `janitor::tabyl(show_na=FALSE)` and actually removes all `NA` from the equation, instead of not doing much (#24).
 
--   Renamed `p_cell` to `p_tot` for clarity
+-   In `percent_patern`, renamed `p_cell` to `p_tot` for clarity
 
 #### Bug fixes
 
