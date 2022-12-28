@@ -51,7 +51,6 @@ crosstable(mtcars3, cyl, by=vs) %>% as_flextable()
 Here, we will see how we can tweak `percent_pattern` in order to display other figures.
 
 **NOTE**: Missing values will always be described with `n` alone. If you want to describe them as non-missing values, you will have to mutate them as one, most likely using `forcats::fct_explicit_na()`.
-**NOTE**: Missing values will always be described with `n` alone. If you want to describe them as non-missing values, you will have to mutate them as one, most likely using `forcats::fct_explicit_na()`.
 
 ## Allowed variables
 
