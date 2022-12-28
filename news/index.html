@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9011</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9012</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,14 +24,12 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item">
-  <a class="nav-link" href="../articles/crosstable.html">Get started</a>
-</li>
-<li class="nav-item dropdown">
+      <ul class="navbar-nav me-auto"><li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/crosstable-selection.html">Select variables</a>
-    <a class="dropdown-item" href="../articles/crosstable-report.html">Make automatic reports</a>
+    <a class="dropdown-item" href="../articles/crosstable.html">Get started</a>
+    <a class="dropdown-item" href="../articles/crosstable-selection.html">Select columns</a>
+    <a class="dropdown-item" href="../articles/crosstable-report.html">Automatic reporting</a>
     <a class="dropdown-item" href="../articles/crosstable-install.html">Installation troubleshooting</a>
     <a class="dropdown-item" href="../articles/percent_pattern.html">Using `percent_pattern`</a>
   </div>
@@ -76,13 +74,14 @@
 <li><p>New function <code>pivot_crossable()</code> (or simply <code><a href="https://rdrr.io/r/base/t.html" class="external-link">t()</a></code>), which pivots a crosstable so that the <code>variable</code> column is spread as several columns.<br><code>r     ct = crosstable(mtcars2, c(mpg, drat, wt, qsec))     p_ct = pivot_crosstable(ct)     as_flextable(p_ct)</code></p></li>
 <li><p><code><a href="../reference/body_add_table_list.html">body_add_table_list()</a></code> now replaces <code><a href="../reference/body_add_table_list.html">body_add_crosstable_list()</a></code> and <code><a href="../reference/body_add_table_list.html">body_add_flextable_list()</a></code>. It allows both crosstables and flextable (and even dataframes, which are turned to flextables first) and has a new argument <code>fun_after</code> to control what comes after the table. See examples in <code><a href="../reference/body_add_table_list.html">?body_add_table_list</a></code>.</p></li>
 <li><p>New function <code><a href="../reference/get_percent_pattern.html">get_percent_pattern()</a></code>. See also the new vignette about this <code><a href="../articles/percent_pattern.html">vignette("percent_pattern")</a></code>.</p></li>
+<li><p>New argument <code>crosstable(drop_levels=TRUE)</code> to drop unused levels in factors.</p></li>
 <li><p><code><a href="../reference/set_label.html">copy_label_from()</a></code> now works on dataframes as well.</p></li>
-<li><p>New argument <code>crosstable(drop_levels)</code> to drop unused levels in factors.</p></li>
+<li><p><code>as_flextable(header_show_n_pattern)</code> can now be a list of names <code>cell</code> and <code>total</code>, so that the “Total” column can be labelled too.</p></li>
 </ul></div>
 <div class="section level5">
 <h5 id="breaking-changes-minor-0-6-0">Breaking changes (minor)<a class="anchor" aria-label="anchor" href="#breaking-changes-minor-0-6-0"></a></h5>
-<ul><li><p><code>showNA="no"</code> is now consistent with <code>gtsummary::tbl_cross(missing="no")</code> and <code>janitor::tabyl(show_na=FALSE)</code> and actually removes all <code>NA</code> from the equation, instead of not doing much (<a href="https://github.com/DanChaltiel/crosstable/issues/24" class="external-link">#24</a>).</p></li>
-<li><p>Renamed <code>p_cell</code> to <code>p_tot</code> for clarity</p></li>
+<ul><li><p><code>showNA="no"</code> is now consistent with <code><a href="https://rdrr.io/r/stats/addmargins.html" class="external-link">stats::addmargins()</a></code>, <code>gtsummary::tbl_cross(missing="no")</code> and <code>janitor::tabyl(show_na=FALSE)</code> and actually removes all <code>NA</code> from the equation, instead of not doing much (<a href="https://github.com/DanChaltiel/crosstable/issues/24" class="external-link">#24</a>).</p></li>
+<li><p>In <code>percent_patern</code>, the proportion relative to the total sample <code>p_cell</code> has been renamed to <code>p_tot</code> for clarity.</p></li>
 </ul></div>
 <div class="section level5">
 <h5 id="bug-fixes-0-6-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-6-0"></a></h5>
