@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 options(width = 100)
 ```
 
-In categorical variables, `crosstable()` offers a very versatile output using the `percent_pattern` argument.
+When working with categorical variables, `crosstable()` allows a very flexible output thanks to the `percent_pattern` argument.
 
 This vignette will review the many things you can do using `percent_pattern`.
 
@@ -41,31 +41,39 @@ crosstable_options(
 
 ## Default behaviour
 
+
 By default, `crosstable()` will use `percent_pattern="{n} ({p_row})"`, so it outputs the size `n` along with the row's percentage `p_row`:
 
-```{r}
+```{r Default behaviour}
 crosstable(mtcars3, cyl, by=vs) %>% as_flextable()
 ```
 
+Here, we will see how we can tweak `percent_pattern` in order to display other figures.
+
+**NOTE**: Missing values will always be described with `n` alone. If you want to describe them as non-missing values, you will have to mutate them as one, most likely using `forcats::fct_explicit_na()`.
+**NOTE**: Missing values will always be described with `n` alone. If you want to describe them as non-missing values, you will have to mutate them as one, most likely using `forcats::fct_explicit_na()`.
+
 ## Allowed variables
 
-Here is the list of all the internal variables you can use:
+First, here is the list of all the internal variables you can use:
 
  * `n`, `n_row`, `n_col`, and `n_tot`: respectively the size of the cell, the row, the column, and the whole table.
  * `p_row`, `p_col`, and `p_tot`: respectively the proportion relative to the row, the column, and the whole table.
  * `p_tot_inf`, `p_tot_sup`, `p_row_inf`, `p_row_sup`, `p_col_inf`, `p_col_sup`: the confidence interval (calculated using [Wilson score](https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval)) for each of the proportions above. 
  
-If you need it, you can also use any external variable defined outside of crosstable. 
+Should you ever need it, note that it is also possible to use any external variable defined outside of `crosstable()`.
 
 Here is a simple example:
  
-```{r}
+```{r Allowed variables}
 crosstable(mtcars3, cyl, by=vs, 
-           percent_pattern="N={n}, p={p_row} ({n}/{n_row})") %>% 
+           percent_pattern="N={n}/{n_row} -> p={p_row}") %>% 
   as_flextable()
 ```
  
- 
+
+## Missing values
+
 As you can see, these internal variables do not account for missing values (except for `n`, obviously).
 
 This should make sense in most cases, but if it doesn't, you can use the following variables to account for NA explicitly:
@@ -73,25 +81,29 @@ This should make sense in most cases, but if it doesn't, you can use the followi
  * `n_row_na`, `n_col_na`, `n_tot_na` 
  * `p_tot_na`, `p_row_na`, `p_col_na` 
  * `p_tot_na_inf`, `p_tot_na_sup`, `p_row_na_inf`, `p_row_na_sup`, `p_col_na_inf`, `p_col_na_sup` 
+ 
+(See the [last section](#allowed-variables) for an example)
+
+Note that if you use `showNA="no"`, there will be no difference between the standard variables and the `_na` variables.
 
 ## Proportions in totals
 
 As you may have noticed, totals are considered separately:
 
-```{r}
+```{r Proportions in totals 1}
 crosstable(mtcars3, cyl, by=vs, total=TRUE, 
            percent_pattern="N={n}, p={p_row} ({n}/{n_row})") %>% 
   as_flextable()
 ```
 
-Indeed, you cannot have the same pattern for totals, as the proportion relative to the row would not make sense in the context of the entire row itself.
+Indeed, you cannot have the same pattern for totals. For instance, the proportion relative to the row would not make sense in the context of the entire row itself.
 
 To get control over the `percent_pattern` in totals, you have to pass a list with names `body`, `total_row`, `total_col`, and `total_all`:
 
-```{r}
+```{r Proportions in totals 2}
 pp = list(body="N={n}, p={p_tot} ({n}/{n_tot})", 
           total_row="N={n} p=({p_col})", 
-          total_col="{n}", total_all="Total={n_col}")
+          total_col="{n}", total_all="Total={n}")
 crosstable(mtcars3, cyl, by=vs, total=TRUE, 
            percent_pattern=pp) %>% 
   as_flextable()
@@ -104,7 +116,7 @@ crosstable(mtcars3, cyl, by=vs, total=TRUE,
 
 To easily get a `percent_pattern` list, you can use the `get_percent_pattern()` helper:
 
-```{r}
+```{r get_percent_pattern}
 get_percent_pattern("all")
 get_percent_pattern("col", na=TRUE)
 ```
@@ -115,7 +127,7 @@ You can also set the result to a variable and modify its members at will. See `?
 
 Here is the ultimate example for `percent_pattern`. Give a close look to all possible values and you will surely find the one that you need.
 
-```{r}
+```{r Ultimate example}
 ULTIMATE_PATTERN=list(
   body="N={n}
         Cell: p = {p_tot} ({n}/{n_tot}) [{p_tot_inf}; {p_tot_sup}]
@@ -144,4 +156,3 @@ crosstable(mtcars3, cyl, by=vs,
 ```
 
 
-Note that if you use `showNA="no"`
