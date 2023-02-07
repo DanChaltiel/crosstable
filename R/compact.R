@@ -27,8 +27,7 @@ ct_compact = function(data, ...){
 #' @export
 #' @importFrom tidyr replace_na
 #' @importFrom rlang :=
-#' @importFrom tidyselect any_of everything
-#' @importFrom dplyr lag mutate
+#' @importFrom dplyr lag mutate any_of everything
 #' @importFrom officer fp_border
 #' @importFrom flextable align bold border
 #'
@@ -80,9 +79,8 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", wrap_cols=
 #'
 #' @author Dan Chaltiel
 #' @export
-#' @importFrom dplyr select %>% .data intersect
+#' @importFrom dplyr select %>% .data intersect any_of
 #' @importFrom stringr str_subset
-#' @importFrom tidyselect any_of
 #'
 #' @examples
 #'

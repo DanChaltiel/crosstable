@@ -25,9 +25,12 @@ Cleans names of a dataframe while retaining old names as labels
 }
 \examples{
 #options(crosstable_clean_names_fun=janitor::make_clean_names)
-x=data.frame("name with space"=1, TwoWords=1, "total $ (2009)"=1, àccénts=1)
-clean_names_with_labels(x, except=TwoWords) \%>\% names()
-clean_names_with_labels(x, except=TwoWords) \%>\% get_label()
+x = data.frame("name with space"=1, TwoWords=1, "total $ (2009)"=1, àccénts=1,
+               check.names=FALSE)
+//x = structure(1:4, names=c("name with space", "TwoWords", "total $ (2009)", "àccénts"))
+cleaned = clean_names_with_labels(x, except=TwoWords)
+cleaned \%>\% names()
+cleaned \%>\% get_label()
 }
 \author{
 Dan Chaltiel

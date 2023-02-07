@@ -154,7 +154,6 @@ remove_label = remove_labels
 #'
 #' @return A dataframe which names are copied from the label attribute
 #'
-#' @importFrom tidyselect eval_select
 #' @importFrom checkmate assert_data_frame
 #' @author Dan Chaltiel
 #' @export
@@ -164,10 +163,8 @@ remove_label = remove_labels
 #' rename_with_labels(iris2, except=Sepal.Length) %>% names()
 rename_with_labels = function(df, except=NULL){
   assert_data_frame(df, null.ok=TRUE)
-  except = eval_select(enquo(except), data=df)
-  if(length(except)==0) except = ncol(df)+1
-  names(df)[-except] = get_label(df)[-except]
-  df
+  except = names(select(df, {{except}}))
+  rename_with(df, ~ifelse(.x %in% except, .x, get_label(df)[.x]))
 }
 
 #' @export
@@ -193,18 +190,20 @@ rename_dataframe_with_labels=function(df, except=NULL){
 #'
 #' @examples
 #' #options(crosstable_clean_names_fun=janitor::make_clean_names)
-#' x=data.frame("name with space"=1, TwoWords=1, "total $ (2009)"=1, àccénts=1)
-#' clean_names_with_labels(x, except=TwoWords) %>% names()
-#' clean_names_with_labels(x, except=TwoWords) %>% get_label()
+#' x = data.frame("name with space"=1, TwoWords=1, "total $ (2009)"=1, àccénts=1,
+#'                check.names=FALSE)
+#' //x = structure(1:4, names=c("name with space", "TwoWords", "total $ (2009)", "àccénts"))
+#' cleaned = clean_names_with_labels(x, except=TwoWords)
+#' cleaned %>% names()
+#' cleaned %>% get_label()
 clean_names_with_labels = function(df, except=NULL, .fun=getOption("crosstable_clean_names_fun")){
   assert_data_frame(df, null.ok=TRUE)
-  except = eval_select(enquo(except), data=df)
-  if(length(except)==0) except = ncol(df)+1
   if(is.null(.fun)) .fun=crosstable_clean_names
-  labs = names(df)
-  names(df)[-except] = .fun(names(df))[-except]
 
-  set_label(df, labs)
+  except = names(select(df, {{except}}))
+  df %>%
+    rename_with(~ifelse(.x %in% except, .x, .fun(.x))) %>%
+    set_label(names(df))
 }
 
 

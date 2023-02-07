@@ -193,8 +193,31 @@ test_that("Save/import", {
 # Utils -------------------------------------------------------------------
 
 
+test_that("clean_names_with_labels", {
+  x = data.frame("name with space"=1, TwoWords=1, "total $ (2009)"=1, àccénts=1,
+                 check.names=FALSE)
+  cleaned = clean_names_with_labels(x, except=TwoWords)
+  expect_equal(names(cleaned), c("name_with_space", "TwoWords", "total_2009", "A ccACnts"))
+  expect_equal(get_label(cleaned), c(name_with_space = "name with space", TwoWords = "TwoWords",
+                                     total_2009 = "total $ (2009)", `A ccACnts` = "àccénts"))
+})
+
+
 test_that("rename_dataframe_with_labels ", {
-  x=rename_with_labels(mtcars2)
-  expect_equal(names(x), unname(get_label(mtcars2)))
+  dat = mtcars2[,1:5]
+  x=rename_with_labels(dat)
+  expect_equal(names(x), unname(get_label(dat)))
+
+  x=rename_with_labels(dat, except=5)
+  expect_equal(names(x)[1:4], unname(get_label(dat))[1:4])
+  expect_equal(names(x)[5], names(dat)[5])
+
+  x2=rename_with_labels(dat, except="hp")
+  expect_equal(names(x), names(x2))
+  x3=rename_with_labels(dat, except=hp)
+  expect_equal(names(x), names(x3))
+
+  #TODO error ou pas ?
+  rename_with_labels(dat, except="15")
 })
 

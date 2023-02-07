@@ -3,30 +3,30 @@
 #' @export
 dplyr::`%>%`
 
-#' @importFrom tidyselect everything
+#' @importFrom dplyr everything
 #' @export
-tidyselect::everything
+dplyr::everything
 
-#' @importFrom tidyselect all_of
+#' @importFrom dplyr all_of
 #' @export
-tidyselect::all_of
+dplyr::all_of
 
-#' @importFrom tidyselect any_of
+#' @importFrom dplyr any_of
 #' @export
-tidyselect::any_of
+dplyr::any_of
 
-#' @importFrom tidyselect starts_with
+#' @importFrom dplyr starts_with
 #' @export
-tidyselect::starts_with
+dplyr::starts_with
 
-#' @importFrom tidyselect ends_with
+#' @importFrom dplyr ends_with
 #' @export
-tidyselect::ends_with
+dplyr::ends_with
 
-#' @importFrom tidyselect contains
+#' @importFrom dplyr contains
 #' @export
-tidyselect::contains
+dplyr::contains
 
-#' @importFrom tidyselect matches
+#' @importFrom dplyr matches
 #' @export
-tidyselect::matches
+dplyr::matches
