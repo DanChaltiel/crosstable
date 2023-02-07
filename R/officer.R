@@ -169,8 +169,9 @@ body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, parse=c("
 #'    body_add_title("Description", 2) %>%
 #'    body_add_normal("La table iris a ", ncol(iris), " colonnes.")
 #' #write_and_open(doc)
-body_add_title = function(doc, value, level = 1, squish=TRUE,
+body_add_title = function(doc, value, level=1, squish=TRUE,
                           style = getOption('crosstable_style_heading', "heading")) {
+  assert_integerish(level)
   if(missing(squish)) squish = getOption("crosstable_title_squish", TRUE)
   value = glue(value, .envir = parent.frame())
   if(squish) value = str_squish(value)
@@ -178,7 +179,6 @@ body_add_title = function(doc, value, level = 1, squish=TRUE,
   # body_add_par(doc, value, style = style)
   body_add_parsed(doc, value, style = style)
 }
-
 
 
 #' Add a list to an `officer` document
