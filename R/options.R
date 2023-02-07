@@ -14,6 +14,7 @@
 #' @param verbosity_duplicate_cols one of `default`, `quiet`, or `verbose`.
 #' @param crosstable_fishertest_B number of simulations to perform when `fisher.test()` is failing (FEXACT error 7).
 #' @param total For setting [crosstable()] arguments globally.
+#' @param margin For setting [crosstable()] arguments globally.
 #' @param percent_pattern For setting [crosstable()] arguments globally.
 #' @param percent_digits For setting [crosstable()] arguments globally.
 #' @param num_digits For setting [crosstable()] arguments globally.
@@ -78,7 +79,7 @@ crosstable_options = function(
     verbosity_autotesting="default",
     verbosity_duplicate_cols="default",
     crosstable_fishertest_B=1e5,
-    total, percent_pattern, percent_digits, num_digits, showNA, label, funs, funs_arg,
+    total, percent_pattern, margin, percent_digits, num_digits, showNA, label, funs, funs_arg,
     cor_method, drop_levels, unique_numeric, date_format, times, followup, test_arg, effect_args,
     #as_flextable()
     wrap_id=70,

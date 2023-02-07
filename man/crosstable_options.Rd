@@ -13,6 +13,7 @@ crosstable_options(
   crosstable_fishertest_B = 1e+05,
   total,
   percent_pattern,
+  margin,
   percent_digits,
   num_digits,
   showNA,
@@ -81,6 +82,8 @@ crosstable_options(
 \item{total}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
 \item{percent_pattern}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{margin}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
 \item{percent_digits}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
