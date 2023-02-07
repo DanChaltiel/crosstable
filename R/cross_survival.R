@@ -38,7 +38,7 @@ cross_survival=function(data_x, data_y, showNA, total, label, surv_digits, times
 
 
 
-#' @importFrom dplyr tibble summarise mutate pull select everything .data
+#' @importFrom dplyr summarise mutate pull select everything .data
 #' @importFrom glue glue
 #' @keywords internal
 #' @noRd
@@ -79,7 +79,7 @@ summarize_survival_single = function(surv, times, digits, followup) {
 
 
 
-#' @importFrom dplyr mutate rename select everything tibble group_by row_number summarise pull left_join %>%
+#' @importFrom dplyr mutate rename select everything group_by row_number summarise pull left_join %>%
 #' @importFrom tidyr pivot_wider replace_na
 #' @importFrom rlang set_names :=
 #' @importFrom checkmate assert

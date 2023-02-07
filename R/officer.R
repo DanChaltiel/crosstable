@@ -794,7 +794,7 @@ generate_autofit_macro = function(){
 #' @importFrom stringr str_split str_detect str_match str_extract_all
 #' @importFrom glue glue
 #' @importFrom utils packageVersion
-#' @importFrom purrr map map_lgl discard set_names
+#' @importFrom purrr map map_lgl discard
 #' @importFrom officer run_word_field ftext body_add_fpar fp_text_lite
 #'
 #' @keywords internal
