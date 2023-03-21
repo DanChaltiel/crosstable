@@ -77,9 +77,9 @@ summarize_numeric_single = function(x, funs, funs_arg){
 
 
 #' Summarize numeric by categorical
-#' @importFrom forcats fct_explicit_na
 #' @importFrom checkmate assert_numeric assert_scalar
 #' @importFrom dplyr across everything mutate ungroup
+#' @importFrom forcats fct_na_value_to_level
 #' @importFrom purrr imap_dfr
 #' @importFrom tidyr pivot_wider
 #' @keywords internal
@@ -107,7 +107,7 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
   if(.showNA==TRUE) {
     if(!anyNA(by)) .na="no NA"
     by_filter=TRUE
-    by = fct_explicit_na(by, "NA")
+    by = fct_na_value_to_level(by, "NA")
   } else{
     by_filter = !is.na(by)
   }

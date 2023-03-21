@@ -45,10 +45,10 @@ crosstable_caller = rlang::env()
 #'
 #' @author Dan Chaltiel
 #' @export
-#' @importFrom forcats as_factor
 #' @importFrom checkmate assert_choice assert_count assert_data_frame assert_list assert_logical assert_multi_class makeAssertCollection reportAssertions
 #' @importFrom cli cli_abort cli_warn
 #' @importFrom dplyr across any_of everything intersect mutate n_distinct pull select
+#' @importFrom forcats fct_na_value_to_level
 #' @importFrom glue glue
 #' @importFrom lifecycle deprecate_stop deprecate_warn deprecated
 #' @importFrom purrr discard imap_dfr map map_chr map_dfc
@@ -408,7 +408,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   # Function call -------------------------------------------------------
   by_levels = map(data_y, ~{
     if(is.numeric(.x)) NULL
-    else if(is.factor(.x)) levels(fct_explicit_na(.x, "NA"))
+    else if(is.factor(.x)) levels(fct_na_value_to_level(.x, "NA"))
     else sort(unique(as.character(.x)), na.last=TRUE)
   })
   if(showNA=="no") by_levels = map(by_levels, ~.x[!is.na(.x)])

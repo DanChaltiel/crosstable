@@ -96,6 +96,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
 
 
 #' @importFrom dplyr across bind_rows everything filter left_join mutate select transmute
+#' @importFrom forcats fct_na_value_to_level
 #' @importFrom glue glue
 #' @importFrom purrr reduce
 #' @importFrom stringr str_replace
@@ -173,7 +174,7 @@ summarize_categorical_by = function(x, by,
         across(c(p_col, p_row, p_tot), ~ifelse(is.na(by), NA, .x))
       ) %>%
       getTableCI(digits=digits) %>%
-      transmute(x=fct_explicit_na(.data$by, "NA"),
+      transmute(x=fct_na_value_to_level(.data$by, "NA"),
                 value=ifelse(is.na(by) | .data$n==0&zero_percent, .data$n,
                              glue(percent_pattern$total_row))) %>%
       pivot_wider(names_from="x", values_from = "value") %>%
