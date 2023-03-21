@@ -16,8 +16,9 @@
 #'
 #' @author Dan Chaltiel
 #' @export
-#' @importFrom flextable body_add_flextable fontsize padding
 #' @importFrom checkmate assert_class vname
+#' @importFrom cli cli_abort
+#' @importFrom flextable as_flextable body_add_flextable fontsize padding
 #'
 #' @return The docx object `doc`
 #'
@@ -86,8 +87,7 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #'
 #' @author Dan Chaltiel
 #' @export
-#' @importFrom glue glue glue_collapse
-#' @importFrom officer body_add_par
+#' @importFrom cli cli_abort
 #' @importFrom stringr str_squish
 #'
 #' @return The docx object `doc`
@@ -157,9 +157,9 @@ body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, parse=c("
 #'
 #' @author Dan Chaltiel
 #' @export
-#' @importFrom officer body_add_par
-#' @importFrom stringr str_squish
+#' @importFrom checkmate assert_integerish
 #' @importFrom glue glue
+#' @importFrom stringr str_squish
 #' @examples
 #' library(officer)
 #' library(crosstable)
@@ -222,6 +222,7 @@ body_add_list = function(doc, value, ordered=FALSE, style=NULL, ...){
 #' @rdname body_add_list
 #' @author Dan Chaltiel
 #' @export
+#' @importFrom cli cli_abort
 body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
   if(is.null(style)){
     if(ordered){
@@ -255,8 +256,14 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #' You can also pass `"title2"` to add the name as a title of level 2 between each table (works for levels 3 and 4 as well), `"newline"` to simply add a new line, or even `NULL` to not separate them (beware that the tables might merge then).
 #' `fun_before` is designed to add a title while `fun_after` is designed to add a table legend (cf. examples).
 #'
-#' @importFrom checkmate assert_list assert_named assert_class assert_multi_class
-#' @importFrom glue glue
+#' @importFrom checkmate assert_class assert_list
+#' @importFrom cli cli_abort
+#' @importFrom dplyr intersect
+#' @importFrom flextable flextable
+#' @importFrom lifecycle deprecate_warn
+#' @importFrom methods formalArgs
+#' @importFrom purrr keep map
+#' @importFrom rlang is_named is_string
 #'
 #' @return The docx object `doc`
 #' @export
@@ -357,12 +364,14 @@ body_add_table_list = function(doc, l, fun_before="title2", fun_after=NULL,
 
 #' @rdname body_add_table_list
 #' @export
+#' @importFrom lifecycle deprecate_warn
 body_add_flextable_list = function(...){
   deprecate_warn("0.5.0", "body_add_table_list(=")
   body_add_table_list(...)
 }
 #' @rdname body_add_table_list
 #' @export
+#' @importFrom lifecycle deprecate_warn
 body_add_crosstable_list = function(...){
   deprecate_warn("0.5.0", "body_add_table_list(=")
   body_add_table_list(...)
@@ -398,9 +407,8 @@ body_add_crosstable_list = function(...){
 #' @rdname body_add_legend
 #' @name body_add_legend
 #' @author Dan Chaltiel
-#' @importFrom utils packageVersion
-#' @importFrom rlang is_missing check_dots_empty
-#' @importFrom lifecycle is_present deprecate_warn
+#' @importFrom lifecycle deprecated
+#' @importFrom rlang check_dots_empty
 #' @export
 #'
 #' @examples
@@ -450,6 +458,8 @@ body_add_table_legend = function(doc, legend, ..., bookmark=NULL,
 
 #' @rdname body_add_legend
 #' @export
+#' @importFrom lifecycle deprecated
+#' @importFrom rlang check_dots_empty
 body_add_figure_legend = function(doc, legend, ..., bookmark=NULL,
                                   legend_style=getOption('crosstable_style_legend',
                                                          doc$default_styles$paragraph),
@@ -476,7 +486,8 @@ body_add_figure_legend = function(doc, legend, ..., bookmark=NULL,
 
 
 #' @importFrom glue glue
-#' @importFrom officer ftext fpar run_bookmark run_word_field body_add_fpar fp_text_lite
+#' @importFrom lifecycle deprecate_warn is_present
+#' @importFrom officer body_add_fpar fp_text_lite fpar ftext run_bookmark run_word_field
 #' @keywords internal
 #' @noRd
 body_add_legend = function(doc, legend, legend_name, bookmark,
@@ -569,6 +580,8 @@ body_add_img2 = function(doc, src, width, height,
 #' @author Dan Chaltiel
 #' @export
 #' @importFrom checkmate assert_class
+#' @importFrom ggplot2 ggsave
+#' @importFrom rlang check_installed
 #' @examples
 #' if(require("ggplot2") && capabilities(what = "png")){
 #'   library(officer)
@@ -603,7 +616,7 @@ body_add_gg2 = function(doc, value, width = 6, height = 5,
 #' @param doc a `rdocx` object
 #' @param ... named
 #'
-#' @importFrom officer body_replace_text_at_bkm
+#' @importFrom glue glue
 #' @importFrom purrr iwalk safely
 #' @return The docx object `doc`
 #' @author Dan Chaltiel
@@ -657,6 +670,7 @@ crosstable_luafilters = function(){
 #' @return a list with all bookmarks
 #'
 #' @importFrom checkmate assert_class
+#' @importFrom rlang check_installed
 #' @author Dan Chaltiel
 #' @export
 docx_bookmarks2 = function(x, return_vector=FALSE,
@@ -683,7 +697,7 @@ docx_bookmarks2 = function(x, return_vector=FALSE,
   }
   if(return_vector) return(unname(unlist(rtn)))
   rtn
-}#nocov end
+}
 
 
 #' Alternative to default `officer` print() function. Write the file and try to open it right away.
@@ -697,9 +711,9 @@ docx_bookmarks2 = function(x, return_vector=FALSE,
 #'
 #' @author Dan Chaltiel
 #' @export
-#' @importFrom utils browseURL
+#' @importFrom cli cli_abort
 #' @importFrom stringr str_detect
-#' @importFrom glue glue
+#' @importFrom utils browseURL
 #'
 #' @examples
 #' library(officer)
@@ -746,7 +760,7 @@ write_and_open = function(doc, docx.file){
   }, finally={}
   )
 
-}    # nocov end
+}
 
 
 
@@ -791,11 +805,11 @@ generate_autofit_macro = function(){
 
 #' Parse value for multiple regexp to unravel formats (bold, italic and underline) and reference calls.
 #'
-#' @importFrom stringr str_split str_detect str_match str_extract_all
 #' @importFrom glue glue
-#' @importFrom utils packageVersion
-#' @importFrom purrr map map_lgl discard
-#' @importFrom officer run_word_field ftext body_add_fpar fp_text_lite
+#' @importFrom officer body_add_fpar body_add_par fp_text_lite ftext run_word_field
+#' @importFrom purrr discard map map_lgl
+#' @importFrom rlang set_names
+#' @importFrom stringr str_detect str_extract_all str_match str_split
 #'
 #' @keywords internal
 #' @noRd

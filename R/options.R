@@ -71,6 +71,10 @@
 #' @seealso [crosstable_peek_options()] and [crosstable_reset_options()]
 #' @return Nothing, called for its side effects
 #' @export
+#' @importFrom cli cli_warn
+#' @importFrom lifecycle deprecate_warn deprecated
+#' @importFrom rlang caller_env
+#' @importFrom stringr str_starts
 crosstable_options = function(
     ...,
     #crosstable()
@@ -153,8 +157,8 @@ crosstable_options = function(
 #' @param keep_null set to TRUE to get a list
 #'
 #' @return A named list of crosstable options
-#' @importFrom rlang peek_options
 #' @importFrom purrr discard
+#' @importFrom rlang peek_options
 #' @export
 crosstable_peek_options = function(keep_null=FALSE){
   x = formals(crosstable_options)
@@ -169,9 +173,9 @@ crosstable_peek_options = function(keep_null=FALSE){
 #' @param quiet set to `TRUE` to remove the message.
 #'
 #' @return Nothing, called for its side effects
-#' @importFrom rlang set_names
 #' @importFrom cli cli_inform
 #' @importFrom purrr map
+#' @importFrom rlang set_names
 #' @export
 crosstable_reset_options = function(quiet=FALSE){
   args_ok = names(formals(crosstable_options)) %>% .[!. %in% c("...", "reset", ".local")]

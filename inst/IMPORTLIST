@@ -1,0 +1,7 @@
+attr = base
+getOption = base
+isFALSE = base
+local_options = rlang
+order = base
+setdiff = base
+writeLines = base

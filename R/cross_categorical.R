@@ -1,6 +1,7 @@
 
-#' @importFrom dplyr select mutate everything .data
+#' @importFrom dplyr everything mutate select
 #' @importFrom forcats fct_drop
+#' @importFrom purrr map_df
 #' @keywords internal
 #' @noRd
 cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits, percent_pattern,
@@ -42,10 +43,11 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
 }
 
 
-#' @importFrom checkmate assert_numeric assert_character
-#' @importFrom stringr str_starts
+#' @importFrom dplyr across bind_rows filter matches mutate select transmute
 #' @importFrom glue glue
-#' @importFrom dplyr mutate select .data
+#' @importFrom purrr map_df
+#' @importFrom tibble tibble
+#' @importFrom tidyr replace_na
 #' @keywords internal
 #' @noRd
 summarize_categorical_single = function(x, showNA, total, digits, percent_pattern){
@@ -93,10 +95,12 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
 
 
 
-#' @importFrom dplyr mutate transmute starts_with left_join pull .data
-#' @importFrom purrr map reduce safely
-#' @importFrom tidyr unite pivot_wider
+#' @importFrom dplyr across bind_rows everything filter left_join mutate select transmute
 #' @importFrom glue glue
+#' @importFrom purrr reduce
+#' @importFrom stringr str_replace
+#' @importFrom tibble add_row as_tibble
+#' @importFrom tidyr pivot_wider replace_na
 #' @keywords internal
 #' @noRd
 summarize_categorical_by = function(x, by,
@@ -231,8 +235,11 @@ summarize_categorical_by = function(x, by,
 #' @return a list
 #'
 #' @export
-#' @importFrom purrr map
+#' @importFrom cli cli_abort cli_warn
 #' @importFrom glue glue glue_collapse
+#' @importFrom purrr map
+#' @importFrom rlang set_names
+#' @importFrom stringr str_replace_all
 #'
 #' @examples
 #' get_percent_pattern(c("cells","row","column"))
@@ -319,6 +326,7 @@ getTable = function(x, by, type=c("n", "p_tot", "p_row", "p_col")){
 
 #' @keywords internal
 #' @noRd
+#' @importFrom dplyr across mutate starts_with
 getTableCI = function(x, digits, method="wilson"){
   x %>%
     mutate(
@@ -338,10 +346,18 @@ getTableCI = function(x, digits, method="wilson"){
 #add all combinations to global variables
 x=c("cell", "row", "col", "tot")
 n=c("n", "n_row", "n_col", "n_tot", "n_row_na", "n_col_na", "n_tot_na")
+n=c("n", "n_row", "n_col", "n_tot", "n_row_na", "n_col_na", "n_tot_na")
+p=paste0("p_", x)
 p=paste0("p_", x)
 p_na=paste0(p, "_na")
+p_na=paste0(p, "_na")
+p_ci=map(p, ~paste0(.x, c("_inf", "_sup")))
+#' @importFrom purrr map
 p_ci=map(p, ~paste0(.x, c("_inf", "_sup")))
 p_na_ci=map(p_na, ~paste0(.x, c("_inf", "_sup")))
+#' @importFrom purrr map
+p_na_ci=map(p_na, ~paste0(.x, c("_inf", "_sup")))
+nm = c(n, p, p_na, p_ci, p_na_ci) %>% unlist()
 nm = c(n, p, p_na, p_ci, p_na_ci) %>% unlist()
 # nm = percent_pattern_variables()
 utils::globalVariables(nm)

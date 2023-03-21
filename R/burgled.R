@@ -1,7 +1,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # ad.test (copied from nortest:::ad.test)
 # from nortest 1.0-4
-#' @importFrom stats complete.cases pnorm
+#' @importFrom stats complete.cases pnorm sd
 `ad.test` <- function(x) {
   DNAME <- deparse(substitute(x))
   x <- sort(x[complete.cases(x)])

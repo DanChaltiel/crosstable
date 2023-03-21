@@ -17,9 +17,11 @@
 #' @author Dan Chaltiel
 #' @export
 #' @importFrom checkmate assert_class vname
-#' @importFrom stringr str_remove
-#' @importFrom dplyr %>% mutate across everything any_of lag select
+#' @importFrom cli cli_abort
+#' @importFrom dplyr across any_of everything lag mutate select
 #' @importFrom glue glue
+#' @importFrom stringr str_remove
+#' @importFrom tidyr replace_na
 #'
 #' @examples
 #' xx = mtcars2 %>% dplyr::select(2:10)
@@ -98,6 +100,7 @@ as_gt.crosstable = function(x, show_test_name = TRUE,
 #' @seealso [gt::gt()]
 #' @author Dan Chaltiel
 #' @export
+#' @importFrom rlang check_installed
 as_gt = function(x, ...){
   check_installed("gt", reason="for function `as_gt()` to work.")
   UseMethod("as_gt")
@@ -117,15 +120,3 @@ as_gt = function(x, ...){
 as_gt.default = function(x, ...){
   gt::gt(data=x, ...)
 }
-
-
-# https://github.com/rstudio/gt/issues/632
-# example %>%
-#     columnwide_summary_rows(
-#         groups = TRUE,
-#         fns = list(
-#             "Income sum in 1995 and 2005" = ~ sum(.$`1995`, .$`2005`),
-#             "Correlation between income in 1995 and in 2005" = ~ cor(.$`1995`, .$`2005`)
-#         )
-#     )
-

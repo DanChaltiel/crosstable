@@ -23,12 +23,16 @@
 #' @describeIn as_flextable Turns a `crosstable` object into a formatted `flextable`.
 #' @seealso [crosstable()], [flextable::flextable()], [as_gt.crosstable()]
 #'
-#' @importFrom dplyr %>% select lead sym recode
-#' @importFrom stringr str_replace str_replace_all str_remove
-#' @importFrom flextable flextable autofit add_header_row set_header_labels merge_v merge_h bold align hline_top hline_bottom border_inner_h hline fix_border_issues padding as_flextable fontsize vline vline_left vline_right set_header_df
-#' @importFrom officer fp_border
 #' @importFrom checkmate assert_class vname
-#' @importFrom tibble as_tibble
+#' @importFrom cli cli_warn
+#' @importFrom dplyr across all_of any_of filter group_by intersect lead mutate pull recode select starts_with sym ungroup
+#' @importFrom flextable align autofit bold border border_inner_h fix_border_issues flextable fontsize hline hline_bottom hline_top merge_h merge_v padding set_header_df set_header_labels vline_left vline_right
+#' @importFrom glue glue
+#' @importFrom officer fp_border
+#' @importFrom purrr map
+#' @importFrom rlang set_names
+#' @importFrom stringr str_remove str_replace str_split
+#' @importFrom tibble lst tibble
 #' @importFrom tidyr replace_na separate
 #' @importFrom utils modifyList
 #' @export
@@ -327,6 +331,9 @@ af = as_flextable.crosstable
 #'
 #' @author Dan Chaltiel
 #' @export
+#' @importFrom checkmate assert_class
+#' @importFrom flextable as_flextable flextable
+#' @importFrom utils browseURL
 peek = function(x, docx=getOption("crosstable_peek_docx", TRUE), ...) {
   if(has_method(x, "as_flextable")){
     x = as_flextable(x, ...)
@@ -356,6 +363,9 @@ peek = function(x, docx=getOption("crosstable_peek_docx", TRUE), ...) {
 #' get_show_n_pattern(list(cell="a"))
 #' get_show_n_pattern(list(total="b"))
 #' get_show_n_pattern(list(cell="a", total="b"))
+#' @importFrom cli cli_abort
+#' @importFrom purrr map_lgl
+#' @importFrom rlang is_scalar_character names2
 get_show_n_pattern = function(x=NULL){
   rtn = list(cell="{.col} (N={.n})", total=NULL)
   if(is.null(x)){

@@ -10,7 +10,9 @@
 #'
 #' @author Dan Chaltiel
 #' @export
+#' @importFrom cli cli_abort
 #' @importFrom purrr map map2
+#' @importFrom rlang is_null
 #' @seealso [set_label()], [import_labels()], [remove_label()], [Hmisc::label()], [expss::var_lab()]
 #' @examples
 #' xx=mtcars2 %>%
@@ -62,7 +64,11 @@ get_label = function(x, default=names(x), object=FALSE, simplify=TRUE){
 #'
 #' @author Dan Chaltiel
 #' @export
-#' @importFrom checkmate assert_string
+#' @importFrom checkmate assert_character
+#' @importFrom cli cli_abort
+#' @importFrom dplyr intersect
+#' @importFrom purrr map_chr
+#' @importFrom rlang is_named
 #' @seealso [get_label()], [import_labels()], [remove_label()]
 #' @examples
 #' library(dplyr)
@@ -155,6 +161,7 @@ remove_label = remove_labels
 #' @return A dataframe which names are copied from the label attribute
 #'
 #' @importFrom checkmate assert_data_frame
+#' @importFrom dplyr rename_with select
 #' @author Dan Chaltiel
 #' @export
 #'
@@ -170,6 +177,7 @@ rename_with_labels = function(df, except=NULL){
 #' @export
 #' @rdname rename_with_labels
 #' @usage NULL
+#' @importFrom lifecycle deprecate_warn
 rename_dataframe_with_labels=function(df, except=NULL){
   deprecate_warn("0.5.0", "rename_dataframe_with_labels()", "rename_with_labels()")
   rename_with_labels(df, except)
@@ -196,6 +204,8 @@ rename_dataframe_with_labels=function(df, except=NULL){
 #' cleaned = clean_names_with_labels(x, except=TwoWords)
 #' cleaned %>% names()
 #' cleaned %>% get_label()
+#' @importFrom checkmate assert_data_frame
+#' @importFrom dplyr rename_with select
 clean_names_with_labels = function(df, except=NULL, .fun=getOption("crosstable_clean_names_fun")){
   assert_data_frame(df, null.ok=TRUE)
   if(is.null(.fun)) .fun=crosstable_clean_names
@@ -219,7 +229,9 @@ clean_names_with_labels = function(df, except=NULL, .fun=getOption("crosstable_c
 #'
 #' @return An object of the same type as `data`, with labels
 #'
+#' @importFrom cli cli_warn
 #' @importFrom purrr imap_dfr
+#' @importFrom rlang current_env
 #' @author Dan Chaltiel
 #' @export
 #'
@@ -262,9 +274,13 @@ apply_labels = function(data, ..., warn_missing=FALSE) {
 #'
 #' @author Dan Chaltiel
 #' @export
-#' @importFrom glue glue
-#' @importFrom tidyr drop_na
+#' @importFrom cli cli_abort cli_warn
+#' @importFrom dplyr all_of select
+#' @importFrom lifecycle deprecate_warn deprecated is_present
+#' @importFrom purrr imap_dfr
+#' @importFrom rlang current_env
 #' @importFrom tibble column_to_rownames
+#' @importFrom tidyr drop_na
 #'
 #' @seealso [get_label()], [set_label()], [remove_label()], [save_labels()]
 #' @examples
@@ -349,6 +365,7 @@ import_labels = function(.tbl, data_label,
 #'   transmute(disp=as.numeric(disp)+1) %>%
 #'   import_labels(warn_label=FALSE) %>% #
 #'   crosstable(disp)
+#' @importFrom tibble tibble
 save_labels = function(.tbl){
   labels_env$last_save = tibble(
     name=names(.tbl),

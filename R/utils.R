@@ -10,6 +10,9 @@ utils::globalVariables(".")
 #' x=tryCatch2(foo())
 #' x
 #' attributes(x)
+#' @importFrom glue glue_collapse
+#' @importFrom purrr map_chr
+#' @importFrom tibble tibble
 tryCatch2 = function(expr){
   errors = list()
   warnings = list()
@@ -87,6 +90,7 @@ formalArgs = function (def){
 
 
 #' Used for defaulting S3 methods to loaded function
+#' @importFrom cli cli_warn
 #' @importFrom utils getAnywhere
 #' @keywords internal
 #' @noRd
@@ -108,10 +112,11 @@ get_defined_function = function(name){
 
 
 
-#' @importFrom rlang as_function is_formula caller_env
-#' @importFrom purrr map map_dbl pmap_chr
-#' @importFrom glue glue glue_collapse
-#' @importFrom stringr str_subset
+#' @importFrom cli cli_abort cli_warn
+#' @importFrom glue glue_collapse
+#' @importFrom purrr map pmap_chr
+#' @importFrom rlang caller_env is_formula
+#' @importFrom stringr str_squish str_starts str_subset
 #' @keywords internal
 #' @noRd
 parse_funs = function(funs){
@@ -243,6 +248,8 @@ paste_classes = function(x){
 #' @param x a dataframe
 #' @keywords internal
 #' @noRd
+#' @importFrom glue glue
+#' @importFrom purrr map_chr
 paste_nameclasses = function(x){
   glue("{name} ({class})", name=names(x),
        class=map_chr(x, ~class(remove_label(.x))[1]))
@@ -251,8 +258,8 @@ paste_nameclasses = function(x){
 
 #' Test if @param method can be applied to @param x
 #' @param skip speed up the
-#' @importFrom utils methods
 #' @importFrom dplyr pull
+#' @importFrom utils methods
 #' @keywords internal
 #' @noRd
 has_method = function(x, method, skip=c("data.frame")){
@@ -270,6 +277,7 @@ has_method = function(x, method, skip=c("data.frame")){
 
 #' @keywords internal
 #' @noRd
+#' @importFrom purrr map
 percent_pattern_variables = function(){
   x=c("tot", "row", "col")
   n=c("n", "n_row", "n_col", "n_tot")
@@ -286,6 +294,11 @@ percent_pattern_variables = function(){
 
 #' @keywords internal
 #' @noRd
+#' @importFrom checkmate assert_subset
+#' @importFrom cli cli_abort
+#' @importFrom purrr safely walk
+#' @importFrom rlang set_names
+#' @importFrom stringr str_remove_all
 check_percent_pattern = function(percent_pattern){
   assert_subset(names(percent_pattern), c("body", "total_row", "total_col", "total_all"))
   walk(percent_pattern, ~{
@@ -338,6 +351,7 @@ crosstable_clean_names = function(string){
 #' not the same as attributes(x) = attributes(y)
 #' @keywords internal
 #' @noRd
+#' @importFrom cli cli_inform
 attributes_from = function(x, y, replace=FALSE, verbose=FALSE){
   attr_x = names(attributes(x))
   attr_y = names(attributes(y))
@@ -357,6 +371,7 @@ attributes_from = function(x, y, replace=FALSE, verbose=FALSE){
 #' @keywords internal
 #' @noRd
 #' @importFrom checkmate assert
+#' @importFrom stats sd
 #'
 #' @examples
 #' x_date = as.Date(mtcars2$hp , origin="2010-01-01") %>% set_label("Date")
@@ -400,6 +415,7 @@ sd_date = function(x, date_unit=c("auto", "seconds", "minutes", "hours", "days",
 #' confint_numeric(iris$Sepal.Length)
 #' confint_numeric(mtcars2$hp_date)
 #' confint_numeric(mtcars2$hp_date, level=0.99)
+#' @importFrom stats qnorm sd
 confint_numeric = function(object, level=0.95, B=0){
   a = (1-level)/2
   ua = qnorm(1-a)
@@ -427,7 +443,8 @@ confint_numeric = function(object, level=0.95, B=0){
 #' @source binom:::binom.confint
 #' @source https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval
 #' @note validé avec PropCIs::scoreci
-#' @importFrom checkmate assert_numeric assert_integerish
+#' @importFrom checkmate assert_integerish assert_numeric
+#' @importFrom stats qnorm
 #' @keywords internal
 #' @noRd
 confint_proportion = function(p, n,
@@ -464,7 +481,8 @@ confint_proportion = function(p, n,
 #'
 #' @keywords internal
 #' @noRd
-#' @importFrom stringr str_detect str_wrap str_replace_all
+#' @importFrom checkmate assert_count
+#' @importFrom stringr str_detect str_replace_all str_wrap
 #'
 #' @examples
 #' set.seed(0)
@@ -484,6 +502,9 @@ str_wrap2 = function(x, width, ...){
 #' @examples
 #' x=1:15;y="foobar"
 #' rec(x,y, sep=", ")
+#' @importFrom glue glue glue_collapse
+#' @importFrom purrr imap map
+#' @importFrom rlang set_names
 rec = function(..., sep=getOption("rec_sep", "\n"), sep_int=getOption("rec_sep", ", "),
                glue_pattern="{.name} = {.value}",
                max_length=getOption("rec_max_length", 10), .envir = parent.frame()){
@@ -511,6 +532,7 @@ rec = function(..., sep=getOption("rec_sep", "\n"), sep_int=getOption("rec_sep",
 #' @keywords internal
 #' @noRd
 #' @source https://github.com/tidyverse/forcats/issues/299
+#' @importFrom cli cli_warn
 fct = function(x=character(), levels, labels=levels, ...){
   miss_x = !x %in% levels
   if(any(miss_x)){
@@ -541,6 +563,7 @@ get_generic_labels = function(l=list()){
 #' Rework when https://github.com/r-lib/cli/issues/229 is merged
 #' @keywords internal
 #' @importFrom cli ansi_strip
+#' @importFrom stringr str_replace
 #' @noRd
 ansi_align_by = function(text, pattern){
   pos = gregexpr(pattern, ansi_strip(text)) |> unlist()
@@ -552,6 +575,8 @@ ansi_align_by = function(text, pattern){
 #' Needed from https://github.com/r-lib/cli/issues/505
 #' @keywords internal
 #' @noRd
+#' @importFrom rlang set_names
+#' @importFrom stringr str_remove_all
 cl = function(...){
   nm = names(c(...)) %>% str_remove_all("\\d+")
   c(...) %>% set_names(nm)
@@ -636,6 +661,8 @@ mixedsort = function(x, decreasing=FALSE, na.last=TRUE, blank.last=FALSE,
 #' @keywords internal
 #' @noRd
 #' @source https://github.com/tidyverse/dplyr/issues/5563#issuecomment-721769342
+#' @importFrom dplyr across
+#' @importFrom tidyr unpack
 across_unpack = function(...) {
   out = across(...)
   tidyr::unpack(out, names(out), names_sep = "_")
@@ -649,6 +676,7 @@ as.data.frame.table = function(...) {
 
 #' @keywords internal
 #' @noRd
+#' @importFrom rlang is_formula
 is_one_sided = function(x) {
   is_formula(x) && length(x) == 2
 }

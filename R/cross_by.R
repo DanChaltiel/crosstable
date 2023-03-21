@@ -1,7 +1,10 @@
 
-#' @importFrom purrr imap_dfr map_dfr imap_chr
-#' @importFrom glue glue glue_data glue_collapse
-#' @importFrom cli qty
+#' @importFrom cli cli_abort cli_warn
+#' @importFrom dplyr filter pull
+#' @importFrom glue glue glue_data
+#' @importFrom purrr imap_dfr map_dfr
+#' @importFrom rlang env
+#' @importFrom stats na.omit
 #' @keywords internal
 #' @noRd
 cross_by = function(data_x, data_y, funs, funs_arg, percent_pattern, total, percent_digits,
@@ -103,4 +106,3 @@ cross_by = function(data_x, data_y, funs, funs_arg, percent_pattern, total, perc
   rownames(rtn_tbl)=NULL
   return(rtn_tbl)
 }
-

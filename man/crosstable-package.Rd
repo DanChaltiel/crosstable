@@ -4,7 +4,6 @@
 \name{crosstable-package}
 \alias{crosstable-package}
 \alias{_PACKAGE}
-\alias{Test-package}
 \title{crosstable: Crosstables for Descriptive Analyses}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}

@@ -13,12 +13,8 @@
 #' @author Dan Chaltiel
 #' @export
 #' @importFrom checkmate assert_class vname
-#' @importFrom stringr str_remove
+#' @importFrom cli cli_warn
 #' @importFrom rlang check_installed
-#' @importFrom purrr walk
-#' @importFrom tidyr replace_na
-#' @importFrom dplyr %>% mutate across everything any_of lag lead select
-#' @importFrom glue glue
 #'
 #' @examples
 #' library(openxlsx)
@@ -70,6 +66,9 @@ as_workbook = function(x, show_test_name=TRUE,
 
 #' @keywords internal
 #' @noRd
+#' @importFrom dplyr across any_of everything lead mutate select
+#' @importFrom purrr map walk
+#' @importFrom stringr str_remove
 addToWorksheet = function(wb, ct, sheetname, show_test_name = TRUE,
                           by_header = NULL, keep_id = FALSE,
                           generic_labels=list(id = ".id", variable = "variable", value = "value",
@@ -162,4 +161,3 @@ addToWorksheet = function(wb, ct, sheetname, show_test_name = TRUE,
   openxlsx::setColWidths(wb, sheet=sheetname, cols = 1:col_right, widths = "auto")
   wb
 }
-

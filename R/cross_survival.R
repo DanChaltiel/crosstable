@@ -1,5 +1,7 @@
 
-#' @importFrom dplyr mutate select everything .data
+#' @importFrom dplyr everything mutate select
+#' @importFrom purrr map_df
+#' @importFrom rlang check_installed
 #' @keywords internal
 #' @noRd
 cross_survival=function(data_x, data_y, showNA, total, label, surv_digits, times, followup,
@@ -38,8 +40,10 @@ cross_survival=function(data_x, data_y, showNA, total, label, surv_digits, times
 
 
 
-#' @importFrom dplyr summarise mutate pull select everything .data
+#' @importFrom dplyr everything mutate pull select summarise
 #' @importFrom glue glue
+#' @importFrom purrr map_df
+#' @importFrom tibble tibble
 #' @keywords internal
 #' @noRd
 summarize_survival_single = function(surv, times, digits, followup) {
@@ -79,11 +83,13 @@ summarize_survival_single = function(surv, times, digits, followup) {
 
 
 
-#' @importFrom dplyr mutate rename select everything group_by row_number summarise pull left_join %>%
-#' @importFrom tidyr pivot_wider replace_na
-#' @importFrom rlang set_names :=
-#' @importFrom checkmate assert
+#' @importFrom checkmate assert assert_class
+#' @importFrom dplyr everything group_by left_join mutate pull rename row_number select summarise
 #' @importFrom glue glue
+#' @importFrom rlang set_names
+#' @importFrom stats complete.cases
+#' @importFrom tibble tibble
+#' @importFrom tidyr pivot_wider replace_na
 #' @keywords internal
 #' @noRd
 summarize_survival_by = function(surv, by, times, followup, total, digits, showNA,
@@ -161,6 +167,3 @@ summarize_survival_by = function(surv, by, times, followup, total, digits, showN
   rtn %>% mutate(test=.tests, effect=.effect) %>%
     select("variable", everything())
 }
-
-
-

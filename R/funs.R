@@ -15,7 +15,8 @@
 #'
 #' @return a character vector of formatted numbers
 #' @author Dan Chaltiel
-#' @importFrom checkmate assert_numeric assert_logical assert
+#' @importFrom checkmate assert assert_logical assert_numeric
+#' @importFrom glue glue
 #' @export
 #'
 #' @examples
@@ -183,6 +184,7 @@ meansd = function(x, na.rm = TRUE, dig = 2, ...) {
 }
 
 #' @export
+#' @importFrom lifecycle deprecate_warn
 moystd=function(...){
   deprecate_warn("0.1.4", "moystd()", "meansd()")
   meansd(...)
@@ -291,4 +293,3 @@ cross_summary = function(x, dig=1, ...) {
   return(c("Min / Max" = minmax(x, dig=dig, ...), "Med [IQR]" = mediqr(x, dig=dig, ...),
            "Mean (std)" = meansd(x, dig=dig, ...), "N (NA)" = nna(x)))
 }
-

@@ -45,16 +45,17 @@ crosstable_caller = rlang::env()
 #'
 #' @author Dan Chaltiel
 #' @export
-#' @importFrom checkmate makeAssertCollection reportAssertions assert_data_frame assert_count assert_string assert_logical assert_list assert_subset assert_choice
-#' @importFrom rlang quos enquos enquo expr quo_is_null is_null is_quosures is_formula is_string is_empty is_lambda as_function set_env quo_squash caller_env quo_is_missing check_dots_unnamed
-#' @importFrom dplyr select n_distinct across everything any_of
-#' @importFrom purrr map map_lgl map_chr map_dfc pmap_dfr
 #' @importFrom forcats as_factor
-#' @importFrom stringr str_detect str_split
-#' @importFrom glue glue
+#' @importFrom checkmate assert_choice assert_count assert_data_frame assert_list assert_logical assert_multi_class makeAssertCollection reportAssertions
 #' @importFrom cli cli_abort cli_warn
-#' @importFrom lifecycle deprecated is_present deprecate_warn deprecate_stop
-#' @importFrom stats model.frame
+#' @importFrom dplyr across any_of everything intersect mutate n_distinct pull select
+#' @importFrom glue glue
+#' @importFrom lifecycle deprecate_stop deprecate_warn deprecated
+#' @importFrom purrr discard imap_dfr map map_chr map_dfc
+#' @importFrom rlang as_function check_dots_unnamed current_env enquo is_empty is_formula local_options quo_get_expr
+#' @importFrom stats model.frame na.omit
+#' @importFrom tidyr unite
+#' @importFrom tidyselect where
 #'
 #' @return A `data.frame`/`tibble` of class `crosstable`
 #'
@@ -172,7 +173,8 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   }
   reportAssertions(coll)
 
-  if(!missing(margin)){
+  if(missing(margin)) margin = getOption("crosstable_margin")
+  if(!is.null(margin)){
     if(length(margin)>3){
       cli_abort(c("Margin should be of max length 3",
                   i=glue("margin={paste0(margin, collapse=', ')}")),
@@ -463,4 +465,3 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   }
   return(rtn)
 }
-

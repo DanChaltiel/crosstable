@@ -25,11 +25,11 @@ ct_compact = function(data, ...){
 #'
 #' @author Dan Chaltiel
 #' @export
-#' @importFrom tidyr replace_na
-#' @importFrom rlang :=
-#' @importFrom dplyr lag mutate any_of everything
-#' @importFrom officer fp_border
+#' @importFrom checkmate assert_scalar
+#' @importFrom dplyr across any_of everything lag mutate row_number select sym
 #' @importFrom flextable align bold border
+#' @importFrom officer fp_border
+#' @importFrom tidyr replace_na
 #'
 #' @return a compacted data.frame
 #'
@@ -79,8 +79,8 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", wrap_cols=
 #'
 #' @author Dan Chaltiel
 #' @export
-#' @importFrom dplyr select %>% .data intersect any_of
-#' @importFrom stringr str_subset
+#' @importFrom dplyr any_of intersect mutate select
+#' @importFrom glue glue
 #'
 #' @examples
 #'
@@ -116,6 +116,7 @@ ct_compact.crosstable = function(data, name_from=c("label", ".id"), name_to="var
 #' @rdname ct_compact
 #' @usage NULL
 #' @export
+#' @importFrom cli cli_abort
 ct_compact.default = function(data, ...) {
   cli_abort("{.fun ct_compact} is not defined for object of class {.cls {class(data)}}",
             class="ct_compact_notfound_error")
@@ -139,6 +140,7 @@ compact = function(data, ...){
 #' @rdname ct_compact
 #' @usage NULL
 #' @export
+#' @importFrom lifecycle deprecate_warn
 compact.data.frame = function(data, ...){
   deprecate_warn("0.5.0", "compact.data.frame()", "ct_compact.data.frame()", details="Or use purrr::compact()")
   ct_compact.data.frame(data, ...)
@@ -148,6 +150,7 @@ compact.data.frame = function(data, ...){
 #' @rdname ct_compact
 #' @usage NULL
 #' @export
+#' @importFrom lifecycle deprecate_warn
 compact.crosstable = function(data, ...){
   deprecate_warn("0.5.0", "compact.crosstable()", "ct_compact.crosstable()")
   ct_compact.crosstable(data, ...)
@@ -157,6 +160,7 @@ compact.crosstable = function(data, ...){
 #' @rdname ct_compact
 #' @usage NULL
 #' @export
+#' @importFrom cli cli_abort
 compact.default = function(data, ...) {
   fn=get_defined_function('compact')
   if(is.null(fn) || is.null(fn[[1L]]))

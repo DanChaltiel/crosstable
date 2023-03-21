@@ -1,9 +1,8 @@
 
 #' @keywords internal
-#' @importFrom glue glue
-#' @importFrom rlang :=
-#' @importFrom dplyr rename select everything .data
-#' @importFrom checkmate assert assert_numeric assert_character
+#' @importFrom checkmate assert assert_numeric
+#' @importFrom dplyr everything mutate rename select
+#' @importFrom purrr map_df
 #' @noRd
 cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
                          label, cor_digits, cor_method,  test, test_args, effect, effect_args) {
@@ -43,9 +42,11 @@ cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
 
 
 #' Summarize numeric variables
-#' @importFrom checkmate assert_numeric assert_character
-#' @importFrom tibble rownames_to_column
-#' @importFrom dplyr rename
+#' @importFrom cli cli_abort
+#' @importFrom dplyr across mutate
+#' @importFrom methods formalArgs
+#' @importFrom purrr discard imap_dfr
+#' @importFrom tidyselect where
 #' @keywords internal
 #' @noRd
 summarize_numeric_single = function(x, funs, funs_arg){
@@ -76,12 +77,11 @@ summarize_numeric_single = function(x, funs, funs_arg){
 
 
 #' Summarize numeric by categorical
-#' @importFrom checkmate assert_numeric assert_character assert_scalar
-#' @importFrom tibble tibble
-#' @importFrom dplyr group_by mutate ungroup arrange filter .data
-#' @importFrom tidyr nest unnest pivot_wider replace_na
-#' @importFrom purrr map imap reduce
 #' @importFrom forcats fct_explicit_na
+#' @importFrom checkmate assert_numeric assert_scalar
+#' @importFrom dplyr across everything mutate ungroup
+#' @importFrom purrr imap_dfr
+#' @importFrom tidyr pivot_wider
 #' @keywords internal
 #' @noRd
 summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
@@ -127,11 +127,10 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
 
 
 #' Summarize numeric by numeric (correlation)
-#' @importFrom checkmate assert_numeric assert_string assert_count assert_logical assert_list
-#' @importFrom tibble tibble
-#' @importFrom dplyr mutate .data
-#' @importFrom stats cor.test
+#' @importFrom checkmate assert_count assert_list assert_logical assert_numeric assert_string
+#' @importFrom dplyr mutate
 #' @importFrom glue glue
+#' @importFrom tibble tibble
 #' @keywords internal
 #' @noRd
 summarize_numeric_numeric = function(x, by, method, digits, test, test_args){
@@ -156,4 +155,3 @@ summarize_numeric_numeric = function(x, by, method, digits, test, test_args){
 
   tibble(variable=method, value=as.character(value)) %>% mutate(test=.test)
 }
-

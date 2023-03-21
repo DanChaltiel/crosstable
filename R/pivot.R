@@ -9,7 +9,10 @@
 #' @param ct a crosstable
 #'
 #' @export
-#' @importFrom tidyr pivot_longer pivot_wider
+#' @importFrom cli cli_abort
+#' @importFrom dplyr count filter group_by mutate na_if summarise
+#' @importFrom glue glue
+#' @importFrom tidyr drop_na pivot_wider replace_na
 #'
 #' @examples
 #' ct = crosstable(mtcars2, c(mpg, drat, wt, qsec))
@@ -57,6 +60,12 @@ pivot_crosstable = function(ct){
 #' @param x a crosstable
 #'
 #' @export
+#' @importFrom cli cli_abort
+#' @importFrom dplyr across all_of arrange distinct everything group_by mutate select summarise sym
+#' @importFrom forcats as_factor
+#' @importFrom glue glue
+#' @importFrom rlang set_names
+#' @importFrom tibble column_to_rownames
 #' @importFrom tidyr pivot_longer pivot_wider
 #'
 #' @examples
@@ -143,10 +152,3 @@ transpose_crosstable = function(x){
 #' @export
 #' @rdname transpose_crosstable
 t.crosstable = transpose_crosstable
-
-
-
-
-
-
-
