@@ -71,7 +71,7 @@ summarize_numeric_single = function(x, funs, funs_arg){
 
     data.frame(variable=variable, value=v) %>%
       mutate(across(where(~is.numeric(.x)||is.date(.x)),
-                    format_fixed, !!!funs_arg))
+                    ~format_fixed(.x, !!!funs_arg)))
   })
 }
 
