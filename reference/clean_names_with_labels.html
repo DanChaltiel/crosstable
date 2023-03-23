@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9013</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9014</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -107,7 +107,16 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#options(crosstable_clean_names_fun=janitor::make_clean_names)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="st">"name with space"</span><span class="op">=</span><span class="fl">1</span>, TwoWords<span class="op">=</span><span class="fl">1</span>, <span class="st">"total $ (2009)"</span><span class="op">=</span><span class="fl">1</span>, àccénts<span class="op">=</span><span class="fl">1</span>,</span></span>
+<span class="r-in"><span>               check.names<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cleaned</span> <span class="op">=</span> <span class="fu">clean_names_with_labels</span><span class="op">(</span><span class="va">x</span>, except<span class="op">=</span><span class="va">TwoWords</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cleaned</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "name_with_space" "TwoWords"        "total_2009"      "accents"        </span>
+<span class="r-in"><span><span class="va">cleaned</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="get_label.html">get_label</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   name_with_space          TwoWords        total_2009           accents </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "name with space"        "TwoWords"  "total $ (2009)"         "àccénts" </span>
+</code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>

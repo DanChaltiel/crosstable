@@ -20,7 +20,7 @@ Can be formatted as an HTML table using as_flextable()."><meta property="og:imag
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9013</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9014</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -271,7 +271,7 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> disp  disp  Min / Max  71.1 / 472.0       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> disp  disp  Med [IQR]  196.3 [120.8;326.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> disp  disp  Mean (std) 230.7 (123.9)      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 28 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 28 more rows</span></span>
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 78 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .id   label variable           value    </span>
@@ -286,7 +286,7 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> model Model Ferrari Dino       1 (3.12%)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> model Model Fiat 128           1 (3.12%)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> model Model Fiat X1-9          1 (3.12%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 68 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 68 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#tidyselection, custom functions</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
@@ -312,19 +312,19 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">disp</span>, <span class="va">cyl</span><span class="op">)</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">am</span>, <span class="va">vs</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>           margin<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"row"</span>, <span class="st">"col"</span><span class="op">)</span>, total <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 8</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .id   label                 variable   am=auto…¹ am=ma…² am=au…³ am=ma…⁴ Total</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> disp  Displacement (cu.in.) Min / Max  120.1 / … 71.1 /… 275.8 … 120.3 … 71.1…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> disp  Displacement (cu.in.) Med [IQR]  167.6 [1… 79.0 [… 355.0 … 160.0 … 196.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> disp  Displacement (cu.in.) Mean (std) 175.1 (4… 89.8 (… 357.6 … 206.2 … 230.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> disp  Displacement (cu.in.) N (NA)     7 (0)     7 (0)   12 (0)  6 (0)   32 (…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> cyl   Number of cylinders   4          3 (42.86… 7 (100… 0 (0% … 1 (16.… 11 (…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> cyl   Number of cylinders   6          4 (57.14… 0 (0% … 0 (0% … 3 (50.… 7 (2…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> cyl   Number of cylinders   8          0 (0% / … 0 (0% … 12 (10… 2 (33.… 14 (…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> cyl   Number of cylinders   Total      7 (21.88… 7 (21.… 12 (37… 6 (18.… 32 (…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with abbreviated variable names ¹​`am=auto &amp; vs=straight`,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​`am=manual &amp; vs=straight`, ³​`am=auto &amp; vs=vshaped`,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁴​`am=manual &amp; vs=vshaped`</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .id   label             variable am=auto &amp; vs=straigh…¹ am=manual &amp; vs=strai…²</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> disp  Displacement (cu… Min / M… 120.1 / 258.0          71.1 / 121.0          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> disp  Displacement (cu… Med [IQ… 167.6 [143.8;196.3]    79.0 [77.2;101.5]     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> disp  Displacement (cu… Mean (s… 175.1 (49.1)           89.8 (18.8)           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> disp  Displacement (cu… N (NA)   7 (0)                  7 (0)                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> cyl   Number of cylind… 4        3 (42.86% / 27.27%)    7 (100.00% / 63.64%)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> cyl   Number of cylind… 6        4 (57.14% / 57.14%)    0 (0% / 0%)           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> cyl   Number of cylind… 8        0 (0% / 0%)            0 (0% / 0%)           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> cyl   Number of cylind… Total    7 (21.88%)             7 (21.88%)            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ abbreviated names: ¹​`am=auto &amp; vs=straight`, ²​`am=manual &amp; vs=straight`</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 3 more variables: `am=auto &amp; vs=vshaped` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `am=manual &amp; vs=vshaped` &lt;chr&gt;, Total &lt;chr&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#predicate selection, correlation, effect calculation</span></span></span>
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html" class="external-link">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, by<span class="op">=</span><span class="va">hp</span>, effect<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
@@ -367,15 +367,14 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">aml</span>, <span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">status</span><span class="op">)</span> <span class="op">~</span> <span class="va">x</span>, times<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">15</span>,<span class="fl">30</span>,<span class="fl">150</span><span class="op">)</span>, followup<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .id                label              variable                 Maint…¹ Nonma…²</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Surv(time, status) Surv(time, status) t=0                      1.00 (… 1.00 (…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Surv(time, status) Surv(time, status) t=15                     0.82 (… 0.58 (…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Surv(time, status) Surv(time, status) t=30                     0.61 (… 0.29 (…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Surv(time, status) Surv(time, status) t=150                    0.18 (… 0 (3/0)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Surv(time, status) Surv(time, status) Median follow up [min ;… 103 [1… NA [16…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Surv(time, status) Surv(time, status) Median survival          31      23     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with abbreviated variable names ¹​Maintained, ²​Nonmaintained</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .id                label              variable        Maintained Nonmaintained</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Surv(time, status) Surv(time, status) t=0             1.00 (0/1… 1.00 (0/12)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Surv(time, status) Surv(time, status) t=15            0.82 (2/8) 0.58 (5/7)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Surv(time, status) Surv(time, status) t=30            0.61 (2/5) 0.29 (3/4)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Surv(time, status) Surv(time, status) t=150           0.18 (3/1) 0 (3/0)      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Surv(time, status) Surv(time, status) Median follow … 103 [13 ;… NA [16 ; 45] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Surv(time, status) Surv(time, status) Median survival 31         23           </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Patterns</span></span></span>
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="va">vs</span>, by<span class="op">=</span><span class="va">am</span>, percent_digits<span class="op">=</span><span class="fl">0</span>,</span></span>
