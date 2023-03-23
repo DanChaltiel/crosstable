@@ -332,6 +332,7 @@ check_percent_pattern = function(percent_pattern){
 #'
 #' @keywords internal
 #' @noRd
+#' @encoding UTF-8
 #' @importFrom stringr str_remove_all
 #' @source janitor:::old_make_clean_names(), tweaked with iconv for accents
 #' @examples
