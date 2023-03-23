@@ -26,6 +26,7 @@ Imports:
     forcats,
     glue,
     lifecycle,
+    methods,
     officer (>= 0.4),
     purrr,
     rlang (>= 1.0.0),

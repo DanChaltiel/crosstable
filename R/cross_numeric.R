@@ -43,10 +43,9 @@ cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
 
 #' Summarize numeric variables
 #' @importFrom cli cli_abort
-#' @importFrom dplyr across mutate
+#' @importFrom dplyr across mutate where
 #' @importFrom methods formalArgs
 #' @importFrom purrr discard imap_dfr
-#' @importFrom tidyselect where
 #' @keywords internal
 #' @noRd
 summarize_numeric_single = function(x, funs, funs_arg){

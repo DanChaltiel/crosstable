@@ -580,7 +580,6 @@ body_add_img2 = function(doc, src, width, height,
 #' @author Dan Chaltiel
 #' @export
 #' @importFrom checkmate assert_class
-#' @importFrom ggplot2 ggsave
 #' @importFrom rlang check_installed
 #' @examples
 #' if(require("ggplot2") && capabilities(what = "png")){

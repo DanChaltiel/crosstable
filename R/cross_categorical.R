@@ -347,18 +347,12 @@ getTableCI = function(x, digits, method="wilson"){
 #add all combinations to global variables
 x=c("cell", "row", "col", "tot")
 n=c("n", "n_row", "n_col", "n_tot", "n_row_na", "n_col_na", "n_tot_na")
-n=c("n", "n_row", "n_col", "n_tot", "n_row_na", "n_col_na", "n_tot_na")
-p=paste0("p_", x)
 p=paste0("p_", x)
 p_na=paste0(p, "_na")
-p_na=paste0(p, "_na")
-p_ci=map(p, ~paste0(.x, c("_inf", "_sup")))
 #' @importFrom purrr map
 p_ci=map(p, ~paste0(.x, c("_inf", "_sup")))
-p_na_ci=map(p_na, ~paste0(.x, c("_inf", "_sup")))
 #' @importFrom purrr map
 p_na_ci=map(p_na, ~paste0(.x, c("_inf", "_sup")))
-nm = c(n, p, p_na, p_ci, p_na_ci) %>% unlist()
 nm = c(n, p, p_na, p_ci, p_na_ci) %>% unlist()
 # nm = percent_pattern_variables()
 utils::globalVariables(nm)

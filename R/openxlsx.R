@@ -69,6 +69,7 @@ as_workbook = function(x, show_test_name=TRUE,
 #' @importFrom dplyr across any_of everything lead mutate select
 #' @importFrom purrr map walk
 #' @importFrom stringr str_remove
+#' @importFrom tidyr replace_na
 addToWorksheet = function(wb, ct, sheetname, show_test_name = TRUE,
                           by_header = NULL, keep_id = FALSE,
                           generic_labels=list(id = ".id", variable = "variable", value = "value",

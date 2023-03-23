@@ -1,7 +1,16 @@
 attr = base
+colSums = base
+format = base
 getOption = base
 isFALSE = base
 local_options = rlang
+mean = base
 order = base
+print = base
+rowSums = base
 setdiff = base
+summary = base
+t = base
+unname = base
+which = base
 writeLines = base

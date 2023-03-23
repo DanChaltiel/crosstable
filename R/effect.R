@@ -42,11 +42,10 @@ crosstable_effect_args = function(effect_summarize = diff_mean_auto,
 #'
 #' @author Dan Chaltiel
 #' @export
-#' @importFrom dplyr across mutate
+#' @importFrom dplyr across mutate where
 #' @importFrom glue glue glue_collapse
 #' @importFrom purrr map_lgl
 #' @importFrom rlang is_string
-#' @importFrom tidyselect where
 display_effect = function(effect, digits = 4){
   if(is.null(effect) || all(map_lgl(effect, is.null))){
     return("No effect?")
