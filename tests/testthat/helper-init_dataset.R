@@ -4,11 +4,13 @@
 
 Sys.setenv(LANGUAGE = "en")
 Sys.setenv(TZ='Europe/Paris')
+Sys.setenv(TESTTHAT_NCPUS =4)
 options(
   encoding="UTF-8",
   # width = 200,
   # warn=0, #default, stacks
   warn=1, #immediate.=TRUE
+  Ncpus=4,
   # warn=2, #error
   # warnPartialMatchArgs=TRUE,
   # warnPartialMatchAttr=TRUE,
@@ -30,9 +32,6 @@ crosstable_options(verbosity_autotesting="quiet")
 shhh = function(expr) suppressPackageStartupMessages(suppressWarnings(expr))
 shhh(library(dplyr))
 shhh(library(officer))
-shhh(library(crosstable))
-shhh(library(stats))
-# shhh(library(survival))
 
 
 # Dataset -------------------------------------------------------------------------------------
@@ -46,10 +45,10 @@ mtcars3$cyl6 = mtcars3$cyl==6
 mtcars3$dummy = "dummy"
 mtcars3$dummy_na = NA
 mtcars3$dummy_na2 = NA
-mtcars3$dummy_num_vs = ifelse(mtcars3$vs=="vshaped", 0, rnorm(15))
+mtcars3$dummy_num_vs = ifelse(mtcars3$vs=="vshaped", 0, stats::rnorm(15))
 mtcars3$dummy2 = mtcars3$dummy
 mtcars3$dummy2[5:12] = NA
-mtcars3$test = rbinom(nrow(mtcars3), 1, 0.5) %>% factor(labels = c("A","B"))
+mtcars3$test = stats::rbinom(nrow(mtcars3), 1, 0.5) %>% factor(labels = c("A","B"))
 mtcars3$surv = survival::Surv(mtcars3$disp, mtcars3$am=="manual") %>% set_label("Dummy survival (disp/am)")
 # mtcars3$my_date = as.Date(mtcars2$hp , origin="2010-01-01") %>% set_label("Some nonsense date")
 # mtcars3$my_posix = as.POSIXct(mtcars2$qsec*3600*24 , origin="2010-01-01") %>% set_label("Date+time")
@@ -124,4 +123,5 @@ expect_warning2 = function(object, ...) {
 }
 
 
-print(glue('Helper loaded (is_testing={is_testing()}, is_parallel={is_parallel()})'))
+cli::cli_inform(c(v="Initializer {.file tests/testthat/helper-init.R} loaded",
+                  i="is_testing={is_testing()}, is_parallel={is_parallel()}"))
