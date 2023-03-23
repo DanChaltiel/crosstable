@@ -284,7 +284,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   ncol_x = if(is.null(data_x)) 0 else ncol(data_x)
   ncol_y = if(is.null(data_y)) 0 else ncol(data_y)
 
-  if(missing_percent_pattern && missing(margin)) {
+  if(missing_percent_pattern && is.null(margin)) {
     one_col_dummy = ncol_y==1 && length(unique(data_y[[1]]))==1
     default = if(one_col_dummy||ncol_y==0) "{n} ({p_col})" else "{n} ({p_row})"
     percent_pattern$body = getOption("crosstable_percent_pattern", default)

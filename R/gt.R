@@ -72,7 +72,7 @@ as_gt.crosstable = function(x, show_test_name = TRUE,
 
   rtn = x %>%
     mutate(
-      across(everything(), replace_na, replace="NA"),
+      across(everything(), ~replace_na(.x, replace="NA")),
       across(any_of(c("test", "effect")),
              ~ifelse(is.na(lag(.x)) | .x!=lag(.x), .x, "")),
       groupname=glue(group_glue)) %>%

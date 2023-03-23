@@ -95,7 +95,7 @@ addToWorksheet = function(wb, ct, sheetname, show_test_name = TRUE,
     ct[[test]] = str_remove(ct[[test]], "\\n\\(.*\\)")
   }
 
-  rtn = ct %>% mutate(across(everything(), replace_na, replace="NA"))
+  rtn = ct %>% mutate(across(everything(), ~replace_na(.x, replace="NA")))
   sep.rows = which(rtn[[id]] != lead(rtn[[id]]))
 
   if(keep_id) {
