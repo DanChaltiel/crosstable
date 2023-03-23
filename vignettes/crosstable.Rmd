@@ -147,7 +147,7 @@ crosstable(mtcars3, c(am, cyl), by=vs, showNA="always",
   as_flextable(keep_id=TRUE)
 ```
 
-You can see that missing values are never taken into account when calculating percentage calculation in `R`. You can change this behaviour by using `tidyr::replace_na()` or `forcats::fct_explicit_na()` on your dataset before applying `crosstable()`. 
+You can see that missing values are never taken into account when calculating percentage calculation in `R`. You can change this behaviour by using `tidyr::replace_na()` or `forcats::fct_na_value_to_level()` on your dataset before applying `crosstable()`. 
 
 
 ### Numeric variables
