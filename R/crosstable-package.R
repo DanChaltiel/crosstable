@@ -6,6 +6,7 @@
 #' @aliases crosstable-package
 ## usethis namespace: start
 #' @importFrom dplyr %>%
+#' @importFrom cli qty
 #' @importFrom rlang :=
 ## usethis namespace: end
 "_PACKAGE"

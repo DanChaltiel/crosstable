@@ -32,8 +32,7 @@ Imports:
     stats,
     stringr,
     tibble,
-    tidyr,
-    tidyselect
+    tidyr
 Suggests: 
     callr,
     covr,
