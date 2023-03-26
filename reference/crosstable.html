@@ -20,7 +20,7 @@ Can be formatted as an HTML table using as_flextable()."><meta property="og:imag
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9016</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9017</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -236,27 +236,27 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#whole table</span></span></span>
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 19 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    .id          label        variable   value                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Sepal.Length Sepal.Length Min / Max  4.3 / 7.9             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Sepal.Length Sepal.Length Med [IQR]  5.8 [5.1;6.4]         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Sepal.Length Sepal.Length Mean (std) 5.8 (0.8)             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Sepal.Length Sepal.Length N (NA)     150 (0)               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Sepal.Width  Sepal.Width  Min / Max  2.0 / 4.4             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Sepal.Width  Sepal.Width  Med [IQR]  3.0 [2.8;3.3]         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Sepal.Width  Sepal.Width  Mean (std) 3.1 (0.4)             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Sepal.Width  Sepal.Width  N (NA)     150 (0)               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Petal.Length Petal.Length Min / Max  1.0 / 6.9             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Petal.Length Petal.Length Med [IQR]  4.3 [1.6;5.1]         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Petal.Length Petal.Length Mean (std) 3.8 (1.8)             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Petal.Length Petal.Length N (NA)     150 (0)               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> Petal.Width  Petal.Width  Min / Max  0.1 / 2.5             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> Petal.Width  Petal.Width  Med [IQR]  1.3 [0.3;1.8]         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> Petal.Width  Petal.Width  Mean (std) 1.2 (0.8)             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> Petal.Width  Petal.Width  N (NA)     150 (0)               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> Species      Species      setosa     50 (0.333333333333333)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> Species      Species      versicolor 50 (0.333333333333333)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> Species      Species      virginica  50 (0.333333333333333)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    .id          label        variable   value        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Sepal.Length Sepal.Length Min / Max  4.3 / 7.9    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Sepal.Length Sepal.Length Med [IQR]  5.8 [5.1;6.4]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Sepal.Length Sepal.Length Mean (std) 5.8 (0.8)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Sepal.Length Sepal.Length N (NA)     150 (0)      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Sepal.Width  Sepal.Width  Min / Max  2.0 / 4.4    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Sepal.Width  Sepal.Width  Med [IQR]  3.0 [2.8;3.3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Sepal.Width  Sepal.Width  Mean (std) 3.1 (0.4)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Sepal.Width  Sepal.Width  N (NA)     150 (0)      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Petal.Length Petal.Length Min / Max  1.0 / 6.9    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Petal.Length Petal.Length Med [IQR]  4.3 [1.6;5.1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Petal.Length Petal.Length Mean (std) 3.8 (1.8)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Petal.Length Petal.Length N (NA)     150 (0)      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> Petal.Width  Petal.Width  Min / Max  0.1 / 2.5    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> Petal.Width  Petal.Width  Med [IQR]  1.3 [0.3;1.8]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> Petal.Width  Petal.Width  Mean (std) 1.2 (0.8)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> Petal.Width  Petal.Width  N (NA)     150 (0)      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> Species      Species      setosa     50 (33.33%)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> Species      Species      versicolor 50 (33.33%)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> Species      Species      virginica  50 (33.33%)  </span>
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 38 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .id   label variable   value              </span>
@@ -265,27 +265,27 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> mpg   mpg   Med [IQR]  19.2 [15.4;22.8]   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> mpg   mpg   Mean (std) 20.1 (6.0)         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> mpg   mpg   N (NA)     32 (0)             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> cyl   cyl   4          11 (0.34375)       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> cyl   cyl   6          7 (0.21875)        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> cyl   cyl   8          14 (0.4375)        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> cyl   cyl   4          11 (34.38%)        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> cyl   cyl   6          7 (21.88%)         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> cyl   cyl   8          14 (43.75%)        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> disp  disp  Min / Max  71.1 / 472.0       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> disp  disp  Med [IQR]  196.3 [120.8;326.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> disp  disp  Mean (std) 230.7 (123.9)      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 28 more rows</span></span>
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 78 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    .id   label variable           value      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> model Model AMC Javelin        1 (0.03125)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> model Model Cadillac Fleetwood 1 (0.03125)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> model Model Camaro Z28         1 (0.03125)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> model Model Chrysler Imperial  1 (0.03125)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> model Model Datsun 710         1 (0.03125)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> model Model Dodge Challenger   1 (0.03125)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> model Model Duster 360         1 (0.03125)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> model Model Ferrari Dino       1 (0.03125)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> model Model Fiat 128           1 (0.03125)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> model Model Fiat X1-9          1 (0.03125)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    .id   label variable           value    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> model Model AMC Javelin        1 (3.12%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> model Model Cadillac Fleetwood 1 (3.12%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> model Model Camaro Z28         1 (3.12%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> model Model Chrysler Imperial  1 (3.12%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> model Model Datsun 710         1 (3.12%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> model Model Dodge Challenger   1 (3.12%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> model Model Duster 360         1 (3.12%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> model Model Ferrari Dino       1 (3.12%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> model Model Fiat 128           1 (3.12%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> model Model Fiat X1-9          1 (3.12%)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 68 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#tidyselection, custom functions</span></span></span>
@@ -293,20 +293,20 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">ends_with</a></span><span class="op">(</span><span class="st">"t"</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"c"</span><span class="op">)</span><span class="op">)</span>, by<span class="op">=</span><span class="va">vs</span>,</span></span>
 <span class="r-in"><span>           funs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">mean</span>, <span class="va">quantile</span><span class="op">)</span>, funs_arg<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>probs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.25</span>,<span class="fl">.75</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    .id   label                 variable     straight               vshaped      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> drat  Rear axle ratio       mean         3.9                    3.4          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> drat  Rear axle ratio       quantile 25% 3.7                    3.1          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> drat  Rear axle ratio       quantile 75% 4.1                    3.7          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> wt    Weight (1000 lbs)     mean         2.6                    3.7          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> wt    Weight (1000 lbs)     quantile 25% 2.0                    3.2          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> wt    Weight (1000 lbs)     quantile 75% 3.2                    3.8          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> cyl   Number of cylinders   4            10 (0.909090909090909) 1 (0.0909090…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> cyl   Number of cylinders   6            4 (0.571428571428571)  3 (0.4285714…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> cyl   Number of cylinders   8            0 (0)                  14 (1)       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> carb  Number of carburetors mean         1.8                    3.6          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> carb  Number of carburetors quantile 25% 1.0                    2.2          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> carb  Number of carburetors quantile 75% 2.0                    4.0          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    .id   label                 variable     straight    vshaped     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> drat  Rear axle ratio       mean         3.9         3.4         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> drat  Rear axle ratio       quantile 25% 3.7         3.1         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> drat  Rear axle ratio       quantile 75% 4.1         3.7         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> wt    Weight (1000 lbs)     mean         2.6         3.7         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> wt    Weight (1000 lbs)     quantile 25% 2.0         3.2         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> wt    Weight (1000 lbs)     quantile 75% 3.2         3.8         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> cyl   Number of cylinders   4            10 (90.91%) 1 (9.09%)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> cyl   Number of cylinders   6            4 (57.14%)  3 (42.86%)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> cyl   Number of cylinders   8            0 (0%)      14 (100.00%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> carb  Number of carburetors mean         1.8         3.6         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> carb  Number of carburetors quantile 25% 1.0         2.2         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> carb  Number of carburetors quantile 75% 2.0         4.0         </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#margin and totals, multiple by</span></span></span>
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">disp</span>, <span class="va">cyl</span><span class="op">)</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">am</span>, <span class="va">vs</span><span class="op">)</span>,</span></span>
@@ -318,10 +318,10 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> disp  Displacement (cu… Med [IQ… 167.6 [143.8;196.3]    79.0 [77.2;101.5]     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> disp  Displacement (cu… Mean (s… 175.1 (49.1)           89.8 (18.8)           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> disp  Displacement (cu… N (NA)   7 (0)                  7 (0)                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> cyl   Number of cylind… 4        3 (0.428571428571429 … 7 (1 / 0.636363636363…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> cyl   Number of cylind… 6        4 (0.571428571428571 … 0 (0 / 0)             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> cyl   Number of cylind… 8        0 (0 / 0)              0 (0 / 0)             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> cyl   Number of cylind… Total    7 (0.21875)            7 (0.21875)           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> cyl   Number of cylind… 4        3 (42.86% / 27.27%)    7 (100.00% / 63.64%)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> cyl   Number of cylind… 6        4 (57.14% / 57.14%)    0 (0% / 0%)           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> cyl   Number of cylind… 8        0 (0% / 0%)            0 (0% / 0%)           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> cyl   Number of cylind… Total    7 (21.88%)             7 (21.88%)            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ abbreviated names: ¹​`am=auto &amp; vs=straight`, ²​`am=manual &amp; vs=straight`</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 3 more variables: `am=auto &amp; vs=vshaped` &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `am=manual &amp; vs=vshaped` &lt;chr&gt;, Total &lt;chr&gt;</span></span>
@@ -380,10 +380,10 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="va">vs</span>, by<span class="op">=</span><span class="va">am</span>, percent_digits<span class="op">=</span><span class="fl">0</span>,</span></span>
 <span class="r-in"><span>           percent_pattern<span class="op">=</span><span class="st">"{n} ({p_col} / {p_row})"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .id   label  variable auto                                       manual       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> vs    Engine straight 7 (0.368421052631579 / 0.5)                7 (0.5384615…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> vs    Engine vshaped  12 (0.631578947368421 / 0.666666666666667) 6 (0.4615384…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .id   label  variable auto           manual       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> vs    Engine straight 7 (37% / 50%)  7 (54% / 50%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> vs    Engine vshaped  12 (63% / 67%) 6 (46% / 33%)</span>
 <span class="r-in"><span><span class="fu">crosstable</span><span class="op">(</span><span class="va">mtcars2</span>, <span class="va">vs</span>, by<span class="op">=</span><span class="va">am</span>, percent_digits<span class="op">=</span><span class="fl">0</span>,</span></span>
 <span class="r-in"><span>           percent_pattern<span class="op">=</span><span class="st">"N={n} \np[95%CI] = {p_col} [{p_col_inf}; {p_col_sup}]"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 5</span></span>
