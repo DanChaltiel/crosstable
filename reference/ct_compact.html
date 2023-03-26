@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9015</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9016</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -203,20 +203,20 @@
 <span class="r-in"><span><span class="co">#crosstables</span></span></span>
 <span class="r-in"><span><span class="va">x</span><span class="op">=</span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">disp</span>,<span class="va">hp</span>,<span class="va">am</span><span class="op">)</span>, by<span class="op">=</span><span class="va">vs</span>, test<span class="op">=</span><span class="cn">TRUE</span>, effect<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">ct_compact</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 variable           straight             vshaped</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Displacement (cu.in.)                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2              Min / Max       71.1 / 258.0       120.3 / 472.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3              Med [IQR] 120.5 [83.0;162.4] 311.0 [275.8;360.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4             Mean (std)       132.5 (56.9)       307.1 (106.8)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 N (NA)             14 (0)              18 (0)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       Gross horsepower                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7              Min / Max       52.0 / 123.0        91.0 / 335.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8              Med [IQR]  96.0 [66.0;109.8] 180.0 [156.2;226.2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9             Mean (std)        91.4 (24.4)        189.7 (60.3)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10                N (NA)             14 (0)              18 (0)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11          Transmission                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12                  auto         7 (36.84%)         12 (63.16%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13                manual         7 (53.85%)          6 (46.15%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 variable              straight                vshaped</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Displacement (cu.in.)                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2              Min / Max          71.1 / 258.0          120.3 / 472.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3              Med [IQR]    120.5 [83.0;162.4]    311.0 [275.8;360.0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4             Mean (std)          132.5 (56.9)          307.1 (106.8)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 N (NA)                14 (0)                 18 (0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       Gross horsepower                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7              Min / Max          52.0 / 123.0           91.0 / 335.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8              Med [IQR]     96.0 [66.0;109.8]    180.0 [156.2;226.2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9             Mean (std)           91.4 (24.4)           189.7 (60.3)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                N (NA)                14 (0)                 18 (0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11          Transmission                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                  auto 7 (0.368421052631579) 12 (0.631578947368421)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                manual 7 (0.538461538461538)  6 (0.461538461538462)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                               effect</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 174.69 [114.36 to 235.02]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                   </span>
@@ -246,20 +246,20 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12                                               </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 13                                               </span>
 <span class="r-in"><span><span class="fu">ct_compact</span><span class="op">(</span><span class="va">x</span>, name_from<span class="op">=</span><span class="st">".id"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      variable           straight             vshaped</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        disp                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Min / Max       71.1 / 258.0       120.3 / 472.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   Med [IQR] 120.5 [83.0;162.4] 311.0 [275.8;360.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Mean (std)       132.5 (56.9)       307.1 (106.8)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      N (NA)             14 (0)              18 (0)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          hp                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   Min / Max       52.0 / 123.0        91.0 / 335.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   Med [IQR]  96.0 [66.0;109.8] 180.0 [156.2;226.2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Mean (std)        91.4 (24.4)        189.7 (60.3)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10     N (NA)             14 (0)              18 (0)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11         am                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12       auto         7 (36.84%)         12 (63.16%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13     manual         7 (53.85%)          6 (46.15%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      variable              straight                vshaped</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        disp                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Min / Max          71.1 / 258.0          120.3 / 472.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   Med [IQR]    120.5 [83.0;162.4]    311.0 [275.8;360.0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Mean (std)          132.5 (56.9)          307.1 (106.8)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      N (NA)                14 (0)                 18 (0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          hp                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   Min / Max          52.0 / 123.0           91.0 / 335.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   Med [IQR]     96.0 [66.0;109.8]    180.0 [156.2;226.2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Mean (std)           91.4 (24.4)           189.7 (60.3)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10     N (NA)                14 (0)                 18 (0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11         am                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12       auto 7 (0.368421052631579) 12 (0.631578947368421)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13     manual 7 (0.538461538461538)  6 (0.461538461538462)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                               effect</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 174.69 [114.36 to 235.02]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                   </span>
