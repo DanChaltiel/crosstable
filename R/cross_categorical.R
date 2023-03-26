@@ -71,6 +71,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
       across(c(p_col, p_row, p_tot), ~ifelse(is.na(x), NA, .x))
     ) %>%
     getTableCI(digits=digits) %>%
+    mutate(across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE))) %>%
     transmute(variable=replace_na(x, "NA"),
               value=ifelse(is.na(x) | .data$n==0 & zero_percent,
                            .data$n, glue(percent_pattern$body)))
@@ -86,6 +87,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
                     p_tot=1, p_row=p_tot, p_col=p_tot) %>%
       mutate(across_unpack(matches("^[pn]"), ~tibble(na=.x))) %>%
       getTableCI(digits=digits) %>%
+      mutate(across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE))) %>%
       transmute(.data$variable,
                 value=ifelse(.data$n==0 & zero_percent, .data$n,
                              glue(percent_pattern$total_all)))
@@ -146,6 +148,7 @@ summarize_categorical_by = function(x, by,
     mutate(n_tot=.env$n_tot, n_tot_na=.env$n_tot_na,
            across(c(p_col, p_row, p_tot), ~ifelse(is.na(x), NA, .x))) %>%
     getTableCI(digits=digits) %>%
+    mutate(across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE))) %>%
     select(x, by, n, order(colnames(.)))
 
   rtn = .table %>%
@@ -178,9 +181,11 @@ summarize_categorical_by = function(x, by,
         across(c(p_col, p_row, p_tot), ~ifelse(is.na(by), NA, .x))
       ) %>%
       getTableCI(digits=digits) %>%
-      transmute(x=fct_na_value_to_level(.data$by, "NA"),
-                value=ifelse(is.na(by) | .data$n==0&zero_percent, .data$n,
-                             glue(percent_pattern$total_row))) %>%
+      mutate(across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE)),
+             x=fct_na_value_to_level(.data$by, "NA"),
+             value=ifelse(is.na(by) | .data$n==0&zero_percent, .data$n,
+                          glue(percent_pattern$total_row))) %>%
+      select(x, value) %>%
       pivot_wider(names_from="x", values_from = "value") %>%
       mutate(variable="Total")
 
@@ -340,8 +345,7 @@ getTableCI = function(x, digits, method="wilson"){
       across_unpack(p_row,  ~confint_proportion(.x, n_row, method=method)),
       across_unpack(p_tot_na, ~confint_proportion(.x, n_tot_na, method=method)),
       across_unpack(p_col_na,  ~confint_proportion(.x, n_col_na, method=method)),
-      across_unpack(p_row_na,  ~confint_proportion(.x, n_row_na, method=method)),
-      across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE))
+      across_unpack(p_row_na,  ~confint_proportion(.x, n_row_na, method=method))
     )
 }
 
