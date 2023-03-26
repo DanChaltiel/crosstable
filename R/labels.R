@@ -200,7 +200,6 @@ rename_dataframe_with_labels=function(df, except=NULL){
 #' #options(crosstable_clean_names_fun=janitor::make_clean_names)
 #' x = data.frame("name with space"=1, TwoWords=1, "total $ (2009)"=1, àccénts=1,
 #'                check.names=FALSE)
-#' //x = structure(1:4, names=c("name with space", "TwoWords", "total $ (2009)", "àccénts"))
 #' cleaned = clean_names_with_labels(x, except=TwoWords)
 #' cleaned %>% names()
 #' cleaned %>% get_label()
@@ -241,7 +240,7 @@ clean_names_with_labels = function(df, except=NULL, .fun=getOption("crosstable_c
 #'                Sepal.Width="Width of Sepal") %>%
 #'   crosstable()
 apply_labels = function(data, ..., warn_missing=FALSE) {
-  args = list(...)
+  args = lst(...)
   unknowns = setdiff(names(args), names(data))
   if (length(unknowns) && warn_missing) {
     cli_warn("Cannot apply a label to unknown column{?s} in `data`: {.var {unknowns}}",
