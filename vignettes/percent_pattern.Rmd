@@ -22,7 +22,7 @@ When working with categorical variables, `crosstable()` allows a very flexible o
 This vignette will review the many things you can do using `percent_pattern`.
 
 
-## Init
+## initialization
 
 First, let's add some missing values to the `mtcars2` dataset and tweak some options:
 

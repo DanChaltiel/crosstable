@@ -54,7 +54,7 @@ pivot_crosstable = function(ct){
 
 #' Transpose a crosstable
 #'
-#' Pivot a crosstable so the `label` column iw swapped with the `by` row.
+#' Pivot a crosstable so the `label` column is swapped with the `by` row.
 #' This requires the `variable` column to be the same for every data column, like when all columns are numeric of when all columns are factors with the same levels
 #'
 #' @param x a crosstable

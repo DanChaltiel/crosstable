@@ -13,7 +13,7 @@ transpose_crosstable(x)
 \item{x}{a crosstable}
 }
 \description{
-Pivot a crosstable so the \code{label} column iw swapped with the \code{by} row.
+Pivot a crosstable so the \code{label} column is swapped with the \code{by} row.
 This requires the \code{variable} column to be the same for every data column, like when all columns are numeric of when all columns are factors with the same levels
 }
 \examples{
