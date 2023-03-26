@@ -1,6 +1,6 @@
 
 utils::globalVariables(c(".", "x", "y", "n", "where", "ct", "col_keys",
-                         "p_col", ".col_1", ".col_2",
+                         "p_col", ".col_1", ".col_2", "value",
                          ".data", ".env"))
 
 crosstable_caller = rlang::env()
