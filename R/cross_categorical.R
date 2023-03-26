@@ -55,6 +55,8 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
     as.data.frame() %>%
     select(x=1, n=2) #needed for an odd bug on fedora-devel
   zero_percent = getOption("crosstable_zero_percent", FALSE)
+  ppv_ci = percent_pattern_contains(percent_pattern, "_inf|_sup")
+  if(!ppv_ci) getTableCI = function(x, ...) x
 
   rtn = tbd %>%
     mutate(
@@ -72,8 +74,8 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
     transmute(variable=replace_na(x, "NA"),
               value=ifelse(is.na(x) | .data$n==0 & zero_percent,
                            .data$n, glue(percent_pattern$body)))
-  .showNA = showNA=="always" || showNA=="ifany" && (anyNA(x))
 
+  .showNA = showNA=="always" || showNA=="ifany" && (anyNA(x))
   if(!.showNA){
     rtn = filter(rtn, .data$variable!="NA")
   }
@@ -109,6 +111,8 @@ summarize_categorical_by = function(x, by,
                                     showNA, total, digits,
                                     test, test_args, effect, effect_args){
   zero_percent = getOption("crosstable_zero_percent", FALSE)
+  ppv_ci = percent_pattern_contains(percent_pattern, "_inf|_sup")
+  if(!ppv_ci) getTableCI = function(x, ...) x
 
   nn = table(x, by, useNA=showNA)
   nn2 = table(x, by, useNA="no")
@@ -339,6 +343,16 @@ getTableCI = function(x, digits, method="wilson"){
       across_unpack(p_row_na,  ~confint_proportion(.x, n_row_na, method=method)),
       across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE))
     )
+}
+
+#' @importFrom purrr map_lgl
+#' @importFrom stringr str_subset str_detect
+#' @keywords internal
+#' @noRd
+percent_pattern_contains = function(percent_pattern, needle){
+  ppv = percent_pattern_variables() %>% unlist() %>% str_subset(needle)
+  ppv = paste0("\\{", ppv, "\\}", collapse="|")
+  percent_pattern %>% map_lgl(~str_detect(.x, ppv)) %>% any()
 }
 
 # Global Variables -----------------------------------------------------------------------------
