@@ -817,7 +817,7 @@ body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE,
     return(body_add_par(doc, value, style))
   }
   reg_r = list(
-    ref = "\\\\@ref\\(.*?\\)"
+    ref = "\\?\\?@ref\\(.*?\\)"
   )
   reg_f = list(
     bold = "\\*\\*(.+?)\\*\\*",
@@ -846,12 +846,13 @@ body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE,
     if(length(.format)==0) return(ftext(.x))
 
     if(any(.format=="ref")){
-      bkm = str_match(.x, "\\\\@ref\\((.*?)\\)")[,2]
+      bkm = str_match(.x, "\\?\\?@ref\\((.*?)\\)")[,2]
       return(run_word_field(glue(' REF {bkm} \\h ')))
     }
     if(any(.format=="code")){
       fp = fp_text_lite(font.family=getOption("crosstable_font_code", "Consolas"))
-      return( ftext(.x, fp))
+      .x = str_match(.x, regex$code)[[2]]
+      return(ftext(.x, fp))
     }
     rex = regex[.format]
     for(i in rex){
@@ -865,7 +866,6 @@ body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE,
 
     ftext(.x, fp)
   })
-
 
   p=do.call(fpar, args=par_list)
   body_add_fpar(doc, p, style)
