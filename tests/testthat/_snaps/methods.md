@@ -22,7 +22,7 @@
        8 b     b      N (NA)     3 (0)            3 (0)            3 (0)           
        9 c     c      Min / Max  -0.8 / 0.1       0.3 / 0.7        0.6 / 1.2       
       10 c     c      Med [IQR]  -0.6 [-0.7;-0.3] 0.4 [0.4;0.5]    0.7 [0.7;0.9]   
-      # ... with 30 more rows
+      # i 30 more rows
     Code
       af(ct2)$header$dataset
     Output
