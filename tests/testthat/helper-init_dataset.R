@@ -122,6 +122,12 @@ expect_warning2 = function(object, ...) {
   rtn
 }
 
+compare = function (x, y, x_arg=caller_arg(x), y_arg=caller_arg(y), len_max=Inf, ...) {
+  x_arg = stringr::str_trunc(x_arg, width=len_max)
+  y_arg = stringr::str_trunc(y_arg, width=len_max)
+  waldo::compare(x, y, x_arg=x_arg, y_arg=y_arg, ...)
+}
+
 
 cli::cli_inform(c(v="Initializer {.file tests/testthat/helper-init.R} loaded",
                   i="is_testing={is_testing()}, is_parallel={is_parallel()}"))
