@@ -11,15 +11,16 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
     as_flextable(t_ct)
     ```
 
--   New function `pivot_crossable()` (or simply `t()`), which pivots a crosstable so that the `variable` column is spread as several columns.\
+-   New function `pivot_crossable()`, which pivots a crosstable so that the `variable` column is spread as several columns.\
     ```r
     ct = crosstable(mtcars2, c(mpg, drat, wt, qsec))
     p_ct = pivot_crosstable(ct)
     as_flextable(p_ct)
     ```
+    
 -   `body_add_table_list()` now replaces `body_add_crosstable_list()` and `body_add_flextable_list()`. It allows both crosstables and flextable (and even dataframes, which are turned to flextables first) and has a new argument `fun_after` to control what comes after the table. See examples in `?body_add_table_list`.
 
--   New function `get_percent_pattern()`. See also the new vignette about this `vignette("percent_pattern")`.
+-   New function `get_percent_pattern()`. See also the new vignette `vignette("percent_pattern")`.
 
 -   New argument `crosstable(drop_levels=TRUE)` to drop unused levels in factors.
 
@@ -29,17 +30,21 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 
 #### Breaking changes (minor)
 
--   `showNA="no"` is now consistent with `stats::addmargins()`, `gtsummary::tbl_cross(missing="no")` and `janitor::tabyl(show_na=FALSE)` and actually removes all `NA` from the equation, instead of not doing much (#24).
+-   `showNA="no"` is now consistent with `stats::addmargins()`, `gtsummary::tbl_cross(missing="no")`, and `janitor::tabyl(show_na=FALSE)`. It now actually removes all `NA` from the equation, instead of not doing much (#24).
 
 -   In `percent_patern`, the proportion relative to the total sample `p_cell` has been renamed to `p_tot` for clarity.
 
-#### Bug fixes
+#### Bug fixes and improvements
 
 -   Removed unexpected warning "NaNs produced" thrown when calculating percentages in totals while the number of NA is higher than the other classes (#20).
 -   The output is now correct when `header_show_n=TRUE` and `remove_header_keys=TRUE` while using multiple by variables (#21).
 -   Flextables will not have missing columns when using multiple by variables that has same key levels.
 -   String interpolation works as intended in `body_add_xxx_legend()`.
--   crosstable will not fail if `fisher.test()` fails [#28]
+-   `crosstable()` will not fail if `fisher.test()` fails [#28]
+-   `forcats::fct_explicit_na()` is not used anymore [#29]
+-   `body_add_normal()` now removes ``` symbols when showing code [#31]
+-   Trailing commas will not make `apply_labels()` fail anymore [#32]
+-   Performance improvement (around 30% for small tables) as confidence intervals are not calculated anymore when not needed [#34]
 
 Many thanks to Stephan Daus (@sda030) for his bug reports and feedback on this release.
 
