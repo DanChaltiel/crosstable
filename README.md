@@ -32,15 +32,15 @@ create automatized reports.
 ## Installation
 
 ``` r
-# Install last version available on CRAN (v0.4.1)
+# Install last version available on CRAN
 install.packages("crosstable")
 
 # Install development version on Github
 devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 
 # Install specific commit or tagged version (for reproducibility purpose)
-devtools::install_github("DanChaltiel/crosstable@590e1bc", build_vignettes=TRUE)
-devtools::install_github("DanChaltiel/crosstable@v0.4.1", build_vignettes=TRUE)
+devtools::install_github("DanChaltiel/crosstable@51689eb", build_vignettes=TRUE)
+devtools::install_github("DanChaltiel/crosstable@v0.6.0", build_vignettes=TRUE)
 ```
 
 Note that, for reproducibility purpose, an even better solution would be
@@ -67,8 +67,8 @@ ct1 = crosstable(mtcars2, c(disp, vs), by=am, total="both",
 ct1
 ```
 
-<p style="text-align: center;">
-  <img src="man/figures/ct1_mod.png" alt="crosstable1">
+<p align="center">
+<img src="man/figures/ct1_mod.png" alt="crosstable1">
 </p>
 
 With only a few arguments, we did select which column to describe
@@ -106,8 +106,8 @@ ct2 = crosstable(mtcars2, c(starts_with("cy"), ends_with("at")), by=c(am, vs),
 ct2
 ```
 
-<p align="center">
-  <img src="man/figures/ct2_mod.png" alt="crosstable2">
+<p style="text-align: center;">
+<img src="man/figures/ct2_mod.png" alt="crosstable2">
 </p>
 
 Here, the variables were selected using `tidyselect` helpers and the
@@ -126,31 +126,35 @@ of the header.
 You can find the whole documentation on the [dedicated
 website](https://danchaltiel.github.io/crosstable/):
 
--   `vignette("crosstable")` for a first step-by-step guide on how to
-    use `crosstable`
-    ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html))
--   `vignette("crosstable-report")` for more on creating MS Word reports
-    using either `{officer}` or `Rmarkdown`
-    ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-report.html))
--   `vignette("crosstable-selection")` for more on variable selection
-    ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html))
+- `vignette("crosstable")` for a first step-by-step guide on how to use
+  `crosstable`
+  ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html))
+- `vignette("crosstable-report")` for more on creating MS Word reports
+  using either `{officer}` or `Rmarkdown`
+  ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-report.html))
+- `vignette("pertent_pattern")` for more on how to use `percent_pattern`
+  ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html))
+- `vignette("crosstable-selection")` for more on variable selection
+  ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html)),
+  although you would better read
+  <https://tidyselect.r-lib.org/articles/syntax.html>.
 
 There are lots of other features you can learn about there, for instance
 (non-exhaustive list):
 
--   description of correlation, dates, and survival data
-    ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#miscellaneous-1))
--   variable selection with functions, e.g. `is.numeric`
-    ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-predicate-functions))
--   formula interface, allowing to describe more mutated columns,
-    e.g. `sqrt(mpg)` or `Surv(time, event)`
-    ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-a-formula))
--   automatic computation of statistical tests
-    ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#tests))
-    and of effect sizes
-    ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#effects))
--   global options to avoid repeating arguments
-    ([link](https://danchaltiel.github.io/crosstable/reference/crosstable_options.html))
+- description of correlation, dates, and survival data
+  ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#miscellaneous-1))
+- variable selection with functions, e.g. `is.numeric`
+  ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-predicate-functions))
+- formula interface, allowing to describe more mutated columns,
+  e.g. `sqrt(mpg)` or `Surv(time, event)`
+  ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-a-formula))
+- automatic computation of statistical tests
+  ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#tests))
+  and of effect sizes
+  ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#effects))
+- global options to avoid repeating arguments
+  ([link](https://danchaltiel.github.io/crosstable/reference/crosstable_options.html))
 
 ## Getting help and giving feedback
 
