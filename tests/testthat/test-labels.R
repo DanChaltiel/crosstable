@@ -194,12 +194,17 @@ test_that("Save/import", {
 
 
 test_that("clean_names_with_labels", {
+  skip_on_cran()
+  expect_snapshot({
   x = data.frame("name with space"=1, TwoWords=1, "total $ (2009)"=1, "àccénts"=1,
                  check.names=FALSE)
-  cleaned = clean_names_with_labels(x, except=TwoWords)
-  expect_equal(names(cleaned), c("name_with_space", "TwoWords", "total_2009", "accents"))
-  expect_equal(get_label(cleaned), c(name_with_space = "name with space", TwoWords = "TwoWords",
-                                     total_2009 = "total $ (2009)", `accents` = "àccénts"))
+  cleaned = clean_names_with_labels(x)
+  names(cleaned)
+  get_label(cleaned)
+  cleaned = clean_names_with_labels(x, except="name with space")
+  names(cleaned)
+  get_label(cleaned)
+  })
 })
 
 

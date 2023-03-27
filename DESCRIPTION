@@ -1,6 +1,6 @@
 Package: crosstable
 Title: Crosstables for Descriptive Analyses
-Version: 0.5.0.9018
+Version: 0.6.0
 Authors@R: 
     c(person(given = "Dan",
              family = "Chaltiel",
@@ -53,6 +53,7 @@ Suggests:
     stringi,
     survival,
     systemfonts,
+    tidyselect,
     testthat (>= 3.0.0),
     withr,
     waldo

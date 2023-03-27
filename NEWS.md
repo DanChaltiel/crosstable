@@ -1,6 +1,6 @@
 Crosstables for descriptive analyses. See documentation at <https://danchaltiel.github.io/crosstable/> and browse code at <https://github.com/DanChaltiel/crosstable>.
 
-# crosstable 0.6.0 <sub><sup>(?)</sup></sub>
+# crosstable 0.6.0 <sub><sup>2023-03-26</sup></sub>
 
 #### New features
 

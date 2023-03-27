@@ -65,3 +65,28 @@
        "foo" "ffoo" 
       
 
+# clean_names_with_labels
+
+    Code
+      x = data.frame(`name with space` = 1, TwoWords = 1, `total $ (2009)` = 1,
+        àccénts = 1, check.names = FALSE)
+      cleaned = clean_names_with_labels(x)
+      names(cleaned)
+    Output
+      [1] "name_with_space" "twowords"        "total_2009"      "accents"        
+    Code
+      get_label(cleaned)
+    Output
+        name_with_space          twowords        total_2009           accents 
+      "name with space"        "TwoWords"  "total $ (2009)"         "àccénts" 
+    Code
+      cleaned = clean_names_with_labels(x, except = "name with space")
+      names(cleaned)
+    Output
+      [1] "name with space" "twowords"        "total_2009"      "accents"        
+    Code
+      get_label(cleaned)
+    Output
+        name with space          twowords        total_2009           accents 
+      "name with space"        "TwoWords"  "total $ (2009)"         "àccénts" 
+
