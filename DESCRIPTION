@@ -23,7 +23,7 @@ Imports:
     cli,
     dplyr (>= 1.0.0),
     flextable (>= 0.5.8),
-    forcats,
+    forcats (>= 1.0.0),
     glue,
     lifecycle,
     methods,
