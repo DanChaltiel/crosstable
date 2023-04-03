@@ -90,3 +90,31 @@
         name with space          twowords        total_2009           accents 
       "name with space"        "TwoWords"  "total $ (2009)"         "àccénts" 
 
+# rename_dataframe_with_labels 
+
+    Code
+      rename_with_labels(dat) %>% names()
+    Output
+      [1] "Model"                 "Miles/(US) gallon"     "Number of cylinders"  
+      [4] "Displacement (cu.in.)" "Gross horsepower"     
+    Code
+      rename_with_labels(dat, except = 5) %>% names()
+    Output
+      [1] "Model"                 "Miles/(US) gallon"     "Number of cylinders"  
+      [4] "Displacement (cu.in.)" "hp"                   
+    Code
+      rename_with_labels(dat, except = hp) %>% names()
+    Output
+      [1] "Model"                 "Miles/(US) gallon"     "Number of cylinders"  
+      [4] "Displacement (cu.in.)" "hp"                   
+    Code
+      rename_with_labels(dat, except = "hp") %>% names()
+    Output
+      [1] "Model"                 "Miles/(US) gallon"     "Number of cylinders"  
+      [4] "Displacement (cu.in.)" "hp"                   
+    Code
+      rename_with_labels(dat, except = 99) %>% names()
+    Output
+      [1] "Model"                 "Miles/(US) gallon"     "Number of cylinders"  
+      [4] "Displacement (cu.in.)" "Gross horsepower"     
+

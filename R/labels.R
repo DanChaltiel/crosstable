@@ -162,16 +162,24 @@ remove_label = remove_labels
 #'
 #' @importFrom checkmate assert_data_frame
 #' @importFrom dplyr rename_with select
+#' @importFrom rlang enexpr as_string
 #' @author Dan Chaltiel
 #' @export
+#' @source https://stackoverflow.com/q/75848408/3888000
 #'
 #' @examples
 #' rename_with_labels(mtcars2[,1:5], except=5) %>% names()
 #' rename_with_labels(iris2, except=Sepal.Length) %>% names()
+#' rename_with_labels(iris2, except=starts_with("Pet")) %>% names()
 rename_with_labels = function(df, except=NULL){
-  assert_data_frame(df, null.ok=TRUE)
-  except = names(select(df, {{except}}))
-  rename_with(df, ~ifelse(.x %in% except, .x, get_label(df)[.x]))
+  if(is.null(df)) return(NULL)
+  assert_data_frame(df)
+  except = enexpr(except)
+  if((!is.numeric(except)) && length(as.list(except))== 1){
+    except = as_string(except)
+  }
+  nm = setdiff(names(df), names(select(df, any_of({{except}}))))
+  rename_with(df, ~get_label(df)[.x], all_of(nm))
 }
 
 #' @export

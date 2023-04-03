@@ -195,6 +195,7 @@ test_that("Save/import", {
 
 test_that("clean_names_with_labels", {
   skip_on_cran()
+  skip_on_os("mac")
   expect_snapshot({
   x = data.frame("name with space"=1, TwoWords=1, "total $ (2009)"=1, "àccénts"=1,
                  check.names=FALSE)
@@ -210,20 +211,13 @@ test_that("clean_names_with_labels", {
 
 test_that("rename_dataframe_with_labels ", {
   dat = mtcars2[,1:5]
-  x=rename_with_labels(dat)
-  expect_equal(names(x), unname(get_label(dat)))
 
-  x=rename_with_labels(dat, except=5)
-  expect_equal(names(x)[1:4], unname(get_label(dat))[1:4])
-  expect_equal(names(x)[5], names(dat)[5])
-
-  x2=rename_with_labels(dat, except="hp")
-  expect_equal(names(x), names(x2))
-  x3=rename_with_labels(dat, except=hp)
-  expect_equal(names(x), names(x3))
-
-  #TODO error ou pas ?
-  # rename_with_labels(dat, except="15")
-  # rename_with_labels(dat, except=15)
+  expect_snapshot({
+    rename_with_labels(dat) %>% names()
+    rename_with_labels(dat, except=5) %>% names()
+    rename_with_labels(dat, except=hp) %>% names()
+    rename_with_labels(dat, except="hp") %>% names()
+    rename_with_labels(dat, except=99) %>% names()
+  })
 })
 

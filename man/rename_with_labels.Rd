@@ -4,6 +4,9 @@
 \alias{rename_with_labels}
 \alias{rename_dataframe_with_labels}
 \title{Rename every column of a dataframe with its label}
+\source{
+https://stackoverflow.com/q/75848408/3888000
+}
 \usage{
 rename_with_labels(df, except = NULL)
 }
@@ -21,6 +24,7 @@ Rename every column of a dataframe with its label
 \examples{
 rename_with_labels(mtcars2[,1:5], except=5) \%>\% names()
 rename_with_labels(iris2, except=Sepal.Length) \%>\% names()
+rename_with_labels(iris2, except=starts_with("Pet")) \%>\% names()
 }
 \author{
 Dan Chaltiel
