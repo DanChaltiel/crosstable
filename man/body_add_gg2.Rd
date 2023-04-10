@@ -37,19 +37,19 @@ The docx object \code{doc}
 Alternative to \code{\link[officer:body_add_gg]{officer::body_add_gg()}} which uses \code{ggplot} syntax
 }
 \examples{
-if(require("ggplot2") && capabilities(what = "png")){
-  library(officer)
-  p = ggplot(data = iris ) +
-    geom_point(mapping = aes(Sepal.Length, Petal.Length))
-
-  options(crosstable_units="cm")
-  options(crosstable_style_image="centered")
-  doc = read_docx() \%>\%
-    body_add_normal("Text before") \%>\%
-    body_add_gg2(p, w=14, h=10, scale=1.5) \%>\% #or units="cm" instead of using options
-    body_add_normal("Text after")
-  #write_and_open(doc)
-}
+library(officer)
+library(ggplot2)
+p = ggplot(data = iris ) +
+ geom_point(mapping = aes(Sepal.Length, Petal.Length))
+crosstable_options(
+  units="cm",
+  style_image="centered"
+)
+doc = read_docx() \%>\%
+ body_add_normal("Text before") \%>\%
+ body_add_gg2(p, w=14, h=10, scale=1.5) \%>\% #or units="cm" instead of using options
+ body_add_normal("Text after")
+write_and_open(doc)
 }
 \author{
 Dan Chaltiel

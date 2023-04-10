@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/DanChaltiel/crosstable/",
   "issueTracker": "https://github.com/DanChaltiel/crosstable/issues/",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -258,6 +258,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "tidyselect",
+      "name": "tidyselect",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tidyselect"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
       "version": ">= 3.0.0",
@@ -355,6 +367,7 @@
       "@type": "SoftwareApplication",
       "identifier": "forcats",
       "name": "forcats",
+      "version": ">= 1.0.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -473,7 +486,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "1502.912KB",
+  "fileSize": "1504.452KB",
   "releaseNotes": "https://github.com/DanChaltiel/crosstable/blob/master/NEWS.md",
   "readme": "https://github.com/DanChaltiel/crosstable/blob/main/README.md",
   "contIntegration": ["https://app.codecov.io/gh/DanChaltiel/crosstable?branch=main", "https://github.com/DanChaltiel/crosstable/actions"],

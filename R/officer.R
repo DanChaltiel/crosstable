@@ -582,19 +582,19 @@ body_add_img2 = function(doc, src, width, height,
 #' @importFrom checkmate assert_class
 #' @importFrom rlang check_installed
 #' @examples
-#' if(require("ggplot2") && capabilities(what = "png")){
-#'   library(officer)
-#'   p = ggplot(data = iris ) +
-#'     geom_point(mapping = aes(Sepal.Length, Petal.Length))
-#'
-#'   options(crosstable_units="cm")
-#'   options(crosstable_style_image="centered")
-#'   doc = read_docx() %>%
-#'     body_add_normal("Text before") %>%
-#'     body_add_gg2(p, w=14, h=10, scale=1.5) %>% #or units="cm" instead of using options
-#'     body_add_normal("Text after")
-#'   #write_and_open(doc)
-#' }
+#' library(officer)
+#' library(ggplot2)
+#' p = ggplot(data = iris ) +
+#'  geom_point(mapping = aes(Sepal.Length, Petal.Length))
+#' crosstable_options(
+#'   units="cm",
+#'   style_image="centered"
+#' )
+#' doc = read_docx() %>%
+#'  body_add_normal("Text before") %>%
+#'  body_add_gg2(p, w=14, h=10, scale=1.5) %>% #or units="cm" instead of using options
+#'  body_add_normal("Text after")
+#' write_and_open(doc)
 body_add_gg2 = function(doc, value, width = 6, height = 5,
                         units = getOption("crosstable_units", "in"),
                         style = getOption("crosstable_style_image", doc$default_styles$paragraph),

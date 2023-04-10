@@ -20,4 +20,4 @@ Thank you very much.
 
 ## Comment
 
-* No comment
+* I removed one test on Mac as it seems to be an encoding problem

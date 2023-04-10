@@ -85,8 +85,8 @@ Try first with "no", and then with "yes" if it fails.
 
 This error can happen on Mac. I have no clue on how to correct it. If you experience it, please create an [Issue](https://github.com/DanChaltiel/crosstable/issues) with the actual error message and the result of `sessionInfo()`.
 
->     ERROR: configuration failed for package ‘systemfonts’
->     * removing ‘/Library/Frameworks/R.framework/Versions/3.6/Resources/library/systemfonts’
->     * restoring previous ‘/Library/Frameworks/R.framework/Versions/3.6/Resources/library/systemfonts’
+>     ERROR: configuration failed for package 'systemfonts'
+>     * removing '/Library/Frameworks/R.framework/Versions/3.6/Resources/library/systemfonts'
+>     * restoring previous '/Library/Frameworks/R.framework/Versions/3.6/Resources/library/systemfonts'
 >     Error: Failed to install 'crosstable' from GitHub:
->     (converted from warning) installation of package ‘systemfonts’ had non-zero exit status
+>     (converted from warning) installation of package 'systemfonts' had non-zero exit status

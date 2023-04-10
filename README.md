@@ -39,7 +39,7 @@ install.packages("crosstable")
 devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 
 # Install specific commit or tagged version (for reproducibility purpose)
-devtools::install_github("DanChaltiel/crosstable@51689eb", build_vignettes=TRUE)
+devtools::install_github("DanChaltiel/crosstable@8fc3328", build_vignettes=TRUE)
 devtools::install_github("DanChaltiel/crosstable@v0.6.0", build_vignettes=TRUE)
 ```
 
@@ -92,8 +92,8 @@ to learn how).
 Here is a more advanced example.
 
 > Dear crosstable, using the `mtcars2` dataset again, please describe
-> all columns whose name starts with “cy” and those whose name ends with
-> “at”, depending on the levels of both columns `am` and `vs`, without
+> all columns whose name starts with "cy" and those whose name ends with
+> "at", depending on the levels of both columns `am` and `vs`, without
 > considering labels, applying `mean()` and `quantile()` as summary
 > function, with `probs` 25% and 75% defined for this latter function,
 > and with 3 decimals for numeric variables:
@@ -136,7 +136,7 @@ website](https://danchaltiel.github.io/crosstable/):
   ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html))
 - `vignette("crosstable-selection")` for more on variable selection
   ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html)),
-  although you would better read
+  although you should better read
   <https://tidyselect.r-lib.org/articles/syntax.html>.
 
 There are lots of other features you can learn about there, for instance
@@ -144,10 +144,10 @@ There are lots of other features you can learn about there, for instance
 
 - description of correlation, dates, and survival data
   ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#miscellaneous-1))
-- variable selection with functions, e.g. `is.numeric`
+- variable selection with functions, e.g. `is.numeric`
   ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-predicate-functions))
 - formula interface, allowing to describe more mutated columns,
-  e.g. `sqrt(mpg)` or `Surv(time, event)`
+  e.g. `sqrt(mpg)` or `Surv(time, event)`
   ([link](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.html#select-with-a-formula))
 - automatic computation of statistical tests
   ([link](https://danchaltiel.github.io/crosstable/articles/crosstable.html#tests))
@@ -161,7 +161,7 @@ There are lots of other features you can learn about there, for instance
 If you have a question about how to use `crosstable`, please ask on
 [StackOverflow](https://stackoverflow.com/) with the tag `crosstable`.
 You can `@DanChaltiel` in a comment if you are struggling to get
-answers. Don’t forget to add a minimal **repr**oducible **ex**ample to
+answers. Don't forget to add a minimal **repr**oducible **ex**ample to
 your question, ideally using the [reprex](https://reprex.tidyverse.org/)
 package.
 
