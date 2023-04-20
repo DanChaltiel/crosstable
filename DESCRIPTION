@@ -1,6 +1,6 @@
 Package: crosstable
 Title: Crosstables for Descriptive Analyses
-Version: 0.6.1.9001
+Version: 0.6.1.9002
 Authors@R: 
     c(person(given = "Dan",
              family = "Chaltiel",
