@@ -572,7 +572,7 @@ get_generic_labels = function(l=list()){
 #' @importFrom stringr str_replace
 #' @noRd
 ansi_align_by = function(text, pattern){
-  pos = gregexpr(pattern, ansi_strip(text)) |> unlist()
+  pos = gregexpr(pattern, ansi_strip(text)) %>% unlist()
   spaces = strrep("\u00a0", max(pos)-pos)
   stringr::str_replace(text, pattern, paste0(spaces, pattern))
 }
