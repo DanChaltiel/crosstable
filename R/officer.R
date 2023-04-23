@@ -746,7 +746,7 @@ write_and_open = function(doc, docx.file){
 
   tryCatch({
     print(doc, target=docx.file)
-    if(interactive()) browseURL(docx.file)
+    if(interactive()) browseURL(normalizePath(docx.file))
   }, error=function(e) {
     if(str_detect(e$message, "Permission denied")){
       cli_abort(c("Permission denied. Is the file already open?",  #nocov
@@ -830,8 +830,13 @@ body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE,
   if(isFALSE(parse_ref)) reg_r = list()
   if(isFALSE(parse_format)) reg_f = list()
   if(isFALSE(parse_code)) reg_c = list()
-  regex = c(reg_f, reg_r, reg_c)
-  rex_all = paste(regex, collapse="|")
+  reg = c(reg_f, reg_r, reg_c)
+  rex_all = paste(reg, collapse="|")
+
+  if(!str_detect(value, rex_all)){
+    return(body_add_par(doc, value, style))
+  }
+
 
   par_not_format = str_split(value, rex_all)[[1]]
   par_format = str_extract_all(value, rex_all)[[1]]
@@ -839,8 +844,9 @@ body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE,
   # #altern: https://stackoverflow.com/a/43876294/3888000
   altern = c(par_not_format, par_format)[order(c(seq_along(par_not_format)*2 - 1,
                                                  seq_along(par_format)*2))]
+  browser()
   par_list = map(altern, ~{
-    .format = map_lgl(regex, function(pat) str_detect(.x, pattern=pat)) %>%
+    .format = map_lgl(reg, function(pat) str_detect(.x, pattern=pat)) %>%
       discard(isFALSE) %>% names()
 
     if(length(.format)==0) return(ftext(.x))
@@ -862,6 +868,8 @@ body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE,
     }
 
     fp_args = rep(TRUE, length(.format)) %>% set_names(.format) %>% as.list()
+    print("fp_args")
+    print(fp_args)
     fp = do.call(fp_text_lite, fp_args)
 
     ftext(.x, fp)

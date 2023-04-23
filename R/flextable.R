@@ -347,7 +347,7 @@ peek = function(x, docx=getOption("crosstable_peek_docx", TRUE), ...) {
     x=as_workbook(x, ...)
     filename = tempfile(fileext=".xlsx")
     openxlsx::saveWorkbook(x, file=filename)
-    if(interactive()) browseURL(filename)
+    if(interactive()) browseURL(normalizePath(filename))
   }
   invisible()
 }
