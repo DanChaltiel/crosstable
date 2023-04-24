@@ -111,7 +111,6 @@ crosstable_options = function(
     .local=FALSE,
     reset=deprecated()
 ){
-
   #TODO externaliser un check_args_crosstable() pour crosstable() et pour crosstable_options()
   if(!missing(reset)){
     deprecate_warn("0.5.0", "crosstable_options(reset)", "crosstable_reset_options()")
@@ -119,9 +118,9 @@ crosstable_options = function(
     return(invisible())
   }
 
-  argg = as.list(match.call())[-1]
+  argg = as.list(match.call()) %>% discard(is.name)
   args_ok = names(formals(crosstable_options)) %>% .[!. %in% c("...", "reset")]
-  argdot = list(...)
+  argdot = lst(...)
   argdot_ok = paste0("crosstable_", args_ok)
 
   unknown_argdot = argdot[!names(argdot) %in% argdot_ok]

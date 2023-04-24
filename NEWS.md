@@ -8,7 +8,8 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 
 #### Bug fixes and improvements
 
--  Fixes `write_and_open()` not opening sometimes.
+-   Fixes `write_and_open()` not opening sometimes.
+-   Trailing commas will not make `crosstable_options()` fail anymore.
 
 # crosstable 0.6.1 <sub><sup>2023-04-03</sup></sub>
 
