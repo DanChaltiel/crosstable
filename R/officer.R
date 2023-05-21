@@ -413,9 +413,10 @@ body_add_crosstable_list = function(...){
 #'
 #' @examples
 #' library(officer)
-#' p=ggplot2::quickplot(x=Sepal.Length, y=Sepal.Width, color=Species, data=iris)
+#' library(ggplot2)
+#' p = ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) + geom_point()
 #' fp_italic = fp_text_lite(italic=TRUE, font.size=10)
-#' x=read_docx() %>%
+#' x = read_docx() %>%
 #'     body_add_normal("There is Table \\@ref(iris_col1) and Table \\@ref(iris_col2). ",
 #'                     "The `iris` dataset is about flowers.") %>%
 #'     body_add_normal() %>%
@@ -844,7 +845,6 @@ body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE,
   # #altern: https://stackoverflow.com/a/43876294/3888000
   altern = c(par_not_format, par_format)[order(c(seq_along(par_not_format)*2 - 1,
                                                  seq_along(par_format)*2))]
-  browser()
   par_list = map(altern, ~{
     .format = map_lgl(reg, function(pat) str_detect(.x, pattern=pat)) %>%
       discard(isFALSE) %>% names()
@@ -857,10 +857,10 @@ body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE,
     }
     if(any(.format=="code")){
       fp = fp_text_lite(font.family=getOption("crosstable_font_code", "Consolas"))
-      .x = str_match(.x, regex$code)[[2]]
+      .x = str_match(.x, reg$code)[[2]]
       return(ftext(.x, fp))
     }
-    rex = regex[.format]
+    rex = reg[.format]
     for(i in rex){
       if(str_detect(.x, i)){
         .x = str_match(.x, i)[[2]]
