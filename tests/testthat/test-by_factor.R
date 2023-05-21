@@ -288,7 +288,7 @@ test_that("By multiple errors", {
 
   #All `by` columns have missing values only
   crosstable(mtcars3, c(mpg, gear, cyl), by=c(dummy_na, dummy_na2)) %>%
-    expect_error(class="crosstable_all_na_by_warning")
+    expect_warning(class="crosstable_all_na_by_warning")
 })
 
 
