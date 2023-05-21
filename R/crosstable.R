@@ -54,7 +54,7 @@ crosstable_caller = rlang::env()
 #' @importFrom glue glue
 #' @importFrom lifecycle deprecate_stop deprecate_warn deprecated
 #' @importFrom purrr discard imap_dfr map map_chr map_dfc
-#' @importFrom rlang as_function check_dots_unnamed current_env enquo is_empty is_formula local_options quo_get_expr
+#' @importFrom rlang as_function check_dots_unnamed current_env enquo enexpr enexprs is_empty is_formula local_options quo_get_expr
 #' @importFrom stats model.frame na.omit
 #' @importFrom tidyr unite
 #'
@@ -215,12 +215,12 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
 
   # Deprecations --------------------------------------------------------
   if(!missing(...)){
-    colsCalls = as.list(substitute(cols)) %>% map(deparse) %>% discard(~.x=="c")
-    dotsCalls = substitute(list(...))[-1L] %>% map(deparse)
-    colsCall = deparse(substitute(cols)) %>% paste(collapse=", ")
-    dotsCall = deparse(substitute(list(...))[-1L]) %>% paste(collapse=", ")
-    dotsCall = dotsCalls %>% paste(collapse=", ")
-    goodcall = c(colsCalls, dotsCalls) %>% paste(collapse=", ")
+    cols_length = length(enexpr(cols))
+    if(cols_length==1) colsCall = as.character(enexpr(cols))
+    else colsCall = enexpr(cols) %>% as.list() %>% map(as.character) %>% discard(~.x=="c") %>% paste(collapse=", ")
+    dotsCall = enexprs(...) %>% as.list() %>% map(as.character) %>% paste(collapse=", ")
+
+    goodcall = c(colsCall, dotsCall) %>% paste(collapse=", ")
     bad = glue("`crosstable({dataCall}, {colsCall}, {dotsCall}, ...)`")
     good = glue("`crosstable({dataCall}, c({goodcall}), ...)`")
     deprecate_warn("0.2.0", "crosstable(...=)", "crosstable(cols=)",

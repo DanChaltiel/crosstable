@@ -39,3 +39,4 @@ examples/example_code.png
 
 TODO\.R
 DEV\.R
+tests/testthat/test-dummy.R
