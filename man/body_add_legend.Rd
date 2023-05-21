@@ -82,9 +82,10 @@ In this case, you have to manually update the references in MS Word: select all 
 
 \examples{
 library(officer)
-p=ggplot2::quickplot(x=Sepal.Length, y=Sepal.Width, color=Species, data=iris)
+library(ggplot2)
+p = ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) + geom_point()
 fp_italic = fp_text_lite(italic=TRUE, font.size=10)
-x=read_docx() \%>\%
+x = read_docx() \%>\%
     body_add_normal("There is Table \\\\@ref(iris_col1) and Table \\\\@ref(iris_col2). ",
                     "The `iris` dataset is about flowers.") \%>\%
     body_add_normal() \%>\%
