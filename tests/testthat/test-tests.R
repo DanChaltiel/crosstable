@@ -1,23 +1,22 @@
 
-# Statistical Tests --------------------------------------------------
 
 test_that("Statistical Tests", {
     # testthat::skip_on_cran()
     set.seed(0)
     dummy_data = tibble(x_norm=rnorm(50,0,20), x_exp=rexp(50,60), y=rnorm(50,0,20), tmt2=rep(c("A","B"), 25), tmt3=LETTERS[1:3][sample(3,50,replace=TRUE)])
-    
+
     ##CATEGORICAL
-    
+
     # Fisher
     x=crosstable(mtcars3, cyl, by=vs, test=T)
     expect_equal(x$test[1], "p value: 0.0001 \n(Fisher's Exact Test for Count Data)")
     # Chi Square
     x=crosstable(iris, I(Species == "versicolor")~I(Species == "setosa"), test=T)
     expect_equal(x$test[1], "p value: <0.0001 \n(Pearson's Chi-squared test)")
-    
-    
+
+
     ##NUMERIC
-    
+
     # wilcox (exact=F)
     x=crosstable(mtcars3, disp, by=vs, test=T)
     expect_equal(x$test[1], "p value: 0.0002 \n(Wilcoxon rank sum test)")
@@ -44,10 +43,10 @@ test_that("Statistical Tests", {
     # kruskal
     x=crosstable(mtcars3, drat, by=cyl, test=T)
     expect_equal(x$test[1], "p value: 0.0017 \n(Kruskal-Wallis rank sum test)")
-    
-    
+
+
     ##CORRELATION
-    
+
     #Pearson
     x=crosstable(mtcars3, mpg, by=disp, cor_method="pearson", test=T)
     expect_equal(x$test[1], "p value: <0.0001 \n(Pearson's product-moment correlation)")
@@ -63,10 +62,10 @@ test_that("Statistical Tests", {
     #Spearman exact
     x=crosstable(dummy_data, x_exp, by=y, cor_method="spearman", test=T)
     expect_equal(x$test[1], "p value: 0.1860 \n(Spearman's rank correlation rho, exact test)")
-    
-    
+
+
     ##SURVIVAL
-    
+
     #Logrank
     x=crosstable(mtcars3, surv, by=am, test=T)
     expect_equal(x$test[1], "p value: <0.0001 \n(Logrank test)")
@@ -99,7 +98,7 @@ test_that("Testing everything", {
                    test=TRUE, effect=TRUE)
         # expect_warning(class="crosstable_effect_warning")
     ft = as_flextable(x)
-    
+
     expect_snapshot(as.data.frame(x))
     expect_snapshot(ft)
 })

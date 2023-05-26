@@ -52,33 +52,21 @@
       i "no valid set of coefficients has been found: please supply starting values"
       * You might want to check for complete separation or extreme outliers.
       * Applying `forcats::fct_rev()` to some columns might help too.
-    Message
-      Error (glm-log: "no valid set of coefficients has been found: please supply starting values")
-    Condition
       Warning:
       An error occured when calculating crosstable effects (glm-log):
       i "no valid set of coefficients has been found: please supply starting values"
       * You might want to check for complete separation or extreme outliers.
       * Applying `forcats::fct_rev()` to some columns might help too.
-    Message
-      Error (glm-log: "no valid set of coefficients has been found: please supply starting values")
-    Condition
       Warning:
       An error occured when calculating crosstable effects (glm-log):
       i "no valid set of coefficients has been found: please supply starting values"
       * You might want to check for complete separation or extreme outliers.
       * Applying `forcats::fct_rev()` to some columns might help too.
-    Message
-      Error (glm-log: "no valid set of coefficients has been found: please supply starting values")
-    Condition
       Warning:
       An error occured when calculating crosstable effects (glm-log):
       i "no valid set of coefficients has been found: please supply starting values"
       * You might want to check for complete separation or extreme outliers.
       * Applying `forcats::fct_rev()` to some columns might help too.
-    Message
-      Error (glm-log: "no valid set of coefficients has been found: please supply starting values")
-    Condition
       Warning:
       Cannot calculate crosstable effects for variables `cyl3`, `dummy`, and `dummy2`
     Output
@@ -200,17 +188,11 @@
       i "no valid set of coefficients has been found: please supply starting values"
       * You might want to check for complete separation or extreme outliers.
       * Applying `forcats::fct_rev()` to some columns might help too.
-    Message
-      Error (glm-log: "no valid set of coefficients has been found: please supply starting values")
-    Condition
       Warning:
       An error occured when calculating crosstable effects (glm-log):
       i "no valid set of coefficients has been found: please supply starting values"
       * You might want to check for complete separation or extreme outliers.
       * Applying `forcats::fct_rev()` to some columns might help too.
-    Message
-      Error (glm-log: "no valid set of coefficients has been found: please supply starting values")
-    Condition
       Warning:
       A problem occured when calculating crosstable effects (glm-log):
       i "glm.fit: algorithm did not converge"
@@ -305,9 +287,6 @@
       i "need at least two non-NA values to interpolate"
       * You might want to check for complete separation or extreme outliers.
       * Applying `forcats::fct_rev()` to some columns might help too.
-    Message
-      Error (glm-logit: "need at least two non-NA values to interpolate")
-    Condition
       Warning:
       A problem occured when calculating crosstable effects (glm-logit):
       i "glm.fit: fitted probabilities numerically 0 or 1 occurred"
@@ -355,9 +334,6 @@
       i "no valid set of coefficients has been found: please supply starting values"
       * You might want to check for complete separation or extreme outliers.
       * Applying `forcats::fct_rev()` to some columns might help too.
-    Message
-      Error (glm-log: "no valid set of coefficients has been found: please supply starting values")
-    Condition
       Warning:
       A problem occured when calculating crosstable effects (glm-log):
       i "glm.fit: fitted probabilities numerically 0 or 1 occurred"
@@ -368,9 +344,6 @@
       i "no valid set of coefficients has been found: please supply starting values"
       * You might want to check for complete separation or extreme outliers.
       * Applying `forcats::fct_rev()` to some columns might help too.
-    Message
-      Error (glm-log: "no valid set of coefficients has been found: please supply starting values")
-    Condition
       Warning:
       A problem occured when calculating crosstable effects (glm-log):
       i "glm.fit: fitted probabilities numerically 0 or 1 occurred"
@@ -381,9 +354,6 @@
       i "no valid set of coefficients has been found: please supply starting values"
       * You might want to check for complete separation or extreme outliers.
       * Applying `forcats::fct_rev()` to some columns might help too.
-    Message
-      Error (glm-log: "no valid set of coefficients has been found: please supply starting values")
-    Condition
       Warning:
       Cannot calculate crosstable effects for variables `cyl3`, `dummy`, and `dummy2`
     Output
@@ -426,9 +396,6 @@
       i "need at least two non-NA values to interpolate"
       * You might want to check for complete separation or extreme outliers.
       * Applying `forcats::fct_rev()` to some columns might help too.
-    Message
-      Error (glm-logit: "need at least two non-NA values to interpolate")
-    Condition
       Warning:
       A problem occured when calculating crosstable effects (glm-logit):
       i "glm.fit: fitted probabilities numerically 0 or 1 occurred"
@@ -518,9 +485,6 @@
       i "no valid set of coefficients has been found: please supply starting values"
       * You might want to check for complete separation or extreme outliers.
       * Applying `forcats::fct_rev()` to some columns might help too.
-    Message
-      Error (glm-log: "no valid set of coefficients has been found: please supply starting values")
-    Condition
       Warning:
       A problem occured when calculating crosstable effects (glm-log):
       i "glm.fit: algorithm did not converge"
@@ -531,9 +495,6 @@
       i "no valid set of coefficients has been found: please supply starting values"
       * You might want to check for complete separation or extreme outliers.
       * Applying `forcats::fct_rev()` to some columns might help too.
-    Message
-      Error (glm-log: "no valid set of coefficients has been found: please supply starting values")
-    Condition
       Warning:
       Cannot calculate crosstable effects for variables `cyl3`, `dummy`, and `dummy2`
     Output
