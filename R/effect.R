@@ -408,6 +408,6 @@ model_warn = function(mod, ci, type){
                "*"="{default_warning}",
                "*"="{default_warning2}"),
              class="crosstable_effect_error_warning")
-    return(cli_bullets("Error ({type}: {.val {msg}})"))
   }
+  lst(type, msg)
 }
