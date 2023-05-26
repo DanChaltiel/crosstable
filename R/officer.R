@@ -106,7 +106,7 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #' doc = doc %>%
 #'     body_add_normal("You can write text in *italic1*, _underlined1_, **bold1**, and `code`,
 #'                     and you can also add * **references** *, for instance a ref to Table
-#'                     \\@ref(my_table). Multiple spaces are ignored (squished) so that you
+#'                     @ref(my_table). Multiple spaces are ignored (squished) so that you
 #'                     can enter multiline text.") %>%
 #'     body_add_normal() %>%
 #'     body_add_normal("Here I should use `body_add_crosstable()` to add a table before the

@@ -8,16 +8,5 @@
 
 ## R CMD check results
 
-On RHub (Windows Server 2022, R-devel), there was one error about "Graphics API version mismatch" that seems to be a false positive.
+No problem.
 
-Everything I could read about this problem on stackoverflow is about installation problems, 
-which seems odd considering a platform such as RHub.
-
-There are no problems locally, with other RHub platforms, or with check_win_devel().
-
-Thank you very much.
-
-
-## Comment
-
-* I removed one test on Mac as it seems to be an encoding problem

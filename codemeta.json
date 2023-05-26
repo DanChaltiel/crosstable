@@ -4,23 +4,17 @@
   "identifier": "crosstable",
   "description": "Create descriptive tables for continuous and categorical variables. Apply summary statistics and counting function, with or without a grouping variable, and create beautiful reports using 'rmarkdown' or 'officer'. You can also compute effect sizes and statistical tests if needed.",
   "name": "crosstable: Crosstables for Descriptive Analyses",
-  "relatedLink": ["https://danchaltiel.github.io/crosstable/", "https://CRAN.R-project.org/package=crosstable"],
+  "relatedLink": "https://danchaltiel.github.io/crosstable/",
   "codeRepository": "https://github.com/DanChaltiel/crosstable/",
   "issueTracker": "https://github.com/DanChaltiel/crosstable/issues/",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
   "runtimePlatform": "R version 4.1.3 (2022-03-10)",
-  "provider": {
-    "@id": "https://cran.r-project.org",
-    "@type": "Organization",
-    "name": "Comprehensive R Archive Network (CRAN)",
-    "url": "https://cran.r-project.org"
-  },
   "author": [
     {
       "@type": "Person",
@@ -317,6 +311,7 @@
       "@type": "SoftwareApplication",
       "identifier": "checkmate",
       "name": "checkmate",
+      "version": ">= 1.9.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -329,6 +324,7 @@
       "@type": "SoftwareApplication",
       "identifier": "cli",
       "name": "cli",
+      "version": ">= 3.0.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -341,7 +337,7 @@
       "@type": "SoftwareApplication",
       "identifier": "dplyr",
       "name": "dplyr",
-      "version": ">= 1.0.0",
+      "version": ">= 1.1.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -354,7 +350,7 @@
       "@type": "SoftwareApplication",
       "identifier": "flextable",
       "name": "flextable",
-      "version": ">= 0.5.8",
+      "version": ">= 0.5.1",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -380,6 +376,7 @@
       "@type": "SoftwareApplication",
       "identifier": "glue",
       "name": "glue",
+      "version": ">= 1.3.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -392,6 +389,7 @@
       "@type": "SoftwareApplication",
       "identifier": "lifecycle",
       "name": "lifecycle",
+      "version": ">= 0.2.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -409,7 +407,7 @@
       "@type": "SoftwareApplication",
       "identifier": "officer",
       "name": "officer",
-      "version": ">= 0.4",
+      "version": ">= 0.4.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -422,6 +420,7 @@
       "@type": "SoftwareApplication",
       "identifier": "purrr",
       "name": "purrr",
+      "version": ">= 0.2.3",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -452,6 +451,7 @@
       "@type": "SoftwareApplication",
       "identifier": "stringr",
       "name": "stringr",
+      "version": ">= 1.4.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -464,6 +464,7 @@
       "@type": "SoftwareApplication",
       "identifier": "tibble",
       "name": "tibble",
+      "version": ">= 1.1",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -476,6 +477,7 @@
       "@type": "SoftwareApplication",
       "identifier": "tidyr",
       "name": "tidyr",
+      "version": ">= 1.0.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -484,9 +486,14 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tidyr"
     },
+    "17": {
+      "@type": "SoftwareApplication",
+      "identifier": "utils",
+      "name": "utils"
+    },
     "SystemRequirements": null
   },
-  "fileSize": "1504.452KB",
+  "fileSize": "1505.071KB",
   "releaseNotes": "https://github.com/DanChaltiel/crosstable/blob/master/NEWS.md",
   "readme": "https://github.com/DanChaltiel/crosstable/blob/main/README.md",
   "contIntegration": ["https://app.codecov.io/gh/DanChaltiel/crosstable?branch=main", "https://github.com/DanChaltiel/crosstable/actions"],
