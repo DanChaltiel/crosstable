@@ -1,13 +1,10 @@
 Crosstables for descriptive analyses. See documentation at <https://danchaltiel.github.io/crosstable/> and browse code at <https://github.com/DanChaltiel/crosstable>.
 
-# crosstable 0.x.x <sub><sup>2023-xx-xx</sup></sub>
-
-#### New features
-
--   
+# crosstable 0.6.2 <sub><sup>2023-05-26</sup></sub>
 
 #### Bug fixes and improvements
 
+-   Fixes for CRAN checks.
 -   Fixes `write_and_open()` not opening sometimes.
 -   Trailing commas will not make `crosstable_options()` fail anymore.
 
