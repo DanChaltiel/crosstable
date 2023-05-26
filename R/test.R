@@ -413,6 +413,7 @@ test_summarize_auto.dan = function (x, g) {
   list(p.value = p, method = method)
 }
 
+# nocov end
 
 
 #TODO add CochranArmitageTest

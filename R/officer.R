@@ -673,8 +673,9 @@ crosstable_luafilters = function(){
 #' @importFrom rlang check_installed
 #' @author Dan Chaltiel
 #' @export
+# nocov start
 docx_bookmarks2 = function(x, return_vector=FALSE,
-                           target=c("all", "header", "body", "footer")) {#nocov start
+                           target=c("all", "header", "body", "footer")) {
   #cannot test nor add examples as there is officer::body_bookmark() but no officer::head_bookmark()
 
   assert_class(x, "rdocx")
@@ -698,6 +699,7 @@ docx_bookmarks2 = function(x, return_vector=FALSE,
   if(return_vector) return(unname(unlist(rtn)))
   rtn
 }
+# nocov end
 
 
 #' Alternative to default `officer` print() function. Write the file and try to open it right away.
@@ -739,9 +741,9 @@ write_and_open = function(doc, docx.file){
   }, warning=function(w) {
     message(w)
     if(str_detect(w$message, "Permission denied")){
-      cli_abort(c("Permission denied. Is the file already open?", #nocov
-                  i="File: {docx.file}"), #nocov
-                class="crosstable_permission_denied") #nocov
+      cli_abort(c("Permission denied. Is the file already open?",
+                  i="File: {docx.file}"),
+                class="crosstable_permission_denied")
     }
   })
 
@@ -750,17 +752,17 @@ write_and_open = function(doc, docx.file){
     if(interactive()) browseURL(normalizePath(docx.file))
   }, error=function(e) {
     if(str_detect(e$message, "Permission denied")){
-      cli_abort(c("Permission denied. Is the file already open?",  #nocov
-                  i="File: {docx.file}"), #nocov
-                class="crosstable_permission_denied") #nocov
+      cli_abort(c("Permission denied. Is the file already open?",
+                  i="File: {docx.file}"),
+                class="crosstable_permission_denied")
     }
     stop(e)
   }, warning=function(w) {
     warning(w)
   }, finally={}
   )
-
 }
+# nocov end
 
 
 
