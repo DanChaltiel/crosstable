@@ -9,6 +9,9 @@ pivot_crosstable(ct)
 \arguments{
 \item{ct}{a crosstable}
 }
+\value{
+a tibble of class \code{pivoted_crosstable}
+}
 \description{
 Pivot a crosstable so the \code{variable} column is spread across its values.
 }

@@ -12,6 +12,9 @@ transpose_crosstable(x)
 \arguments{
 \item{x}{a crosstable}
 }
+\value{
+a tibble of class \code{transposed_crosstable}
+}
 \description{
 Pivot a crosstable so the \code{label} column is swapped with the \code{by} row.
 This requires the \code{variable} column to be the same for every data column, like when all columns are numeric of when all columns are factors with the same levels

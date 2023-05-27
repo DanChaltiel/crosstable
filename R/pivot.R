@@ -14,6 +14,8 @@
 #' @importFrom glue glue
 #' @importFrom tidyr drop_na pivot_wider replace_na
 #'
+#' @return a tibble of class `pivoted_crosstable`
+#'
 #' @examples
 #' ct = crosstable(mtcars2, c(mpg, drat, wt, qsec))
 #' p_ct = pivot_crosstable(ct)
@@ -67,6 +69,8 @@ pivot_crosstable = function(ct){
 #' @importFrom rlang set_names
 #' @importFrom tibble column_to_rownames
 #' @importFrom tidyr pivot_longer pivot_wider
+#'
+#' @return a tibble of class `transposed_crosstable`
 #'
 #' @examples
 #' ct = crosstable(mtcars2, c(mpg, drat, wt, qsec), by=am)
