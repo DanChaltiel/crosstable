@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
   warning=FALSE, 
   message=FALSE
 )
-options(width = 100)
+old = options(width = 100)
 ```
 
 When working with categorical variables, `crosstable()` allows a very flexible output thanks to the `percent_pattern` argument.
@@ -154,4 +154,6 @@ crosstable(mtcars3, cyl, by=vs,
   flextable::theme_box()
 ```
 
-
+```{r, include = FALSE}
+options(old)
+```

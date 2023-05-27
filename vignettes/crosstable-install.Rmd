@@ -27,7 +27,6 @@ If normal installation does not work, you can try installing from Github:
 devtools::install_github("DanChaltiel/crosstable", build_vignettes=TRUE)
 #or, alternatively
 pak::pkg_install("DanChaltiel/crosstable")
-
 ```
 
 ## Asking for updates
@@ -52,7 +51,6 @@ If the package still does not work, you can try installing/updating dependencies
 install.packages("dplyr")
 install.packages("flextable")
 install.packages("rlang")
-
 ```
 
 This should do, but if it is still failing, you can try installing the other dependencies:

@@ -18,8 +18,8 @@ knitr::opts_chunk$set(
   warning=FALSE, 
   message=FALSE
 )
-options(width = 100, 
-        crosstable_verbosity_autotesting="quiet")
+old = options(width = 100, 
+              crosstable_verbosity_autotesting="quiet")
 library(flextable)
 ```
 
@@ -249,3 +249,7 @@ Of course, this should only be done in an exploratory context, as it would cause
 Tests are chosen depending on the characteristics of the crossed variables (class, size, distribution, ...). 
 
 See `crosstable_test_args()` for more details on the test choice algorithm.
+
+```{r, include = FALSE}
+options(old)
+```

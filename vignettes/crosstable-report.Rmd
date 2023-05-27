@@ -18,8 +18,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-options(width = 100, 
-        crosstable_verbosity_autotesting="quiet")
+old = options(width = 100, 
+              crosstable_verbosity_autotesting="quiet")
 library(crosstable)
 library(dplyr)
 ```
@@ -215,3 +215,7 @@ crosstable(iris, Sepal.Length, Sepal.Width, by=Species, test = TRUE, total="colu
 You can example files here: [vignette_markdown.Rmd](../examples/vignette_markdown.Rmd) and [vignette_markdown.docx](../examples/vignette_markdown.docx).
 
 I have to admit that I don't use Rmarkdown a lot with `crosstable`, so this feature might not be as maintained as others.
+
+```{r, include = FALSE}
+options(old)
+```
