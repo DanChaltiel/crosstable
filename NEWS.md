@@ -1,5 +1,11 @@
 Crosstables for descriptive analyses. See documentation at <https://danchaltiel.github.io/crosstable/> and browse code at <https://github.com/DanChaltiel/crosstable>.
 
+# crosstable 0.6.3 <sub><sup>2023-xx-xx</sup></sub>
+
+#### Bug fixes and improvements
+
+-   Fixes a regression where references were not added anymore.
+
 # crosstable 0.6.2 <sub><sup>2023-05-26</sup></sub>
 
 #### Bug fixes and improvements

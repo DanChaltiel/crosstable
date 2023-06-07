@@ -820,7 +820,7 @@ body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE,
     return(body_add_par(doc, value, style))
   }
   reg_r = list(
-    ref = "\\?\\?@ref\\(.*?\\)"
+    ref = "\\\\?\\\\?@ref\\(.*?\\)"
   )
   reg_f = list(
     bold = "\\*\\*(.+?)\\*\\*",
