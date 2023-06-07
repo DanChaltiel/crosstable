@@ -854,7 +854,7 @@ body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE,
     if(length(.format)==0) return(ftext(.x))
 
     if(any(.format=="ref")){
-      bkm = str_match(.x, "\\?\\?@ref\\((.*?)\\)")[,2]
+      bkm = str_match(.x, "\\\\?\\\\?@ref\\((.*?)\\)")[,2]
       return(run_word_field(glue(' REF {bkm} \\h ')))
     }
     if(any(.format=="code")){
