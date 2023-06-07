@@ -15,7 +15,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,6 +66,22 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.6.3" id="crosstable-063-2023-xx-xx">crosstable 0.6.3 <sub><sup>2023-xx-xx</sup></sub><a class="anchor" aria-label="anchor" href="#crosstable-063-2023-xx-xx"></a></h2>
+<div class="section level5">
+<h5 id="bug-fixes-and-improvements-0-6-3">Bug fixes and improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-improvements-0-6-3"></a></h5>
+<ul><li>Fixes a regression where references were not added anymore.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.6.2" id="crosstable-062-2023-05-26">crosstable 0.6.2 <sub><sup>2023-05-26</sup></sub><a class="anchor" aria-label="anchor" href="#crosstable-062-2023-05-26"></a></h2><p class="text-muted">CRAN release: 2023-05-28</p>
+<div class="section level5">
+<h5 id="bug-fixes-and-improvements-0-6-2">Bug fixes and improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-improvements-0-6-2"></a></h5>
+<ul><li>Fixes for CRAN checks.</li>
+<li>Fixes <code><a href="../reference/write_and_open.html">write_and_open()</a></code> not opening sometimes.</li>
+<li>Trailing commas will not make <code><a href="../reference/crosstable_options.html">crosstable_options()</a></code> fail anymore.</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.6.1" id="crosstable-061-2023-04-03">crosstable 0.6.1 <sub><sup>2023-04-03</sup></sub><a class="anchor" aria-label="anchor" href="#crosstable-061-2023-04-03"></a></h2><p class="text-muted">CRAN release: 2023-04-04</p>
 <p>Fixes for CRAN checks.</p>
 </div>
@@ -73,8 +89,8 @@
 <h2 class="pkg-version" data-toc-text="0.6.0" id="crosstable-060-2023-03-26">crosstable 0.6.0 <sub><sup>2023-03-26</sup></sub><a class="anchor" aria-label="anchor" href="#crosstable-060-2023-03-26"></a></h2><p class="text-muted">CRAN release: 2023-03-26</p>
 <div class="section level5">
 <h5 id="new-features-0-6-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-6-0"></a></h5>
-<ul><li><p>New function <code>transpose_crossable()</code> (or simply <code><a href="https://rdrr.io/r/base/t.html" class="external-link">t()</a></code>), which transposes a crosstable so that the labels and column names are swapped.<br><code>r     ct = crosstable(mtcars2, c(mpg, drat, wt, qsec))     t_ct = t(ct)     as_flextable(t_ct)</code></p></li>
-<li><p>New function <code>pivot_crossable()</code>, which pivots a crosstable so that the <code>variable</code> column is spread as several columns.<br><code>r     ct = crosstable(mtcars2, c(mpg, drat, wt, qsec))     p_ct = pivot_crosstable(ct)     as_flextable(p_ct)</code></p></li>
+<ul><li><p>New function <code><a href="../reference/transpose_crosstable.html">transpose_crosstable()</a></code> (or simply <code><a href="https://rdrr.io/r/base/t.html" class="external-link">t()</a></code>), which transposes a crosstable so that <code>by</code> is in rows instead of columns.<br><code>r     ct = crosstable(mtcars2, c(mpg, drat), by=am)     t_ct = t(ct)     as_flextable(t_ct, by_header="Variables")</code></p></li>
+<li><p>New function <code><a href="../reference/pivot_crosstable.html">pivot_crosstable()</a></code>, which pivots a crosstable so that <code>variable</code> is spread as several columns.<br><code>r     ct = crosstable(mtcars2, c(mpg, drat))     p_ct = pivot_crosstable(ct)     as_flextable(p_ct)</code></p></li>
 <li><p><code><a href="../reference/body_add_table_list.html">body_add_table_list()</a></code> now replaces <code><a href="../reference/body_add_table_list.html">body_add_crosstable_list()</a></code> and <code><a href="../reference/body_add_table_list.html">body_add_flextable_list()</a></code>. It allows both crosstables and flextable (and even dataframes, which are turned to flextables first) and has a new argument <code>fun_after</code> to control what comes after the table. See examples in <code><a href="../reference/body_add_table_list.html">?body_add_table_list</a></code>.</p></li>
 <li><p>New function <code><a href="../reference/get_percent_pattern.html">get_percent_pattern()</a></code>. See also the new vignette <code><a href="../articles/percent_pattern.html">vignette("percent_pattern")</a></code>.</p></li>
 <li><p>New argument <code>crosstable(drop_levels=TRUE)</code> to drop unused levels in factors.</p></li>
