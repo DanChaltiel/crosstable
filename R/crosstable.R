@@ -1,4 +1,5 @@
 
+#' @importFrom utils globalVariables
 utils::globalVariables(c(".", "x", "y", "n", "where", "ct", "col_keys",
                          "p_col", ".col_1", ".col_2", "value",
                          ".data", ".env"))
@@ -54,7 +55,7 @@ crosstable_caller = rlang::env()
 #' @importFrom glue glue
 #' @importFrom lifecycle deprecate_stop deprecate_warn deprecated
 #' @importFrom purrr discard imap_dfr map map_chr map_dfc
-#' @importFrom rlang as_function check_dots_unnamed current_env enquo enexpr enexprs is_empty is_formula local_options quo_get_expr
+#' @importFrom rlang as_function check_dots_unnamed current_env enexpr enexprs enquo is_empty is_formula local_options quo_get_expr
 #' @importFrom stats model.frame na.omit
 #' @importFrom tidyr unite
 #'

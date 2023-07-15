@@ -43,7 +43,7 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
 }
 
 
-#' @importFrom dplyr across bind_rows filter matches mutate select transmute
+#' @importFrom dplyr across bind_rows filter matches mutate select starts_with transmute
 #' @importFrom glue glue
 #' @importFrom purrr map_df
 #' @importFrom tibble tibble
@@ -99,7 +99,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
 
 
 
-#' @importFrom dplyr across bind_rows everything filter left_join mutate select transmute
+#' @importFrom dplyr across bind_rows everything filter left_join mutate select starts_with transmute
 #' @importFrom forcats fct_na_value_to_level
 #' @importFrom glue glue
 #' @importFrom purrr reduce
@@ -336,7 +336,7 @@ getTable = function(x, by, type=c("n", "p_tot", "p_row", "p_col")){
 
 #' @keywords internal
 #' @noRd
-#' @importFrom dplyr across mutate starts_with
+#' @importFrom dplyr mutate
 getTableCI = function(x, digits, method="wilson"){
   x %>%
     mutate(
@@ -350,7 +350,7 @@ getTableCI = function(x, digits, method="wilson"){
 }
 
 #' @importFrom purrr map_lgl
-#' @importFrom stringr str_subset str_detect
+#' @importFrom stringr str_detect str_subset
 #' @keywords internal
 #' @noRd
 percent_pattern_contains = function(percent_pattern, needle){
