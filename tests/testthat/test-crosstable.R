@@ -17,6 +17,12 @@ test_that("numeric+factor+surv by nothing", {
 })
 
 
+test_that('Contains both `NA` and "NA"', {
+  x=mtcars3
+  x$vs[18:20] = "NA"
+  crosstable(x, vs)
+})
+
 # Crossing difftime -------------------------------------------------------
 
 test_that("difftime is OK: ", {
@@ -44,12 +50,6 @@ test_that("Warn: numeric+factor by numeric: ", {
 
 })
 
-test_that('Warn: contains both `NA` and "NA"', {
-  x=mtcars3
-  x$vs[18:20] = "NA"
-  crosstable(x, vs) %>%
-    expect_warning(class='crosstable_na_char_warning')
-})
 
 test_that('Warn: contains only `NA`', {
   crosstable(mtcars3, dummy_na) %>%

@@ -29,14 +29,7 @@ cross_by = function(data_x, data_y, funs, funs_arg, percent_pattern, total, perc
     }
 
     if(anyNA(.x) && "NA" %in% .x) {
-      na_string = as.character(which(.x=="NA"))
-      na_proper = as.character(which(is.na(.x)))
-      cli_warn(c('Cannot describe column "{.y}" as it contains both `NA` (missing values) and "NA" (string)',
-                 i='NA as string{?s} on row{?s}: {na_string}',
-                 i='NA missing value{?s} on row{?s}: {na_proper}'),
-               class = "crosstable_na_char_warning",
-               call = crosstable_caller$env)
-      return(NULL)
+      .x[.x=="NA"] = "\"NA\""
     }
     if(!is.list(.x)){ #TODO is.list pour les erreurs, mieux vaudrait une classe spéciale?
       data_x[.y] = .x
