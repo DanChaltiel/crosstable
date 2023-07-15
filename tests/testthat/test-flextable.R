@@ -19,7 +19,7 @@ test_that("header by_header (monoby)", {
                ct1 %>% as_flextable(by_header=TRUE))
   expect_equal(ct1 %>% as_flextable(by_header=NULL),
                ct1 %>% as_flextable(by_header=TRUE))
-  ct2 %>% as_flextable(by_header=FALSE) %>% expect_warning(class="crosstable_asflex_byheader_multi")
+  ct2 %>% as_flextable(by_header=FALSE) %>% expect_warning(class="crosstable_af_byheader_multi")
 
   expect_snapshot({
     ct1 %>% as_flextable(by_header=NULL) %>% get_header_df()
@@ -89,6 +89,15 @@ test_that("header header_show_n", {
     ct3 %>% as_flextable(header_show_n=TRUE) %>% get_header_df()
   })
 })
+
+test_that("Error empty", {
+  crosstable(iris, 0) %>%
+    as_flextable() %>%
+    expect_warning(class="crosstable_empty_warning") %>%
+    expect_error(class="crosstable_af_empty_error")
+})
+
+
 
 
 #TODO Tests à implémenter en snapshot (2.8sec)

@@ -69,6 +69,10 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
                                                        effect="effect"),
                                    ...) {
   assert_class(x, "crosstable", .var.name=vname(x))
+  if(any(dim(x)==0)){
+    cli_abort("{.fun as_flextable} cannot apply to an empty crosstable.",
+              class="crosstable_af_empty_error")
+  }
 
   if(missing(keep_id)) keep_id = getOption("crosstable_keep_id", keep_id)
   if(missing(autofit)) autofit = getOption('crosstable_autofit', autofit)
@@ -213,7 +217,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
   } else if(n_levels>1) {
     if(!is.null(by_header)){
       cli_warn("by_header is ignored if the crosstable has several `by` stratum.",
-               class = "crosstable_asflex_byheader_multi")
+               class="crosstable_af_byheader_multi")
     }
     header_mapping = tibble(col_keys = names(x)) %>%
       separate(col_keys, into=paste0(".col_", seq(n_levels)),

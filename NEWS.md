@@ -4,7 +4,8 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 
 #### Bug fixes and improvements
 
--   Reimplement description of columns containing both `NA` (missing values) and "NA" (characters)
+-   Reimplement description of columns containing both `NA` (missing values) and "NA" (characters) (#42)
+-   Adds an error message in `as_flextable()` when the crosstable is empty (#41)
 -   Fixes a regression where references were not added anymore.
 
 # crosstable 0.6.2 <sub><sup>2023-05-26</sup></sub>
