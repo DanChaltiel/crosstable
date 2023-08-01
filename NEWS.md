@@ -2,6 +2,10 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 
 # crosstable 0.6.3 <sub><sup>2023-xx-xx</sup></sub>
 
+#### New features
+
+-   `set_label()` now accepts a function as a value (e.g. `set_label(mtcars2, toupper)`)
+
 #### Bug fixes and improvements
 
 -   Reimplement description of columns containing both `NA` (missing values) and "NA" (characters) (#42)

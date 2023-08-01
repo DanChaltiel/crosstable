@@ -12,7 +12,7 @@ copy_label_from(x, from)
 \arguments{
 \item{x}{the variable to label}
 
-\item{value}{value of the label. If \code{x} is a list/data.frame, all the labels will be set recursively}
+\item{value}{value of the label. If \code{x} is a list/data.frame, the labels will all be set recursively. If \code{value} is a function, it will be applied to the current labels of \code{x}.}
 
 \item{object}{if \code{x} is a list/data.frame, \code{object=TRUE} will force setting the labels of the object instead of the children}
 
@@ -35,6 +35,7 @@ mtcars \%>\%
 mtcars \%>\%
    copy_label_from(mtcars2) \%>\%
    crosstable(c(mpg, vs))
+mtcars2 \%>\% set_label(toupper) \%>\% get_label()
 }
 \seealso{
 \code{\link[=get_label]{get_label()}}, \code{\link[=import_labels]{import_labels()}}, \code{\link[=remove_label]{remove_label()}}
