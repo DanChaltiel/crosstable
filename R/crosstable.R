@@ -55,7 +55,7 @@ crosstable_caller = rlang::env()
 #' @importFrom glue glue
 #' @importFrom lifecycle deprecate_stop deprecate_warn deprecated
 #' @importFrom purrr discard imap_dfr map map_chr map_dfc
-#' @importFrom rlang as_function check_dots_unnamed current_env enexpr enexprs enquo is_empty is_formula local_options quo_get_expr
+#' @importFrom rlang as_function check_dots_unnamed current_env dots_n enexpr enexprs enquo is_empty is_formula local_options quo_get_expr
 #' @importFrom stats model.frame na.omit
 #' @importFrom tidyr unite
 #'
@@ -215,7 +215,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   }
 
   # Deprecations --------------------------------------------------------
-  if(!missing(...)){
+  if(!missing(...) && dots_n(...)>0){
     cols_length = length(enexpr(cols))
     if(cols_length==1) colsCall = as.character(enexpr(cols))
     else colsCall = enexpr(cols) %>% as.list() %>% map(as.character) %>% discard(~.x=="c") %>% paste(collapse=", ")
