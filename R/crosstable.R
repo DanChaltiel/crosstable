@@ -55,8 +55,9 @@ crosstable_caller = rlang::env()
 #' @importFrom glue glue
 #' @importFrom lifecycle deprecate_stop deprecate_warn deprecated
 #' @importFrom purrr discard imap_dfr map map_chr map_dfc
-#' @importFrom rlang as_function check_dots_unnamed current_env dots_n enexpr enexprs enquo is_empty is_formula local_options quo_get_expr
+#' @importFrom rlang as_function call_args call_match check_dots_unnamed current_env dots_n enexpr enexprs enquo is_empty is_formula local_options quo_get_expr
 #' @importFrom stats model.frame na.omit
+#' @importFrom stringr str_split_fixed str_trim
 #' @importFrom tidyr unite
 #'
 #' @return A `data.frame`/`tibble` of class `crosstable`
@@ -216,16 +217,18 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
 
   # Deprecations --------------------------------------------------------
   if(!missing(...) && dots_n(...)>0){
-    cols_length = length(enexpr(cols))
-    if(cols_length==1) colsCall = as.character(enexpr(cols))
-    else colsCall = enexpr(cols) %>% as.list() %>% map(as.character) %>% discard(~.x=="c") %>% paste(collapse=", ")
-    dotsCall = enexprs(...) %>% as.list() %>% map(as.character) %>% paste(collapse=", ")
-
-    goodcall = c(colsCall, dotsCall) %>% paste(collapse=", ")
-    bad = glue("`crosstable({dataCall}, {colsCall}, {dotsCall}, ...)`")
-    good = glue("`crosstable({dataCall}, c({goodcall}), ...)`")
+    m=call_match(dots_expand=F)
+    x=call_args(m)
+    colsCall = deparse(x$cols)
+    dotsCall = x$... %>% as.list() %>% map(deparse) %>% unlist()
+    dotsCallp = dotsCall %>% paste(collapse =", ")
+    badcall = paste(deparse(m$cols), dotsCallp, sep=", ")
+    goodcall = c(colsCall, dotsCall) %>% map(call_vars) %>% unlist() %>%
+      unique() %>% paste(collapse =", ")
+    bad = glue("Bad : `crosstable({dataCall}, {badcall}, ...)`")
+    good = glue("Good: `crosstable({dataCall}, c({goodcall}), ...)`")
     deprecate_warn("0.2.0", "crosstable(...=)", "crosstable(cols=)",
-                   details=glue("Instead of {bad}, write {good}"))
+                   details=c(x=bad,v=good))
   }
   if(!missing(.vars)){
     deprecate_stop("0.2.0", "crosstable(.vars=)", "crosstable(cols=)")

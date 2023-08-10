@@ -88,6 +88,19 @@ formalArgs = function (def){
   names(formals(def, envir = parent.frame()))
 }
 
+#' Extract column names from a `call`
+#' @keywords internal
+#' @noRd
+call_vars = function(a){
+  r = a %>% str_match("c\\((.*?)\\)") %>% .[,2]
+  if(all(is.na(r))){
+    r = a %>% paste(collapse =", ")
+  } else {
+    r = r %>%
+      str_split_fixed(",", 2) %>% t() %>% c() %>% str_trim()
+  }
+  r
+}
 
 #' Used for defaulting S3 methods to loaded function
 #' @importFrom cli cli_warn
