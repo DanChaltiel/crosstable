@@ -514,7 +514,6 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
 
   bkm = run_word_field(seqfield, prop=name_format)
   if(!is.null(bookmark)){
-    # browser()
     bookmark = crosstable_clean_names(bookmark)
     bkm = run_bookmark(bookmark, bkm)
   }
@@ -870,8 +869,6 @@ body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE,
     }
 
     fp_args = rep(TRUE, length(.format)) %>% set_names(.format) %>% as.list()
-    print("fp_args")
-    print(fp_args)
     fp = do.call(fp_text_lite, fp_args)
 
     ftext(.x, fp)
