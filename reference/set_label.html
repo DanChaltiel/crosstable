@@ -17,7 +17,7 @@ Copy the label from one variable to another'><meta property="og:image" content="
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2.9002</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,7 +87,7 @@ Copy the label from one variable to another'><meta property="og:image" content="
 
 
 <dt>value</dt>
-<dd><p>value of the label. If <code>x</code> is a list/data.frame, all the labels will be set recursively</p></dd>
+<dd><p>value of the label. If <code>x</code> is a list/data.frame, the labels will all be set recursively. If <code>value</code> is a function, it will be applied to the current labels of <code>x</code>.</p></dd>
 
 
 <dt>object</dt>
@@ -147,6 +147,17 @@ Copy the label from one variable to another'><meta property="og:image" content="
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> mpg   Miles/(US) gallon N (NA)     32 (0)          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> vs    Engine            0          18 (56.25%)     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> vs    Engine            1          14 (43.75%)     </span>
+<span class="r-in"><span><span class="va">mtcars2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">set_label</span><span class="op">(</span><span class="va">toupper</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="get_label.html">get_label</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     model                       mpg                       cyl </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   "MODEL"       "MILES/(US) GALLON"     "NUMBER OF CYLINDERS" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      disp                        hp                      drat </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "DISPLACEMENT (CU.IN.)"        "GROSS HORSEPOWER"         "REAR AXLE RATIO" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        wt                      qsec                        vs </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "WEIGHT (1000 LBS)"           "1/4 MILE TIME"                  "ENGINE" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        am                      gear                      carb </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            "TRANSMISSION" "NUMBER OF FORWARD GEARS"   "NUMBER OF CARBURETORS" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   hp_date                qsec_posix </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      "SOME NONSENSE DATE"               "DATE+TIME" </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
