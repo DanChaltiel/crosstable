@@ -8,6 +8,7 @@
 #' @param digits number of decimals
 #' @param zero_digits number of significant digits for values rounded to 0 (can be set to NULL to keep the original 0 value)
 #' @param date_format if `x` is a vector of Date or POSIXt, the format to apply (see [strptime] for formats)
+#' @param is_period whether `x` is a period (a numeric value of seconds)
 #' @param percent if TRUE, format the values as percentages
 #' @param scientific the power of ten above/under which numbers will be displayed as scientific notation.
 #' @param only_round if TRUE, `format_fixed` simply returns the rounded value. Can be set globally with `options("crosstable_only_round"=TRUE)`.

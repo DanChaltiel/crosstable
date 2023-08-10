@@ -27,6 +27,8 @@ format_fixed(
 
 \item{percent}{if TRUE, format the values as percentages}
 
+\item{is_period}{whether \code{x} is a period (a numeric value of seconds)}
+
 \item{scientific}{the power of ten above/under which numbers will be displayed as scientific notation.}
 
 \item{only_round}{if TRUE, \code{format_fixed} simply returns the rounded value. Can be set globally with \code{options("crosstable_only_round"=TRUE)}.}
