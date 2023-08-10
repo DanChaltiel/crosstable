@@ -10,6 +10,7 @@ format_fixed(
   zero_digits = 1,
   date_format = NULL,
   percent = FALSE,
+  is_period = FALSE,
   scientific = getOption("crosstable_scientific_log", 4),
   only_round = getOption("crosstable_only_round", FALSE),
   ...

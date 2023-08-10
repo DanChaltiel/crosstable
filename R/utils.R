@@ -247,6 +247,15 @@ is.date = function(x){
     inherits(x, "POSIXct") || inherits(x, "POSIXlt")
 }
 
+#' test
+#'
+#' @param x x
+#' @keywords internal
+#' @noRd
+is.period = function(x){
+  inherits(x, c("Period", "hms", "difftime"))
+}
+
 #' paste all classes (minus "labelled")
 #'
 #' @param x x

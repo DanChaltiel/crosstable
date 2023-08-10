@@ -16,6 +16,7 @@
 #' @return a character vector of formatted numbers
 #' @author Dan Chaltiel
 #' @importFrom checkmate assert assert_logical assert_numeric
+#' @importFrom lubridate as.period
 #' @importFrom glue glue
 #' @export
 #'
@@ -37,7 +38,7 @@
 #' x2 = c(0.01, 0.1001, 0.500005, 0.00000012)
 #' format_fixed(x2, percent=TRUE, dig=6)
 format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL,
-                        percent=FALSE,
+                        percent=FALSE, is_period=FALSE,
                         scientific=getOption("crosstable_scientific_log", 4),
                         only_round=getOption("crosstable_only_round", FALSE), ...){
   assert_numeric(x)
@@ -46,6 +47,10 @@ format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL,
   assert_logical(only_round)
   assert(is.null(zero_digits)||is.na(zero_digits)||is.numeric(zero_digits))
   scientific = abs(scientific)
+  if(is_period){
+    d = structure(round(x), class="difftime", units="secs")
+    return(format(as.period(d)))
+  }
   if(is.date(x)){
     if(!is.null(date_format))
       return(format(x, date_format))
@@ -165,8 +170,9 @@ NULL
 #' @author Dan Chaltiel, David Hajage
 #' @export
 meansd = function(x, na.rm = TRUE, dig = 2, ...) {
+  is_period = !is.null(attr(x, "is_period"))
   moy = mean(x, na.rm=na.rm) %>%
-    format_fixed(digits=dig, ...)
+    format_fixed(digits=dig, is_period=is_period, ...)
   if(is.date(x)){
     if("date_unit" %in% names(list(...)))
       date_unit=list(...)$date_unit
@@ -174,11 +180,11 @@ meansd = function(x, na.rm = TRUE, dig = 2, ...) {
       date_unit="auto"
     std = sd_date(x, date_unit)
     std = std$value %>%
-      format_fixed(digits=dig, ...) %>%
+      format_fixed(digits=dig, is_period=is_period, ...) %>%
       paste(std$unit)
   } else {
     std = sd(x, na.rm=na.rm) %>%
-      format_fixed(digits=dig, ...)
+      format_fixed(digits=dig, is_period=is_period, ...)
   }
   paste0(moy, " (", std, ")")
 }
@@ -198,10 +204,11 @@ moystd=function(...){
 #' @author Dan Chaltiel, David Hajage
 #' @export
 meanCI = function(x, na.rm = TRUE, dig = 2, level=0.95, format=TRUE, ...) {
+  is_period = !is.null(attr(x, "is_period"))
   .mean = mean(x, na.rm=na.rm) %>%
-    format_fixed(digits=dig, ...)
+    format_fixed(digits=dig, is_period=is_period, ...)
   conf = confint_numeric(x, level=level) %>%
-    format_fixed(digits=dig, ...)
+    format_fixed(digits=dig, is_period=is_period, ...)
   if(!format) return(list(mean=.mean, conf_low=conf[1], conf_high=conf[2]))
   paste0(.mean, " [", conf[1], ";", conf[2],  "]")
 }
@@ -217,12 +224,13 @@ meanCI = function(x, na.rm = TRUE, dig = 2, level=0.95, format=TRUE, ...) {
 #' @importFrom stats median quantile
 mediqr = function(x, na.rm = TRUE, dig = 2, format=TRUE, ...) {
   if(is.date(x)) type=1 else type=7
+  is_period = !is.null(attr(x, "is_period"))
   med = x %>%
     median(na.rm=na.rm) %>%
-    format_fixed(digits=dig, ...)
+    format_fixed(digits=dig, is_period=is_period, ...)
   iqr = x %>%
     quantile(probs=c(0.25, 0.75), na.rm=na.rm, type=type) %>%
-    format_fixed(digits=dig, ...)
+    format_fixed(digits=dig, is_period=is_period, ...)
   if(!format) return(list(med=med, iqr_low=iqr[1], iqr_high=iqr[2]))
   paste0(med, " [", iqr[1], ";", iqr[2], "]")
 }
@@ -234,8 +242,9 @@ minmax = function(x, na.rm = TRUE, dig = 2, ...) {
   if(all(is.na(x))){
     mi=ma=NA
   } else {
-    mi = format_fixed(min(x, na.rm = na.rm), digits=dig, ...)
-    ma = format_fixed(max(x, na.rm = na.rm), digits=dig, ...)
+    is_period = !is.null(attr(x, "is_period"))
+    mi = format_fixed(min(x, na.rm = na.rm), digits=dig, is_period=is_period, ...)
+    ma = format_fixed(max(x, na.rm = na.rm), digits=dig, is_period=is_period, ...)
   }
   if(is.date(x)){
     paste(mi, "-", ma)

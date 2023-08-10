@@ -23,9 +23,8 @@ cross_by = function(data_x, data_y, funs, funs_arg, percent_pattern, total, perc
   }
 
   rtn_tbl = imap_dfr(data_x, ~{
-    if(inherits(.x, "difftime")){
-      lab = get_label(.x)
-      .x = as.numeric(.x) %>% set_label(lab)
+    if(is.period(.x)){
+      .x = as.numeric(.x) %>% copy_label_from(.x) %>% structure(is_period=TRUE)
     }
 
     if(anyNA(.x) && "NA" %in% .x) {
@@ -50,7 +49,7 @@ cross_by = function(data_x, data_y, funs, funs_arg, percent_pattern, total, perc
 
     if(is.list(.x)){
       rtn=NULL
-    } else if(is.numeric.and.not.surv(.x) || is.date(.x)){
+    } else if(is.numeric.and.not.surv(.x) || is.date(.x) || is.period(.x)){
       rtn=cross_numeric(data_x[.y], data_y, funs=funs, funs_arg=funs_arg,
                         showNA=showNA, total=total, label=label,
                         cor_digits=percent_digits, cor_method=cor_method,
