@@ -75,6 +75,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
   }
 
   if(missing(keep_id)) keep_id = getOption("crosstable_keep_id", keep_id)
+  if(missing(by_header)) by_header = getOption("crosstable_by_header", by_header)
   if(missing(autofit)) autofit = getOption('crosstable_autofit', autofit)
   if(missing(compact)) compact = getOption('crosstable_compact', compact)
   if(missing(show_test_name)) show_test_name = getOption('crosstable_show_test_name', show_test_name)

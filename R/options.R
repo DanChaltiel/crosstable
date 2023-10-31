@@ -36,6 +36,7 @@
 #' @param compact_padding in flextables, left-padding for non-headers rows when `compact=TRUE`.
 #' @param header_show_n_pattern glue pattern used when showing N in the header of flextables. `.col` is the name of the column and `.n` the size of the group. Default to `{.col} (N={.n})`.
 #' @param keep_id For setting [as_flextable()] arguments globally.
+#' @param by_header For setting [as_flextable()] arguments globally.
 #' @param autofit For setting [as_flextable()] arguments globally.
 #' @param compact For setting [as_flextable()] arguments globally.
 #' @param remove_header_keys For setting [as_flextable()] arguments globally.
@@ -89,7 +90,7 @@ crosstable_options = function(
     wrap_id=70,
     compact_padding=25,
     header_show_n_pattern="{.col} (N={.n})",
-    keep_id, autofit, compact, remove_header_keys, show_test_name, padding_v,
+    keep_id, by_header, autofit, compact, remove_header_keys, show_test_name, padding_v,
     header_show_n, fontsize_body, fontsize_subheaders, fontsize_header,
     #officer
     units="in",

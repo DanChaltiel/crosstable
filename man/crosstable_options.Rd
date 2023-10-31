@@ -32,6 +32,7 @@ crosstable_options(
   compact_padding = 25,
   header_show_n_pattern = "{.col} (N={.n})",
   keep_id,
+  by_header,
   autofit,
   compact,
   remove_header_keys,
@@ -120,6 +121,8 @@ crosstable_options(
 \item{header_show_n_pattern}{glue pattern used when showing N in the header of flextables. \code{.col} is the name of the column and \code{.n} the size of the group. Default to \code{{.col} (N={.n})}.}
 
 \item{keep_id}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
+
+\item{by_header}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
 
 \item{autofit}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
 
