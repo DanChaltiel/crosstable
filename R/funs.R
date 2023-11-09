@@ -18,7 +18,6 @@
 #' @return a character vector of formatted numbers
 #' @author Dan Chaltiel
 #' @importFrom checkmate assert assert_logical assert_numeric
-#' @importFrom lubridate as.period
 #' @importFrom glue glue
 #' @importFrom rlang check_installed
 #' @export
@@ -54,8 +53,9 @@ format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL,
   assert(is.null(zero_digits)||is.na(zero_digits)||is.numeric(zero_digits))
   assert(is.null(epsilon)||is.numeric(epsilon))
   if(is_period){
+    check_installed("lubridate", reason="to use `format_fixed(is_period=TRUE)`")
     d = structure(round(x), class="difftime", units="secs")
-    return(format(as.period(d)))
+    return(format(lubridate::as.period(d)))
   }
   if(is.date(x)){
     if(is.null(date_format)) date_format=""
