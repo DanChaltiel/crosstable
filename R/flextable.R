@@ -113,7 +113,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
   has_by =  !is.null(by)
   if(has_by && is.null(by_label)) by_label=by
   if(isTRUE(by_header)) by_header=NULL
-  if(all(is.na(by_header) | by_header=="", na.rm=TRUE)) by_header=FALSE
+  if(!is.null(by_header) && all(is.na(by_header) | by_header=="", na.rm=TRUE)) by_header=FALSE
 
   inner_labels = attr(x, "inner_labels")
   if(!is.null(inner_labels)){
