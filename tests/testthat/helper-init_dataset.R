@@ -9,7 +9,7 @@ options(
   encoding="UTF-8",
   # width = 200,
   # warn=0, #default, stacks
-  warn=1, #immediate.=TRUE
+  warn=1, #immediate. =TRUE
   Ncpus=4,
   # warn=2, #error
   # warnPartialMatchArgs=TRUE,
@@ -129,5 +129,5 @@ compare = function (x, y, x_arg=caller_arg(x), y_arg=caller_arg(y), len_max=Inf,
 }
 
 
-cli::cli_inform(c(v="Initializer {.file tests/testthat/helper-init.R} loaded",
+cli::cli_inform(c(v="Initializer {.file helper-init_dataset.R} loaded",
                   i="is_testing={is_testing()}, is_parallel={is_parallel()}"))

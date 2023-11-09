@@ -6,7 +6,7 @@
 crosstable.Rcheck/
 
 # this messes up github linguistics (see https://github.com/github/linguist/issues/4927)
-pkgdown/index\.html 
+pkgdown/index\.html
 
 # MS Word files
 test*.docx
@@ -24,7 +24,7 @@ ehthumbs.db
 Desktop.ini
 
 .RData
-.Rproj.user
+.Rproj.user*
 .Rhistory
 .Rprofile
 

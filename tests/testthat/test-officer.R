@@ -240,7 +240,7 @@ test_that("Legend fields", {
   fp = fp_text_lite(bold=FALSE, italic=FALSE, underlined=TRUE, font.size=15)
   fp2 = fp_text_lite(font.size=9)
   doc = read_docx() %>%
-    body_add_normal("As you can see in Table \\@ref(tab1) and in Figure \\@ref(fig1), ",
+    body_add_normal("As you can see in Table \\@ref(tab1) and in Figure @ref(fig1), ",
                     "the iris dataset is about flowers.") %>%
     body_add_table_legend("standard format (table)", bookmark="tab1") %>%
     body_add_figure_legend("standard format (figure)", bookmark="fig1") %>%
