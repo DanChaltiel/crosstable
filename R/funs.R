@@ -10,6 +10,7 @@
 #' @param date_format if `x` is a vector of Date or POSIXt, the format to apply (see [strptime] for formats)
 #' @param is_period whether `x` is a period (a numeric value of seconds)
 #' @param percent if TRUE, format the values as percentages
+#' @param epsilon values less than `epsilon` are formatted as `"< [epsilon]"`
 #' @param scientific the power of ten above/under which numbers will be displayed as scientific notation.
 #' @param only_round if TRUE, `format_fixed` simply returns the rounded value. Can be set globally with `options("crosstable_only_round"=TRUE)`.
 #' @param ... unused
@@ -19,6 +20,7 @@
 #' @importFrom checkmate assert assert_logical assert_numeric
 #' @importFrom lubridate as.period
 #' @importFrom glue glue
+#' @importFrom rlang check_installed
 #' @export
 #'
 #' @examples
@@ -35,48 +37,57 @@
 #' format_fixed(x_sd, dig=3, zero_digits=2) #override default
 #' options("crosstable_only_round"=NULL)
 #'
-#' x2 = mtcars$mpg/max(mtcars$mpg)
 #' x2 = c(0.01, 0.1001, 0.500005, 0.00000012)
-#' format_fixed(x2, percent=TRUE, dig=6)
+#' format_fixed(x2, scientific=0, dig=1) #everything abs>10^0 gets scientific
+#' format_fixed(x2, scientific=FALSE, dig=6) #last would be 0 so it is scientific. Try `zero_digits=NA` or `dig=7`
+#' format_fixed(x2, scientific=FALSE, percent=TRUE, dig=0)
+#' format_fixed(x2, scientific=FALSE, eps=0.05)
 format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL,
                         percent=FALSE, is_period=FALSE,
                         scientific=getOption("crosstable_scientific_log", 4),
+                        epsilon=getOption("crosstable_format_epsilon", NULL),
                         only_round=getOption("crosstable_only_round", FALSE), ...){
   assert_numeric(x)
   assert_numeric(digits)
   assert_logical(percent)
   assert_logical(only_round)
   assert(is.null(zero_digits)||is.na(zero_digits)||is.numeric(zero_digits))
-  scientific = abs(scientific)
+  assert(is.null(epsilon)||is.numeric(epsilon))
   if(is_period){
     d = structure(round(x), class="difftime", units="secs")
     return(format(as.period(d)))
   }
   if(is.date(x)){
-    if(!is.null(date_format))
-      return(format(x, date_format))
-    else
-      return(format(x))
-  } else {
-    format = "f"
-    sci = any(abs(x)>=10^scientific | (x!=0 & abs(x)<=10^-scientific), na.rm=TRUE)
-    if(sci) format = "e"
-    if(percent) x=x*100
-    if(only_round) {
-      if(sci){
-        rtn = sprintf(glue("%.{digits}e"), x)
-      } else {
-        rtn = as.character(round(x, digits))
-      }
-    } else {
-      rtn = ifelse(is.na(x), NA_character_, formatC(x, format=format, digits=digits))
-      if(!is.null(zero_digits) && !is.na(zero_digits)){
-        rtn = ifelse(as.numeric(rtn)==0, as.character(signif(x, digits=zero_digits)), rtn)
-      }
-    }
-    if(percent) rtn=paste0(rtn, "%")
-    return(rtn)
+    if(is.null(date_format)) date_format=""
+    return(format(x, format=date_format))
   }
+
+  format = "f"
+  if(isFALSE(scientific)) sci = FALSE
+  else sci = any(abs(x)>=10^abs(scientific) | (x!=0 & abs(x)<=10^-abs(scientific)), na.rm=TRUE)
+
+  x_bak = x
+  if(sci) format = "e"
+  if(percent) x=x*100
+  if(only_round) {
+    if(sci){
+      rtn = sprintf(glue("%.{digits}e"), x)
+    } else {
+      rtn = as.character(round(x, digits))
+    }
+  } else {
+    rtn = ifelse(is.na(x), NA_character_, formatC(x, format=format, digits=digits))
+    if(!is.null(zero_digits) && !is.na(zero_digits)){
+      rtn = ifelse(as.numeric(rtn)==0, as.character(signif(x, digits=zero_digits)), rtn)
+    }
+  }
+  if(percent) rtn=paste0(rtn, "%")
+
+  if(!is.null(epsilon) && !is.na(epsilon)){
+    rtn = ifelse(x_bak<epsilon, paste0("<", epsilon), rtn)
+  }
+
+  rtn
 }
 
 
@@ -300,6 +311,6 @@ na = function(x) {
 #' cross_summary(mtcars2$hp_date)
 #' cross_summary(mtcars2$qsec_posix, date_format="%d/%m %H:%M")
 cross_summary = function(x, dig=1, ...) {
-  return(c("Min / Max" = minmax(x, dig=dig, ...), "Med [IQR]" = mediqr(x, dig=dig, ...),
-           "Mean (std)" = meansd(x, dig=dig, ...), "N (NA)" = nna(x)))
+  c("Min / Max" = minmax(x, dig=dig, ...), "Med [IQR]" = mediqr(x, dig=dig, ...),
+    "Mean (std)" = meansd(x, dig=dig, ...), "N (NA)" = nna(x))
 }

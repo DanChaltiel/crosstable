@@ -12,6 +12,7 @@ format_fixed(
   percent = FALSE,
   is_period = FALSE,
   scientific = getOption("crosstable_scientific_log", 4),
+  epsilon = getOption("crosstable_format_epsilon", NULL),
   only_round = getOption("crosstable_only_round", FALSE),
   ...
 )
@@ -30,6 +31,8 @@ format_fixed(
 \item{is_period}{whether \code{x} is a period (a numeric value of seconds)}
 
 \item{scientific}{the power of ten above/under which numbers will be displayed as scientific notation.}
+
+\item{epsilon}{values less than \code{epsilon} are formatted as \code{"< [epsilon]"}}
 
 \item{only_round}{if TRUE, \code{format_fixed} simply returns the rounded value. Can be set globally with \code{options("crosstable_only_round"=TRUE)}.}
 
@@ -55,9 +58,11 @@ options("crosstable_only_round"=TRUE)
 format_fixed(x_sd, dig=3, zero_digits=2) #override default
 options("crosstable_only_round"=NULL)
 
-x2 = mtcars$mpg/max(mtcars$mpg)
 x2 = c(0.01, 0.1001, 0.500005, 0.00000012)
-format_fixed(x2, percent=TRUE, dig=6)
+format_fixed(x2, scientific=0, dig=1) #everything abs>10^0 gets scientific
+format_fixed(x2, scientific=FALSE, dig=6) #last would be 0 so it is scientific. Try `zero_digits=NA` or `dig=7`
+format_fixed(x2, scientific=FALSE, percent=TRUE, dig=0)
+format_fixed(x2, scientific=FALSE, eps=0.05)
 }
 \author{
 Dan Chaltiel
