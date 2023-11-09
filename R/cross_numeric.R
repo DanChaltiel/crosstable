@@ -2,7 +2,6 @@
 #' @keywords internal
 #' @importFrom checkmate assert assert_numeric
 #' @importFrom dplyr everything mutate rename select
-#' @importFrom purrr map_df
 #' @noRd
 cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
                          label, cor_digits, cor_method,  test, test_args, effect, effect_args) {
@@ -33,9 +32,9 @@ cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
   }
 
   rtn = rtn %>%
-    mutate(.id=names(data_x), label=x_name) %>%
+    mutate(.id=names(data_x), label=unname(x_name)) %>%
     select(".id", "label", everything()) %>%
-    map_df(as.character)
+    as_tibble()
 
   rtn
 }
@@ -45,11 +44,11 @@ cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
 #' @importFrom cli cli_abort
 #' @importFrom dplyr across mutate where
 #' @importFrom methods formalArgs
-#' @importFrom purrr discard imap_dfr
+#' @importFrom purrr discard
 #' @keywords internal
 #' @noRd
 summarize_numeric_single = function(x, funs, funs_arg){
-  imap_dfr(funs, ~{
+  imap(funs, ~{
     funs_arg2 = funs_arg
     if(!"..." %in% formalArgs(.x)){
       funs_arg2 = funs_arg[formalArgs(.x)] %>% discard(is.null)
@@ -71,7 +70,7 @@ summarize_numeric_single = function(x, funs, funs_arg){
     data.frame(variable=variable, value=v) %>%
       mutate(across(where(~is.numeric(.x)||is.date(.x)),
                     ~format_fixed(.x, !!!funs_arg)))
-  })
+  }) %>% list_rbind()
 }
 
 
@@ -79,7 +78,6 @@ summarize_numeric_single = function(x, funs, funs_arg){
 #' @importFrom checkmate assert_numeric assert_scalar
 #' @importFrom dplyr across everything mutate ungroup
 #' @importFrom forcats fct_na_value_to_level
-#' @importFrom purrr imap_dfr
 #' @importFrom tidyr pivot_wider
 #' @keywords internal
 #' @noRd
@@ -112,10 +110,11 @@ summarize_numeric_factor = function(x, by, funs, funs_arg, showNA, total,
   }
 
   by(x[by_filter], by[by_filter], summarize_numeric_single, funs=funs, funs_arg=funs_arg) %>%
-    imap_dfr(~{
+    imap(~{
       if(is.null(.x)) .x=summarize_numeric_single(numeric(0), funs=funs, funs_arg=funs_arg)
       mutate(.x, by=.y, .before=1)
     }) %>%
+    list_rbind() %>%
     pivot_wider(names_from = "by") %>%
     {if(!is.null(.na)){mutate(.,"NA"=.na)} else .} %>%
     mutate(Total=.total, effect=.effect, test=.test,

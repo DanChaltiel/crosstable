@@ -1,7 +1,6 @@
 
 #' @importFrom dplyr everything mutate select
 #' @importFrom forcats fct_drop
-#' @importFrom purrr map_df
 #' @keywords internal
 #' @noRd
 cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits, percent_pattern,
@@ -35,9 +34,9 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
   }
 
   rtn = rtn %>%
-    mutate(.id=names(data_x), label=x_name) %>%
+    mutate(.id=names(data_x), label=unname(x_name)) %>%
     select(".id", "label", everything()) %>%
-    map_df(as.character)
+    as_tibble()
 
   rtn
 }
@@ -45,7 +44,6 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
 
 #' @importFrom dplyr across bind_rows filter matches mutate select starts_with transmute
 #' @importFrom glue glue
-#' @importFrom purrr map_df
 #' @importFrom tibble tibble
 #' @importFrom tidyr replace_na
 #' @keywords internal
@@ -94,7 +92,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
     rtn = bind_rows(rtn, .total)
   }
 
-  rtn %>% map_df(as.character)
+  rtn
 }
 
 
@@ -306,7 +304,6 @@ get_percent_pattern = function(margin=c("row", "column", "cell", "none", "all"),
   rtn$body = glue("{{n}} ({x})")
 
   if(isTRUE(na)){
-    # browser()
     ppv = percent_pattern_variables()
     ppv = ppv$na %>% set_names(ppv$std)
     rtn = map(rtn, ~str_replace_all(.x, ppv))

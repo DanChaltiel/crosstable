@@ -2,7 +2,7 @@
 #' @importFrom cli cli_abort cli_warn
 #' @importFrom dplyr filter pull
 #' @importFrom glue glue glue_data
-#' @importFrom purrr imap_dfr map_dfr
+#' @importFrom purrr list_rbind
 #' @importFrom rlang env
 #' @importFrom stats na.omit
 #' @keywords internal
@@ -22,7 +22,7 @@ cross_by = function(data_x, data_y, funs, funs_arg, percent_pattern, total, perc
     effect = FALSE
   }
 
-  rtn_tbl = imap_dfr(data_x, ~{
+  rtn_tbl = imap(data_x, ~{
     if(is.period(.x)){
       .x = as.numeric(.x) %>% copy_label_from(.x) %>% structure(is_period=TRUE)
     }
@@ -71,10 +71,10 @@ cross_by = function(data_x, data_y, funs, funs_arg, percent_pattern, total, perc
     }
 
     rtn
-  })
+  }) %>% list_rbind()
 
 
-  errors = as.list(errors) %>% map_dfr(identity)
+  errors = as.list(errors) %>% list_rbind()
   if(nrow(errors)>0){
     errors_s = glue_data(errors, "'{name}' ({class})")
     by_col = glue("'{names(data_y[1])}' ({paste_classes(data_y[[1]])})")

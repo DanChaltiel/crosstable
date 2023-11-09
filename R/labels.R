@@ -240,7 +240,6 @@ clean_names_with_labels = function(df, except=NULL, .fun=getOption("crosstable_c
 #' @return An object of the same type as `data`, with labels
 #'
 #' @importFrom cli cli_warn
-#' @importFrom purrr imap_dfr
 #' @importFrom rlang current_env
 #' @author Dan Chaltiel
 #' @export
@@ -259,12 +258,9 @@ apply_labels = function(data, ..., warn_missing=FALSE) {
              call=current_env())
   }
 
-  imap_dfr(data, ~{
-    if (.y %in% names(data)) {
-      .x = set_label(.x, args[[.y]])
-    }
-    .x
-  })
+  data %>%
+    mutate(across(everything(),
+                  ~set_label(.x, args[[cur_column()]])))
 }
 
 
@@ -287,7 +283,6 @@ apply_labels = function(data, ..., warn_missing=FALSE) {
 #' @importFrom cli cli_abort cli_warn
 #' @importFrom dplyr all_of select
 #' @importFrom lifecycle deprecate_warn deprecated is_present
-#' @importFrom purrr imap_dfr
 #' @importFrom rlang current_env
 #' @importFrom tibble column_to_rownames
 #' @importFrom tidyr drop_na
@@ -355,11 +350,11 @@ import_labels = function(.tbl, data_label,
     select(all_of(c(name_from, label_from))) %>%
     drop_na() %>%
     column_to_rownames(name_from)
-  .tbl %>% imap_dfr(~{
-    label = data_label[.y, label_from]
-    set_label(.x, label)
-  })
 
+  .tbl %>% mutate(across(everything(), ~{
+    label = data_label[cur_column(), label_from]
+    set_label(.x, label)
+  }))
 }
 
 #' @rdname import_labels

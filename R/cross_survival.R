@@ -1,6 +1,5 @@
 
 #' @importFrom dplyr everything mutate select
-#' @importFrom purrr map_df
 #' @importFrom rlang check_installed
 #' @keywords internal
 #' @noRd
@@ -31,9 +30,9 @@ cross_survival=function(data_x, data_y, showNA, total, label, surv_digits, times
   }
 
   rtn = rtn %>%
-    mutate(.id=names(data_x), label=x_name) %>%
+    mutate(.id=names(data_x), label=unname(x_name)) %>%
     select(".id", "label", everything()) %>%
-    map_df(as.character)
+    as_tibble()
 
   rtn
 }
@@ -42,7 +41,6 @@ cross_survival=function(data_x, data_y, showNA, total, label, surv_digits, times
 
 #' @importFrom dplyr everything mutate pull select summarise
 #' @importFrom glue glue
-#' @importFrom purrr map_df
 #' @importFrom tibble tibble
 #' @keywords internal
 #' @noRd
@@ -75,8 +73,7 @@ summarize_survival_single = function(surv, times, digits, followup) {
   }
   rtn=rbind(rtn, c("Median survival", x$table["median"]))
   rtn %>%
-    select("variable", everything()) %>%
-    map_df(as.character)
+    select("variable", everything())
 }
 
 

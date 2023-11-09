@@ -54,7 +54,7 @@ crosstable_caller = rlang::env()
 #' @importFrom forcats fct_na_value_to_level
 #' @importFrom glue glue
 #' @importFrom lifecycle deprecate_stop deprecate_warn deprecated
-#' @importFrom purrr discard imap_dfr map map_chr map_dfc
+#' @importFrom purrr discard map map_chr list_rbind list_cbind
 #' @importFrom rlang as_function call_args call_match check_dots_unnamed current_env dots_n enexpr enexprs enquo is_empty is_formula local_options quo_get_expr
 #' @importFrom stats model.frame na.omit
 #' @importFrom stringr str_split_fixed str_trim
@@ -369,7 +369,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   if(ncol_y>1) {
 
     #supported classes
-    data_y2 = map_dfc(data_y, ~{if(!is.logical(.x)&&!is.character.or.factor(.x)) NULL else .x})
+    data_y2 = data_y %>% select(where(~is.logical(.x)||is.character.or.factor(.x)))
     nameclass_diff = setdiff(paste_nameclasses(data_y), paste_nameclasses(data_y2))
     if(length(nameclass_diff)>0){
       message = "Crosstable only supports logical, character or factor `by` columns (multiple)."
@@ -420,11 +420,11 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   funs = parse_funs(funs)
   if(multiby){
     data_y_lvl = expand.grid(by_levels, stringsAsFactors=FALSE) %>%
-      imap_dfr(~ paste(.y, .x, sep="=")) %>%
-      unite(col="y", sep=" & ") %>% pull()
+      mutate(across(everything(), ~paste(cur_column(), .x, sep="="))) %>%
+      unite("y", sep = " & ") %>% pull()
 
     data_y2 = data_y %>%
-      imap_dfr(~ paste(.y, .x, sep="=")) %>%
+      mutate(across(everything(), ~paste(cur_column(), .x, sep="="))) %>%
       unite(col="y", sep=" & ") %>%
       mutate(y=factor(y, levels=data_y_lvl))
 
