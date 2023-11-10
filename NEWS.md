@@ -5,10 +5,13 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 #### New features
 
 -   `set_label()` now accepts a function as a value (e.g. `set_label(mtcars2, toupper)`)
+-   Argument `format_fixed(scientific)` can now be `FALSE` to force standard format. Can be set through `options(crosstable_scientific_log=FALSE)` (#49).
+-   New argument `format_fixed(epsilon)` to format values as `"<epsilon"`. Can be set through `options(crosstable_format_epsilon=0.001)`.
 
 #### Bug fixes and improvements
 
 -   Reimplement description of columns containing both `NA` (missing values) and "NA" (characters) (#42)
+-   Argument `as_flextable(by_header)` can now be set through `options(crosstable_by_header=FALSE)` to remove all headers.
 -   Adds an error message in `as_flextable()` when the crosstable is empty (#41)
 -   Fixes a regression where references were not added anymore.
 

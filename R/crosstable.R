@@ -50,7 +50,7 @@ crosstable_caller = rlang::env()
 #' @export
 #' @importFrom checkmate assert_choice assert_count assert_data_frame assert_list assert_logical assert_multi_class makeAssertCollection reportAssertions
 #' @importFrom cli cli_abort cli_warn
-#' @importFrom dplyr across any_of everything intersect mutate n_distinct pull select where
+#' @importFrom dplyr across any_of cur_column everything intersect mutate n_distinct pull select where
 #' @importFrom forcats fct_na_value_to_level
 #' @importFrom glue glue
 #' @importFrom lifecycle deprecate_stop deprecate_warn deprecated

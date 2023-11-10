@@ -60,7 +60,8 @@ options("crosstable_only_round"=NULL)
 
 x2 = c(0.01, 0.1001, 0.500005, 0.00000012)
 format_fixed(x2, scientific=0, dig=1) #everything abs>10^0 gets scientific
-format_fixed(x2, scientific=FALSE, dig=6) #last would be 0 so it is scientific. Try `zero_digits=NA` or `dig=7`
+#last would be 0 so it is scientific. Try `zero_digits=NA` or `dig=7`
+format_fixed(x2, scientific=FALSE, dig=6)
 format_fixed(x2, scientific=FALSE, percent=TRUE, dig=0)
 format_fixed(x2, scientific=FALSE, eps=0.05)
 }

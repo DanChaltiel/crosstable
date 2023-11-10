@@ -1,5 +1,6 @@
 .git
 .git/*
+.Rproj.user*
 man/figures/*
 examples/*
 
