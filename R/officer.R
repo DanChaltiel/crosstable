@@ -8,7 +8,7 @@
 #' @param doc a `rdocx` object, created by [officer::read_docx()]
 #' @param x a `crosstable` object
 #' @param body_fontsize fontsize of the body
-#' @param header_fontsize fontsize of the header
+#' @param header_fontsize fontsize of the header. Defaults to `1.2*body_fontsize`.
 #' @param padding_v vertical padding of all table rows
 #' @param allow_break allow crosstable rows to break across pages
 #' @param max_cols max number of columns for `x`
@@ -43,7 +43,7 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 
   if(missing(padding_v)) padding_v = getOption("crosstable_padding_v", NULL)
   if(missing(body_fontsize)) body_fontsize = getOption("crosstable_fontsize_body", NULL)
-  if(missing(header_fontsize)) header_fontsize = getOption("crosstable_fontsize_header", NULL)
+  if(missing(header_fontsize)) header_fontsize = getOption("crosstable_fontsize_header", ceiling(body_fontsize*1.2))
   if(missing(allow_break)) allow_break = getOption("crosstable_allow_break", TRUE)
   if(missing(max_cols)) max_cols = getOption("crosstable_add_max_cols", 25)
 
@@ -53,11 +53,11 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
               class="crosstable_body_add_large_error")
   }
   ft = as_flextable(x, ...)
-  if(length(body_fontsize)!=0)
+  if(length(body_fontsize)>0)
     ft = fontsize(ft, size = body_fontsize, part = "body")
-  if(length(header_fontsize)!=0)
+  if(length(header_fontsize)>0)
     ft = fontsize(ft, size = header_fontsize, part = "header")
-  if(length(padding_v)!=0)
+  if(length(padding_v)>0)
     ft = padding(ft, padding.top=padding_v, padding.bottom=padding_v, part = "body")
 
   body_add_flextable(doc, ft, keepnext=!allow_break)
