@@ -22,7 +22,7 @@ body_add_crosstable(
 
 \item{body_fontsize}{fontsize of the body}
 
-\item{header_fontsize}{fontsize of the header}
+\item{header_fontsize}{fontsize of the header. Defaults to \code{1.2*body_fontsize}.}
 
 \item{padding_v}{vertical padding of all table rows}
 

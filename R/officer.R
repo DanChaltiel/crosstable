@@ -377,6 +377,59 @@ body_add_crosstable_list = function(...){
   body_add_table_list(...)
 }
 
+#' Add a section with a table and its legend
+#'
+#' @param doc a `rdocx` object
+#' @param x a table: `crosstable`, `flextable`, or plain old `dataframe`
+#' @param legend the legend to use
+#' @param bookmark the bookmark to use. Defaults to the cleaned variable name of `x`
+#' @param title the title to add for the section. Can also be `FALSE` (no title) or `TRUE` (the title defaults to `legend`)
+#' @param title_lvl the title level if applicable
+#' @param sentence a sentence to add between the title (if applicable) and the table. If `TRUE`, defaults to `"Information about {tolower(title)} is described in Table @ref({bookmark})"`.
+#' @param ... passed on to [body_add_flextable()] or [body_add_crosstable()]
+#'
+#' @return The `docx` object `doc`
+#' @importFrom flextable qflextable
+#' @export
+#'
+#' @examples
+#' library(officer)
+#' read_docx() %>%
+#'   body_add_title("Description", 1) %>%
+#'   body_add_title("Population A", 2) %>%
+#'   body_add_table_section(head(iris), "The iris dataset", sentence=TRUE) %>%
+#'   body_add_table_section(crosstable(iris), "A crosstable of the iris dataset",
+#'                          title=FALSE, sentence=TRUE, body_fontsize=8) %>%
+#'   write_and_open()
+body_add_table_section = function(doc, x, legend, ..., bookmark=NULL,
+                                  title=getOption("crosstable_section_title", TRUE),
+                                  title_lvl=getOption("crosstable_section_title_level", 3),
+                                  sentence=getOption("crosstable_section_sentence", FALSE)){
+  stopifnot(!is.null(x))
+  stopifnot(inherits(x, c("data.frame", "flextable", "crosstable")))
+  ctname = rlang::caller_arg(x)
+  if(is.null(bookmark)) bookmark = crosstable_clean_names(ctname)
+
+  if(!is.null(title) && !isFALSE(title)){
+    if(isTRUE(title)) title = legend
+    doc = body_add_title(doc, title, title_lvl)
+  }
+  if(isTRUE(sentence)){
+    if(isTRUE(title) || isFALSE(title)) title = legend
+    doc = body_add_normal(doc, "Information about {tolower(title)} is described in Table @ref({bookmark}).")
+  } else if(!is.null(sentence) & !isFALSE(sentence)) {
+    doc = body_add_normal(doc, sentence)
+  }
+  if(inherits(x, "crosstable")){
+    doc = body_add_crosstable(doc, x, ...)
+  } else {
+    if(!inherits(x, "flextable")) x = qflextable(x)
+    doc = body_add_flextable(doc, x, ...)
+  }
+  doc = body_add_table_legend(doc, legend=legend, bookmark=bookmark)
+  doc
+}
+
 
 #' Add a legend to a table or a figure
 #'
