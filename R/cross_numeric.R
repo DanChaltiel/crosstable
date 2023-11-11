@@ -2,6 +2,7 @@
 #' @keywords internal
 #' @importFrom checkmate assert assert_numeric
 #' @importFrom dplyr everything mutate rename select
+#' @importFrom tibble as_tibble
 #' @noRd
 cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
                          label, cor_digits, cor_method,  test, test_args, effect, effect_args) {
@@ -44,7 +45,7 @@ cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
 #' @importFrom cli cli_abort
 #' @importFrom dplyr across mutate where
 #' @importFrom methods formalArgs
-#' @importFrom purrr discard
+#' @importFrom purrr discard imap list_rbind
 #' @keywords internal
 #' @noRd
 summarize_numeric_single = function(x, funs, funs_arg){
@@ -78,6 +79,7 @@ summarize_numeric_single = function(x, funs, funs_arg){
 #' @importFrom checkmate assert_numeric assert_scalar
 #' @importFrom dplyr across everything mutate ungroup
 #' @importFrom forcats fct_na_value_to_level
+#' @importFrom purrr imap list_rbind
 #' @importFrom tidyr pivot_wider
 #' @keywords internal
 #' @noRd

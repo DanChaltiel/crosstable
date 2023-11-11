@@ -382,8 +382,9 @@ effect_survival_coxph = function(x, by, conf_level = 0.95) {
 
 
 
-#' @importFrom cli cli_bullets cli_warn
+#' @importFrom cli cli_warn
 #' @importFrom glue glue_collapse
+#' @importFrom tibble lst
 #' @keywords internal
 #' @noRd
 model_warn = function(mod, ci, type){

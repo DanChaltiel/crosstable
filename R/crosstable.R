@@ -54,10 +54,9 @@ crosstable_caller = rlang::env()
 #' @importFrom forcats fct_na_value_to_level
 #' @importFrom glue glue
 #' @importFrom lifecycle deprecate_stop deprecate_warn deprecated
-#' @importFrom purrr discard map map_chr list_rbind list_cbind
-#' @importFrom rlang as_function call_args call_match check_dots_unnamed current_env dots_n enexpr enexprs enquo is_empty is_formula local_options quo_get_expr
+#' @importFrom purrr map map_chr
+#' @importFrom rlang as_function call_args call_match check_dots_unnamed current_env dots_n enquo is_empty is_formula local_options quo_get_expr
 #' @importFrom stats model.frame na.omit
-#' @importFrom stringr str_split_fixed str_trim
 #' @importFrom tidyr unite
 #'
 #' @return A `data.frame`/`tibble` of class `crosstable`

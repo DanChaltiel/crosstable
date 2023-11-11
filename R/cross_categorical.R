@@ -1,6 +1,7 @@
 
 #' @importFrom dplyr everything mutate select
 #' @importFrom forcats fct_drop
+#' @importFrom tibble as_tibble
 #' @keywords internal
 #' @noRd
 cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits, percent_pattern,

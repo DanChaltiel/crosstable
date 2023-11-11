@@ -2,7 +2,7 @@
 #' @importFrom cli cli_abort cli_warn
 #' @importFrom dplyr filter pull
 #' @importFrom glue glue glue_data
-#' @importFrom purrr list_rbind
+#' @importFrom purrr imap list_rbind
 #' @importFrom rlang env
 #' @importFrom stats na.omit
 #' @keywords internal

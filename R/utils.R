@@ -470,7 +470,7 @@ confint_numeric = function(object, level=0.95, B=0){
 #' @param level the confidence level required
 #' @source binom:::binom.confint
 #' @source https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval
-#' @note validé avec PropCIs::scoreci
+#' @note validated against PropCIs::scoreci
 #' @importFrom checkmate assert_integerish assert_numeric
 #' @importFrom stats qnorm
 #' @keywords internal

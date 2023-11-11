@@ -389,7 +389,7 @@ body_add_crosstable_list = function(...){
 #' @param ... passed on to [body_add_flextable()] or [body_add_crosstable()]
 #'
 #' @return The `docx` object `doc`
-#' @importFrom flextable qflextable
+#' @importFrom flextable body_add_flextable qflextable
 #' @export
 #'
 #' @examples
