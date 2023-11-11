@@ -859,79 +859,106 @@ generate_autofit_macro = function(){
 
 #' Parse value for multiple regexp to unravel formats (bold, italic and underline) and reference calls.
 #'
-#' @importFrom glue glue
-#' @importFrom officer body_add_fpar body_add_par fp_text_lite ftext run_word_field
-#' @importFrom purrr discard map map_lgl
-#' @importFrom rlang set_names
-#' @importFrom stringr str_detect str_extract_all str_match str_split
+#' @importFrom officer body_add_fpar
 #'
 #' @keywords internal
 #' @noRd
-body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE){
-  if(isFALSE(parse_ref) && isFALSE(parse_format) && isFALSE(parse_code)){
+body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE,
+                           parse_code=TRUE, parse_newline=TRUE){
+  if(nchar(x)==0 || isFALSE(parse_ref || parse_format || parse_code || parse_newline)){
     return(body_add_par(doc, value, style))
   }
-  reg_r = list(
-    ref = "\\\\?\\\\?@ref\\(.*?\\)"
-  )
-  reg_f = list(
-    bold = "\\*\\*(.+?)\\*\\*",
-    underlined = "_(.+?)_",
-    italic = "(?<!\\*)\\*(?!\\*)(.+?)(?<!\\*)\\*(?!\\*)"
-  )
-  reg_c = list(
-    code = "`(.+?)`"
-  )
-  if(isFALSE(parse_ref)) reg_r = list()
-  if(isFALSE(parse_format)) reg_f = list()
-  if(isFALSE(parse_code)) reg_c = list()
-  reg = c(reg_f, reg_r, reg_c)
-  rex_all = paste(reg, collapse="|")
-
-  if(!str_detect(value, rex_all)){
-    return(body_add_par(doc, value, style))
-  }
-
-
-  par_not_format = str_split(value, rex_all)[[1]]
-  par_format = str_extract_all(value, rex_all)[[1]]
-
-  # #altern: https://stackoverflow.com/a/43876294/3888000
-  altern = c(par_not_format, par_format)[order(c(seq_along(par_not_format)*2 - 1,
-                                                 seq_along(par_format)*2))]
-  par_list = map(altern, ~{
-    .format = map_lgl(reg, function(pat) str_detect(.x, pattern=pat)) %>%
-      discard(isFALSE) %>% names()
-
-    if(length(.format)==0) return(ftext(.x))
-
-    if(any(.format=="ref")){
-      bkm = str_match(.x, "\\\\?\\\\?@ref\\((.*?)\\)")[,2]
-      return(run_word_field(glue(' REF {bkm} \\h ')))
-    }
-    if(any(.format=="code")){
-      fp = fp_text_lite(font.family=getOption("crosstable_font_code", "Consolas"))
-      .x = str_match(.x, reg$code)[[2]]
-      return(ftext(.x, fp))
-    }
-    rex = reg[.format]
-    for(i in rex){
-      if(str_detect(.x, i)){
-        .x = str_match(.x, i)[[2]]
-      }
-    }
-
-    fp_args = rep(TRUE, length(.format)) %>% set_names(.format) %>% as.list()
-    fp = do.call(fp_text_lite, fp_args)
-
-    ftext(.x, fp)
-  })
-
-  p=do.call(fpar, args=par_list)
+  p = parse_md(value, parse_ref, parse_format, parse_code)
   body_add_fpar(doc, p, style)
 }
 
+#' Compile Markdown to `officer` formatted paragraph
+#' @return a `fpar`
+#' @importFrom dplyr arrange bind_rows case_when everything lag lead mutate mutate_all select
+#' @importFrom glue glue
+#' @importFrom officer fp_text_lite ftext run_linebreak run_word_field
+#' @importFrom purrr accumulate
+#' @importFrom stringr fixed str_extract str_locate_all str_replace_all
+#' @importFrom tibble as_tibble tibble
+#' @importFrom tidyr fill replace_na unpack
+#' @importFrom utils head
+#' @keywords internal
+#' @noRd
+parse_md = function(x, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE, parse_newline=TRUE){
 
+  x = str_replace_all(x, fixed("**"), fixed("%%")) #better separates bold from italic
+
+  f = \(x, k, f) str_locate_all(x, k)[[1]] %>% as_tibble() %>% mutate(format=f)
+  bolds = f(x, "(?<!\\\\)%%", "bold")
+  italics = f(x, "(?<!\\\\)\\*", "italic")
+  underlined = f(x, "(?<!\\\\)_", "underlined")
+  code = f(x, "(?<!\\\\)`", "code")
+  ref = f(x, "\\\\?\\\\?@ref\\((.*?)\\)", "ref")
+  newline = f(x, "<br> *", "newline")
+  #TODO warning si TOKEN non refermé
+
+  state0 = tibble(bold=0, italic=0, underlined=0, code=0, ref=0, newline=0)
+  get_state = function(state, x){
+    if(is.na(x)) return(NA)
+    state[[x]] = 1-state[[x]]
+    state
+  }
+
+  rtn = tibble()
+  if(parse_ref)     rtn = bind_rows(rtn, ref)
+  if(parse_format)  rtn = bind_rows(rtn, bolds, italics, underlined)
+  if(parse_code)    rtn = bind_rows(rtn, code)
+  if(parse_newline) rtn = bind_rows(rtn, newline)
+
+  if(nrow(rtn)==0){
+    return(fpar(x))
+  }
+
+  rtn = rtn %>%
+    arrange(start) %>%
+    mutate(
+      do = purrr::accumulate(lead(format), .init=get_state(state0, format[1]),
+                             ~get_state(.x, .y)) %>%
+        head(-1) %>%
+        mutate_all(~{
+          lag_x = lag(.x, default=0)
+          case_when(
+            lag_x==0 & .x==1 ~ TRUE,
+            lag_x==1 & .x==0 ~ FALSE,
+            .default=NA
+          )
+        }) %>%
+        fill(everything()) %>%
+        mutate_all(~replace_na(.x, FALSE))
+    ) %>%
+    unpack(do) %>%
+    mutate(code = ifelse(code, getOption("crosstable_font_code", "Consolas"), NA)) %>%
+    select(-ref)
+
+  rtn
+  p = list()
+  p[[1]] = ftext(substring(x, 1, rtn$start[1]-1))
+  for(i in seq(nrow(rtn))){
+    d = as.list(rtn[i, ])
+    fmt = fp_text_lite(bold=d$bold, italic=d$italic, underlined=d$underlined, font.family=d$code)
+    next_end = rtn[i+1, ][["start"]]-1
+
+    if(d$format=="ref"){
+      bkm = substring(x, d$start, d$end) %>%
+        str_extract("\\\\?\\\\?@ref\\((.*?)\\)", group=1)
+      p[[length(p)+1]] = run_word_field(glue(' REF {bkm} \\h '), prop=fmt)
+    } else if(d$format=="newline"){
+      p[[length(p)+1]] = run_linebreak()
+    }
+
+    if(is.na(next_end)) next_end=nchar(x)
+    txt = substring(x, d$end+1, next_end)
+    txt = txt %>% str_replace_all("\\\\([*`%])", "\\1") #delete escapings
+    p[[length(p)+1]] = ftext(txt, prop=fmt)
+  }
+
+  do.call(fpar, args=p)
+}
 
 
 # Deprecated --------------------------------------------------------------

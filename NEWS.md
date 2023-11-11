@@ -8,6 +8,8 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 -   `set_label()` now accepts a function as a value (e.g. `set_label(mtcars2, toupper)`).
 -   Argument `format_fixed(scientific)` can now be `FALSE` to force standard format. Can be set through `options(crosstable_scientific_log=FALSE)` (#49).
 -   New argument `format_fixed(epsilon)` to format values as `"<epsilon"`. Can be set through `options(crosstable_format_epsilon=0.001)`.
+-   Markdown implementation has improved, with support of crossing patterns and newline tokens (#26 & #30). \
+    You can now use `` body_add_normal("Here is **`some code` in bold & *italic* ** <br> And here is normal text") ``
 
 #### Bug fixes and improvements
 
@@ -71,7 +73,7 @@ Fixes for CRAN checks.
 -   String interpolation works as intended in `body_add_xxx_legend()`.
 -   `crosstable()` will not fail if `fisher.test()` fails [#28]
 -   `forcats::fct_explicit_na()` is not used anymore [#29]
--   `body_add_normal()` now removes ``` symbols when showing code [#31]
+-   `body_add_normal()` now removes \` symbols when showing code [#31]
 -   Trailing commas will not make `apply_labels()` fail anymore [#32]
 -   Performance improvement (around 30% for small tables) as confidence intervals are not calculated anymore when not needed [#34]
 
