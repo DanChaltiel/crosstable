@@ -70,7 +70,8 @@ doc = read_docx() %>% #default template
                   testing is bad and I should feel bad.") %>%
   body_add_crosstable(ct1) %>%
   body_add_table_legend("Automatic testing is bad", bookmark="table_autotest") %>%
-  body_add_normal("Let's add a figure as well. You can see in Figure \\@ref(fig_iris) 
+  body_add_normal() %>%  
+  body_add_normal("Let's add a figure as well. <br> You can see in Figure \\@ref(fig_iris) 
                   that sepal length is somehow correlated with petal length.") %>%
   body_add_figure_legend("Relation between Petal length and Sepal length", 
                          bookmark="fig_iris") %>% 

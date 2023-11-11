@@ -36,7 +36,7 @@ The docx object \code{doc}
 Add a new paragraph in an \code{officer} document with default style.\cr
 Variables can be inserted in the text as multiple strings (\code{paste()} style) or enclosed by braces (\code{glue()} style).  \cr
 Basic markdown syntax is available: \verb{**bold**}, \verb{*italic*}, and \verb{_underlined_}. \cr
-References to any bookmark can be inserted using the syntax \verb{\\\\@ref(bookmark)}.
+References to any bookmark can be inserted using the syntax \verb{@ref(bookmark)} and newlines can be inserted using the token \verb{<br>}.
 }
 \examples{
 library(officer)

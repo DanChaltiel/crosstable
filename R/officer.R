@@ -74,7 +74,7 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #' Add a new paragraph in an `officer` document with default style.\cr
 #' Variables can be inserted in the text as multiple strings (`paste()` style) or enclosed by braces (`glue()` style).  \cr
 #' Basic markdown syntax is available: `**bold**`, `*italic*`, and `_underlined_`. \cr
-#' References to any bookmark can be inserted using the syntax `\\@ref(bookmark)`.
+#' References to any bookmark can be inserted using the syntax `@ref(bookmark)` and newlines can be inserted using the token `<br>`.
 #'
 #' @param doc the doc object (created with the `read_docx` function of `officer` package)
 #' @param ... one or several character strings, pasted using `.sep`. As with `glue::glue()`, expressions enclosed by braces will be evaluated as R code. If more than one variable is passed, all should be of length 1.
@@ -176,7 +176,6 @@ body_add_title = function(doc, value, level=1, squish=TRUE,
   value = glue(value, .envir = parent.frame())
   if(squish) value = str_squish(value)
   style = paste(style, level)
-  # body_add_par(doc, value, style = style)
   body_add_parsed(doc, value, style = style)
 }
 
@@ -859,17 +858,17 @@ generate_autofit_macro = function(){
 
 #' Parse value for multiple regexp to unravel formats (bold, italic and underline) and reference calls.
 #'
-#' @importFrom officer body_add_fpar
+#' @importFrom officer body_add_par body_add_fpar
 #'
 #' @keywords internal
 #' @noRd
 body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE,
-                           parse_code=TRUE, parse_newline=TRUE){
+                           parse_code=TRUE, parse_newline=TRUE, ...){
   if(nchar(x)==0 || isFALSE(parse_ref || parse_format || parse_code || parse_newline)){
     return(body_add_par(doc, value, style))
   }
   p = parse_md(value, parse_ref, parse_format, parse_code)
-  body_add_fpar(doc, p, style)
+  body_add_fpar(doc, p, style, ...)
 }
 
 #' Compile Markdown to `officer` formatted paragraph
@@ -895,7 +894,7 @@ parse_md = function(x, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE, parse
   code = f(x, "(?<!\\\\)`", "code")
   ref = f(x, "\\\\?\\\\?@ref\\((.*?)\\)", "ref")
   newline = f(x, "<br> *", "newline")
-  #TODO warning si TOKEN non refermé
+  #TODO warning si TOKEN non refermé ?
 
   state0 = tibble(bold=0, italic=0, underlined=0, code=0, ref=0, newline=0)
   get_state = function(state, x){
@@ -909,9 +908,13 @@ parse_md = function(x, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE, parse
   if(parse_format)  rtn = bind_rows(rtn, bolds, italics, underlined)
   if(parse_code)    rtn = bind_rows(rtn, code)
   if(parse_newline) rtn = bind_rows(rtn, newline)
+  if(nrow(rtn)==0) return(fpar(x))
 
-  if(nrow(rtn)==0){
-    return(fpar(x))
+  #remove tokens inside refs
+  reflines = rtn %>% filter(format=="ref") %>% select(-format) %>%
+    group_split(row_number(), .keep = FALSE)
+  for(i in reflines){
+    rtn = rtn %>% filter(! (start>i$start & end<i$end))
   }
 
   rtn = rtn %>%
@@ -935,7 +938,6 @@ parse_md = function(x, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE, parse
     mutate(code = ifelse(code, getOption("crosstable_font_code", "Consolas"), NA)) %>%
     select(-ref)
 
-  rtn
   p = list()
   p[[1]] = ftext(substring(x, 1, rtn$start[1]-1))
   for(i in seq(nrow(rtn))){
