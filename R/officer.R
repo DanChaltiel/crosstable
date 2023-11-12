@@ -83,6 +83,23 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #' @param squish Whether to squish the result (remove trailing and repeated spaces). Default to `TRUE`. Allows to add multiline paragraph without breaking the string.
 #' @param parse which format to parse. Default to all formats (`c("ref", "format", "code")`).
 #'
+#' @section Markdown support:
+#' In all `crosstable` helpers for `officer`, you can use the following Markdown syntax to format your text:
+#'
+#'  - *bold*: `"**text in bold**"`
+#'  - *italics: `"*text in italics*"`
+#'  - *subscript*: `"Text in ~subscript~"`
+#'  - *superscript*: `"Text in ^superscript^"`
+#'  - *newline*: `Before <br> After`
+#'  - *color*: `"<color:red>red text</color>"`
+#'  - *shade*: `"<shade:yellow>yellow text</shade>"` (background color)
+#'  - *font family*: `"<ff:symbol>symbol</ff>"` (
+#'
+#' Note that the font name depends on your system language. For instant, in French, it would be `Symbol` with an uppercase first letter.
+#'
+#' See the last example of [body_add_normal()] for a practical case.
+#'
+#'
 #' @return a new doc object
 #'
 #' @author Dan Chaltiel
@@ -157,12 +174,14 @@ body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, parse=c("
 #' Add a title to an `officer` document
 #'
 #' @param doc the doc object (created with the \code{read_docx} function of \code{officer} package)
-#' @param value a character string
+#' @param value a character string. See Section below for markdown support.
 #' @param level the level of the title. See \code{styles_info(doc)} to know the possibilities.
 #' @param squish Whether to squish the result (remove trailing and repeated spaces). Default to `TRUE`.
 #' @param style the name of the title style. See \code{styles_info(doc)} to know the possibilities.
 #'
 #' @return The docx object `doc`
+#'
+#' @inheritSection body_add_normal Markdown support
 #'
 #' @author Dan Chaltiel
 #' @export
@@ -192,8 +211,8 @@ body_add_title = function(doc, value, level=1, squish=TRUE,
 #' Add a list to an `officer` document
 #'
 #' @param doc a docx object
-#' @param value a character (`body_add_list()`) or a string (`body_add_list_item`)
-#' @param ordered if TRUE, adds an ordered list, if FALSE, adds a bullet list
+#' @param value a character vector (`body_add_list()`) or scalar (`body_add_list_item`). See Section below for markdown support.
+#' @param ordered if `TRUE`, adds an ordered list, if `FALSE` (default), adds a bullet list
 #' @param style specify the style manually, overriding `ordered`. A better way is to set options `crosstable_style_list_ordered` and `crosstable_style_list_unordered` globally.
 #' @param ... passed on to [officer::body_add_par()]
 #'
@@ -201,6 +220,7 @@ body_add_title = function(doc, value, level=1, squish=TRUE,
 #'
 #' @details Ordered lists and bullet lists are not supported by the default officer template (see [https://github.com/davidgohel/officer/issues/262](#262)). You have to manually set custom styles matching those list in a custom Word template file. Then, you can use either the `style` argument or crosstable options. See examples for more details.
 #'
+#' @inheritSection body_add_normal Markdown support
 #' @export
 #'
 #' @examples
@@ -444,7 +464,7 @@ body_add_table_section = function(doc, x, legend, ..., bookmark=NULL,
 #' Add a legend to a table or a figure in an `officer` document. Legends can be referred to using the `@ref` syntax in [body_add_normal()] (see examples for some use cases). Table legends should be inserted before the table while figure legends should be inserted after the figure.
 #'
 #' @param doc a docx object
-#' @param legend the table legend. As with [glue::glue()], expressions enclosed by braces will be evaluated as R code.
+#' @param legend the table legend. Supports `glue` syntax and markdown syntax (see Section below).
 #' @param bookmark the id of the bookmark. This is the id that should then be called in [body_add_normal()] using the `"\\@ref(id)"` syntax. Forbidden characters will be removed.
 #' @param legend_prefix a prefix that comes before the legend, after the numbering
 #' @param legend_style style of of the whole legend. May depend on the docx template. However, if `name_format` is provided with a specific `font.size`, this size will apply to the whole legend for consistency.
@@ -458,6 +478,8 @@ body_add_table_section = function(doc, x, legend, ..., bookmark=NULL,
 #'
 #' @return The docx object `doc`
 #'
+#' @inheritSection body_add_normal Markdown support
+#'
 #' @section Warning:
 #' Be aware that you unfortunately cannot reference a bookmark more than once using this method. Writing: \cr `body_add_normal("Table \\@ref(iris_col1) is about flowers. I really like Table \\@ref(iris_col1).")`\cr
 #' will prevent the numbering from applying.
@@ -465,6 +487,8 @@ body_add_table_section = function(doc, x, legend, ..., bookmark=NULL,
 #' During the opening of the document, MS Word might ask you to "update the fields", to which you should answer "Yes".  \cr
 #' If it is not asked or if you answer "No", the legends added with [body_add_table_legend()] or [body_add_figure_legend()] might have no actual numbers displayed. \cr
 #' In this case, you have to manually update the references in MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}), sometimes twice. More info on [https://ardata-fr.github.io/officeverse/faq.html#update-fields](https://ardata-fr.github.io/officeverse/faq.html#update-fields).
+#'
+#'
 #' @rdname body_add_legend
 #' @name body_add_legend
 #' @author Dan Chaltiel

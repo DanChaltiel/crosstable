@@ -38,6 +38,25 @@ Variables can be inserted in the text as multiple strings (\code{paste()} style)
 Basic markdown syntax is available: \verb{**bold**}, \verb{*italic*}, and \verb{_underlined_}. \cr
 References to any bookmark can be inserted using the syntax \verb{@ref(bookmark)} and newlines can be inserted using the token \verb{<br>}.
 }
+\section{Markdown support}{
+
+In all \code{crosstable} helpers for \code{officer}, you can use the following Markdown syntax to format your text:
+\itemize{
+\item \emph{bold}: \code{"**text in bold**"}
+\item *italics: \code{"*text in italics*"}
+\item \emph{subscript}: \code{"Text in ~subscript~"}
+\item \emph{superscript}: \code{"Text in ^superscript^"}
+\item \emph{newline}: \verb{Before <br> After}
+\item \emph{color}: \code{"<color:red>red text</color>"}
+\item \emph{shade}: \code{"<shade:yellow>yellow text</shade>"} (background color)
+\item \emph{font family}: \code{"<ff:symbol>symbol</ff>"} (
+}
+
+Note that the font name depends on your system language. For instant, in French, it would be \code{Symbol} with an uppercase first letter.
+
+See the last example of \code{\link[=body_add_normal]{body_add_normal()}} for a practical case.
+}
+
 \examples{
 library(officer)
 library(crosstable)
@@ -59,6 +78,15 @@ doc = doc \%>\%
                      legend.") \%>\%
     body_add_table_legend("My pretty table", bookmark="my_table")
 write_and_open(doc)
+
+#Markdown support
+read_docx() \%>\%
+  body_add_normal("This is **bold and *italic* (see Table @ref(my_bkm)). ** <br> This is **bold `console \\\\*CODE\\\\*` and *bold _and_ italic* **") \%>\%
+  body_add_normal("This is <color:red>red **bold** text</color>, this is ~subscript *italic*~, and this is ^superscript with <shade:yellow>yellow</shade>^") \%>\%
+  body_add_normal("This is <ff:Alibi>a fancy font</ff> and this `is code`!!") \%>\% #you might need to change "Alibi" to "alibi" here
+  body_add_normal() \%>\%
+  body_add_table_legend("Some table legend", bookmark="my_bkm") \%>\%
+  write_and_open()
 }
 \author{
 Dan Chaltiel

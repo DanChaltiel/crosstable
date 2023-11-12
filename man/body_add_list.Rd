@@ -12,9 +12,9 @@ body_add_list_item(doc, value, ordered = FALSE, style = NULL, ...)
 \arguments{
 \item{doc}{a docx object}
 
-\item{value}{a character (\code{body_add_list()}) or a string (\code{body_add_list_item})}
+\item{value}{a character vector (\code{body_add_list()}) or scalar (\code{body_add_list_item}). See Section below for markdown support.}
 
-\item{ordered}{if TRUE, adds an ordered list, if FALSE, adds a bullet list}
+\item{ordered}{if \code{TRUE}, adds an ordered list, if \code{FALSE} (default), adds a bullet list}
 
 \item{style}{specify the style manually, overriding \code{ordered}. A better way is to set options \code{crosstable_style_list_ordered} and \code{crosstable_style_list_unordered} globally.}
 
@@ -29,6 +29,25 @@ Add a list to an \code{officer} document
 \details{
 Ordered lists and bullet lists are not supported by the default officer template (see \href{#262}{https://github.com/davidgohel/officer/issues/262}). You have to manually set custom styles matching those list in a custom Word template file. Then, you can use either the \code{style} argument or crosstable options. See examples for more details.
 }
+\section{Markdown support}{
+
+In all \code{crosstable} helpers for \code{officer}, you can use the following Markdown syntax to format your text:
+\itemize{
+\item \emph{bold}: \code{"**text in bold**"}
+\item *italics: \code{"*text in italics*"}
+\item \emph{subscript}: \code{"Text in ~subscript~"}
+\item \emph{superscript}: \code{"Text in ^superscript^"}
+\item \emph{newline}: \verb{Before <br> After}
+\item \emph{color}: \code{"<color:red>red text</color>"}
+\item \emph{shade}: \code{"<shade:yellow>yellow text</shade>"} (background color)
+\item \emph{font family}: \code{"<ff:symbol>symbol</ff>"} (
+}
+
+Note that the font name depends on your system language. For instant, in French, it would be \code{Symbol} with an uppercase first letter.
+
+See the last example of \code{\link[=body_add_normal]{body_add_normal()}} for a practical case.
+}
+
 \examples{
 \dontrun{
 #For this example to work, `my_template.docx` should include styles named

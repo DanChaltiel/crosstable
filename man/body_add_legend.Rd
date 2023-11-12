@@ -39,7 +39,7 @@ body_add_figure_legend(
 \arguments{
 \item{doc}{a docx object}
 
-\item{legend}{the table legend. As with \code{\link[glue:glue]{glue::glue()}}, expressions enclosed by braces will be evaluated as R code.}
+\item{legend}{the table legend. Supports \code{glue} syntax and markdown syntax (see Section below).}
 
 \item{...}{unused}
 
@@ -78,6 +78,25 @@ will prevent the numbering from applying.
 During the opening of the document, MS Word might ask you to "update the fields", to which you should answer "Yes".  \cr
 If it is not asked or if you answer "No", the legends added with \code{\link[=body_add_table_legend]{body_add_table_legend()}} or \code{\link[=body_add_figure_legend]{body_add_figure_legend()}} might have no actual numbers displayed. \cr
 In this case, you have to manually update the references in MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}), sometimes twice. More info on \url{https://ardata-fr.github.io/officeverse/faq.html#update-fields}.
+}
+
+\section{Markdown support}{
+
+In all \code{crosstable} helpers for \code{officer}, you can use the following Markdown syntax to format your text:
+\itemize{
+\item \emph{bold}: \code{"**text in bold**"}
+\item *italics: \code{"*text in italics*"}
+\item \emph{subscript}: \code{"Text in ~subscript~"}
+\item \emph{superscript}: \code{"Text in ^superscript^"}
+\item \emph{newline}: \verb{Before <br> After}
+\item \emph{color}: \code{"<color:red>red text</color>"}
+\item \emph{shade}: \code{"<shade:yellow>yellow text</shade>"} (background color)
+\item \emph{font family}: \code{"<ff:symbol>symbol</ff>"} (
+}
+
+Note that the font name depends on your system language. For instant, in French, it would be \code{Symbol} with an uppercase first letter.
+
+See the last example of \code{\link[=body_add_normal]{body_add_normal()}} for a practical case.
 }
 
 \examples{

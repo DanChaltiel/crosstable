@@ -15,7 +15,7 @@ body_add_title(
 \arguments{
 \item{doc}{the doc object (created with the \code{read_docx} function of \code{officer} package)}
 
-\item{value}{a character string}
+\item{value}{a character string. See Section below for markdown support.}
 
 \item{level}{the level of the title. See \code{styles_info(doc)} to know the possibilities.}
 
@@ -29,6 +29,25 @@ The docx object \code{doc}
 \description{
 Add a title to an \code{officer} document
 }
+\section{Markdown support}{
+
+In all \code{crosstable} helpers for \code{officer}, you can use the following Markdown syntax to format your text:
+\itemize{
+\item \emph{bold}: \code{"**text in bold**"}
+\item *italics: \code{"*text in italics*"}
+\item \emph{subscript}: \code{"Text in ~subscript~"}
+\item \emph{superscript}: \code{"Text in ^superscript^"}
+\item \emph{newline}: \verb{Before <br> After}
+\item \emph{color}: \code{"<color:red>red text</color>"}
+\item \emph{shade}: \code{"<shade:yellow>yellow text</shade>"} (background color)
+\item \emph{font family}: \code{"<ff:symbol>symbol</ff>"} (
+}
+
+Note that the font name depends on your system language. For instant, in French, it would be \code{Symbol} with an uppercase first letter.
+
+See the last example of \code{\link[=body_add_normal]{body_add_normal()}} for a practical case.
+}
+
 \examples{
 library(officer)
 library(crosstable)
