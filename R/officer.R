@@ -579,12 +579,12 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
     bkm = run_bookmark(bookmark, bkm)
   }
 
-  legend_fpar = fpar(
-    ftext(legend_name, name_format),
-    bkm,
-    ftext(": ", name_format),
-    ftext(legend, fp_size)
-  )
+  legend_fpar = do.call(fpar, args=c(
+    list(ftext(legend_name, name_format),
+         bkm,
+         ftext(": ", name_format)),
+    parse_md(legend, return_list=TRUE)
+  ))
 
   body_add_fpar(doc, legend_fpar, style=legend_style)
 }
@@ -890,7 +890,8 @@ utils::globalVariables(c("do", "end", "start"))
 #' @importFrom utils head
 #' @keywords internal
 #' @noRd
-parse_md = function(x, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE, parse_newline=TRUE){
+parse_md = function(x, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE, parse_newline=TRUE,
+                    return_list=FALSE){
   if(nchar(x)==0) return(fpar(x))
 
   x = str_replace_all(x, fixed("**"), fixed("%%")) #better separates bold from italic
@@ -993,6 +994,7 @@ parse_md = function(x, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE, parse
     p[[length(p)+1]] = ftext(txt, prop=fmt)
   }
 
+  if(return_list) return(p)
   do.call(fpar, args=p)
 }
 
