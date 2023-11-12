@@ -89,10 +89,11 @@ formalArgs = function (def){
 }
 
 #' Extract column names from a `call`
+#' @importFrom stringr str_extract str_split_fixed str_trim
 #' @keywords internal
 #' @noRd
 call_vars = function(a){
-  r = a %>% str_match("c\\((.*?)\\)") %>% .[,2]
+  r = a %>% str_extract("c\\((.*?)\\)", group=1)
   if(all(is.na(r))){
     r = a %>% paste(collapse =", ")
   } else {

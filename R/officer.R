@@ -636,8 +636,7 @@ body_add_img2 = function(doc, src, width, height,
 #' @examples
 #' library(officer)
 #' library(ggplot2)
-#' p = ggplot(data = iris ) +
-#'  geom_point(mapping = aes(Sepal.Length, Petal.Length))
+#' p = ggplot(data=iris, aes(Sepal.Length, Petal.Length)) + geom_point()
 #' crosstable_options(
 #'   units="cm",
 #'   style_image="centered"
@@ -864,16 +863,15 @@ generate_autofit_macro = function(){
 #' @noRd
 body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE,
                            parse_code=TRUE, parse_newline=TRUE, ...){
-  if(nchar(x)==0 || isFALSE(parse_ref || parse_format || parse_code || parse_newline)){
-    return(body_add_par(doc, value, style))
-  }
   p = parse_md(value, parse_ref, parse_format, parse_code)
   body_add_fpar(doc, p, style, ...)
 }
 
+utils::globalVariables(c("do", "end", "start"))
+
 #' Compile Markdown to `officer` formatted paragraph
 #' @return a `fpar`
-#' @importFrom dplyr arrange bind_rows case_when everything lag lead mutate mutate_all select
+#' @importFrom dplyr arrange bind_rows case_when everything group_split lag lead mutate mutate_all select
 #' @importFrom glue glue
 #' @importFrom officer fp_text_lite ftext run_linebreak run_word_field
 #' @importFrom purrr accumulate
@@ -884,6 +882,7 @@ body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE,
 #' @keywords internal
 #' @noRd
 parse_md = function(x, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE, parse_newline=TRUE){
+  if(nchar(x)==0) return(fpar(x))
 
   x = str_replace_all(x, fixed("**"), fixed("%%")) #better separates bold from italic
 

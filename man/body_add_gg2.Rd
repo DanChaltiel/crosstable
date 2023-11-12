@@ -39,8 +39,7 @@ Alternative to \code{\link[officer:body_add_gg]{officer::body_add_gg()}} which u
 \examples{
 library(officer)
 library(ggplot2)
-p = ggplot(data = iris ) +
- geom_point(mapping = aes(Sepal.Length, Petal.Length))
+p = ggplot(data=iris, aes(Sepal.Length, Petal.Length)) + geom_point()
 crosstable_options(
   units="cm",
   style_image="centered"
