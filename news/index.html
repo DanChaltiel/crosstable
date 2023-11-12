@@ -15,7 +15,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2.9008</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2.9009</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,9 +74,9 @@
 <code><a href="../reference/set_label.html">set_label()</a></code> now accepts a function as a value (e.g. <code>set_label(mtcars2, toupper)</code>).</li>
 <li>Argument <code>format_fixed(scientific)</code> can now be <code>FALSE</code> to force standard format. Can be set through <code>options(crosstable_scientific_log=FALSE)</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/49" class="external-link">#49</a>).</li>
 <li>New argument <code>format_fixed(epsilon)</code> to format values as <code>"&lt;epsilon"</code>. Can be set through <code>options(crosstable_format_epsilon=0.001)</code>.</li>
-<li>Markdown implementation has improved, with support of crossing patterns and newline tokens (<a href="https://github.com/DanChaltiel/crosstable/issues/26" class="external-link">#26</a> &amp; <a href="https://github.com/DanChaltiel/crosstable/issues/30" class="external-link">#30</a>).<br>
-You can now use <code>body_add_normal("Here is **`some code` in bold &amp; *italic* ** &lt;br&gt; And here is normal text")</code>
-</li>
+<li>Markdown implementation has improved, with support of crossing patterns (<a href="https://github.com/DanChaltiel/crosstable/issues/26" class="external-link">#26</a>), newline tokens (<a href="https://github.com/DanChaltiel/crosstable/issues/30" class="external-link">#30</a>), and many new tags (<a href="https://github.com/DanChaltiel/crosstable/issues/51" class="external-link">#51</a>).<br>
+You can now use <code>body_add_normal("Here is **`some code` in bold &amp; *italic* ** &lt;br&gt; And here is &lt;color:red&gt;red text&lt;/color&gt;.")</code><br>
+See <code><a href="../reference/body_add_normal.html">?body_add_normal</a></code> for more insight.</li>
 </ul></div>
 <div class="section level5">
 <h5 id="bug-fixes-and-improvements-0-7-0">Bug fixes and improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-improvements-0-7-0"></a></h5>

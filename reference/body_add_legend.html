@@ -15,7 +15,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2.9008</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2.9009</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,7 +110,7 @@
 
 
 <dt>legend</dt>
-<dd><p>the table legend. As with <code><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue::glue()</a></code>, expressions enclosed by braces will be evaluated as R code.</p></dd>
+<dd><p>the table legend. Supports <code>glue</code> syntax and markdown syntax (see Section below).</p></dd>
 
 
 <dt>...</dt>
@@ -175,6 +175,21 @@ will prevent the numbering from applying.</p>
 <p>During the opening of the document, MS Word might ask you to "update the fields", to which you should answer "Yes".  <br>
 If it is not asked or if you answer "No", the legends added with <code>body_add_table_legend()</code> or <code>body_add_figure_legend()</code> might have no actual numbers displayed. <br>
 In this case, you have to manually update the references in MS Word: select all (<kbd>Ctrl</kbd>+<kbd>A</kbd>), then update (<kbd>F9</kbd>), sometimes twice. More info on <a href="https://ardata-fr.github.io/officeverse/faq.html#update-fields" class="external-link">https://ardata-fr.github.io/officeverse/faq.html#update-fields</a>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="markdown-support">Markdown support<a class="anchor" aria-label="anchor" href="#markdown-support"></a></h2>
+    
+
+<p>In all <code>crosstable</code> helpers for <code>officer</code>, you can use the following Markdown syntax to format your text:</p><ul><li><p><em>bold</em>: <code>"**text in bold**"</code></p></li>
+<li><p>*italics: <code>"*text in italics*"</code></p></li>
+<li><p><em>subscript</em>: <code>"Text in ~subscript~"</code></p></li>
+<li><p><em>superscript</em>: <code>"Text in ^superscript^"</code></p></li>
+<li><p><em>newline</em>: <code>Before &lt;br&gt; After</code></p></li>
+<li><p><em>color</em>: <code>"&lt;color:red&gt;red text&lt;/color&gt;"</code></p></li>
+<li><p><em>shade</em>: <code>"&lt;shade:yellow&gt;yellow text&lt;/shade&gt;"</code> (background color)</p></li>
+<li><p><em>font family</em>: <code>"&lt;ff:symbol&gt;symbol&lt;/ff&gt;"</code> (</p></li>
+</ul><p>Note that the font name depends on your system language. For instant, in French, it would be <code>Symbol</code> with an uppercase first letter.</p>
+<p>See the last example of <code><a href="body_add_normal.html">body_add_normal()</a></code> for a practical case.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>

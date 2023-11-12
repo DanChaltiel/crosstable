@@ -15,7 +15,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2.9008</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2.9009</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,11 +84,11 @@
 
 
 <dt>value</dt>
-<dd><p>a character (<code>body_add_list()</code>) or a string (<code>body_add_list_item</code>)</p></dd>
+<dd><p>a character vector (<code>body_add_list()</code>) or scalar (<code>body_add_list_item</code>). See Section below for markdown support.</p></dd>
 
 
 <dt>ordered</dt>
-<dd><p>if TRUE, adds an ordered list, if FALSE, adds a bullet list</p></dd>
+<dd><p>if <code>TRUE</code>, adds an ordered list, if <code>FALSE</code> (default), adds a bullet list</p></dd>
 
 
 <dt>style</dt>
@@ -110,6 +110,21 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Ordered lists and bullet lists are not supported by the default officer template (see <a href="#262">https://github.com/davidgohel/officer/issues/262</a>). You have to manually set custom styles matching those list in a custom Word template file. Then, you can use either the <code>style</code> argument or crosstable options. See examples for more details.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="markdown-support">Markdown support<a class="anchor" aria-label="anchor" href="#markdown-support"></a></h2>
+    
+
+<p>In all <code>crosstable</code> helpers for <code>officer</code>, you can use the following Markdown syntax to format your text:</p><ul><li><p><em>bold</em>: <code>"**text in bold**"</code></p></li>
+<li><p>*italics: <code>"*text in italics*"</code></p></li>
+<li><p><em>subscript</em>: <code>"Text in ~subscript~"</code></p></li>
+<li><p><em>superscript</em>: <code>"Text in ^superscript^"</code></p></li>
+<li><p><em>newline</em>: <code>Before &lt;br&gt; After</code></p></li>
+<li><p><em>color</em>: <code>"&lt;color:red&gt;red text&lt;/color&gt;"</code></p></li>
+<li><p><em>shade</em>: <code>"&lt;shade:yellow&gt;yellow text&lt;/shade&gt;"</code> (background color)</p></li>
+<li><p><em>font family</em>: <code>"&lt;ff:symbol&gt;symbol&lt;/ff&gt;"</code> (</p></li>
+</ul><p>Note that the font name depends on your system language. For instant, in French, it would be <code>Symbol</code> with an uppercase first letter.</p>
+<p>See the last example of <code><a href="body_add_normal.html">body_add_normal()</a></code> for a practical case.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
