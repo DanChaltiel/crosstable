@@ -113,6 +113,15 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #'                      legend.") %>%
 #'     body_add_table_legend("My pretty table", bookmark="my_table")
 #' write_and_open(doc)
+#'
+#' #Markdown support
+#' read_docx() %>%
+#'   body_add_normal("This is **bold and *italic* (see Table @ref(my_bkm)). ** <br> This is **bold `console \\*CODE\\*` and *bold _and_ italic* **") %>%
+#'   body_add_normal("This is <color:red>red **bold** text</color>, this is ~subscript *italic*~, and this is ^superscript with <shade:yellow>yellow</shade>^") %>%
+#'   body_add_normal("This is <ff:Alibi>a fancy font</ff> and this `is code`!!") %>% #you might need to change "Alibi" to "alibi" here
+#'   body_add_normal() %>%
+#'   body_add_table_legend("Some table legend", bookmark="my_bkm") %>%
+#'   write_and_open()
 body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, parse=c("ref", "format", "code")) {
   if(missing(squish)) squish = getOption("crosstable_normal_squish", TRUE)
   dots = list(...)
@@ -891,20 +900,20 @@ parse_md = function(x, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE, parse
   italics = f(x, "(?<!\\\\)\\*", "italic")
   underlined = f(x, "(?<!\\\\)_", "underlined")
   code = f(x, "(?<!\\\\)`", "code")
+  subscript = f(x, "(?<!\\\\)~", "subscript")
+  superscript = f(x, "(?<!\\\\)\\^", "superscript")
   ref = f(x, "\\\\?\\\\?@ref\\((.*?)\\)", "ref")
   newline = f(x, "<br> *", "newline")
   #TODO warning si TOKEN non refermé ?
 
-  state0 = tibble(bold=0, italic=0, underlined=0, code=0, ref=0, newline=0)
-  get_state = function(state, x){
-    if(is.na(x)) return(NA)
-    state[[x]] = 1-state[[x]]
-    state
-  }
+  color = f(x, "<color:\\S+?>|</color>", "color")
+  font = f(x, "<ff:\\S+?>|</ff>", "font")
+  shade = f(x, "<shade:\\S+?>|</shade>", "shade")
 
   rtn = tibble()
   if(parse_ref)     rtn = bind_rows(rtn, ref)
-  if(parse_format)  rtn = bind_rows(rtn, bolds, italics, underlined)
+  if(parse_format)  rtn = bind_rows(rtn, bolds, italics, underlined, color,
+                                    shade, font, subscript, superscript)
   if(parse_code)    rtn = bind_rows(rtn, code)
   if(parse_newline) rtn = bind_rows(rtn, newline)
   if(nrow(rtn)==0) return(fpar(x))
@@ -916,6 +925,14 @@ parse_md = function(x, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE, parse
     rtn = rtn %>% filter(! (start>i$start & end<i$end))
   }
 
+
+  state0 = tibble(bold=0, italic=0, underlined=0, code=0, ref=0, newline=0,
+                  color=0, subscript=0, superscript=0, font=0, shade=0)
+  get_state = function(state, x){
+    if(is.na(x)) return(NA)
+    state[[x]] = 1-state[[x]]
+    state
+  }
   rtn = rtn %>%
     arrange(start) %>%
     mutate(
@@ -930,19 +947,37 @@ parse_md = function(x, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE, parse
             .default=NA
           )
         }) %>%
-        fill(everything()) %>%
-        mutate_all(~replace_na(.x, FALSE))
+        mutate(color2 = 1,)
     ) %>%
     unpack(do) %>%
-    mutate(code = ifelse(code, getOption("crosstable_font_code", "Consolas"), NA)) %>%
+    mutate(
+      txt = substring(x, start, end),
+      color=ifelse(color, str_extract(txt, "<color:(\\S+?)>", group=1), "no"),
+      shade=ifelse(shade, str_extract(txt, "<shade:(\\S+?)>", group=1), "no"),
+      font =ifelse(font,  str_extract(txt, "<ff:(\\S+?)>", group=1), "no"),
+    ) %>%
+    fill(everything()) %>%
+    mutate(
+      across(-c(color, shade, font), ~replace_na(.x, FALSE)),
+      across(c(color, shade, font), ~na_if(as.character(.x), "no")),
+      font = ifelse(code, getOption("crosstable_font_code", "Consolas"), font),
+      valign = case_when(subscript ~ "subscript", superscript ~ "superscript",
+                         .default="baseline")
+    ) %>%
     select(-ref)
 
   p = list()
   p[[1]] = ftext(substring(x, 1, rtn$start[1]-1))
   for(i in seq(nrow(rtn))){
     d = as.list(rtn[i, ])
-    fmt = fp_text_lite(bold=d$bold, italic=d$italic, underlined=d$underlined, font.family=d$code)
-    next_end = rtn[i+1, ][["start"]]-1
+    if(!is.na(d$shade)){ #bug in fp_text_lite(), see officer/#538
+      if(!is.na(d$color)) cli_warn("Shade can only be added to default black text.")
+      d$color = "black"
+    }
+
+    fmt = fp_text_lite(bold=d$bold, italic=d$italic, underlined=d$underlined, color=d$color,
+                       shading.color=d$shade, font.family=d$font, vertical.align=d$valign)
+    next_start = rtn[i+1, ][["start"]]-1
 
     if(d$format=="ref"){
       bkm = substring(x, d$start, d$end) %>%
@@ -952,8 +987,8 @@ parse_md = function(x, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE, parse
       p[[length(p)+1]] = run_linebreak()
     }
 
-    if(is.na(next_end)) next_end=nchar(x)
-    txt = substring(x, d$end+1, next_end)
+    if(is.na(next_start)) next_start=nchar(x)
+    txt = substring(x, d$end+1, next_start)
     txt = txt %>% str_replace_all("\\\\([*`%])", "\\1") #delete escapings
     p[[length(p)+1]] = ftext(txt, prop=fmt)
   }

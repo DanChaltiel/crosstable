@@ -144,13 +144,17 @@ test_that("crosstables: Triple", {
 
 
 test_that("Markdown", {
-  x=read_docx() %>%
-    body_add_normal("This is **bold \\and *italic* (see Table @ref(mybkm)). ** <br> This is **bold `console \\*CODE\\*` and *bold _and_ italic* **") %>%
+  x= read_docx() %>%
+    body_add_normal("This is **bold and *italic* (see Table @ref(my_bkm)). ** <br> This is **bold `console \\*CODE\\*` and *bold _and_ italic* **") %>%
+    body_add_normal("This is <color:red>red **bold** text</color>, this is ~subscript *italic*~, and this is ^superscript with <shade:yellow>yellow</shade>^") %>%
+    body_add_normal("This is <ff:Alibi>a fancy font</ff> and this `is code`!!") %>% #you might need to change "Alibi" to "alibi" here
     body_add_normal("This is *b*") %>%
     body_add_normal("This is not formatted at all") %>%
     body_add_normal("This will eventually throw a warning: *italic text without closing") %>%
     body_add_normal() %>%
-    body_add_table_legend("uhhuh", bookmark="mybkm")
+    body_add_table_legend("Some table legend", bookmark="my_bkm") %>%
+    write_and_open()
+
   # write_and_open(x)
   expect_true(TRUE)
 })

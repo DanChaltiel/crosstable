@@ -8,8 +8,9 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 -   `set_label()` now accepts a function as a value (e.g. `set_label(mtcars2, toupper)`).
 -   Argument `format_fixed(scientific)` can now be `FALSE` to force standard format. Can be set through `options(crosstable_scientific_log=FALSE)` (#49).
 -   New argument `format_fixed(epsilon)` to format values as `"<epsilon"`. Can be set through `options(crosstable_format_epsilon=0.001)`.
--   Markdown implementation has improved, with support of crossing patterns and newline tokens (#26 & #30). \
-    You can now use `` body_add_normal("Here is **`some code` in bold & *italic* ** <br> And here is normal text") ``
+-   Markdown implementation has improved, with support of crossing patterns (#26), newline tokens (#30), and many new tags (#51). \
+    You can now use `` body_add_normal("Here is **`some code` in bold & *italic* ** <br> And here is <color:red>red text</color>.") `` \
+    See `?body_add_normal` for more insight.
 
 #### Bug fixes and improvements
 
