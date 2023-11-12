@@ -15,7 +15,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2.9008</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,6 +74,9 @@
 <code><a href="../reference/set_label.html">set_label()</a></code> now accepts a function as a value (e.g. <code>set_label(mtcars2, toupper)</code>).</li>
 <li>Argument <code>format_fixed(scientific)</code> can now be <code>FALSE</code> to force standard format. Can be set through <code>options(crosstable_scientific_log=FALSE)</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/49" class="external-link">#49</a>).</li>
 <li>New argument <code>format_fixed(epsilon)</code> to format values as <code>"&lt;epsilon"</code>. Can be set through <code>options(crosstable_format_epsilon=0.001)</code>.</li>
+<li>Markdown implementation has improved, with support of crossing patterns and newline tokens (<a href="https://github.com/DanChaltiel/crosstable/issues/26" class="external-link">#26</a> &amp; <a href="https://github.com/DanChaltiel/crosstable/issues/30" class="external-link">#30</a>).<br>
+You can now use <code>body_add_normal("Here is **`some code` in bold &amp; *italic* ** &lt;br&gt; And here is normal text")</code>
+</li>
 </ul></div>
 <div class="section level5">
 <h5 id="bug-fixes-and-improvements-0-7-0">Bug fixes and improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-improvements-0-7-0"></a></h5>
@@ -125,7 +128,7 @@
 <li>
 <code><a href="https://forcats.tidyverse.org/reference/fct_explicit_na.html" class="external-link">forcats::fct_explicit_na()</a></code> is not used anymore [#29]</li>
 <li>
-<code><a href="../reference/body_add_normal.html">body_add_normal()</a></code> now removes ``` symbols when showing code [#31]</li>
+<code><a href="../reference/body_add_normal.html">body_add_normal()</a></code> now removes ` symbols when showing code [#31]</li>
 <li>Trailing commas will not make <code><a href="../reference/apply_labels.html">apply_labels()</a></code> fail anymore [#32]</li>
 <li>Performance improvement (around 30% for small tables) as confidence intervals are not calculated anymore when not needed [#34]</li>
 </ul><p>Many thanks to Stephan Daus (<a href="https://github.com/sda030" class="external-link">@sda030</a>) for his bug reports and feedback on this release.</p>
