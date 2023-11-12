@@ -16,8 +16,7 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/crosstable?color=blue)]
 Commit](https://img.shields.io/github/last-commit/DanChaltiel/crosstable)](https://github.com/DanChaltiel/crosstable)
 [![Codecov test
 coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/main/graph/badge.svg)](https://app.codecov.io/gh/DanChaltiel/crosstable?branch=main)
-[![R build
-status](https://github.com/DanChaltiel/crosstable/workflows/R-CMD-check/badge.svg)](https://github.com/DanChaltiel/crosstable/actions)
+[![R-CMD-check](https://github.com/DanChaltiel/crosstable/actions/workflows/check-standard.yaml/badge.svg?branch=main)](https://github.com/DanChaltiel/crosstable/actions/workflows/check-standard.yaml)
 [![minimal R
 version](https://img.shields.io/badge/R-%E2%89%A53.1-blue.svg)](https://cran.r-project.org/)
 <!-- [![Dependencies](https://tinyverse.netlify.com/badge/crosstable)](https://cran.r-project.org/package=crosstable)  -->
