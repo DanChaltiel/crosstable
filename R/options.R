@@ -59,11 +59,11 @@
 #' @param normal_squish Should you squish text in normal paragraphs?
 #' @param title_squish Should you squish text in headers paragraphs?
 #' @param allow_break allow crosstable rows to break across pages
-#' @param style_normal For specifying styles used in your {officer} template.
-#' @param style_character For specifying styles used in your {officer} template.
-#' @param style_strong For specifying styles used in your {officer} template.
-#' @param style_image For specifying styles used in your {officer} template.
-#' @param style_legend For specifying styles used in your {officer} template.
+#' @param style_normal For specifying styles used in your `{officer}` template.
+#' @param style_character For specifying styles used in your `{officer}` template.
+#' @param style_strong For specifying styles used in your `{officer}` template.
+#' @param style_image For specifying styles used in your `{officer}` template.
+#' @param style_legend For specifying styles used in your `{officer}` template.
 #' @param style_heading For specifying styles used by headings on different levels. Levels will be pasted in the end (e.g. use `"title"` if your level 2 heading style is `"title2"`).
 #' @param style_list_ordered,style_list_unordered For specifying styles used by lists in the `rdocx` template. Needed for [body_add_list()] to work.
 #' @param scientific_log the maximum power a number can have before being formatted as scientific. Default to 4 so applies on numbers <1e-4 or >1e4.

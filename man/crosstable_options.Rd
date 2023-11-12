@@ -164,15 +164,15 @@ crosstable_options(
 
 \item{allow_break}{allow crosstable rows to break across pages}
 
-\item{style_normal}{For specifying styles used in your {officer} template.}
+\item{style_normal}{For specifying styles used in your \code{{officer}} template.}
 
-\item{style_character}{For specifying styles used in your {officer} template.}
+\item{style_character}{For specifying styles used in your \code{{officer}} template.}
 
-\item{style_strong}{For specifying styles used in your {officer} template.}
+\item{style_strong}{For specifying styles used in your \code{{officer}} template.}
 
-\item{style_image}{For specifying styles used in your {officer} template.}
+\item{style_image}{For specifying styles used in your \code{{officer}} template.}
 
-\item{style_legend}{For specifying styles used in your {officer} template.}
+\item{style_legend}{For specifying styles used in your \code{{officer}} template.}
 
 \item{style_heading}{For specifying styles used by headings on different levels. Levels will be pasted in the end (e.g. use \code{"title"} if your level 2 heading style is \code{"title2"}).}
 

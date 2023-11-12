@@ -1,10 +1,10 @@
 Crosstables for descriptive analyses. See documentation at <https://danchaltiel.github.io/crosstable/> and browse code at <https://github.com/DanChaltiel/crosstable>.
 
-# crosstable 0.7.0 <sub><sup>2023-xx-xx</sup></sub>
+# crosstable 0.7.0 <sub><sup>2023-11-12</sup></sub>
 
 #### New features
 
--   New officer helper `body_add_table_section()`, which adds a table (crosstable or flextable) which can be surrounded by a title (lvl3 by default), a legend, and/or a short sentence.
+-   New officer helper `body_add_table_section()`, which adds a table (crosstable or flextable) which can be surrounded by a title (level 3 by default), a legend, and/or a short sentence.
 -   `set_label()` now accepts a function as a value (e.g. `set_label(mtcars2, toupper)`).
 -   Argument `format_fixed(scientific)` can now be `FALSE` to force standard format. Can be set through `options(crosstable_scientific_log=FALSE)` (#49).
 -   New argument `format_fixed(epsilon)` to format values as `"<epsilon"`. Can be set through `options(crosstable_format_epsilon=0.001)`.

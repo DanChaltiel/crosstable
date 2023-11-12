@@ -41,3 +41,4 @@ TODO\.R
 DEV\.R
 tests/testthat/test-dummy.R
 .Renviron
+cran-comments.md
