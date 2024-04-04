@@ -1,5 +1,15 @@
 Crosstables for descriptive analyses. See documentation at <https://danchaltiel.github.io/crosstable/> and browse code at <https://github.com/DanChaltiel/crosstable>.
 
+# crosstable 0.7.1
+
+#### New features
+
+-   xxxxx
+
+#### Bug fixes and improvements
+
+-   Fixed a bug happening when NA is already a level in a 1D table
+
 # crosstable 0.7.0 <sub><sup>2023-11-12</sup></sub>
 
 #### New features

@@ -71,7 +71,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
     ) %>%
     getTableCI(digits=digits) %>%
     mutate(across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE))) %>%
-    transmute(variable=replace_na(x, "NA"),
+    transmute(variable=x %>% str_replace("NA", "'NA'") %>% replace_na("NA"),
               value=ifelse(is.na(x) | .data$n==0 & zero_percent,
                            .data$n, glue(percent_pattern$body)))
 
