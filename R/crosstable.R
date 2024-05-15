@@ -120,6 +120,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
 
   # Options -------------------------------------------------------------
   missing_percent_pattern = missing(percent_pattern)
+  missing_margin = missing(margin)
 
   if(missing(total)) total = getOption("crosstable_total", 0)
   if(missing(percent_digits)) percent_digits = getOption("crosstable_percent_digits", 2)
@@ -175,7 +176,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   }
   reportAssertions(coll)
 
-  if(missing(margin)) margin = getOption("crosstable_margin")
+  if(missing_margin) margin = getOption("crosstable_margin")
   if(!is.null(margin)){
     if(length(margin)>3){
       cli_abort(c("Margin should be of max length 3",
@@ -184,7 +185,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
     }
     if(missing_percent_pattern) {
       percent_pattern = get_percent_pattern(margin)
-    } else {
+    } else if(!missing_margin){
       cli_warn(c("Argument `margin` is ignored if `percent_pattern` is set.",
                  i='margin="{margin}"',
                  i='percent_pattern="{percent_pattern}"'),
