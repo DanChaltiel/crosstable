@@ -193,7 +193,11 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
                call=current_env())
     }
   }
-  if(length(percent_pattern)==1){
+  # browser()
+  if(is.list(percent_pattern)){
+    default_pp = get_percent_pattern(margin)
+    percent_pattern = modifyList(default_pp, percent_pattern)
+  } else if(length(percent_pattern)==1){
     percent_pattern = list(
       body=percent_pattern,
       total_row="{n} ({p_col})",

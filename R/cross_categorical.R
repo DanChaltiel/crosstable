@@ -254,7 +254,7 @@ summarize_categorical_by = function(x, by,
 #' get_percent_pattern(c("cells","row","column"))
 #' get_percent_pattern(c("cells","row","column"), na=TRUE)
 get_percent_pattern = function(margin=c("row", "column", "cell", "none", "all"), na=FALSE){
-  if(missing(margin)) margin="row"
+  if(is.null(margin) || missing(margin)) margin="row"
   rtn = list(
     body="{n} ({p_col})",
     total_row="{n} ({p_col})",
