@@ -3,7 +3,6 @@
 \docType{package}
 \name{crosstable-package}
 \alias{crosstable-package}
-\alias{_PACKAGE}
 \title{crosstable: Crosstables for Descriptive Analyses}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}

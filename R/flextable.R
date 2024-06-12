@@ -5,7 +5,7 @@
 #' @param x the result of [crosstable()].
 #' @param keep_id whether to keep the `.id` column.
 #' @param by_header a string to override the header if `x` has only one `by` stratum.
-#' @param autofit whether to use autofit the table. Can also be a function.
+#' @param autofit whether to automatically adjust the table. Can also be a function.
 #' @param compact whether to compact the table. If `TRUE`, see [ct_compact.crosstable()] to see how to use `keep_id`.
 #' @param show_test_name in the `test` column, show the test name.
 #' @param fontsizes font sizes as a list of keys. Default to `list(body=11, subheaders=11, header=11)`. If set through arguments instead of options, all 3 names should be specified.
