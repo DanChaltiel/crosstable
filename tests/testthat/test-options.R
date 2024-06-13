@@ -5,6 +5,19 @@ ct <- crosstable(t, cols=c('x'))
 gt <- as_gt(ct, generic_labels=list(value="count"))
 
 
+test_that("No missing options", {
+  missing_options = missing_options_helper()
+
+  #missing options, not handled in crosstable_options()
+  missing_options$miss %>%
+    str_subset("rec", negate=TRUE) %>% #internal, unused yet
+    expect_length(0)
+
+  #added options, handled in crosstable_options() but never used
+  missing_options$add
+  expect_identical(missing_options, character(0))
+})
+
 
 test_that("Options work", {
   local({

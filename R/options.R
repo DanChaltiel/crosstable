@@ -83,9 +83,9 @@ crosstable_options = function(
     only_round=FALSE,
     verbosity_autotesting="default",
     verbosity_duplicate_cols="default",
-    crosstable_fishertest_B=1e5,
+    fishertest_B=1e5,
     total, percent_pattern, margin, percent_digits, num_digits, showNA, label, funs, funs_arg,
-    cor_method, drop_levels, unique_numeric, date_format, times, followup, test_arg, effect_args,
+    cor_method, drop_levels, unique_numeric, date_format, times, followup, test_args, effect_args,
     #as_flextable()
     wrap_id=70,
     compact_padding=25,
@@ -103,11 +103,15 @@ crosstable_options = function(
     figure_legend_par_after,
     figure_legend_prefix,
     normal_squish, title_squish, allow_break,
+    section_title, section_title_level, section_sentence,
     #styles
     style_normal, style_character, style_strong, style_image,
     style_legend, style_heading, style_list_ordered, style_list_unordered,
     #misc
     scientific_log,
+    clean_names_fun,
+    verbosity_na_cols,
+    format_epsilon,
     #...
     .local=FALSE,
     reset=deprecated()
@@ -184,4 +188,38 @@ crosstable_reset_options = function(quiet=FALSE){
   options(argg)
   if(isFALSE(quiet)) cli_inform("All crosstable options were set back to default.") #nocov
   return(invisible())
+}
+
+
+#' @importFrom stringr str_extract str_extract_all str_subset str_remove_all
+#' @noRd
+#' @keywords internal
+missing_options_helper = function(){
+  options_found = dir("R/", full.names=T) %>%
+    map(readLines) %>%
+    map(~str_subset(.x, "getOption")) %>%
+    keep(~length(.x)>0) %>%
+    unlist() %>%
+    str_extract_all("getOption\\((.*?)\\)") %>% unlist() %>%
+    str_extract("getOption\\((.*?)(,(.*))?\\)", group=1) %>%
+    unique()
+
+  #ne reconnait pas les getOption(xxx, \n)
+  options_found %>% str_subset("style_legend")
+
+  w = options_found %>% str_subset("'") %>%
+    str_remove_all("'")
+  if(length(w)>0) cli_warn("Options with single quotes {.val {w}}")
+
+  options_found = options_found %>%
+    str_subset('"') %>%
+    str_remove_all('"')
+
+
+  options_proposed = names(formals(crosstable_options))
+  options_proposed = paste0("crosstable_", options_proposed)
+  list(
+    miss =   setdiff(options_found, options_proposed),
+    unused = setdiff(options_proposed, options_found)
+  )
 }
