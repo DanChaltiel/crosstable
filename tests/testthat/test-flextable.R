@@ -1,4 +1,5 @@
 
+ct0 = crosstable(mtcars3, c(mpg, am))
 ct1 = crosstable(mtcars3, c(cyl, vs), by=c(am))
 ct2 = crosstable(mtcars3, c(cyl, gear), by=c(am, vs))
 ct3 = crosstable(mtcars3, c(disp, gear), by=c(vs, cyl3, am))
@@ -85,8 +86,14 @@ test_that("header remove_header_keys", {
 
 test_that("header header_show_n", {
   expect_snapshot({
-    ct1 %>% as_flextable(header_show_n=TRUE) %>% get_header_df()
-    ct3 %>% as_flextable(header_show_n=TRUE) %>% get_header_df()
+    ct0 %>% af(header_show_n=TRUE) %>% get_header_df()
+    ct0 %>% af(header_show_n=TRUE, by_header="foobar") %>% get_header_df()
+
+    ct1 %>% af(header_show_n=TRUE) %>% get_header_df()
+    ct1 %>% af(by_header="foobar", header_show_n=TRUE) %>% get_header_df()
+    ct1 %>% af(by_header=FALSE, header_show_n=TRUE) %>% get_header_df()
+
+    ct3 %>% af(header_show_n=TRUE) %>% get_header_df()
   })
 })
 

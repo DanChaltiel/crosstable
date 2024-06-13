@@ -171,6 +171,12 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
   }
 
   if(n_levels==0) {
+
+    if(!isFALSE(header_show_n)){
+      if(is.null(by_header)) by_header = generic_labels$value
+      by_header = glue(header_show_n_pattern$cell, .col=by_header, .n=attr(x,"N"))
+    }
+
     if(!is.null(by_header)){
       rtn = rtn %>%
         set_header_labels(values=lst(!!generic_labels$value := by_header))
@@ -208,11 +214,13 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
         header_mapping = header_mapping %>%
           mutate(.col_2=str_replace(.col_2, byname, by_header))
       }
-      rtn = rtn %>%
-        set_header_df(header_mapping, key = "col_keys") %>%
-        merge_h(part = "head")
+    } else {
+      header_mapping = header_mapping %>% select(-.col_2)
     }
 
+    rtn = rtn %>%
+      set_header_df(header_mapping, key = "col_keys") %>%
+      merge_h(part = "head")
 
   } else if(n_levels>1) {
     if(!is.null(by_header)){

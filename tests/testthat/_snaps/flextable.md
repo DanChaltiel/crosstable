@@ -194,13 +194,34 @@
 # header header_show_n
 
     Code
-      ct1 %>% as_flextable(header_show_n = TRUE) %>% get_header_df()
+      ct0 %>% af(header_show_n = TRUE) %>% get_header_df()
+    Output
+        label variable value
+      1 label variable value
+    Code
+      ct0 %>% af(header_show_n = TRUE, by_header = "foobar") %>% get_header_df()
+    Output
+        label variable value
+      1 label variable value
+    Code
+      ct1 %>% af(header_show_n = TRUE) %>% get_header_df()
     Output
         label variable         auto        manual
       1 label variable Transmission  Transmission
       2 label variable  auto (N=19) manual (N=13)
     Code
-      ct3 %>% as_flextable(header_show_n = TRUE) %>% get_header_df()
+      ct1 %>% af(by_header = "foobar", header_show_n = TRUE) %>% get_header_df()
+    Output
+        label variable        auto        manual
+      1 label variable      foobar        foobar
+      2 label variable auto (N=19) manual (N=13)
+    Code
+      ct1 %>% af(by_header = FALSE, header_show_n = TRUE) %>% get_header_df()
+    Output
+        label variable        auto        manual
+      1 label variable auto (N=19) manual (N=13)
+    Code
+      ct3 %>% af(header_show_n = TRUE) %>% get_header_df()
     Output
         label variable vs=straight & cyl3=FALSE & am=auto
       1 label variable                     am=auto (N=19)
