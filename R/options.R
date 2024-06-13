@@ -46,6 +46,7 @@
 #' @param fontsize_body For setting [as_flextable()] arguments globally.
 #' @param fontsize_subheaders For setting [as_flextable()] arguments globally. Subheaders are only considered when `compact=TRUE`.
 #' @param fontsize_header For setting [as_flextable()] arguments globally.
+#' @param generic_labels For setting [as_flextable()] arguments globally.
 #'
 #--- Officer ---
 #' @param format_legend_name how the legend name ("Table", "Figure") is formatted. Default to `officer::fp_text_lite(bold=TRUE)`
@@ -60,8 +61,6 @@
 #' @param title_squish Should you squish text in headers paragraphs?
 #' @param allow_break allow crosstable rows to break across pages
 #' @param style_normal For specifying styles used in your `{officer}` template.
-#' @param style_character For specifying styles used in your `{officer}` template.
-#' @param style_strong For specifying styles used in your `{officer}` template.
 #' @param style_image For specifying styles used in your `{officer}` template.
 #' @param style_legend For specifying styles used in your `{officer}` template.
 #' @param style_heading For specifying styles used by headings on different levels. Levels will be pasted in the end (e.g. use `"title"` if your level 2 heading style is `"title2"`).
@@ -91,7 +90,7 @@ crosstable_options = function(
     compact_padding=25,
     header_show_n_pattern="{.col} (N={.n})",
     keep_id, by_header, autofit, compact, remove_header_keys, show_test_name, padding_v,
-    header_show_n, fontsize_body, fontsize_subheaders, fontsize_header,
+    header_show_n, fontsize_body, fontsize_subheaders, fontsize_header, generic_labels,
     #officer
     units="in",
     peek_docx=TRUE,
@@ -105,8 +104,8 @@ crosstable_options = function(
     normal_squish, title_squish, allow_break,
     section_title, section_title_level, section_sentence,
     #styles
-    style_normal, style_character, style_strong, style_image,
-    style_legend, style_heading, style_list_ordered, style_list_unordered,
+    style_normal, style_image,style_legend, style_heading,
+    style_list_ordered, style_list_unordered,
     #misc
     scientific_log,
     clean_names_fun,
@@ -200,12 +199,11 @@ missing_options_helper = function(){
     map(~str_subset(.x, "getOption")) %>%
     keep(~length(.x)>0) %>%
     unlist() %>%
-    str_extract_all("getOption\\((.*?)\\)") %>% unlist() %>%
-    str_extract("getOption\\((.*?)(,(.*))?\\)", group=1) %>%
+    str_extract("getOption\\((.*?)[,\\)]", group=1) %>%
     unique()
 
   #ne reconnait pas les getOption(xxx, \n)
-  options_found %>% str_subset("style_legend")
+  options_found %>% str_subset("generic_labels")
 
   w = options_found %>% str_subset("'") %>%
     str_remove_all("'")
@@ -219,7 +217,7 @@ missing_options_helper = function(){
   options_proposed = names(formals(crosstable_options))
   options_proposed = paste0("crosstable_", options_proposed)
   list(
-    miss =   setdiff(options_found, options_proposed),
-    unused = setdiff(options_proposed, options_found)
+    not_handled = setdiff(options_found, options_proposed),
+    not_used =    setdiff(options_proposed, options_found)
   )
 }

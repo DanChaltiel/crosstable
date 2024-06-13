@@ -9,13 +9,14 @@ test_that("No missing options", {
   missing_options = missing_options_helper()
 
   #missing options, not handled in crosstable_options()
-  missing_options$miss %>%
+  missing_options$not_handled %>%
     str_subset("rec", negate=TRUE) %>% #internal, unused yet
-    expect_length(0)
+    expect_identical(character(0))
 
   #added options, handled in crosstable_options() but never used
-  missing_options$add
-  expect_identical(missing_options, character(0))
+  missing_options$not_used %>%
+    setdiff(c("crosstable_...", "crosstable_.local", "crosstable_reset")) %>%
+    expect_identical(character(0))
 })
 
 
