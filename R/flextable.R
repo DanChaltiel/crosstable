@@ -76,21 +76,21 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
 
   if(missing(keep_id)) keep_id = getOption("crosstable_keep_id", keep_id)
   if(missing(by_header)) by_header = getOption("crosstable_by_header", by_header)
-  if(missing(autofit)) autofit = getOption('crosstable_autofit', autofit)
-  if(missing(compact)) compact = getOption('crosstable_compact', compact)
-  if(missing(show_test_name)) show_test_name = getOption('crosstable_show_test_name', show_test_name)
-  if(missing(padding_v)) padding_v = getOption('crosstable_padding_v', padding_v)
-  if(missing(remove_header_keys)) remove_header_keys = getOption('crosstable_remove_header_keys',
+  if(missing(autofit)) autofit = getOption("crosstable_autofit", autofit)
+  if(missing(compact)) compact = getOption("crosstable_compact", compact)
+  if(missing(show_test_name)) show_test_name = getOption("crosstable_show_test_name", show_test_name)
+  if(missing(padding_v)) padding_v = getOption("crosstable_padding_v", padding_v)
+  if(missing(remove_header_keys)) remove_header_keys = getOption("crosstable_remove_header_keys",
                                                                  remove_header_keys)
-  if(missing(header_show_n)) header_show_n = getOption('crosstable_header_show_n', header_show_n)
-  if(missing(header_show_n_pattern)) header_show_n_pattern = getOption('crosstable_header_show_n_pattern',
+  if(missing(header_show_n)) header_show_n = getOption("crosstable_header_show_n", header_show_n)
+  if(missing(header_show_n_pattern)) header_show_n_pattern = getOption("crosstable_header_show_n_pattern",
                                                                        header_show_n_pattern)
   header_show_n_pattern = get_show_n_pattern(header_show_n_pattern)
-  if(missing(generic_labels)) generic_labels = getOption('crosstable_generic_labels', generic_labels)
+  if(missing(generic_labels)) generic_labels = getOption("crosstable_generic_labels", generic_labels)
   if(missing(fontsizes)) fontsizes = list(
-    body=getOption('crosstable_fontsize_body', fontsizes$body),
-    subheaders=getOption('crosstable_fontsize_subheaders', fontsizes$subheaders),
-    header=getOption('crosstable_fontsize_header', fontsizes$header)
+    body=getOption("crosstable_fontsize_body", fontsizes$body),
+    subheaders=getOption("crosstable_fontsize_subheaders", fontsizes$subheaders),
+    header=getOption("crosstable_fontsize_header", fontsizes$header)
   )
 
   border1 = fp_border(color = "black", style = "solid", width = 1)
@@ -148,7 +148,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
       border(title_rows, border.top = fp_border()) %>%
       bold(title_rows, j=1:2) %>%
       align(title_rows, align="left") %>%
-      padding(i=padded_rows, j=1, padding.left=getOption('crosstable_compact_padding', 25))
+      padding(i=padded_rows, j=1, padding.left=getOption("crosstable_compact_padding", 25))
   } else {
     sep.rows = which(rtn[[id]] != lead(rtn[[id]]))
     body_merge = intersect(names(rtn), generic_labels[c("label", "test", "effect", "id")]) %>%

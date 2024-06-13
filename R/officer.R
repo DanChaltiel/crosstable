@@ -146,7 +146,7 @@ body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, parse=c("
   if(missing(squish)) squish = getOption("crosstable_normal_squish", TRUE)
   dots = list(...)
   if(is.null(style)){
-    style = getOption('crosstable_style_normal', doc$default_styles$paragraph)
+    style = getOption("crosstable_style_normal", doc$default_styles$paragraph)
   }
   if(length(dots)==0) dots=""
   dots_lengths = lengths(dots)
@@ -201,7 +201,7 @@ body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, parse=c("
 #'    body_add_normal("La table iris a ", ncol(iris), " colonnes.")
 #' #write_and_open(doc)
 body_add_title = function(doc, value, level=1, squish=TRUE,
-                          style = getOption('crosstable_style_heading', "heading")) {
+                          style = getOption("crosstable_style_heading", "heading")) {
   assert_integerish(level)
   if(missing(squish)) squish = getOption("crosstable_title_squish", TRUE)
   value = glue(value, .envir = parent.frame())
@@ -257,9 +257,9 @@ body_add_list = function(doc, value, ordered=FALSE, style=NULL, ...){
 body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
   if(is.null(style)){
     if(ordered){
-      style = getOption('crosstable_style_list_ordered', NULL)
+      style = getOption("crosstable_style_list_ordered", NULL)
     } else {
-      style = getOption('crosstable_style_list_unordered', NULL)
+      style = getOption("crosstable_style_list_unordered", NULL)
     }
     if(is.null(style)){
       cli_abort("Ordered lists and bullet lists are not supported by the default officer template. You have to set them in a custom template and use either the `style` argument or crosstable options. See `?body_add_list` examples for more details.",
@@ -524,7 +524,7 @@ body_add_table_section = function(doc, x, legend, ..., bookmark=NULL,
 #' #If asked to update fields, press "Yes". Otherwise press Ctrl+A then F9 twice for the references
 #' #to appear.
 body_add_table_legend = function(doc, legend, ..., bookmark=NULL,
-                                 legend_style=getOption('crosstable_style_legend',
+                                 legend_style=getOption("crosstable_style_legend",
                                                         doc$default_styles$paragraph),
                                  style=deprecated(),
                                  legend_prefix=NULL,
@@ -550,7 +550,7 @@ body_add_table_legend = function(doc, legend, ..., bookmark=NULL,
 #' @importFrom lifecycle deprecated
 #' @importFrom rlang check_dots_empty
 body_add_figure_legend = function(doc, legend, ..., bookmark=NULL,
-                                  legend_style=getOption('crosstable_style_legend',
+                                  legend_style=getOption("crosstable_style_legend",
                                                          doc$default_styles$paragraph),
                                   style=deprecated(),
                                   legend_prefix=NULL,
@@ -593,7 +593,7 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
 
   legend = paste0(legend_prefix, legend)
   if(is.null(name_format)){
-    name_format = getOption('crosstable_format_legend_name', fp_text_lite(bold=TRUE))
+    name_format = getOption("crosstable_format_legend_name", fp_text_lite(bold=TRUE))
   }
   fp_size = fp_text_lite(font.size=name_format$font.size)
 
