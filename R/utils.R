@@ -530,13 +530,15 @@ str_wrap2 = function(x, width, ...){
 #' @noRd
 #' @examples
 #' x=1:15;y="foobar"
-#' rec(x,y, sep=", ")
+#' rec(x, y, sep=", ")
 #' @importFrom glue glue glue_collapse
 #' @importFrom purrr imap map
 #' @importFrom rlang set_names
-rec = function(..., sep=getOption("rec_sep", "\n"), sep_int=getOption("rec_sep", ", "),
+rec = function(..., sep=getOption("rec_sep", "\n"),
+               sep_int=getOption("rec_sep", ", "), #internal
                glue_pattern="{.name} = {.value}",
-               max_length=getOption("rec_max_length", 10), .envir = parent.frame()){
+               max_length=getOption("rec_max_length", 10),
+               .envir = parent.frame()){
   l = as.list(substitute(list(...)))[-1L] %>% unlist() %>% set_names()
   ll = map(l, eval, envir=.envir)
   tmp = ll %>% imap(~{
