@@ -30,6 +30,7 @@ cross_survival=function(data_x, data_y, showNA, total, label, surv_digits, times
   }
 
   rtn = rtn %>%
+    rename("label2"=any_of("label")) %>%
     mutate(.id=names(data_x), label=unname(x_name)) %>%
     select(".id", "label", everything()) %>%
     as_tibble()
