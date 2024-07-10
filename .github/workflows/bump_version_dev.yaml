@@ -1,6 +1,7 @@
-on: push
-
 name: Update dev version
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   update_version:
