@@ -32,8 +32,11 @@ jobs:
           message("Setting PKG_NEW_VERSION to ", new_version)
         shell: Rscript {0}
 
+      - name: TEST
+        run: echo "${{ env.PKG_NEW_VERSION }}"
+        
       - name: Commit the version change
-        uses: EndBug/add-and-commit@v7.5.0
+        uses: EndBug/add-and-commit@v9
         with:
           default_author: github_actions
           message: 'Update dev version (Github Actions)'
