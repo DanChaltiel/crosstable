@@ -1,0 +1,20 @@
+on: [push, workflow_dispatch]
+
+name: Bump dev version
+
+jobs:
+  update_version:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+    - name: Set up R
+      uses: r-lib/actions/setup-r@v2
+      with:
+        install-r: false
+    - name: Bump dev version
+      uses: DanChaltiel/actions/bump-dev-version@v1
+      with:
+        create-tag: true
