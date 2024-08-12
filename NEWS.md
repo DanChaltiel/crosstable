@@ -7,7 +7,8 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 -   xxxxx
 
 #### Bug fixes and improvements
-
+ 
+-   Fixed `drop_levels` (#69, #70, #71)
 -   Fixed a bug happening when NA is already a level (#59)
 
 # crosstable 0.7.0 <sub><sup>2023-11-12</sup></sub>

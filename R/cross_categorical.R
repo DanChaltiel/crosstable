@@ -24,7 +24,6 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
                                      percent_pattern=percent_pattern, showNA=showNA,
                                      total=total, digits=percent_digits)
   } else if(is.character.or.factor(data_y[[1]])){
-    if(isTRUE(drop_levels)) data_y[[1]] = fct_drop(data_y[[1]])
     rtn=summarize_categorical_by(data_x[[1]], data_y[[1]],
                                  percent_pattern=percent_pattern, showNA=showNA,
                                  total=total, digits=percent_digits,

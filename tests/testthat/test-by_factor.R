@@ -215,6 +215,36 @@ test_that("Unique numeric", {
 })
 
 
+# droplevels ---------------------------------------------------------
+
+test_that("drop_levels works", {
+  a = mtcars2 %>%
+    mutate(am=fct_expand(am, "other"))
+
+  #No by
+  a %>% crosstable(am, drop_levels=FALSE) %>% pull(variable) %>%
+    expect_equal(c("auto", "manual", "other"))
+  a %>% crosstable(am, drop_levels=TRUE) %>% pull(variable) %>%
+    expect_equal(c("auto", "manual"))
+
+  #Single by
+  a %>% crosstable(mpg, by=am, drop_levels=FALSE) %>%
+    expect_named(c(".id", "label", "variable", "auto", "manual", "other"))
+  a %>% crosstable(mpg, by=am, drop_levels=TRUE) %>%
+    expect_named(c(".id", "label", "variable", "auto", "manual"))
+
+  #Multi by
+  a %>% crosstable(cyl, by=c(am, vs), drop_levels=TRUE) %>%
+    expect_named(c(".id", "label", "variable",
+                   "am=auto & vs=straight", "am=manual & vs=straight",
+                   "am=auto & vs=vshaped", "am=manual & vs=vshaped"))
+  a %>% crosstable(cyl, by=c(am, vs), drop_levels=FALSE) %>%
+    expect_named(c(".id", "label", "variable",
+                   "am=auto & vs=straight", "am=manual & vs=straight",
+                   "am=other & vs=straight", "am=auto & vs=vshaped",
+                   "am=manual & vs=vshaped", "am=other & vs=vshaped"))
+})
+
 # By dummy ---------------------------------------------------------
 
 test_that("By dummy", {

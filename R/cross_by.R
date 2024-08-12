@@ -13,6 +13,8 @@ cross_by = function(data_x, data_y, funs, funs_arg, percent_pattern, total, perc
   if(!is.null(data_y) && ncol(data_y)>1) cli_abort(glue("data_y has {ncol(data_y)} columns (max=1)"))
   errors = rlang::env()
 
+  if(isTRUE(drop_levels) & is.factor(data_y[[1]])) data_y[[1]] = fct_drop(data_y[[1]])
+
   by_levels = length(unique(na.omit(data_y[[1]])))
   if(!is.numeric(data_y[[1]]) && isTRUE(effect) && by_levels!=2){
     cli_warn(c("Cannot calculate crosstable effects as there is not exactly 2 groups in `by`.",
