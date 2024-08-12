@@ -246,8 +246,15 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
              call=current_env())
   }
 
-  na_cols_y = data_y %>% select(where(~all(is.na(.x)))) %>% names()
+  na_cols = data_x %>% select(where(~all(is.na(.x)))) %>% names()
   verbosity_na_cols = getOption("crosstable_verbosity_na_cols", "verbose")
+  if(length(na_cols)>0 && verbosity_na_cols=="verbose"){
+    cli_warn(c('Cannot describe column{?s} {.var {na_cols}} as {?it/they} contain{?s/} only missing values.'),
+             class = "crosstable_all_na_warning",
+             call = crosstable_caller$env)
+  }
+
+  na_cols_y = data_y %>% select(where(~all(is.na(.x)))) %>% names()
   if(length(na_cols_y)>0 && verbosity_na_cols=="verbose"){
     cli_warn(c('Cannot use {.var {na_cols_y}} as `by` column{?s} as {?it/they} contain{?s/} only missing values.'),
              class = "crosstable_all_na_by_warning",
