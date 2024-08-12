@@ -215,7 +215,7 @@ get_glue_vars = function(.x){
 #' @keywords internal
 #' @noRd
 is.character.or.factor = function(x) {
-  is.character(x) | is.factor(x)
+  is.character(x) || is.factor(x)
 }
 
 #' test
@@ -225,7 +225,7 @@ is.character.or.factor = function(x) {
 #' @keywords internal
 #' @noRd
 is.numeric.and.not.surv = function(x) {
-  is.numeric(x) & !is.Surv(x)
+  is.numeric(x) && !is.Surv(x)
 }
 
 #' test
