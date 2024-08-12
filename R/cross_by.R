@@ -28,7 +28,8 @@ cross_by = function(data_x, data_y, funs, funs_arg, percent_pattern, total, perc
     }
 
     if(anyNA(.x) && "NA" %in% .x) {
-      .x[.x=="NA"] = "\"NA\""
+      .x = if_else(.x!="NA", .x, factor("\"NA\""))
+      if(is.factor(.x)) .x = fct_drop(.x, only="NA")
     }
     if(!is.list(.x)){ #TODO is.list pour les erreurs, mieux vaudrait une classe spéciale?
       data_x[.y] = .x

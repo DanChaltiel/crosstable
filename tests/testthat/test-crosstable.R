@@ -18,11 +18,13 @@ test_that("numeric+factor+surv by nothing", {
 
 
 test_that('Contains both `NA` and "NA"', {
-  x=mtcars3
-  x$vs[18:20] = "NA"
-  a=crosstable(x, vs)$variable
-  b=c("\"NA\"", "straight", "vshaped", "NA")
-  expect_identical(a, b)
+  # "'NA'" is overkill to test
+  x = data.frame(a = as_factor(c("zzz", "zzz", "NA", "NA", NA, NA, "aaa", "aaa")))
+
+  x$a %>% levels
+  crosstable(x) %>%
+    pull(variable) %>%
+    expect_identical(c("zzz", "aaa", "\"NA\"", "NA"))
 })
 
 

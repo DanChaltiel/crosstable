@@ -72,9 +72,11 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
     ) %>%
     getTableCI(digits=digits) %>%
     mutate(across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE))) %>%
-    transmute(variable=x %>% str_replace("NA", "'NA'") %>% replace_na("NA"),
-              value=ifelse(is.na(x) | .data$n==0 & zero_percent,
-                           .data$n, glue(percent_pattern$body)))
+    transmute(
+      variable = replace_na(x, "NA"),
+      value=ifelse(is.na(x) | .data$n==0 & zero_percent,
+                   .data$n, glue(percent_pattern$body))
+    )
 
   .showNA = showNA=="always" || showNA=="ifany" && (anyNA(x))
   if(!.showNA){
@@ -152,10 +154,12 @@ summarize_categorical_by = function(x, by,
     select(x, by, n, order(colnames(.)))
 
   rtn = .table %>%
-    transmute(variable=x %>% str_replace("NA", "'NA'") %>% replace_na("NA"),
-              by=.data$by,
-              value=ifelse(is.na(x)|is.na(by)|.data$n==0&zero_percent,
-                           .data$n, glue(percent_pattern$body))) %>%
+    transmute(
+      variable = replace_na(x, "NA"),
+      by=.data$by,
+      value=ifelse(is.na(x)|is.na(by)|.data$n==0&zero_percent,
+                   .data$n, glue(percent_pattern$body))
+    ) %>%
     pivot_wider(names_from="by", values_from = "value")
 
   if(2 %in% total){
