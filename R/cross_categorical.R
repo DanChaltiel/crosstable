@@ -77,7 +77,8 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
                    .data$n, glue(percent_pattern$body))
     )
 
-  .showNA = showNA=="always" || showNA=="ifany" && (anyNA(x))
+  any_na = anyNA(x) || anyNA(levels(x)) || "NA" %in% x
+  .showNA = showNA=="always" || (showNA=="ifany" && any_na)
   if(!.showNA){
     rtn = filter(rtn, .data$variable!="NA")
   }
