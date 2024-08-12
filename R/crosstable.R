@@ -246,17 +246,17 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
              call=current_env())
   }
 
-  na_cols_x = data_x %>% select(where(~all(is.na(.x)))) %>% names()
   verbosity_na_cols = getOption("crosstable_verbosity_na_cols", "quiet")
+  na_cols_x = data_x %>% select(where(~all(is.na(.x) | is_blank(.x)))) %>% names()
   if(length(na_cols_x)>0 && verbosity_na_cols=="verbose"){
-    cli_warn(c('Cannot describe column{?s} {.var {na_cols_x}} as {?it/they} contain{?s/} only missing values.'),
+    cli_warn(c('Cannot describe column{?s} {.var {na_cols_x}} as {?it/they} contain{?s/} only missing values/blank.'),
              class = "crosstable_all_na_warning",
              call = crosstable_caller$env)
   }
 
-  na_cols_y = data_y %>% select(where(~all(is.na(.x)))) %>% names()
-  if(length(na_cols_y)>0 && verbosity_na_cols=="verbose"){
-    cli_warn(c('Cannot use {.var {na_cols_y}} as `by` column{?s} as {?it/they} contain{?s/} only missing values.'),
+  na_cols_y = data_y %>% select(where(~all(is.na(.x) | is_blank(.x)))) %>% names()
+  if(length(na_cols_y)>0){
+    cli_warn(c('Cannot use {.var {na_cols_y}} as `by` column{?s} as {?it/they} contain{?s/} only missing/blank values.'),
              class = "crosstable_all_na_by_warning",
              call = crosstable_caller$env)
   }

@@ -208,9 +208,12 @@ get_glue_vars = function(.x){
 
 
 
-#' test
-#'
-#' @param x x
+#' @keywords internal
+#' @noRd
+is_blank = function(x) {
+  is.character(x) && all(x=="", na.rm=TRUE)
+}
+
 #' @author David Hajage
 #' @keywords internal
 #' @noRd
@@ -218,9 +221,6 @@ is.character.or.factor = function(x) {
   is.character(x) || is.factor(x)
 }
 
-#' test
-#'
-#' @param x x
 #' @author David Hajage
 #' @keywords internal
 #' @noRd
@@ -228,19 +228,12 @@ is.numeric.and.not.surv = function(x) {
   is.numeric(x) && !is.Surv(x)
 }
 
-#' test
-#'
-#' @param x x
-#'
 #' @keywords internal
 #' @noRd
 is.Surv = function(x) {
   inherits(x, "Surv")
 }
 
-#' test
-#'
-#' @param x x
 #' @keywords internal
 #' @noRd
 is.date = function(x){
@@ -248,9 +241,6 @@ is.date = function(x){
     inherits(x, "POSIXct") || inherits(x, "POSIXlt")
 }
 
-#' test
-#'
-#' @param x x
 #' @keywords internal
 #' @noRd
 is.period = function(x){
@@ -258,8 +248,6 @@ is.period = function(x){
 }
 
 #' paste all classes (minus "labelled")
-#'
-#' @param x x
 #' @keywords internal
 #' @noRd
 paste_classes = function(x){
