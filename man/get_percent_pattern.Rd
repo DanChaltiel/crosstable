@@ -6,13 +6,16 @@
 \usage{
 get_percent_pattern(
   margin = c("row", "column", "cell", "none", "all"),
-  na = FALSE
+  na = FALSE,
+  warn_duplicates = TRUE
 )
 }
 \arguments{
 \item{margin}{a vector giving the margins to compute.}
 
 \item{na}{whether to use \code{NA}}
+
+\item{warn_duplicates}{whether to warn if margin has duplicates}
 }
 \value{
 a list

@@ -651,6 +651,25 @@ cl = function(...){
 }
 
 
+#' Wrapper around forcats::fct_recode and dplyr::recode
+#' Syntax: "New"="Old"
+#'
+#' @importFrom forcats fct_recode
+#' @keywords internal
+#' @noRd
+recode_any = function(x, ...){
+  stopifnot(is.character.or.factor(x))
+  l = c(...)
+  if(is.factor(x)){
+    lvls = intersect(l, x)
+    x = fct_recode(x, !!!lvls)
+  } else if(is.character(x)){
+    l = setNames(names(l), l)
+    x = recode(x, !!!l)
+  }
+  x
+}
+
 #' @source adapted from gtools::mixedorder() v3.9.2
 #' @keywords internal
 #' @noRd

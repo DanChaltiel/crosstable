@@ -24,6 +24,7 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
                                      percent_pattern=percent_pattern, showNA=showNA,
                                      total=total, digits=percent_digits)
   } else if(is.character.or.factor(data_y[[1]])){
+    data_y[[1]] = recode_any(data_y[[1]], ".id2"=".id", "label2"="label")
     rtn=summarize_categorical_by(data_x[[1]], data_y[[1]],
                                  percent_pattern=percent_pattern, showNA=showNA,
                                  total=total, digits=percent_digits,
@@ -34,7 +35,6 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
   }
 
   rtn = rtn %>%
-    # rename("label2"=any_of("label")) %>%
     mutate(.id=names(data_x), label=unname(x_name)) %>%
     select(".id", "label", everything()) %>%
     as_tibble()
