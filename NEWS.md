@@ -9,7 +9,11 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 #### Bug fixes and improvements
  
 -   Fixed `drop_levels` (#69, #70, #71)
+-   Flextable autofit now uses the recommended method (#62)
 -   Fixed a bug happening when NA is already a level (#59)
+-   Fixed error where `by` contains "label" (#56)
+-   Fixed `header_show_n` not working in single `by` (#54)
+-   Fixed some missing options in `crosstable_options()` and added tests (#53)
 
 # crosstable 0.7.0 <sub><sup>2023-11-12</sup></sub>
 
