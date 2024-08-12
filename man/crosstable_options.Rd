@@ -47,6 +47,8 @@ crosstable_options(
   peek_docx = TRUE,
   font_code = "Consolas",
   add_max_cols = 25,
+  gg_width,
+  gg_height,
   format_legend_name,
   table_legend_par_before,
   table_legend_prefix,
@@ -156,6 +158,8 @@ crosstable_options(
 \item{font_code}{font family used to show code, most likely a monospaced typeface such as Consolas (default)}
 
 \item{add_max_cols}{max number of columns a crosstable can have to be added to a Word document}
+
+\item{gg_width, gg_height}{cf. \code{\link[=body_add_gg2]{body_add_gg2()}}}
 
 \item{format_legend_name}{how the legend name ("Table", "Figure") is formatted. Default to \code{officer::fp_text_lite(bold=TRUE)}}
 

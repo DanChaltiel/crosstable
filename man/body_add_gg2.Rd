@@ -7,8 +7,8 @@
 body_add_gg2(
   doc,
   value,
-  width = 6,
-  height = 5,
+  width = getOption("crosstable_gg_width", 6),
+  height = getOption("crosstable_gg_height", 5),
   units = getOption("crosstable_units", "in"),
   style = getOption("crosstable_style_image", doc$default_styles$paragraph),
   res = 300,

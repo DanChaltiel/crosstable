@@ -60,6 +60,7 @@
 #' @param normal_squish Should you squish text in normal paragraphs?
 #' @param title_squish Should you squish text in headers paragraphs?
 #' @param allow_break allow crosstable rows to break across pages
+#' @param gg_width,gg_height cf. [body_add_gg2()]
 #' @param section_title,section_title_level,section_sentence cf. [body_add_table_section()]
 #' @param style_normal For specifying styles used in your `{officer}` template.
 #' @param style_image For specifying styles used in your `{officer}` template.
@@ -100,6 +101,7 @@ crosstable_options = function(
     peek_docx=TRUE,
     font_code="Consolas",
     add_max_cols=25,
+    gg_width, gg_height,
     format_legend_name,
     table_legend_par_before,
     table_legend_prefix,

@@ -682,7 +682,9 @@ body_add_img2 = function(doc, src, width, height,
 #'  body_add_gg2(p, w=14, h=10, scale=1.5) %>% #or units="cm" instead of using options
 #'  body_add_normal("Text after")
 #' write_and_open(doc)
-body_add_gg2 = function(doc, value, width = 6, height = 5,
+body_add_gg2 = function(doc, value,
+                        width = getOption("crosstable_gg_width", 6),
+                        height = getOption("crosstable_gg_height", 5),
                         units = getOption("crosstable_units", "in"),
                         style = getOption("crosstable_style_image", doc$default_styles$paragraph),
                         res = 300, ... ){

@@ -13,6 +13,7 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 -   Moved the legend above the table in `body_add_table_section()` (#73).
 -   Fixed `get_label()` on named vector columns (#72).
 -   Fixed `crosstable(drop_levels)` (#69, #70, #71).
+-   Option control on height & width in `body_add_gg2()` (#68).
 -   Flextable autofit now uses the recommended method (#62).
 -   Fixed a bug happening when NA is already a level (#59).
 -   Fixed error where `by` contains "label" (#56).
