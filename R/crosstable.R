@@ -247,7 +247,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   }
 
   na_cols_x = data_x %>% select(where(~all(is.na(.x)))) %>% names()
-  verbosity_na_cols = getOption("crosstable_verbosity_na_cols", "verbose")
+  verbosity_na_cols = getOption("crosstable_verbosity_na_cols", "quiet")
   if(length(na_cols_x)>0 && verbosity_na_cols=="verbose"){
     cli_warn(c('Cannot describe column{?s} {.var {na_cols_x}} as {?it/they} contain{?s/} only missing values.'),
              class = "crosstable_all_na_warning",
