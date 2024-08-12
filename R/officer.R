@@ -859,7 +859,8 @@ write_and_open = function(doc, docx.file){
 # nocov start
 #' Generate a macro file for autofitting
 #'
-#' This function generates a file that can be imported into MS Word in order to use a macro for autofitting all tables in a document at once. This macro file should be imported only once per computer.
+#' Autofitting using existing tools in flextable should be enough for most cases. For the others, here is a VBA macro which autofits all tables from inside MS Word.
+#' This function generates a file that can be imported into MS Word in order to use this macro. The macro file should be imported only once per computer.
 #'
 #' @section Installation:
 #'  * In the `R` console, run `generate_autofit_macro()` to generate the file `crosstable_autofit.bas` in your working directory.
@@ -873,7 +874,7 @@ write_and_open = function(doc, docx.file){
 #' @author Dan Chaltiel
 #' @export
 generate_autofit_macro = function(){
-  fileConn<-file("crosstable_autofit.bas")
+  fileConn = file("crosstable_autofit.bas")
   writeLines(c(
     'Attribute VB_Name = "CrosstableMacros"',
     'Sub CrosstableAutofitAll()',

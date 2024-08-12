@@ -32,11 +32,13 @@ There are two cases to consider:
  * You have a lot of tables and little text? You probably should use [officer](#create-reports-with-officer).
  * You have a lot of text and a few tables? You probably should use [Rmarkdown](#create-reports-with-rmarkdown).
 
+As I only find myself in the first case, this vignette will only talk about officer.
+
 ## Create reports with `officer`
 
 The real power of `crosstable` comes out when used with David Gohel's awesome package [`officer` ](https://davidgohel.github.io/officer/), which allows to automatically create MS Word documents. 
 
-For instance, let's try to create a document like this: 
+For the example, let's try to create a document like this: 
 ![officer example](officer-example.png)
 
 You can also download this example [here](https://github.com/DanChaltiel/crosstable/raw/main/examples/vignette_officer.docx).
@@ -92,8 +94,6 @@ doc = read_docx() %>% #default template
 
 For demonstration purposes, I tried to cover as many features as possible, so it contains multiple syntaxes for the same result. Of course, you should use whatever syntax you are most comfortable with.
 
-You can find other useful functions in the [references](https://danchaltiel.github.io/crosstable/reference/index.html#section-officer-helpers).
-
 ### Output
 
 ```{r save, include=FALSE}
@@ -112,7 +112,6 @@ write_and_open(doc, "vignette_officer.docx")
 
 While you are still working on your code, you might want to omit the name so that you open the docx file in a temporary file for a quick peek (`write_and_open(doc)`). This will prevent the errors that happen when the file is already open. 
 
-
 You can also use `print(doc, "vignette_officer.docx")` if you don't want the file to open right away.
 
 ### Functions
@@ -121,38 +120,20 @@ Here is a brief description of the functions used in this example:
 
  + `officer::read_docx()`: creates a bare MS Word document
  + `body_add_title()`: adds a title paragraph of any level
- + `body_add_normal()`: adds a normal style paragraph. You can also incorporate variables using the syntax `{nrow(ct3)}` and references using the syntax `\\@ref(my_bookmark)`.
+ + `body_add_normal()`: adds a normal style paragraph. You can also incorporate variables using the syntax `{nrow(ct3)}` and references using the syntax `\\@ref(my_bookmark)`. It also support Markdown syntax for bold, italics, colored text... See `help(body_add_normal)` to see the details.
  + `body_add_crosstable()`: adds a crosstable
  + `body_add_figure_legend()` and `body_add_table_legend()`: adds a figure/table legend. The `bookmark` is the key that can be added elsewhere in `body_add_normal()`.
  + `body_add_gg2()`: adds a ggplot. Unlike `officer::body_add_gg()`, you can change the unit using the `units` argument or the options `options(crosstable_units="cm")`.
 
-Browse https://davidgohel.github.io/officer/ for more insight about how you can use `{officer}`.
+`{crosstable}` comes with many `officer`-like functions to help you create your report, see the full list in the [references](https://danchaltiel.github.io/crosstable/reference/index.html#officer-helpers).
 
-
-### Autofit macro for large tables
-
-This is great, but large tables will unfortunately overflow your document.
-
-This is a ([known](https://ardata-fr.github.io/officeverse/faq.html#update-fields)) limitation that cannot be fixed using `R`.
-
-You would have to use MS Word autofit tools on each table one by one (`Table Tools > Layout > AutoFit > AutoFit Window`), which can be really tedious.
-
-But fear not! You can use a MS Word macro to do the job for you. Here is how:
-
-* In the R console, run `generate_autofit_macro()` to generate the file `crosstable_autofit.bas` in your working directory.
-
-* In MS Word, press <kbd>Alt</kbd>+<kbd>F11</kbd> to open the VB Editor.
-
-* In the Editor, go to `File` > `Import` or press `Ctrl+M` to open the import dialog, and import `crosstable_autofit.bas`. There should now be a "CrosstableMacros" module in the "Normal" project.
-* Run the macro, either from the VB Editor or from `View` > `Macros` > `View Macros` > `Run`.
-  
-This process will make the macro accessible from any Word file on this computer. Note that, in the Editor, you can also drag the module to your document project to make the macro accessible only from this file. The file will have to be named with the `docm` extension though.
+Also, browse https://davidgohel.github.io/officer/ for more insight about how you can use `{officer}`.
 
 ### Styles
 
-Crosstables uses [Word styles](https://support.microsoft.com/fr-fr/office/personnaliser-ou-cr%C3%A9er-des-styles-d38d6e47-f6fc-48eb-a607-1eb120dec563) to operate at full power .
+Crosstable uses [Word styles](https://support.microsoft.com/fr-fr/office/personnaliser-ou-cr%C3%A9er-des-styles-d38d6e47-f6fc-48eb-a607-1eb120dec563) extensively.
 
-Here, I used the default template of `officer::read_docx()` that comes with default styles. In your own custom template, you can edit all styles (for instance you can make "Normal" have a bold font of size 8) and add your own.
+Here, I used the default template of `officer::read_docx()` that comes with default styles. In your own custom template, you can edit all styles (for instance you can make "Normal" have a bold font of size 8) and add your own. See [the official documentation](https://ardata-fr.github.io/officeverse/office-documents-generation.html#templates) on how to use templates.
 
 The best example here is `body_add_list()`, which is supposed to add a bullet list. Unfortunately, the default template does not come with list styles so you will have to add one to your custom template before using it:
 
@@ -173,50 +154,22 @@ Note that you might sometimes encounter the error "Error: could not match any st
 
 ### Post-production for table/figure legends
 
-Depending on your version of `{officer}`, Word will ask you to update the fields
+If you added some legends or TOC titles, MS Word might ask you to "update the fields", to which you should answer "Yes". 
+This will trigger the automatic numbering of tables and references.
 
- + During the opening of the document, MS Word might ask you to "update the fields", to which you should answer "Yes". 
-If it does not ask or if you answer "No", the legends added with `body_add_table_legend()` or `body_add_figure_legend()` might have no actual numbers displayed.   
-In this case, you have to manually update the references inside MS Word: select all (\kbd{Ctrl}+\kbd{A}), then update (\kbd{F9}), sometimes twice. You might even need to do this several times. See `?body_add_legend` for more insight.
+### Autofit macro for large tables
 
- + Be aware that you unfortunately cannot reference a bookmark more than once using this method. Writing: 
-`body_add_normal("Table \\@ref(iris_col1) is about flowers. I like this Table \\@ref(iris_col1).")` will prevent **all** the numbering from applying.
+Auto-fitting from outside MS Word has its limits, and large tables might still overflow your document.
 
+If so, you can use MS Word inner autofit tools on each table one by one (`Table Tools > Layout > AutoFit > AutoFit Window`), which can be really tedious.
 
+But fear not! You can also use a MS Word macro to do the job for you. Here is how:
 
+* In the R console, run `generate_autofit_macro()` to generate the file `crosstable_autofit.bas` in your working directory.
 
-## Create reports with `Rmarkdown`
+* In MS Word, press <kbd>Alt</kbd>+<kbd>F11</kbd> to open the VB Editor.
 
-<!-- Integration Rmd in Rmd: la coloration syntaxique RStudio est mauvaise mais le code est bon ! -->
-<!-- https://stackoverflow.com/questions/53226493/add-markdown-code-chunk-to-r-markdown-document#comment104859956_53226493 -->
-Knitting (`knitr::knit()` or via **RStudio**) this `Rmd` code also creates a MS-Word file. Here, you can use the power of `bookdown` to generate the automatic numbering of the tables.
-
-
-````markdown
-
----
-title: "Iris"
-output: bookdown::word_document2
----
-    
-`r ''````{r setup, include=FALSE}
-library(crosstable)
-library(flextable)
-```
-
-Table iris is given in Table \@ref(tab:irisTable).
-
-`r ''````{r description, echo=FALSE, results='asis'}
-cat("<caption> (\\#tab:irisTable) Table Iris </caption> \n\r ")
-crosstable(iris, Sepal.Length, Sepal.Width, by=Species, test = TRUE, total="column") %>% as_flextable
-```
-
-````
-
-You can example files here: [vignette_markdown.Rmd](../examples/vignette_markdown.Rmd) and [vignette_markdown.docx](../examples/vignette_markdown.docx).
-
-I have to admit that I don't use Rmarkdown a lot with `crosstable`, so this feature might not be as maintained as others.
-
-```{r, include = FALSE}
-options(old)
-```
+* In the Editor, go to `File` > `Import` or press `Ctrl+M` to open the import dialog, and import `crosstable_autofit.bas`. There should now be a "CrosstableMacros" module in the "Normal" project.
+* Run the macro, either from the VB Editor or from `View` > `Macros` > `View Macros` > `Run`.
+  
+This process will make the macro accessible from any Word file on this computer. Note that, in the Editor, you can also drag the module to your document project to make the macro accessible only from this file. The file will have to be named with the `docm` extension though.
