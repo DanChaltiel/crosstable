@@ -346,6 +346,43 @@ check_percent_pattern = function(percent_pattern){
   })
 }
 
+#' @keywords internal
+#' @noRd
+validate_percent_pattern = function(margin, percent_pattern,
+                                    missing_margin, missing_percent_pattern) {
+  if(missing_margin) margin = getOption("crosstable_margin")
+  if(!is.null(margin)){
+    if(length(margin)>3){
+      cli_abort(c("Margin should be of max length 3",
+                  i=glue("margin={paste0(margin, collapse=', ')}")),
+                class="crosstable_margin_length_3_error")
+    }
+    if(missing_percent_pattern) {
+      percent_pattern = get_percent_pattern(margin)
+    } else if(!missing_margin){
+      cli_warn(c("Argument `margin` is ignored if `percent_pattern` is set.",
+                 i='margin="{margin}"',
+                 i='percent_pattern="{percent_pattern}"'),
+               class="crosstable_margin_percent_pattern_warning",
+               call=current_env())
+    }
+  }
+  # browser()
+  if(is.list(percent_pattern)){
+    default_pp = get_percent_pattern(margin, warn_duplicates=FALSE)
+    percent_pattern = modifyList(default_pp, percent_pattern)
+  } else if(length(percent_pattern)==1){
+    percent_pattern = list(
+      body=percent_pattern,
+      total_row="{n} ({p_col})",
+      total_col="{n} ({p_row})",
+      total_all="{n} ({p_tot})"
+    )
+  }
+  percent_pattern
+}
+
+
 #' Rudimentary function to clean the names
 #'
 #' Avoids a dependency to janitor.

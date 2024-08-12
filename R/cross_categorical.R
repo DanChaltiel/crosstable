@@ -245,6 +245,7 @@ summarize_categorical_by = function(x, by,
 #'
 #' @param margin a vector giving the margins to compute.
 #' @param na whether to use `NA`
+#' @param warn_duplicates whether to warn if margin has duplicates
 #'
 #' @return a list
 #'
@@ -258,7 +259,8 @@ summarize_categorical_by = function(x, by,
 #' @examples
 #' get_percent_pattern(c("cells","row","column"))
 #' get_percent_pattern(c("cells","row","column"), na=TRUE)
-get_percent_pattern = function(margin=c("row", "column", "cell", "none", "all"), na=FALSE){
+get_percent_pattern = function(margin=c("row", "column", "cell", "none", "all"), na=FALSE,
+                               warn_duplicates=TRUE){
   if(is.null(margin) || missing(margin)) margin="row"
   rtn = list(
     body="{n} ({p_col})",
@@ -298,7 +300,7 @@ get_percent_pattern = function(margin=c("row", "column", "cell", "none", "all"),
   x = marginopts %>%
     map(~{ #not map_dbl :-( # https://github.com/tidyverse/purrr/issues/841
       rtn = margin[margin %in% .x]
-      if(length(rtn)>1){
+      if(length(rtn)>1 && isTRUE(warn_duplicates)){
         cli_warn("Duplicated margin{?s}: {.code {rtn}}",
                  class="crosstable_duplicated_margin",
                  call=crosstable_caller$env)

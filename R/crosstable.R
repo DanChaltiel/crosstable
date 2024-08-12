@@ -137,6 +137,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   if(missing(test_args)) test_args = getOption("crosstable_test_args", crosstable_test_args())
   if(missing(effect_args)) effect_args = getOption("crosstable_effect_args", crosstable_effect_args())
   if(missing(num_digits)) num_digits = getOption("crosstable_num_digits",  1)
+  if(missing_margin) margin = getOption("crosstable_margin",  NULL)
 
   if(!"dig" %in% names(funs_arg)){
     funs_arg = c(funs_arg, list(dig=num_digits))
@@ -176,35 +177,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   }
   reportAssertions(coll)
 
-  if(missing_margin) margin = getOption("crosstable_margin")
-  if(!is.null(margin)){
-    if(length(margin)>3){
-      cli_abort(c("Margin should be of max length 3",
-                  i=glue("margin={paste0(margin, collapse=', ')}")),
-                class="crosstable_margin_length_3_error")
-    }
-    if(missing_percent_pattern) {
-      percent_pattern = get_percent_pattern(margin)
-    } else if(!missing_margin){
-      cli_warn(c("Argument `margin` is ignored if `percent_pattern` is set.",
-                 i='margin="{margin}"',
-                 i='percent_pattern="{percent_pattern}"'),
-               class="crosstable_margin_percent_pattern_warning",
-               call=current_env())
-    }
-  }
-  # browser()
-  if(is.list(percent_pattern)){
-    default_pp = get_percent_pattern(margin)
-    percent_pattern = modifyList(default_pp, percent_pattern)
-  } else if(length(percent_pattern)==1){
-    percent_pattern = list(
-      body=percent_pattern,
-      total_row="{n} ({p_col})",
-      total_col="{n} ({p_row})",
-      total_all="{n} ({p_tot})"
-    )
-  }
+  percent_pattern = validate_percent_pattern(margin, percent_pattern, missing_margin, missing_percent_pattern)
   check_percent_pattern(percent_pattern)
 
   if(!is.null(date_format)) funs_arg = c(funs_arg, list(date_format=date_format))
