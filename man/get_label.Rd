@@ -28,7 +28,7 @@ xx$cyl=remove_label(xx$cyl)
 
 #vectors
 get_label(xx$mpg) #label="Miles/(US) gallon"
-get_label(xx$cyl) #default to NULL (as names(xx$cyl)==NULL)
+get_label(xx$cyl) #default to NULL (since names(xx$cyl)==NULL)
 get_label(xx$cyl, default="Default value")
 
 #data.frames
@@ -37,8 +37,8 @@ get_label(xx, object=TRUE)
 data.frame(name=names(xx), label=get_label(xx, default=NA)) #cyl is NA
 
 #lists
-get_label(list(xx$cyl, xx$mpg))
-get_label(list(foo=xx$cyl, bar=xx$mpg))
+get_label(list(xx$cyl, xx$mpg))          #cyl is NA
+get_label(list(foo=xx$cyl, bar=xx$mpg))  #default to names
 get_label(list(foo=xx$cyl, bar=xx$mpg), default="Default value")
 }
 \seealso{

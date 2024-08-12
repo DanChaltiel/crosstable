@@ -21,7 +21,7 @@
 #'
 #' #vectors
 #' get_label(xx$mpg) #label="Miles/(US) gallon"
-#' get_label(xx$cyl) #default to NULL (as names(xx$cyl)==NULL)
+#' get_label(xx$cyl) #default to NULL (since names(xx$cyl)==NULL)
 #' get_label(xx$cyl, default="Default value")
 #'
 #' #data.frames
@@ -30,8 +30,8 @@
 #' data.frame(name=names(xx), label=get_label(xx, default=NA)) #cyl is NA
 #'
 #' #lists
-#' get_label(list(xx$cyl, xx$mpg))
-#' get_label(list(foo=xx$cyl, bar=xx$mpg))
+#' get_label(list(xx$cyl, xx$mpg))          #cyl is NA
+#' get_label(list(foo=xx$cyl, bar=xx$mpg))  #default to names
 #' get_label(list(foo=xx$cyl, bar=xx$mpg), default="Default value")
 get_label = function(x, default=names(x), object=FALSE, simplify=TRUE){
   if(is.list(x) && !object){
@@ -46,7 +46,7 @@ get_label = function(x, default=names(x), object=FALSE, simplify=TRUE){
     if(simplify) lab = unlist(lab)
   } else {
     lab = attr(x, "label", exact=TRUE)
-    if(is_null(lab)) lab=default
+    if(is_null(lab) && length(default)==1) lab=default
   }
 
   lab
