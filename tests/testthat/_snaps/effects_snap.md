@@ -4,7 +4,7 @@
       crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args) %>% select(.id, any_of("effect")) %>% distinct() %>% as.data.frame()
     Condition
       Warning in `crosstable()`:
-      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values.
+      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values/blank.
       Warning:
       Problems occured when calculating crosstable effects (glm-logit):
       i "glm.fit: fitted probabilities numerically 0 or 1 occurred" and "collapsing to unique 'x' values"
@@ -46,7 +46,7 @@
       crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args) %>% select(.id, any_of("effect")) %>% distinct() %>% as.data.frame()
     Condition
       Warning in `crosstable()`:
-      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values.
+      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values/blank.
       Warning:
       An error occured when calculating crosstable effects (glm-log):
       i "no valid set of coefficients has been found: please supply starting values"
@@ -98,7 +98,7 @@
       crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args) %>% select(.id, any_of("effect")) %>% distinct() %>% as.data.frame()
     Condition
       Warning in `crosstable()`:
-      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values.
+      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values/blank.
       Warning:
       Problems occured when calculating crosstable effects (glm-logit):
       i "glm.fit: fitted probabilities numerically 0 or 1 occurred" and "collapsing to unique 'x' values"
@@ -140,7 +140,7 @@
       crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args) %>% select(.id, any_of("effect")) %>% distinct() %>% as.data.frame()
     Condition
       Warning in `crosstable()`:
-      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values.
+      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values/blank.
       Warning:
       Problems occured when calculating crosstable effects (glm-logit):
       i "glm.fit: fitted probabilities numerically 0 or 1 occurred", "glm.fit: algorithm did not converge", and "collapsing to unique 'x' values"
@@ -182,7 +182,7 @@
       crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args) %>% select(.id, any_of("effect")) %>% distinct() %>% as.data.frame()
     Condition
       Warning in `crosstable()`:
-      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values.
+      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values/blank.
       Warning:
       An error occured when calculating crosstable effects (glm-log):
       i "no valid set of coefficients has been found: please supply starting values"
@@ -234,7 +234,7 @@
       crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args) %>% select(.id, any_of("effect")) %>% distinct() %>% as.data.frame()
     Condition
       Warning in `crosstable()`:
-      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values.
+      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values/blank.
       Warning:
       Problems occured when calculating crosstable effects (glm-logit):
       i "glm.fit: fitted probabilities numerically 0 or 1 occurred", "glm.fit: algorithm did not converge", and "collapsing to unique 'x' values"
@@ -276,7 +276,7 @@
       crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args) %>% select(.id, any_of("effect")) %>% distinct() %>% as.data.frame()
     Condition
       Warning in `crosstable()`:
-      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values.
+      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values/blank.
       Warning:
       Problems occured when calculating crosstable effects (glm-logit):
       i "glm.fit: fitted probabilities numerically 0 or 1 occurred" and "collapsing to unique 'x' values"
@@ -328,7 +328,7 @@
       crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args) %>% select(.id, any_of("effect")) %>% distinct() %>% as.data.frame()
     Condition
       Warning in `crosstable()`:
-      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values.
+      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values/blank.
       Warning:
       An error occured when calculating crosstable effects (glm-log):
       i "no valid set of coefficients has been found: please supply starting values"
@@ -385,7 +385,7 @@
       crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args) %>% select(.id, any_of("effect")) %>% distinct() %>% as.data.frame()
     Condition
       Warning in `crosstable()`:
-      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values.
+      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values/blank.
       Warning:
       Problems occured when calculating crosstable effects (glm-logit):
       i "glm.fit: fitted probabilities numerically 0 or 1 occurred" and "collapsing to unique 'x' values"
@@ -437,7 +437,7 @@
       crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args) %>% select(.id, any_of("effect")) %>% distinct() %>% as.data.frame()
     Condition
       Warning in `crosstable()`:
-      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values.
+      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values/blank.
       Warning:
       A problem occured when calculating crosstable effects (glm-logit):
       i "glm.fit: fitted probabilities numerically 0 or 1 occurred"
@@ -479,7 +479,7 @@
       crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args) %>% select(.id, any_of("effect")) %>% distinct() %>% as.data.frame()
     Condition
       Warning in `crosstable()`:
-      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values.
+      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values/blank.
       Warning:
       An error occured when calculating crosstable effects (glm-log):
       i "no valid set of coefficients has been found: please supply starting values"
@@ -526,7 +526,7 @@
       crosstable(mtcars3, -model, by = any_of(.x), effect = T, effect_args = e_args) %>% select(.id, any_of("effect")) %>% distinct() %>% as.data.frame()
     Condition
       Warning in `crosstable()`:
-      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values.
+      Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values/blank.
       Warning:
       A problem occured when calculating crosstable effects (glm-logit):
       i "glm.fit: fitted probabilities numerically 0 or 1 occurred"

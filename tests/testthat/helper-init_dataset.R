@@ -24,7 +24,10 @@ options(
   # lifecycle_verbosity="verbose",
   testthat.progress.max_fails = 50
 )
-crosstable_options(verbosity_autotesting="quiet")
+crosstable_options(
+  verbosity_autotesting="quiet",
+  verbosity_na_cols="verbose",
+)
 # prettycode::prettycode()
 
 
