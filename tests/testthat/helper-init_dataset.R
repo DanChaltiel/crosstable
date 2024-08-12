@@ -64,49 +64,6 @@ v = utils::View
 iris2names = c(SL="Sepal.Length", SW="Sepal.Width", PL="Petal.Length", PW="Petal.Width", Sp="Species")
 iris2_num = iris2 %>% select(-Species)
 
-
-expect_cross = function(x, xnames, byname, dim, regex){
-  # expect=match.arg(expect)
-  # if(expect=="nothing"){
-  #     x=eval(expr, envir=caller_env())
-  # }
-  # else if(expect=="silent")
-  #     x=expect_silent(expr)
-  # else if(expect=="warning")
-  #     x=expect_warning(expr, regex)
-  # else
-  #     x=expect_error(expr, regex)
-  expect_s3_class(x, c("data.frame", "crosstable"))
-  expect_equal(dim, dim(x))
-  expect_equal(byname, unname(attr(x, "by")))
-
-  if(all(xnames %in% names(iris2names)))
-    expect_equal(unname(iris2names[xnames]), unique(as.character(x$.id)))
-  else
-    expect_equal(unname(xnames), unique(x$.id))
-}
-
-expect_cross_bak = function(expr, xnames, byname, dim, expect=c("nothing", "silent", "warning", "error"), regex){
-  expect=match.arg(expect)
-  if(expect=="nothing"){
-    x=eval(expr, envir=caller_env())
-  }
-  else if(expect=="silent")
-    x=expect_silent(expr)
-  else if(expect=="warning")
-    x=expect_warning(expr, regex)
-  else
-    x=expect_error(expr, regex)
-  expect_s3_class(x, c("data.frame", "crosstable"))
-  expect_equal(dim, dim(x))
-  expect_equal(byname, unname(attr(x, "by")))
-
-  if(all(xnames %in% names(iris2names)))
-    expect_equal(unname(iris2names[xnames]), unique(as.character(x$.id)))
-  else
-    expect_equal(unname(xnames), unique(x$.id))
-}
-
 snapshot_review_bg = function(...){
   # brw = function(url) .Call("rs_browseURL", url, PACKAGE="(embedding)")
   brw = Sys.getenv("R_BROWSER")
