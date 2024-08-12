@@ -451,13 +451,13 @@ body_add_table_section = function(doc, x, legend, ..., bookmark=NULL,
   } else if(!is.null(sentence) & !isFALSE(sentence)) {
     doc = body_add_normal(doc, sentence)
   }
+  doc = body_add_table_legend(doc, legend=legend, bookmark=bookmark)
   if(inherits(x, "crosstable")){
     doc = body_add_crosstable(doc, x, ...)
   } else {
     if(!inherits(x, "flextable")) x = qflextable(x)
     doc = body_add_flextable(doc, x, ...)
   }
-  doc = body_add_table_legend(doc, legend=legend, bookmark=bookmark)
   doc
 }
 

@@ -8,15 +8,16 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 
 #### Bug fixes and improvements
  
--   Warn if `by` is "" (#77)
--   Default to quiet warnings if columns are missing (#76)
--   Fixed `get_label()` on named vector columns (#72)
--   Fixed `crosstable(drop_levels)` (#69, #70, #71)
--   Flextable autofit now uses the recommended method (#62)
--   Fixed a bug happening when NA is already a level (#59)
--   Fixed error where `by` contains "label" (#56)
--   Fixed `as_flextable(header_show_n)` not working in single `by` (#54)
--   Fixed some missing options in `crosstable_options()` and added tests (#53)
+-   Warn if `by` is "" (#77).
+-   Default to quiet warnings if columns are missing (#76).
+-   Moved the legend above the table in `body_add_table_section()` (#73).
+-   Fixed `get_label()` on named vector columns (#72).
+-   Fixed `crosstable(drop_levels)` (#69, #70, #71).
+-   Flextable autofit now uses the recommended method (#62).
+-   Fixed a bug happening when NA is already a level (#59).
+-   Fixed error where `by` contains "label" (#56).
+-   Fixed `as_flextable(header_show_n)` not working in single `by` (#54).
+-   Fixed some missing options in `crosstable_options()` and added tests (#53).
 
 # crosstable 0.7.0 <sub><sup>2023-11-12</sup></sub>
 
