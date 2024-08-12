@@ -219,7 +219,7 @@ test_that("Unique numeric", {
 
 test_that("drop_levels works", {
   a = mtcars2 %>%
-    mutate(am=fct_expand(am, "other"))
+    mutate(am=forcats::fct_expand(am, "other"))
 
   #No by
   a %>% crosstable(am, drop_levels=FALSE) %>% pull(variable) %>%
