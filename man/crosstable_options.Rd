@@ -10,7 +10,7 @@ crosstable_options(
   only_round = FALSE,
   verbosity_autotesting = "default",
   verbosity_duplicate_cols = "default",
-  crosstable_fishertest_B = 1e+05,
+  fishertest_B = 1e+05,
   total,
   percent_pattern,
   margin,
@@ -26,7 +26,7 @@ crosstable_options(
   date_format,
   times,
   followup,
-  test_arg,
+  test_args,
   effect_args,
   wrap_id = 70,
   compact_padding = 25,
@@ -42,6 +42,7 @@ crosstable_options(
   fontsize_body,
   fontsize_subheaders,
   fontsize_header,
+  generic_labels,
   units = "in",
   peek_docx = TRUE,
   font_code = "Consolas",
@@ -54,15 +55,19 @@ crosstable_options(
   normal_squish,
   title_squish,
   allow_break,
+  section_title,
+  section_title_level,
+  section_sentence,
   style_normal,
-  style_character,
-  style_strong,
   style_image,
   style_legend,
   style_heading,
   style_list_ordered,
   style_list_unordered,
   scientific_log,
+  clean_names_fun,
+  verbosity_na_cols,
+  format_epsilon,
   .local = FALSE,
   reset = deprecated()
 )
@@ -77,8 +82,6 @@ crosstable_options(
 \item{verbosity_autotesting}{one of \code{default}, \code{quiet}, or \code{verbose}}
 
 \item{verbosity_duplicate_cols}{one of \code{default}, \code{quiet}, or \code{verbose}.}
-
-\item{crosstable_fishertest_B}{number of simulations to perform when \code{fisher.test()} is failing (FEXACT error 7).}
 
 \item{total}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
@@ -110,8 +113,6 @@ crosstable_options(
 
 \item{followup}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
-\item{test_arg}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
-
 \item{effect_args}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
 \item{wrap_id}{if \code{id} contains no spaces, wrap it with this maximum number of characters.}
@@ -142,6 +143,8 @@ crosstable_options(
 
 \item{fontsize_header}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
 
+\item{generic_labels}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
+
 \item{units}{default units in \code{\link[=body_add_gg2]{body_add_gg2()}} and \code{\link[=body_add_img2]{body_add_img2()}}}
 
 \item{peek_docx}{behavior of \code{\link[=peek]{peek()}}, which will open a \code{docx} if \code{TRUE} (default) and an \code{xlsx} if \code{FALSE}}
@@ -166,10 +169,6 @@ crosstable_options(
 
 \item{style_normal}{For specifying styles used in your \code{{officer}} template.}
 
-\item{style_character}{For specifying styles used in your \code{{officer}} template.}
-
-\item{style_strong}{For specifying styles used in your \code{{officer}} template.}
-
 \item{style_image}{For specifying styles used in your \code{{officer}} template.}
 
 \item{style_legend}{For specifying styles used in your \code{{officer}} template.}
@@ -183,6 +182,10 @@ crosstable_options(
 \item{.local}{if TRUE, the effect will only apply to the local frame (thanks to \code{rlang::local_options()})}
 
 \item{reset}{if \code{TRUE}, set all these options back to default}
+
+\item{crosstable_fishertest_B}{number of simulations to perform when \code{fisher.test()} is failing (FEXACT error 7).}
+
+\item{test_arg}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 }
 \value{
 Nothing, called for its side effects
