@@ -12,7 +12,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9008</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9009</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,12 +51,17 @@
 </ul></div>
 <div class="section level5">
 <h5 id="bug-fixes-and-improvements-0-7-1">Bug fixes and improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-improvements-0-7-1"></a></h5>
-<ul><li>Fixed <code>drop_levels</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/69" class="external-link">#69</a>, <a href="https://github.com/DanChaltiel/crosstable/issues/70" class="external-link">#70</a>, <a href="https://github.com/DanChaltiel/crosstable/issues/71" class="external-link">#71</a>)</li>
-<li>Flextable autofit now uses the recommended method (<a href="https://github.com/DanChaltiel/crosstable/issues/62" class="external-link">#62</a>)</li>
-<li>Fixed a bug happening when NA is already a level (<a href="https://github.com/DanChaltiel/crosstable/issues/59" class="external-link">#59</a>)</li>
-<li>Fixed error where <code>by</code> contains “label” (<a href="https://github.com/DanChaltiel/crosstable/issues/56" class="external-link">#56</a>)</li>
-<li>Fixed <code>header_show_n</code> not working in single <code>by</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/54" class="external-link">#54</a>)</li>
-<li>Fixed some missing options in <code><a href="../reference/crosstable_options.html">crosstable_options()</a></code> and added tests (<a href="https://github.com/DanChaltiel/crosstable/issues/53" class="external-link">#53</a>)</li>
+<ul><li>Warn if <code>by</code> is “” (<a href="https://github.com/DanChaltiel/crosstable/issues/77" class="external-link">#77</a>).</li>
+<li>Default to quiet warnings if columns are missing (<a href="https://github.com/DanChaltiel/crosstable/issues/76" class="external-link">#76</a>).</li>
+<li>Moved the legend above the table in <code><a href="../reference/body_add_table_section.html">body_add_table_section()</a></code> (<a href="https://github.com/DanChaltiel/crosstable/issues/73" class="external-link">#73</a>).</li>
+<li>Fixed <code><a href="../reference/get_label.html">get_label()</a></code> on named vector columns (<a href="https://github.com/DanChaltiel/crosstable/issues/72" class="external-link">#72</a>).</li>
+<li>Fixed <code>crosstable(drop_levels)</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/69" class="external-link">#69</a>, <a href="https://github.com/DanChaltiel/crosstable/issues/70" class="external-link">#70</a>, <a href="https://github.com/DanChaltiel/crosstable/issues/71" class="external-link">#71</a>).</li>
+<li>Option control on height &amp; width in <code><a href="../reference/body_add_gg2.html">body_add_gg2()</a></code> (<a href="https://github.com/DanChaltiel/crosstable/issues/68" class="external-link">#68</a>).</li>
+<li>Flextable autofit now uses the recommended method (<a href="https://github.com/DanChaltiel/crosstable/issues/62" class="external-link">#62</a>).</li>
+<li>Fixed a bug happening when NA is already a level (<a href="https://github.com/DanChaltiel/crosstable/issues/59" class="external-link">#59</a>).</li>
+<li>Fixed error where <code>by</code> contains “label” (<a href="https://github.com/DanChaltiel/crosstable/issues/56" class="external-link">#56</a>).</li>
+<li>Fixed <code>as_flextable(header_show_n)</code> not working in single <code>by</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/54" class="external-link">#54</a>).</li>
+<li>Fixed some missing options in <code><a href="../reference/crosstable_options.html">crosstable_options()</a></code> and added tests (<a href="https://github.com/DanChaltiel/crosstable/issues/53" class="external-link">#53</a>).</li>
 </ul></div>
 </div>
     <div class="section level2">
