@@ -193,8 +193,8 @@ crosstable_reset_options = function(quiet=FALSE){
 #' @importFrom stringr str_extract str_extract_all str_subset str_remove_all
 #' @noRd
 #' @keywords internal
-missing_options_helper = function(){
-  options_found = dir("R/", full.names=T) %>%
+missing_options_helper = function(path="R/", ignore=NA){
+  options_found = dir(path, full.names=T) %>%
     map(readLines) %>%
     map(~str_subset(.x, "getOption")) %>%
     keep(~length(.x)>0) %>%
@@ -217,7 +217,7 @@ missing_options_helper = function(){
   options_proposed = names(formals(crosstable_options))
   options_proposed = paste0("crosstable_", options_proposed)
   list(
-    not_handled = setdiff(options_found, options_proposed),
-    not_used =    setdiff(options_proposed, options_found)
+    not_handled = setdiff(options_found, options_proposed) %>% setdiff(ignore),
+    not_used =    setdiff(options_proposed, options_found) %>% setdiff(ignore)
   )
 }

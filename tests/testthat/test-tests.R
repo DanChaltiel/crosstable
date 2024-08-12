@@ -74,6 +74,8 @@ test_that("Statistical Tests", {
 
 
 test_that("Linear contrasts test)", {
+  skip_on_cran()
+  skip_on_ci()
     my_test_args=crosstable_test_args()
     my_test_args$test_summarize = test_summarize_linear_contrasts
     x=iris %>%

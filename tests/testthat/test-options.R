@@ -6,17 +6,17 @@ gt <- as_gt(ct, generic_labels=list(value="count"))
 
 
 test_that("No missing options", {
-  missing_options = missing_options_helper()
+  ignored = c(
+    "rec_sep", "rec_max_length", #internal, unused yet
+    "crosstable_...", "crosstable_.local", "crosstable_reset"
+  )
+
+  missing_options = missing_options_helper(path=test_path("../../R"), ignore=ignored)
 
   #missing options, not handled in crosstable_options()
-  missing_options$not_handled %>%
-    str_subset("rec", negate=TRUE) %>% #internal, unused yet
-    expect_identical(character(0))
-
-  #added options, handled in crosstable_options() but never used
-  missing_options$not_used %>%
-    setdiff(c("crosstable_...", "crosstable_.local", "crosstable_reset")) %>%
-    expect_identical(character(0))
+  missing_options$not_handled %>% expect_length(0)
+  # added options, handled in crosstable_options() but never used in the code
+  missing_options$not_used %>% expect_length(0)
 })
 
 
@@ -82,7 +82,7 @@ test_that("All options work", {
     date_format="%d/%m/%Y",
     times=c(0,100),
     followup=TRUE,
-    test_arg = crosstable_test_args(plim=1),
+    test_args = crosstable_test_args(plim=1),
     effect_args = crosstable_effect_args(conf_level=0.7),
     .local=TRUE
   )
