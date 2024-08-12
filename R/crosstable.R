@@ -246,10 +246,10 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
              call=current_env())
   }
 
-  na_cols = data_x %>% select(where(~all(is.na(.x)))) %>% names()
+  na_cols_x = data_x %>% select(where(~all(is.na(.x)))) %>% names()
   verbosity_na_cols = getOption("crosstable_verbosity_na_cols", "verbose")
-  if(length(na_cols)>0 && verbosity_na_cols=="verbose"){
-    cli_warn(c('Cannot describe column{?s} {.var {na_cols}} as {?it/they} contain{?s/} only missing values.'),
+  if(length(na_cols_x)>0 && verbosity_na_cols=="verbose"){
+    cli_warn(c('Cannot describe column{?s} {.var {na_cols_x}} as {?it/they} contain{?s/} only missing values.'),
              class = "crosstable_all_na_warning",
              call = crosstable_caller$env)
   }
@@ -261,7 +261,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
              call = crosstable_caller$env)
   }
 
-  data_x = select(data_x, -any_of(c(duplicate_cols, na_cols)))
+  data_x = select(data_x, -any_of(c(duplicate_cols, na_cols_x)))
   data_y = select(data_y, -any_of(c(na_cols_y)))
   ncol_x = if(is.null(data_x)) 0 else ncol(data_x)
   ncol_y = if(is.null(data_y)) 0 else ncol(data_y)
