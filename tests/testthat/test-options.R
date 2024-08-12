@@ -6,12 +6,15 @@ gt <- as_gt(ct, generic_labels=list(value="count"))
 
 
 test_that("No missing options", {
+  path = test_path("../../R")
+  skip_if(!dir.exists(path))
+
   ignored = c(
     "rec_sep", "rec_max_length", #internal, unused yet
     "crosstable_...", "crosstable_.local", "crosstable_reset"
   )
 
-  missing_options = missing_options_helper(path=test_path("../../R"), ignore=ignored)
+  missing_options = missing_options_helper(path=path, ignore=ignored)
 
   #missing options, not handled in crosstable_options()
   missing_options$not_handled %>% expect_length(0)
