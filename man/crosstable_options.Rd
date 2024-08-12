@@ -83,6 +83,8 @@ crosstable_options(
 
 \item{verbosity_duplicate_cols}{one of \code{default}, \code{quiet}, or \code{verbose}.}
 
+\item{fishertest_B}{number of simulations to perform when \code{fisher.test()} is failing (FEXACT error 7).}
+
 \item{total}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
 \item{percent_pattern}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
@@ -112,6 +114,8 @@ crosstable_options(
 \item{times}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
 \item{followup}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
+
+\item{test_args}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
 \item{effect_args}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
@@ -167,6 +171,8 @@ crosstable_options(
 
 \item{allow_break}{allow crosstable rows to break across pages}
 
+\item{section_title, section_title_level, section_sentence}{cf. \code{\link[=body_add_table_section]{body_add_table_section()}}}
+
 \item{style_normal}{For specifying styles used in your \code{{officer}} template.}
 
 \item{style_image}{For specifying styles used in your \code{{officer}} template.}
@@ -179,13 +185,15 @@ crosstable_options(
 
 \item{scientific_log}{the maximum power a number can have before being formatted as scientific. Default to 4 so applies on numbers <1e-4 or >1e4.}
 
+\item{clean_names_fun}{cf. \code{\link[=clean_names_with_labels]{clean_names_with_labels()}}}
+
+\item{verbosity_na_cols}{verbosity of a warning}
+
+\item{format_epsilon}{cf. \code{\link[=format_fixed]{format_fixed()}}}
+
 \item{.local}{if TRUE, the effect will only apply to the local frame (thanks to \code{rlang::local_options()})}
 
 \item{reset}{if \code{TRUE}, set all these options back to default}
-
-\item{crosstable_fishertest_B}{number of simulations to perform when \code{fisher.test()} is failing (FEXACT error 7).}
-
-\item{test_arg}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 }
 \value{
 Nothing, called for its side effects

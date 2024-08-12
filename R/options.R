@@ -12,7 +12,7 @@
 #' @param only_round default argument for [format_fixed()]
 #' @param verbosity_autotesting one of `default`, `quiet`, or `verbose`
 #' @param verbosity_duplicate_cols one of `default`, `quiet`, or `verbose`.
-#' @param crosstable_fishertest_B number of simulations to perform when `fisher.test()` is failing (FEXACT error 7).
+#' @param fishertest_B number of simulations to perform when `fisher.test()` is failing (FEXACT error 7).
 #' @param total For setting [crosstable()] arguments globally.
 #' @param margin For setting [crosstable()] arguments globally.
 #' @param percent_pattern For setting [crosstable()] arguments globally.
@@ -28,7 +28,7 @@
 #' @param date_format For setting [crosstable()] arguments globally.
 #' @param times For setting [crosstable()] arguments globally.
 #' @param followup For setting [crosstable()] arguments globally.
-#' @param test_arg For setting [crosstable()] arguments globally.
+#' @param test_args For setting [crosstable()] arguments globally.
 #' @param effect_args For setting [crosstable()] arguments globally.
 #'
 #--- flextable() ---
@@ -60,12 +60,16 @@
 #' @param normal_squish Should you squish text in normal paragraphs?
 #' @param title_squish Should you squish text in headers paragraphs?
 #' @param allow_break allow crosstable rows to break across pages
+#' @param section_title,section_title_level,section_sentence cf. [body_add_table_section()]
 #' @param style_normal For specifying styles used in your `{officer}` template.
 #' @param style_image For specifying styles used in your `{officer}` template.
 #' @param style_legend For specifying styles used in your `{officer}` template.
 #' @param style_heading For specifying styles used by headings on different levels. Levels will be pasted in the end (e.g. use `"title"` if your level 2 heading style is `"title2"`).
 #' @param style_list_ordered,style_list_unordered For specifying styles used by lists in the `rdocx` template. Needed for [body_add_list()] to work.
 #' @param scientific_log the maximum power a number can have before being formatted as scientific. Default to 4 so applies on numbers <1e-4 or >1e4.
+#' @param clean_names_fun cf. [clean_names_with_labels()]
+#' @param verbosity_na_cols verbosity of a warning
+#' @param format_epsilon cf. [format_fixed()]
 #' @param .local if TRUE, the effect will only apply to the local frame (thanks to `rlang::local_options()`)
 #'
 #' @seealso [crosstable_peek_options()] and [crosstable_reset_options()]
