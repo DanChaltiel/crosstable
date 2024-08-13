@@ -52,11 +52,13 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
 #' @keywords internal
 #' @noRd
 summarize_categorical_single = function(x, showNA, total, digits, percent_pattern,
-                                        remove_zero_percent){
+                                        remove_zero_percent=NULL){
   tbd = table(x, useNA = "always") %>%
     as.data.frame() %>%
     select(x=1, n=2) #needed for an odd bug on fedora-devel
-  remove_zero_percent = getOption("crosstable_remove_zero_percent", remove_zero_percent)
+  if(is.null(remove_zero_percent)){
+    remove_zero_percent = getOption("crosstable_remove_zero_percent", FALSE)
+  }
   ppv_ci = percent_pattern_contains(percent_pattern, "_inf|_sup")
   if(!ppv_ci) getTableCI = function(x, ...) x
 
@@ -117,8 +119,10 @@ summarize_categorical_by = function(x, by,
                                     percent_pattern, margin,
                                     showNA, total, digits,
                                     test, test_args, effect, effect_args,
-                                    remove_zero_percent){
-  remove_zero_percent = getOption("crosstable_remove_zero_percent", remove_zero_percent)
+                                    remove_zero_percent=NULL){
+  if(is.null(remove_zero_percent)){
+    remove_zero_percent = getOption("crosstable_remove_zero_percent", FALSE)
+  }
   ppv_ci = percent_pattern_contains(percent_pattern, "_inf|_sup")
   if(!ppv_ci) getTableCI = function(x, ...) x
 
