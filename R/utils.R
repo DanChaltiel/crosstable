@@ -643,11 +643,12 @@ cl = function(...){
 #' Syntax: "New"="Old"
 #'
 #' @importFrom forcats fct_recode
+#' @importFrom rlang dots_list
 #' @keywords internal
 #' @noRd
 recode_any = function(x, ...){
   stopifnot(is.character.or.factor(x))
-  l = c(...)
+  l = unlist(dots_list(...))
   if(is.factor(x)){
     lvls = intersect(l, x)
     x = fct_recode(x, !!!lvls)
