@@ -37,11 +37,14 @@ test_that('Contains both `NA` and "NA"', {
 
 
 test_that('`remove_zero_percent` works', {
+  crosstable_options(remove_zero_percent=TRUE, .local=TRUE)
+  a = crosstable(mtcars2, cyl, by=vs)
+  expect_true(any(a=="0"))
   crosstable_options(remove_zero_percent=FALSE, .local=TRUE)
   a = crosstable(mtcars2, cyl, by=vs)
   expect_false(any(a=="0"))
-  b = crosstable(mtcars2, cyl, by=vs, remove_zero_percent=TRUE)
-  expect_true(any(b=="0"))
+  a = crosstable(mtcars2, cyl, by=vs, remove_zero_percent=TRUE)
+  expect_true(any(a=="0"))
 })
 
 # Crossing difftime -------------------------------------------------------

@@ -29,6 +29,7 @@ crosstable_options(
   verbosity_autotesting="quiet",
   verbosity_na_cols="verbose",
 )
+# rlang::global_entrace()
 # prettycode::prettycode()
 
 

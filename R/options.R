@@ -143,6 +143,7 @@ crosstable_options = function(
   unknown_argdot = argdot[!names(argdot) %in% argdot_ok & !names(argdot) %in% args_ok]
   argg = argg[!names(argg) %in% names(unknown_argdot)]
   argg = argg[names(argg)!=".local"]
+  argg = c(argg, argdot)
   if(length(unknown_argdot)>0){
     cli::cli_warn(c("Unknown crosstable option{?s} were ignored: {names(unknown_argdot)}."),
                   class="crosstable_unknown_option_warning")
