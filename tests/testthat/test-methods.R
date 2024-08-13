@@ -44,9 +44,6 @@ test_that("transpose errors", {
   crosstable(mtcars2, c(mpg, drat), by=vs) %>% ct_compact() %>% t() %>%
     expect_error(class="crosstable_transpose_compact")
 
-  crosstable(mtcars2, c(mpg, drat), by=c(vs, am)) %>% t() %>%
-    expect_error(class="crosstable_transpose_multi_by")
-
   crosstable(mtcars2, c(mpg, am), by=c(vs)) %>% t() %>%
     expect_error(class="crosstable_transpose_multi_var")
 

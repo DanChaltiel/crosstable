@@ -16,6 +16,7 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 -   Fixed `get_label()` on named vector columns (#72).
 -   Fixed `crosstable(drop_levels)` (#69, #70, #71).
 -   Flextable autofit now uses the recommended method (#62).
+-   `transpose()` will work on multi-by crosstables (but `as_flextable()` will need some refinement) (#60).
 -   Fixed a bug happening when NA is already a level (#59).
 -   Fixed error where `by` contains "label" (#56).
 -   Fixed `as_flextable(header_show_n)` not working in single `by` (#54).

@@ -81,10 +81,6 @@ transpose_crosstable = function(x){
     cli_abort("You cannot transpose a compacted crosstable.",
               class="crosstable_transpose_compact")
   }
-  if(is.multiby_crosstable(x)){
-    cli_abort("You cannot transpose a crosstable with multiple `by` strata.",
-              class="crosstable_transpose_multi_by")
-  }
   if(!all(table(x$.id, x$variable)==1)){
     w = x %>%
       group_by(.id) %>% summarise(variable = paste0("'", variable, "'", collapse=", ")) %>%
@@ -119,18 +115,31 @@ transpose_crosstable = function(x){
               class="crosstable_transpose_labels")
   }
 
+  if(is.multiby_crosstable(x)){
+    rtn =
+      x %>%
+      pivot_longer(-(.id:variable)) %>%
+      mutate(.id = if(!is.null(id)) id[name,] else name) %>%
+      pivot_wider(names_from = all_of(col_label)) %>%
+      mutate(name=as_factor(name),
+             variable=as_factor(variable)) %>%
+      arrange(name, variable) %>%
+      mutate(name=as.character(name),
+             variable=as.character(variable)) %>%
+      select(.id, labels=name, variable, everything())
+  } else {
+    rtn = x %>%
+      pivot_longer(-(1:3)) %>%
+      mutate(.id = if(!is.null(id)) id[name,] else name) %>%
+      pivot_wider(names_from = all_of(col_label)) %>%
+      mutate(name=factor(name, levels=by_level[[1]]),
+             variable=factor(variable, levels=v_levels)) %>%
+      arrange(name, variable) %>%
+      mutate(name=as.character(name),
+             variable=as.character(variable)) %>%
+      select(.id, !!names(by_level):=name, variable, everything())
 
-  rtn = x %>%
-    pivot_longer(-(1:3)) %>%
-    mutate(.id = if(!is.null(id)) id[name,] else name) %>%
-    pivot_wider(names_from = all_of(col_label)) %>%
-    mutate(name=factor(name, levels=by_level[[1]]),
-           variable=factor(variable, levels=v_levels)) %>%
-    arrange(name, variable) %>%
-    mutate(name=as.character(name),
-           variable=as.character(variable)) %>%
-    select(.id, !!names(by_level):=name, variable, everything())
-
+  }
   rtn = rtn %>% attributes_from(x)
 
   attr(rtn, "by_levels") = list(x=unique(x[[col_label]])) %>% set_names(col_label)
