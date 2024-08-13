@@ -19,7 +19,7 @@ crosstable(
   funs_arg = list(),
   cor_method = c("pearson", "kendall", "spearman"),
   drop_levels = FALSE,
-  remove_zero_percent = FALSE,
+  remove_zero_percent = NULL,
   unique_numeric = 3,
   date_format = NULL,
   times = NULL,
