@@ -33,7 +33,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9010</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,7 +74,7 @@
                         <h4 data-toc-skip class="author">Dan
 Chaltiel</h4>
             
-            <h4 data-toc-skip class="date">2024-08-12</h4>
+            <h4 data-toc-skip class="date">2024-08-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/DanChaltiel/crosstable/blob/main/vignettes/crosstable-report.Rmd" class="external-link"><code>vignettes/crosstable-report.Rmd</code></a></small>
       <div class="d-none name"><code>crosstable-report.Rmd</code></div>
@@ -89,13 +89,15 @@ crosstables.</p>
 <li>You have a lot of tables and little text? You probably should use <a href="#create-reports-with-officer">officer</a>.</li>
 <li>You have a lot of text and a few tables? You probably should use <a href="#create-reports-with-rmarkdown">Rmarkdown</a>.</li>
 </ul>
+<p>As I only find myself in the first case, this vignette will only talk
+about officer.</p>
 <div class="section level2">
 <h2 id="create-reports-with-officer">Create reports with <code>officer</code><a class="anchor" aria-label="anchor" href="#create-reports-with-officer"></a>
 </h2>
 <p>The real power of <code>crosstable</code> comes out when used with
 David Gohel’s awesome package <a href="https://davidgohel.github.io/officer/" class="external-link"><code>officer</code></a>,
 which allows to automatically create MS Word documents.</p>
-<p>For instance, let’s try to create a document like this: <img src="officer-example.png" alt="officer example"></p>
+<p>For the example, let’s try to create a document like this: <img src="officer-example.png" alt="officer example"></p>
 <p>You can also download this example <a href="https://github.com/DanChaltiel/crosstable/raw/main/examples/vignette_officer.docx" class="external-link">here</a>.</p>
 <div class="section level3">
 <h3 id="code">Code<a class="anchor" aria-label="anchor" href="#code"></a>
@@ -152,7 +154,6 @@ that can be referred to in the text for automatic numbering.</p>
 possible, so it contains multiple syntaxes for the same result. Of
 course, you should use whatever syntax you are most comfortable
 with.</p>
-<p>You can find other useful functions in the <a href="https://danchaltiel.github.io/crosstable/reference/index.html#section-officer-helpers">references</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="output">Output<a class="anchor" aria-label="anchor" href="#output"></a>
@@ -182,7 +183,9 @@ level</li>
 <li>
 <code><a href="../reference/body_add_normal.html">body_add_normal()</a></code>: adds a normal style paragraph. You
 can also incorporate variables using the syntax <code>{nrow(ct3)}</code>
-and references using the syntax <code>\\@ref(my_bookmark)</code>.</li>
+and references using the syntax <code>\\@ref(my_bookmark)</code>. It
+also support Markdown syntax for bold, italics, colored text… See
+<code><a href="../reference/body_add_normal.html">help(body_add_normal)</a></code> to see the details.</li>
 <li>
 <code><a href="../reference/body_add_crosstable.html">body_add_crosstable()</a></code>: adds a crosstable</li>
 <li>
@@ -196,50 +199,21 @@ and references using the syntax <code>\\@ref(my_bookmark)</code>.</li>
 <code>units</code> argument or the options
 <code>options(crosstable_units="cm")</code>.</li>
 </ul>
-<p>Browse <a href="https://davidgohel.github.io/officer/" class="external-link uri">https://davidgohel.github.io/officer/</a> for more insight
+<p><a href="https://danchaltiel.github.io/crosstable/">crosstable</a> comes with many <code>officer</code>-like
+functions to help you create your report, see the full list in the <a href="https://danchaltiel.github.io/crosstable/reference/index.html#officer-helpers">references</a>.</p>
+<p>Also, browse <a href="https://davidgohel.github.io/officer/" class="external-link uri">https://davidgohel.github.io/officer/</a> for more insight
 about how you can use <a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a>.</p>
-</div>
-<div class="section level3">
-<h3 id="autofit-macro-for-large-tables">Autofit macro for large tables<a class="anchor" aria-label="anchor" href="#autofit-macro-for-large-tables"></a>
-</h3>
-<p>This is great, but large tables will unfortunately overflow your
-document.</p>
-<p>This is a (<a href="https://ardata-fr.github.io/officeverse/faq.html#update-fields" class="external-link">known</a>)
-limitation that cannot be fixed using <code>R</code>.</p>
-<p>You would have to use MS Word autofit tools on each table one by one
-(<code>Table Tools &gt; Layout &gt; AutoFit &gt; AutoFit Window</code>),
-which can be really tedious.</p>
-<p>But fear not! You can use a MS Word macro to do the job for you. Here
-is how:</p>
-<ul>
-<li><p>In the R console, run <code><a href="../reference/generate_autofit_macro.html">generate_autofit_macro()</a></code> to
-generate the file <code>crosstable_autofit.bas</code> in your working
-directory.</p></li>
-<li><p>In MS Word, press <kbd>Alt</kbd>+<kbd>F11</kbd> to open the VB
-Editor.</p></li>
-<li><p>In the Editor, go to <code>File</code> &gt; <code>Import</code>
-or press <code>Ctrl+M</code> to open the import dialog, and import
-<code>crosstable_autofit.bas</code>. There should now be a
-“CrosstableMacros” module in the “Normal” project.</p></li>
-<li><p>Run the macro, either from the VB Editor or from
-<code>View</code> &gt; <code>Macros</code> &gt; <code>View Macros</code>
-&gt; <code>Run</code>.</p></li>
-</ul>
-<p>This process will make the macro accessible from any Word file on
-this computer. Note that, in the Editor, you can also drag the module to
-your document project to make the macro accessible only from this file.
-The file will have to be named with the <code>docm</code> extension
-though.</p>
 </div>
 <div class="section level3">
 <h3 id="styles">Styles<a class="anchor" aria-label="anchor" href="#styles"></a>
 </h3>
-<p>Crosstables uses <a href="https://support.microsoft.com/fr-fr/office/personnaliser-ou-cr%C3%A9er-des-styles-d38d6e47-f6fc-48eb-a607-1eb120dec563" class="external-link">Word
-styles</a> to operate at full power .</p>
+<p>Crosstable uses <a href="https://support.microsoft.com/fr-fr/office/personnaliser-ou-cr%C3%A9er-des-styles-d38d6e47-f6fc-48eb-a607-1eb120dec563" class="external-link">Word
+styles</a> extensively.</p>
 <p>Here, I used the default template of
 <code><a href="https://davidgohel.github.io/officer/reference/read_docx.html" class="external-link">officer::read_docx()</a></code> that comes with default styles. In
 your own custom template, you can edit all styles (for instance you can
-make “Normal” have a bold font of size 8) and add your own.</p>
+make “Normal” have a bold font of size 8) and add your own. See <a href="https://ardata-fr.github.io/officeverse/office-documents-generation.html#templates" class="external-link">the
+official documentation</a> on how to use templates.</p>
 <p>The best example here is <code><a href="../reference/body_add_list.html">body_add_list()</a></code>, which is
 supposed to add a bullet list. Unfortunately, the default template does
 not come with list styles so you will have to add one to your custom
@@ -261,57 +235,41 @@ match any style named ‘xxx’” if you are not careful.</p>
 <div class="section level3">
 <h3 id="post-production-for-tablefigure-legends">Post-production for table/figure legends<a class="anchor" aria-label="anchor" href="#post-production-for-tablefigure-legends"></a>
 </h3>
-<p>Depending on your version of <a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a>, Word will ask
-you to update the fields</p>
+<p>If you added some legends or TOC titles, MS Word might ask you to
+“update the fields”, to which you should answer “Yes”. This will trigger
+the automatic numbering of tables and references.</p>
+</div>
+<div class="section level3">
+<h3 id="autofit-macro-for-large-tables">Autofit macro for large tables<a class="anchor" aria-label="anchor" href="#autofit-macro-for-large-tables"></a>
+</h3>
+<p>Auto-fitting from outside MS Word has its limits, and large tables
+might still overflow your document.</p>
+<p>If so, you can use MS Word inner autofit tools on each table one by
+one
+(<code>Table Tools &gt; Layout &gt; AutoFit &gt; AutoFit Window</code>),
+which can be really tedious.</p>
+<p>But fear not! You can also use a MS Word macro to do the job for you.
+Here is how:</p>
 <ul>
-<li><p>During the opening of the document, MS Word might ask you to
-“update the fields”, to which you should answer “Yes”. If it does not
-ask or if you answer “No”, the legends added with
-<code><a href="../reference/body_add_legend.html">body_add_table_legend()</a></code> or
-<code><a href="../reference/body_add_legend.html">body_add_figure_legend()</a></code> might have no actual numbers
-displayed.<br>
-In this case, you have to manually update the references inside MS Word:
-select all (+), then update (), sometimes twice. You might even need to
-do this several times. See <code><a href="../reference/body_add_legend.html">?body_add_legend</a></code> for more
-insight.</p></li>
-<li><p>Be aware that you unfortunately cannot reference a bookmark more
-than once using this method. Writing:
-<code>body_add_normal("Table \\@ref(iris_col1) is about flowers. I like this Table \\@ref(iris_col1).")</code>
-will prevent <strong>all</strong> the numbering from applying.</p></li>
+<li><p>In the R console, run <code><a href="../reference/generate_autofit_macro.html">generate_autofit_macro()</a></code> to
+generate the file <code>crosstable_autofit.bas</code> in your working
+directory.</p></li>
+<li><p>In MS Word, press <kbd>Alt</kbd>+<kbd>F11</kbd> to open the VB
+Editor.</p></li>
+<li><p>In the Editor, go to <code>File</code> &gt; <code>Import</code>
+or press <code>Ctrl+M</code> to open the import dialog, and import
+<code>crosstable_autofit.bas</code>. There should now be a
+“CrosstableMacros” module in the “Normal” project.</p></li>
+<li><p>Run the macro, either from the VB Editor or from
+<code>View</code> &gt; <code>Macros</code> &gt; <code>View Macros</code>
+&gt; <code>Run</code>.</p></li>
 </ul>
+<p>This process will make the macro accessible from any Word file on
+this computer. Note that, in the Editor, you can also drag the module to
+your document project to make the macro accessible only from this file.
+The file will have to be named with the <code>docm</code> extension
+though.</p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="create-reports-with-rmarkdown">Create reports with <code>Rmarkdown</code><a class="anchor" aria-label="anchor" href="#create-reports-with-rmarkdown"></a>
-</h2>
-<!-- Integration Rmd in Rmd: la coloration syntaxique RStudio est mauvaise mais le code est bon ! -->
-<!-- https://stackoverflow.com/questions/53226493/add-markdown-code-chunk-to-r-markdown-document#comment104859956_53226493 -->
-<p>Knitting (<code><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knitr::knit()</a></code> or via <strong>RStudio</strong>)
-this <code>Rmd</code> code also creates a MS-Word file. Here, you can
-use the power of <code>bookdown</code> to generate the automatic
-numbering of the tables.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>---</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>title: "Iris"</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>output: bookdown::word_document2</span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>---</span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="in">library(crosstable)</span></span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="in">library(flextable)</span></span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>Table iris is given in Table \@ref(tab:irisTable).</span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="in">```{r description, echo=FALSE, results='asis'}</span></span>
-<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="in">cat("&lt;caption&gt; (\\#tab:irisTable) Table Iris &lt;/caption&gt; \n\r ")</span></span>
-<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="in">crosstable(iris, Sepal.Length, Sepal.Width, by=Species, test = TRUE, total="column") %&gt;% as_flextable</span></span>
-<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
-<p>You can example files here: <a href="../examples/vignette_markdown.Rmd">vignette_markdown.Rmd</a> and
-<a href="../examples/vignette_markdown.docx">vignette_markdown.docx</a>.</p>
-<p>I have to admit that I don’t use Rmarkdown a lot with
-<code>crosstable</code>, so this feature might not be as maintained as
-others.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
