@@ -11,6 +11,7 @@ body_add_normal(
   .sep = "",
   style = NULL,
   squish = TRUE,
+  font_size = NA,
   parse = c("ref", "format", "code")
 )
 }

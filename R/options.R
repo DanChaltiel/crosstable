@@ -129,7 +129,6 @@ crosstable_options = function(
     return(invisible())
   }
 
-browser()
   #variables passed as names
   argg = as.list(match.call(expand.dots=FALSE)) %>%
     discard(is.name) %>% discard_at("...")
