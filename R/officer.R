@@ -1001,7 +1001,8 @@ parse_md = function(x, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE, parse
   p[[1]] = ftext(substring(x, 1, rtn$start[1]-1))
   for(i in seq(nrow(rtn))){
     d = as.list(rtn[i, ])
-    if(!is.na(d$shade)){ #bug in fp_text_lite(), see officer/#538
+    if(!is.na(d$shade)){
+      #bug in fp_text_lite(), change when https://github.com/davidgohel/officer/issues/538 is fixed
       if(!is.na(d$color)) cli_warn("Shade can only be added to default black text.")
       d$color = "black"
     }

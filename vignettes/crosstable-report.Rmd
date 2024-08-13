@@ -34,7 +34,9 @@ There are two cases to consider:
 
 As I only find myself in the first case, this vignette will only talk about officer.
 
-## Create reports with `officer`
+# Create reports with `officer`
+
+## Output example
 
 The real power of `crosstable` comes out when used with David Gohel's awesome package [`officer` ](https://davidgohel.github.io/officer/), which allows to automatically create MS Word documents. 
 
@@ -43,7 +45,7 @@ For the example, let's try to create a document like this:
 
 You can also download this example [here](https://github.com/DanChaltiel/crosstable/raw/main/examples/vignette_officer.docx).
 
-### Code
+## Code
 
 This code will produce the example above.
 
@@ -69,7 +71,7 @@ doc = read_docx() %>% #default template
   body_add_title("Dataset iris (nrow={nrow(iris)})", 1) %>%
   body_add_title("Not compacted", 2) %>%
   body_add_normal("Table \\@ref(table_autotest) is an example. However, automatic 
-                  testing is bad and I should feel bad.") %>%
+                  testing is **bad** and I should feel **bad**.") %>%
   body_add_crosstable(ct1) %>%
   body_add_table_legend("Automatic testing is bad", bookmark="table_autotest") %>%
   body_add_normal() %>%  
@@ -94,7 +96,7 @@ doc = read_docx() %>% #default template
 
 For demonstration purposes, I tried to cover as many features as possible, so it contains multiple syntaxes for the same result. Of course, you should use whatever syntax you are most comfortable with.
 
-### Output
+## Output
 
 ```{r save, include=FALSE}
 if(file.exists("../examples")){
@@ -114,7 +116,7 @@ While you are still working on your code, you might want to omit the name so tha
 
 You can also use `print(doc, "vignette_officer.docx")` if you don't want the file to open right away.
 
-### Functions
+## Functions
 
 Here is a brief description of the functions used in this example:
 
@@ -129,7 +131,7 @@ Here is a brief description of the functions used in this example:
 
 Also, browse https://davidgohel.github.io/officer/ for more insight about how you can use `{officer}`.
 
-### Styles
+## Styles
 
 Crosstable uses [Word styles](https://support.microsoft.com/fr-fr/office/personnaliser-ou-cr%C3%A9er-des-styles-d38d6e47-f6fc-48eb-a607-1eb120dec563) extensively.
 
@@ -152,12 +154,12 @@ See `?crosstable_options` for a list of all styles you can specify globally and 
 
 Note that you might sometimes encounter the error "Error: could not match any style named 'xxx'" if you are not careful.
 
-### Post-production for table/figure legends
+## Post-production for table/figure legends
 
 If you added some legends or TOC titles, MS Word might ask you to "update the fields", to which you should answer "Yes". 
 This will trigger the automatic numbering of tables and references.
 
-### Autofit macro for large tables
+## Autofit macro for large tables
 
 Auto-fitting from outside MS Word has its limits, and large tables might still overflow your document.
 
