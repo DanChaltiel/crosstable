@@ -33,7 +33,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9010</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9011</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,11 +94,15 @@ about officer.</p>
 <div class="section level2">
 <h2 id="create-reports-with-officer">Create reports with <code>officer</code><a class="anchor" aria-label="anchor" href="#create-reports-with-officer"></a>
 </h2>
+<div class="section level3">
+<h3 id="output-example">Output example<a class="anchor" aria-label="anchor" href="#output-example"></a>
+</h3>
 <p>The real power of <code>crosstable</code> comes out when used with
 David Gohel’s awesome package <a href="https://davidgohel.github.io/officer/" class="external-link"><code>officer</code></a>,
 which allows to automatically create MS Word documents.</p>
 <p>For the example, let’s try to create a document like this: <img src="officer-example.png" alt="officer example"></p>
 <p>You can also download this example <a href="https://github.com/DanChaltiel/crosstable/raw/main/examples/vignette_officer.docx" class="external-link">here</a>.</p>
+</div>
 <div class="section level3">
 <h3 id="code">Code<a class="anchor" aria-label="anchor" href="#code"></a>
 </h3>
@@ -129,7 +133,7 @@ that can be referred to in the text for automatic numbering.</p>
 <span>  <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Dataset iris (nrow={nrow(iris)})"</span>, <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/body_add_title.html">body_add_title</a></span><span class="op">(</span><span class="st">"Not compacted"</span>, <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="st">"Table \\@ref(table_autotest) is an example. However, automatic </span></span>
-<span><span class="st">                  testing is bad and I should feel bad."</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="st">                  testing is **bad** and I should feel **bad**."</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/body_add_crosstable.html">body_add_crosstable</a></span><span class="op">(</span><span class="va">ct1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/body_add_legend.html">body_add_table_legend</a></span><span class="op">(</span><span class="st">"Automatic testing is bad"</span>, bookmark<span class="op">=</span><span class="st">"table_autotest"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/body_add_normal.html">body_add_normal</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>  </span>

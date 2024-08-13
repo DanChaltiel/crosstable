@@ -16,7 +16,7 @@ Can be formatted as an HTML table using as_flextable()."><meta property="og:imag
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9010</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9011</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,6 +70,7 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 <span>  funs_arg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  cor_method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pearson"</span>, <span class="st">"kendall"</span>, <span class="st">"spearman"</span><span class="op">)</span>,</span>
 <span>  drop_levels <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  remove_zero_percent <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  unique_numeric <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  date_format <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  times <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -141,6 +142,10 @@ Can be formatted as an HTML table using <code><a href="as_flextable.html">as_fle
 
 <dt id="arg-drop-levels">drop_levels<a class="anchor" aria-label="anchor" href="#arg-drop-levels"></a></dt>
 <dd><p>Whether to drop unused levels of factor variables. Default to <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-remove-zero-percent">remove_zero_percent<a class="anchor" aria-label="anchor" href="#arg-remove-zero-percent"></a></dt>
+<dd><p>Whether to remove proportions when <code>n==0</code>. Default to <code>FALSE</code>.</p></dd>
 
 
 <dt id="arg-unique-numeric">unique_numeric<a class="anchor" aria-label="anchor" href="#arg-unique-numeric"></a></dt>

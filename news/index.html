@@ -12,7 +12,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9010</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9011</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +47,9 @@
 <h2 class="pkg-version" data-toc-text="0.7.1" id="crosstable-071-development-version">crosstable 0.7.1 (development version)<a class="anchor" aria-label="anchor" href="#crosstable-071-development-version"></a></h2>
 <div class="section level5">
 <h5 id="new-features-0-7-1">New features<a class="anchor" aria-label="anchor" href="#new-features-0-7-1"></a></h5>
-<ul><li>xxxxx</li>
+<ul><li>Remove percents when N=0 with <code>crosstable(remove_zero_percent=TRUE)</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/78" class="external-link">#78</a>).</li>
+<li>Control font size with <code>body_add_normal(font_size)</code> and <code>crosstable_options(normal_font_size)</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/65" class="external-link">#65</a>).</li>
+<li>Option control on height &amp; width in <code><a href="../reference/body_add_gg2.html">body_add_gg2()</a></code> (<a href="https://github.com/DanChaltiel/crosstable/issues/68" class="external-link">#68</a>).</li>
 </ul></div>
 <div class="section level5">
 <h5 id="bug-fixes-and-improvements-0-7-1">Bug fixes and improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-improvements-0-7-1"></a></h5>
@@ -56,7 +58,6 @@
 <li>Moved the legend above the table in <code><a href="../reference/body_add_table_section.html">body_add_table_section()</a></code> (<a href="https://github.com/DanChaltiel/crosstable/issues/73" class="external-link">#73</a>).</li>
 <li>Fixed <code><a href="../reference/get_label.html">get_label()</a></code> on named vector columns (<a href="https://github.com/DanChaltiel/crosstable/issues/72" class="external-link">#72</a>).</li>
 <li>Fixed <code>crosstable(drop_levels)</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/69" class="external-link">#69</a>, <a href="https://github.com/DanChaltiel/crosstable/issues/70" class="external-link">#70</a>, <a href="https://github.com/DanChaltiel/crosstable/issues/71" class="external-link">#71</a>).</li>
-<li>Option control on height &amp; width in <code><a href="../reference/body_add_gg2.html">body_add_gg2()</a></code> (<a href="https://github.com/DanChaltiel/crosstable/issues/68" class="external-link">#68</a>).</li>
 <li>Flextable autofit now uses the recommended method (<a href="https://github.com/DanChaltiel/crosstable/issues/62" class="external-link">#62</a>).</li>
 <li>Fixed a bug happening when NA is already a level (<a href="https://github.com/DanChaltiel/crosstable/issues/59" class="external-link">#59</a>).</li>
 <li>Fixed error where <code>by</code> contains “label” (<a href="https://github.com/DanChaltiel/crosstable/issues/56" class="external-link">#56</a>).</li>
