@@ -19,6 +19,7 @@ crosstable(
   funs_arg = list(),
   cor_method = c("pearson", "kendall", "spearman"),
   drop_levels = FALSE,
+  remove_zero_percent = FALSE,
   unique_numeric = 3,
   date_format = NULL,
   times = NULL,
@@ -59,6 +60,8 @@ crosstable(
 \item{cor_method}{One of \code{c("pearson", "kendall", "spearman")} to indicate which correlation coefficient is to be used.}
 
 \item{drop_levels}{Whether to drop unused levels of factor variables. Default to \code{TRUE}.}
+
+\item{remove_zero_percent}{Whether to remove proportions when \code{n==0}. Default to \code{FALSE}.}
 
 \item{unique_numeric}{The number of non-missing different levels a variable should have to be considered as numeric.}
 

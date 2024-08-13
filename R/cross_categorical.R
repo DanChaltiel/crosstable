@@ -5,7 +5,7 @@
 #' @keywords internal
 #' @noRd
 cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits, percent_pattern,
-                           drop_levels, test, test_args, effect, effect_args){
+                           drop_levels, test, test_args, effect, effect_args, remove_zero_percent){
 
   stopifnot(ncol(data_x)==1 && (is.null(data_y) || ncol(data_y)==1))
   stopifnot(is.character.or.factor(data_x[[1]]))
@@ -22,14 +22,16 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
   if(is.null(data_y)){
     rtn=summarize_categorical_single(data_x[[1]],
                                      percent_pattern=percent_pattern, showNA=showNA,
-                                     total=total, digits=percent_digits)
+                                     total=total, digits=percent_digits,
+                                     remove_zero_percent=remove_zero_percent)
   } else if(is.character.or.factor(data_y[[1]])){
     data_y[[1]] = recode_any(data_y[[1]], ".id2"=".id", "label2"="label")
     rtn=summarize_categorical_by(data_x[[1]], data_y[[1]],
                                  percent_pattern=percent_pattern, showNA=showNA,
                                  total=total, digits=percent_digits,
                                  test=test, test_args=test_args,
-                                 effect=effect, effect_args=effect_args)
+                                 effect=effect, effect_args=effect_args,
+                                 remove_zero_percent=remove_zero_percent)
   } else {
     return(NULL)
   }
@@ -49,11 +51,12 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
 #' @importFrom tidyr replace_na
 #' @keywords internal
 #' @noRd
-summarize_categorical_single = function(x, showNA, total, digits, percent_pattern){
+summarize_categorical_single = function(x, showNA, total, digits, percent_pattern,
+                                        remove_zero_percent){
   tbd = table(x, useNA = "always") %>%
     as.data.frame() %>%
     select(x=1, n=2) #needed for an odd bug on fedora-devel
-  remove_zero_percent = getOption("crosstable_remove_zero_percent", FALSE)
+  remove_zero_percent = getOption("crosstable_remove_zero_percent", remove_zero_percent)
   ppv_ci = percent_pattern_contains(percent_pattern, "_inf|_sup")
   if(!ppv_ci) getTableCI = function(x, ...) x
 
@@ -113,8 +116,9 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
 summarize_categorical_by = function(x, by,
                                     percent_pattern, margin,
                                     showNA, total, digits,
-                                    test, test_args, effect, effect_args){
-  remove_zero_percent = getOption("crosstable_remove_zero_percent", FALSE)
+                                    test, test_args, effect, effect_args,
+                                    remove_zero_percent){
+  remove_zero_percent = getOption("crosstable_remove_zero_percent", remove_zero_percent)
   ppv_ci = percent_pattern_contains(percent_pattern, "_inf|_sup")
   if(!ppv_ci) getTableCI = function(x, ...) x
 

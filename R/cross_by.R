@@ -8,7 +8,7 @@
 #' @keywords internal
 #' @noRd
 cross_by = function(data_x, data_y, funs, funs_arg, percent_pattern, total, percent_digits,
-                    showNA, label, test, times, followup, drop_levels,
+                    showNA, label, test, times, followup, drop_levels, remove_zero_percent,
                     test_args, cor_method, effect, effect_args){
   if(!is.null(data_y) && ncol(data_y)>1) cli_abort(glue("data_y has {ncol(data_y)} columns (max=1)"))
   errors = rlang::env()
@@ -60,7 +60,7 @@ cross_by = function(data_x, data_y, funs, funs_arg, percent_pattern, total, perc
     } else if(is.character.or.factor(.x)){
       rtn=cross_categorical(data_x[.y], data_y, percent_pattern=percent_pattern,
                             showNA=showNA, total=total, label=label, percent_digits=percent_digits,
-                            drop_levels=drop_levels,
+                            drop_levels=drop_levels, remove_zero_percent=remove_zero_percent,
                             test=test, test_args=test_args, effect=effect, effect_args=effect_args)
     } else if(is.Surv(.x)){
       rtn=cross_survival(data_x[.y], data_y, times=times, followup=followup,

@@ -24,6 +24,7 @@ options(
   # lifecycle_verbosity="verbose",
   testthat.progress.max_fails = 50
 )
+crosstable_reset_options(quiet=TRUE)
 crosstable_options(
   verbosity_autotesting="quiet",
   verbosity_na_cols="verbose",

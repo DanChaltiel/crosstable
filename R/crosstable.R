@@ -28,6 +28,7 @@ crosstable_caller = rlang::env()
 #' @param label Whether to show labels. See [import_labels()] or [set_label()]for how to add labels to the dataset columns.
 #' @param cor_method One of `c("pearson", "kendall", "spearman")` to indicate which correlation coefficient is to be used.
 #' @param drop_levels Whether to drop unused levels of factor variables. Default to `TRUE`.
+#' @param remove_zero_percent Whether to remove proportions when `n==0`. Default to `FALSE`.
 #' @param times When using formula with [survival::Surv()] objects, which times to summarize.
 #' @param followup When using formula with [survival::Surv()] objects, whether to display follow-up time.
 #' @param test Whether to perform tests.
@@ -107,7 +108,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
                       showNA = c("ifany", "always", "no"), label = TRUE,
                       funs = c(" " = cross_summary), funs_arg=list(),
                       cor_method = c("pearson", "kendall", "spearman"),
-                      drop_levels = FALSE,
+                      drop_levels = FALSE, remove_zero_percent=FALSE,
                       unique_numeric = 3, date_format=NULL,
                       times = NULL, followup = FALSE,
                       test = FALSE, test_args = crosstable_test_args(),
@@ -409,7 +410,9 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
     rtn = cross_by(data_x=data_x, data_y=data_y2, funs=funs, funs_arg=funs_arg,
                    percent_pattern=percent_pattern, total=total,
                    percent_digits=percent_digits, showNA=showNA, drop_levels=drop_levels,
-                   cor_method=cor_method, times=times, followup=followup, test=test, test_args=test_args,
+                   remove_zero_percent=remove_zero_percent,
+                   cor_method=cor_method, times=times, followup=followup,
+                   test=test, test_args=test_args,
                    effect=effect, effect_args=effect_args, label=label)
 
     class(rtn) = c("crosstable_multiby", "crosstable", "tbl_df", "tbl", "data.frame")
@@ -419,6 +422,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
     rtn = cross_by(data_x=data_x, data_y=data_y, funs=funs, funs_arg=funs_arg,
                    percent_pattern=percent_pattern, percent_digits=percent_digits,
                    total=total, showNA=showNA, drop_levels=drop_levels,
+                   remove_zero_percent=remove_zero_percent,
                    cor_method=cor_method, times=times, followup=followup, test=test, test_args=test_args,
                    effect=effect, effect_args=effect_args, label=label)
     class(rtn) = c("crosstable", "tbl_df", "tbl", "data.frame")
