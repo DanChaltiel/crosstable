@@ -79,6 +79,7 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #' @param doc the doc object (created with the `read_docx` function of `officer` package)
 #' @param ... one or several character strings, pasted using `.sep`. As with `glue::glue()`, expressions enclosed by braces will be evaluated as R code. If more than one variable is passed, all should be of length 1.
 #' @param style Style for normal text. Best set with [crosstable_options()].
+#' @param font_size Font size.
 #' @param .sep Separator used to separate elements.
 #' @param squish Whether to squish the result (remove trailing and repeated spaces). Default to `TRUE`. Allows to add multiline paragraph without breaking the string.
 #' @param parse which format to parse. Default to all formats (`c("ref", "format", "code")`).
@@ -145,6 +146,7 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, font_size=NA,
                            parse=c("ref", "format", "code")) {
   if(missing(squish)) squish = getOption("crosstable_normal_squish", TRUE)
+  if(missing(font_size)) font_size = getOption("crosstable_normal_font_size", NA)
   dots = list(...)
   if(is.null(style)){
     style = getOption("crosstable_style_normal", doc$default_styles$paragraph)

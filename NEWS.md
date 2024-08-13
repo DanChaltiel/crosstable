@@ -5,7 +5,7 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 #### New features
 
 -   Remove percents when N=0 with `crosstable(remove_zero_percent=TRUE)` (#78).
--   Control font size with `body_add_normal(font_size)` (#65).
+-   Control font size with `body_add_normal(font_size)` and `crosstable_options(normal_font_size)` (#65).
 -   Option control on height & width in `body_add_gg2()` (#68).
 
 #### Bug fixes and improvements

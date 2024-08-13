@@ -57,6 +57,7 @@
 #' @param font_code font family used to show code, most likely a monospaced typeface such as Consolas (default)
 #' @param peek_docx behavior of [peek()], which will open a `docx` if `TRUE` (default) and an `xlsx` if `FALSE`
 #' @param units default units in [body_add_gg2()] and [body_add_img2()]
+#' @param normal_font_size Font size in normal paragraph, cf. [body_add_normal()]
 #' @param normal_squish Should you squish text in normal paragraphs?
 #' @param title_squish Should you squish text in headers paragraphs?
 #' @param allow_break allow crosstable rows to break across pages
@@ -108,7 +109,7 @@ crosstable_options = function(
     table_legend_prefix,
     figure_legend_par_after,
     figure_legend_prefix,
-    normal_squish, title_squish, allow_break,
+    normal_squish, normal_font_size, title_squish, allow_break,
     section_title, section_title_level, section_sentence,
     #styles
     style_normal, style_image,style_legend, style_heading,

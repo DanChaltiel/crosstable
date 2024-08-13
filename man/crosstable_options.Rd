@@ -55,6 +55,7 @@ crosstable_options(
   figure_legend_par_after,
   figure_legend_prefix,
   normal_squish,
+  normal_font_size,
   title_squish,
   allow_break,
   section_title,
@@ -170,6 +171,8 @@ crosstable_options(
 \item{figure_legend_par_after}{whether to add an empty paragraph after all figure legends}
 
 \item{normal_squish}{Should you squish text in normal paragraphs?}
+
+\item{normal_font_size}{Font size in normal paragraph, cf. \code{\link[=body_add_normal]{body_add_normal()}}}
 
 \item{title_squish}{Should you squish text in headers paragraphs?}
 
