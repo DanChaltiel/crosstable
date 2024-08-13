@@ -6,7 +6,7 @@
 \usage{
 crosstable_options(
   ...,
-  zero_percent = FALSE,
+  remove_zero_percent = FALSE,
   only_round = FALSE,
   verbosity_autotesting = "default",
   verbosity_duplicate_cols = "default",
@@ -77,7 +77,7 @@ crosstable_options(
 \arguments{
 \item{...}{unused}
 
-\item{zero_percent}{set to TRUE so that proportions are not displayed if \code{n==0}}
+\item{remove_zero_percent}{set to TRUE so that proportions are not displayed if \code{n==0}}
 
 \item{only_round}{default argument for \code{\link[=format_fixed]{format_fixed()}}}
 

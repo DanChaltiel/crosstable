@@ -30,7 +30,7 @@ test_that("Options work", {
     expect_length(x, 0)
 
     #normal func
-    crosstable_options(zero_percent=TRUE)
+    crosstable_options(remove_zero_percent=TRUE)
     #legacy
     crosstable_options(crosstable_wrap_id=50)
     #duplicates
@@ -42,7 +42,7 @@ test_that("Options work", {
                    class="crosstable_unknown_option_warning")
 
     x=crosstable_peek_options()
-    expect_mapequal(x, list(crosstable_zero_percent = TRUE, crosstable_wrap_id=50,
+    expect_mapequal(x, list(crosstable_remove_zero_percent = TRUE, crosstable_wrap_id=50,
                             crosstable_units = "cm", crosstable_percent_pattern = "{n}"))
 
     #reset
@@ -57,6 +57,14 @@ test_that("Options work", {
 })
 
 
+test_that("Renaming work", {
+  #zero_percent was renamed to remove_zero_percent
+  crosstable_options(zero_percent=TRUE, .local=TRUE)
+  a=crosstable_peek_options()
+  expect_in("crosstable_remove_zero_percent", names(a))
+})
+
+
 test_that("All options work", {
   crosstable_reset_options(quiet=TRUE)
   local_reproducible_output(width = 1000)
@@ -67,7 +75,7 @@ test_that("All options work", {
     suppressWarnings()
 
   crosstable_options(
-    zero_percent=TRUE,
+    remove_zero_percent=TRUE,
     only_round=TRUE,
     verbosity_autotesting="quiet",
     verbosity_duplicate_cols="quiet",

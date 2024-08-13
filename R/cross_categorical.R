@@ -53,7 +53,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
   tbd = table(x, useNA = "always") %>%
     as.data.frame() %>%
     select(x=1, n=2) #needed for an odd bug on fedora-devel
-  zero_percent = getOption("crosstable_zero_percent", FALSE)
+  remove_zero_percent = getOption("crosstable_remove_zero_percent", FALSE)
   ppv_ci = percent_pattern_contains(percent_pattern, "_inf|_sup")
   if(!ppv_ci) getTableCI = function(x, ...) x
 
@@ -73,7 +73,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
     mutate(across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE))) %>%
     transmute(
       variable = replace_na(x, "NA"),
-      value=ifelse(is.na(x) | .data$n==0 & zero_percent,
+      value=ifelse(is.na(x) | .data$n==0 & remove_zero_percent,
                    .data$n, glue(percent_pattern$body))
     )
 
@@ -91,7 +91,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
       getTableCI(digits=digits) %>%
       mutate(across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE))) %>%
       transmute(.data$variable,
-                value=ifelse(.data$n==0 & zero_percent, .data$n,
+                value=ifelse(.data$n==0 & remove_zero_percent, .data$n,
                              glue(percent_pattern$total_all)))
     rtn = bind_rows(rtn, .total)
   }
@@ -114,7 +114,7 @@ summarize_categorical_by = function(x, by,
                                     percent_pattern, margin,
                                     showNA, total, digits,
                                     test, test_args, effect, effect_args){
-  zero_percent = getOption("crosstable_zero_percent", FALSE)
+  remove_zero_percent = getOption("crosstable_remove_zero_percent", FALSE)
   ppv_ci = percent_pattern_contains(percent_pattern, "_inf|_sup")
   if(!ppv_ci) getTableCI = function(x, ...) x
 
@@ -157,7 +157,7 @@ summarize_categorical_by = function(x, by,
     transmute(
       variable = replace_na(x, "NA"),
       by=.data$by,
-      value=ifelse(is.na(x)|is.na(by)|.data$n==0&zero_percent,
+      value=ifelse(is.na(x)|is.na(by)|.data$n==0&remove_zero_percent,
                    .data$n, glue(percent_pattern$body))
     ) %>%
     pivot_wider(names_from="by", values_from = "value")
@@ -187,7 +187,7 @@ summarize_categorical_by = function(x, by,
       getTableCI(digits=digits) %>%
       mutate(across(starts_with("p_"), ~format_fixed(.x, digits=digits, percent=TRUE)),
              x=fct_na_value_to_level(.data$by, "NA"),
-             value=ifelse(is.na(by) | .data$n==0&zero_percent, .data$n,
+             value=ifelse(is.na(by) | .data$n==0&remove_zero_percent, .data$n,
                           glue(percent_pattern$total_row))) %>%
       select(x, value) %>%
       pivot_wider(names_from="x", values_from = "value") %>%

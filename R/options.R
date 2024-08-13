@@ -8,7 +8,7 @@
 #'
 #'
 #---crosstable() ---
-#' @param zero_percent set to TRUE so that proportions are not displayed if `n==0`
+#' @param remove_zero_percent set to TRUE so that proportions are not displayed if `n==0`
 #' @param only_round default argument for [format_fixed()]
 #' @param verbosity_autotesting one of `default`, `quiet`, or `verbose`
 #' @param verbosity_duplicate_cols one of `default`, `quiet`, or `verbose`.
@@ -77,13 +77,14 @@
 #' @return Nothing, called for its side effects
 #' @export
 #' @importFrom cli cli_warn
+#' @importFrom purrr discard_at
 #' @importFrom lifecycle deprecate_warn deprecated
 #' @importFrom rlang caller_env
 #' @importFrom stringr str_starts
 crosstable_options = function(
     ...,
     #crosstable()
-    zero_percent=FALSE,
+    remove_zero_percent=FALSE,
     only_round=FALSE,
     verbosity_autotesting="default",
     verbosity_duplicate_cols="default",
@@ -117,7 +118,7 @@ crosstable_options = function(
     clean_names_fun,
     verbosity_na_cols,
     format_epsilon,
-    #...
+    #util
     .local=FALSE,
     reset=deprecated()
 ){
@@ -128,12 +129,19 @@ crosstable_options = function(
     return(invisible())
   }
 
-  argg = as.list(match.call()) %>% discard(is.name)
-  args_ok = names(formals(crosstable_options)) %>% .[!. %in% c("...", "reset")]
-  argdot = lst(...)
+browser()
+  #variables passed as names
+  argg = as.list(match.call(expand.dots=FALSE)) %>%
+    discard(is.name) %>% discard_at("...")
+  args_ok = names(formals(crosstable_options)) %>% setdiff(c("...", "reset"))
+
+  #variables passed in dots, mostly with "crosstable_" prefix
+  renaming = c("remove_zero_percent"="zero_percent")
+  argdot = lst(...) %>%
+    set_names(~recode_any(.x, !!!renaming))
   argdot_ok = paste0("crosstable_", args_ok)
 
-  unknown_argdot = argdot[!names(argdot) %in% argdot_ok]
+  unknown_argdot = argdot[!names(argdot) %in% argdot_ok & !names(argdot) %in% args_ok]
   argg = argg[!names(argg) %in% names(unknown_argdot)]
   argg = argg[names(argg)!=".local"]
   if(length(unknown_argdot)>0){
