@@ -142,7 +142,8 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #'   body_add_normal() %>%
 #'   body_add_table_legend("Some table legend", bookmark="my_bkm") %>%
 #'   write_and_open()
-body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, parse=c("ref", "format", "code")) {
+body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, font_size=NA,
+                           parse=c("ref", "format", "code")) {
   if(missing(squish)) squish = getOption("crosstable_normal_squish", TRUE)
   dots = list(...)
   if(is.null(style)){
@@ -157,10 +158,13 @@ body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, parse=c("
     parse_ref = "ref" %in% parse
     parse_format = "format" %in% parse
     parse_code = "code" %in% parse
-    doc = body_add_parsed(doc, value, style, parse_ref, parse_format, parse_code)
+    doc = body_add_parsed(doc, value, style=style, parse_ref=parse_ref,
+                          parse_format=parse_format, parse_code=parse_code,
+                          font_size=font_size)
   } else if(length(dots)==1) { #one vector (of 1 or more) -> recursive call
     for(i in dots[[1]]){
-      doc = body_add_normal(doc, i, .sep=.sep, squish=squish)
+      doc = body_add_normal(doc, i, .sep=.sep, style=style, squish=squish,
+                            font_size=font_size, parse=parse)
     }
   } else { #several vectors of which at least one is length 2+
     cli_abort(c("{.fun body_add_normal} only accepts either one vector of any length or several vectors of length 1",
@@ -207,7 +211,7 @@ body_add_title = function(doc, value, level=1, squish=TRUE,
   value = glue(value, .envir = parent.frame())
   if(squish) value = str_squish(value)
   style = paste(style, level)
-  body_add_parsed(doc, value, style = style)
+  body_add_parsed(doc, value, style=style)
 }
 
 
@@ -901,8 +905,9 @@ generate_autofit_macro = function(){
 #' @keywords internal
 #' @noRd
 body_add_parsed = function(doc, value, style, parse_ref=TRUE, parse_format=TRUE,
-                           parse_code=TRUE, parse_newline=TRUE, ...){
-  p = parse_md(value, parse_ref, parse_format, parse_code)
+                           parse_code=TRUE, parse_newline=TRUE, font_size=NA, ...){
+  p = parse_md(value, parse_ref=parse_ref, parse_format=parse_format, parse_code=parse_code,
+               parse_newline=parse_newline, font_size=font_size, return_list=FALSE)
   body_add_fpar(doc, p, style, ...)
 }
 
@@ -921,7 +926,7 @@ utils::globalVariables(c("do", "end", "start"))
 #' @keywords internal
 #' @noRd
 parse_md = function(x, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE, parse_newline=TRUE,
-                    return_list=FALSE){
+                    return_list=FALSE, font_size=NA){
   if(nchar(x)==0) return(fpar(x))
 
   x = str_replace_all(x, fixed("**"), fixed("%%")) #better separates bold from italic
@@ -998,7 +1003,8 @@ parse_md = function(x, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE, parse
     select(-ref)
 
   p = list()
-  p[[1]] = ftext(substring(x, 1, rtn$start[1]-1))
+  fmt = fp_text_lite(font.size=font_size)
+  p[[1]] = ftext(substring(x, 1, rtn$start[1]-1), fmt)
   for(i in seq(nrow(rtn))){
     d = as.list(rtn[i, ])
     if(!is.na(d$shade)){
@@ -1008,7 +1014,8 @@ parse_md = function(x, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE, parse
     }
 
     fmt = fp_text_lite(bold=d$bold, italic=d$italic, underlined=d$underlined, color=d$color,
-                       shading.color=d$shade, font.family=d$font, vertical.align=d$valign)
+                       shading.color=d$shade, font.family=d$font, vertical.align=d$valign,
+                       font.size=font_size)
     next_start = rtn[i+1, ][["start"]]-1
 
     if(d$format=="ref"){
