@@ -31,21 +31,18 @@
 #' @importFrom officer fp_border
 #' @importFrom purrr map
 #' @importFrom rlang set_names
-#' @importFrom stringr str_remove str_replace str_split
+#' @importFrom stringr str_remove str_replace str_split str_sub
 #' @importFrom tibble lst tibble
-#' @importFrom tidyr replace_na separate
+#' @importFrom tidyr replace_na separate_wider_delim
 #' @importFrom utils modifyList
 #' @export
 #'
 #' @examples
-#' #Crosstables
-#' library(crosstable)
-#' library(dplyr)
 #' crosstable_options(crosstable_fontsize_header=14,
 #'                    crosstable_fontsize_subheaders=10,
 #'                    crosstable_fontsize_body=8)
 #' crosstable(iris) %>% as_flextable()
-#' crosstable(mtcars2, -model, by=c(am, vs)) %>% as_flextable(header_show_n=1:2)
+#' crosstable(mtcars2, -model, by=c(am, vs)) %>% as_flextable(header_show_n=1:2, remove_header_keys=TRUE)
 #' crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE) %>%
 #'    as_flextable(keep_id=TRUE, autofit=FALSE)
 #' crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE, total=TRUE) %>%
@@ -62,7 +59,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
                                    autofit=TRUE, compact=FALSE,
                                    show_test_name=TRUE,
                                    fontsizes=list(body=11, subheaders=11, header=11),
-                                   padding_v=NULL, remove_header_keys=FALSE,
+                                   padding_v=NULL, remove_header_keys=TRUE,
                                    header_show_n=FALSE, header_show_n_pattern="{.col} (N={.n})",
                                    generic_labels=list(id=".id", variable="variable", value="value",
                                                        total="Total", label="label", test="test",
@@ -228,10 +225,11 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
                class="crosstable_af_byheader_multi")
     }
     header_mapping = tibble(col_keys = names(x)) %>%
-      separate(col_keys, into=paste0(".col_", seq(n_levels)),
-               sep=" & ", remove=FALSE, fill="right") %>%
+      separate_wider_delim(col_keys, names=paste0(".col_", seq(n_levels)),
+                                  delim=" & ", cols_remove=FALSE, too_few="align_start") %>%
       mutate(across(starts_with(".col_"), ~ifelse(is.na(.x), col_keys, .x))) %>%
-      select(col_keys, rev(names(.)))
+      select(col_keys, rev(everything()))
+
 
     if(!isFALSE(header_show_n)){
       if(isTRUE(header_show_n)) header_show_n = seq(n_levels)
@@ -262,9 +260,16 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
     }
 
     if(remove_header_keys){
-      header_mapping = header_mapping %>%
-        mutate(across(-col_keys, ~str_remove(.x, "^.*?=")))
+      a = unlist(generic_labels[c("label", "variable")])
+      header_mapping =
+        header_mapping %>%
+        mutate(across(-col_keys, ~str_remove(.x, "^.*?="))) %>%
+        mutate(across(-col_keys, ~{
+          i=as.numeric(str_sub(cur_column(), -1))
+          ifelse(col_keys %in% a, by_label[i], .x)
+        }))
     }
+
     border_left_first = sum(rtn$header$col_keys %in% generic_labels[c("label", "variable", "id")])
     border_separations = header_mapping %>%
       filter(col_keys %in% rtn$header$col_keys) %>%
@@ -273,7 +278,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE, by_header=NULL,
 
     rtn = rtn %>%
       set_header_df(header_mapping, key = "col_keys") %>%
-      merge_h(i=seq.int(n_levels-1), part = "head") %>%
+      merge_h(i=seq.int(n_levels), part = "head") %>%
       border(j=borders_j, border.left=border1, part="all") %>%
       vline_left(border=border1) %>%
       vline_right(border=border1)

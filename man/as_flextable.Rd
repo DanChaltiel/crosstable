@@ -18,7 +18,7 @@
   show_test_name = TRUE,
   fontsizes = list(body = 11, subheaders = 11, header = 11),
   padding_v = NULL,
-  remove_header_keys = FALSE,
+  remove_header_keys = TRUE,
   header_show_n = FALSE,
   header_show_n_pattern = "{.col} (N={.n})",
   generic_labels = list(id = ".id", variable = "variable", value = "value", total =
@@ -67,14 +67,11 @@ Turns a \code{crosstable} object into a formatted \code{flextable}
 
 }}
 \examples{
-#Crosstables
-library(crosstable)
-library(dplyr)
 crosstable_options(crosstable_fontsize_header=14,
                    crosstable_fontsize_subheaders=10,
                    crosstable_fontsize_body=8)
 crosstable(iris) \%>\% as_flextable()
-crosstable(mtcars2, -model, by=c(am, vs)) \%>\% as_flextable(header_show_n=1:2)
+crosstable(mtcars2, -model, by=c(am, vs)) \%>\% as_flextable(header_show_n=1:2, remove_header_keys=TRUE)
 crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE) \%>\%
    as_flextable(keep_id=TRUE, autofit=FALSE)
 crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE, total=TRUE) \%>\%
