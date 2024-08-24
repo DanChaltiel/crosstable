@@ -12,7 +12,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9011</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9012</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,6 +48,7 @@
 <div class="section level5">
 <h5 id="new-features-0-7-1">New features<a class="anchor" aria-label="anchor" href="#new-features-0-7-1"></a></h5>
 <ul><li>Remove percents when N=0 with <code>crosstable(remove_zero_percent=TRUE)</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/78" class="external-link">#78</a>).</li>
+<li>Better header for multi-by flextables <code>as_flextable(ct, remove_header_keys=TRUE)</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/74" class="external-link">#74</a>).</li>
 <li>Control font size with <code>body_add_normal(font_size)</code> and <code>crosstable_options(normal_font_size)</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/65" class="external-link">#65</a>).</li>
 <li>Option control on height &amp; width in <code><a href="../reference/body_add_gg2.html">body_add_gg2()</a></code> (<a href="https://github.com/DanChaltiel/crosstable/issues/68" class="external-link">#68</a>).</li>
 </ul></div>
@@ -59,6 +60,8 @@
 <li>Fixed <code><a href="../reference/get_label.html">get_label()</a></code> on named vector columns (<a href="https://github.com/DanChaltiel/crosstable/issues/72" class="external-link">#72</a>).</li>
 <li>Fixed <code>crosstable(drop_levels)</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/69" class="external-link">#69</a>, <a href="https://github.com/DanChaltiel/crosstable/issues/70" class="external-link">#70</a>, <a href="https://github.com/DanChaltiel/crosstable/issues/71" class="external-link">#71</a>).</li>
 <li>Flextable autofit now uses the recommended method (<a href="https://github.com/DanChaltiel/crosstable/issues/62" class="external-link">#62</a>).</li>
+<li>
+<code>transpose()</code> will work on multi-by crosstables (but <code><a href="../reference/as_flextable.html">as_flextable()</a></code> will need some refinement) (<a href="https://github.com/DanChaltiel/crosstable/issues/60" class="external-link">#60</a>).</li>
 <li>Fixed a bug happening when NA is already a level (<a href="https://github.com/DanChaltiel/crosstable/issues/59" class="external-link">#59</a>).</li>
 <li>Fixed error where <code>by</code> contains “label” (<a href="https://github.com/DanChaltiel/crosstable/issues/56" class="external-link">#56</a>).</li>
 <li>Fixed <code>as_flextable(header_show_n)</code> not working in single <code>by</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/54" class="external-link">#54</a>).</li>
@@ -69,7 +72,7 @@
 <h2 class="pkg-version" data-toc-text="0.7.0" id="crosstable-070-2023-11-12">crosstable 0.7.0 <sub><sup>2023-11-12</sup></sub><a class="anchor" aria-label="anchor" href="#crosstable-070-2023-11-12"></a></h2><p class="text-muted">CRAN release: 2023-11-12</p>
 <div class="section level5">
 <h5 id="new-features-0-7-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-7-0"></a></h5>
-<ul><li>New officer helper <code><a href="../reference/body_add_table_section.html">body_add_table_section()</a></code>, which adds a table (crosstable or flextable) which can be surrounded by a title (level 3 by default), a legend, and/or a short sentence.</li>
+<ul><li>New officer helper <code><a href="../reference/body_add_table_section.html">body_add_table_section()</a></code> that adds a table (crosstable or flextable) which can be surrounded by a title (level 3 by default), a legend, and/or a short sentence.</li>
 <li>
 <code><a href="../reference/set_label.html">set_label()</a></code> now accepts a function as a value (e.g. <code>set_label(mtcars2, toupper)</code>).</li>
 <li>Argument <code>format_fixed(scientific)</code> can now be <code>FALSE</code> to force standard format. Can be set through <code>options(crosstable_scientific_log=FALSE)</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/49" class="external-link">#49</a>).</li>
