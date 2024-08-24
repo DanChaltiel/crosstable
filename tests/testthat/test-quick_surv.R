@@ -21,7 +21,6 @@ test_that("survival POC", {
     df$surv = survival::Surv(df$time, df$event)
     fit = survival::survfit(surv~group, data=df)
     times = sort(fit$time)
-
     x = summary(fit, times=times, extend=TRUE)
     a = data.frame(strata=x$strata, time=x$time, n.risk=x$n.risk, n.event=x$n.event, surv=x$surv)
 
