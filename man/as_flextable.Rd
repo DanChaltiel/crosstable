@@ -71,7 +71,7 @@ crosstable_options(crosstable_fontsize_header=14,
                    crosstable_fontsize_subheaders=10,
                    crosstable_fontsize_body=8)
 crosstable(iris) \%>\% as_flextable()
-crosstable(mtcars2, -model, by=c(am, vs)) \%>\% as_flextable(header_show_n=1:2, remove_header_keys=TRUE)
+crosstable(mtcars2, -model, by=c(am, vs)) \%>\% as_flextable(header_show_n=1)
 crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE) \%>\%
    as_flextable(keep_id=TRUE, autofit=FALSE)
 crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE, total=TRUE) \%>\%
@@ -80,7 +80,7 @@ crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE, total=TRUE) \%>\%
 
 #Renaming (because why not?)
 crosstable(mtcars2, am, by=vs, total="both", test=TRUE, effect=TRUE) \%>\%
-   rename(ID=.id, math=variable, Tot=Total, lab=label, pval=test, fx=effect) \%>\%
+   dplyr::rename(ID=.id, math=variable, Tot=Total, lab=label, pval=test, fx=effect) \%>\%
    as_flextable(by_header = "Engine shape",
                 generic_labels=list(id = "ID", variable = "math", total="Tot",
                                     label = "lab", test = "pval", effect="fx"))
