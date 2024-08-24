@@ -10,15 +10,11 @@
       df$surv = survival::Surv(df$time, df$event)
       fit = survival::survfit(surv ~ group, data = df)
       times = sort(fit$time)
-      a = summary(fit, times = times, extend = TRUE, data.frame = TRUE)
-      a %>% dplyr::filter(strata == "group=B") %>% dplyr::filter(time > 120 & time <
-        150) %>% dplyr::select(strata, time, n.risk, n.event, surv)
+      x = summary(fit, times = times, extend = TRUE)
+      a = data.frame(strata = x$strata, time = x$time, n.risk = x$n.risk, n.event = x$
+        n.event, surv = x$surv)
+      a %>% dplyr::filter(strata == "group=B") %>% dplyr::filter(time == 140.8)
     Output
          strata  time n.risk n.event      surv
-      1 group=B 120.1     18       0 0.7500000
-      2 group=B 120.3     17       1 0.7058824
-      3 group=B 121.0     16       1 0.6617647
-      4 group=B 140.8     15       1 0.6617647
-      5 group=B 145.0     15       1 0.6176471
-      6 group=B 146.7     14       1 0.6176471
+      1 group=B 140.8     15       1 0.6617647
 
