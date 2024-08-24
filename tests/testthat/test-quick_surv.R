@@ -27,7 +27,7 @@ test_that("survival POC", {
 
     a %>%
       dplyr::filter(strata=="group=B") %>%
-      dplyr::filter(time>120 & time<150)
+      dplyr::filter(time==140.8)
   })
 
 
