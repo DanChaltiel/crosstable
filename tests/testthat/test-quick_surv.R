@@ -22,12 +22,12 @@ test_that("survival POC", {
     fit = survival::survfit(surv~group, data=df)
     times = sort(fit$time)
 
-    a = summary(fit, times=times, extend=TRUE, data.frame=TRUE)
+    x = summary(fit, times=times, extend=TRUE)
+    a = data.frame(strata=x$strata, time=x$time, n.risk=x$n.risk, n.event=x$n.event, surv=x$surv)
+
     a %>%
       dplyr::filter(strata=="group=B") %>%
-      dplyr::filter(time>120 & time<150) %>%
-      dplyr::select(strata, time, n.risk, n.event, surv)
-
+      dplyr::filter(time>120 & time<150)
   })
 
 
