@@ -17,7 +17,7 @@ test_that("survival POC", {
       group = rep(c("B", "A", "B", "A", "B", "A", "B", "A", "B", "A", "B"),
                   c(9L, 1L, 1L, 1L, 2L, 3L, 1L, 1L, 7L, 2L, 4L))
     )
-
+    df$time = round(df$time)
     df$surv = survival::Surv(df$time, df$event)
     fit = survival::survfit(surv~group, data=df)
     times = sort(fit$time)
@@ -26,7 +26,7 @@ test_that("survival POC", {
 
     a %>%
       dplyr::filter(strata=="group=B") %>%
-      dplyr::filter(time==140.8)
+      dplyr::filter(time==141)
   })
 
 

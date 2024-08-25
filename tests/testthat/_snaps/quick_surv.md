@@ -7,14 +7,15 @@
       c(6L, 1L, 2L, 1L, 1L, 1L, 2L, 7L, 1L, 3L, 1L, 6L)), group = rep(c("B", "A", "B",
         "A", "B", "A", "B", "A", "B", "A", "B"), c(9L, 1L, 1L, 1L, 2L, 3L, 1L, 1L, 7L,
         2L, 4L)))
+      df$time = round(df$time)
       df$surv = survival::Surv(df$time, df$event)
       fit = survival::survfit(surv ~ group, data = df)
       times = sort(fit$time)
       x = summary(fit, times = times, extend = TRUE)
       a = data.frame(strata = x$strata, time = x$time, n.risk = x$n.risk, n.event = x$
         n.event, surv = x$surv)
-      a %>% dplyr::filter(strata == "group=B") %>% dplyr::filter(time == 140.8)
+      a %>% dplyr::filter(strata == "group=B") %>% dplyr::filter(time == 141)
     Output
-         strata  time n.risk n.event      surv
-      1 group=B 140.8     15       1 0.6617647
+         strata time n.risk n.event      surv
+      1 group=B  141     15       1 0.6640625
 
