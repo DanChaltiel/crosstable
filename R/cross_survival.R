@@ -56,7 +56,7 @@ summarize_survival_single = function(surv, times, digits, followup) {
   }
 
   if (is.null(times)) {
-    times = sort(fit$time)
+    times = sort(unique(fit$time))
   }
 
   x = summary(fit, times = times, extend = TRUE)
@@ -115,7 +115,7 @@ summarize_survival_by = function(surv, by, times, followup, total, digits, showN
   }
 
   fit = survival::survfit(surv~by2)
-  if(is.null(times)) times = sort(fit$time)
+  if(is.null(times)) times = sort(unique(fit$time))
   x = summary(fit, times=times, extend=TRUE)
   assert(length(unique(x$strata))>1) #should not happen since by2!=NULL
 
