@@ -6,13 +6,13 @@
       Warning in `crosstable()`:
       Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values/blank.
       Warning:
-      Problems occured when calculating crosstable effects (glm-logit):
-      i "glm.fit: fitted probabilities numerically 0 or 1 occurred" and "collapsing to unique 'x' values"
+      A problem occured when calculating crosstable effects (glm-logit):
+      i "glm.fit: fitted probabilities numerically 0 or 1 occurred"
       * You might want to check for complete separation or extreme outliers.
       * Applying `forcats::fct_rev()` to some columns might help too.
       Warning:
-      A problem occured when calculating crosstable effects (glm-logit):
-      i "glm.fit: fitted probabilities numerically 0 or 1 occurred"
+      Problems occured when calculating crosstable effects (glm-logit):
+      i "glm.fit: fitted probabilities numerically 0 or 1 occurred" and "collapsing to unique 'x' values"
       * You might want to check for complete separation or extreme outliers.
       * Applying `forcats::fct_rev()` to some columns might help too.
       Warning:
@@ -100,13 +100,13 @@
       Warning in `crosstable()`:
       Cannot describe columns `dummy_na` and `dummy_na2` as they contain only missing values/blank.
       Warning:
-      Problems occured when calculating crosstable effects (glm-logit):
-      i "glm.fit: fitted probabilities numerically 0 or 1 occurred" and "collapsing to unique 'x' values"
+      A problem occured when calculating crosstable effects (glm-logit):
+      i "glm.fit: fitted probabilities numerically 0 or 1 occurred"
       * You might want to check for complete separation or extreme outliers.
       * Applying `forcats::fct_rev()` to some columns might help too.
       Warning:
-      A problem occured when calculating crosstable effects (glm-logit):
-      i "glm.fit: fitted probabilities numerically 0 or 1 occurred"
+      Problems occured when calculating crosstable effects (glm-logit):
+      i "glm.fit: fitted probabilities numerically 0 or 1 occurred" and "collapsing to unique 'x' values"
       * You might want to check for complete separation or extreme outliers.
       * Applying `forcats::fct_rev()` to some columns might help too.
       Warning:
@@ -163,7 +163,7 @@
       6            wt                              Difference in means (bootstrap CI), ref='auto'\nmanual minus auto: -1.36 [-1.84 to -0.88]
       7          qsec                                  Difference in means (t-test CI), ref='auto'\nmanual minus auto: -0.82 [-2.12 to 0.48]
       8            vs                               Odds ratio [95% Wald CI], ref='manual vs auto'\nvshaped vs straight: 0.19 [0.02 to 1.11]
-      9          gear Odds ratio [95% Wald CI], ref='manual vs auto'\n4 vs 3: 1.71e+09 [6.32e-162 to NA]\n5 vs 3: 7.30e+17 [3.29e-214 to NA]
+      9          gear Odds ratio [95% Wald CI], ref='manual vs auto'\n4 vs 3: 1.71e+09 [6.32e-162 to NA]\n5 vs 3: 7.30e+17 [3.18e-214 to NA]
       10         carb                                Difference in means (bootstrap CI), ref='auto'\nmanual minus auto: 0.19 [-1.09 to 1.46]
       11      hp_date                            Difference in means (bootstrap CI), ref='auto'\nmanual minus auto: -33.42 [-85.88 to 19.05]
       12   qsec_posix                      Difference in means (t-test CI), ref='auto'\nmanual minus auto: -7.11e+04 [-1.83e+05 to 4.12e+04]
@@ -257,7 +257,7 @@
       6            wt                        Difference in medians (bootstrap CI), ref='auto'\nmanual minus auto: -1.20 [-1.77 to -0.66]
       7          qsec                         Difference in medians (bootstrap CI), ref='auto'\nmanual minus auto: -0.80 [-2.21 to 1.17]
       8            vs                    Risk difference [95% Wald CI], ref='manual vs auto'\nvshaped vs straight: -1.66 [-3.79 to 0.11]
-      9          gear  Risk difference [95% Wald CI], ref='manual vs auto'\n4 vs 3: 21.26 [-371.17 to NA]\n5 vs 3: 41.13 [-491.56 to NA]
+      9          gear  Risk difference [95% Wald CI], ref='manual vs auto'\n4 vs 3: 21.26 [-371.17 to NA]\n5 vs 3: 41.13 [-491.60 to NA]
       10         carb                         Difference in medians (bootstrap CI), ref='auto'\nmanual minus auto: -1.00 [-2.00 to 2.00]
       11      hp_date                         Difference in medians (bootstrap CI), ref='auto'\nmanual minus auto: -66.00 [-109.00 to 0]
       12   qsec_posix             Difference in medians (bootstrap CI), ref='auto'\nmanual minus auto: -6.91e+04 [-1.86e+05 to 1.04e+05]
@@ -411,7 +411,7 @@
     Output
                   .id                                                                                                         effect
       1           mpg                      Difference in medians (bootstrap CI), ref='FALSE'\nTRUE minus FALSE: 1.35 [-5.53 to 4.00]
-      2           cyl  Risk difference [95% Wald CI], ref='TRUE vs FALSE'\n6 vs 4: 5.11e+01 [CI error]\n8 vs 4: -9.05e-15 [CI error]
+      2           cyl  Risk difference [95% Wald CI], ref='TRUE vs FALSE'\n6 vs 4: 5.11e+01 [CI error]\n8 vs 4: -1.49e-14 [CI error]
       3          disp                Difference in medians (bootstrap CI), ref='FALSE'\nTRUE minus FALSE: -108.20 [-159.00 to 78.30]
       4            hp                  Difference in medians (bootstrap CI), ref='FALSE'\nTRUE minus FALSE: -27.00 [-75.00 to 53.35]
       5          drat                      Difference in medians (bootstrap CI), ref='FALSE'\nTRUE minus FALSE: 0.08 [-0.95 to 0.74]
@@ -461,7 +461,7 @@
       7          qsec                                       Difference in means (t-test CI), ref='A'\nB minus A: 0.42 [-0.89 to 1.72]
       8            vs                                Odds ratio [95% Wald CI], ref='B vs A'\nvshaped vs straight: 1.09 [0.21 to 6.03]
       9            am                                     Odds ratio [95% Wald CI], ref='B vs A'\nmanual vs auto: 0.45 [0.10 to 1.88]
-      10         gear               Odds ratio [95% Wald CI], ref='B vs A'\n4 vs 3: 0.62 [0.13 to 2.87]\n5 vs 3: 1.31 [0.17 to 12.27]
+      10         gear               Odds ratio [95% Wald CI], ref='B vs A'\n4 vs 3: 0.63 [0.13 to 2.87]\n5 vs 3: 1.31 [0.17 to 12.27]
       11         carb                                    Difference in means (bootstrap CI), ref='A'\nB minus A: 0.62 [-0.49 to 1.74]
       12      hp_date                                    Difference in means (t-test CI), ref='A'\nB minus A: 20.38 [-29.37 to 70.12]
       13   qsec_posix                           Difference in means (t-test CI), ref='A'\nB minus A: 3.60e+04 [-7.66e+04 to 1.48e+05]
