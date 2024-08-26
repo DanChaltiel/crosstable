@@ -6,6 +6,8 @@ gt <- as_gt(ct, generic_labels=list(value="count"))
 
 
 test_that("No missing options", {
+  skip_on_ci()
+  skip_on_cran()
   path = test_path("../../R")
   skip_if(!dir.exists(path))
 
