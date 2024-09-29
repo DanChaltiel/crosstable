@@ -26,7 +26,7 @@
     Code
       af(ct2)$header$dataset
     Output
-        letter variable the X the Y the Z
-      1 letter variable label label label
-      2 letter variable the X the Y the Z
+        letter variable   the X   the Y   the Z
+      1 letter variable Columns Columns Columns
+      2 letter variable   the X   the Y   the Z
 

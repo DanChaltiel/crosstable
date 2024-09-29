@@ -21,6 +21,7 @@ This requires the \code{variable} column to be the same for every data column, l
 }
 \examples{
 ct = crosstable(mtcars2, c(mpg, drat, wt, qsec), by=am)
-t_ct = t(ct)
-as_flextable(t_ct)
+ct \%>\% t() \%>\% as_flextable()
+ct2 = crosstable(mtcars2, c(mpg, drat, wt, qsec), by=c(am, vs))
+ct2 \%>\% t() \%>\% as_flextable()
 }

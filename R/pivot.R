@@ -74,13 +74,15 @@ pivot_crosstable = function(ct){
 #'
 #' @examples
 #' ct = crosstable(mtcars2, c(mpg, drat, wt, qsec), by=am)
-#' t_ct = t(ct)
-#' as_flextable(t_ct)
+#' ct %>% t() %>% as_flextable()
+#' ct2 = crosstable(mtcars2, c(mpg, drat, wt, qsec), by=c(am, vs))
+#' ct2 %>% t() %>% as_flextable()
 transpose_crosstable = function(x){
   if(is.compacted_crosstable(x)){
     cli_abort("You cannot transpose a compacted crosstable.",
               class="crosstable_transpose_compact")
   }
+  already_transposed = is.transposed_crosstable(x)
   if(!all(table(x$.id, x$variable)==1)){
     w = x %>%
       group_by(.id) %>% summarise(variable = paste0("'", variable, "'", collapse=", ")) %>%
@@ -97,13 +99,12 @@ transpose_crosstable = function(x){
     cli_abort("You cannot transpose a crosstable where {.arg by} is {.code NULL}.",
               class="crosstable_transpose_no_by")
   }
-  if(is.transposed_crosstable(x)){
+  if(already_transposed){
     id = attr(x, "transposed_id_labels")
   } else id = NULL
 
   inner_labels = attr(x, "inner_labels") %>% get_generic_labels()
   col_label = if(is.null(inner_labels)) "label" else inner_labels[["label"]]
-
   id_label = x %>% select(".id", all_of(col_label)) %>% unique()
   if(anyDuplicated(id_label[[col_label]])){
     w = id_label %>% group_by(!!sym(col_label)) %>%
@@ -126,7 +127,7 @@ transpose_crosstable = function(x){
       arrange(name, variable) %>%
       mutate(name=as.character(name),
              variable=as.character(variable)) %>%
-      select(.id, labels=name, variable, everything())
+      select(.id, label=name, variable, everything())
   } else {
     rtn = x %>%
       pivot_longer(-(1:3)) %>%
@@ -143,10 +144,8 @@ transpose_crosstable = function(x){
   rtn = rtn %>% attributes_from(x)
 
   attr(rtn, "by_levels") = list(x=unique(x[[col_label]])) %>% set_names(col_label)
-  # attr(rtn, "variables") = by_level[[1]]
   attr(rtn, "variables") = unique(rtn$.id)
   attr(rtn, "by") = col_label
-  attr(rtn, "by_label") = col_label %>% set_names(col_label)
 
   tbl = table(x[[col_label]])
   names(dimnames(tbl)) = col_label
@@ -154,9 +153,16 @@ transpose_crosstable = function(x){
 
   attr(rtn, "transposed_id_labels") = distinct(x, .id, across(all_of(col_label))) %>%
     column_to_rownames(col_label)
-  attr(rtn, "inner_labels") = list(x=names(by_level)) %>% set_names("label")
 
-  class(rtn) = c("transposed_crosstable", class(x))
+  if(already_transposed){#return to normal
+    attr(rtn, "by_label") = col_label %>% set_names(col_label)
+    attr(rtn, "inner_labels") = list(label=names(by_level))
+    class(rtn) = setdiff(class(x), "transposed_crosstable")
+  } else {
+    attr(rtn, "by_label") = "Columns"
+    attr(rtn, "inner_labels") = list(label=names(by_level), value="label")
+    class(rtn) = c("transposed_crosstable", class(x))
+  }
 
   rtn
 }
