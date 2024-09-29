@@ -12,7 +12,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9017</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9018</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,14 +54,16 @@
 </ul></div>
 <div class="section level5">
 <h5 id="bug-fixes-and-improvements-0-7-1">Bug fixes and improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-improvements-0-7-1"></a></h5>
-<ul><li>Warn if <code>by</code> is “” (<a href="https://github.com/DanChaltiel/crosstable/issues/77" class="external-link">#77</a>).</li>
+<ul><li>Add envir argument to functions that call <code>glue()</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/83" class="external-link">#83</a>).</li>
+<li>Better error when <code>x</code> is <code>NULL</code> in <code><a href="../reference/body_add_table_section.html">body_add_table_section()</a></code> (<a href="https://github.com/DanChaltiel/crosstable/issues/82" class="external-link">#82</a>).</li>
+<li>Warn if <code>by</code> is “” (<a href="https://github.com/DanChaltiel/crosstable/issues/77" class="external-link">#77</a>).</li>
 <li>Default to quiet warnings if columns are missing (<a href="https://github.com/DanChaltiel/crosstable/issues/76" class="external-link">#76</a>).</li>
 <li>Moved the legend above the table in <code><a href="../reference/body_add_table_section.html">body_add_table_section()</a></code> (<a href="https://github.com/DanChaltiel/crosstable/issues/73" class="external-link">#73</a>).</li>
 <li>Fixed <code><a href="../reference/get_label.html">get_label()</a></code> on named vector columns (<a href="https://github.com/DanChaltiel/crosstable/issues/72" class="external-link">#72</a>).</li>
 <li>Fixed <code>crosstable(drop_levels)</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/69" class="external-link">#69</a>, <a href="https://github.com/DanChaltiel/crosstable/issues/70" class="external-link">#70</a>, <a href="https://github.com/DanChaltiel/crosstable/issues/71" class="external-link">#71</a>).</li>
 <li>Flextable autofit now uses the recommended method (<a href="https://github.com/DanChaltiel/crosstable/issues/62" class="external-link">#62</a>).</li>
 <li>
-<code>transpose()</code> will work on multi-by crosstables (but <code><a href="../reference/as_flextable.html">as_flextable()</a></code> will need some refinement) (<a href="https://github.com/DanChaltiel/crosstable/issues/60" class="external-link">#60</a>).</li>
+<code>transpose()</code> will work on multi-by crosstables (<a href="https://github.com/DanChaltiel/crosstable/issues/60" class="external-link">#60</a>).</li>
 <li>Fixed a bug happening when NA is already a level (<a href="https://github.com/DanChaltiel/crosstable/issues/59" class="external-link">#59</a>).</li>
 <li>Fixed error where <code>by</code> contains “label” (<a href="https://github.com/DanChaltiel/crosstable/issues/56" class="external-link">#56</a>).</li>
 <li>Fixed <code>as_flextable(header_show_n)</code> not working in single <code>by</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/54" class="external-link">#54</a>).</li>
@@ -408,7 +410,7 @@ Use the <code>bookmark</code> argument to set a reference, then write <code>"\\@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer></div>
