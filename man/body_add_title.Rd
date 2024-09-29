@@ -8,7 +8,6 @@ body_add_title(
   doc,
   value,
   level = 1,
-  ...,
   squish = TRUE,
   envir = parent.frame(),
   style = getOption("crosstable_style_heading", "heading")

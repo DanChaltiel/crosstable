@@ -209,7 +209,7 @@ body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, font_size
 #'    body_add_title("Description", 2) %>%
 #'    body_add_normal("La table iris a ", ncol(iris), " colonnes.")
 #' #write_and_open(doc)
-body_add_title = function(doc, value, level=1, ..., squish=TRUE,
+body_add_title = function(doc, value, level=1, squish=TRUE,
                           envir=parent.frame(),
                           style=getOption("crosstable_style_heading", "heading")) {
   assert_integerish(level)
