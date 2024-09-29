@@ -4,12 +4,14 @@
 \alias{body_replace_text_at_bkms}
 \title{Replace text on several bookmarks at once}
 \usage{
-body_replace_text_at_bkms(doc, ...)
+body_replace_text_at_bkms(doc, ..., envir = parent.frame())
 }
 \arguments{
 \item{doc}{a \code{rdocx} object}
 
 \item{...}{named}
+
+\item{envir}{Environment to evaluate each expression in \code{glue()}.}
 }
 \value{
 The docx object \code{doc}

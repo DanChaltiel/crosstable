@@ -11,6 +11,7 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 
 #### Bug fixes and improvements
  
+-   Add envir argument to functions that call `glue()` (#83).
 -   Better error when `x` is `NULL` in `body_add_table_section()` (#82).
 -   Warn if `by` is "" (#77).
 -   Default to quiet warnings if columns are missing (#76).

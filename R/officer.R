@@ -83,6 +83,7 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #' @param .sep Separator used to separate elements.
 #' @param squish Whether to squish the result (remove trailing and repeated spaces). Default to `TRUE`. Allows to add multiline paragraph without breaking the string.
 #' @param parse which format to parse. Default to all formats (`c("ref", "format", "code")`).
+#' @param envir Environment to evaluate each expression in `glue()`.
 #'
 #' @section Markdown support:
 #' In all `crosstable` helpers for `officer`, you can use the following Markdown syntax to format your text:
@@ -144,6 +145,7 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
 #'   body_add_table_legend("Some table legend", bookmark="my_bkm") %>%
 #'   write_and_open()
 body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, font_size=NA,
+                           envir=parent.frame(),
                            parse=c("ref", "format", "code")) {
   if(missing(squish)) squish = getOption("crosstable_normal_squish", TRUE)
   if(missing(font_size)) font_size = getOption("crosstable_normal_font_size", NA)
@@ -155,7 +157,7 @@ body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, font_size
   dots_lengths = lengths(dots)
 
   if(all(dots_lengths==1)){ #one or several vectors of length 1
-    value = do.call(glue, c(dots, .sep=.sep, .envir=parent.frame()))
+    value = do.call(glue, c(dots, .sep=.sep, .envir=envir))
     if(squish) value = str_squish(value)
     parse_ref = "ref" %in% parse
     parse_format = "format" %in% parse
@@ -187,6 +189,7 @@ body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, font_size
 #' @param level the level of the title. See \code{styles_info(doc)} to know the possibilities.
 #' @param squish Whether to squish the result (remove trailing and repeated spaces). Default to `TRUE`.
 #' @param style the name of the title style. See \code{styles_info(doc)} to know the possibilities.
+#' @param envir Environment to evaluate each expression in `glue()`.
 #'
 #' @return The docx object `doc`
 #'
@@ -206,11 +209,12 @@ body_add_normal = function(doc, ..., .sep="", style=NULL, squish=TRUE, font_size
 #'    body_add_title("Description", 2) %>%
 #'    body_add_normal("La table iris a ", ncol(iris), " colonnes.")
 #' #write_and_open(doc)
-body_add_title = function(doc, value, level=1, squish=TRUE,
-                          style = getOption("crosstable_style_heading", "heading")) {
+body_add_title = function(doc, value, level=1, ..., squish=TRUE,
+                          envir=parent.frame(),
+                          style=getOption("crosstable_style_heading", "heading")) {
   assert_integerish(level)
   if(missing(squish)) squish = getOption("crosstable_title_squish", TRUE)
-  value = glue(value, .envir = parent.frame())
+  value = glue(value, .envir = envir)
   if(squish) value = str_squish(value)
   style = paste(style, level)
   body_add_parsed(doc, value, style=style)
@@ -485,6 +489,7 @@ body_add_table_section = function(doc, x, legend, ..., bookmark=NULL,
 #' @param par_before,par_after should an empty paragraph be inserted before/after the legend?
 #' @param legacy use the old version of this function, if you cannot update `{officer}` to v0.4+
 #' @param ... unused
+#' @param envir Environment to evaluate each expression in `glue()`.
 #'
 #' @return The docx object `doc`
 #'
@@ -539,6 +544,7 @@ body_add_table_legend = function(doc, legend, ..., bookmark=NULL,
                                  legend_name="Table",
                                  seqfield="SEQ Table \\* Arabic",
                                  par_before=FALSE,
+                                 envir=parent.frame(),
                                  legacy=FALSE){
   check_dots_empty()
   if(missing(par_before)) par_before = getOption("crosstable_table_legend_par_before", FALSE)
@@ -549,7 +555,7 @@ body_add_table_legend = function(doc, legend, ..., bookmark=NULL,
   body_add_legend(doc=doc, legend=legend, legend_name=legend_name,
                   bookmark=bookmark, legend_prefix=legend_prefix, legend_style=legend_style,
                   name_format=name_format, seqfield=seqfield,
-                  style=style, legacy=legacy, envir=parent.frame())
+                  style=style, legacy=legacy, envir=envir)
 }
 
 #' @rdname body_add_legend
@@ -565,6 +571,7 @@ body_add_figure_legend = function(doc, legend, ..., bookmark=NULL,
                                   legend_name="Figure",
                                   seqfield="SEQ Figure \\* Arabic",
                                   par_after=FALSE,
+                                  envir=parent.frame(),
                                   legacy=FALSE){
   check_dots_empty()
   # ellipsis::check_dots_empty()
@@ -573,7 +580,7 @@ body_add_figure_legend = function(doc, legend, ..., bookmark=NULL,
   doc = body_add_legend(doc=doc, legend=legend, legend_name=legend_name,
                         bookmark=bookmark, legend_prefix=legend_prefix, legend_style=legend_style,
                         name_format=name_format, seqfield=seqfield,
-                        style=style, legacy=legacy, envir=parent.frame())
+                        style=style, legacy=legacy, envir=envir)
   if(par_after){
     doc=body_add_normal(doc, "")
   }
@@ -710,17 +717,19 @@ body_add_gg2 = function(doc, value,
 #'
 #' @param doc a `rdocx` object
 #' @param ... named
+#' @param envir Environment to evaluate each expression in `glue()`.
 #'
 #' @importFrom glue glue
 #' @importFrom purrr iwalk safely
 #' @return The docx object `doc`
 #' @author Dan Chaltiel
 #' @export
-body_replace_text_at_bkms = function(doc, ...){
+body_replace_text_at_bkms = function(doc, ...,
+                                     envir=parent.frame()){
   l=list(...)
   #TODO tester qu'il y a bien un nom à chaque élément!
   iwalk(l, ~{
-    .x = glue(.x, .envir=parent.frame())
+    .x = glue(.x, .envir=envir)
     x = safely(body_replace_text_at_bkm)(doc, .y, .x)
     if(is.null(x$result)) warning(x$error$message, call.=FALSE)
     else doc = x$result

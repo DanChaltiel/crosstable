@@ -18,6 +18,7 @@ body_add_table_legend(
   legend_name = "Table",
   seqfield = "SEQ Table \\\\* Arabic",
   par_before = FALSE,
+  envir = parent.frame(),
   legacy = FALSE
 )
 
@@ -33,6 +34,7 @@ body_add_figure_legend(
   legend_name = "Figure",
   seqfield = "SEQ Figure \\\\* Arabic",
   par_after = FALSE,
+  envir = parent.frame(),
   legacy = FALSE
 )
 }
@@ -58,6 +60,8 @@ body_add_figure_legend(
 \item{seqfield}{Keep default. Otherwise, you may figure it out doing this: in a docx file, insert a table legend, right click on the inserted number and select "Toggle Field Codes". This argument should be the value of the field, with extra escaping.}
 
 \item{par_before, par_after}{should an empty paragraph be inserted before/after the legend?}
+
+\item{envir}{Environment to evaluate each expression in \code{glue()}.}
 
 \item{legacy}{use the old version of this function, if you cannot update \code{{officer}} to v0.4+}
 }
