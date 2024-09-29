@@ -11,6 +11,7 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 
 #### Bug fixes and improvements
  
+-   Better error when `x` is `NULL` in `body_add_table_section()` (#82).
 -   Warn if `by` is "" (#77).
 -   Default to quiet warnings if columns are missing (#76).
 -   Moved the legend above the table in `body_add_table_section()` (#73).

@@ -442,9 +442,10 @@ body_add_table_section = function(doc, x, legend, ..., bookmark=NULL,
                                   title=getOption("crosstable_section_title", TRUE),
                                   title_lvl=getOption("crosstable_section_title_level", 3),
                                   sentence=getOption("crosstable_section_sentence", FALSE)){
-  stopifnot(!is.null(x))
-  stopifnot(inherits(x, c("data.frame", "flextable", "crosstable")))
   ctname = rlang::caller_arg(x)
+  if(is.null(x)) cli_abort("{.arg x} ({.val {ctname}}) should not be NULL.")
+  ok_classes = c("data.frame", "flextable", "crosstable")
+  if(!inherits(x, ok_classes)) cli_abort("{.arg x} ({.val {ctname}}) should not of class {.cls {ok_classes}}.")
   if(is.null(bookmark)) bookmark = crosstable_clean_names(ctname)
 
   if(!is.null(title) && !isFALSE(title)){
