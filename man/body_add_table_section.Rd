@@ -22,7 +22,7 @@ body_add_table_section(
 
 \item{legend}{the legend to use}
 
-\item{...}{passed on to \code{\link[=body_add_flextable]{body_add_flextable()}} or \code{\link[=body_add_crosstable]{body_add_crosstable()}}}
+\item{...}{passed on to \code{\link[flextable:body_add_flextable]{flextable::body_add_flextable()}} or \code{\link[=body_add_crosstable]{body_add_crosstable()}}}
 
 \item{bookmark}{the bookmark to use. Defaults to the cleaned variable name of \code{x}}
 

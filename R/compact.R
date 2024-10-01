@@ -19,7 +19,7 @@ ct_compact = function(data, ...){
 #' @param name_from name of the column to be collapsed when compacting
 #' @param name_to name of the column that will receive the collapsed column. Will be created if it doesn't exist.
 #' @param wrap_cols name of the columns to wrap
-#' @param rtn_flextable whether to return a formatted [flextable()] object or a simple `data.frame`
+#' @param rtn_flextable whether to return a formatted [flextable::flextable()] object or a simple `data.frame`
 #' @param ... additional arguments (not used)
 #' @rdname ct_compact
 #'

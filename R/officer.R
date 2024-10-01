@@ -290,7 +290,7 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #' @param fun_before a function to be used before each table
 #' @param fun_after a function to be used after each table.
 #' @param fun Deprecated
-#' @param ... arguments passed on to [body_add_crosstable()] or [body_add_flextable()]
+#' @param ... arguments passed on to [body_add_crosstable()] or [flextable::body_add_flextable()]
 #'
 #' @section `fun_before` and `fun_after`:
 #' These should be function of the form `function(doc, .name)` where `.name` is the name of the current table of the list.
@@ -427,7 +427,7 @@ body_add_crosstable_list = function(...){
 #' @param title the title to add for the section. Can also be `FALSE` (no title) or `TRUE` (the title defaults to `legend`)
 #' @param title_lvl the title level if applicable
 #' @param sentence a sentence to add between the title (if applicable) and the table. If `TRUE`, defaults to `"Information about {tolower(title)} is described in Table @ref({bookmark})"`.
-#' @param ... passed on to [body_add_flextable()] or [body_add_crosstable()]
+#' @param ... passed on to [flextable::body_add_flextable()] or [body_add_crosstable()]
 #'
 #' @return The `docx` object `doc`
 #' @importFrom flextable body_add_flextable qflextable

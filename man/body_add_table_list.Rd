@@ -30,7 +30,7 @@ body_add_crosstable_list(...)
 
 \item{fun}{Deprecated}
 
-\item{...}{arguments passed on to \code{\link[=body_add_crosstable]{body_add_crosstable()}} or \code{\link[=body_add_flextable]{body_add_flextable()}}}
+\item{...}{arguments passed on to \code{\link[=body_add_crosstable]{body_add_crosstable()}} or \code{\link[flextable:body_add_flextable]{flextable::body_add_flextable()}}}
 }
 \value{
 The docx object \code{doc}

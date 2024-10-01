@@ -39,7 +39,7 @@
 
 \item{wrap_cols}{name of the columns to wrap}
 
-\item{rtn_flextable}{whether to return a formatted \code{\link[=flextable]{flextable()}} object or a simple \code{data.frame}}
+\item{rtn_flextable}{whether to return a formatted \code{\link[flextable:flextable]{flextable::flextable()}} object or a simple \code{data.frame}}
 
 \item{keep_id}{\code{glue} pattern to keep the column name along with the label. If \code{TRUE}, default to \code{"{label} ({.id})"}.}
 }
