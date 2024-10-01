@@ -12,7 +12,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9018</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,7 +25,6 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/crosstable.html">Get started</a></li>
     <li><a class="dropdown-item" href="../articles/crosstable-selection.html">Select columns</a></li>
     <li><a class="dropdown-item" href="../articles/crosstable-report.html">Automatic reporting</a></li>
-    <li><a class="dropdown-item" href="../articles/crosstable-install.html">Installation troubleshooting</a></li>
     <li><a class="dropdown-item" href="../articles/percent_pattern.html">Using `percent_pattern`</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
@@ -44,16 +43,16 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.7.1" id="crosstable-071-development-version">crosstable 0.7.1 (development version)<a class="anchor" aria-label="anchor" href="#crosstable-071-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.8.0" id="crosstable-080">crosstable 0.8.0<a class="anchor" aria-label="anchor" href="#crosstable-080"></a></h2><p class="text-muted">CRAN release: 2024-09-30</p>
 <div class="section level5">
-<h5 id="new-features-0-7-1">New features<a class="anchor" aria-label="anchor" href="#new-features-0-7-1"></a></h5>
+<h5 id="new-features-0-8-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-8-0"></a></h5>
 <ul><li>Remove percents when N=0 with <code>crosstable(remove_zero_percent=TRUE)</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/78" class="external-link">#78</a>).</li>
 <li>Better header for multi-by flextables <code>as_flextable(ct, remove_header_keys=TRUE)</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/74" class="external-link">#74</a>).</li>
 <li>Control font size with <code>body_add_normal(font_size)</code> and <code>crosstable_options(normal_font_size)</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/65" class="external-link">#65</a>).</li>
 <li>Option control on height &amp; width in <code><a href="../reference/body_add_gg2.html">body_add_gg2()</a></code> (<a href="https://github.com/DanChaltiel/crosstable/issues/68" class="external-link">#68</a>).</li>
 </ul></div>
 <div class="section level5">
-<h5 id="bug-fixes-and-improvements-0-7-1">Bug fixes and improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-improvements-0-7-1"></a></h5>
+<h5 id="bug-fixes-and-improvements-0-8-0">Bug fixes and improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-improvements-0-8-0"></a></h5>
 <ul><li>Add envir argument to functions that call <code>glue()</code> (<a href="https://github.com/DanChaltiel/crosstable/issues/83" class="external-link">#83</a>).</li>
 <li>Better error when <code>x</code> is <code>NULL</code> in <code><a href="../reference/body_add_table_section.html">body_add_table_section()</a></code> (<a href="https://github.com/DanChaltiel/crosstable/issues/82" class="external-link">#82</a>).</li>
 <li>Warn if <code>by</code> is “” (<a href="https://github.com/DanChaltiel/crosstable/issues/77" class="external-link">#77</a>).</li>

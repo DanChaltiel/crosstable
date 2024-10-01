@@ -2,12 +2,11 @@ pandoc: 3.1.11
 pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
-  crosstable-install: crosstable-install.html
   crosstable-report: crosstable-report.html
   crosstable-selection: crosstable-selection.html
   crosstable: crosstable.html
   percent_pattern: percent_pattern.html
-last_built: 2024-09-29T18:54Z
+last_built: 2024-10-01T11:35Z
 urls:
   reference: https://danchaltiel.github.io/crosstable/reference
   article: https://danchaltiel.github.io/crosstable/articles
