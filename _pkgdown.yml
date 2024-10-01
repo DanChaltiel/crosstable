@@ -47,8 +47,6 @@ navbar:
         href: articles/crosstable-selection.html
       - text: Automatic reporting
         href: articles/crosstable-report.html
-      - text: Installation troubleshooting
-        href: articles/crosstable-install.html
       - text: Using `percent_pattern`
         href: articles/percent_pattern.html
 
@@ -60,7 +58,6 @@ articles:
   - crosstable
   - crosstable-selection
   - crosstable-report
-  - crosstable-install
   - percent_pattern
 
 
