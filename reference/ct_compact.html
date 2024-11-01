@@ -12,7 +12,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0.9002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,9 +54,10 @@
 <span>  <span class="va">data</span>,</span>
 <span>  <span class="va">name_from</span>,</span>
 <span>  name_to <span class="op">=</span> <span class="st">"variable"</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  id_from <span class="op">=</span> <span class="va">name_from</span>,</span>
 <span>  wrap_cols <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  rtn_flextable <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  <span class="va">...</span></span>
+<span>  rtn_flextable <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'crosstable'</span></span>
@@ -64,6 +65,7 @@
 <span>  <span class="va">data</span>,</span>
 <span>  name_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"label"</span>, <span class="st">".id"</span><span class="op">)</span>,</span>
 <span>  name_to <span class="op">=</span> <span class="st">"variable"</span>,</span>
+<span>  id_from <span class="op">=</span> <span class="st">".id"</span>,</span>
 <span>  keep_id <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -87,6 +89,10 @@
 
 <dt id="arg-name-to">name_to<a class="anchor" aria-label="anchor" href="#arg-name-to"></a></dt>
 <dd><p>name of the column that will receive the collapsed column. Will be created if it doesn't exist.</p></dd>
+
+
+<dt id="arg-id-from">id_from<a class="anchor" aria-label="anchor" href="#arg-id-from"></a></dt>
+<dd><p>name of the columns to use as cut-off. Useful when successive <code>name_from</code> have the same value.</p></dd>
 
 
 <dt id="arg-wrap-cols">wrap_cols<a class="anchor" aria-label="anchor" href="#arg-wrap-cols"></a></dt>
@@ -175,97 +181,64 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 16                     7.1           3          5.9         2.1         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 17                     6.3         2.9          5.6         1.8         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18                     6.5           3          5.8         2.2         </span>
+<span class="r-in"><span><span class="fu">ct_compact</span><span class="op">(</span><span class="va">x</span>, name_from<span class="op">=</span><span class="st">"Species"</span>, id_from<span class="op">=</span><span class="st">"Species2"</span><span class="op">)</span> <span class="co">#cut on "v"</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      variable Sepal.Length Sepal.Width Petal.Length Petal.Width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      setosa                                                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                      5.1         3.5          1.4         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                      4.9           3          1.4         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                      4.7         3.2          1.3         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                      4.6         3.1          1.5         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                        5         3.6          1.4         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  versicolor                                                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                        7         3.2          4.7         1.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                      6.4         3.2          4.5         1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                     6.9         3.1          4.9         1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                     5.5         2.3            4         1.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                     6.5         2.8          4.6         1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                     6.3         3.3            6         2.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                     5.8         2.7          5.1         1.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                     7.1           3          5.9         2.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                     6.3         2.9          5.6         1.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                     6.5           3          5.8         2.2</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#crosstables</span></span></span>
 <span class="r-in"><span><span class="va">x</span><span class="op">=</span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">disp</span>,<span class="va">hp</span>,<span class="va">am</span><span class="op">)</span>, by<span class="op">=</span><span class="va">vs</span>, test<span class="op">=</span><span class="cn">TRUE</span>, effect<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Direct call of 'as.data.frame.numeric()' is deprecated.  Use 'as.data.frame.vector()' or 'as.data.frame()' instead</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Direct call of 'as.data.frame.numeric()' is deprecated.  Use 'as.data.frame.vector()' or 'as.data.frame()' instead</span>
 <span class="r-in"><span><span class="fu">ct_compact</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 variable           straight             vshaped</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Displacement (cu.in.)                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2              Min / Max       71.1 / 258.0       120.3 / 472.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3              Med [IQR] 120.5 [83.0;162.4] 311.0 [275.8;360.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4             Mean (std)       132.5 (56.9)       307.1 (106.8)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 N (NA)             14 (0)              18 (0)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       Gross horsepower                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7              Min / Max       52.0 / 123.0        91.0 / 335.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8              Med [IQR]  96.0 [66.0;109.8] 180.0 [156.2;226.2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9             Mean (std)        91.4 (24.4)        189.7 (60.3)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10                N (NA)             14 (0)              18 (0)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11          Transmission                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12                  auto         7 (36.84%)         12 (63.16%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13                manual         7 (53.85%)          6 (46.15%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                               effect</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 174.69 [114.36 to 235.02]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 98.37 [66.06 to 130.67]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9                                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10                                                                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11          Odds ratio [95% Wald CI], ref='vshaped vs straight'\nmanual vs auto: 0.50 [0.11 to 2.08]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12                                                                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13                                                                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                              test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    p value: &lt;0.0001 \n(Welch Two Sample t-test)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    p value: &lt;0.0001 \n(Welch Two Sample t-test)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 p value: 0.3409 \n(Pearson's Chi-squared test)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 13 × 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    variable              straight             vshaped               effect test </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Displacement (cu.in.) <span style="color: #949494;">""</span>                   <span style="color: #949494;">""</span>                    <span style="color: #949494;">"</span>Diff… <span style="color: #949494;">"</span>p v…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Min / Max             <span style="color: #949494;">"</span>71.1 / 258.0<span style="color: #949494;">"</span>       <span style="color: #949494;">"</span>120.3 / 472.0<span style="color: #949494;">"</span>       <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Med [IQR]             <span style="color: #949494;">"</span>120.5 [83.0;162.4]<span style="color: #949494;">"</span> <span style="color: #949494;">"</span>311.0 [275.8;360.0]<span style="color: #949494;">"</span> <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Mean (std)            <span style="color: #949494;">"</span>132.5 (56.9)<span style="color: #949494;">"</span>       <span style="color: #949494;">"</span>307.1 (106.8)<span style="color: #949494;">"</span>       <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> N (NA)                <span style="color: #949494;">"</span>14 (0)<span style="color: #949494;">"</span>             <span style="color: #949494;">"</span>18 (0)<span style="color: #949494;">"</span>              <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Gross horsepower      <span style="color: #949494;">""</span>                   <span style="color: #949494;">""</span>                    <span style="color: #949494;">"</span>Diff… <span style="color: #949494;">"</span>p v…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Min / Max             <span style="color: #949494;">"</span>52.0 / 123.0<span style="color: #949494;">"</span>       <span style="color: #949494;">"</span>91.0 / 335.0<span style="color: #949494;">"</span>        <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Med [IQR]             <span style="color: #949494;">"</span>96.0 [66.0;109.8]<span style="color: #949494;">"</span>  <span style="color: #949494;">"</span>180.0 [156.2;226.2]<span style="color: #949494;">"</span> <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Mean (std)            <span style="color: #949494;">"</span>91.4 (24.4)<span style="color: #949494;">"</span>        <span style="color: #949494;">"</span>189.7 (60.3)<span style="color: #949494;">"</span>        <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> N (NA)                <span style="color: #949494;">"</span>14 (0)<span style="color: #949494;">"</span>             <span style="color: #949494;">"</span>18 (0)<span style="color: #949494;">"</span>              <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Transmission          <span style="color: #949494;">""</span>                   <span style="color: #949494;">""</span>                    <span style="color: #949494;">"</span>Odds… <span style="color: #949494;">"</span>p v…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> auto                  <span style="color: #949494;">"</span>7 (36.84%)<span style="color: #949494;">"</span>         <span style="color: #949494;">"</span>12 (63.16%)<span style="color: #949494;">"</span>         <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> manual                <span style="color: #949494;">"</span>7 (53.85%)<span style="color: #949494;">"</span>         <span style="color: #949494;">"</span>6 (46.15%)<span style="color: #949494;">"</span>          <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
 <span class="r-in"><span><span class="fu">ct_compact</span><span class="op">(</span><span class="va">x</span>, name_from<span class="op">=</span><span class="st">".id"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      variable           straight             vshaped</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        disp                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Min / Max       71.1 / 258.0       120.3 / 472.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   Med [IQR] 120.5 [83.0;162.4] 311.0 [275.8;360.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Mean (std)       132.5 (56.9)       307.1 (106.8)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      N (NA)             14 (0)              18 (0)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          hp                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   Min / Max       52.0 / 123.0        91.0 / 335.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   Med [IQR]  96.0 [66.0;109.8] 180.0 [156.2;226.2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Mean (std)        91.4 (24.4)        189.7 (60.3)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10     N (NA)             14 (0)              18 (0)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11         am                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12       auto         7 (36.84%)         12 (63.16%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13     manual         7 (53.85%)          6 (46.15%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                               effect</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 174.69 [114.36 to 235.02]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 98.37 [66.06 to 130.67]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9                                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10                                                                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11          Odds ratio [95% Wald CI], ref='vshaped vs straight'\nmanual vs auto: 0.50 [0.11 to 2.08]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12                                                                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13                                                                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                              test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    p value: &lt;0.0001 \n(Welch Two Sample t-test)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    p value: &lt;0.0001 \n(Welch Two Sample t-test)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 p value: 0.3409 \n(Pearson's Chi-squared test)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 13 × 6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    variable   label                   straight             vshaped  effect test </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> disp       <span style="color: #949494;">""</span>                      <span style="color: #949494;">""</span>                   <span style="color: #949494;">""</span>       <span style="color: #949494;">"</span>Diff… <span style="color: #949494;">"</span>p v…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Min / Max  <span style="color: #949494;">"</span>Displacement (cu.in.)<span style="color: #949494;">"</span> <span style="color: #949494;">"</span>71.1 / 258.0<span style="color: #949494;">"</span>       <span style="color: #949494;">"</span>120.3 … <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Med [IQR]  <span style="color: #949494;">"</span>Displacement (cu.in.)<span style="color: #949494;">"</span> <span style="color: #949494;">"</span>120.5 [83.0;162.4]<span style="color: #949494;">"</span> <span style="color: #949494;">"</span>311.0 … <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Mean (std) <span style="color: #949494;">"</span>Displacement (cu.in.)<span style="color: #949494;">"</span> <span style="color: #949494;">"</span>132.5 (56.9)<span style="color: #949494;">"</span>       <span style="color: #949494;">"</span>307.1 … <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> N (NA)     <span style="color: #949494;">"</span>Displacement (cu.in.)<span style="color: #949494;">"</span> <span style="color: #949494;">"</span>14 (0)<span style="color: #949494;">"</span>             <span style="color: #949494;">"</span>18 (0)<span style="color: #949494;">"</span> <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> hp         <span style="color: #949494;">""</span>                      <span style="color: #949494;">""</span>                   <span style="color: #949494;">""</span>       <span style="color: #949494;">"</span>Diff… <span style="color: #949494;">"</span>p v…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Min / Max  <span style="color: #949494;">"</span>Gross horsepower<span style="color: #949494;">"</span>      <span style="color: #949494;">"</span>52.0 / 123.0<span style="color: #949494;">"</span>       <span style="color: #949494;">"</span>91.0 /… <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Med [IQR]  <span style="color: #949494;">"</span>Gross horsepower<span style="color: #949494;">"</span>      <span style="color: #949494;">"</span>96.0 [66.0;109.8]<span style="color: #949494;">"</span>  <span style="color: #949494;">"</span>180.0 … <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Mean (std) <span style="color: #949494;">"</span>Gross horsepower<span style="color: #949494;">"</span>      <span style="color: #949494;">"</span>91.4 (24.4)<span style="color: #949494;">"</span>        <span style="color: #949494;">"</span>189.7 … <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> N (NA)     <span style="color: #949494;">"</span>Gross horsepower<span style="color: #949494;">"</span>      <span style="color: #949494;">"</span>14 (0)<span style="color: #949494;">"</span>             <span style="color: #949494;">"</span>18 (0)<span style="color: #949494;">"</span> <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> am         <span style="color: #949494;">""</span>                      <span style="color: #949494;">""</span>                   <span style="color: #949494;">""</span>       <span style="color: #949494;">"</span>Odds… <span style="color: #949494;">"</span>p v…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> auto       <span style="color: #949494;">"</span>Transmission<span style="color: #949494;">"</span>          <span style="color: #949494;">"</span>7 (36.84%)<span style="color: #949494;">"</span>         <span style="color: #949494;">"</span>12 (63… <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> manual     <span style="color: #949494;">"</span>Transmission<span style="color: #949494;">"</span>          <span style="color: #949494;">"</span>7 (53.85%)<span style="color: #949494;">"</span>         <span style="color: #949494;">"</span>6 (46.… <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
