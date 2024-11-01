@@ -1,5 +1,13 @@
 Crosstables for descriptive analyses. See documentation at <https://danchaltiel.github.io/crosstable/> and browse code at <https://github.com/DanChaltiel/crosstable>.
 
+
+# crosstable 0.8.1
+
+#### Bug fixes and improvements
+
+-   fixed `as_flextable(compact=TRUE)` with duplicated labels (#87).
+
+
 # crosstable 0.8.0 
 
 #### New features
@@ -24,6 +32,7 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 -   Fixed error where `by` contains "label" (#56).
 -   Fixed `as_flextable(header_show_n)` not working in single `by` (#54).
 -   Fixed some missing options in `crosstable_options()` and added tests (#53).
+
 
 # crosstable 0.7.0 <sub><sup>2023-11-12</sup></sub>
 
@@ -53,9 +62,11 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 -   Fixes `write_and_open()` not opening sometimes.
 -   Trailing commas will not make `crosstable_options()` fail anymore.
 
+
 # crosstable 0.6.1 <sub><sup>2023-04-03</sup></sub>
 
 Fixes for CRAN checks.
+
 
 # crosstable 0.6.0 <sub><sup>2023-03-26</sup></sub>
 
@@ -105,6 +116,7 @@ Fixes for CRAN checks.
 
 Many thanks to Stephan Daus (@sda030) for his bug reports and feedback on this release.
 
+
 # crosstable 0.5.0 <sub><sup>2022-08-16</sup></sub>
 
 #### New features
@@ -144,9 +156,11 @@ Many thanks to Stephan Daus (@sda030) for his bug reports and feedback on this r
 -   `import_labels()` now works even if there is a missing value in the dataframe.
 -   Minor other bugfixes
 
+
 # crosstable 0.4.1 <sub><sup>(2022-02-19)</sup></sub>
 
 -   Maintenance release to fix CRAN errors.
+
 
 # crosstable 0.4.0 <sub><sup>(2022-02-14)</sup></sub>
 
@@ -174,6 +188,7 @@ Many thanks to Stephan Daus (@sda030) for his bug reports and feedback on this r
 -   Fixed a bug so that `body_add_normal()` can be used without argument.
 -   Fixed a bug in `effect=TRUE` when some groups were present in `table()` but not in `glm()` due to missing values.
 
+
 # crosstable 0.3.2 <sub><sup>(2021-11-27)</sup></sub>
 
 #### New features
@@ -195,6 +210,7 @@ Many thanks to Stephan Daus (@sda030) for his bug reports and feedback on this r
 
 -   fixed a bug in `crosstable()` occurring when one of `funs` does not have ellipsis (...) and `funs_arg` contains an unused argument.
 
+
 # crosstable 0.3.1 <sub><sup>(2021-11-14)</sup></sub>
 
 #### New features
@@ -215,6 +231,7 @@ Many thanks to Stephan Daus (@sda030) for his bug reports and feedback on this r
 
 -   renamed branch `master` to `main`
 -   use a lot more snapshots in tests
+
 
 # crosstable 0.2.2 <sub><sup>(2021-10-18)</sup></sub>
 
@@ -245,11 +262,13 @@ Many thanks to Stephan Daus (@sda030) for his bug reports and feedback on this r
 -   burgled 2 functions using `burglr::burgle()` to avoid dependency: `nortest::ad.test()` and `DescTools::CochranArmitageTest()`.
 -   fixes the bug from the breaking change in `testthat` (<https://github.com/DanChaltiel/crosstable/pull/3>).
 
+
 # crosstable 0.2.1 <sub><sup>(2021-02-07)</sup></sub>
 
 -   First version on CRAN
 -   Improved functions naming in `funs`, especially with multiple combinations of named and unnamed functions, including lambda or anonymous
 -   Use `simplify=FALSE` in `get_label()` to get a list instead of a vector
+
 
 # crosstable 0.2.0 <sub><sup>(2021-02-02)</sup></sub>
 
@@ -285,6 +304,7 @@ Many thanks to Stephan Daus (@sda030) for his bug reports and feedback on this r
 -   added minimal support for `gt` tables (with `as_gt()`) for those who like them better than `flextable`s
 -   improved working with `officer`: added `body_add_figure_legend()` and `fontsize` options for `body_add_crosstable()`
 
+
 # crosstable 0.1.4 <sub><sup>(2020-07-16)</sup></sub>
 
 -   added `save_labels()` to ease working with `dplyr`
@@ -293,10 +313,12 @@ Many thanks to Stephan Daus (@sda030) for his bug reports and feedback on this r
 -   multiple, numerous bug fixes
 -   renamed `moystd()` to `meansd()`
 
+
 # crosstable 0.1.3 <sub><sup>(2020-06-29)</sup></sub>
 
 -   Added support for description of `Date` variables. Format can be specified in `funs_arg` with the `date_format` key.
 -   Removed some dependencies to ease installation
+
 
 # crosstable 0.1.2 <sub><sup>(2020-06-10)</sup></sub>
 
@@ -304,6 +326,7 @@ Many thanks to Stephan Daus (@sda030) for his bug reports and feedback on this r
 -   Name sanitation: replacing "." by "\_" in function names
 -   Better error messages
 -   Bug fixes
+
 
 # crosstable 0.1.1 <sub><sup>(2020-06-07)</sup></sub>
 
