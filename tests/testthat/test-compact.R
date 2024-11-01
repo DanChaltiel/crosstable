@@ -64,6 +64,29 @@ test_that("Compacting inside or outside as_flextable.crosstable gives the same r
 })
 
 
+test_that("Compact method OK with as_flextable()", {
+
+  ct = mtcars2 %>%
+    apply_labels(am="Engine") %>%
+    crosstable(c(am, vs))
+
+  ft1 = ct %>% af(compact=FALSE)
+  expect_setequal(ft1$body$dataset$.id, c("am", "vs"))
+  expect_setequal(ft1$body$dataset$label, "Engine")
+  expect_equal(ft1$body$dataset$variable, c("auto", "manual", "straight", "vshaped"))
+  expect_equal(as.character(ft1$header$dataset), c("label", "variable", "value"))
+
+  ft2 = ct %>% af(compact=TRUE)
+  expect_null(ft2$body$dataset$.id)
+  expect_null(ft2$body$dataset$label)
+  expect_equal(ft2$body$dataset$variable,
+               c("Engine", "auto", "manual", "Engine", "straight", "vshaped"))
+  expect_equal(as.character(ft2$header$dataset), c("variable", "value"))
+
+})
+
+
+
 # Misc flextable ----------------------------------------------------------
 
 

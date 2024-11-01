@@ -73,43 +73,47 @@
     Code
       ct_compact(ct)
     Output
-                      variable           straight             vshaped
-      1  Displacement (cu.in.)                                       
-      2              Min / Max       71.1 / 258.0       120.3 / 472.0
-      3              Med [IQR] 120.5 [83.0;162.4] 311.0 [275.8;360.0]
-      4             Mean (std)       132.5 (56.9)       307.1 (106.8)
-      5                 N (NA)             14 (0)              18 (0)
-      6       Gross horsepower                                       
-      7              Min / Max       52.0 / 123.0        91.0 / 335.0
-      8              Med [IQR]  96.0 [66.0;109.8] 180.0 [156.2;226.2]
-      9             Mean (std)        91.4 (24.4)        189.7 (60.3)
-      10                N (NA)             14 (0)              18 (0)
-      11   Number of cylinders                                       
-      12                     4        10 (90.91%)           1 (9.09%)
-      13                     6         4 (57.14%)          3 (42.86%)
-      14                     8             0 (0%)        14 (100.00%)
-      15          Transmission                                       
-      16                  auto         7 (36.84%)         12 (63.16%)
-      17                manual         7 (53.85%)          6 (46.15%)
+      # A tibble: 17 x 3
+         variable              straight             vshaped              
+       * <chr>                 <chr>                <chr>                
+       1 Displacement (cu.in.) ""                   ""                   
+       2 Min / Max             "71.1 / 258.0"       "120.3 / 472.0"      
+       3 Med [IQR]             "120.5 [83.0;162.4]" "311.0 [275.8;360.0]"
+       4 Mean (std)            "132.5 (56.9)"       "307.1 (106.8)"      
+       5 N (NA)                "14 (0)"             "18 (0)"             
+       6 Gross horsepower      ""                   ""                   
+       7 Min / Max             "52.0 / 123.0"       "91.0 / 335.0"       
+       8 Med [IQR]             "96.0 [66.0;109.8]"  "180.0 [156.2;226.2]"
+       9 Mean (std)            "91.4 (24.4)"        "189.7 (60.3)"       
+      10 N (NA)                "14 (0)"             "18 (0)"             
+      11 Number of cylinders   ""                   ""                   
+      12 4                     "10 (90.91%)"        "1 (9.09%)"          
+      13 6                     "4 (57.14%)"         "3 (42.86%)"         
+      14 8                     "0 (0%)"             "14 (100.00%)"       
+      15 Transmission          ""                   ""                   
+      16 auto                  "7 (36.84%)"         "12 (63.16%)"        
+      17 manual                "7 (53.85%)"         "6 (46.15%)"         
     Code
       ct_compact(ct, name_from = ".id")
     Output
-           variable           straight             vshaped
-      1        disp                                       
-      2   Min / Max       71.1 / 258.0       120.3 / 472.0
-      3   Med [IQR] 120.5 [83.0;162.4] 311.0 [275.8;360.0]
-      4  Mean (std)       132.5 (56.9)       307.1 (106.8)
-      5      N (NA)             14 (0)              18 (0)
-      6          hp                                       
-      7   Min / Max       52.0 / 123.0        91.0 / 335.0
-      8   Med [IQR]  96.0 [66.0;109.8] 180.0 [156.2;226.2]
-      9  Mean (std)        91.4 (24.4)        189.7 (60.3)
-      10     N (NA)             14 (0)              18 (0)
-      11        cyl                                       
-      12          4        10 (90.91%)           1 (9.09%)
-      13          6         4 (57.14%)          3 (42.86%)
-      14          8             0 (0%)        14 (100.00%)
-      15         am                                       
-      16       auto         7 (36.84%)         12 (63.16%)
-      17     manual         7 (53.85%)          6 (46.15%)
+      # A tibble: 17 x 4
+         variable   label                   straight             vshaped              
+       * <chr>      <chr>                   <chr>                <chr>                
+       1 disp       ""                      ""                   ""                   
+       2 Min / Max  "Displacement (cu.in.)" "71.1 / 258.0"       "120.3 / 472.0"      
+       3 Med [IQR]  "Displacement (cu.in.)" "120.5 [83.0;162.4]" "311.0 [275.8;360.0]"
+       4 Mean (std) "Displacement (cu.in.)" "132.5 (56.9)"       "307.1 (106.8)"      
+       5 N (NA)     "Displacement (cu.in.)" "14 (0)"             "18 (0)"             
+       6 hp         ""                      ""                   ""                   
+       7 Min / Max  "Gross horsepower"      "52.0 / 123.0"       "91.0 / 335.0"       
+       8 Med [IQR]  "Gross horsepower"      "96.0 [66.0;109.8]"  "180.0 [156.2;226.2]"
+       9 Mean (std) "Gross horsepower"      "91.4 (24.4)"        "189.7 (60.3)"       
+      10 N (NA)     "Gross horsepower"      "14 (0)"             "18 (0)"             
+      11 cyl        ""                      ""                   ""                   
+      12 4          "Number of cylinders"   "10 (90.91%)"        "1 (9.09%)"          
+      13 6          "Number of cylinders"   "4 (57.14%)"         "3 (42.86%)"         
+      14 8          "Number of cylinders"   "0 (0%)"             "14 (100.00%)"       
+      15 am         ""                      ""                   ""                   
+      16 auto       "Transmission"          "7 (36.84%)"         "12 (63.16%)"        
+      17 manual     "Transmission"          "7 (53.85%)"         "6 (46.15%)"         
 

@@ -15,15 +15,17 @@
   data,
   name_from,
   name_to = "variable",
+  ...,
+  id_from = name_from,
   wrap_cols = NULL,
-  rtn_flextable = FALSE,
-  ...
+  rtn_flextable = FALSE
 )
 
 \method{ct_compact}{crosstable}(
   data,
   name_from = c("label", ".id"),
   name_to = "variable",
+  id_from = ".id",
   keep_id = FALSE,
   ...
 )
@@ -36,6 +38,8 @@
 \item{name_from}{name of the column to be collapsed when compacting}
 
 \item{name_to}{name of the column that will receive the collapsed column. Will be created if it doesn't exist.}
+
+\item{id_from}{name of the columns to use as cut-off. Useful when successive \code{name_from} have the same value.}
 
 \item{wrap_cols}{name of the columns to wrap}
 
@@ -56,6 +60,7 @@ ct_compact(x, name_from="Species")
 ct_compact(x, name_from="Species", name_to="Petal.Length")
 x$Species2 = substr(x$Species, 1, 1)
 ct_compact(x, name_from="Species", wrap_cols="Species2")
+ct_compact(x, name_from="Species", id_from="Species2") #cut on "v"
 
 #crosstables
 x=crosstable(mtcars2, c(disp,hp,am), by=vs, test=TRUE, effect=TRUE)
