@@ -30,3 +30,4 @@ DEV\.R
 ^CRAN-RELEASE$
 ^codemeta\.json$
 ^CRAN-SUBMISSION$
+^revdep$
