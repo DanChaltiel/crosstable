@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <script src="../extra.js"></script><meta property="og:title" content="Using `percent_pattern`">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-F1ZSXB74Z9"></script><script>
@@ -33,7 +33,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.1.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -107,45 +107,45 @@ dataset and tweak some options:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars3</span>, <span class="va">cyl</span>, by<span class="op">=</span><span class="va">vs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="tabwid">
-<style>.cl-d87a44a0{table-layout:auto;}.cl-d86f0946{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-d86f0950{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-d876d644{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-d876d64e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-d876f20a{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d876f214{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d876f215{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d876f21e{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d876f21f{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table data-quarto-disable-processing="true" class="table cl-d87a44a0">
+<style>.cl-7fe4a596{table-layout:auto;}.cl-7fd9821a{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7fd98224{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7fe12542{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-7fe12556{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-7fe1411c{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7fe14126{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7fe14127{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7fe14130{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7fe14131{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<table data-quarto-disable-processing="true" class="table cl-7fe4a596">
 <thead>
 <tr style="overflow-wrap:break-word;">
-<th rowspan="2" class="cl-d876f20a"><p class="cl-d876d644"><span class="cl-d86f0946">label</span></p></th>
-<th rowspan="2" class="cl-d876f20a"><p class="cl-d876d644"><span class="cl-d86f0946">variable</span></p></th>
-<th colspan="3" class="cl-d876f214"><p class="cl-d876d644"><span class="cl-d86f0946">Engine</span></p></th>
+<th rowspan="2" class="cl-7fe1411c"><p class="cl-7fe12542"><span class="cl-7fd9821a">label</span></p></th>
+<th rowspan="2" class="cl-7fe1411c"><p class="cl-7fe12542"><span class="cl-7fd9821a">variable</span></p></th>
+<th colspan="3" class="cl-7fe14126"><p class="cl-7fe12542"><span class="cl-7fd9821a">Engine</span></p></th>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<th class="cl-d876f215"><p class="cl-d876d644"><span class="cl-d86f0946">straight</span></p></th>
-<th class="cl-d876f215"><p class="cl-d876d644"><span class="cl-d86f0946">vshaped</span></p></th>
-<th class="cl-d876f215"><p class="cl-d876d644"><span class="cl-d86f0946">NA</span></p></th>
+<th class="cl-7fe14127"><p class="cl-7fe12542"><span class="cl-7fd9821a">straight</span></p></th>
+<th class="cl-7fe14127"><p class="cl-7fe12542"><span class="cl-7fd9821a">vshaped</span></p></th>
+<th class="cl-7fe14127"><p class="cl-7fe12542"><span class="cl-7fd9821a">NA</span></p></th>
 </tr>
 </thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td rowspan="4" class="cl-d876f21e"><p class="cl-d876d64e"><span class="cl-d86f0950">Number of cylinders</span></p></td>
-<td class="cl-d876f21f"><p class="cl-d876d64e"><span class="cl-d86f0950">4</span></p></td>
-<td class="cl-d876f21f"><p class="cl-d876d64e"><span class="cl-d86f0950">7 (88%)</span></p></td>
-<td class="cl-d876f21f"><p class="cl-d876d64e"><span class="cl-d86f0950">1 (12%)</span></p></td>
-<td class="cl-d876f21f"><p class="cl-d876d64e"><span class="cl-d86f0950">2</span></p></td>
+<td rowspan="4" class="cl-7fe14130"><p class="cl-7fe12556"><span class="cl-7fd98224">Number of cylinders</span></p></td>
+<td class="cl-7fe14131"><p class="cl-7fe12556"><span class="cl-7fd98224">4</span></p></td>
+<td class="cl-7fe14131"><p class="cl-7fe12556"><span class="cl-7fd98224">7 (88%)</span></p></td>
+<td class="cl-7fe14131"><p class="cl-7fe12556"><span class="cl-7fd98224">1 (12%)</span></p></td>
+<td class="cl-7fe14131"><p class="cl-7fe12556"><span class="cl-7fd98224">2</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d876f21f"><p class="cl-d876d64e"><span class="cl-d86f0950">6</span></p></td>
-<td class="cl-d876f21f"><p class="cl-d876d64e"><span class="cl-d86f0950">0 (0%)</span></p></td>
-<td class="cl-d876f21f"><p class="cl-d876d64e"><span class="cl-d86f0950">1 (100%)</span></p></td>
-<td class="cl-d876f21f"><p class="cl-d876d64e"><span class="cl-d86f0950">3</span></p></td>
+<td class="cl-7fe14131"><p class="cl-7fe12556"><span class="cl-7fd98224">6</span></p></td>
+<td class="cl-7fe14131"><p class="cl-7fe12556"><span class="cl-7fd98224">0 (0%)</span></p></td>
+<td class="cl-7fe14131"><p class="cl-7fe12556"><span class="cl-7fd98224">1 (100%)</span></p></td>
+<td class="cl-7fe14131"><p class="cl-7fe12556"><span class="cl-7fd98224">3</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d876f21f"><p class="cl-d876d64e"><span class="cl-d86f0950">8</span></p></td>
-<td class="cl-d876f21f"><p class="cl-d876d64e"><span class="cl-d86f0950">0 (0%)</span></p></td>
-<td class="cl-d876f21f"><p class="cl-d876d64e"><span class="cl-d86f0950">11 (100%)</span></p></td>
-<td class="cl-d876f21f"><p class="cl-d876d64e"><span class="cl-d86f0950">2</span></p></td>
+<td class="cl-7fe14131"><p class="cl-7fe12556"><span class="cl-7fd98224">8</span></p></td>
+<td class="cl-7fe14131"><p class="cl-7fe12556"><span class="cl-7fd98224">0 (0%)</span></p></td>
+<td class="cl-7fe14131"><p class="cl-7fe12556"><span class="cl-7fd98224">11 (100%)</span></p></td>
+<td class="cl-7fe14131"><p class="cl-7fe12556"><span class="cl-7fd98224">2</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d876f21e"><p class="cl-d876d64e"><span class="cl-d86f0950">NA</span></p></td>
-<td class="cl-d876f21e"><p class="cl-d876d64e"><span class="cl-d86f0950">2</span></p></td>
-<td class="cl-d876f21e"><p class="cl-d876d64e"><span class="cl-d86f0950">2</span></p></td>
-<td class="cl-d876f21e"><p class="cl-d876d64e"><span class="cl-d86f0950">1</span></p></td>
+<td class="cl-7fe14130"><p class="cl-7fe12556"><span class="cl-7fd98224">NA</span></p></td>
+<td class="cl-7fe14130"><p class="cl-7fe12556"><span class="cl-7fd98224">2</span></p></td>
+<td class="cl-7fe14130"><p class="cl-7fe12556"><span class="cl-7fd98224">2</span></p></td>
+<td class="cl-7fe14130"><p class="cl-7fe12556"><span class="cl-7fd98224">1</span></p></td>
 </tr>
 </tbody>
 </table>
@@ -185,45 +185,45 @@ external variable defined outside of <code><a href="../reference/crosstable.html
 <span>           percent_pattern<span class="op">=</span><span class="st">"N={n}/{n_row} -&gt; p={p_row}"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="tabwid">
-<style>.cl-d8af4196{table-layout:auto;}.cl-d8a9e430{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-d8a9e444{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-d8ac1890{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-d8ac189a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-d8ac32c6{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d8ac32d0{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d8ac32d1{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d8ac32da{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d8ac32db{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table data-quarto-disable-processing="true" class="table cl-d8af4196">
+<style>.cl-80199c10{table-layout:auto;}.cl-8014366c{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-80143680{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-801672d8{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-801672e2{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-80168ca0{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-80168caa{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-80168cab{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-80168cac{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-80168cad{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<table data-quarto-disable-processing="true" class="table cl-80199c10">
 <thead>
 <tr style="overflow-wrap:break-word;">
-<th rowspan="2" class="cl-d8ac32c6"><p class="cl-d8ac1890"><span class="cl-d8a9e430">label</span></p></th>
-<th rowspan="2" class="cl-d8ac32c6"><p class="cl-d8ac1890"><span class="cl-d8a9e430">variable</span></p></th>
-<th colspan="3" class="cl-d8ac32d0"><p class="cl-d8ac1890"><span class="cl-d8a9e430">Engine</span></p></th>
+<th rowspan="2" class="cl-80168ca0"><p class="cl-801672d8"><span class="cl-8014366c">label</span></p></th>
+<th rowspan="2" class="cl-80168ca0"><p class="cl-801672d8"><span class="cl-8014366c">variable</span></p></th>
+<th colspan="3" class="cl-80168caa"><p class="cl-801672d8"><span class="cl-8014366c">Engine</span></p></th>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<th class="cl-d8ac32d1"><p class="cl-d8ac1890"><span class="cl-d8a9e430">straight</span></p></th>
-<th class="cl-d8ac32d1"><p class="cl-d8ac1890"><span class="cl-d8a9e430">vshaped</span></p></th>
-<th class="cl-d8ac32d1"><p class="cl-d8ac1890"><span class="cl-d8a9e430">NA</span></p></th>
+<th class="cl-80168cab"><p class="cl-801672d8"><span class="cl-8014366c">straight</span></p></th>
+<th class="cl-80168cab"><p class="cl-801672d8"><span class="cl-8014366c">vshaped</span></p></th>
+<th class="cl-80168cab"><p class="cl-801672d8"><span class="cl-8014366c">NA</span></p></th>
 </tr>
 </thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td rowspan="4" class="cl-d8ac32da"><p class="cl-d8ac189a"><span class="cl-d8a9e444">Number of cylinders</span></p></td>
-<td class="cl-d8ac32db"><p class="cl-d8ac189a"><span class="cl-d8a9e444">4</span></p></td>
-<td class="cl-d8ac32db"><p class="cl-d8ac189a"><span class="cl-d8a9e444">N=7/8 -&gt; p=88%</span></p></td>
-<td class="cl-d8ac32db"><p class="cl-d8ac189a"><span class="cl-d8a9e444">N=1/8 -&gt; p=12%</span></p></td>
-<td class="cl-d8ac32db"><p class="cl-d8ac189a"><span class="cl-d8a9e444">2</span></p></td>
+<td rowspan="4" class="cl-80168cac"><p class="cl-801672e2"><span class="cl-80143680">Number of cylinders</span></p></td>
+<td class="cl-80168cad"><p class="cl-801672e2"><span class="cl-80143680">4</span></p></td>
+<td class="cl-80168cad"><p class="cl-801672e2"><span class="cl-80143680">N=7/8 -&gt; p=88%</span></p></td>
+<td class="cl-80168cad"><p class="cl-801672e2"><span class="cl-80143680">N=1/8 -&gt; p=12%</span></p></td>
+<td class="cl-80168cad"><p class="cl-801672e2"><span class="cl-80143680">2</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d8ac32db"><p class="cl-d8ac189a"><span class="cl-d8a9e444">6</span></p></td>
-<td class="cl-d8ac32db"><p class="cl-d8ac189a"><span class="cl-d8a9e444">N=0/1 -&gt; p=0%</span></p></td>
-<td class="cl-d8ac32db"><p class="cl-d8ac189a"><span class="cl-d8a9e444">N=1/1 -&gt; p=100%</span></p></td>
-<td class="cl-d8ac32db"><p class="cl-d8ac189a"><span class="cl-d8a9e444">3</span></p></td>
+<td class="cl-80168cad"><p class="cl-801672e2"><span class="cl-80143680">6</span></p></td>
+<td class="cl-80168cad"><p class="cl-801672e2"><span class="cl-80143680">N=0/1 -&gt; p=0%</span></p></td>
+<td class="cl-80168cad"><p class="cl-801672e2"><span class="cl-80143680">N=1/1 -&gt; p=100%</span></p></td>
+<td class="cl-80168cad"><p class="cl-801672e2"><span class="cl-80143680">3</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d8ac32db"><p class="cl-d8ac189a"><span class="cl-d8a9e444">8</span></p></td>
-<td class="cl-d8ac32db"><p class="cl-d8ac189a"><span class="cl-d8a9e444">N=0/11 -&gt; p=0%</span></p></td>
-<td class="cl-d8ac32db"><p class="cl-d8ac189a"><span class="cl-d8a9e444">N=11/11 -&gt; p=100%</span></p></td>
-<td class="cl-d8ac32db"><p class="cl-d8ac189a"><span class="cl-d8a9e444">2</span></p></td>
+<td class="cl-80168cad"><p class="cl-801672e2"><span class="cl-80143680">8</span></p></td>
+<td class="cl-80168cad"><p class="cl-801672e2"><span class="cl-80143680">N=0/11 -&gt; p=0%</span></p></td>
+<td class="cl-80168cad"><p class="cl-801672e2"><span class="cl-80143680">N=11/11 -&gt; p=100%</span></p></td>
+<td class="cl-80168cad"><p class="cl-801672e2"><span class="cl-80143680">2</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d8ac32da"><p class="cl-d8ac189a"><span class="cl-d8a9e444">NA</span></p></td>
-<td class="cl-d8ac32da"><p class="cl-d8ac189a"><span class="cl-d8a9e444">2</span></p></td>
-<td class="cl-d8ac32da"><p class="cl-d8ac189a"><span class="cl-d8a9e444">2</span></p></td>
-<td class="cl-d8ac32da"><p class="cl-d8ac189a"><span class="cl-d8a9e444">1</span></p></td>
+<td class="cl-80168cac"><p class="cl-801672e2"><span class="cl-80143680">NA</span></p></td>
+<td class="cl-80168cac"><p class="cl-801672e2"><span class="cl-80143680">2</span></p></td>
+<td class="cl-80168cac"><p class="cl-801672e2"><span class="cl-80143680">2</span></p></td>
+<td class="cl-80168cac"><p class="cl-801672e2"><span class="cl-80143680">1</span></p></td>
 </tr>
 </tbody>
 </table>
@@ -266,57 +266,57 @@ variables.</p>
 <span>           percent_pattern<span class="op">=</span><span class="st">"N={n}, p={p_row} ({n}/{n_row})"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="tabwid">
-<style>.cl-d8dc670c{table-layout:auto;}.cl-d8d68eea{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-d8d68ef4{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-d8d8e226{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-d8d8e227{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-d8d8fcd4{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d8d8fcde{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d8d8fcdf{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d8d8fce8{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d8d8fce9{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table data-quarto-disable-processing="true" class="table cl-d8dc670c">
+<style>.cl-8046edbe{table-layout:auto;}.cl-80414346{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-80414350{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-80439e16{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-80439e20{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-8043b856{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8043b860{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8043b861{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8043b862{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8043b86a{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<table data-quarto-disable-processing="true" class="table cl-8046edbe">
 <thead>
 <tr style="overflow-wrap:break-word;">
-<th rowspan="2" class="cl-d8d8fcd4"><p class="cl-d8d8e226"><span class="cl-d8d68eea">label</span></p></th>
-<th rowspan="2" class="cl-d8d8fcd4"><p class="cl-d8d8e226"><span class="cl-d8d68eea">variable</span></p></th>
-<th colspan="3" class="cl-d8d8fcde"><p class="cl-d8d8e226"><span class="cl-d8d68eea">Engine</span></p></th>
-<th rowspan="2" class="cl-d8d8fcd4"><p class="cl-d8d8e226"><span class="cl-d8d68eea">Total</span></p></th>
+<th rowspan="2" class="cl-8043b856"><p class="cl-80439e16"><span class="cl-80414346">label</span></p></th>
+<th rowspan="2" class="cl-8043b856"><p class="cl-80439e16"><span class="cl-80414346">variable</span></p></th>
+<th colspan="3" class="cl-8043b860"><p class="cl-80439e16"><span class="cl-80414346">Engine</span></p></th>
+<th rowspan="2" class="cl-8043b856"><p class="cl-80439e16"><span class="cl-80414346">Total</span></p></th>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<th class="cl-d8d8fcdf"><p class="cl-d8d8e226"><span class="cl-d8d68eea">straight</span></p></th>
-<th class="cl-d8d8fcdf"><p class="cl-d8d8e226"><span class="cl-d8d68eea">vshaped</span></p></th>
-<th class="cl-d8d8fcdf"><p class="cl-d8d8e226"><span class="cl-d8d68eea">NA</span></p></th>
+<th class="cl-8043b861"><p class="cl-80439e16"><span class="cl-80414346">straight</span></p></th>
+<th class="cl-8043b861"><p class="cl-80439e16"><span class="cl-80414346">vshaped</span></p></th>
+<th class="cl-8043b861"><p class="cl-80439e16"><span class="cl-80414346">NA</span></p></th>
 </tr>
 </thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td rowspan="5" class="cl-d8d8fce8"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">Number of cylinders</span></p></td>
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">4</span></p></td>
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">N=7, p=88% (7/8)</span></p></td>
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">N=1, p=12% (1/8)</span></p></td>
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">2</span></p></td>
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">10 (37%)</span></p></td>
+<td rowspan="5" class="cl-8043b862"><p class="cl-80439e20"><span class="cl-80414350">Number of cylinders</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">4</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">N=7, p=88% (7/8)</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">N=1, p=12% (1/8)</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">2</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">10 (37%)</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">6</span></p></td>
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">N=0, p=0% (0/1)</span></p></td>
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">N=1, p=100% (1/1)</span></p></td>
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">3</span></p></td>
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">4 (15%)</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">6</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">N=0, p=0% (0/1)</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">N=1, p=100% (1/1)</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">3</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">4 (15%)</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">8</span></p></td>
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">N=0, p=0% (0/11)</span></p></td>
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">N=11, p=100% (11/11)</span></p></td>
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">2</span></p></td>
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">13 (48%)</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">8</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">N=0, p=0% (0/11)</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">N=11, p=100% (11/11)</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">2</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">13 (48%)</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">NA</span></p></td>
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">2</span></p></td>
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">2</span></p></td>
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">1</span></p></td>
-<td class="cl-d8d8fce9"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">5</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">NA</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">2</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">2</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">1</span></p></td>
+<td class="cl-8043b86a"><p class="cl-80439e20"><span class="cl-80414350">5</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d8d8fce8"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">Total</span></p></td>
-<td class="cl-d8d8fce8"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">9 (38%)</span></p></td>
-<td class="cl-d8d8fce8"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">15 (62%)</span></p></td>
-<td class="cl-d8d8fce8"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">8</span></p></td>
-<td class="cl-d8d8fce8"><p class="cl-d8d8e227"><span class="cl-d8d68ef4">32 (100%)</span></p></td>
+<td class="cl-8043b862"><p class="cl-80439e20"><span class="cl-80414350">Total</span></p></td>
+<td class="cl-8043b862"><p class="cl-80439e20"><span class="cl-80414350">9 (38%)</span></p></td>
+<td class="cl-8043b862"><p class="cl-80439e20"><span class="cl-80414350">15 (62%)</span></p></td>
+<td class="cl-8043b862"><p class="cl-80439e20"><span class="cl-80414350">8</span></p></td>
+<td class="cl-8043b862"><p class="cl-80439e20"><span class="cl-80414350">32 (100%)</span></p></td>
 </tr>
 </tbody>
 </table>
@@ -336,57 +336,57 @@ have to pass a list with names <code>body</code>,
 <span>           percent_pattern<span class="op">=</span><span class="va">pp</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="tabwid">
-<style>.cl-d90af4dc{table-layout:auto;}.cl-d9044628{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-d904463c{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-d906b412{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-d906b41c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-d906e298{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d906e2a2{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d906e2ac{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d906e2ad{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d906e2b6{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table data-quarto-disable-processing="true" class="table cl-d90af4dc">
+<style>.cl-807488b4{table-layout:auto;}.cl-806ee0f8{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-806ee102{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-80712a3e{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-80712a48{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-8071438e{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-80714398{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-80714399{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-807143a2{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-807143a3{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<table data-quarto-disable-processing="true" class="table cl-807488b4">
 <thead>
 <tr style="overflow-wrap:break-word;">
-<th rowspan="2" class="cl-d906e298"><p class="cl-d906b412"><span class="cl-d9044628">label</span></p></th>
-<th rowspan="2" class="cl-d906e298"><p class="cl-d906b412"><span class="cl-d9044628">variable</span></p></th>
-<th colspan="3" class="cl-d906e2a2"><p class="cl-d906b412"><span class="cl-d9044628">Engine</span></p></th>
-<th rowspan="2" class="cl-d906e298"><p class="cl-d906b412"><span class="cl-d9044628">Total</span></p></th>
+<th rowspan="2" class="cl-8071438e"><p class="cl-80712a3e"><span class="cl-806ee0f8">label</span></p></th>
+<th rowspan="2" class="cl-8071438e"><p class="cl-80712a3e"><span class="cl-806ee0f8">variable</span></p></th>
+<th colspan="3" class="cl-80714398"><p class="cl-80712a3e"><span class="cl-806ee0f8">Engine</span></p></th>
+<th rowspan="2" class="cl-8071438e"><p class="cl-80712a3e"><span class="cl-806ee0f8">Total</span></p></th>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<th class="cl-d906e2ac"><p class="cl-d906b412"><span class="cl-d9044628">straight</span></p></th>
-<th class="cl-d906e2ac"><p class="cl-d906b412"><span class="cl-d9044628">vshaped</span></p></th>
-<th class="cl-d906e2ac"><p class="cl-d906b412"><span class="cl-d9044628">NA</span></p></th>
+<th class="cl-80714399"><p class="cl-80712a3e"><span class="cl-806ee0f8">straight</span></p></th>
+<th class="cl-80714399"><p class="cl-80712a3e"><span class="cl-806ee0f8">vshaped</span></p></th>
+<th class="cl-80714399"><p class="cl-80712a3e"><span class="cl-806ee0f8">NA</span></p></th>
 </tr>
 </thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td rowspan="5" class="cl-d906e2ad"><p class="cl-d906b41c"><span class="cl-d904463c">Number of cylinders</span></p></td>
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">4</span></p></td>
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">N=7, p=35% (7/20)</span></p></td>
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">N=1, p=5% (1/20)</span></p></td>
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">2</span></p></td>
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">10</span></p></td>
+<td rowspan="5" class="cl-807143a2"><p class="cl-80712a48"><span class="cl-806ee102">Number of cylinders</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">4</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">N=7, p=35% (7/20)</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">N=1, p=5% (1/20)</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">2</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">10</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">6</span></p></td>
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">N=0, p=0% (0/20)</span></p></td>
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">N=1, p=5% (1/20)</span></p></td>
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">3</span></p></td>
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">4</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">6</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">N=0, p=0% (0/20)</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">N=1, p=5% (1/20)</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">3</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">4</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">8</span></p></td>
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">N=0, p=0% (0/20)</span></p></td>
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">N=11, p=55% (11/20)</span></p></td>
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">2</span></p></td>
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">13</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">8</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">N=0, p=0% (0/20)</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">N=11, p=55% (11/20)</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">2</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">13</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">NA</span></p></td>
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">2</span></p></td>
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">2</span></p></td>
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">1</span></p></td>
-<td class="cl-d906e2b6"><p class="cl-d906b41c"><span class="cl-d904463c">5</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">NA</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">2</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">2</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">1</span></p></td>
+<td class="cl-807143a3"><p class="cl-80712a48"><span class="cl-806ee102">5</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d906e2ad"><p class="cl-d906b41c"><span class="cl-d904463c">Total</span></p></td>
-<td class="cl-d906e2ad"><p class="cl-d906b41c"><span class="cl-d904463c">N=9 p=(38%)</span></p></td>
-<td class="cl-d906e2ad"><p class="cl-d906b41c"><span class="cl-d904463c">N=15 p=(62%)</span></p></td>
-<td class="cl-d906e2ad"><p class="cl-d906b41c"><span class="cl-d904463c">8</span></p></td>
-<td class="cl-d906e2ad"><p class="cl-d906b41c"><span class="cl-d904463c">Total=32</span></p></td>
+<td class="cl-807143a2"><p class="cl-80712a48"><span class="cl-806ee102">Total</span></p></td>
+<td class="cl-807143a2"><p class="cl-80712a48"><span class="cl-806ee102">N=9 p=(38%)</span></p></td>
+<td class="cl-807143a2"><p class="cl-80712a48"><span class="cl-806ee102">N=15 p=(62%)</span></p></td>
+<td class="cl-807143a2"><p class="cl-80712a48"><span class="cl-806ee102">8</span></p></td>
+<td class="cl-807143a2"><p class="cl-80712a48"><span class="cl-806ee102">Total=32</span></p></td>
 </tr>
 </tbody>
 </table>
@@ -459,57 +459,57 @@ you need.</p>
 <span>  <span class="fu"><a href="../reference/as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu">flextable</span><span class="fu">::</span><span class="fu"><a href="https://davidgohel.github.io/flextable/reference/theme_box.html" class="external-link">theme_box</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="tabwid">
-<style>.cl-d94ead76{table-layout:auto;}.cl-d9495c68{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-d9495c72{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-d94b9e2e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-d94bb616{background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0.75pt solid rgba(102, 102, 102, 1.00);border-right: 0.75pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d94bb617{background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0.75pt solid rgba(102, 102, 102, 1.00);border-right: 0.75pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-d94bb620{background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0.75pt solid rgba(102, 102, 102, 1.00);border-right: 0.75pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table data-quarto-disable-processing="true" class="table cl-d94ead76">
+<style>.cl-80b93de2{table-layout:auto;}.cl-80b3b57a{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-80b3b584{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-80b60dac{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-80b6260c{background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0.75pt solid rgba(102, 102, 102, 1.00);border-right: 0.75pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-80b62620{background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0.75pt solid rgba(102, 102, 102, 1.00);border-right: 0.75pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-80b62621{background-color:transparent;vertical-align: middle;border-bottom: 0.75pt solid rgba(102, 102, 102, 1.00);border-top: 0.75pt solid rgba(102, 102, 102, 1.00);border-left: 0.75pt solid rgba(102, 102, 102, 1.00);border-right: 0.75pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<table data-quarto-disable-processing="true" class="table cl-80b93de2">
 <thead>
 <tr style="overflow-wrap:break-word;">
-<th rowspan="2" class="cl-d94bb616"><p class="cl-d94b9e2e"><span class="cl-d9495c68">label</span></p></th>
-<th rowspan="2" class="cl-d94bb616"><p class="cl-d94b9e2e"><span class="cl-d9495c68">variable</span></p></th>
-<th colspan="3" class="cl-d94bb616"><p class="cl-d94b9e2e"><span class="cl-d9495c68">Engine</span></p></th>
-<th rowspan="2" class="cl-d94bb616"><p class="cl-d94b9e2e"><span class="cl-d9495c68">Total</span></p></th>
+<th rowspan="2" class="cl-80b6260c"><p class="cl-80b60dac"><span class="cl-80b3b57a">label</span></p></th>
+<th rowspan="2" class="cl-80b6260c"><p class="cl-80b60dac"><span class="cl-80b3b57a">variable</span></p></th>
+<th colspan="3" class="cl-80b6260c"><p class="cl-80b60dac"><span class="cl-80b3b57a">Engine</span></p></th>
+<th rowspan="2" class="cl-80b6260c"><p class="cl-80b60dac"><span class="cl-80b3b57a">Total</span></p></th>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<th class="cl-d94bb616"><p class="cl-d94b9e2e"><span class="cl-d9495c68">straight</span></p></th>
-<th class="cl-d94bb616"><p class="cl-d94b9e2e"><span class="cl-d9495c68">vshaped</span></p></th>
-<th class="cl-d94bb616"><p class="cl-d94b9e2e"><span class="cl-d9495c68">NA</span></p></th>
+<th class="cl-80b6260c"><p class="cl-80b60dac"><span class="cl-80b3b57a">straight</span></p></th>
+<th class="cl-80b6260c"><p class="cl-80b60dac"><span class="cl-80b3b57a">vshaped</span></p></th>
+<th class="cl-80b6260c"><p class="cl-80b60dac"><span class="cl-80b3b57a">NA</span></p></th>
 </tr>
 </thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td rowspan="5" class="cl-d94bb617"><p class="cl-d94b9e2e"><span class="cl-d9495c72">Number of cylinders</span></p></td>
-<td class="cl-d94bb617"><p class="cl-d94b9e2e"><span class="cl-d9495c72">4</span></p></td>
-<td class="cl-d94bb617"><p class="cl-d94b9e2e"><span class="cl-d9495c72">N=7</span><br><span class="cl-d9495c72">Cell: p = 35% (7/20) [2e+01%; 57%]</span><br><span class="cl-d9495c72">Col: p = 100% (7/7) [65%; 100%]</span><br><span class="cl-d9495c72">Row: p = 88% (7/8) [53%; 98%]</span><br><br><span class="cl-d9495c72">Cell (NA): p = 22% (7/32) [11%; 39%]</span><br><span class="cl-d9495c72">Col (NA): p = 78% (7/9) [45%; 94%]</span><br><span class="cl-d9495c72">Row (NA): p = 70% (7/10) [40%; 89%]</span></p></td>
-<td class="cl-d94bb617"><p class="cl-d94b9e2e"><span class="cl-d9495c72">N=1</span><br><span class="cl-d9495c72">Cell: p = 5% (1/20) [9e-01%; 24%]</span><br><span class="cl-d9495c72">Col: p = 8% (1/13) [1%; 33%]</span><br><span class="cl-d9495c72">Row: p = 12% (1/8) [2%; 47%]</span><br><br><span class="cl-d9495c72">Cell (NA): p = 3% (1/32) [1%; 16%]</span><br><span class="cl-d9495c72">Col (NA): p = 7% (1/15) [1%; 30%]</span><br><span class="cl-d9495c72">Row (NA): p = 10% (1/10) [2%; 40%]</span></p></td>
-<td class="cl-d94bb617"><p class="cl-d94b9e2e"><span class="cl-d9495c72">2</span></p></td>
-<td class="cl-d94bb617"><p class="cl-d94b9e2e"><span class="cl-d9495c72">N=10</span><br><span class="cl-d9495c72">Col: p = 37% (10/27) [22%; 56%]</span><br><span class="cl-d9495c72">Col (NA): p = 31% (10/32) [18%; 49%]</span></p></td>
+<td rowspan="5" class="cl-80b62620"><p class="cl-80b60dac"><span class="cl-80b3b584">Number of cylinders</span></p></td>
+<td class="cl-80b62620"><p class="cl-80b60dac"><span class="cl-80b3b584">4</span></p></td>
+<td class="cl-80b62620"><p class="cl-80b60dac"><span class="cl-80b3b584">N=7</span><br><span class="cl-80b3b584">Cell: p = 35% (7/20) [2e+01%; 57%]</span><br><span class="cl-80b3b584">Col: p = 100% (7/7) [65%; 100%]</span><br><span class="cl-80b3b584">Row: p = 88% (7/8) [53%; 98%]</span><br><br><span class="cl-80b3b584">Cell (NA): p = 22% (7/32) [11%; 39%]</span><br><span class="cl-80b3b584">Col (NA): p = 78% (7/9) [45%; 94%]</span><br><span class="cl-80b3b584">Row (NA): p = 70% (7/10) [40%; 89%]</span></p></td>
+<td class="cl-80b62620"><p class="cl-80b60dac"><span class="cl-80b3b584">N=1</span><br><span class="cl-80b3b584">Cell: p = 5% (1/20) [9e-01%; 24%]</span><br><span class="cl-80b3b584">Col: p = 8% (1/13) [1%; 33%]</span><br><span class="cl-80b3b584">Row: p = 12% (1/8) [2%; 47%]</span><br><br><span class="cl-80b3b584">Cell (NA): p = 3% (1/32) [1%; 16%]</span><br><span class="cl-80b3b584">Col (NA): p = 7% (1/15) [1%; 30%]</span><br><span class="cl-80b3b584">Row (NA): p = 10% (1/10) [2%; 40%]</span></p></td>
+<td class="cl-80b62620"><p class="cl-80b60dac"><span class="cl-80b3b584">2</span></p></td>
+<td class="cl-80b62620"><p class="cl-80b60dac"><span class="cl-80b3b584">N=10</span><br><span class="cl-80b3b584">Col: p = 37% (10/27) [22%; 56%]</span><br><span class="cl-80b3b584">Col (NA): p = 31% (10/32) [18%; 49%]</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">6</span></p></td>
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">N=0</span><br><span class="cl-d9495c72">Cell: p = 0% (0/20) [1e-15%; 16%]</span><br><span class="cl-d9495c72">Col: p = 0% (0/7) [0%; 35%]</span><br><span class="cl-d9495c72">Row: p = 0% (0/1) [0%; 79%]</span><br><br><span class="cl-d9495c72">Cell (NA): p = 0% (0/32) [0%; 11%]</span><br><span class="cl-d9495c72">Col (NA): p = 0% (0/9) [0%; 30%]</span><br><span class="cl-d9495c72">Row (NA): p = 0% (0/4) [0%; 49%]</span></p></td>
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">N=1</span><br><span class="cl-d9495c72">Cell: p = 5% (1/20) [9e-01%; 24%]</span><br><span class="cl-d9495c72">Col: p = 8% (1/13) [1%; 33%]</span><br><span class="cl-d9495c72">Row: p = 100% (1/1) [21%; 100%]</span><br><br><span class="cl-d9495c72">Cell (NA): p = 3% (1/32) [1%; 16%]</span><br><span class="cl-d9495c72">Col (NA): p = 7% (1/15) [1%; 30%]</span><br><span class="cl-d9495c72">Row (NA): p = 25% (1/4) [5%; 70%]</span></p></td>
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">3</span></p></td>
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">N=4</span><br><span class="cl-d9495c72">Col: p = 15% (4/27) [6%; 32%]</span><br><span class="cl-d9495c72">Col (NA): p = 12% (4/32) [5%; 28%]</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">6</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">N=0</span><br><span class="cl-80b3b584">Cell: p = 0% (0/20) [1e-15%; 16%]</span><br><span class="cl-80b3b584">Col: p = 0% (0/7) [0%; 35%]</span><br><span class="cl-80b3b584">Row: p = 0% (0/1) [0%; 79%]</span><br><br><span class="cl-80b3b584">Cell (NA): p = 0% (0/32) [0%; 11%]</span><br><span class="cl-80b3b584">Col (NA): p = 0% (0/9) [0%; 30%]</span><br><span class="cl-80b3b584">Row (NA): p = 0% (0/4) [0%; 49%]</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">N=1</span><br><span class="cl-80b3b584">Cell: p = 5% (1/20) [9e-01%; 24%]</span><br><span class="cl-80b3b584">Col: p = 8% (1/13) [1%; 33%]</span><br><span class="cl-80b3b584">Row: p = 100% (1/1) [21%; 100%]</span><br><br><span class="cl-80b3b584">Cell (NA): p = 3% (1/32) [1%; 16%]</span><br><span class="cl-80b3b584">Col (NA): p = 7% (1/15) [1%; 30%]</span><br><span class="cl-80b3b584">Row (NA): p = 25% (1/4) [5%; 70%]</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">3</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">N=4</span><br><span class="cl-80b3b584">Col: p = 15% (4/27) [6%; 32%]</span><br><span class="cl-80b3b584">Col (NA): p = 12% (4/32) [5%; 28%]</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">8</span></p></td>
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">N=0</span><br><span class="cl-d9495c72">Cell: p = 0% (0/20) [1e-15%; 16%]</span><br><span class="cl-d9495c72">Col: p = 0% (0/7) [0%; 35%]</span><br><span class="cl-d9495c72">Row: p = 0% (0/11) [0%; 26%]</span><br><br><span class="cl-d9495c72">Cell (NA): p = 0% (0/32) [0%; 11%]</span><br><span class="cl-d9495c72">Col (NA): p = 0% (0/9) [0%; 30%]</span><br><span class="cl-d9495c72">Row (NA): p = 0% (0/13) [0%; 23%]</span></p></td>
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">N=11</span><br><span class="cl-d9495c72">Cell: p = 55% (11/20) [3e+01%; 74%]</span><br><span class="cl-d9495c72">Col: p = 85% (11/13) [58%; 96%]</span><br><span class="cl-d9495c72">Row: p = 100% (11/11) [74%; 100%]</span><br><br><span class="cl-d9495c72">Cell (NA): p = 34% (11/32) [20%; 52%]</span><br><span class="cl-d9495c72">Col (NA): p = 73% (11/15) [48%; 89%]</span><br><span class="cl-d9495c72">Row (NA): p = 85% (11/13) [58%; 96%]</span></p></td>
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">2</span></p></td>
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">N=13</span><br><span class="cl-d9495c72">Col: p = 48% (13/27) [31%; 66%]</span><br><span class="cl-d9495c72">Col (NA): p = 41% (13/32) [26%; 58%]</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">8</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">N=0</span><br><span class="cl-80b3b584">Cell: p = 0% (0/20) [1e-15%; 16%]</span><br><span class="cl-80b3b584">Col: p = 0% (0/7) [0%; 35%]</span><br><span class="cl-80b3b584">Row: p = 0% (0/11) [0%; 26%]</span><br><br><span class="cl-80b3b584">Cell (NA): p = 0% (0/32) [0%; 11%]</span><br><span class="cl-80b3b584">Col (NA): p = 0% (0/9) [0%; 30%]</span><br><span class="cl-80b3b584">Row (NA): p = 0% (0/13) [0%; 23%]</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">N=11</span><br><span class="cl-80b3b584">Cell: p = 55% (11/20) [3e+01%; 74%]</span><br><span class="cl-80b3b584">Col: p = 85% (11/13) [58%; 96%]</span><br><span class="cl-80b3b584">Row: p = 100% (11/11) [74%; 100%]</span><br><br><span class="cl-80b3b584">Cell (NA): p = 34% (11/32) [20%; 52%]</span><br><span class="cl-80b3b584">Col (NA): p = 73% (11/15) [48%; 89%]</span><br><span class="cl-80b3b584">Row (NA): p = 85% (11/13) [58%; 96%]</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">2</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">N=13</span><br><span class="cl-80b3b584">Col: p = 48% (13/27) [31%; 66%]</span><br><span class="cl-80b3b584">Col (NA): p = 41% (13/32) [26%; 58%]</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">NA</span></p></td>
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">2</span></p></td>
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">2</span></p></td>
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">1</span></p></td>
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">5</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">NA</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">2</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">2</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">1</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">5</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">Total</span></p></td>
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">N=9</span><br><span class="cl-d9495c72">Row: p = 38% (9/24) [21%; 57%]</span><br><span class="cl-d9495c72">Row (NA): p = 28% (9/32) [16%; 45%]</span></p></td>
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">N=15</span><br><span class="cl-d9495c72">Row: p = 62% (15/24) [43%; 79%]</span><br><span class="cl-d9495c72">Row (NA): p = 47% (15/32) [31%; 64%]</span></p></td>
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">8</span></p></td>
-<td class="cl-d94bb620"><p class="cl-d94b9e2e"><span class="cl-d9495c72">N=32</span><br><span class="cl-d9495c72">P: 100% [89%; 100%]</span><br><span class="cl-d9495c72">P (NA): 100% [89%; 100%]</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">Total</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">N=9</span><br><span class="cl-80b3b584">Row: p = 38% (9/24) [21%; 57%]</span><br><span class="cl-80b3b584">Row (NA): p = 28% (9/32) [16%; 45%]</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">N=15</span><br><span class="cl-80b3b584">Row: p = 62% (15/24) [43%; 79%]</span><br><span class="cl-80b3b584">Row (NA): p = 47% (15/32) [31%; 64%]</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">8</span></p></td>
+<td class="cl-80b62621"><p class="cl-80b60dac"><span class="cl-80b3b584">N=32</span><br><span class="cl-80b3b584">P: 100% [89%; 100%]</span><br><span class="cl-80b3b584">P (NA): 100% [89%; 100%]</span></p></td>
 </tr>
 </tbody>
 </table>
