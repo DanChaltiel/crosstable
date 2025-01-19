@@ -45,15 +45,14 @@ cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,
 #' Summarize numeric variables
 #' @importFrom cli cli_abort
 #' @importFrom dplyr across mutate where
-#' @importFrom methods formalArgs
 #' @importFrom purrr discard imap list_rbind
 #' @keywords internal
 #' @noRd
 summarize_numeric_single = function(x, funs, funs_arg){
   imap(funs, ~{
     funs_arg2 = funs_arg
-    if(!"..." %in% formalArgs(.x)){
-      funs_arg2 = funs_arg[formalArgs(.x)] %>% discard(is.null)
+    if(!"..." %in% formal_args(.x)){
+      funs_arg2 = funs_arg[formal_args(.x)] %>% discard(is.null)
     }
     v = do.call(.x, c(list(x), funs_arg2))
     if(length(v)<2){

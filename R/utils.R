@@ -84,7 +84,7 @@ print_warning_class = function(expr){
 #' @source exact burgle of methods::formalArgs
 #' @keywords internal
 #' @noRd
-formalArgs = function (def){
+formal_args = function (def){
   names(formals(def, envir = parent.frame()))
 }
 

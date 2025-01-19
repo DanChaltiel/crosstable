@@ -302,7 +302,6 @@ body_add_list_item = function(doc, value, ordered=FALSE, style=NULL, ...){
 #' @importFrom dplyr intersect
 #' @importFrom flextable flextable
 #' @importFrom lifecycle deprecate_warn
-#' @importFrom methods formalArgs
 #' @importFrom purrr keep map
 #' @importFrom rlang is_named is_string
 #'
@@ -371,9 +370,9 @@ body_add_table_list = function(doc, l, fun_before="title2", fun_after=NULL,
   } else if(is.null(fun)) fun=fun0
   assert_class(fun, "function")
 
-  if(!identical(formalArgs(fun), c("doc", ".name"))){
+  if(!identical(formal_args(fun), c("doc", ".name"))){
     cli_abort(c('`fun` should be of the form `function(doc, .name)`',
-                i="Current arg names: {formalArgs(fun)}"),
+                i="Current arg names: {formal_args(fun)}"),
               class="body_add_table_list_fun_args")
   }
 
