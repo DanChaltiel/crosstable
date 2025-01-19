@@ -132,7 +132,7 @@ crosstable_options = function(
 
   #variables passed as names
   argg = as.list(match.call(expand.dots=FALSE)) %>%
-    discard(is.name) %>% discard_at("...")
+    discard_at("...")
   args_ok = names(formals(crosstable_options)) %>% setdiff(c("...", "reset"))
 
   #variables passed in dots, mostly with "crosstable_" prefix
