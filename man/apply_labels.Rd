@@ -4,12 +4,14 @@
 \alias{apply_labels}
 \title{Batch set variable labels}
 \usage{
-apply_labels(data, ..., warn_missing = FALSE)
+apply_labels(data, ..., fn, warn_missing = FALSE)
 }
 \arguments{
 \item{data}{data.frame/list}
 
-\item{...}{named arguments}
+\item{...}{named arguments, as \code{colname="label"}}
+
+\item{fn}{alternatively, a function to be applied to all existing labels.}
 
 \item{warn_missing}{if TRUE, throw a warning if some names are missing}
 }
@@ -23,6 +25,9 @@ This function is a copycat of from expss package v0.10.7 (slightly modified) to 
 iris \%>\%
   apply_labels(Sepal.Length="Length of Sepal",
                Sepal.Width="Width of Sepal") \%>\%
+  crosstable()
+iris2 \%>\%
+  apply_labels(fn=tolower) \%>\%
   crosstable()
 }
 \author{
