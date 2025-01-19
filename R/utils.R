@@ -126,41 +126,44 @@ get_defined_function = function(name){
 
 
 
+#' Used in `crosstable()`
 #' @importFrom cli cli_abort cli_warn
 #' @importFrom glue glue_collapse
 #' @importFrom purrr map pmap_chr
-#' @importFrom rlang caller_env is_formula
+#' @importFrom rlang have_name is_formula
 #' @importFrom stringr str_squish str_starts str_subset
 #' @keywords internal
 #' @noRd
 parse_funs = function(funs){
+  if(is.null(funs)){
+    cli_abort("{.arg funs} cannot be NULL",
+              call=parent.frame(), class="ct_funs_null")
+  }
+  if(any(have_name(funs)) && !all(have_name(funs))){
+    cli_abort("Either all or none of {.arg funs} should have names",
+              call=parent.frame(), class="ct_funs_unnamed")
+  }
   funs = c(funs)
   if(!is.list(funs)) funs=as.list(funs)
   if(is.null(names(funs))) names(funs)=NA
 
+  s = substitute(funs, parent.frame())
   if(length(funs)>1) {
-    fun_call = as.character(as.list(substitute(funs, caller_env())))
+    fun_call = as.character(as.list(s))
     fun_call = fun_call[fun_call != "c" & fun_call != "list"]
   } else {
-    fun_call = deparse(substitute(funs, caller_env()))
-    if(str_starts(fun_call[1], "function ?\\(")){
+    fun_call = deparse(s)
+    if(str_starts(fun_call[1], "function ?\\(")) {
       fun_call="function(x){}"
     }
-    #TODO ajouter fun_call2 comme au dessus pour enlever c()
-    # crosstable(mtcars3, c(carb, qsec_posix), funs=c(meansd))
   }
 
   if(length(fun_call)!=length(funs)){
-    fun_call = as.character(as.list(substitute(funs, caller_env())))
+    fun_call = as.character(as.list(s))
     fun_call = fun_call[fun_call != "c" & fun_call != "list"]
   }
+
   x=list(funs, names(funs), fun_call)
-
-  if(lengths(x) %>% .[.>0] %>% unique() %>% length() != 1){
-    cli_abort(c("Problem with fun_call in parse_funs(). This should never happen. Is `funs` syntax correct?",
-                x="lengths: funs={length(funs)}, names(funs)={length(names(funs))}, fun_call={length(fun_call)}")) #nocov
-  }
-
   names(funs) = pmap_chr(x, function(.f, .name, .call){
     target_name = NULL
 
@@ -171,7 +174,7 @@ parse_funs = function(funs){
         target_name = format(.f)
         cli_warn(c("Anonymous lambda-functions should be named.",
                    i="Instead of: {.code funs={target_name}}",
-                   i='Write: {.code funs=c("Some calculation"={target_name}}'),
+                   i='Write: {.code funs=c("Some calculation"={target_name})}'),
                  class="crosstable_unnamed_lambda_warning")
       } else if(grepl("function *\\(", .call)){
         .call2 = deparse(substitute(.f))
@@ -183,11 +186,11 @@ parse_funs = function(funs){
         if(!is.null(getOption("crosstable_funs", NULL))) w_opt = "{.arg funs} is set through options. Run {.code crosstable_reset_options()} if needed."
         cli_warn(c("Anonymous functions should be named.",
                    i="Instead of: {.code funs={target_name}}",
-                   i='Write: {.code funs=c("Some calculation"={target_name}}',
+                   i='Write: {.code funs=c("Some calculation"={target_name})}',
                    "!"=w_opt),
                  class="crosstable_unnamed_anonymous_warning")
       } else{
-        target_name = .call
+        target_name = .call %>% str_remove_all('c\\(|\\)|"')
       }
     }
     target_name

@@ -135,15 +135,22 @@
       4 138.500 (58.241)  146.688 (68.563)
       5          102.500            96.500
 
-# One function
+# Simple function snapshot
 
     Code
       crosstable(iris2, c(Sepal.Length), funs = "mean")
     Output
       # A tibble: 1 x 4
-        .id          label           variable   value
-        <chr>        <chr>           <chr>      <chr>
-      1 Sepal.Length Length of Sepal "\"mean\"" 5.8  
+        .id          label           variable value
+        <chr>        <chr>           <chr>    <chr>
+      1 Sepal.Length Length of Sepal mean     5.8  
+    Code
+      crosstable(iris2, c(Sepal.Length), funs = c(mean))
+    Output
+      # A tibble: 1 x 4
+        .id          label           variable value
+        <chr>        <chr>           <chr>    <chr>
+      1 Sepal.Length Length of Sepal mean     5.8  
     Code
       crosstable(iris2, c(Sepal.Length), funs = mean)
     Output
@@ -151,6 +158,22 @@
         .id          label           variable value
         <chr>        <chr>           <chr>    <chr>
       1 Sepal.Length Length of Sepal mean     5.8  
+    Code
+      crosstable(iris2, c(Sepal.Length), funs = c(mean, sd))
+    Output
+      # A tibble: 2 x 4
+        .id          label           variable value
+        <chr>        <chr>           <chr>    <chr>
+      1 Sepal.Length Length of Sepal mean     5.8  
+      2 Sepal.Length Length of Sepal sd       0.8  
+    Code
+      crosstable(iris2, c(Sepal.Length), funs = c("mean", "sd"))
+    Output
+      # A tibble: 2 x 4
+        .id          label           variable value
+        <chr>        <chr>           <chr>    <chr>
+      1 Sepal.Length Length of Sepal mean     5.8  
+      2 Sepal.Length Length of Sepal sd       0.8  
     Code
       crosstable(iris2, c(Sepal.Length), funs = cross_summary)
     Output
@@ -163,11 +186,11 @@
       4 Sepal.Length Length of Sepal cross_summary N (NA)     150 (0)      
     Code
       crosstable(iris2, c(Sepal.Length), funs = function(xx) xx[1])
-    Condition
+    Condition <crosstable_unnamed_anonymous_warning>
       Warning:
       Anonymous functions should be named.
       i Instead of: `funs=function(xx){}`
-      i Write: `funs=c("Some calculation"=function(xx){}`
+      i Write: `funs=c("Some calculation"=function(xx){})`
     Output
       # A tibble: 1 x 4
         .id          label           variable       value
@@ -178,11 +201,11 @@
         y = 4
         xx[1]
       })
-    Condition
+    Condition <crosstable_unnamed_anonymous_warning>
       Warning:
       Anonymous functions should be named.
       i Instead of: `funs=function(xx){}`
-      i Write: `funs=c("Some calculation"=function(xx){}`
+      i Write: `funs=c("Some calculation"=function(xx){})`
     Output
       # A tibble: 1 x 4
         .id          label           variable       value
@@ -190,11 +213,11 @@
       1 Sepal.Length Length of Sepal function(xx){} 5.1  
     Code
       crosstable(iris2, c(Sepal.Length), funs = ~ mean(.x, na.rm = TRUE))
-    Condition
+    Condition <crosstable_unnamed_lambda_warning>
       Warning:
       Anonymous lambda-functions should be named.
       i Instead of: `funs=~mean(.x, na.rm = TRUE)`
-      i Write: `funs=c("Some calculation"=~mean(.x, na.rm = TRUE)`
+      i Write: `funs=c("Some calculation"=~mean(.x, na.rm = TRUE))`
     Output
       # A tibble: 1 x 4
         .id          label           variable                value
@@ -203,15 +226,15 @@
     Code
       crosstable(iris2, c(Sepal.Length), funs = c(~ mean(.x, na.rm = TRUE), ~ sd(.x,
         na.rm = TRUE)))
-    Condition
+    Condition <crosstable_unnamed_lambda_warning>
       Warning:
       Anonymous lambda-functions should be named.
       i Instead of: `funs=~mean(.x, na.rm = TRUE)`
-      i Write: `funs=c("Some calculation"=~mean(.x, na.rm = TRUE)`
+      i Write: `funs=c("Some calculation"=~mean(.x, na.rm = TRUE))`
       Warning:
       Anonymous lambda-functions should be named.
       i Instead of: `funs=~sd(.x, na.rm = TRUE)`
-      i Write: `funs=c("Some calculation"=~sd(.x, na.rm = TRUE)`
+      i Write: `funs=c("Some calculation"=~sd(.x, na.rm = TRUE))`
     Output
       # A tibble: 2 x 4
         .id          label           variable                value
@@ -219,12 +242,50 @@
       1 Sepal.Length Length of Sepal ~mean(.x, na.rm = TRUE) 5.8  
       2 Sepal.Length Length of Sepal ~sd(.x, na.rm = TRUE)   0.8  
     Code
-      crosstable(iris2, c(Sepal.Length), funs = c(`My mean` = mean))
+      crosstable(iris2, c(Sepal.Length), funs = c(function(.x) mean(.x, na.rm = TRUE),
+      function(.x) sd(.x, na.rm = TRUE)))
+    Condition <crosstable_unnamed_anonymous_warning>
+      Warning:
+      Anonymous functions should be named.
+      i Instead of: `funs=function(.x){}`
+      i Write: `funs=c("Some calculation"=function(.x){})`
+      Warning:
+      Anonymous functions should be named.
+      i Instead of: `funs=function(.x){}`
+      i Write: `funs=c("Some calculation"=function(.x){})`
     Output
-      # A tibble: 1 x 4
+      # A tibble: 2 x 4
+        .id          label           variable       value
+        <chr>        <chr>           <chr>          <chr>
+      1 Sepal.Length Length of Sepal function(.x){} 5.8  
+      2 Sepal.Length Length of Sepal function(.x){} 0.8  
+    Code
+      f = c(m = mean, s = sd)
+      crosstable(iris2, c(Sepal.Length), funs = f)
+    Output
+      # A tibble: 2 x 4
         .id          label           variable value
         <chr>        <chr>           <chr>    <chr>
-      1 Sepal.Length Length of Sepal My mean  5.8  
+      1 Sepal.Length Length of Sepal m        5.8  
+      2 Sepal.Length Length of Sepal s        0.8  
+    Code
+      crosstable(iris2, c(Sepal.Length), funs = c(m = mean, s = sd))
+    Output
+      # A tibble: 2 x 4
+        .id          label           variable value
+        <chr>        <chr>           <chr>    <chr>
+      1 Sepal.Length Length of Sepal m        5.8  
+      2 Sepal.Length Length of Sepal s        0.8  
+    Code
+      crosstable(iris2, c(Sepal.Length), funs = c(x = cross_summary))
+    Output
+      # A tibble: 4 x 4
+        .id          label           variable     value        
+        <chr>        <chr>           <chr>        <chr>        
+      1 Sepal.Length Length of Sepal x Min / Max  4.3 / 7.9    
+      2 Sepal.Length Length of Sepal x Med [IQR]  5.8 [5.1;6.4]
+      3 Sepal.Length Length of Sepal x Mean (std) 5.8 (0.8)    
+      4 Sepal.Length Length of Sepal x N (NA)     150 (0)      
     Code
       crosstable(iris2, c(Sepal.Length), funs = c(` ` = cross_summary))
     Output
@@ -260,15 +321,16 @@
         <chr>        <chr>           <chr>    <chr>
       1 Sepal.Length Length of Sepal first    5.1  
     Code
-      crosstable(iris2, c(Sepal.Length), funs = c(first = function(xx) {
+      crosstable(iris2, c(Sepal.Length), funs = c(m = mean, first = function(xx) {
         y = 4
         xx[1]
       }))
     Output
-      # A tibble: 1 x 4
+      # A tibble: 2 x 4
         .id          label           variable value
         <chr>        <chr>           <chr>    <chr>
-      1 Sepal.Length Length of Sepal first    5.1  
+      1 Sepal.Length Length of Sepal m        5.8  
+      2 Sepal.Length Length of Sepal first    5.1  
     Code
       crosstable(iris2, c(Sepal.Length), funs = c(mean = ~ mean(.x, na.rm = TRUE)))
     Output

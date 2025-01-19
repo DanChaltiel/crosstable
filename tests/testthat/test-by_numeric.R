@@ -164,12 +164,17 @@ test_that("Function arguments work", {
   expect_snapshot(ft)
 })
 
-test_that("One function", {
-  expect_snapshot({
-    #unnamed
+test_that("Simple function snapshot", {
+  expect_snapshot(cnd_class=TRUE, {
+    #unnamed ok
     crosstable(iris2, c(Sepal.Length), funs="mean")
+    crosstable(iris2, c(Sepal.Length), funs=c(mean))
     crosstable(iris2, c(Sepal.Length), funs=mean)
+    crosstable(iris2, c(Sepal.Length), funs=c(mean, sd))
+    crosstable(iris2, c(Sepal.Length), funs=c("mean", "sd"))
     crosstable(iris2, c(Sepal.Length), funs=cross_summary)
+
+    #unnamed warn
     crosstable(iris2, c(Sepal.Length), funs=function(xx) xx[1])
     crosstable(iris2, c(Sepal.Length), funs=function(xx){
       y=4
@@ -180,14 +185,21 @@ test_that("One function", {
       ~mean(.x, na.rm=TRUE),
       ~sd(.x, na.rm=TRUE)
     ))
+    crosstable(iris2, c(Sepal.Length), funs=c(
+      function(.x) mean(.x, na.rm=TRUE),
+      function(.x) sd(.x, na.rm=TRUE)
+    ))
 
-    #named
-    crosstable(iris2, c(Sepal.Length), funs=c("My mean" = mean))
+    #named ok
+    f = c("m"=mean, s=sd)
+    crosstable(iris2, c(Sepal.Length), funs=f)
+    crosstable(iris2, c(Sepal.Length), funs=c("m"=mean, s=sd))
+    crosstable(iris2, c(Sepal.Length), funs=c("x" = cross_summary))
     crosstable(iris2, c(Sepal.Length), funs=c(" " = cross_summary))
     crosstable(iris2, c(Sepal.Length), funs=list(" " = cross_summary))
     crosstable(iris2, c(Sepal.Length), funs=c("first"=~.x[1]))
     crosstable(iris2, c(Sepal.Length), funs=c("first"=function(xx) xx[1]))
-    crosstable(iris2, c(Sepal.Length), funs=c("first"=function(xx){
+    crosstable(iris2, c(Sepal.Length), funs=c("m"=mean, "first"=function(xx){
       y=4
       xx[1]
     }))
@@ -198,53 +210,35 @@ test_that("One function", {
     ))
   })
 
+
+  crosstable(iris2, c(Sepal.Length), funs=NULL) %>%
+    expect_error(class="ct_funs_null")
+
+  crosstable(iris2, c(Sepal.Length), funs=c("m"=mean, sd)) %>%
+    expect_error(class="ct_funs_unnamed")
+
   # expect_warning(crosstable(iris2, c(Sepal.Length, Sepal.Width),
   #                           funs=function(y) mean(y, na.rm=TRUE)),
   #                class="crosstable_unnamed_anonymous_warning")
   # expect_warning(crosstable(iris2, c(Sepal.Length, Sepal.Width),
   #                           funs=~mean(.x, na.rm=TRUE)),
   #                class="crosstable_unnamed_lambda_warning")
+
 })
 
-test_that("Multiple functions", {
-  #avec un seul nom
-  x1 = crosstable(iris2, c(Sepal.Length, Sepal.Width),
-                  funs=c(var, "meannnn"=mean))
-  expect_setequal(x1$variable, c("var", "meannnn"))
 
+test_that("Complex multiple functions", {
   #avec tous les noms quand il en faut
   x2 = crosstable(iris2, c(Sepal.Length, Sepal.Width),
                   funs=c(
                     "moy_lambda"=~mean(.x, na.rm=TRUE),
                     "moy_fn"=function(.x) mean(.x, na.rm=TRUE),
-                    var,
                     "cross_summary1" = cross_summary
                   ))
 
   expect_setequal(x2$variable,
-                  c("moy_lambda", "moy_fn", "var",
-                    paste("cross_summary1", names(cross_summary(1))))
-  )
-
-  #avec un seul nom
-  x3 = crosstable(iris2, c(Sepal.Length, Sepal.Width),
-                  funs=c(
-                    ~mean(.x, na.rm=TRUE),
-                    function(.x){
-                      .x=.x+1
-                      mean(.x, na.rm=TRUE)
-                    },
-                    var,
-                    "moyenne"=mean
-                  )) %>%
-    expect_warning2(class="crosstable_unnamed_anonymous_warning") %>%
-    expect_warning2(class="crosstable_unnamed_lambda_warning")
-
-  expect_setequal(attr(x3, "obj")$variable,
-                  c("~mean(.x, na.rm = TRUE)",
-                    "function(.x){}",
-                    "var", "moyenne"))
-
+                  c("moy_lambda", "moy_fn",
+                    paste("cross_summary1", names(cross_summary(1)))) )
 
   #sans noms
   x4 = crosstable(iris2, c(Sepal.Length, Sepal.Width),
