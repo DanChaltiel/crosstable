@@ -34,6 +34,12 @@
 #' get_label(list(foo=xx$cyl, bar=xx$mpg))  #default to names
 #' get_label(list(foo=xx$cyl, bar=xx$mpg), default="Default value")
 get_label = function(x, default=names(x), object=FALSE, simplify=TRUE){
+  labels_env$recurs = labels_env$recurs + 1
+  if(labels_env$recurs>getOption("ct_label_recursion_max", 1000)) {
+    labels_env$recurs = 0
+    return("RecursionError")
+  }
+  if(inherits(x, "POSIXlt")) x = as.POSIXct(x)
   if(is.list(x) && !object){
     if(is.null(default)) default=rep(NA, length(x))
     if(length(default)>1 && length(x)!=length(default)) {
@@ -43,6 +49,7 @@ get_label = function(x, default=names(x), object=FALSE, simplify=TRUE){
     lab = x %>%
       map(get_label) %>%
       map2(default, ~{if(is.null(.x)) .y else .x})
+    labels_env$recurs = 0
     if(simplify) lab = unlist(lab)
   } else {
     lab = attr(x, "label", exact=TRUE)
@@ -385,6 +392,7 @@ save_labels = function(.tbl){
 
 # labels_env = rlang::new_environment()
 labels_env = rlang::env()
+labels_env$recurs = 0
 
 #' @keywords internal
 #' @noRd
