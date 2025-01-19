@@ -1,6 +1,20 @@
 Crosstables for descriptive analyses. See documentation at <https://danchaltiel.github.io/crosstable/> and browse code at <https://github.com/DanChaltiel/crosstable>.
 
 
+# crosstable 0.9.0 (WIP)
+
+#### New features 
+
+-   New argument `apply_labels(fn)` to modify existing labels (#80).
+
+#### Bug fixes and improvements
+
+-   fixed `crosstable_options()` sometimes not being taken into account (#90).
+-   fixed error when using a named list of functions in `crosstable(funs)` (#89).
+-   fixed rare infinite loop with `get_label()` on very specific objects like `POSIXlt` (#86).
+
+
+
 # crosstable 0.8.1
 
 #### Bug fixes and improvements
