@@ -157,7 +157,7 @@ Numeric variables are described with summary functions. By default, it outputs `
 However, this might not be the information you need, so you can use the `funs` argument to apply the set of functions of your choice:
 
 ```{r crosstable-functions}
-crosstable(mtcars2, c(mpg, wt), funs=c(median, mean, "std dev"=sd)) %>% 
+crosstable(mtcars2, c(mpg, wt), funs=c("mean"=mean, "std dev"=sd, q1=~quantile(.x, prob=0.25))) %>% 
   as_flextable(keep_id=TRUE)
 ```
 
