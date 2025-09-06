@@ -13,8 +13,6 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 -   fixed error when using a named list of functions in `crosstable(funs)` (#89).
 -   fixed rare infinite loop with `get_label()` on very specific objects like `POSIXlt` (#86).
 
-
-
 # crosstable 0.8.1
 
 #### Bug fixes and improvements

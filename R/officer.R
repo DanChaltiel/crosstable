@@ -942,7 +942,7 @@ parse_md = function(x, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE, parse
 
   x = str_replace_all(x, fixed("**"), fixed("%%")) #better separates bold from italic
 
-  f = \(x, k, f) str_locate_all(x, k)[[1]] %>% as_tibble() %>% mutate(format=f)
+  f = function(x, k, f) str_locate_all(x, k)[[1]] %>% as_tibble() %>% mutate(format=f)
   bolds = f(x, "(?<!\\\\)%%", "bold")
   italics = f(x, "(?<!\\\\)\\*", "italic")
   underlined = f(x, "(?<!\\\\)_", "underlined")
