@@ -18,10 +18,18 @@ test_that("Statistical Tests", {
     ##NUMERIC
 
     # wilcox (exact=F)
-    x=crosstable(mtcars3, disp, by=vs, test=T)
-    expect_equal(x$test[1], "p value: 0.0002 \n(Wilcoxon rank sum test)")
+    # an exact p-value is computed if the samples contain less than 50 finite values and there are no ties. Otherwise, a normal approximation is used.
+    # Starting at R 4.6, exact pvalues are possible with ties
+    if(getRversion() > "4.6") {
+        x=crosstable(mtcars3, disp, by=vs, test=T)
+        expect_equal(x$test[1], "p value: <0.0001 \n(Wilcoxon rank sum exact test)")
+    } else {
+        x=crosstable(mtcars3, disp, by=vs, test=T)
+        expect_equal(x$test[1], "p value: 0.0002 \n(Wilcoxon rank sum test)")
+    }
     # wilcox (exact=T)
-    if(package_version(R.version) >= package_version("4.0")) {
+    # after 4.0, exact is in the test label
+    if(getRversion() > "4.0") {
         x=crosstable(dummy_data, x_exp, by=tmt2, test=T)
         expect_equal(x$test[1], "p value: 0.4185 \n(Wilcoxon rank sum exact test)")
     } else {
