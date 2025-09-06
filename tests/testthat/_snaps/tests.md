@@ -86,28 +86,35 @@
       header has 2 row(s) 
       body has 17 row(s) 
       original dataset sample: 
-         .id                 label   variable    straight       vshaped            NA
-      1 disp Displacement (cu.in.)  Min / Max    71 / 258     120 / 472     141 / 360
-      2 disp Displacement (cu.in.)  Med [IQR] 95 [79;120] 304 [218;376] 196 [162;297]
-      3 disp Displacement (cu.in.) Mean (std)    112 (58)     302 (116)      230 (91)
-      4 disp Displacement (cu.in.)     N (NA)       9 (0)        15 (0)         8 (0)
-      5   hp      Gross horsepower  Min / Max    52 / 113      91 / 335      62 / 245
-                Total
-      1      71 / 472
-      2 196 [121;326]
-      3     231 (124)
-      4        32 (0)
-      5      52 / 335
-                                                                                              effect
-      1 Difference in means (bootstrap CI), ref='straight'\nvshaped minus straight: 190 [120 to 261]
-      2 Difference in means (bootstrap CI), ref='straight'\nvshaped minus straight: 190 [120 to 261]
-      3 Difference in means (bootstrap CI), ref='straight'\nvshaped minus straight: 190 [120 to 261]
-      4 Difference in means (bootstrap CI), ref='straight'\nvshaped minus straight: 190 [120 to 261]
-      5      Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 102 [63 to 141]
-                                                test
-      1   p value: 0.0002 \n(Wilcoxon rank sum test)
-      2   p value: 0.0002 \n(Wilcoxon rank sum test)
-      3   p value: 0.0002 \n(Wilcoxon rank sum test)
-      4   p value: 0.0002 \n(Wilcoxon rank sum test)
-      5 p value: <0.0001 \n(Welch Two Sample t-test)
+      'data.frame':	17 obs. of  9 variables:
+       $ .id     : chr  "disp" "disp" "disp" "disp" ...
+       $ label   : chr  "Displacement (cu.in.)" "Displacement (cu.in.)" "Displacement (cu.in.)" "Displacement (cu.in.)" ...
+       $ variable: chr  "Min / Max" "Med [IQR]" "Mean (std)" "N (NA)" ...
+       $ straight: chr  "71 / 258" "95 [79;120]" "112 (58)" "9 (0)" ...
+       $ vshaped : chr  "120 / 472" "304 [218;376]" "302 (116)" "15 (0)" ...
+       $ NA      : chr  "141 / 360" "196 [162;297]" "230 (91)" "8 (0)" ...
+       $ Total   : chr  "71 / 472" "196 [121;326]" "231 (124)" "32 (0)" ...
+       $ effect  : 'glue' chr  "Difference in means (bootstrap CI), ref='straight'\nvshaped minus straight: 190 [120 to 261]" "Difference in means (bootstrap CI), ref='straight'\nvshaped minus straight: 190 [120 to 261]" "Difference in means (bootstrap CI), ref='straight'\nvshaped minus straight: 190 [120 to 261]" "Difference in means (bootstrap CI), ref='straight'\nvshaped minus straight: 190 [120 to 261]" ...
+       $ test    : chr  "p value: 0.0002 \n(Wilcoxon rank sum test)" "p value: 0.0002 \n(Wilcoxon rank sum test)" "p value: 0.0002 \n(Wilcoxon rank sum test)" "p value: 0.0002 \n(Wilcoxon rank sum test)" ...
+       - attr(*, "debug")=List of 3
+        ..$ interface: chr "quosure"
+        ..$ x_class  : Named chr [1:4] "numeric" "numeric" "character" "Surv"
+        .. ..- attr(*, "names")= chr [1:4] "disp" "hp" "am" "surv"
+        ..$ y_class  : Named chr "character"
+        .. ..- attr(*, "names")= chr "vs"
+       - attr(*, "N")= int 32
+       - attr(*, "showNA")= chr "ifany"
+       - attr(*, "variables")= chr [1:4] "disp" "hp" "am" "surv"
+       - attr(*, "has_test")= logi TRUE
+       - attr(*, "has_effect")= logi TRUE
+       - attr(*, "has_total")= int [1:2] 1 2
+       - attr(*, "has_label")= logi TRUE
+       - attr(*, "by")= chr "vs"
+       - attr(*, "by_label")= Named chr "Engine"
+        ..- attr(*, "names")= chr "vs"
+       - attr(*, "by_table")= 'table' int [1:2(1d)] 9 15
+        ..- attr(*, "dimnames")=List of 1
+        .. ..$ vs: chr [1:2] "straight" "vshaped"
+       - attr(*, "by_levels")=List of 1
+        ..$ vs: chr [1:3] "straight" "vshaped" NA
 

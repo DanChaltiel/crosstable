@@ -70,12 +70,37 @@
       header has 2 row(s) 
       body has 11 row(s) 
       original dataset sample: 
-        .id label variable        straight          vshaped NA      Total                                                                                                                           effect                                                 test
-      1 cyl   cyl        4 7 (87.5%, 100%)  1 (12.5%, 7.7%)  2   10 (37%) Odds ratio [70% Wald CI], ref='vshaped vs straight'\n6 vs 4: 5.98e+09 [0.00e+00 to NA]\n8 vs 4: 5.98e+09 [1.27e-79 to 2.72e+247] p value: <0.1 \n(Fisher's Exact Test for Count Data)
-      2 cyl   cyl        6               0   1 (100%, 7.7%)  3  4 (14.8%) Odds ratio [70% Wald CI], ref='vshaped vs straight'\n6 vs 4: 5.98e+09 [0.00e+00 to NA]\n8 vs 4: 5.98e+09 [1.27e-79 to 2.72e+247] p value: <0.1 \n(Fisher's Exact Test for Count Data)
-      3 cyl   cyl        8               0 11 (100%, 84.6%)  2 13 (48.1%) Odds ratio [70% Wald CI], ref='vshaped vs straight'\n6 vs 4: 5.98e+09 [0.00e+00 to NA]\n8 vs 4: 5.98e+09 [1.27e-79 to 2.72e+247] p value: <0.1 \n(Fisher's Exact Test for Count Data)
-      4 cyl   cyl       NA               2                2  1          5 Odds ratio [70% Wald CI], ref='vshaped vs straight'\n6 vs 4: 5.98e+09 [0.00e+00 to NA]\n8 vs 4: 5.98e+09 [1.27e-79 to 2.72e+247] p value: <0.1 \n(Fisher's Exact Test for Count Data)
-      5 cyl   cyl    Total       9 (37.5%)       15 (62.5%)  8  32 (100%) Odds ratio [70% Wald CI], ref='vshaped vs straight'\n6 vs 4: 5.98e+09 [0.00e+00 to NA]\n8 vs 4: 5.98e+09 [1.27e-79 to 2.72e+247] p value: <0.1 \n(Fisher's Exact Test for Count Data)
+      'data.frame':	11 obs. of  9 variables:
+       $ .id     : chr  "cyl" "cyl" "cyl" "cyl" ...
+       $ label   : chr  "cyl" "cyl" "cyl" "cyl" ...
+       $ variable: chr  "4" "6" "8" "NA" ...
+       $ straight: chr  "7 (87.5%, 100%)" "0" "0" "2" ...
+       $ vshaped : chr  "1 (12.5%, 7.7%)" "1 (100%, 7.7%)" "11 (100%, 84.6%)" "2" ...
+       $ NA      : chr  "2" "3" "2" "1" ...
+       $ Total   : chr  "10 (37%)" "4 (14.8%)" "13 (48.1%)" "5" ...
+       $ effect  : 'glue' chr  "Odds ratio [70% Wald CI], ref='vshaped vs straight'\n6 vs 4: 5.98e+09 [0.00e+00 to NA]\n8 vs 4: 5.98e+09 [1.27e"| __truncated__ "Odds ratio [70% Wald CI], ref='vshaped vs straight'\n6 vs 4: 5.98e+09 [0.00e+00 to NA]\n8 vs 4: 5.98e+09 [1.27e"| __truncated__ "Odds ratio [70% Wald CI], ref='vshaped vs straight'\n6 vs 4: 5.98e+09 [0.00e+00 to NA]\n8 vs 4: 5.98e+09 [1.27e"| __truncated__ "Odds ratio [70% Wald CI], ref='vshaped vs straight'\n6 vs 4: 5.98e+09 [0.00e+00 to NA]\n8 vs 4: 5.98e+09 [1.27e"| __truncated__ ...
+       $ test    : chr  "p value: <0.1 \n(Fisher's Exact Test for Count Data)" "p value: <0.1 \n(Fisher's Exact Test for Count Data)" "p value: <0.1 \n(Fisher's Exact Test for Count Data)" "p value: <0.1 \n(Fisher's Exact Test for Count Data)" ...
+       - attr(*, "debug")=List of 3
+        ..$ interface: chr "quosure"
+        ..$ x_class  : Named chr [1:4] "factor" "numeric" "POSIXct, POSIXt" "Surv"
+        .. ..- attr(*, "names")= chr [1:4] "cyl" "carb" "qsec_posix" "surv"
+        ..$ y_class  : Named chr "character"
+        .. ..- attr(*, "names")= chr "vs"
+       - attr(*, "N")= int 32
+       - attr(*, "showNA")= chr "always"
+       - attr(*, "variables")= chr [1:4] "cyl" "carb" "qsec_posix" "surv"
+       - attr(*, "has_test")= logi TRUE
+       - attr(*, "has_effect")= logi TRUE
+       - attr(*, "has_total")= int [1:2] 1 2
+       - attr(*, "has_label")= logi FALSE
+       - attr(*, "by")= chr "vs"
+       - attr(*, "by_label")= Named chr "Engine"
+        ..- attr(*, "names")= chr "vs"
+       - attr(*, "by_table")= 'table' int [1:2(1d)] 9 15
+        ..- attr(*, "dimnames")=List of 1
+        .. ..$ vs: chr [1:2] "straight" "vshaped"
+       - attr(*, "by_levels")=List of 1
+        ..$ vs: chr [1:3] "straight" "vshaped" NA
     Code
       ft_opt
     Output
@@ -84,10 +109,34 @@
       header has 2 row(s) 
       body has 15 row(s) 
       original dataset sample: 
-         variable        straight          vshaped NA      Total                                                                                                                           effect           test
-      1 cyl (cyl)                                                Odds ratio [70% Wald CI], ref='vshaped vs straight'\n6 vs 4: 5.98e+09 [0.00e+00 to NA]\n8 vs 4: 5.98e+09 [1.27e-79 to 2.72e+247] p value: <0.1 
-      2         4 7 (87.5%, 100%)  1 (12.5%, 7.7%)  2   10 (37%)                                                                                                                                                
-      3         6               0   1 (100%, 7.7%)  3  4 (14.8%)                                                                                                                                                
-      4         8               0 11 (100%, 84.6%)  2 13 (48.1%)                                                                                                                                                
-      5        NA               2                2  1          5                                                                                                                                                
+      'data.frame':	15 obs. of  7 variables:
+       $ variable: chr  "cyl (cyl)" "4" "6" "8" ...
+       $ straight: chr  "" "7 (87.5%, 100%)" "0" "0" ...
+       $ vshaped : chr  "" "1 (12.5%, 7.7%)" "1 (100%, 7.7%)" "11 (100%, 84.6%)" ...
+       $ NA      : chr  "" "2" "3" "2" ...
+       $ Total   : chr  "" "10 (37%)" "4 (14.8%)" "13 (48.1%)" ...
+       $ effect  : chr  "Odds ratio [70% Wald CI], ref='vshaped vs straight'\n6 vs 4: 5.98e+09 [0.00e+00 to NA]\n8 vs 4: 5.98e+09 [1.27e"| __truncated__ "" "" "" ...
+       $ test    : chr  "p value: <0.1 " "" "" "" ...
+       - attr(*, "debug")=List of 3
+        ..$ interface: chr "quosure"
+        ..$ x_class  : Named chr [1:4] "factor" "numeric" "POSIXct, POSIXt" "Surv"
+        .. ..- attr(*, "names")= chr [1:4] "cyl" "carb" "qsec_posix" "surv"
+        ..$ y_class  : Named chr "character"
+        .. ..- attr(*, "names")= chr "vs"
+       - attr(*, "N")= int 32
+       - attr(*, "showNA")= chr "always"
+       - attr(*, "variables")= chr [1:4] "cyl" "carb" "qsec_posix" "surv"
+       - attr(*, "has_test")= logi TRUE
+       - attr(*, "has_effect")= logi TRUE
+       - attr(*, "has_total")= int [1:2] 1 2
+       - attr(*, "has_label")= logi FALSE
+       - attr(*, "by")= chr "vs"
+       - attr(*, "by_label")= Named chr "Engine"
+        ..- attr(*, "names")= chr "vs"
+       - attr(*, "by_table")= 'table' int [1:2(1d)] 9 15
+        ..- attr(*, "dimnames")=List of 1
+        .. ..$ vs: chr [1:2] "straight" "vshaped"
+       - attr(*, "by_levels")=List of 1
+        ..$ vs: chr [1:3] "straight" "vshaped" NA
+       - attr(*, "title_rows")= logi [1:11] TRUE FALSE FALSE FALSE FALSE TRUE ...
 

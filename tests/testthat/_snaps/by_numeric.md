@@ -122,18 +122,35 @@
       header has 2 row(s) 
       body has 10 row(s) 
       original dataset sample: 
-         .id                 label     variable         straight           vshaped
-      1 disp Displacement (cu.in.)       meansd 111.856 (58.044) 302.193 (115.524)
-      2 disp Displacement (cu.in.) quantile 25%           78.700           217.900
-      3 disp Displacement (cu.in.) quantile 75%          120.100           375.500
-      4   hp      Gross horsepower       meansd  85.667 (23.452)  187.667 (64.556)
-      5   hp      Gross horsepower quantile 25%           66.000           150.000
-                      NA             Total
-      1 230.438 (91.499) 230.722 (123.939)
-      2          162.375           120.825
-      3          296.850           326.000
-      4 138.500 (58.241)  146.688 (68.563)
-      5          102.500            96.500
+      'data.frame':	10 obs. of  7 variables:
+       $ .id     : chr  "disp" "disp" "disp" "hp" ...
+       $ label   : chr  "Displacement (cu.in.)" "Displacement (cu.in.)" "Displacement (cu.in.)" "Gross horsepower" ...
+       $ variable: chr  "meansd" "quantile 25%" "quantile 75%" "meansd" ...
+       $ straight: chr  "111.856 (58.044)" "78.700" "120.100" "85.667 (23.452)" ...
+       $ vshaped : chr  "302.193 (115.524)" "217.900" "375.500" "187.667 (64.556)" ...
+       $ NA      : chr  "230.438 (91.499)" "162.375" "296.850" "138.500 (58.241)" ...
+       $ Total   : chr  "230.722 (123.939)" "120.825" "326.000" "146.688 (68.563)" ...
+       - attr(*, "debug")=List of 3
+        ..$ interface: chr "quosure"
+        ..$ x_class  : Named chr [1:3] "numeric" "numeric" "character"
+        .. ..- attr(*, "names")= chr [1:3] "disp" "hp" "am"
+        ..$ y_class  : Named chr "character"
+        .. ..- attr(*, "names")= chr "vs"
+       - attr(*, "N")= int 32
+       - attr(*, "showNA")= chr "always"
+       - attr(*, "variables")= chr [1:3] "disp" "hp" "am"
+       - attr(*, "has_test")= logi FALSE
+       - attr(*, "has_effect")= logi FALSE
+       - attr(*, "has_total")= int [1:2] 1 2
+       - attr(*, "has_label")= logi TRUE
+       - attr(*, "by")= chr "vs"
+       - attr(*, "by_label")= Named chr "Engine"
+        ..- attr(*, "names")= chr "vs"
+       - attr(*, "by_table")= 'table' int [1:2(1d)] 9 15
+        ..- attr(*, "dimnames")=List of 1
+        .. ..$ vs: chr [1:2] "straight" "vshaped"
+       - attr(*, "by_levels")=List of 1
+        ..$ vs: chr [1:3] "straight" "vshaped" NA
 
 # Simple function snapshot
 
