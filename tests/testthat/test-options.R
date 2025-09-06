@@ -12,16 +12,16 @@ test_that("No missing options", {
   skip_if(!dir.exists(path))
 
   ignored = c(
-    "rec_sep", "rec_max_length", #internal, unused yet
+    "rec_sep", "rec_max_length", "ct_label_recursion_max", #internal, unused yet
     "crosstable_...", "crosstable_.local", "crosstable_reset"
   )
 
   missing_options = missing_options_helper(path=path, ignore=ignored)
 
   #missing options, not handled in crosstable_options()
-  missing_options$not_handled %>% expect_length(0)
+  missing_options$not_handled %>% expect_identical(character(0))
   # added options, handled in crosstable_options() but never used in the code
-  missing_options$not_used %>% expect_length(0)
+  missing_options$not_used %>% expect_identical(character(0))
 })
 
 
