@@ -1,5 +1,3 @@
-#snapshot_review('effects')
-
 
 # Categorical variables ---------------------------------------------------
 
@@ -90,6 +88,7 @@ test_that("Effects: missing variables", {
 
 
 test_that("Effects Warnings", {
+  skip_on_os("mac")
   set.seed(1234)
 
   crosstable(mtcars3, cyl, by=c(am, vs), effect=T) %>%

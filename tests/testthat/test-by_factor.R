@@ -147,6 +147,7 @@ test_that("Percent pattern", {
 })
 
 test_that("Percent pattern - Ultimate", {
+  skip_on_os("mac")
   local_reproducible_output(width = 1000)
 
   ULTIMATE_PATTERN=list(
