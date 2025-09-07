@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/DanChaltiel/crosstable/",
   "issueTracker": "https://github.com/DanChaltiel/crosstable/issues/",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -335,7 +335,7 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 3.1.0"
+      "version": ">= 3.6.0"
     },
     "2": {
       "@type": "SoftwareApplication",
@@ -430,11 +430,6 @@
     },
     "9": {
       "@type": "SoftwareApplication",
-      "identifier": "methods",
-      "name": "methods"
-    },
-    "10": {
-      "@type": "SoftwareApplication",
       "identifier": "officer",
       "name": "officer",
       "version": ">= 0.4.0",
@@ -446,7 +441,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=officer"
     },
-    "11": {
+    "10": {
       "@type": "SoftwareApplication",
       "identifier": "purrr",
       "name": "purrr",
@@ -459,7 +454,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=purrr"
     },
-    "12": {
+    "11": {
       "@type": "SoftwareApplication",
       "identifier": "rlang",
       "name": "rlang",
@@ -472,12 +467,12 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
-    "13": {
+    "12": {
       "@type": "SoftwareApplication",
       "identifier": "stats",
       "name": "stats"
     },
-    "14": {
+    "13": {
       "@type": "SoftwareApplication",
       "identifier": "stringr",
       "name": "stringr",
@@ -490,7 +485,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=stringr"
     },
-    "15": {
+    "14": {
       "@type": "SoftwareApplication",
       "identifier": "tibble",
       "name": "tibble",
@@ -503,7 +498,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tibble"
     },
-    "16": {
+    "15": {
       "@type": "SoftwareApplication",
       "identifier": "tidyr",
       "name": "tidyr",
@@ -516,14 +511,14 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tidyr"
     },
-    "17": {
+    "16": {
       "@type": "SoftwareApplication",
       "identifier": "utils",
       "name": "utils"
     },
     "SystemRequirements": null
   },
-  "fileSize": "1544.7KB",
+  "fileSize": "1612.194KB",
   "releaseNotes": "https://github.com/DanChaltiel/crosstable/blob/master/NEWS.md",
   "readme": "https://github.com/DanChaltiel/crosstable/blob/main/README.md",
   "contIntegration": ["https://app.codecov.io/gh/DanChaltiel/crosstable?branch=main", "https://github.com/DanChaltiel/crosstable/actions/workflows/check-standard.yaml"],

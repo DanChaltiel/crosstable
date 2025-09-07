@@ -6,19 +6,13 @@
 <!-- badges: start -->
 
 [![Package-License](http://img.shields.io/badge/license-GPL--3-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html)
-[![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-stable-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/crosstable)](https://CRAN.R-project.org/package=crosstable)
-[![CRAN RStudio mirror
-downloads](https://cranlogs.r-pkg.org/badges/grand-total/crosstable?color=blue)](https://r-pkg.org/pkg/crosstable)
-[![Last
-Commit](https://img.shields.io/github/last-commit/DanChaltiel/crosstable)](https://github.com/DanChaltiel/crosstable)
-[![Codecov test
-coverage](https://codecov.io/gh/DanChaltiel/crosstable/branch/main/graph/badge.svg)](https://app.codecov.io/gh/DanChaltiel/crosstable?branch=main)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![CRAN status](https://www.r-pkg.org/badges/version/crosstable)](https://CRAN.R-project.org/package=crosstable)
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/crosstable?color=blue)](https://r-pkg.org/pkg/crosstable)
+[![Last Commit](https://img.shields.io/github/last-commit/DanChaltiel/crosstable)](https://github.com/DanChaltiel/crosstable)
+[![Codecov test coverage](https://codecov.io/gh/DanChaltiel/crosstable/graph/badge.svg)](https://app.codecov.io/gh/DanChaltiel/crosstable)
 [![R-CMD-check](https://github.com/DanChaltiel/crosstable/actions/workflows/check-standard.yaml/badge.svg?branch=main)](https://github.com/DanChaltiel/crosstable/actions/workflows/check-standard.yaml)
-[![minimal R
-version](https://img.shields.io/badge/R-%E2%89%A53.1-blue.svg)](https://cran.r-project.org/)
+[![minimal R version](https://img.shields.io/badge/R-%E2%89%A53.6-blue.svg)](https://cran.r-project.org/)
 <!-- [![Dependencies](https://tinyverse.netlify.com/badge/crosstable)](https://cran.r-project.org/package=crosstable)  -->
 <!-- [![Build Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=main)](https://travis-ci.org/DanChaltiel/crosstable) -->
 <!-- badges: end -->
@@ -35,11 +29,7 @@ create automatized reports.
 install.packages("crosstable")
 
 # Install development version on Github
-devtools::install_github("DanChaltiel/crosstable@v0.8.1.9008", build_vignettes=TRUE)
-
-# Install specific commit or tagged version (for reproducibility purpose)
-devtools::install_github("DanChaltiel/crosstable@v0.8.1.9008", build_vignettes=TRUE)
-devtools::install_github("DanChaltiel/crosstable@v0.8.1.9008", build_vignettes=TRUE)
+remotes::install_github("DanChaltiel/crosstable@v0.8.1.9008")
 ```
 
 Note that, for reproducibility purpose, an even better solution would be
