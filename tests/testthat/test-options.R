@@ -101,6 +101,16 @@ test_that("All options work", {
   )
   ct_opt = crosstable(mtcars3, c(cyl, carb, qsec_posix, surv), by=vs, test=TRUE, effect=TRUE) %>%
     suppressWarnings()
+  
+    if (getRversion() > "4.6") {
+      valR4.5 = "p value: 0.0002 \n(Wilcoxon rank sum test)"
+      valR4.6 = "p value: <0.0001 \n(Wilcoxon rank sum exact test)"
+      if (unique(x$test[11:14]) != valR4.6) {
+        stop("Error in wilcoxon exact test in R>4.6")
+      }
+      x$test[11:14] = valR4.5
+    }
+  
   expect_snapshot({
     as.data.frame(ct_noopt)
     as.data.frame(ct_opt)

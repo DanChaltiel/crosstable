@@ -108,7 +108,16 @@ test_that("Testing everything", {
                    test=TRUE, effect=TRUE)
         # expect_warning(class="crosstable_effect_warning")
     ft = as_flextable(x)
-
+  
+    if (getRversion() > "4.6") {
+      valR4.5 = "p value: 0.0002 \n(Wilcoxon rank sum test)"
+      valR4.6 = "p value: <0.0001 \n(Wilcoxon rank sum exact test)"
+      if (unique(x$test[1:4]) != valR4.6) {
+        stop("Error in wilcoxon exact test in R>4.6")
+      }
+      x$test[1:4] = valR4.5
+    }
+  
     expect_snapshot(as.data.frame(x))
     expect_snapshot(ft)
 })
