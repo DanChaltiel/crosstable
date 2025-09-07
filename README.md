@@ -35,11 +35,11 @@ create automatized reports.
 install.packages("crosstable")
 
 # Install development version on Github
-devtools::install_github("DanChaltiel/crosstable@v0.8.1.9007", build_vignettes=TRUE)
+devtools::install_github("DanChaltiel/crosstable@v0.8.1.9008", build_vignettes=TRUE)
 
 # Install specific commit or tagged version (for reproducibility purpose)
-devtools::install_github("DanChaltiel/crosstable@v0.8.1.9007", build_vignettes=TRUE)
-devtools::install_github("DanChaltiel/crosstable@v0.8.1.9007", build_vignettes=TRUE)
+devtools::install_github("DanChaltiel/crosstable@v0.8.1.9008", build_vignettes=TRUE)
+devtools::install_github("DanChaltiel/crosstable@v0.8.1.9008", build_vignettes=TRUE)
 ```
 
 Note that, for reproducibility purpose, an even better solution would be
