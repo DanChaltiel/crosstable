@@ -732,16 +732,16 @@ body_add_gg2 = function(doc, value,
 #'
 #' @return The docx object `doc`
 #' @export
-#' 
+#'
 #' @examples
 #' library(officer)
 #' library(ggplot2)
-#' ft = flextable(head(iris)) %>% 
+#' ft = flextable::flextable(head(iris)) %>%
 #'   structure(legend="The iris dataset")
-#' 
+#'
 #' doc = read_docx() %>%
 #'  body_add_normal("Text before") %>%
-#'  body_add_flextable2(ft) %>% 
+#'  body_add_flextable2(ft) %>%
 #'  body_add_normal("Text after")
 #' write_and_open(doc)
 body_add_flextable2 = function(doc, x, bookmark=NULL, append_line=TRUE, ...){
