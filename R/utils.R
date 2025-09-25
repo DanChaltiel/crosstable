@@ -630,6 +630,15 @@ ansi_align_by = function(text, pattern){
   stringr::str_replace(text, pattern, paste0(spaces, pattern))
 }
 
+#' @importFrom forcats fct_drop
+#' @keywords internal
+#' @noRd
+drop_na_level = function(x){
+  if(!is.factor(x)) return(x)
+  x[x=="NA"] = NA
+  fct_drop(x, only="NA")
+}
+
 
 #' Needed from https://github.com/r-lib/cli/issues/505
 #' @keywords internal

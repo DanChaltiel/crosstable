@@ -6,11 +6,12 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 #### New features 
 
 -   New function `body_add_flextable2()`: automatically adds a legend if the `flextable` object has a `"legend"` attribute.  Equivalent functionality is now available in `body_add_gg2()`. (#100)
--   New argument `rename_with_labels(cols)`, more intuitive than `except`
+-   New argument `rename_with_labels(cols)`, more intuitive than `except`. (#99)
 
 #### Bug fixes and improvements
 
--   Fixed bug `rename_with_labels(cols)` when except contains `c()`.
+-   Fixed bug in `rename_with_labels()` when `except` contains `c()`.(#99)
+-   Fixed bug in `crosstable()` when a factor variable had `NA` as a level (like after `forcats::fct_value_to_na_level()`). (#94)
 
 
 # crosstable 0.8.2
