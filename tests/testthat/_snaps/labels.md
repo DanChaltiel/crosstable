@@ -103,12 +103,17 @@
       [1] "Model"                 "Miles/(US) gallon"     "Number of cylinders"  
       [4] "Displacement (cu.in.)" "hp"                   
     Code
-      rename_with_labels(dat, except = hp) %>% names()
+      rename_with_labels(dat, cols = 1:4) %>% names()
     Output
       [1] "Model"                 "Miles/(US) gallon"     "Number of cylinders"  
       [4] "Displacement (cu.in.)" "hp"                   
     Code
-      rename_with_labels(dat, except = "hp") %>% names()
+      rename_with_labels(dat, contains("p"), except = "hp") %>% names()
+    Output
+      [1] "model"                 "Miles/(US) gallon"     "cyl"                  
+      [4] "Displacement (cu.in.)" "hp"                   
+    Code
+      rename_with_labels(dat, everything(), except = starts_with("h")) %>% names()
     Output
       [1] "Model"                 "Miles/(US) gallon"     "Number of cylinders"  
       [4] "Displacement (cu.in.)" "hp"                   

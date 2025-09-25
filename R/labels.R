@@ -166,30 +166,27 @@ remove_label = remove_labels
 #' Rename every column of a dataframe with its label
 #'
 #' @param df a data.frame
-#' @param except <[`tidy-select`][tidyselect::language]> columns that should not be renamed.
+#' @param cols <[`tidy-select`][tidyselect::language]> columns to be renamed.
+#' @param except <[`tidy-select`][tidyselect::language]> columns not be renamed. Deprecated in favor of `cols`.
 #'
 #' @return A dataframe which names are copied from the label attribute
 #'
 #' @importFrom checkmate assert_data_frame
 #' @importFrom dplyr rename_with select
 #' @importFrom rlang enexpr as_string
-#' @author Dan Chaltiel
 #' @export
-#' @source https://stackoverflow.com/q/75848408/3888000
 #'
 #' @examples
-#' rename_with_labels(mtcars2[,1:5], except=5) %>% names()
-#' rename_with_labels(iris2, except=Sepal.Length) %>% names()
-#' rename_with_labels(iris2, except=starts_with("Pet")) %>% names()
-rename_with_labels = function(df, except=NULL){
+#' rename_with_labels(mtcars2[,1:5], cols=1:4) %>% names()
+#' rename_with_labels(iris2, cols=-c(Sepal.Length, Sepal.Width)) %>% names()
+rename_with_labels = function(df, cols=everything(), except=NULL){
   if(is.null(df)) return(NULL)
   assert_data_frame(df)
-  except = enexpr(except)
-  if((!is.numeric(except)) && length(as.list(except))== 1){
-    except = as_string(except)
-  }
-  nm = setdiff(names(df), names(select(df, any_of({{except}}))))
-  rename_with(df, ~get_label(df)[.x], all_of(nm))
+
+  cols_in = df %>% select({{cols}}) %>% names()
+  cols_out = tidyselect::eval_select(enquo(except), df, strict=FALSE) %>% names()
+
+  rename_with(df, ~get_label(df)[.x], .cols=c(all_of(cols_in), -all_of(cols_out)))
 }
 
 #' @export

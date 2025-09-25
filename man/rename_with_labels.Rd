@@ -4,16 +4,15 @@
 \alias{rename_with_labels}
 \alias{rename_dataframe_with_labels}
 \title{Rename every column of a dataframe with its label}
-\source{
-https://stackoverflow.com/q/75848408/3888000
-}
 \usage{
-rename_with_labels(df, except = NULL)
+rename_with_labels(df, cols = everything(), except = NULL)
 }
 \arguments{
 \item{df}{a data.frame}
 
-\item{except}{<\code{\link[tidyselect:language]{tidy-select}}> columns that should not be renamed.}
+\item{cols}{<\code{\link[tidyselect:language]{tidy-select}}> columns to be renamed.}
+
+\item{except}{<\code{\link[tidyselect:language]{tidy-select}}> columns not be renamed. Deprecated in favor of \code{cols}.}
 }
 \value{
 A dataframe which names are copied from the label attribute
@@ -22,10 +21,6 @@ A dataframe which names are copied from the label attribute
 Rename every column of a dataframe with its label
 }
 \examples{
-rename_with_labels(mtcars2[,1:5], except=5) \%>\% names()
-rename_with_labels(iris2, except=Sepal.Length) \%>\% names()
-rename_with_labels(iris2, except=starts_with("Pet")) \%>\% names()
-}
-\author{
-Dan Chaltiel
+rename_with_labels(mtcars2[,1:5], cols=1:4) \%>\% names()
+rename_with_labels(iris2, cols=-c(Sepal.Length, Sepal.Width)) \%>\% names()
 }

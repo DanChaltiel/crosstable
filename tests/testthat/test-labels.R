@@ -210,14 +210,18 @@ test_that("clean_names_with_labels", {
 
 
 test_that("rename_dataframe_with_labels ", {
-  dat = mtcars2[,1:5]
+  dat = mtcars2[1, 1:5]
 
   expect_snapshot({
     rename_with_labels(dat) %>% names()
     rename_with_labels(dat, except=5) %>% names()
-    rename_with_labels(dat, except=hp) %>% names()
-    rename_with_labels(dat, except="hp") %>% names()
+    rename_with_labels(dat, cols=1:4) %>% names()
+    rename_with_labels(dat, contains("p"), except="hp") %>% names()
+    rename_with_labels(dat, everything(), except=starts_with("h")) %>% names()
     rename_with_labels(dat, except=99) %>% names()
   })
+
+  rename_with_labels(dat, cols=99) %>%
+    expect_error()
 })
 
