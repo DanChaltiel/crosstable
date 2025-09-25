@@ -11,12 +11,14 @@ body_add_gg2(
   height = getOption("crosstable_gg_height", 5),
   units = getOption("crosstable_units", "in"),
   style = getOption("crosstable_style_image", doc$default_styles$paragraph),
+  add_legend = TRUE,
+  bookmark = NULL,
   res = 300,
   ...
 )
 }
 \arguments{
-\item{doc}{an \code{rdocx} object}
+\item{doc}{An \code{rdocx} object from \strong{officer}.}
 
 \item{value}{ggplot object}
 
@@ -25,6 +27,10 @@ body_add_gg2(
 \item{units}{units for width and height}
 
 \item{style}{paragraph style}
+
+\item{add_legend}{add a legend if the ggplot has a legend attribute (see example)}
+
+\item{bookmark}{the bookmark of the legend, if applicable}
 
 \item{res}{resolution of the png image in ppi (passed to the argument \code{dpi} of \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}})}
 
@@ -40,6 +46,7 @@ Alternative to \code{\link[officer:body_add_gg]{officer::body_add_gg()}} which u
 library(officer)
 library(ggplot2)
 p = ggplot(data=iris, aes(Sepal.Length, Petal.Length)) + geom_point()
+attr(p, "legend") = "Sepal length by Petal length"
 crosstable_options(
   units="cm",
   style_image="centered"

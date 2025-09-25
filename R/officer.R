@@ -668,12 +668,14 @@ body_add_img2 = function(doc, src, width, height,
 
 #' Alternative to [officer::body_add_gg()] which uses `ggplot` syntax
 #'
-#' @param doc an `rdocx` object
+#' @param doc An `rdocx` object from **officer**.
 #' @param value ggplot object
 #' @param width,height width and height. Can be abbreviated to w and h.
 #' @param style paragraph style
 #' @param res resolution of the png image in ppi (passed to the argument `dpi` of [ggplot2::ggsave()])
 #' @param units units for width and height
+#' @param add_legend add a legend if the ggplot has a legend attribute (see example)
+#' @param bookmark the bookmark of the legend, if applicable
 #' @param ... other arguments to be passed to [ggplot2::ggsave()]
 #'
 #' @return The docx object `doc`
@@ -686,6 +688,7 @@ body_add_img2 = function(doc, src, width, height,
 #' library(officer)
 #' library(ggplot2)
 #' p = ggplot(data=iris, aes(Sepal.Length, Petal.Length)) + geom_point()
+#' attr(p, "legend") = "Sepal length by Petal length"
 #' crosstable_options(
 #'   units="cm",
 #'   style_image="centered"
@@ -700,6 +703,7 @@ body_add_gg2 = function(doc, value,
                         height = getOption("crosstable_gg_height", 5),
                         units = getOption("crosstable_units", "in"),
                         style = getOption("crosstable_style_image", doc$default_styles$paragraph),
+                        add_legend=TRUE, bookmark=NULL,
                         res = 300, ... ){
   check_installed("ggplot2", reason="for function `body_add_gg2()` to work.")
   assert_class(value, "ggplot")
@@ -707,10 +711,50 @@ body_add_gg2 = function(doc, value,
   file = tempfile(fileext=".png")
   ggplot2::ggsave(file, value, width=width, height=height, units=units, dpi=res, ...)
   on.exit(unlink(file))
+  legend = attr(value, "legend")
+  if(isTRUE(add_legend) && !is.null(legend)){
+    doc = body_add_figure_legend(doc, legend=legend, bookmark=bookmark)
+  }
   body_add_img2(doc, src=file, style=style, width=width, height=height, units=units)
 }
 
-
+#' Alternative to [flextable::body_add_flextable()]
+#'
+#' Extends `body_add_flextable()` by adding:
+#' - a legend (if `x` has a `"legend"` attribute), via [body_add_table_legend()]
+#' - an optional empty line after the table
+#'
+#' @param doc An `rdocx` object from **officer**.
+#' @param x A `flextable` object. If it has a `"legend"` attribute, it is added.
+#' @param bookmark Optional. Word bookmark name for the legend.
+#' @param append_line Whether to add an empty line after the table.
+#' @param ... Passed to [flextable::body_add_flextable()].
+#'
+#' @return The docx object `doc`
+#' @export
+#' 
+#' @examples
+#' library(officer)
+#' library(ggplot2)
+#' ft = flextable(head(iris)) %>% 
+#'   structure(legend="The iris dataset")
+#' 
+#' doc = read_docx() %>%
+#'  body_add_normal("Text before") %>%
+#'  body_add_flextable2(ft) %>% 
+#'  body_add_normal("Text after")
+#' write_and_open(doc)
+body_add_flextable2 = function(doc, x, bookmark=NULL, append_line=TRUE, ...){
+  legend = attr(x, "legend")
+  if(!is.null(legend)){
+    doc = body_add_table_legend(doc, legend=legend, bookmark=bookmark)
+  }
+  doc = body_add_flextable(doc, x, ...)
+  if(isTRUE(append_line)){
+    doc = body_add_normal(doc)
+  }
+  doc
+}
 
 #' Replace text on several bookmarks at once
 #'

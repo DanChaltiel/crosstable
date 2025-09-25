@@ -1,6 +1,17 @@
 Crosstables for descriptive analyses. See documentation at <https://danchaltiel.github.io/crosstable/> and browse code at <https://github.com/DanChaltiel/crosstable>.
 
 
+# crosstable 0.8.3
+
+#### New features 
+
+-   New function `body_add_flextable2()`: automatically adds a legend if the `flextable` object has a `"legend"` attribute.  Equivalent functionality is now available in `body_add_gg2()`. (#100)
+
+#### Bug fixes and improvements
+
+-   
+
+
 # crosstable 0.8.2
 
 #### New features 
@@ -12,6 +23,7 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 -   fixed `crosstable_options()` sometimes not being taken into account (#90).
 -   fixed error when using a named list of functions in `crosstable(funs)` (#89).
 -   fixed rare infinite loop with `get_label()` on very specific objects like `POSIXlt` (#86).
+
 
 # crosstable 0.8.1
 
