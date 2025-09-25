@@ -12,7 +12,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,6 +56,8 @@
 <span>  height <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"crosstable_gg_height"</span>, <span class="fl">5</span><span class="op">)</span>,</span>
 <span>  units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"crosstable_units"</span>, <span class="st">"in"</span><span class="op">)</span>,</span>
 <span>  style <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"crosstable_style_image"</span>, <span class="va">doc</span><span class="op">$</span><span class="va">default_styles</span><span class="op">$</span><span class="va">paragraph</span><span class="op">)</span>,</span>
+<span>  add_legend <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bookmark <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  res <span class="op">=</span> <span class="fl">300</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -66,7 +68,7 @@
 
 
 <dl><dt id="arg-doc">doc<a class="anchor" aria-label="anchor" href="#arg-doc"></a></dt>
-<dd><p>an <code>rdocx</code> object</p></dd>
+<dd><p>An <code>rdocx</code> object from <strong>officer</strong>.</p></dd>
 
 
 <dt id="arg-value">value<a class="anchor" aria-label="anchor" href="#arg-value"></a></dt>
@@ -83,6 +85,14 @@
 
 <dt id="arg-style">style<a class="anchor" aria-label="anchor" href="#arg-style"></a></dt>
 <dd><p>paragraph style</p></dd>
+
+
+<dt id="arg-add-legend">add_legend<a class="anchor" aria-label="anchor" href="#arg-add-legend"></a></dt>
+<dd><p>add a legend if the ggplot has a legend attribute (see example)</p></dd>
+
+
+<dt id="arg-bookmark">bookmark<a class="anchor" aria-label="anchor" href="#arg-bookmark"></a></dt>
+<dd><p>the bookmark of the legend, if applicable</p></dd>
 
 
 <dt id="arg-res">res<a class="anchor" aria-label="anchor" href="#arg-res"></a></dt>
@@ -107,6 +117,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">Sepal.Length</span>, <span class="va">Petal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">"legend"</span><span class="op">)</span> <span class="op">=</span> <span class="st">"Sepal length by Petal length"</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="crosstable_options.html">crosstable_options</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  units<span class="op">=</span><span class="st">"cm"</span>,</span></span>
 <span class="r-in"><span>  style_image<span class="op">=</span><span class="st">"centered"</span></span></span>

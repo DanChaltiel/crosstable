@@ -12,7 +12,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,19 @@
       <small>Source: <a href="https://github.com/DanChaltiel/crosstable/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.8.3" id="crosstable-083">crosstable 0.8.3<a class="anchor" aria-label="anchor" href="#crosstable-083"></a></h2>
+<div class="section level5">
+<h5 id="new-features-0-8-3">New features<a class="anchor" aria-label="anchor" href="#new-features-0-8-3"></a></h5>
+<ul><li>New function <code><a href="../reference/body_add_flextable2.html">body_add_flextable2()</a></code>: automatically adds a legend if the <code>flextable</code> object has a <code>"legend"</code> attribute. Equivalent functionality is now available in <code><a href="../reference/body_add_gg2.html">body_add_gg2()</a></code>. (<a href="https://github.com/DanChaltiel/crosstable/issues/100" class="external-link">#100</a>)</li>
+<li>New argument <code>rename_with_labels(cols)</code>, more intuitive than <code>except</code>. (<a href="https://github.com/DanChaltiel/crosstable/issues/99" class="external-link">#99</a>)</li>
+</ul></div>
+<div class="section level5">
+<h5 id="bug-fixes-and-improvements-0-8-3">Bug fixes and improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-improvements-0-8-3"></a></h5>
+<ul><li>Fixed bug in <code><a href="../reference/rename_with_labels.html">rename_with_labels()</a></code> when <code>except</code> contains <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code>.(<a href="https://github.com/DanChaltiel/crosstable/issues/99" class="external-link">#99</a>)</li>
+<li>Fixed bug in <code><a href="../reference/crosstable.html">crosstable()</a></code> when a factor variable had <code>NA</code> as a level (like after <code>forcats::fct_value_to_na_level()</code>). (<a href="https://github.com/DanChaltiel/crosstable/issues/94" class="external-link">#94</a>)</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.2" id="crosstable-082">crosstable 0.8.2<a class="anchor" aria-label="anchor" href="#crosstable-082"></a></h2><p class="text-muted">CRAN release: 2025-09-07</p>
 <div class="section level5">
