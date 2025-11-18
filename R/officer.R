@@ -661,6 +661,9 @@ body_add_img2 = function(doc, src, width, height,
                          ...){
   units = match.arg(units, c("in", "cm", "mm"))
   to_units = function(x) x/c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units]
+  if(!file.exists(src)){
+    cli_abort("File {.file {src}} does not exist", call=parent.frame())
+  }
   body_add_img(x=doc, src=src, width=to_units(width), height=to_units(height), style=style, ...)
 }
 
