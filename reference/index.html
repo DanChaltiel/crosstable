@@ -12,7 +12,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,8 +46,7 @@
 
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -58,19 +57,22 @@
 
         </dt>
         <dd>Easily describe datasets</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="crosstable_options.html">crosstable_options()</a></code>
 
         </dt>
         <dd>Options for the package <code>crosstable</code></dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="crosstable_peek_options.html">crosstable_peek_options()</a></code>
 
         </dt>
         <dd>See which <code>crosstable</code> option is currently set.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="crosstable_reset_options.html">crosstable_reset_options()</a></code>
 
@@ -81,8 +83,7 @@
 
       <div class="section-desc"><p>Standard datasets, modified to have labels, characters, and factors</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -93,7 +94,8 @@
 
         </dt>
         <dd>Modified <code>iris</code> dataset</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="mtcars2.html">mtcars2</a></code>
 
@@ -104,8 +106,7 @@
 
       <div class="section-desc"><p>Handle label attributes (compatible with Hmisc, expss, haven…)</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -116,37 +117,43 @@
 
         </dt>
         <dd>Import labels</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="set_label.html">set_label()</a></code> <code><a href="set_label.html">copy_label_from()</a></code>
 
         </dt>
         <dd>Set the "label" attribute of an object</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="get_label.html">get_label()</a></code>
 
         </dt>
         <dd>Get label if wanted and available, or default (name) otherwise</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="remove_labels.html">remove_labels()</a></code>
 
         </dt>
         <dd>Remove all label attributes.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="apply_labels.html">apply_labels()</a></code>
 
         </dt>
         <dd>Batch set variable labels</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="rename_with_labels.html">rename_with_labels()</a></code>
 
         </dt>
         <dd>Rename every column of a dataframe with its label</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="clean_names_with_labels.html">clean_names_with_labels()</a></code>
 
@@ -157,8 +164,7 @@
 
       <div class="section-desc"><p>Modify an already built crosstable</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -169,7 +175,8 @@
 
         </dt>
         <dd>Transpose a crosstable</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="pivot_crosstable.html">pivot_crosstable()</a></code>
 
@@ -180,8 +187,7 @@
 
       <div class="section-desc"><p>Summarise numeric variables</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -192,19 +198,22 @@
 
         </dt>
         <dd>Summary functions</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="cross_summary.html">cross_summary()</a></code>
 
         </dt>
         <dd>Summarize a numeric vector</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="na.html">na()</a></code>
 
         </dt>
         <dd>Return the number of NA observations</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="n.html">N()</a></code>
 
@@ -215,8 +224,7 @@
 
       <div class="section-desc"><p>Visualize a crosstable in various formats</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -227,13 +235,15 @@
 
         </dt>
         <dd>Converts a <code>crosstable</code> object into a formatted <code>gt</code> table.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="as_workbook.html">as_workbook()</a></code>
 
         </dt>
         <dd>Converts a <code>crosstable</code> object into a formatted, savable <code>openxlsx</code> workbook.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="as_flextable.html">as_flextable()</a></code>
 
@@ -244,8 +254,7 @@
 
       <div class="section-desc"><p>Used in cooperation with the <code>officer</code> package</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -256,85 +265,99 @@
 
         </dt>
         <dd>Add a crosstable to an <code>officer</code> document</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="body_add_crosstable_footnote.html">body_add_crosstable_footnote()</a></code>
 
         </dt>
         <dd>Adds a standard footnote explaining the abbreviations used in a crosstable</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="body_add_flextable2.html">body_add_flextable2()</a></code>
 
         </dt>
         <dd>Alternative to <code><a href="https://davidgohel.github.io/flextable/reference/body_add_flextable.html" class="external-link">flextable::body_add_flextable()</a></code></dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="body_add_gg2.html">body_add_gg2()</a></code>
 
         </dt>
         <dd>Alternative to <code><a href="https://davidgohel.github.io/officer/reference/body_add_gg.html" class="external-link">officer::body_add_gg()</a></code> which uses <code>ggplot</code> syntax</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="body_add_img2.html">body_add_img2()</a></code>
 
         </dt>
         <dd>Alternative to <code><a href="https://davidgohel.github.io/officer/reference/body_add_img.html" class="external-link">officer::body_add_img()</a></code> which adds a <code>units</code> choice</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="body_add_legend.html">body_add_table_legend()</a></code> <code><a href="body_add_legend.html">body_add_figure_legend()</a></code>
 
         </dt>
         <dd>Add a legend to a table or a figure</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="body_add_list.html">body_add_list()</a></code> <code><a href="body_add_list.html">body_add_list_item()</a></code>
 
         </dt>
         <dd>Add a list to an <code>officer</code> document</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="body_add_normal.html">body_add_normal()</a></code>
 
         </dt>
         <dd>Add a new paragraph with default style</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="body_add_table_list.html">body_add_table_list()</a></code> <code><a href="body_add_table_list.html">body_add_flextable_list()</a></code> <code><a href="body_add_table_list.html">body_add_crosstable_list()</a></code>
 
         </dt>
         <dd>Add a list of tables</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="body_add_table_section.html">body_add_table_section()</a></code>
 
         </dt>
         <dd>Add a section with a table and its legend</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="body_add_title.html">body_add_title()</a></code>
 
         </dt>
         <dd>Add a title to an <code>officer</code> document</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="body_replace_text_at_bkms.html">body_replace_text_at_bkms()</a></code>
 
         </dt>
         <dd>Replace text on several bookmarks at once</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="docx_bookmarks2.html">docx_bookmarks2()</a></code>
 
         </dt>
         <dd>List Word bookmarks, including the ones in header and footer</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="write_and_open.html">write_and_open()</a></code>
 
         </dt>
         <dd>Alternative to default <code>officer</code> print() function. Write the file and try to open it right away.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="generate_autofit_macro.html">generate_autofit_macro()</a></code>
 
@@ -345,8 +368,7 @@
 
       <div class="section-desc"><p>Practical functions for various purposes</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -357,43 +379,50 @@
 
         </dt>
         <dd>Percent pattern helper</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="format_fixed.html">format_fixed()</a></code>
 
         </dt>
         <dd>Format numbers with the exact same number of decimals, including trailing zeros</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="ct_compact.html">ct_compact(<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="ct_compact.html">ct_compact(<i>&lt;crosstable&gt;</i>)</a></code>
 
         </dt>
         <dd>Generic function to compact a table (publication formatting)</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="plim.html">plim()</a></code>
 
         </dt>
         <dd>Format p values (alternative to <code><a href="https://rdrr.io/r/base/format.pval.html" class="external-link">format.pval()</a></code>)</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="confint_numeric.html">confint_numeric()</a></code>
 
         </dt>
         <dd>Confidence interval of a numeric vector</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="narm.html">narm()</a></code>
 
         </dt>
         <dd>Remove missing values</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="is.crosstable.html">is.crosstable()</a></code> <code><a href="is.crosstable.html">is.transposed_crosstable()</a></code> <code><a href="is.crosstable.html">is.compacted_crosstable()</a></code> <code><a href="is.crosstable.html">is.multiby_crosstable()</a></code>
 
         </dt>
         <dd>Test if an object is a crosstable</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="peek.html">peek()</a></code>
 
@@ -404,14 +433,12 @@
 
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
       <h3 id="default-parameters">Default parameters<a class="anchor" aria-label="anchor" href="#default-parameters"></a></h3>
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -422,7 +449,8 @@
 
         </dt>
         <dd>Default arguments for calculating and displaying effects in <code><a href="../reference/crosstable.html">crosstable()</a></code></dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="crosstable_test_args.html">crosstable_test_args()</a></code>
 
@@ -433,8 +461,7 @@
       <h3 id="effects">Effects<a class="anchor" aria-label="anchor" href="#effects"></a></h3>
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -445,19 +472,22 @@
 
         </dt>
         <dd>Default function to display the effect</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="effect_summary.html">diff_mean_auto()</a></code> <code><a href="effect_summary.html">diff_mean_boot()</a></code> <code><a href="effect_summary.html">diff_median_boot()</a></code> <code><a href="effect_summary.html">diff_mean_student()</a></code>
 
         </dt>
         <dd>Effect measure for association between one continuous and one categorical variable</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="effect_survival.html">effect_survival_coxph()</a></code>
 
         </dt>
         <dd>Effect measure for association between one censored variable and one categorical variable</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="effect_tabular.html">effect_odds_ratio()</a></code> <code><a href="effect_tabular.html">effect_relative_risk()</a></code> <code><a href="effect_tabular.html">effect_risk_difference()</a></code>
 
@@ -468,8 +498,7 @@
       <h3 id="tests">Tests<a class="anchor" aria-label="anchor" href="#tests"></a></h3>
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -480,37 +509,43 @@
 
         </dt>
         <dd>Default function to display a test result</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="crosstable_test_args.html">crosstable_test_args()</a></code>
 
         </dt>
         <dd>Default arguments for calculating and displaying tests in <code><a href="../reference/crosstable.html">crosstable()</a></code></dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="test_correlation_auto.html">test_correlation_auto()</a></code>
 
         </dt>
         <dd>test for correlation coefficients</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="test_summarize_auto.html">test_summarize_auto()</a></code>
 
         </dt>
         <dd>test for mean comparison</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="test_summarize_linear_contrasts.html">test_summarize_linear_contrasts()</a></code>
 
         </dt>
         <dd>Test for linear trend across ordered factor with contrasts</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="test_survival_logrank.html">test_survival_logrank()</a></code>
 
         </dt>
         <dd>test for survival comparison</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="test_tabular_auto.html">test_tabular_auto()</a></code>
 
@@ -526,7 +561,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

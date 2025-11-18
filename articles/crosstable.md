@@ -1,0 +1,377 @@
+# Introduction to Crosstable
+
+## Crosstable
+
+Crosstable is a package centered on a single function,
+[`crosstable()`](https://danchaltiel.github.io/crosstable/reference/crosstable.md),
+which easily computes descriptive statistics on datasets.
+
+Before starting this vignette, if you are not familiar with `dplyr` and
+pipes (`%>%`, Ctrl+Shift+M in RStudio), I warmly recommend you to read
+the
+[vignette](https://cran.r-project.org/package=dplyr/vignettes/dplyr.html),
+or, if you can read French, Julien Barnier’s awesome [tidyverse
+tutorial](https://juba.github.io/tidyverse/10-dplyr.html#pipe).
+Nevertheless, this vignette should still be easy to understand
+otherwise, as `crosstable` is perfectly usable with base `R`.
+
+## Example dataset: modified `mtcars`
+
+First, since
+[`crosstable()`](https://danchaltiel.github.io/crosstable/reference/crosstable.md)
+uses the power of the `label` attribute, let’s start by building a
+labelled dataset.
+
+In this vignette, we will use a modified version of the `mtcars` famous
+dataset, which comprises 11 aspects of design and performance for 32
+automobiles. Let’s modify it to add textual categories, keep row names
+as a column, make some numeric variables factors, and add labels from a
+table using
+[`import_labels()`](https://danchaltiel.github.io/crosstable/reference/import_labels.md).
+
+For convenience, this dataset is already packed into {`crosstable`} as
+[`?mtcars2`](https://danchaltiel.github.io/crosstable/reference/mtcars2.md)
+so don’t bother re-creating it for your own tests.
+
+``` r
+library(crosstable)
+library(dplyr)
+mtcars_labels = read.table(header=TRUE, text="
+  name  label
+  model 'Model'
+  mpg   'Miles/(US) gallon'
+  cyl   'Number of cylinders'
+  disp  'Displacement (cu.in.)'
+  hp    'Gross horsepower'
+  drat  'Rear axle ratio'
+  wt    'Weight (1000 lbs)'
+  qsec  '1/4 mile time'
+  vs    'Engine'
+  am    'Transmission'
+  gear  'Number of forward gears'
+  carb  'Number of carburetors'
+")
+mtcars2 = mtcars %>% 
+  mutate(model=rownames(mtcars), 
+         vs=ifelse(vs==0, "vshaped", "straight"),
+         am=ifelse(am==0, "auto", "manual"), 
+         across(c("cyl", "gear"), factor),
+         .before=1) %>% 
+  import_labels(mtcars_labels, name_from="name", label_from="label") %>% 
+  as_tibble()
+#I also could have used `labelled::set_variable_labels()` to add labels
+```
+
+## First overview
+
+As a first example, let’s describe the columns `mpg` and `cyl`, grouping
+by the column `am` (the transmission).
+
+As tables are not very readable in the console, let’s also use
+[`as_flextable()`](https://danchaltiel.github.io/crosstable/reference/as_flextable.md)
+to turn the resulting `crosstable` into a beautiful, ready-to-print HTML
+table. This table will be automatically displayed in the Viewer pane if
+your are using RStudio.
+
+``` r
+crosstable(mtcars2, c(mpg, cyl), by=am) %>%
+  as_flextable(keep_id=TRUE)
+```
+
+| .id | label               | variable    | Transmission       |                    |
+|-----|---------------------|-------------|--------------------|--------------------|
+|     |                     |             | auto               | manual             |
+| mpg | Miles/(US) gallon   | Min / Max   | 10.4 / 24.4        | 15.0 / 33.9        |
+|     |                     | Med \[IQR\] | 17.3 \[14.9;19.2\] | 22.8 \[21.0;30.4\] |
+|     |                     | Mean (std)  | 17.1 (3.8)         | 24.4 (6.2)         |
+|     |                     | N (NA)      | 19 (0)             | 13 (0)             |
+| cyl | Number of cylinders | 4           | 3 (27.27%)         | 8 (72.73%)         |
+|     |                     | 6           | 4 (57.14%)         | 3 (42.86%)         |
+|     |                     | 8           | 12 (85.71%)        | 2 (14.29%)         |
+
+By default, numeric variables (like `mpg` and `disp`) are described with
+`min/max`, `median/IQR`, `mean/sd` and `number of observations/missing`,
+while categorical (factor/character) variables (like `cyl`) are
+described with levels counts and fractions. All of this is fully
+customizable, as you will see hereafter.
+
+There are many ways to select variables: with names, character vector,
+`tidyselect` helpers, formula… This is described in details in
+[`vignette("crosstable-selection")`](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.md).
+
+The `by` column is usually a factor, character or logical vector. If it
+is a numeric vector, then only numeric vectors can be described and
+correlation coefficients will be displayed. While it is possible to
+apply several variables (`by=c(am, vs)`), I will use only one variable
+here for clarity.
+
+In this vignette, I will often set `keep_id=TRUE` so you can see the
+variable name, but in practice you usually omit it. See
+[`vignette("crosstable-report")`](https://danchaltiel.github.io/crosstable/articles/crosstable-report.md)
+for more about
+[`as_flextable()`](https://danchaltiel.github.io/crosstable/reference/as_flextable.md)
+and on how to integrate crosstables in MS Word document (using
+[officer](https://ardata-fr.github.io/officeverse/)) and `Rmarkdown`. On
+the other hand, you can set `label=FALSE` if you don’t want them to
+appear.
+
+## Totals
+
+To display totals, use the `total` argument as one of
+`c("none", "row", "column", "both")`.
+
+``` r
+#of course, the total of a "column" in only meaningful for categorical variables.
+crosstable(mtcars2, c(am, mpg), by=vs, total="both") %>% 
+  as_flextable(keep_id=TRUE)
+```
+
+| .id | label             | variable    | Engine             |                    | Total              |
+|-----|-------------------|-------------|--------------------|--------------------|--------------------|
+|     |                   |             | straight           | vshaped            |                    |
+| am  | Transmission      | auto        | 7 (36.84%)         | 12 (63.16%)        | 19 (59.38%)        |
+|     |                   | manual      | 7 (53.85%)         | 6 (46.15%)         | 13 (40.62%)        |
+|     |                   | Total       | 14 (43.75%)        | 18 (56.25%)        | 32 (100.00%)       |
+| mpg | Miles/(US) gallon | Min / Max   | 17.8 / 33.9        | 10.4 / 26.0        | 10.4 / 33.9        |
+|     |                   | Med \[IQR\] | 22.8 \[21.4;29.6\] | 15.7 \[14.8;19.1\] | 19.2 \[15.4;22.8\] |
+|     |                   | Mean (std)  | 24.6 (5.4)         | 16.6 (3.9)         | 20.1 (6.0)         |
+|     |                   | N (NA)      | 14 (0)             | 18 (0)             | 32 (0)             |
+
+Note that totals always take missing values into account. Therefore, be
+aware that if `showNA="no"`, totals may be higher than the sum of the
+values inside the table.
+
+## Controlling the description
+
+The
+[`crosstable()`](https://danchaltiel.github.io/crosstable/reference/crosstable.md)
+function comes with a lot of arguments to add control on how it will
+describe your dataset. Some arguments are tied to a type of variable and
+will only apply for the descriptions of those.
+
+Note that most of the parameters can be controlled using global options.
+This comes handy when you want to use the same parameterization on all
+your crosstables. See
+[`?crosstable_options`](https://danchaltiel.github.io/crosstable/reference/crosstable_options.md)
+for more details about this.
+
+### Categorical variables
+
+Categorical variables are described using counts and percentages. A
+numeric variable is considered categorical if its number of levels is
+lesser than the `unique_numeric` argument (default=3).
+
+If `by` is set, you can use the `margin` argument to control whether
+percentages should be calculated by row (default), column, or cell. You
+can also use `percent_digits` (default=2) to control how many decimals
+should be displayed.
+
+Use `showNA` (one of `c("ifany", "always", "no")`) to control when
+missing values should be displayed.
+
+``` r
+mtcars3 = mtcars2
+mtcars3$cyl[1:5] = NA
+crosstable(mtcars3, c(am, cyl), by=vs, showNA="always", 
+           percent_digits=0, percent_pattern="{n} ({p_col}/{p_row})") %>% 
+  as_flextable(keep_id=TRUE)
+```
+
+| .id | label               | variable | Engine      |               |     |
+|-----|---------------------|----------|-------------|---------------|-----|
+|     |                     |          | straight    | vshaped       | NA  |
+| am  | Transmission        | auto     | 7 (50%/37%) | 12 (67%/63%)  | 0   |
+|     |                     | manual   | 7 (50%/54%) | 6 (33%/46%)   | 0   |
+|     |                     | NA       | 0           | 0             | 0   |
+| cyl | Number of cylinders | 4        | 9 (75%/90%) | 1 (7%/10%)    | 0   |
+|     |                     | 6        | 3 (25%/75%) | 1 (7%/25%)    | 0   |
+|     |                     | 8        | 0 (0%/0%)   | 13 (87%/100%) | 0   |
+|     |                     | NA       | 2           | 3             | 0   |
+
+You can see that missing values are never taken into account when
+calculating percentage calculation in `R`. You can change this behaviour
+by using
+[`tidyr::replace_na()`](https://tidyr.tidyverse.org/reference/replace_na.html)
+or
+[`forcats::fct_na_value_to_level()`](https://forcats.tidyverse.org/reference/fct_na_value_to_level.html)
+on your dataset before applying
+[`crosstable()`](https://danchaltiel.github.io/crosstable/reference/crosstable.md).
+
+### Numeric variables
+
+Numeric variables are described with summary functions. By default, it
+outputs `min/max`, `median/IQR`, `mean/sd` and
+`number of observations/missing`.
+
+However, this might not be the information you need, so you can use the
+`funs` argument to apply the set of functions of your choice:
+
+``` r
+crosstable(mtcars2, c(mpg, wt), funs=c("mean"=mean, "std dev"=sd, q1=~quantile(.x, prob=0.25))) %>% 
+  as_flextable(keep_id=TRUE)
+```
+
+| .id | label             | variable | value |
+|-----|-------------------|----------|-------|
+| mpg | Miles/(US) gallon | mean     | 20.1  |
+|     |                   | std dev  | 6.0   |
+|     |                   | q1       | 15.4  |
+| wt  | Weight (1000 lbs) | mean     | 3.2   |
+|     |                   | std dev  | 1.0   |
+|     |                   | q1       | 2.6   |
+
+To this end, you might want to use `crosstable`’s convenience functions
+such as
+[`meansd()`](https://danchaltiel.github.io/crosstable/reference/summaryFunctions.md),
+[`meanCI()`](https://danchaltiel.github.io/crosstable/reference/summaryFunctions.md),
+[`mediqr()`](https://danchaltiel.github.io/crosstable/reference/summaryFunctions.md),
+[`minmax()`](https://danchaltiel.github.io/crosstable/reference/summaryFunctions.md),
+or
+[`nna()`](https://danchaltiel.github.io/crosstable/reference/summaryFunctions.md).
+
+For more advanced use cases, you can also use anonymous and lambda
+functions, for instance
+`crosstable(mtcars2, c(mpg, wt), funs=c("mean square"=function(xx) mean(xx^2), "mean cube"= ~mean(.x^3)))`.
+
+If some functions need additional arguments, you can use the `funs_arg`
+argument. For instance, you could write
+`crosstable(mtcars2, c(disp, hp), funs=c(quantile), funs_arg=list(probs=c(0.25,0.75)))`.
+
+Numbers are formatted to have the same number of decimal places. You can
+use `funs_arg=list(dig=3)` to customize the number of decimals. You
+might want to take a look at
+[`?summaryFunctions`](https://danchaltiel.github.io/crosstable/reference/summaryFunctions.md)
+and
+[`?format_fixed`](https://danchaltiel.github.io/crosstable/reference/format_fixed.md).
+
+On the other hand, if `by` refers to a numeric variable, correlation
+coefficients will be calculated.
+
+``` r
+library(survival)
+crosstable(mtcars2, where(is.numeric), cor_method="pearson", by=mpg) %>% 
+  as_flextable(keep_id=TRUE)
+```
+
+[TABLE]
+
+You can use the `cor_method` argument to choose which coefficient to
+calculate (`"pearson"`, `"kendall"`, or `"spearman"`).
+
+### Other variables
+
+#### Survival data
+
+Crosstable is also able to describe survival data.
+
+Use `times` to set the specific times of interest and `followup` to
+compute the median followup. For each time, you will get the survival,
+the number of events before this time, and the number of patients at
+risk, as per `survival:::summary.survfit()`.
+
+``` r
+library(survival)
+aml$surv = Surv(aml$time, aml$status)
+crosstable(aml, surv, by=x, times=c(0,50,150), followup=TRUE) %>% 
+  as_flextable(keep_id=TRUE)
+```
+
+| .id  | label | variable                       | x                |                |
+|------|-------|--------------------------------|------------------|----------------|
+|      |       |                                | Maintained       | Nonmaintained  |
+| surv | surv  | t=0                            | 1.00 (0/11)      | 1.00 (0/12)    |
+|      |       | t=50                           | 0.18 (7/1)       | 0 (11/0)       |
+|      |       | t=150                          | 0.18 (0/1)       | 0 (0/0)        |
+|      |       | Median follow up \[min ; max\] | 103 \[13 ; 161\] | NA \[16 ; 45\] |
+|      |       | Median survival                | 31               | 23             |
+
+Note that, using the formula interface, you could declare the `Surv`
+object directly inside the `crosstable` function:
+`crosstable(aml, Surv(time, status) ~ x)`.
+
+#### Dates
+
+Although less usual, you can describe variables of call `Date` or
+`POSIXt` with
+[`crosstable()`](https://danchaltiel.github.io/crosstable/reference/crosstable.md).
+Use `date_format` to apply a specific format (see
+[`?strptime`](https://rdrr.io/r/base/strptime.html) for formats). Beside
+this, they are considered as numeric variables.
+
+``` r
+mtcars2$x_date = as.Date(mtcars2$hp , origin="2010-01-01") %>% set_label("Date")
+mtcars2$x_posix = as.POSIXct(mtcars2$qsec*3600*24 , origin="2010-01-01") %>% set_label("Date+time")
+crosstable(mtcars2, c(x_date, x_posix), date_format="%d/%m/%Y") %>% 
+  as_flextable(keep_id=TRUE)
+```
+
+| .id     | label     | variable    | value                                |
+|---------|-----------|-------------|--------------------------------------|
+| x_date  | Date      | Min / Max   | 22/02/2010 - 02/12/2010              |
+|         |           | Med \[IQR\] | 04/05/2010 \[06/04/2010;30/06/2010\] |
+|         |           | Mean (std)  | 27/05/2010 (2.3 months)              |
+|         |           | N (NA)      | 32 (0)                               |
+| x_posix | Date+time | Min / Max   | 15/01/2010 - 23/01/2010              |
+|         |           | Med \[IQR\] | 18/01/2010 \[17/01/2010;19/01/2010\] |
+|         |           | Mean (std)  | 18/01/2010 (1.8 days)                |
+|         |           | N (NA)      | 32 (0)                               |
+
+For the standard deviation to be readable, date unit is chosen
+automatically among
+`["seconds", "minutes", "hours", "days", "months", "years"]`. If you
+don’t want two groups to have different date unit, you can set it
+globally using the `date_unit` key in `funs_arg`:
+
+``` r
+crosstable(mtcars2, c(x_date, x_posix), funs=meansd, funs_arg=list(date_unit="days")) %>% 
+  as_flextable(keep_id=TRUE)
+```
+
+| .id     | label     | variable | value                          |
+|---------|-----------|----------|--------------------------------|
+| x_date  | Date      | meansd   | 2010-05-27 (68.6 days)         |
+| x_posix | Date+time | meansd   | 2010-01-18 20:22:12 (1.8 days) |
+
+## Effects
+
+If there is only one `by` variable with only 2 levels, it is possible to
+automatically compute an effect-size, most often along with its
+confidence interval.
+
+``` r
+crosstable(mtcars2, c(vs, qsec), by=am, funs=mean, effect=TRUE) %>% 
+  as_flextable(keep_id=TRUE)
+```
+
+[TABLE]
+
+Type of effect (method, bootstrap, …) are also chosen depending on the
+characteristics of the crossed variables (class, size, distribution, …).
+
+See
+[`crosstable_effect_args()`](https://danchaltiel.github.io/crosstable/reference/crosstable_effect_args.md)
+for more details on the effect choice algorithm and how to customize it.
+
+## Tests
+
+It is also possible to perform statistical tests automatically.
+
+``` r
+library(flextable)
+crosstable(mtcars2, c(vs, qsec), by=am, funs=mean, test=TRUE) %>% 
+  as_flextable(keep_id=TRUE)
+```
+
+[TABLE]
+
+Of course, this should only be done in an exploratory context, as it
+would cause extensive [alpha
+inflation](https://en.wikipedia.org/wiki/Multiple_comparisons_problem)
+otherwise.
+
+Tests are chosen depending on the characteristics of the crossed
+variables (class, size, distribution, …).
+
+See
+[`crosstable_test_args()`](https://danchaltiel.github.io/crosstable/reference/crosstable_test_args.md)
+for more details on the test choice algorithm.
