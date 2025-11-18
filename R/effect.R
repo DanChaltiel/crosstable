@@ -159,7 +159,8 @@ calc_effect_tabular = function(x, by, conf_level=0.95, type=c("OR", "RR", "RD"))
 #' @describeIn effect_tabular (**Default**) calculate the odds ratio
 #' @export
 effect_odds_ratio = function(x, by, conf_level=0.95) {
-  calc_effect_tabular(x, by, conf_level, type="OR")
+  tryCatch(calc_effect_tabular(x, by, conf_level, type="OR"),
+           error=function(e) NULL)
 }
 
 
@@ -168,7 +169,8 @@ effect_odds_ratio = function(x, by, conf_level=0.95) {
 #' @export
 # https://stats.stackexchange.com/a/336624/81974
 effect_relative_risk = function (x, by, conf_level = 0.95) {
-  calc_effect_tabular(x, by, conf_level, type="RR")
+  tryCatch(calc_effect_tabular(x, by, conf_level, type="RR"),
+           error=function(e) NULL)
 }
 
 
@@ -177,7 +179,8 @@ effect_relative_risk = function (x, by, conf_level = 0.95) {
 #' @describeIn effect_tabular calculate the risk difference
 #' @export
 effect_risk_difference = function (x, by, conf_level = 0.95) {
-  calc_effect_tabular(x, by, conf_level, type="RD")
+  tryCatch(calc_effect_tabular(x, by, conf_level, type="RD"),
+           error=function(e) NULL)
 }
 
 
@@ -217,13 +220,17 @@ NULL
 diff_mean_auto = function(x, by, conf_level=0.95, R=500) {
   tab = table(by)
   if(length(tab) != 2) return(NULL)
+  p_norm = test_normality(x, by)
+  type = if(any(p_norm < 0.05)) "boot" else "student"
 
-  if (any(test_normality(x, by) < 0.05)) {
-    diff_mean_boot(x, by, conf_level, R)
-  } else {
-    diff_mean_student(x, by, conf_level)
-  }
+  tryCatch(
+    switch(type,
+           boot = diff_mean_boot(x, by, conf_level, R),
+           student = diff_mean_student(x, by, conf_level)),
+    error=function(e) NULL
+  )
 }
+
 
 
 #' @describeIn effect_summary calculate a "difference in means" effect with a bootstrapped CI using standard deviation
