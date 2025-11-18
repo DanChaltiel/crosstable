@@ -39,6 +39,9 @@ body_add_crosstable = function (doc, x, body_fontsize=NULL,
                                 padding_v=NULL,
                                 allow_break=TRUE,
                                 max_cols=25, ...) {
+  if(is.null(x)){
+    cli_abort("{caller_arg(x)} is NULL")
+  }
   assert_class(x, "crosstable", .var.name=vname(x))
 
   if(missing(padding_v)) padding_v = getOption("crosstable_padding_v", NULL)
@@ -686,7 +689,7 @@ body_add_img2 = function(doc, src, width, height,
 #' @author Dan Chaltiel
 #' @export
 #' @importFrom checkmate assert_class
-#' @importFrom rlang check_installed
+#' @importFrom rlang caller_arg check_installed
 #' @examples
 #' library(officer)
 #' library(ggplot2)
@@ -709,6 +712,9 @@ body_add_gg2 = function(doc, value,
                         add_legend=TRUE, bookmark=NULL,
                         res = 300, ... ){
   check_installed("ggplot2", reason="for function `body_add_gg2()` to work.")
+  if(is.null(value)){
+    cli_abort("{caller_arg(value)} is NULL")
+  }
   assert_class(value, "ggplot")
   units = match.arg(units, c("in", "cm", "mm"))
   file = tempfile(fileext=".png")
@@ -749,6 +755,9 @@ body_add_gg2 = function(doc, value,
 #' write_and_open(doc)
 body_add_flextable2 = function(doc, x, bookmark=NULL, append_line=TRUE, ...){
   legend = attr(x, "legend")
+  if(is.null(x)){
+    cli_abort("{caller_arg(x)} is NULL")
+  }
   if(!is.null(legend)){
     doc = body_add_table_legend(doc, legend=legend, bookmark=bookmark)
   }
