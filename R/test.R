@@ -88,17 +88,19 @@ display_test = function(test, digits = 4, method = TRUE) {
 #' @author Dan Chaltiel, David Hajage
 test_tabular_auto = function(x, y) {
   tab = table(x, y)
+  null_test = list(p.value=NULL, method=NULL)
+  if(any(dim(tab) == 1)) {
+    return(null_test)
+  }
   exp = rowSums(tab)%*%t(colSums(tab))/sum(tab)
-  if (any(dim(table(x, y)) == 1))
-    test = list(p.value = NULL, method = NULL)
-  else if (all(exp >= 5))
-    test = chisq.test(x, y, correct = FALSE)
-  else
-    test = fisher_test(x, y)
+  type = if(all(exp >= 5)) "chisq" else "fisher"
 
-  p = test$p.value
-  method = test$method
-  list(p.value = p, method = method)
+  tryCatch(
+    switch(type,
+           chisq = chisq.test(tab, correct=FALSE),
+           fisher = fisher_test(tab)),
+    error=function(e) null_test
+  )
 }
 
 
@@ -134,43 +136,35 @@ fisher_test = function(x, y, B=getOption("crosstable_fishertest_B", 1e5)){
 test_summarize_auto = function(x, g) {
   ng = table(g)
   x = as.numeric(x)
+  null_test = list(p.value=NULL, method=NULL)
 
   if (length(ng) <= 1) {
-    return(list(p.value=NULL, method=NULL))
+    return(null_test)
   }
 
   normg = test_normality(x, g)
+  k = length(ng)
 
   if (any(normg < 0.05)) {
-    if (length(ng) == 2) {
-      type = "wilcox"
-    } else {
-      type = "kruskal"
-    }
+    type = if (k == 2) "wilcox" else "kruskal"
   } else {
-    bartlettg = bartlett.test(x, g)$p.value
-    if (bartlettg < 0.05 & length(ng) == 2) {
-      type = "t.unequalvar"
-      test = t.test(x ~ g, var.equal = FALSE)
-    } else if (bartlettg < 0.05 & length(ng) > 2) {
-      type = "a.unequalvar"
-      test = oneway.test(x ~ g, var.equal = FALSE)
-    } else if (bartlettg >= 0.05 & length(ng) == 2) {
-      type = "t.equalvar"
-      test = t.test(x ~ g, var.equal = TRUE)
-    } else if (bartlettg >= 0.05 & length(ng) > 2) {
-      type = "a.equalvar"
-      test = oneway.test(x ~ g, var.equal = TRUE)
+    bart = bartlett.test(x, g)$p.value
+    if (bart < 0.05) {
+      type = if (k == 2) "t.unequalvar" else "a.unequalvar"
+    } else {
+      type = if (k == 2) "t.equalvar" else "a.equalvar"
     }
   }
-  test = switch(type,
-                wilcox = wilcox_test2(x, g),
-                kruskal = kruskal.test(x, g),
-                t.unequalvar = t.test(x ~ g, var.equal = FALSE),
-                t.equalvar = t.test(x ~ g, var.equal = TRUE),
-                a.unequalvar = oneway.test(x ~ g, var.equal = FALSE),
-                a.equalvar = oneway.test(x ~ g, var.equal = TRUE))
-
+  test = tryCatch(
+    switch(type,
+           wilcox = wilcox_test2(x, g),
+           kruskal = kruskal.test(x, g),
+           t.unequalvar = t.test(x ~ g, var.equal = FALSE),
+           t.equalvar = t.test(x ~ g, var.equal = TRUE),
+           a.unequalvar = oneway.test(x ~ g, var.equal = FALSE),
+           a.equalvar = oneway.test(x ~ g, var.equal = TRUE)),
+    error=function(e) null_test
+  )
 
   list(p.value = test$p.value,
        method = test$method)
@@ -224,9 +218,11 @@ test_correlation_auto = function(x, by, method) {
 #' @importFrom stats pchisq
 test_survival_logrank = function(formula) {
   check_installed("survival", reason="for survival data to be described using `crosstable()`.")
-  survdiff.obj = survival::survdiff(formula)
-  p = 1-pchisq(survdiff.obj$chisq, length(survdiff.obj$n)-1)
-  list(p.value = p, method = "Logrank test")
+  null_test = list(p.value=NULL, method=NULL)
+  test = tryCatch(survival::survdiff(formula),
+                  error=function(e) null_test)
+
+  list(p.value=test$pvalue, method="Logrank test")
 }
 
 
