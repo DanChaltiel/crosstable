@@ -15,6 +15,10 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 -   Fixed bug in `rename_with_labels()` when `except` contains `c()`.(#99)
 -   Fixed bug in `crosstable()` when a factor variable had `NA` as a level (like after `forcats::fct_value_to_na_level()`). (#94)
 
+#### Lifecycle
+
+-   `compact()`, conflicting with `purrr::compact()` and deprecated if favor of `ct_compact()` since 2022, has been removed from the package.
+
 
 # crosstable 0.8.2
 

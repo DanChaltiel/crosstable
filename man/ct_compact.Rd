@@ -5,10 +5,6 @@
 \alias{ct_compact.data.frame}
 \alias{ct_compact.crosstable}
 \alias{ct_compact.default}
-\alias{compact}
-\alias{compact.data.frame}
-\alias{compact.crosstable}
-\alias{compact.default}
 \title{Generic function to compact a table (publication formatting)}
 \usage{
 \method{ct_compact}{data.frame}(

@@ -1,29 +1,5 @@
 
 
-# Purrr compatibility -------------------------------------------------------------------------
-
-test_that("Compact method error if list without purrr", {
-    ll=list(a = "a", b = NULL, c = integer(0), d = NA, e = list())
-    ct=crosstable(iris)
-    expect_silent(purrr::compact(ll))
-    expect_error(compact(ll), class="compact_notfound_error")
-    expect_error(ct_compact(ll), class="ct_compact_notfound_error")
-    lifecycle::expect_deprecated(compact(ct))
-    lifecycle::expect_deprecated(compact(as.data.frame(ct), name_from="label"))
-})
-
-test_that("Compact method OK with purrr", {
-    ll=list(a = "a", b = NULL, c = integer(0), d = NA, e = list())
-    shhh(library(purrr))
-    compact=crosstable::compact
-    expect_identical(compact(ll), list(a="a",d=NA))
-
-    x=sloop::s3_dispatch(compact(ll))
-    expect_true("compact.list" %in% x$method)
-    x=sloop::s3_dispatch(compact(crosstable(iris)))
-    expect_true("compact.crosstable" %in% x$method)
-})
-
 # Method checks -----------------------------------------------------------
 
 test_that("Compact method OK with data.frame", {
