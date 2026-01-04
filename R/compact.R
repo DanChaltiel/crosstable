@@ -62,10 +62,13 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", ...,
   data[[name_to]] = as.character(data[[name_to]])
   rtn =
     data %>%
-    distinct(.data[[id_from]], !!name_to:=.data[[name_from]]) %>%
+    distinct(across(all_of(c(id_from, set_names(name_from, name_to))))) %>%
     bind_rows(data, .id="added") %>%
     arrange(factor(.data[[id_from]], levels=unique(data[[id_from]])), .data$added) %>%
-    select(any_of(c(id_from, name_to)), everything(), -any_of(remove_cols))
+    select(any_of(c(id_from, name_to)), everything(),
+           -all_of(wrap_cols), all_of(wrap_cols), -any_of(remove_cols)) %>%
+    mutate(across(wrap_cols, ~if_else(row_number()==1, na.omit(.x)[1], NA)),
+           .by=!!ensym(id_from))
   rownames(rtn) = NULL #resets row numbers
 
   # if(TRUE){
