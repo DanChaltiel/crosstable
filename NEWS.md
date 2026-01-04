@@ -12,6 +12,7 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 
 #### Bug fixes and improvements
 
+-   Fixed `ct_compact()` so that `.id` is kept in the output.
 -   Fixed bug in `rename_with_labels()` when `except` contains `c()`.(#99)
 -   Fixed bug in `crosstable()` when a factor variable had `NA` as a level (like after `forcats::fct_value_to_na_level()`). (#94)
 

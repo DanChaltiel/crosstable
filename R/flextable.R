@@ -127,7 +127,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE,
     x[[test]] = str_remove(x[[test]], "\\n\\(.*\\)")
   }
   if (compact && !inherits(x, "compacted_crosstable")) {
-    x = ct_compact.crosstable(x, keep_id=keep_id)
+    x = ct_compact.crosstable(x, label_with_id=keep_id)
   }
 
   rtn = replace(x, is.na(x), "NA")

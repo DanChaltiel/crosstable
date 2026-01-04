@@ -20,6 +20,7 @@ ct_compact = function(data, ...){
 #' @param name_to name of the column that will receive the collapsed column. Will be created if it doesn't exist.
 #' @param ... additional arguments (not used)
 #' @param id_from name of the columns to use as cut-off. Useful when successive `name_from` have the same value.
+#' @param keep_id whether to keep `id_from` in the output.
 #' @param wrap_cols name of the columns to wrap
 #' @param rtn_flextable whether to return a formatted [flextable::flextable()] object or a simple `data.frame`
 #' @rdname ct_compact
@@ -43,7 +44,7 @@ ct_compact = function(data, ...){
 #' ct_compact(x, name_from="Species", wrap_cols="Species2")
 #' ct_compact(x, name_from="Species", id_from="Species2") #cut on "v"
 ct_compact.data.frame = function(data, name_from, name_to="variable", ...,
-                                 id_from=name_from,
+                                 id_from=name_from, keep_id=TRUE,
                                  wrap_cols=NULL, rtn_flextable=FALSE){
   assert_scalar(name_from)
   assert_scalar(name_to)
@@ -51,20 +52,38 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", ...,
   ifr = sym(id_from)
   id = (data[[id_from]]!=lag(data[[id_from]])) %>% replace_na(TRUE)
 
-  nf = sym(name_from)
-  nt = sym(name_to)
-  x = sort(c(seq(nrow(data)), which(id))) #duplicate rows
   if(is.null(data[[name_to]])) data[[name_to]] = ""
-  rtn = data[x,] %>%
-    mutate(
-      across(everything(), as.character),
-      gp = row_number()==1 | !!ifr!=lag(!!ifr),
-      !!nt:=ifelse(.data$gp, !!nf, !!nt),
-      across(any_of(wrap_cols), ~ifelse(.data$gp, .x, "")),
-      across(-any_of(c(name_to, wrap_cols)), ~ifelse(.data$gp, "", .x)),
-    ) %>%
-    select(any_of(name_to), everything(), -any_of(c(name_from, id_from)), -"gp")
+  remove_cols = c(name_from, id_from, "gp", "added")
+  if(isTRUE(keep_id)){
+    remove_cols = setdiff(remove_cols, id_from)
+  }
+
+
+  data[[name_to]] = as.character(data[[name_to]])
+  rtn =
+    data %>%
+    distinct(.data[[id_from]], !!name_to:=.data[[name_from]]) %>%
+    bind_rows(data, .id="added") %>%
+    arrange(factor(.data[[id_from]], levels=unique(data[[id_from]])), added) %>%
+    select(any_of(c(id_from, name_to)), everything(), -any_of(remove_cols))
   rownames(rtn) = NULL #resets row numbers
+
+  # if(TRUE){
+  #   x = sort(c(seq(nrow(data)), which(id))) #duplicate rows
+  #   nf = sym(name_from)
+  #   nt = sym(name_to)
+  #   rtn2 = data[x,] %>%
+  #     mutate(
+  #       across(everything(), as.character),
+  #       gp = row_number()==1 | !!ifr!=lag(!!ifr),
+  #       !!nt:=ifelse(.data$gp, !!nf, !!nt),
+  #       across(any_of(wrap_cols), ~ifelse(.data$gp, .x, "")),
+  #       across(-any_of(c(name_to, wrap_cols)), ~ifelse(.data$gp, "", .x)),
+  #     ) %>%
+  #     select(any_of(c(id_from, name_to)), everything(), -any_of(remove_cols))
+  # }
+
+  # browser()
 
   if(rtn_flextable){
     id2 = which(id)+(0:(sum(id)-1))
@@ -81,7 +100,7 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", ...,
 #' @description NULL
 #' @rdname ct_compact
 #'
-#' @param keep_id `glue` pattern to keep the column name along with the label. If `TRUE`, default to `"{label} ({.id})"`.
+#' @param label_with_id `glue` pattern to keep the column name along with the label. If `TRUE`, default to `"{label} ({.id})"`.
 #'
 #' @author Dan Chaltiel
 #' @export
@@ -95,19 +114,20 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", ...,
 #' ct_compact(x)
 #' ct_compact(x, name_from=".id")
 ct_compact.crosstable = function(data, name_from=c("label", ".id"), name_to="variable",
-                                 id_from=".id", keep_id=FALSE, ...){
+                                 id_from=".id", label_with_id=FALSE, keep_id=TRUE, ...){
   by_levels = attr(data, "by_levels")
   by = attr(data, "by")
   name_from = match.arg(name_from)
   wrap_cols = intersect(names(data), c("test", "effect"))
   if(name_from=="label") rcol=".id" else rcol="label"
-  if(!isFALSE(keep_id)) {
-    if(isTRUE(keep_id)) keep_id = "{label} ({.id})"
-    data = data %>% mutate(label = glue(keep_id))
+  if(!isFALSE(label_with_id)) {
+    if(isTRUE(label_with_id)) label_with_id = "{label} ({.id})"
+    data = data %>% mutate(label = glue(label_with_id))
   }
+  # browser()
   rtn = data %>%
     ct_compact.data.frame(name_from=name_from, name_to=name_to, id_from=id_from,
-                          wrap_cols=wrap_cols, rtn_flextable=FALSE)
+                          wrap_cols=wrap_cols, keep_id=keep_id, rtn_flextable=FALSE)
 
   new_attr_names = setdiff(names(attributes(data)), names(attributes(rtn)))
   attributes(rtn) = c(attributes(rtn), attributes(data)[new_attr_names])

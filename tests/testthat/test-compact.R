@@ -32,7 +32,7 @@ test_that("Compact method OK with crosstable", {
 test_that("Compacting inside or outside as_flextable.crosstable gives the same result", {
     rlang::local_options(tidyselect_verbosity = "quiet")
     ct1 = crosstable(esoph, by="tobgp", test = TRUE) %>% suppressWarnings() %>% ct_compact()
-    expect_equal(dim(ct1), c(22,6))
+    expect_equal(dim(ct1), c(22, 7))
     expect_s3_class(ct1, c("data.frame", "crosstable", "compacted_crosstable"))
 
     ct2 = crosstable(esoph, by="tobgp", test = TRUE)
@@ -53,7 +53,6 @@ test_that("Compact method OK with as_flextable()", {
   expect_equal(as.character(ft1$header$dataset), c("label", "variable", "value"))
 
   ft2 = ct %>% af(compact=TRUE)
-  expect_null(ft2$body$dataset$.id)
   expect_null(ft2$body$dataset$label)
   expect_equal(ft2$body$dataset$variable,
                c("Engine", "auto", "manual", "Engine", "straight", "vshaped"))
