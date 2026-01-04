@@ -113,7 +113,8 @@ reference:
 - contents:
   - get_percent_pattern
   - format_fixed
-  - compact
+  - ct_compact
+  - ct_bind_cols
   - plim
   - confint_numeric
   - narm
