@@ -4,7 +4,7 @@
 
 # Getting labels ----------------------------------------------------------
 
-test_that("Labelling dataframes", {
+test_that("Labelled dataframes", {
   xx = mtcars2 %>%
     dplyr::mutate(cyl=remove_label(cyl))
 
@@ -21,7 +21,7 @@ test_that("Labelling dataframes", {
   expect_snapshot(get_label(xx))
 })
 
-test_that("Labelling unnamed dataframes/lists", {
+test_that("Labelled unnamed dataframes/lists", {
   xx_noname = mtcars2 %>% as.data.frame() %>% remove_label() %>% unname()
   expect_setequal(get_label(xx_noname), NA)
   expect_setequal(get_label(xx_noname, default="foo"), "foo")
@@ -31,13 +31,7 @@ test_that("Labelling unnamed dataframes/lists", {
 
 })
 
-test_that("Labelling objects", {
-  xx=set_label(mtcars2, "The mtcars2 dataset", object=TRUE)
-  expect_equal(get_label(xx, object=TRUE), "The mtcars2 dataset")
-
-})
-
-test_that("Labelling nested lists (get)", {
+test_that("Labelled nested lists (get)", {
   x = list(
     list(1,2,3),
     list(iris=iris2, mtcars2),
@@ -71,8 +65,13 @@ test_that("Labelling nested lists (get)", {
 
 # Setting labels ----------------------------------------------------------
 
+test_that("set_label() on object", {
+  xx=set_label(mtcars2, "The mtcars2 dataset", object=TRUE)
+  expect_equal(get_label(xx, object=TRUE), "The mtcars2 dataset")
 
-test_that("Labelling nested lists (set)", {
+})
+
+test_that("set_label() on nested lists (set)", {
   x = list(
     list(1,2,3),
     list(iris=iris2, mtcars2),
@@ -82,7 +81,16 @@ test_that("Labelling nested lists (set)", {
   expect_setequal(get_label(xx), "not foobar at all")
 })
 
-test_that("Copying labels", {
+test_that("apply_labels() works", {
+  x = data.frame(a = 1,
+                 b = Sys.Date() - Sys.Date()) %>%
+    apply_labels(a="A", b="B")
+  x %>% get_label() %>% expect_equal(c(a="A", b="B"))
+  #stable over dplyr
+  x %>% dplyr::filter(T) %>% get_label() %>% expect_equal(c(a="A", b="B"))
+})
+
+test_that("copy_label_from() works", {
   x = mtcars2 %>%
     mutate(mpg2=as.numeric(mpg)+1,
            mpg3=copy_label_from(mpg2, mpg))
@@ -90,7 +98,7 @@ test_that("Copying labels", {
   expect_equal(get_label(x$mpg3), "Miles/(US) gallon")
 })
 
-test_that("Removing labels", {
+test_that("remove_label() works", {
   x = mtcars2$mpg
   x2 = remove_label(mtcars2$mpg)
 

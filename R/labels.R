@@ -109,8 +109,11 @@ set_label = function(x, value, object=FALSE){
     }
     return(x)
   }
-  attr(x, "label") = value
-  return(x)
+  ct_labelled(x, label=value)
+  # attr(x, "label") = value
+  # class(x) = unique(c("vctrs_vctr", class(x))) #hack so labels are dplyr-proof
+  # # vctrs::new_vctr(x, label=value, class="ct_labelled")
+  # return(x)
 }
 
 
@@ -416,3 +419,29 @@ remove_last_save = function(){
   labels_env$last_save = NULL
   invisible()
 }
+
+
+#' @keywords internal
+#' @noRd
+#' @source haven::labelled
+ct_labelled = function(x, label) {
+  x_class = class(x)
+  x_attrs = attributes(x)
+  x_attrs$class = NULL
+  x_attrs$label = label
+
+  x = vctrs::vec_data(x)
+  if (!is.numeric(x) && !is.character(x)) {
+    cli_abort("{.arg x} must be a numeric or a character vector.")
+  }
+  if (!is.null(label) && (!is.character(label) || length(label) !=1)) {
+    cli_abort("{.arg label} must be a character vector of length one.")
+  }
+
+  args = c(
+    list(.data = x, class = unique(c(x_class, "ct_labelled")), inherit_base_type=TRUE),
+    x_attrs
+  )
+  do.call(vctrs::new_vctr, args)
+}
+
