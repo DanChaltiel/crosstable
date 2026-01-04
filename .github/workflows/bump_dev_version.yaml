@@ -1,4 +1,8 @@
-on: [push, workflow_dispatch]
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 name: Bump dev version
 
