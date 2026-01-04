@@ -95,26 +95,26 @@ as_flextable.crosstable = function(x, keep_id=FALSE,
   border1 = fp_border(color = "black", style = "solid", width = 1)
   border2 = fp_border(color = "black", style = "solid", width = 1.5)
 
-  xattr = attributes(x)
+  ct_attr = attributes(x)
   has_test = attr(x, "has_test")
   has_effect = attr(x, "has_effect")
   has_total = attr(x, "has_total")
   has_label = attr(x, "has_label")
   by_label = attr(x, "by_label")
   by_table = attr(x, "by_table")
+  by = attr(x, "by")
   showNA = attr(x, "showNA")
+  inner_labels = attr(x, "inner_labels")
   by_levels = attr(x, "by_levels") %>% map(~{
     if(showNA=="always") .x=unique(c(.x, NA))
     replace_na(.x, replace="NA")
   })
   n_levels = length(by_levels)
-  by = attr(x, "by")
   has_by =  !is.null(by)
   if(has_by && is.null(by_label)) by_label=by
   if(isTRUE(by_header)) by_header=NULL
   if(!is.null(by_header) && all(is.na(by_header) | by_header=="", na.rm=TRUE)) by_header=FALSE
 
-  inner_labels = attr(x, "inner_labels")
   if(!is.null(inner_labels)){
     generic_labels = modifyList(generic_labels, inner_labels)
   }
@@ -130,36 +130,30 @@ as_flextable.crosstable = function(x, keep_id=FALSE,
     x = ct_compact.crosstable(x, label_with_id=keep_id)
   }
 
-  rtn = replace(x, is.na(x), "NA")
-
   if(inherits(x, "compacted_crosstable")) {
-    rows = attr(x, "title_rows")
-    title_rows = which(rows)+(0:(sum(rows)-1))
-    padded_rows = 1:nrow(rtn)
-    padded_rows = padded_rows[!padded_rows %in% title_rows]
-    header_labels = names(rtn) %>% recode(!!generic_labels$variable:="")
     hl = set_names("", generic_labels$variable)
-    rtn = rtn %>%
-      flextable() %>%
+    cols = names(x) %>% setdiff(id)
+    title_rows = which(x$.id!=lag(x$.id, default=""))
+    padded_rows = which(x$.id==lag(x$.id, default=""))
+    rtn = x %>%
+      flextable(col_keys=cols) %>%
       set_header_labels(values=hl) %>%
       fontsize(size=fontsizes$body) %>%
-      fontsize(i=title_rows, size=fontsizes$subheaders) %>%
-      border(title_rows, border.top = fp_border()) %>%
+      fontsize(title_rows, size=fontsizes$subheaders) %>%
+      border(title_rows, border.top=border1) %>%
       bold(title_rows, j=1:2) %>%
-      align(title_rows, align="left") %>%
-      padding(i=padded_rows, j=1, padding.left=getOption("crosstable_compact_padding", 25))
+      padding(padded_rows, j=1, padding.left=getOption("crosstable_compact_padding", 25))
   } else {
-    sep.rows = which(rtn[[id]] != lead(rtn[[id]]))
-    body_merge = intersect(names(rtn), generic_labels[c("label", "test", "effect", "id")]) %>%
-      unlist()
-    cols = names(rtn)
-
+    sep.rows = which(x[[id]] != lead(x[[id]]))
+    body_merge = names(x) %>%
+      intersect(unlist(generic_labels[c("label", "test", "effect", "id")]))
+    cols = names(x)
     if(!keep_id) {
-      cols = rtn %>% select(-any_of(id)) %>% names()
-      body_merge = body_merge[body_merge!=id]
+      cols = cols %>% setdiff(id)
+      body_merge = body_merge %>% setdiff(id)
     }
 
-    rtn = rtn %>%
+    rtn = x %>%
       mutate(
         !!id:=str_wrap2(.data[[id]], width = getOption("crosstable_wrap_id", 70))
       )  %>%
@@ -168,6 +162,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE,
       hline(i=sep.rows, border=border1) %>%
       merge_v(j=id, target=body_merge, part="body")
   }
+
 
   if(n_levels==0) {
 
@@ -287,7 +282,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE,
   }
 
   if(isFALSE(allow_breaks)){
-    rtn = paginate(rtn, group=".id")
+    rtn = paginate(rtn, group=id)
   }
 
   merge_cols = names(rtn$header$dataset) %>% .[. %in% generic_labels]
