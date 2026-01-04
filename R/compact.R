@@ -64,7 +64,7 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", ...,
     data %>%
     distinct(.data[[id_from]], !!name_to:=.data[[name_from]]) %>%
     bind_rows(data, .id="added") %>%
-    arrange(factor(.data[[id_from]], levels=unique(data[[id_from]])), added) %>%
+    arrange(factor(.data[[id_from]], levels=unique(data[[id_from]])), .data$added) %>%
     select(any_of(c(id_from, name_to)), everything(), -any_of(remove_cols))
   rownames(rtn) = NULL #resets row numbers
 
