@@ -65,7 +65,7 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", ...,
     collapse_grp = data %>%
       summarise(x=mean(!!ensym(name_to)==collapse), .by=.id) %>%
       filter(x==0.5) %>%
-      pull(.data[[id_from]])
+      pull(all_of(id_from))
   }
 
   data[[name_to]] = as.character(data[[name_to]])
@@ -84,9 +84,9 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", ...,
                .x[.data[[name_to]]==collapse] %0% NA, .x)
     )) %>%
     mutate(across(all_of(wrap_cols), ~if_else(row_number()==1, na.omit(.x)[1], NA)),
-           .by=.data[[id_from]]) %>%
+           .by=all_of(id_from)) %>%
     filter(!.data[[id_from]] %in% collapse_grp | row_number()==1,
-           .by=.data[[id_from]])
+           .by=all_of(id_from))
   rownames(rtn) = NULL #resets row numbers
 
   # if(TRUE){
