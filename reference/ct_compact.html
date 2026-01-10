@@ -12,7 +12,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.9003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,6 +56,8 @@
 <span>  name_to <span class="op">=</span> <span class="st">"variable"</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  id_from <span class="op">=</span> <span class="va">name_from</span>,</span>
+<span>  keep_id <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  collapse <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  wrap_cols <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rtn_flextable <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
@@ -66,7 +68,8 @@
 <span>  name_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"label"</span>, <span class="st">".id"</span><span class="op">)</span>,</span>
 <span>  name_to <span class="op">=</span> <span class="st">"variable"</span>,</span>
 <span>  id_from <span class="op">=</span> <span class="st">".id"</span>,</span>
-<span>  keep_id <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  label_with_id <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  keep_id <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -95,6 +98,14 @@
 <dd><p>name of the columns to use as cut-off. Useful when successive <code>name_from</code> have the same value.</p></dd>
 
 
+<dt id="arg-keep-id">keep_id<a class="anchor" aria-label="anchor" href="#arg-keep-id"></a></dt>
+<dd><p>whether to keep <code>id_from</code> in the output.</p></dd>
+
+
+<dt id="arg-collapse">collapse<a class="anchor" aria-label="anchor" href="#arg-collapse"></a></dt>
+<dd><p>levels to collapse into one row.</p></dd>
+
+
 <dt id="arg-wrap-cols">wrap_cols<a class="anchor" aria-label="anchor" href="#arg-wrap-cols"></a></dt>
 <dd><p>name of the columns to wrap</p></dd>
 
@@ -103,7 +114,7 @@
 <dd><p>whether to return a formatted <code><a href="https://davidgohel.github.io/flextable/reference/flextable.html" class="external-link">flextable::flextable()</a></code> object or a simple <code>data.frame</code></p></dd>
 
 
-<dt id="arg-keep-id">keep_id<a class="anchor" aria-label="anchor" href="#arg-keep-id"></a></dt>
+<dt id="arg-label-with-id">label_with_id<a class="anchor" aria-label="anchor" href="#arg-label-with-id"></a></dt>
 <dd><p><code>glue</code> pattern to keep the column name along with the label. If <code>TRUE</code>, default to <code>"{label} ({.id})"</code>.</p></dd>
 
 </dl></div>
@@ -121,122 +132,142 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#dataframes</span></span></span>
 <span class="r-in"><span><span class="va">x</span><span class="op">=</span><span class="va">iris</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">51</span><span class="op">:</span><span class="fl">55</span>,<span class="fl">101</span><span class="op">:</span><span class="fl">105</span><span class="op">)</span>,<span class="op">]</span></span></span>
 <span class="r-in"><span><span class="fu">ct_compact</span><span class="op">(</span><span class="va">x</span>, name_from<span class="op">=</span><span class="st">"Species"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      variable Sepal.Length Sepal.Width Petal.Length Petal.Width</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      setosa                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                      5.1         3.5          1.4         0.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                      4.9           3          1.4         0.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                      4.7         3.2          1.3         0.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                      4.6         3.1          1.5         0.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                        5         3.6          1.4         0.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  versicolor                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                        7         3.2          4.7         1.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9                      6.4         3.2          4.5         1.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10                     6.9         3.1          4.9         1.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11                     5.5         2.3            4         1.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12                     6.5         2.8          4.6         1.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13  virginica                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14                     6.3         3.3            6         2.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15                     5.8         2.7          5.1         1.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16                     7.1           3          5.9         2.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17                     6.3         2.9          5.6         1.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18                     6.5           3          5.8         2.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Species   variable Sepal.Length Sepal.Width Petal.Length Petal.Width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      setosa     setosa           NA          NA           NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      setosa                     5.1         3.5          1.4         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      setosa                     4.9         3.0          1.4         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      setosa                     4.7         3.2          1.3         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      setosa                     4.6         3.1          1.5         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      setosa                     5.0         3.6          1.4         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  versicolor versicolor           NA          NA           NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  versicolor                     7.0         3.2          4.7         1.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  versicolor                     6.4         3.2          4.5         1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 versicolor                     6.9         3.1          4.9         1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 versicolor                     5.5         2.3          4.0         1.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 versicolor                     6.5         2.8          4.6         1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  virginica  virginica           NA          NA           NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  virginica                     6.3         3.3          6.0         2.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  virginica                     5.8         2.7          5.1         1.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  virginica                     7.1         3.0          5.9         2.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  virginica                     6.3         2.9          5.6         1.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  virginica                     6.5         3.0          5.8         2.2</span>
 <span class="r-in"><span><span class="fu">ct_compact</span><span class="op">(</span><span class="va">x</span>, name_from<span class="op">=</span><span class="st">"Species"</span>, name_to<span class="op">=</span><span class="st">"Petal.Length"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Petal.Length Sepal.Length Sepal.Width Petal.Width</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        setosa                                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2           1.4          5.1         3.5         0.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3           1.4          4.9           3         0.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4           1.3          4.7         3.2         0.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5           1.5          4.6         3.1         0.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6           1.4            5         3.6         0.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    versicolor                                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8           4.7            7         3.2         1.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9           4.5          6.4         3.2         1.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10          4.9          6.9         3.1         1.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11            4          5.5         2.3         1.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12          4.6          6.5         2.8         1.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13    virginica                                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14            6          6.3         3.3         2.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15          5.1          5.8         2.7         1.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16          5.9          7.1           3         2.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17          5.6          6.3         2.9         1.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18          5.8          6.5           3         2.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Species Petal.Length Sepal.Length Sepal.Width Petal.Width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      setosa       setosa           NA          NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      setosa          1.4          5.1         3.5         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      setosa          1.4          4.9         3.0         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      setosa          1.3          4.7         3.2         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      setosa          1.5          4.6         3.1         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      setosa          1.4          5.0         3.6         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  versicolor   versicolor           NA          NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  versicolor          4.7          7.0         3.2         1.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  versicolor          4.5          6.4         3.2         1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 versicolor          4.9          6.9         3.1         1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 versicolor            4          5.5         2.3         1.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 versicolor          4.6          6.5         2.8         1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  virginica    virginica           NA          NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  virginica            6          6.3         3.3         2.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  virginica          5.1          5.8         2.7         1.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  virginica          5.9          7.1         3.0         2.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  virginica          5.6          6.3         2.9         1.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  virginica          5.8          6.5         3.0         2.2</span>
 <span class="r-in"><span><span class="va">x</span><span class="op">$</span><span class="va">Species2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">Species</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">ct_compact</span><span class="op">(</span><span class="va">x</span>, name_from<span class="op">=</span><span class="st">"Species"</span>, wrap_cols<span class="op">=</span><span class="st">"Species2"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      variable Sepal.Length Sepal.Width Petal.Length Petal.Width Species2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      setosa                                                          s</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                      5.1         3.5          1.4         0.2         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                      4.9           3          1.4         0.2         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                      4.7         3.2          1.3         0.2         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                      4.6         3.1          1.5         0.2         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                        5         3.6          1.4         0.2         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  versicolor                                                          v</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                        7         3.2          4.7         1.4         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9                      6.4         3.2          4.5         1.5         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10                     6.9         3.1          4.9         1.5         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11                     5.5         2.3            4         1.3         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12                     6.5         2.8          4.6         1.5         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13  virginica                                                          v</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14                     6.3         3.3            6         2.5         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15                     5.8         2.7          5.1         1.9         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16                     7.1           3          5.9         2.1         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17                     6.3         2.9          5.6         1.8         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18                     6.5           3          5.8         2.2         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Species   variable Sepal.Length Sepal.Width Petal.Length Petal.Width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      setosa     setosa           NA          NA           NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      setosa                     5.1         3.5          1.4         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      setosa                     4.9         3.0          1.4         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      setosa                     4.7         3.2          1.3         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      setosa                     4.6         3.1          1.5         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      setosa                     5.0         3.6          1.4         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  versicolor versicolor           NA          NA           NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  versicolor                     7.0         3.2          4.7         1.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  versicolor                     6.4         3.2          4.5         1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 versicolor                     6.9         3.1          4.9         1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 versicolor                     5.5         2.3          4.0         1.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 versicolor                     6.5         2.8          4.6         1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  virginica  virginica           NA          NA           NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  virginica                     6.3         3.3          6.0         2.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  virginica                     5.8         2.7          5.1         1.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  virginica                     7.1         3.0          5.9         2.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  virginica                     6.3         2.9          5.6         1.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  virginica                     6.5         3.0          5.8         2.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Species2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         s</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         v</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        v</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18     &lt;NA&gt;</span>
 <span class="r-in"><span><span class="fu">ct_compact</span><span class="op">(</span><span class="va">x</span>, name_from<span class="op">=</span><span class="st">"Species"</span>, id_from<span class="op">=</span><span class="st">"Species2"</span><span class="op">)</span> <span class="co">#cut on "v"</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      variable Sepal.Length Sepal.Width Petal.Length Petal.Width</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      setosa                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                      5.1         3.5          1.4         0.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                      4.9           3          1.4         0.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                      4.7         3.2          1.3         0.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                      4.6         3.1          1.5         0.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                        5         3.6          1.4         0.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  versicolor                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                        7         3.2          4.7         1.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9                      6.4         3.2          4.5         1.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10                     6.9         3.1          4.9         1.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11                     5.5         2.3            4         1.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12                     6.5         2.8          4.6         1.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13                     6.3         3.3            6         2.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14                     5.8         2.7          5.1         1.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15                     7.1           3          5.9         2.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16                     6.3         2.9          5.6         1.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17                     6.5           3          5.8         2.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Species2   variable Sepal.Length Sepal.Width Petal.Length Petal.Width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         s     setosa           NA          NA           NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         s                     5.1         3.5          1.4         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         s                     4.9         3.0          1.4         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         s                     4.7         3.2          1.3         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         s                     4.6         3.1          1.5         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         s                     5.0         3.6          1.4         0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         v versicolor           NA          NA           NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         v  virginica           NA          NA           NA          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         v                     7.0         3.2          4.7         1.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        v                     6.4         3.2          4.5         1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        v                     6.9         3.1          4.9         1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        v                     5.5         2.3          4.0         1.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        v                     6.5         2.8          4.6         1.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        v                     6.3         3.3          6.0         2.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        v                     5.8         2.7          5.1         1.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16        v                     7.1         3.0          5.9         2.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17        v                     6.3         2.9          5.6         1.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18        v                     6.5         3.0          5.8         2.2</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#crosstables</span></span></span>
 <span class="r-in"><span><span class="va">x</span><span class="op">=</span><span class="fu"><a href="crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">disp</span>,<span class="va">hp</span>,<span class="va">am</span><span class="op">)</span>, by<span class="op">=</span><span class="va">vs</span>, test<span class="op">=</span><span class="cn">TRUE</span>, effect<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">ct_compact</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 13 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    variable              straight             vshaped               effect test </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Displacement (cu.in.) <span style="color: #949494;">""</span>                   <span style="color: #949494;">""</span>                    <span style="color: #949494;">"</span>Diff… <span style="color: #949494;">"</span>p v…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Min / Max             <span style="color: #949494;">"</span>71.1 / 258.0<span style="color: #949494;">"</span>       <span style="color: #949494;">"</span>120.3 / 472.0<span style="color: #949494;">"</span>       <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Med [IQR]             <span style="color: #949494;">"</span>120.5 [83.0;162.4]<span style="color: #949494;">"</span> <span style="color: #949494;">"</span>311.0 [275.8;360.0]<span style="color: #949494;">"</span> <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Mean (std)            <span style="color: #949494;">"</span>132.5 (56.9)<span style="color: #949494;">"</span>       <span style="color: #949494;">"</span>307.1 (106.8)<span style="color: #949494;">"</span>       <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> N (NA)                <span style="color: #949494;">"</span>14 (0)<span style="color: #949494;">"</span>             <span style="color: #949494;">"</span>18 (0)<span style="color: #949494;">"</span>              <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Gross horsepower      <span style="color: #949494;">""</span>                   <span style="color: #949494;">""</span>                    <span style="color: #949494;">"</span>Diff… <span style="color: #949494;">"</span>p v…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Min / Max             <span style="color: #949494;">"</span>52.0 / 123.0<span style="color: #949494;">"</span>       <span style="color: #949494;">"</span>91.0 / 335.0<span style="color: #949494;">"</span>        <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Med [IQR]             <span style="color: #949494;">"</span>96.0 [66.0;109.8]<span style="color: #949494;">"</span>  <span style="color: #949494;">"</span>180.0 [156.2;226.2]<span style="color: #949494;">"</span> <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Mean (std)            <span style="color: #949494;">"</span>91.4 (24.4)<span style="color: #949494;">"</span>        <span style="color: #949494;">"</span>189.7 (60.3)<span style="color: #949494;">"</span>        <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> N (NA)                <span style="color: #949494;">"</span>14 (0)<span style="color: #949494;">"</span>             <span style="color: #949494;">"</span>18 (0)<span style="color: #949494;">"</span>              <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Transmission          <span style="color: #949494;">""</span>                   <span style="color: #949494;">""</span>                    <span style="color: #949494;">"</span>Odds… <span style="color: #949494;">"</span>p v…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> auto                  <span style="color: #949494;">"</span>7 (36.84%)<span style="color: #949494;">"</span>         <span style="color: #949494;">"</span>12 (63.16%)<span style="color: #949494;">"</span>         <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> manual                <span style="color: #949494;">"</span>7 (53.85%)<span style="color: #949494;">"</span>         <span style="color: #949494;">"</span>6 (46.15%)<span style="color: #949494;">"</span>          <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-in"><span><span class="fu">ct_compact</span><span class="op">(</span><span class="va">x</span>, name_from<span class="op">=</span><span class="st">".id"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 13 × 6</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    variable   label                   straight             vshaped  effect test </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> disp       <span style="color: #949494;">""</span>                      <span style="color: #949494;">""</span>                   <span style="color: #949494;">""</span>       <span style="color: #949494;">"</span>Diff… <span style="color: #949494;">"</span>p v…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Min / Max  <span style="color: #949494;">"</span>Displacement (cu.in.)<span style="color: #949494;">"</span> <span style="color: #949494;">"</span>71.1 / 258.0<span style="color: #949494;">"</span>       <span style="color: #949494;">"</span>120.3 … <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Med [IQR]  <span style="color: #949494;">"</span>Displacement (cu.in.)<span style="color: #949494;">"</span> <span style="color: #949494;">"</span>120.5 [83.0;162.4]<span style="color: #949494;">"</span> <span style="color: #949494;">"</span>311.0 … <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Mean (std) <span style="color: #949494;">"</span>Displacement (cu.in.)<span style="color: #949494;">"</span> <span style="color: #949494;">"</span>132.5 (56.9)<span style="color: #949494;">"</span>       <span style="color: #949494;">"</span>307.1 … <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> N (NA)     <span style="color: #949494;">"</span>Displacement (cu.in.)<span style="color: #949494;">"</span> <span style="color: #949494;">"</span>14 (0)<span style="color: #949494;">"</span>             <span style="color: #949494;">"</span>18 (0)<span style="color: #949494;">"</span> <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> hp         <span style="color: #949494;">""</span>                      <span style="color: #949494;">""</span>                   <span style="color: #949494;">""</span>       <span style="color: #949494;">"</span>Diff… <span style="color: #949494;">"</span>p v…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Min / Max  <span style="color: #949494;">"</span>Gross horsepower<span style="color: #949494;">"</span>      <span style="color: #949494;">"</span>52.0 / 123.0<span style="color: #949494;">"</span>       <span style="color: #949494;">"</span>91.0 /… <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Med [IQR]  <span style="color: #949494;">"</span>Gross horsepower<span style="color: #949494;">"</span>      <span style="color: #949494;">"</span>96.0 [66.0;109.8]<span style="color: #949494;">"</span>  <span style="color: #949494;">"</span>180.0 … <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Mean (std) <span style="color: #949494;">"</span>Gross horsepower<span style="color: #949494;">"</span>      <span style="color: #949494;">"</span>91.4 (24.4)<span style="color: #949494;">"</span>        <span style="color: #949494;">"</span>189.7 … <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> N (NA)     <span style="color: #949494;">"</span>Gross horsepower<span style="color: #949494;">"</span>      <span style="color: #949494;">"</span>14 (0)<span style="color: #949494;">"</span>             <span style="color: #949494;">"</span>18 (0)<span style="color: #949494;">"</span> <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> am         <span style="color: #949494;">""</span>                      <span style="color: #949494;">""</span>                   <span style="color: #949494;">""</span>       <span style="color: #949494;">"</span>Odds… <span style="color: #949494;">"</span>p v…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> auto       <span style="color: #949494;">"</span>Transmission<span style="color: #949494;">"</span>          <span style="color: #949494;">"</span>7 (36.84%)<span style="color: #949494;">"</span>         <span style="color: #949494;">"</span>12 (63… <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> manual     <span style="color: #949494;">"</span>Transmission<span style="color: #949494;">"</span>          <span style="color: #949494;">"</span>7 (53.85%)<span style="color: #949494;">"</span>         <span style="color: #949494;">"</span>6 (46.… <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    .id   variable              straight           vshaped           effect test </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> disp  Displacement (cu.in.) <span style="color: #BB0000;">NA</span>                 <span style="color: #BB0000;">NA</span>                <span style="color: #949494;">"</span>Diff… <span style="color: #949494;">"</span>p v…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> disp  Min / Max             71.1 / 258.0       120.3 / 472.0      <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> disp  Med [IQR]             120.5 [83.0;162.4] 311.0 [275.8;360…  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> disp  Mean (std)            132.5 (56.9)       307.1 (106.8)      <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> disp  N (NA)                14 (0)             18 (0)             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> hp    Gross horsepower      <span style="color: #BB0000;">NA</span>                 <span style="color: #BB0000;">NA</span>                <span style="color: #949494;">"</span>Diff… <span style="color: #949494;">"</span>p v…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> hp    Min / Max             52.0 / 123.0       91.0 / 335.0       <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> hp    Med [IQR]             96.0 [66.0;109.8]  180.0 [156.2;226…  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> hp    Mean (std)            91.4 (24.4)        189.7 (60.3)       <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> hp    N (NA)                14 (0)             18 (0)             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> am    Transmission          <span style="color: #BB0000;">NA</span>                 <span style="color: #BB0000;">NA</span>                <span style="color: #949494;">"</span>Odds… <span style="color: #949494;">"</span>p v…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> am    auto                  7 (36.84%)         12 (63.16%)        <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> am    manual                7 (53.85%)         6 (46.15%)         <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-in"><span><span class="fu">ct_compact</span><span class="op">(</span><span class="va">x</span>, name_from<span class="op">=</span><span class="st">".id"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 13 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    .id   variable   label                 straight          vshaped effect test </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> disp  disp       <span style="color: #BB0000;">NA</span>                    <span style="color: #BB0000;">NA</span>                <span style="color: #BB0000;">NA</span>      <span style="color: #949494;">"</span>Diff… <span style="color: #949494;">"</span>p v…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> disp  Min / Max  Displacement (cu.in.) 71.1 / 258.0      120.3 …  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> disp  Med [IQR]  Displacement (cu.in.) 120.5 [83.0;162.… 311.0 …  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> disp  Mean (std) Displacement (cu.in.) 132.5 (56.9)      307.1 …  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> disp  N (NA)     Displacement (cu.in.) 14 (0)            18 (0)   <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> hp    hp         <span style="color: #BB0000;">NA</span>                    <span style="color: #BB0000;">NA</span>                <span style="color: #BB0000;">NA</span>      <span style="color: #949494;">"</span>Diff… <span style="color: #949494;">"</span>p v…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> hp    Min / Max  Gross horsepower      52.0 / 123.0      91.0 /…  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> hp    Med [IQR]  Gross horsepower      96.0 [66.0;109.8] 180.0 …  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> hp    Mean (std) Gross horsepower      91.4 (24.4)       189.7 …  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> hp    N (NA)     Gross horsepower      14 (0)            18 (0)   <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> am    am         <span style="color: #BB0000;">NA</span>                    <span style="color: #BB0000;">NA</span>                <span style="color: #BB0000;">NA</span>      <span style="color: #949494;">"</span>Odds… <span style="color: #949494;">"</span>p v…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> am    auto       Transmission          7 (36.84%)        12 (63…  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> am    manual     Transmission          7 (53.85%)        6 (46.…  <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>  </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

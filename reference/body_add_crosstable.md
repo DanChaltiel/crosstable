@@ -71,8 +71,14 @@ doc = read_docx() %>%
     body_add_crosstable(mytable) %>%
     body_add_break %>%
     body_add_crosstable(mytable, compact=TRUE)
+#> Error in mutate(., across(-any_of(c(id_from, name_to)), ~if_else(.data[[id_from]] %in%     collapse_grp, .x[.data[[name_to]] == collapse] %0% NA, .x))): ℹ In argument: `across(...)`.
+#> Caused by error in `across()`:
+#> ! Can't compute column `value`.
+#> Caused by error in `if_else()`:
+#> ! could not find function "if_else"
 
 dfile = tempfile(fileext=".docx")
 print(doc, target = dfile)
+#> Error: object 'doc' not found
 if(interactive()) browseURL(dfile)
 ```

@@ -191,6 +191,9 @@ Practical functions for various purposes
   [`ct_compact(`*`<crosstable>`*`)`](https://danchaltiel.github.io/crosstable/reference/ct_compact.md)
   : Generic function to compact a table (publication formatting)
 
+- [`ct_bind_cols()`](https://danchaltiel.github.io/crosstable/reference/ct_bind_cols.md)
+  **\[experimental\]** : Combine crosstables
+
 - [`plim()`](https://danchaltiel.github.io/crosstable/reference/plim.md)
   :
 

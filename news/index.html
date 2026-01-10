@@ -12,7 +12,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.9003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,16 +43,25 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.8.3" id="crosstable-083">crosstable 0.8.3<a class="anchor" aria-label="anchor" href="#crosstable-083"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.9.0" id="crosstable-090-dev">crosstable 0.9.0 (dev)<a class="anchor" aria-label="anchor" href="#crosstable-090-dev"></a></h2>
 <div class="section level5">
-<h5 id="new-features-0-8-3">New features<a class="anchor" aria-label="anchor" href="#new-features-0-8-3"></a></h5>
+<h5 id="new-features-0-9-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-9-0"></a></h5>
 <ul><li>New function <code><a href="../reference/body_add_flextable2.html">body_add_flextable2()</a></code>: automatically adds a legend if the <code>flextable</code> object has a <code>"legend"</code> attribute. Equivalent functionality is now available in <code><a href="../reference/body_add_gg2.html">body_add_gg2()</a></code>. (<a href="https://github.com/DanChaltiel/crosstable/issues/100" class="external-link">#100</a>)</li>
 <li>New argument <code>rename_with_labels(cols)</code>, more intuitive than <code>except</code>. (<a href="https://github.com/DanChaltiel/crosstable/issues/99" class="external-link">#99</a>)</li>
+<li>New function <code><a href="../reference/ct_bind_cols.html">ct_bind_cols()</a></code> helper to combine (column-bind) two multi-<code>by</code> crosstables into a wider crosstable, enabling multi-column outputs with intra-group margins (<strong>experimental</strong>). (<a href="https://github.com/DanChaltiel/crosstable/issues/97" class="external-link">#97</a>)</li>
+<li>New argument <code>as_flextable(allow_breaks=FALSE)</code>, to avoid breaking a table group in 2 pages. (<a href="https://github.com/DanChaltiel/crosstable/issues/92" class="external-link">#92</a>)</li>
+<li>New argument <code>as_flextable(compact=TRUE, collapse)</code>, to collapse levels in compact format. (<a href="https://github.com/DanChaltiel/crosstable/issues/98" class="external-link">#98</a>) For example, <code>collapse="Yes"</code> will yield a single row for the “Yes” level, instead of a redundant Yes/No that sums up to 100%. This will only apply if there are 2 levels only, <code>NA</code> included. See examples for more.</li>
 </ul></div>
 <div class="section level5">
-<h5 id="bug-fixes-and-improvements-0-8-3">Bug fixes and improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-improvements-0-8-3"></a></h5>
-<ul><li>Fixed bug in <code><a href="../reference/rename_with_labels.html">rename_with_labels()</a></code> when <code>except</code> contains <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code>.(<a href="https://github.com/DanChaltiel/crosstable/issues/99" class="external-link">#99</a>)</li>
+<h5 id="bug-fixes-and-improvements-0-9-0">Bug fixes and improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-improvements-0-9-0"></a></h5>
+<ul><li>Fixed <code><a href="../reference/ct_compact.html">ct_compact()</a></code> so that <code>.id</code> is kept in the output.</li>
+<li>Fixed bug in <code><a href="../reference/rename_with_labels.html">rename_with_labels()</a></code> when <code>except</code> contains <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code>.(<a href="https://github.com/DanChaltiel/crosstable/issues/99" class="external-link">#99</a>)</li>
 <li>Fixed bug in <code><a href="../reference/crosstable.html">crosstable()</a></code> when a factor variable had <code>NA</code> as a level (like after <code>forcats::fct_value_to_na_level()</code>). (<a href="https://github.com/DanChaltiel/crosstable/issues/94" class="external-link">#94</a>)</li>
+</ul></div>
+<div class="section level5">
+<h5 id="lifecycle-0-9-0">Lifecycle<a class="anchor" aria-label="anchor" href="#lifecycle-0-9-0"></a></h5>
+<ul><li>
+<code>compact()</code>, conflicting with <code><a href="https://purrr.tidyverse.org/reference/keep.html" class="external-link">purrr::compact()</a></code> and deprecated if favor of <code><a href="../reference/ct_compact.html">ct_compact()</a></code> since 2022, has been removed from the package.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -202,7 +211,7 @@ For instance, one can now write:</li>
 <ul><li>
 <code><a href="../reference/rename_with_labels.html">rename_dataframe_with_labels()</a></code> is now deprecated in favor of the better named <code><a href="../reference/rename_with_labels.html">rename_with_labels()</a></code>.</li>
 <li>
-<code><a href="../reference/ct_compact.html">compact()</a></code> is now deprecated in favor of <code><a href="../reference/ct_compact.html">ct_compact()</a></code> to avoid the conflict with <code><a href="https://purrr.tidyverse.org/reference/keep.html" class="external-link">purrr::compact()</a></code>. It will be removed in the next version.</li>
+<code>compact()</code> is now deprecated in favor of <code><a href="../reference/ct_compact.html">ct_compact()</a></code> to avoid the conflict with <code><a href="https://purrr.tidyverse.org/reference/keep.html" class="external-link">purrr::compact()</a></code>. It will be removed in the next version.</li>
 </ul></div>
 <div class="section level5">
 <h5 id="bug-fixes-0-5-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-5-0"></a></h5>
@@ -228,7 +237,7 @@ For instance, one can now write:</li>
 <div class="section level5">
 <h5 id="new-features-0-4-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-4-0"></a></h5>
 <ul><li>You can now use basic markdown formats in <code><a href="../reference/body_add_normal.html">body_add_normal()</a></code>: **<strong>bold</strong>**, *<em>italic</em>*, _<em>underlined</em>_, and `<code>code</code>`.</li>
-<li>New <code>keep_id</code> argument in <code><a href="../reference/ct_compact.html">compact.crosstable()</a></code>, which enables <code>as_flextable(compact=TRUE, keep_id=TRUE)</code>
+<li>New <code>keep_id</code> argument in <code>compact.crosstable()</code>, which enables <code>as_flextable(compact=TRUE, keep_id=TRUE)</code>
 </li>
 <li>You can use <code>as_flextable(header_show_n_pattern)</code> to change the glue pattern of these group sizes. The default is <code>{.col} (N={.n})</code>; you can use <code>{.col_key}</code> and <code>{.col_val}</code> when <code>by</code> has multiple strata.</li>
 <li>Functions <code><a href="../reference/body_add_legend.html">body_add_table_legend()</a></code> and <code><a href="../reference/body_add_legend.html">body_add_figure_legend()</a></code> earn an argument <code>legend_prefix</code>. Useful when set through global options, for instance to make every table/figure start with the name of the study.</li>
@@ -424,7 +433,7 @@ Use the <code>bookmark</code> argument to set a reference, then write <code>"\\@
 <li>Reexporting pipes and tidyselect helpers so that user does not have to load these libraries</li>
 <li>Computing time optimization (speed x2.6!)</li>
 <li>Fixed bug in normality testing</li>
-<li>Fixed bug in <code><a href="../reference/ct_compact.html">compact()</a></code>
+<li>Fixed bug in <code>compact()</code>
 </li>
 </ul></div>
 </div>

@@ -12,7 +12,7 @@ create automatized reports.
 install.packages("crosstable")
 
 # Install development version on Github
-remotes::install_github("DanChaltiel/crosstable@v0.8.2.9001")
+remotes::install_github("DanChaltiel/crosstable@v0.8.2.9003")
 ```
 
 Note that, for reproducibility purpose, an even better solution would be
@@ -352,6 +352,9 @@ Practical functions for various purposes
 - [`ct_compact(`*`<data.frame>`*`)`](https://danchaltiel.github.io/crosstable/reference/ct_compact.md)
   [`ct_compact(`*`<crosstable>`*`)`](https://danchaltiel.github.io/crosstable/reference/ct_compact.md)
   : Generic function to compact a table (publication formatting)
+
+- [`ct_bind_cols()`](https://danchaltiel.github.io/crosstable/reference/ct_bind_cols.md)
+  **\[experimental\]** : Combine crosstables
 
 - [`plim()`](https://danchaltiel.github.io/crosstable/reference/plim.md)
   :

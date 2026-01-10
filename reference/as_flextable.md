@@ -9,18 +9,20 @@ Turns a `crosstable` object into a formatted `flextable`
 as_flextable(
   x,
   keep_id = FALSE,
+  ...,
   by_header = NULL,
   autofit = TRUE,
   compact = FALSE,
+  collapse = NULL,
   show_test_name = TRUE,
+  allow_breaks = FALSE,
   fontsizes = list(body = 11, subheaders = 11, header = 11),
   padding_v = NULL,
   remove_header_keys = TRUE,
   header_show_n = FALSE,
   header_show_n_pattern = "{.col} (N={.n})",
   generic_labels = list(id = ".id", variable = "variable", value = "value", total =
-    "Total", label = "label", test = "test", effect = "effect"),
-  ...
+    "Total", label = "label", test = "test", effect = "effect")
 )
 
 as_flextable(x, ...)
@@ -37,6 +39,10 @@ as_flextable(x, ...)
 
   whether to keep the `.id` column.
 
+- ...:
+
+  unused.
+
 - by_header:
 
   a string to override the header if `x` has only one `by` stratum.
@@ -51,9 +57,18 @@ as_flextable(x, ...)
   [`ct_compact.crosstable()`](https://danchaltiel.github.io/crosstable/reference/ct_compact.md)
   to see how to use `keep_id`.
 
+- collapse:
+
+  levels to collapse when in compact format. Ignored if `compact!=TRUE`.
+  See examples.
+
 - show_test_name:
 
   in the `test` column, show the test name.
+
+- allow_breaks:
+
+  whether to allow the table to break on .
 
 - fontsizes:
 
@@ -91,10 +106,6 @@ as_flextable(x, ...)
   names of the crosstable default columns. Useful for translation for
   instance.
 
-- ...:
-
-  unused.
-
 ## Value
 
 a flextable.
@@ -123,7 +134,7 @@ crosstable_options(crosstable_fontsize_header=14,
 crosstable(iris) %>% as_flextable()
 
 
-.cl-eca77f5a{table-layout:auto;}.cl-eca0f18a{font-family:'DejaVu Sans';font-size:14pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-eca0f194{font-family:'DejaVu Sans';font-size:8pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-eca3ba78{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-eca3ba82{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-eca3d80a{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-eca3d814{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-eca3d815{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-eca3d81e{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-eca3d81f{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-eca3d828{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-eca3d829{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+.cl-e42c33bc{table-layout:auto;}.cl-e423e748{font-family:'DejaVu Sans';font-size:14pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-e423e75c{font-family:'DejaVu Sans';font-size:8pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-e42749d8{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e42749ec{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e42749ed{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e4277c96{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4277ca0{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4277caa{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4277cab{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4277cb4{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4277cb5{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4277cbe{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
 
 
 label
@@ -282,11 +293,24 @@ cols=[c](https://rdrr.io/r/base/c.html)(mpg, cyl), by=am, effect=TRUE,
 total=TRUE) [%\>%](https://magrittr.tidyverse.org/reference/pipe.html)
 as_flextable(compact=TRUE, header_show_n=TRUE,
 header_show_n_pattern=[list](https://rdrr.io/r/base/list.html)(cell="{.col}
-(N={.n})", total="Total\n(N={.n})"))
-
-[TABLE]
-
-\#Renaming (because why not?)
+(N={.n})", total="Total\n(N={.n})")) \#\> Error in mutate(.,
+across(-any_of(c(id_from, name_to)), ~if_else(.data\[\[id_from\]\] %in%
+collapse_grp, .x\[.data\[\[name_to\]\] == collapse\] %0% NA, .x))): ℹ In
+argument: \`across(...)\`. \#\> Caused by error in \`across()\`: \#\> !
+Can't compute column \`auto\`. \#\> Caused by error in \`if_else()\`:
+\#\> ! could not find function "if_else" \#collapse levels mtcars2
+[%\>%](https://magrittr.tidyverse.org/reference/pipe.html) mutate(am_man
+= fct_recode(am, "Yes"="manual", "No"="auto"))
+[%\>%](https://magrittr.tidyverse.org/reference/pipe.html)
+[apply_labels](https://danchaltiel.github.io/crosstable/reference/apply_labels.md)(am_man="Manual
+transmission")
+[%\>%](https://magrittr.tidyverse.org/reference/pipe.html)
+[crosstable](https://danchaltiel.github.io/crosstable/reference/crosstable.md)([c](https://rdrr.io/r/base/c.html)(mpg,
+am_man, hp), by=vs, test=T, effect=T)
+[%\>%](https://magrittr.tidyverse.org/reference/pipe.html)
+as_flextable(compact=TRUE, collapse="Yes") \#\> Error in mutate(.,
+am_man = fct_recode(am, Yes = "manual", No = "auto")): could not find
+function "mutate" \#Renaming (because why not?)
 [crosstable](https://danchaltiel.github.io/crosstable/reference/crosstable.md)(mtcars2,
 am, by=vs, total="both", test=TRUE, effect=TRUE)
 [%\>%](https://magrittr.tidyverse.org/reference/pipe.html)

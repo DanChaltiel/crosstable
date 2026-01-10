@@ -1,6 +1,6 @@
 # Changelog
 
-## crosstable 0.8.3
+## crosstable 0.9.0 (dev)
 
 ##### New features
 
@@ -12,9 +12,28 @@
   ([\#100](https://github.com/DanChaltiel/crosstable/issues/100))
 - New argument `rename_with_labels(cols)`, more intuitive than `except`.
   ([\#99](https://github.com/DanChaltiel/crosstable/issues/99))
+- New function
+  [`ct_bind_cols()`](https://danchaltiel.github.io/crosstable/reference/ct_bind_cols.md)
+  helper to combine (column-bind) two multi-`by` crosstables into a
+  wider crosstable, enabling multi-column outputs with intra-group
+  margins (**experimental**).
+  ([\#97](https://github.com/DanChaltiel/crosstable/issues/97))
+- New argument `as_flextable(allow_breaks=FALSE)`, to avoid breaking a
+  table group in 2 pages.
+  ([\#92](https://github.com/DanChaltiel/crosstable/issues/92))
+- New argument `as_flextable(compact=TRUE, collapse)`, to collapse
+  levels in compact format.
+  ([\#98](https://github.com/DanChaltiel/crosstable/issues/98)) For
+  example, `collapse="Yes"` will yield a single row for the “Yes” level,
+  instead of a redundant Yes/No that sums up to 100%. This will only
+  apply if there are 2 levels only, `NA` included. See examples for
+  more.
 
 ##### Bug fixes and improvements
 
+- Fixed
+  [`ct_compact()`](https://danchaltiel.github.io/crosstable/reference/ct_compact.md)
+  so that `.id` is kept in the output.
 - Fixed bug in
   [`rename_with_labels()`](https://danchaltiel.github.io/crosstable/reference/rename_with_labels.md)
   when `except` contains
@@ -24,6 +43,14 @@
   when a factor variable had `NA` as a level (like after
   `forcats::fct_value_to_na_level()`).
   ([\#94](https://github.com/DanChaltiel/crosstable/issues/94))
+
+##### Lifecycle
+
+- `compact()`, conflicting with
+  [`purrr::compact()`](https://purrr.tidyverse.org/reference/keep.html)
+  and deprecated if favor of
+  [`ct_compact()`](https://danchaltiel.github.io/crosstable/reference/ct_compact.md)
+  since 2022, has been removed from the package.
 
 ## crosstable 0.8.2
 
@@ -321,8 +348,7 @@ CRAN release: 2022-08-16
 - [`rename_dataframe_with_labels()`](https://danchaltiel.github.io/crosstable/reference/rename_with_labels.md)
   is now deprecated in favor of the better named
   [`rename_with_labels()`](https://danchaltiel.github.io/crosstable/reference/rename_with_labels.md).
-- [`compact()`](https://danchaltiel.github.io/crosstable/reference/ct_compact.md)
-  is now deprecated in favor of
+- `compact()` is now deprecated in favor of
   [`ct_compact()`](https://danchaltiel.github.io/crosstable/reference/ct_compact.md)
   to avoid the conflict with
   [`purrr::compact()`](https://purrr.tidyverse.org/reference/keep.html).
@@ -360,9 +386,8 @@ CRAN release: 2022-02-14
 - You can now use basic markdown formats in
   [`body_add_normal()`](https://danchaltiel.github.io/crosstable/reference/body_add_normal.md):
   \*\***bold**\*\*, \**italic*\*, \_*underlined*\_, and \``code`\`.
-- New `keep_id` argument in
-  [`compact.crosstable()`](https://danchaltiel.github.io/crosstable/reference/ct_compact.md),
-  which enables `as_flextable(compact=TRUE, keep_id=TRUE)`
+- New `keep_id` argument in `compact.crosstable()`, which enables
+  `as_flextable(compact=TRUE, keep_id=TRUE)`
 - You can use `as_flextable(header_show_n_pattern)` to change the glue
   pattern of these group sizes. The default is `{.col} (N={.n})`; you
   can use `{.col_key}` and `{.col_val}` when `by` has multiple strata.
@@ -700,8 +725,7 @@ CRAN release: 2021-03-08
   load these libraries
 - Computing time optimization (speed x2.6!)
 - Fixed bug in normality testing
-- Fixed bug in
-  [`compact()`](https://danchaltiel.github.io/crosstable/reference/ct_compact.md)
+- Fixed bug in `compact()`
 
 ## crosstable 0.1.0 (2020-04-09)
 
