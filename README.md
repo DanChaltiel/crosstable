@@ -29,7 +29,7 @@ create automatized reports.
 install.packages("crosstable")
 
 # Install development version on Github
-remotes::install_github("DanChaltiel/crosstable@v0.8.2.9003")
+remotes::install_github("DanChaltiel/crosstable@v0.8.2.9004")
 ```
 
 Note that, for reproducibility purpose, an even better solution would be
