@@ -768,3 +768,10 @@ as.data.frame.table = function(...) {
 is_one_sided = function(x) {
   is_formula(x) && length(x) == 2
 }
+
+#' @keywords internal
+#' @noRd
+#' @source vctrs
+`%0%` = function(x, y) {
+  if(length(x)==0) y else x
+}

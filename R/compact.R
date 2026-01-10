@@ -20,6 +20,7 @@ ct_compact = function(data, ...){
 #' @param name_to name of the column that will receive the collapsed column. Will be created if it doesn't exist.
 #' @param ... additional arguments (not used)
 #' @param id_from name of the columns to use as cut-off. Useful when successive `name_from` have the same value.
+#' @param collapse levels to collapse into one row.
 #' @param keep_id whether to keep `id_from` in the output.
 #' @param wrap_cols name of the columns to wrap
 #' @param rtn_flextable whether to return a formatted [flextable::flextable()] object or a simple `data.frame`
@@ -45,11 +46,11 @@ ct_compact = function(data, ...){
 #' ct_compact(x, name_from="Species", id_from="Species2") #cut on "v"
 ct_compact.data.frame = function(data, name_from, name_to="variable", ...,
                                  id_from=name_from, keep_id=TRUE,
+                                 collapse=NULL,
                                  wrap_cols=NULL, rtn_flextable=FALSE){
   assert_scalar(name_from)
   assert_scalar(name_to)
   assert_scalar(id_from)
-  ifr = sym(id_from)
   id = (data[[id_from]]!=lag(data[[id_from]])) %>% replace_na(TRUE)
 
   if(is.null(data[[name_to]])) data[[name_to]] = ""
@@ -58,17 +59,34 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", ...,
     remove_cols = setdiff(remove_cols, id_from)
   }
 
+  collapse_grp = NULL
+  if(!is.null(collapse)){
+    #collapse the group if only 2 options and 50% of "Yes"
+    collapse_grp = data %>%
+      summarise(x=mean(!!ensym(name_to)==collapse), .by=.id) %>%
+      filter(x==0.5) %>%
+      pull(.data[[id_from]])
+  }
 
   data[[name_to]] = as.character(data[[name_to]])
   rtn =
     data %>%
-    distinct(across(all_of(c(id_from, set_names(name_from, name_to))))) %>%
+    distinct(across(all_of(c(set_names(id_from, id_from),
+                             set_names(name_from, name_to))))) %>%
     bind_rows(data, .id="added") %>%
     arrange(factor(.data[[id_from]], levels=unique(data[[id_from]])), .data$added) %>%
     select(any_of(c(id_from, name_to)), everything(),
-           -all_of(wrap_cols), all_of(wrap_cols), -any_of(remove_cols)) %>%
-    mutate(across(wrap_cols, ~if_else(row_number()==1, na.omit(.x)[1], NA)),
-           .by=!!ensym(id_from))
+           # -all_of(wrap_cols), all_of(wrap_cols),
+           -any_of(remove_cols)) %>%
+    mutate(across(
+      -any_of(c(id_from, name_to)),
+      ~if_else(.data[[id_from]] %in% collapse_grp,
+               .x[.data[[name_to]]==collapse] %0% NA, .x)
+    )) %>%
+    mutate(across(all_of(wrap_cols), ~if_else(row_number()==1, na.omit(.x)[1], NA)),
+           .by=.data[[id_from]]) %>%
+    filter(!.data[[id_from]] %in% collapse_grp | row_number()==1,
+           .by=.data[[id_from]])
   rownames(rtn) = NULL #resets row numbers
 
   # if(TRUE){
@@ -85,8 +103,6 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", ...,
   #     ) %>%
   #     select(any_of(c(id_from, name_to)), everything(), -any_of(remove_cols))
   # }
-
-  # browser()
 
   if(rtn_flextable){
     id2 = which(id)+(0:(sum(id)-1))
@@ -130,7 +146,7 @@ ct_compact.crosstable = function(data, name_from=c("label", ".id"), name_to="var
   # browser()
   rtn = data %>%
     ct_compact.data.frame(name_from=name_from, name_to=name_to, id_from=id_from,
-                          wrap_cols=wrap_cols, keep_id=keep_id, rtn_flextable=FALSE)
+                          wrap_cols=wrap_cols, keep_id=keep_id, rtn_flextable=FALSE, ...)
 
   new_attr_names = setdiff(names(attributes(data)), names(attributes(rtn)))
   attributes(rtn) = c(attributes(rtn), attributes(data)[new_attr_names])

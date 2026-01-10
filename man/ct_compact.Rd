@@ -14,6 +14,7 @@
   ...,
   id_from = name_from,
   keep_id = TRUE,
+  collapse = NULL,
   wrap_cols = NULL,
   rtn_flextable = FALSE
 )
@@ -40,6 +41,8 @@
 \item{id_from}{name of the columns to use as cut-off. Useful when successive \code{name_from} have the same value.}
 
 \item{keep_id}{whether to keep \code{id_from} in the output.}
+
+\item{collapse}{levels to collapse into one row.}
 
 \item{wrap_cols}{name of the columns to wrap}
 

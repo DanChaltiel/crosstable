@@ -16,6 +16,7 @@
   by_header = NULL,
   autofit = TRUE,
   compact = FALSE,
+  collapse = NULL,
   show_test_name = TRUE,
   allow_breaks = FALSE,
   fontsizes = list(body = 11, subheaders = 11, header = 11),
@@ -41,6 +42,8 @@ as_flextable(x, ...)
 \item{autofit}{whether to automatically adjust the table. Can also be a function.}
 
 \item{compact}{whether to compact the table. If \code{TRUE}, see \code{\link[=ct_compact.crosstable]{ct_compact.crosstable()}} to see how to use \code{keep_id}.}
+
+\item{collapse}{levels to collapse when in compact format. Ignored if \code{compact!=TRUE}. See examples.}
 
 \item{show_test_name}{in the \code{test} column, show the test name.}
 
@@ -76,17 +79,24 @@ crosstable_options(crosstable_fontsize_header=14,
 crosstable(iris) \%>\% as_flextable()
 crosstable(mtcars2, -model, by=c(am, vs)) \%>\% as_flextable(header_show_n=1)
 crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE) \%>\%
-   as_flextable(keep_id=TRUE, autofit=FALSE)
+  as_flextable(keep_id=TRUE, autofit=FALSE)
 crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE, total=TRUE) \%>\%
-   as_flextable(compact=TRUE, header_show_n=TRUE,
-                header_show_n_pattern=list(cell="{.col} (N={.n})", total="Total\n(N={.n})"))
+  as_flextable(compact=TRUE, header_show_n=TRUE,
+               header_show_n_pattern=list(cell="{.col} (N={.n})", total="Total\n(N={.n})"))
+
+#collapse levels
+mtcars2 \%>\%
+  mutate(am_man = fct_recode(am, "Yes"="manual", "No"="auto")) \%>\%
+  apply_labels(am_man="Manual transmission") \%>\%
+  crosstable(c(mpg, am_man, hp), by=vs, test=T, effect=T) \%>\%
+  as_flextable(compact=TRUE, collapse="Yes")
 
 #Renaming (because why not?)
 crosstable(mtcars2, am, by=vs, total="both", test=TRUE, effect=TRUE) \%>\%
-   dplyr::rename(ID=.id, math=variable, Tot=Total, lab=label, pval=test, fx=effect) \%>\%
-   as_flextable(by_header = "Engine shape",
-                generic_labels=list(id = "ID", variable = "math", total="Tot",
-                                    label = "lab", test = "pval", effect="fx"))
+  dplyr::rename(ID=.id, math=variable, Tot=Total, lab=label, pval=test, fx=effect) \%>\%
+  as_flextable(by_header = "Engine shape",
+               generic_labels=list(id = "ID", variable = "math", total="Tot",
+                                   label = "lab", test = "pval", effect="fx"))
 }
 \seealso{
 \code{\link[=crosstable]{crosstable()}}, \code{\link[flextable:flextable]{flextable::flextable()}}, \code{\link[=as_gt.crosstable]{as_gt.crosstable()}}

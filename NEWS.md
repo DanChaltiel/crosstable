@@ -9,6 +9,8 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 -   New argument `rename_with_labels(cols)`, more intuitive than `except`. (#99)
 -   New function `ct_bind_cols()` helper to combine (column-bind) two multi-`by` crosstables into a wider crosstable, enabling multi-column outputs with intra-group margins (**experimental**). (#97)
 -   New argument `as_flextable(allow_breaks=FALSE)`, to avoid breaking a table group in 2 pages. (#92)
+-   New argument `as_flextable(compact=TRUE, collapse)`, to collapse levels in compact format. (#98)
+For example, `collapse="Yes"` will yield a single row for the "Yes" level, instead of a redundant Yes/No that sums up to 100%. This will only apply if there are 2 levels only, `NA` included. See examples for more.
 
 #### Bug fixes and improvements
 

@@ -40,6 +40,19 @@ test_that("Compacting inside or outside as_flextable.crosstable gives the same r
 })
 
 
+test_that("Compact and collapse", {
+
+  expect_snapshot({
+    x = mtcars2 %>%
+      mutate(am = fct_recode(am, "Yes"="manual", "No"="auto")) %>%
+      apply_labels(am="Manual transmission") %>%
+      crosstable(c(mpg, am, hp), by=vs, test=T, effect=T)
+    ct_compact(x)
+    ct_compact(x, collapse="Yes")
+  })
+
+})
+
 test_that("Compact method OK with as_flextable()", {
 
   ct = mtcars2 %>%

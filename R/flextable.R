@@ -7,6 +7,7 @@
 #' @param by_header a string to override the header if `x` has only one `by` stratum.
 #' @param autofit whether to automatically adjust the table. Can also be a function.
 #' @param compact whether to compact the table. If `TRUE`, see [ct_compact.crosstable()] to see how to use `keep_id`.
+#' @param collapse levels to collapse when in compact format. Ignored if `compact!=TRUE`. See examples.
 #' @param show_test_name in the `test` column, show the test name.
 #' @param allow_breaks whether to allow the table to break on .
 #' @param fontsizes font sizes as a list of keys. Default to `list(body=11, subheaders=11, header=11)`. If set through arguments instead of options, all 3 names should be specified.
@@ -45,20 +46,27 @@
 #' crosstable(iris) %>% as_flextable()
 #' crosstable(mtcars2, -model, by=c(am, vs)) %>% as_flextable(header_show_n=1)
 #' crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE) %>%
-#'    as_flextable(keep_id=TRUE, autofit=FALSE)
+#'   as_flextable(keep_id=TRUE, autofit=FALSE)
 #' crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE, total=TRUE) %>%
-#'    as_flextable(compact=TRUE, header_show_n=TRUE,
-#'                 header_show_n_pattern=list(cell="{.col} (N={.n})", total="Total\n(N={.n})"))
+#'   as_flextable(compact=TRUE, header_show_n=TRUE,
+#'                header_show_n_pattern=list(cell="{.col} (N={.n})", total="Total\n(N={.n})"))
+#'
+#' #collapse levels
+#' mtcars2 %>%
+#'   mutate(am_man = fct_recode(am, "Yes"="manual", "No"="auto")) %>%
+#'   apply_labels(am_man="Manual transmission") %>%
+#'   crosstable(c(mpg, am_man, hp), by=vs, test=T, effect=T) %>%
+#'   as_flextable(compact=TRUE, collapse="Yes")
 #'
 #' #Renaming (because why not?)
 #' crosstable(mtcars2, am, by=vs, total="both", test=TRUE, effect=TRUE) %>%
-#'    dplyr::rename(ID=.id, math=variable, Tot=Total, lab=label, pval=test, fx=effect) %>%
-#'    as_flextable(by_header = "Engine shape",
-#'                 generic_labels=list(id = "ID", variable = "math", total="Tot",
-#'                                     label = "lab", test = "pval", effect="fx"))
+#'   dplyr::rename(ID=.id, math=variable, Tot=Total, lab=label, pval=test, fx=effect) %>%
+#'   as_flextable(by_header = "Engine shape",
+#'                generic_labels=list(id = "ID", variable = "math", total="Tot",
+#'                                    label = "lab", test = "pval", effect="fx"))
 as_flextable.crosstable = function(x, keep_id=FALSE,
                                    ..., by_header=NULL,
-                                   autofit=TRUE, compact=FALSE,
+                                   autofit=TRUE, compact=FALSE, collapse=NULL,
                                    show_test_name=TRUE, allow_breaks=FALSE,
                                    fontsizes=list(body=11, subheaders=11, header=11),
                                    padding_v=NULL, remove_header_keys=TRUE,
@@ -127,7 +135,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE,
     x[[test]] = str_remove(x[[test]], "\\n\\(.*\\)")
   }
   if (compact && !inherits(x, "compacted_crosstable")) {
-    x = ct_compact.crosstable(x, label_with_id=keep_id)
+    x = ct_compact.crosstable(x, label_with_id=keep_id, collapse=collapse)
   }
 
   if(inherits(x, "compacted_crosstable")) {
@@ -141,7 +149,7 @@ as_flextable.crosstable = function(x, keep_id=FALSE,
       fontsize(size=fontsizes$body) %>%
       fontsize(title_rows, size=fontsizes$subheaders) %>%
       border(title_rows, border.top=border1) %>%
-      bold(title_rows, j=1:2) %>%
+      bold(title_rows, j=1) %>%
       padding(padded_rows, j=1, padding.left=getOption("crosstable_compact_padding", 25))
   } else {
     sep.rows = which(x[[id]] != lead(x[[id]]))
