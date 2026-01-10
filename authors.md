@@ -13,12 +13,12 @@ Source:
 [`DESCRIPTION`](https://github.com/DanChaltiel/crosstable/blob/main/DESCRIPTION)
 
 Chaltiel D (2026). *crosstable: Crosstables for Descriptive Analyses*. R
-package version 0.8.2.9003, <https://danchaltiel.github.io/crosstable/>.
+package version 0.8.2.9005, <https://danchaltiel.github.io/crosstable/>.
 
     @Manual{,
       title = {crosstable: Crosstables for Descriptive Analyses},
       author = {Dan Chaltiel},
       year = {2026},
-      note = {R package version 0.8.2.9003},
+      note = {R package version 0.8.2.9005},
       url = {https://danchaltiel.github.io/crosstable/},
     }
