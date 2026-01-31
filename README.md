@@ -12,7 +12,7 @@
 [![Last Commit](https://img.shields.io/github/last-commit/DanChaltiel/crosstable)](https://github.com/DanChaltiel/crosstable)
 [![Codecov test coverage](https://codecov.io/gh/DanChaltiel/crosstable/graph/badge.svg)](https://app.codecov.io/gh/DanChaltiel/crosstable)
 [![R-CMD-check](https://github.com/DanChaltiel/crosstable/actions/workflows/check-standard.yaml/badge.svg?branch=main)](https://github.com/DanChaltiel/crosstable/actions/workflows/check-standard.yaml)
-[![minimal R version](https://img.shields.io/badge/R-%E2%89%A53.6-blue.svg)](https://cran.r-project.org/)
+[![Current Version](https://img.shields.io/github/r-package/v/DanChaltiel/crosstable/main?color=purple\&label=Dev)](https://github.com/DanChaltiel/crosstable/tree/main)
 <!-- [![Dependencies](https://tinyverse.netlify.com/badge/crosstable)](https://cran.r-project.org/package=crosstable)  -->
 <!-- [![Build Status](https://travis-ci.org/DanChaltiel/crosstable.svg?branch=main)](https://travis-ci.org/DanChaltiel/crosstable) -->
 <!-- badges: end -->
