@@ -867,6 +867,7 @@ docx_bookmarks2 = function(x, return_vector=FALSE,
 #'
 #' @param doc the docx object
 #' @param docx.file the name of the target file. If missing or NULL, the doc will open in a temporary file.
+#' @param add_date whether to add the current date before `docx.file` extension.
 #'
 #' @return Nothing, called for its side effects
 #'
@@ -886,9 +887,18 @@ docx_bookmarks2 = function(x, return_vector=FALSE,
 #' write_and_open(doc)
 #' \dontrun{
 #' write_and_open(doc, "example.docx")
+#' write_and_open(doc, "example.docx", add_date=TRUE)
+#' write_and_open(doc, "example.docx", add_date=Sys.Date()-1)
 #' }
 # nocov start
-write_and_open = function(doc, docx.file){
+write_and_open = function(doc, docx.file, add_date=FALSE){
+  if(!missing(docx.file) && !isFALSE(add_date)){
+    ext = tools::file_ext(docx.file)
+    file = tools::file_path_sans_ext(docx.file)
+    if(isTRUE(add_date)) add_date = Sys.Date()
+    if(is.date(add_date)) add_date = format(add_date, "%Y-%m-%d")
+    docx.file = paste0(file, "_", add_date, ".", ext)
+  }
 
   #checking if the file is already open... by removing it
   tryCatch({

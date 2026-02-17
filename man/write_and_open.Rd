@@ -4,12 +4,14 @@
 \alias{write_and_open}
 \title{Alternative to default \code{officer} print() function. Write the file and try to open it right away.}
 \usage{
-write_and_open(doc, docx.file)
+write_and_open(doc, docx.file, add_date = FALSE)
 }
 \arguments{
 \item{doc}{the docx object}
 
 \item{docx.file}{the name of the target file. If missing or NULL, the doc will open in a temporary file.}
+
+\item{add_date}{whether to add the current date before \code{docx.file} extension.}
 }
 \value{
 Nothing, called for its side effects
@@ -27,6 +29,8 @@ doc = read_docx() \%>\%
 write_and_open(doc)
 \dontrun{
 write_and_open(doc, "example.docx")
+write_and_open(doc, "example.docx", add_date=TRUE)
+write_and_open(doc, "example.docx", add_date=Sys.Date()-1)
 }
 }
 \author{
