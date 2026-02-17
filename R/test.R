@@ -215,7 +215,6 @@ test_correlation_auto = function(x, by, method) {
 #' @author Dan Chaltiel, David Hajage
 #' @export
 #' @importFrom rlang check_installed
-#' @importFrom stats pchisq
 test_survival_logrank = function(formula) {
   check_installed("survival", reason="for survival data to be described using `crosstable()`.")
   null_test = list(p.value=NULL, method=NULL)

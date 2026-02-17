@@ -1,7 +1,7 @@
 
 #' @keywords internal
 #' @importFrom checkmate assert assert_numeric
-#' @importFrom dplyr everything mutate rename select
+#' @importFrom dplyr any_of everything mutate rename select
 #' @importFrom tibble as_tibble
 #' @noRd
 cross_numeric = function(data_x, data_y, funs, funs_arg, showNA, total,

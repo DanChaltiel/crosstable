@@ -26,13 +26,13 @@
 #' @seealso [crosstable()], [flextable::flextable()], [as_gt.crosstable()]
 #'
 #' @importFrom checkmate assert_class vname
-#' @importFrom cli cli_warn
-#' @importFrom dplyr across all_of any_of filter group_by intersect lead mutate pull recode select starts_with sym ungroup
-#' @importFrom flextable align autofit bold border border_inner_h fix_border_issues flextable fontsize hline hline_bottom hline_top merge_h merge_v padding paginate set_header_df set_header_labels set_table_properties vline_left vline_right
+#' @importFrom cli cli_abort cli_warn
+#' @importFrom dplyr across all_of cur_column everything filter group_by intersect lag lead mutate pull select starts_with sym ungroup
+#' @importFrom flextable align bold border border_inner_h fix_border_issues flextable fontsize hline hline_bottom hline_top merge_h merge_v padding paginate set_header_df set_header_labels set_table_properties vline_left vline_right
 #' @importFrom glue glue
 #' @importFrom officer fp_border
 #' @importFrom purrr map
-#' @importFrom rlang set_names
+#' @importFrom rlang check_dots_empty set_names
 #' @importFrom stringr str_remove str_replace str_split str_sub
 #' @importFrom tibble lst tibble
 #' @importFrom tidyr replace_na separate_wider_delim
@@ -53,9 +53,9 @@
 #'
 #' #collapse levels
 #' mtcars2 %>%
-#'   mutate(am_man = fct_recode(am, "Yes"="manual", "No"="auto")) %>%
+#'   dplyr::mutate(am_man = forcats::fct_recode(am, "Yes"="manual", "No"="auto")) %>%
 #'   apply_labels(am_man="Manual transmission") %>%
-#'   crosstable(c(mpg, am_man, hp), by=vs, test=T, effect=T) %>%
+#'   crosstable(c(mpg, am_man, hp), by=vs, test=TRUE, effect=TRUE) %>%
 #'   as_flextable(compact=TRUE, collapse="Yes")
 #'
 #' #Renaming (because why not?)

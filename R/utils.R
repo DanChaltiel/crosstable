@@ -131,7 +131,7 @@ get_defined_function = function(name){
 #' @importFrom glue glue_collapse
 #' @importFrom purrr map pmap_chr
 #' @importFrom rlang have_name is_formula
-#' @importFrom stringr str_squish str_starts str_subset
+#' @importFrom stringr str_remove_all str_squish str_starts str_subset
 #' @keywords internal
 #' @noRd
 parse_funs = function(funs){
@@ -339,6 +339,10 @@ check_percent_pattern = function(percent_pattern){
 
 #' @keywords internal
 #' @noRd
+#' @importFrom cli cli_abort cli_warn
+#' @importFrom glue glue
+#' @importFrom rlang current_env
+#' @importFrom utils modifyList
 validate_percent_pattern = function(margin, percent_pattern,
                                     missing_margin, missing_percent_pattern) {
   if(missing_margin) margin = getOption("crosstable_margin")
@@ -622,7 +626,6 @@ get_generic_labels = function(l=list()){
 #' Rework when https://github.com/r-lib/cli/issues/229 is merged
 #' @keywords internal
 #' @importFrom cli ansi_strip
-#' @importFrom stringr str_replace
 #' @noRd
 ansi_align_by = function(text, pattern){
   pos = gregexpr(pattern, ansi_strip(text)) %>% unlist()
@@ -654,8 +657,9 @@ cl = function(...){
 #' Wrapper around forcats::fct_recode and dplyr::recode
 #' Syntax: "New"="Old"
 #'
+#' @importFrom dplyr intersect recode
 #' @importFrom forcats fct_recode
-#' @importFrom rlang dots_list
+#' @importFrom rlang dots_list set_names
 #' @keywords internal
 #' @noRd
 recode_any = function(x, ...){
@@ -750,7 +754,6 @@ mixedsort = function(x, decreasing=FALSE, na.last=TRUE, blank.last=FALSE,
 #' @noRd
 #' @source https://github.com/tidyverse/dplyr/issues/5563#issuecomment-721769342
 #' @importFrom dplyr across
-#' @importFrom tidyr unpack
 across_unpack = function(...) {
   out = across(...)
   tidyr::unpack(out, names(out), names_sep = "_")

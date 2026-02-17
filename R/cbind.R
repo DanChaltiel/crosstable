@@ -7,7 +7,10 @@
 #' @param ... crosstable objects
 #'
 #' @returns a wider crosstable
-#' @importFrom dplyr full_join
+#' @importFrom cli cli_abort
+#' @importFrom dplyr full_join n_distinct
+#' @importFrom purrr map map_lgl reduce
+#' @importFrom tibble lst
 #' @export
 #'
 #' @examples

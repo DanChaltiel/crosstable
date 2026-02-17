@@ -86,9 +86,9 @@ crosstable(mtcars2, cols=c(mpg, cyl), by=am, effect=TRUE, total=TRUE) \%>\%
 
 #collapse levels
 mtcars2 \%>\%
-  mutate(am_man = fct_recode(am, "Yes"="manual", "No"="auto")) \%>\%
+  dplyr::mutate(am_man = forcats::fct_recode(am, "Yes"="manual", "No"="auto")) \%>\%
   apply_labels(am_man="Manual transmission") \%>\%
-  crosstable(c(mpg, am_man, hp), by=vs, test=T, effect=T) \%>\%
+  crosstable(c(mpg, am_man, hp), by=vs, test=TRUE, effect=TRUE) \%>\%
   as_flextable(compact=TRUE, collapse="Yes")
 
 #Renaming (because why not?)

@@ -6,7 +6,7 @@ test_that("numeric by numeric", {
   expect_equal(dim(x1), c(7,4))
   expect_equal(sum(is.na(x1)), 0)
 
-  x2=crosstable(mtcars3, where(is.numeric.and.not.surv), by=disp, test=T)
+  x2=crosstable(mtcars3, where(is.numeric.and.not.surv), by=disp, test=TRUE)
   expect_equal(dim(x2), c(7,5))
   expect_equal(sum(is.na(x2)), 0)
 
@@ -272,7 +272,3 @@ test_that("Special summary functions", {
   ct = crosstable(x, funs_arg=list(dig=2, zero_digits=5)) %>% as.data.frame()
   expect_equal(ct[1,4], "0 / 0")
 })
-
-print(("days"))
-print(exists("days"))
-

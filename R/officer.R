@@ -432,6 +432,7 @@ body_add_crosstable_list = function(...){
 #' @param ... passed on to [flextable::body_add_flextable()] or [body_add_crosstable()]
 #'
 #' @return The `docx` object `doc`
+#' @importFrom cli cli_abort
 #' @importFrom flextable body_add_flextable qflextable
 #' @export
 #'
@@ -592,7 +593,7 @@ body_add_figure_legend = function(doc, legend, ..., bookmark=NULL,
 
 #' @importFrom glue glue
 #' @importFrom lifecycle deprecate_warn is_present
-#' @importFrom officer body_add_fpar fp_text_lite fpar ftext run_bookmark run_word_field
+#' @importFrom officer body_add_fpar fp_text_lite ftext run_bookmark run_word_field
 #' @keywords internal
 #' @noRd
 body_add_legend = function(doc, legend, legend_name, bookmark,
@@ -647,6 +648,7 @@ body_add_legend = function(doc, legend, legend_name, bookmark,
 #'
 #' @author Dan Chaltiel
 #' @export
+#' @importFrom cli cli_abort
 #' @importFrom officer body_add_img
 #' @examples
 #' img.file = file.path( R.home("doc"), "html", "logo.jpg" )
@@ -689,7 +691,8 @@ body_add_img2 = function(doc, src, width, height,
 #' @author Dan Chaltiel
 #' @export
 #' @importFrom checkmate assert_class
-#' @importFrom rlang caller_arg check_installed
+#' @importFrom cli cli_abort
+#' @importFrom rlang check_installed
 #' @examples
 #' library(officer)
 #' library(ggplot2)
@@ -753,6 +756,8 @@ body_add_gg2 = function(doc, value,
 #'  body_add_flextable2(ft) %>%
 #'  body_add_normal("Text after")
 #' write_and_open(doc)
+#' @importFrom cli cli_abort
+#' @importFrom flextable body_add_flextable
 body_add_flextable2 = function(doc, x, bookmark=NULL, append_line=TRUE, ...){
   legend = attr(x, "legend")
   if(is.null(x)){
@@ -977,7 +982,7 @@ generate_autofit_macro = function(){
 
 #' Parse value for multiple regexp to unravel formats (bold, italic and underline) and reference calls.
 #'
-#' @importFrom officer body_add_par body_add_fpar
+#' @importFrom officer body_add_fpar
 #'
 #' @keywords internal
 #' @noRd
@@ -992,9 +997,10 @@ utils::globalVariables(c("do", "end", "start"))
 
 #' Compile Markdown to `officer` formatted paragraph
 #' @return a `fpar`
-#' @importFrom dplyr arrange bind_rows case_when everything group_split lag lead mutate mutate_all select
+#' @importFrom cli cli_warn
+#' @importFrom dplyr across arrange bind_rows case_when everything filter group_split lag lead mutate mutate_all na_if row_number select
 #' @importFrom glue glue
-#' @importFrom officer fp_text_lite ftext run_linebreak run_word_field
+#' @importFrom officer fp_text_lite fpar ftext run_linebreak run_word_field
 #' @importFrom purrr accumulate
 #' @importFrom stringr fixed str_extract str_locate_all str_replace_all
 #' @importFrom tibble as_tibble tibble
@@ -1049,8 +1055,8 @@ parse_md = function(x, parse_ref=TRUE, parse_format=TRUE, parse_code=TRUE, parse
   rtn = rtn %>%
     arrange(start) %>%
     mutate(
-      do = purrr::accumulate(lead(format), .init=get_state(state0, format[1]),
-                             ~get_state(.x, .y)) %>%
+      do = accumulate(lead(format), .init=get_state(state0, format[1]),
+                      ~get_state(.x, .y)) %>%
         head(-1) %>%
         mutate_all(~{
           lag_x = lag(.x, default=0)

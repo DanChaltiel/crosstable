@@ -56,7 +56,7 @@ crosstable_caller = rlang::env()
 #' @importFrom glue glue
 #' @importFrom lifecycle deprecate_stop deprecate_warn deprecated
 #' @importFrom purrr map map_chr
-#' @importFrom rlang as_function call_args call_match check_dots_unnamed current_env dots_n enquo is_empty is_formula local_options quo_get_expr
+#' @importFrom rlang as_function call_args call_match check_dots_unnamed dots_n enquo is_empty is_formula local_options quo_get_expr
 #' @importFrom stats model.frame na.omit
 #' @importFrom tidyr unite
 #'
@@ -184,7 +184,7 @@ crosstable = function(data, cols=everything(), ..., by=NULL,
   if(!is.null(date_format)) funs_arg = c(funs_arg, list(date_format=date_format))
 
   autotesting_verbosity = getOption("crosstable_verbosity_autotesting", "default")
-  if(test==T && autotesting_verbosity!="quiet"){
+  if(test==TRUE && autotesting_verbosity!="quiet"){
     if(autotesting_verbosity=="verbose") freq = "always"
     else freq = "regularly"
     cli_warn("Be aware that automatic global testing should only be done in an exploratory context, as it would cause extensive alpha inflation otherwise.",

@@ -1,9 +1,9 @@
 
 #' @importFrom cli cli_abort cli_warn
-#' @importFrom dplyr filter pull
+#' @importFrom dplyr filter if_else pull
+#' @importFrom forcats fct_drop
 #' @importFrom glue glue glue_data
 #' @importFrom purrr imap list_rbind
-#' @importFrom rlang env
 #' @importFrom stats na.omit
 #' @keywords internal
 #' @noRd

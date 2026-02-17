@@ -77,11 +77,11 @@
 #' @seealso [crosstable_peek_options()] and [crosstable_reset_options()]
 #' @return Nothing, called for its side effects
 #' @export
-#' @importFrom cli cli_warn
-#' @importFrom purrr discard_at
 #' @importFrom lifecycle deprecate_warn deprecated
-#' @importFrom rlang caller_env
+#' @importFrom purrr discard_at
+#' @importFrom rlang caller_env set_names
 #' @importFrom stringr str_starts
+#' @importFrom tibble lst
 crosstable_options = function(
     ...,
     #crosstable()
@@ -205,7 +205,9 @@ crosstable_reset_options = function(quiet=FALSE){
 }
 
 
-#' @importFrom stringr str_extract str_extract_all str_subset str_remove_all
+#' @importFrom cli cli_warn
+#' @importFrom purrr keep map
+#' @importFrom stringr str_extract str_remove_all str_subset
 #' @noRd
 #' @keywords internal
 missing_options_helper = function(path="R/", ignore=NA){

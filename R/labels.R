@@ -75,7 +75,7 @@ get_label = function(x, default=names(x), object=FALSE, simplify=TRUE){
 #' @importFrom cli cli_abort
 #' @importFrom dplyr intersect
 #' @importFrom purrr map_chr
-#' @importFrom rlang as_function is_named is_formula is_function
+#' @importFrom rlang as_function is_formula is_function is_named
 #' @seealso [get_label()], [import_labels()], [remove_label()]
 #' @examples
 #' library(dplyr)
@@ -172,8 +172,8 @@ remove_label = remove_labels
 #' @return A dataframe which names are copied from the label attribute
 #'
 #' @importFrom checkmate assert_data_frame
-#' @importFrom dplyr rename_with select
-#' @importFrom rlang enexpr as_string
+#' @importFrom dplyr all_of everything rename_with select
+#' @importFrom rlang enquo
 #' @export
 #'
 #' @examples
@@ -245,7 +245,9 @@ clean_names_with_labels = function(df, except=NULL, .fun=getOption("crosstable_c
 #' @return An object of the same type as `data`, with labels
 #'
 #' @importFrom cli cli_warn
-#' @importFrom rlang current_env
+#' @importFrom dplyr across cur_column everything mutate
+#' @importFrom rlang as_function check_dots_empty current_env
+#' @importFrom tibble lst
 #' @author Dan Chaltiel
 #' @export
 #'
@@ -298,7 +300,7 @@ apply_labels = function(data, ..., fn, warn_missing=FALSE) {
 #' @author Dan Chaltiel
 #' @export
 #' @importFrom cli cli_abort cli_warn
-#' @importFrom dplyr all_of select
+#' @importFrom dplyr across all_of cur_column everything mutate select
 #' @importFrom lifecycle deprecate_warn deprecated is_present
 #' @importFrom rlang current_env
 #' @importFrom tibble column_to_rownames

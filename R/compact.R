@@ -29,9 +29,11 @@ ct_compact = function(data, ...){
 #' @author Dan Chaltiel
 #' @export
 #' @importFrom checkmate assert_scalar
-#' @importFrom dplyr across any_of everything lag mutate row_number select sym
+#' @importFrom dplyr across all_of any_of arrange bind_rows distinct everything filter if_else lag mutate pull row_number select summarise
 #' @importFrom flextable align bold border
 #' @importFrom officer fp_border
+#' @importFrom rlang ensym set_names
+#' @importFrom stats na.omit
 #' @importFrom tidyr replace_na
 #'
 #' @return a compacted data.frame
@@ -123,7 +125,7 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", ...,
 #'
 #' @author Dan Chaltiel
 #' @export
-#' @importFrom dplyr any_of intersect mutate select
+#' @importFrom dplyr intersect mutate
 #' @importFrom glue glue
 #'
 #' @examples

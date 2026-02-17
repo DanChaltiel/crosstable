@@ -7,7 +7,7 @@
 ## usethis namespace: start
 #' @importFrom dplyr %>%
 #' @importFrom cli qty
-#' @importFrom rlang :=
+#' @importFrom rlang := caller_arg
 ## usethis namespace: end
 "_PACKAGE"
 

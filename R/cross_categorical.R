@@ -112,7 +112,6 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
 #' @importFrom forcats fct_na_value_to_level
 #' @importFrom glue glue
 #' @importFrom purrr reduce
-#' @importFrom stringr str_replace
 #' @importFrom tibble add_row as_tibble
 #' @importFrom tidyr pivot_wider replace_na
 #' @keywords internal

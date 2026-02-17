@@ -1,6 +1,7 @@
 
-#' @importFrom dplyr everything mutate select
+#' @importFrom dplyr any_of everything mutate rename select
 #' @importFrom rlang check_installed
+#' @importFrom tibble as_tibble
 #' @keywords internal
 #' @noRd
 cross_survival=function(data_x, data_y, showNA, total, label, surv_digits, times, followup,

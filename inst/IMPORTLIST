@@ -5,6 +5,7 @@ colSums = base
 filter = dplyr
 fixed = stringr
 format = base
+getOption = base
 gt = gt
 head = utils
 intersect = base

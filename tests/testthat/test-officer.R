@@ -328,18 +328,18 @@ test_that("openxlsx is working", {
   set.seed(1234)
 
   #by=NULL
-  x1=crosstable(mtcars2, c(mpg, vs, gear), total=T, test=T)
+  x1=crosstable(mtcars2, c(mpg, vs, gear), total=TRUE, test=TRUE)
   wb1=as_workbook(x1, keep_id=FALSE)
   wb2=as_workbook(x1, keep_id=TRUE)
   expect_true(TRUE)
 
   #by=cyl
-  x2=crosstable(mtcars2, c(mpg, vs, gear), by=cyl, total=T, test=T)
+  x2=crosstable(mtcars2, c(mpg, vs, gear), by=cyl, total=TRUE, test=TRUE)
   wb3=as_workbook(x2, keep_id=FALSE)
   wb4=as_workbook(x2, keep_id=TRUE)
 
   #by=c(cyl, am)
-  x3=crosstable(mtcars2, c(mpg, vs, gear), by=c(cyl, am), total=T)
+  x3=crosstable(mtcars2, c(mpg, vs, gear), by=c(cyl, am), total=TRUE)
   wb5=as_workbook(x3, keep_id=FALSE)
 
   xl=list("with by"=x2, noby=x1, x3)
@@ -362,17 +362,17 @@ test_that("openxlsx is working", {
 test_that("gt is working", {
   rlang::local_options(tidyselect_verbosity = "verbose") #oddly needed for as_gt(x2)
   #by=NULL
-  x1=crosstable(mtcars2, c(mpg, vs, gear), total=T, test=T)
+  x1=crosstable(mtcars2, c(mpg, vs, gear), total=TRUE, test=TRUE)
   as_gt(x1)
   as_gt(x1, keep_id=TRUE)
   expect_true(TRUE)
 
   #by=cyl
-  x2=crosstable(mtcars2, c(mpg, vs, gear), by=cyl, total=T, test=T)
+  x2=crosstable(mtcars2, c(mpg, vs, gear), by=cyl, total=TRUE, test=TRUE)
   as_gt(x2)
   as_gt(x2, keep_id=TRUE, show_test_name=FALSE, by_header="Cylinders")
 
   #by=c(cyl, am) --> error pour l'instant
-  x3=crosstable(mtcars2, c(mpg, vs, gear), by=c(cyl, am), total=T)
+  x3=crosstable(mtcars2, c(mpg, vs, gear), by=c(cyl, am), total=TRUE)
   expect_snapshot_error(as_gt(x3))
 })
