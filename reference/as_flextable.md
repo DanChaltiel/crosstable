@@ -134,7 +134,7 @@ crosstable_options(crosstable_fontsize_header=14,
 crosstable(iris) %>% as_flextable()
 
 
-.cl-bfb0d11e{table-layout:auto;}.cl-bfa8951c{font-family:'DejaVu Sans';font-size:14pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-bfa89530{font-family:'DejaVu Sans';font-size:8pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-bfabeef6{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-bfabef00{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-bfabef01{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-bfac2240{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bfac224a{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bfac224b{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bfac2254{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bfac2255{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bfac2256{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bfac225e{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+.cl-047a3f70{table-layout:auto;}.cl-04712e9e{font-family:'DejaVu Sans';font-size:14pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-04712eb2{font-family:'DejaVu Sans';font-size:8pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-0475b0c2{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-0475b0cc{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-0475b0d6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-0475e3f8{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0475e3f9{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0475e402{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0475e403{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0475e40c{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0475e40d{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0475e40e{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
 
 
 label
@@ -293,24 +293,31 @@ cols=[c](https://rdrr.io/r/base/c.html)(mpg, cyl), by=am, effect=TRUE,
 total=TRUE) [%\>%](https://magrittr.tidyverse.org/reference/pipe.html)
 as_flextable(compact=TRUE, header_show_n=TRUE,
 header_show_n_pattern=[list](https://rdrr.io/r/base/list.html)(cell="{.col}
-(N={.n})", total="Total\n(N={.n})")) \#\> Error in mutate(.,
-across(-any_of(c(id_from, name_to)), ~if_else(.data\[\[id_from\]\] %in%
-collapse_grp, .x\[.data\[\[name_to\]\] == collapse\] %0% NA, .x))): ℹ In
-argument: \`across(...)\`. \#\> Caused by error in \`across()\`: \#\> !
-Can't compute column \`auto\`. \#\> Caused by error in \`if_else()\`:
-\#\> ! could not find function "if_else" \#collapse levels mtcars2
-[%\>%](https://magrittr.tidyverse.org/reference/pipe.html) mutate(am_man
-= fct_recode(am, "Yes"="manual", "No"="auto"))
+(N={.n})", total="Total\n(N={.n})"))
+
+[TABLE]
+
+\#collapse levels mtcars2
+[%\>%](https://magrittr.tidyverse.org/reference/pipe.html)
+dplyr::[mutate](https://dplyr.tidyverse.org/reference/mutate.html)(am_man
+=
+forcats::[fct_recode](https://forcats.tidyverse.org/reference/fct_recode.html)(am,
+"Yes"="manual", "No"="auto"))
 [%\>%](https://magrittr.tidyverse.org/reference/pipe.html)
 [apply_labels](https://danchaltiel.github.io/crosstable/reference/apply_labels.md)(am_man="Manual
 transmission")
 [%\>%](https://magrittr.tidyverse.org/reference/pipe.html)
 [crosstable](https://danchaltiel.github.io/crosstable/reference/crosstable.md)([c](https://rdrr.io/r/base/c.html)(mpg,
-am_man, hp), by=vs, test=T, effect=T)
+am_man, hp), by=vs, test=TRUE, effect=TRUE)
 [%\>%](https://magrittr.tidyverse.org/reference/pipe.html)
-as_flextable(compact=TRUE, collapse="Yes") \#\> Error in mutate(.,
-am_man = fct_recode(am, Yes = "manual", No = "auto")): could not find
-function "mutate" \#Renaming (because why not?)
+as_flextable(compact=TRUE, collapse="Yes") \#\> Warning: Be aware that
+automatic global testing should only be done in an exploratory \#\>
+context, as it would cause extensive alpha inflation otherwise. \#\>
+This warning is displayed once every 8 hours.
+
+[TABLE]
+
+\#Renaming (because why not?)
 [crosstable](https://danchaltiel.github.io/crosstable/reference/crosstable.md)(mtcars2,
 am, by=vs, total="both", test=TRUE, effect=TRUE)
 [%\>%](https://magrittr.tidyverse.org/reference/pipe.html)
@@ -320,9 +327,6 @@ math=variable, Tot=Total, lab=label, pval=test, fx=effect)
 as_flextable(by_header = "Engine shape",
 generic_labels=[list](https://rdrr.io/r/base/list.html)(id = "ID",
 variable = "math", total="Tot", label = "lab", test = "pval",
-effect="fx")) \#\> Warning: Be aware that automatic global testing
-should only be done in an exploratory \#\> context, as it would cause
-extensive alpha inflation otherwise. \#\> This warning is displayed once
-every 8 hours.
+effect="fx"))
 
 [TABLE]
