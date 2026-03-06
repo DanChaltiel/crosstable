@@ -62,12 +62,16 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", ...,
   }
 
   collapse_grp = NULL
-  if(!is.null(collapse)){
-    #collapse the group if only 2 options and 50% of "Yes"
+  if(!is.null(collapse) && !isFALSE(collapse)){
+    #collapse the group if only 2 levels exactly, one being in `collapse`
     collapse_grp = data %>%
-      summarise(x=mean(!!ensym(name_to)==collapse), .by=.id) %>%
-      filter(x==0.5) %>%
-      pull(all_of(id_from))
+      filter(
+        n()==2, 
+        sum(!!ensym(name_to) %in% collapse)==1, 
+        .by=all_of(id_from)
+      ) %>% 
+      pull(all_of(id_from)) %>% 
+      unique()
   }
 
   data[[name_to]] = as.character(data[[name_to]])
@@ -78,15 +82,16 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", ...,
     bind_rows(data, .id="added") %>%
     arrange(factor(.data[[id_from]], levels=unique(data[[id_from]])), .data$added) %>%
     select(any_of(c(id_from, name_to)), everything(),
-           # -all_of(wrap_cols), all_of(wrap_cols),
            -any_of(remove_cols)) %>%
-    mutate(across(
-      -any_of(c(id_from, name_to)),
-      ~if_else(.data[[id_from]] %in% collapse_grp,
-               .x[.data[[name_to]]==collapse] %0% NA, .x)
-    )) %>%
-    mutate(across(all_of(wrap_cols), ~if_else(row_number()==1, na.omit(.x)[1], NA)),
-           .by=all_of(id_from)) %>%
+    mutate(
+      across(
+        -any_of(c(id_from, name_to)),
+        ~if_else(.data[[id_from]] %in% collapse_grp,
+                 .x[.data[[name_to]] %in% collapse] %0% NA, .x)
+      ),
+      across(all_of(wrap_cols), ~if_else(row_number()==1, na.omit(.x)[1], NA)),
+      .by=all_of(id_from)
+    ) %>%
     filter(!.data[[id_from]] %in% collapse_grp | row_number()==1,
            .by=all_of(id_from))
   rownames(rtn) = NULL #resets row numbers

@@ -41,14 +41,20 @@ test_that("Compacting inside or outside as_flextable.crosstable gives the same r
 
 
 test_that("Compact and collapse", {
+  local_reproducible_output(width=150)
+
+  x = mtcars2 %>%
+    mutate(
+      am = fct_recode(am, "Yes"="manual", "No"="auto"),
+      mpg20 = factor(mpg>20, labels=c("Non", "Oui"))
+    ) %>%
+    apply_labels(am="Manual transmission", mpg20="mpg > 20") %>%
+    crosstable(c(mpg, am, hp, mpg20), by=vs, effect=T) %>%
+    mutate(effect=str_remove_all(effect, "[\\d\\.]{3,}.*"))
 
   expect_snapshot({
-    x = mtcars2 %>%
-      mutate(am = fct_recode(am, "Yes"="manual", "No"="auto")) %>%
-      apply_labels(am="Manual transmission") %>%
-      crosstable(c(mpg, am, hp), by=vs, test=T, effect=T)
-    ct_compact(x)
-    ct_compact(x, collapse="Yes")
+    ct_compact(x) %>% as.data.frame()
+    ct_compact(x, collapse=c("Yes", "Oui")) %>% as.data.frame()
   })
 
 })

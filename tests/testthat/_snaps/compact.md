@@ -120,42 +120,39 @@
 # Compact and collapse
 
     Code
-      x = mtcars2 %>% mutate(am = fct_recode(am, Yes = "manual", No = "auto")) %>%
-        apply_labels(am = "Manual transmission") %>% crosstable(c(mpg, am, hp), by = vs,
-      test = T, effect = T)
-      ct_compact(x)
+      ct_compact(x) %>% as.data.frame()
     Output
-      # A tibble: 13 x 6
-         .id   variable            straight          vshaped             effect  test 
-       * <chr> <chr>               <chr>             <chr>               <chr>   <chr>
-       1 mpg   Miles/(US) gallon   <NA>              <NA>                "Diffe~ "p v~
-       2 mpg   Min / Max           17.8 / 33.9       10.4 / 26.0          <NA>    <NA>
-       3 mpg   Med [IQR]           22.8 [21.4;29.6]  15.6 [14.8;19.1]     <NA>    <NA>
-       4 mpg   Mean (std)          24.6 (5.4)        16.6 (3.9)           <NA>    <NA>
-       5 mpg   N (NA)              14 (0)            18 (0)               <NA>    <NA>
-       6 am    Manual transmission <NA>              <NA>                "Odds ~ "p v~
-       7 am    No                  7 (36.84%)        12 (63.16%)          <NA>    <NA>
-       8 am    Yes                 7 (53.85%)        6 (46.15%)           <NA>    <NA>
-       9 hp    Gross horsepower    <NA>              <NA>                "Diffe~ "p v~
-      10 hp    Min / Max           52.0 / 123.0      91.0 / 335.0         <NA>    <NA>
-      11 hp    Med [IQR]           96.0 [66.0;109.8] 180.0 [156.2;226.2]  <NA>    <NA>
-      12 hp    Mean (std)          91.4 (24.4)       189.7 (60.3)         <NA>    <NA>
-      13 hp    N (NA)              14 (0)            18 (0)               <NA>    <NA>
+           .id            variable          straight             vshaped                                                                     effect
+      1    mpg   Miles/(US) gallon              <NA>                <NA> Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -
+      2    mpg           Min / Max       17.8 / 33.9         10.4 / 26.0                                                                       <NA>
+      3    mpg           Med [IQR]  22.8 [21.4;29.6]    15.6 [14.8;19.1]                                                                       <NA>
+      4    mpg          Mean (std)        24.6 (5.4)          16.6 (3.9)                                                                       <NA>
+      5    mpg              N (NA)            14 (0)              18 (0)                                                                       <NA>
+      6     am Manual transmission              <NA>                <NA>           Odds ratio [95% Wald CI], ref='vshaped vs straight'\nYes vs No: 
+      7     am                  No        7 (36.84%)         12 (63.16%)                                                                       <NA>
+      8     am                 Yes        7 (53.85%)          6 (46.15%)                                                                       <NA>
+      9     hp    Gross horsepower              <NA>                <NA>   Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 
+      10    hp           Min / Max      52.0 / 123.0        91.0 / 335.0                                                                       <NA>
+      11    hp           Med [IQR] 96.0 [66.0;109.8] 180.0 [156.2;226.2]                                                                       <NA>
+      12    hp          Mean (std)       91.4 (24.4)        189.7 (60.3)                                                                       <NA>
+      13    hp              N (NA)            14 (0)              18 (0)                                                                       <NA>
+      14 mpg20            mpg > 20              <NA>                <NA>          Odds ratio [95% Wald CI], ref='vshaped vs straight'\nOui vs Non: 
+      15 mpg20                 Non        3 (16.67%)         15 (83.33%)                                                                       <NA>
+      16 mpg20                 Oui       11 (78.57%)          3 (21.43%)                                                                       <NA>
     Code
-      ct_compact(x, collapse = "Yes")
+      ct_compact(x, collapse = c("Yes", "Oui")) %>% as.data.frame()
     Output
-      # A tibble: 11 x 6
-         .id   variable            straight          vshaped             effect  test 
-       * <chr> <chr>               <chr>             <chr>               <chr>   <chr>
-       1 mpg   Miles/(US) gallon   <NA>              <NA>                "Diffe~ "p v~
-       2 mpg   Min / Max           17.8 / 33.9       10.4 / 26.0          <NA>    <NA>
-       3 mpg   Med [IQR]           22.8 [21.4;29.6]  15.6 [14.8;19.1]     <NA>    <NA>
-       4 mpg   Mean (std)          24.6 (5.4)        16.6 (3.9)           <NA>    <NA>
-       5 mpg   N (NA)              14 (0)            18 (0)               <NA>    <NA>
-       6 am    Manual transmission 7 (53.85%)        6 (46.15%)          "Odds ~ "p v~
-       7 hp    Gross horsepower    <NA>              <NA>                "Diffe~ "p v~
-       8 hp    Min / Max           52.0 / 123.0      91.0 / 335.0         <NA>    <NA>
-       9 hp    Med [IQR]           96.0 [66.0;109.8] 180.0 [156.2;226.2]  <NA>    <NA>
-      10 hp    Mean (std)          91.4 (24.4)       189.7 (60.3)         <NA>    <NA>
-      11 hp    N (NA)              14 (0)            18 (0)               <NA>    <NA>
+           .id            variable          straight             vshaped                                                                     effect
+      1    mpg   Miles/(US) gallon              <NA>                <NA> Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -
+      2    mpg           Min / Max       17.8 / 33.9         10.4 / 26.0                                                                       <NA>
+      3    mpg           Med [IQR]  22.8 [21.4;29.6]    15.6 [14.8;19.1]                                                                       <NA>
+      4    mpg          Mean (std)        24.6 (5.4)          16.6 (3.9)                                                                       <NA>
+      5    mpg              N (NA)            14 (0)              18 (0)                                                                       <NA>
+      6     am Manual transmission        7 (53.85%)          6 (46.15%)           Odds ratio [95% Wald CI], ref='vshaped vs straight'\nYes vs No: 
+      7     hp    Gross horsepower              <NA>                <NA>   Difference in means (Welch CI), ref='straight'\nvshaped minus straight: 
+      8     hp           Min / Max      52.0 / 123.0        91.0 / 335.0                                                                       <NA>
+      9     hp           Med [IQR] 96.0 [66.0;109.8] 180.0 [156.2;226.2]                                                                       <NA>
+      10    hp          Mean (std)       91.4 (24.4)        189.7 (60.3)                                                                       <NA>
+      11    hp              N (NA)            14 (0)              18 (0)                                                                       <NA>
+      12 mpg20            mpg > 20       11 (78.57%)          3 (21.43%)          Odds ratio [95% Wald CI], ref='vshaped vs straight'\nOui vs Non: 
 
