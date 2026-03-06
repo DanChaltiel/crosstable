@@ -39,6 +39,7 @@
 #' @param by_header For setting [as_flextable()] arguments globally.
 #' @param autofit For setting [as_flextable()] arguments globally.
 #' @param compact For setting [as_flextable()] arguments globally.
+#' @param collapse For setting [as_flextable()] arguments globally.
 #' @param remove_header_keys For setting [as_flextable()] arguments globally.
 #' @param show_test_name For setting [as_flextable()] arguments globally.
 #' @param padding_v For setting [as_flextable()] arguments globally.
@@ -96,7 +97,7 @@ crosstable_options = function(
     wrap_id=70,
     compact_padding=25,
     header_show_n_pattern="{.col} (N={.n})",
-    keep_id, by_header, autofit, compact, remove_header_keys, show_test_name, padding_v,
+    keep_id, by_header, autofit, compact, collapse, remove_header_keys, show_test_name, padding_v,
     header_show_n, fontsize_body, fontsize_subheaders, fontsize_header, generic_labels,
     #officer
     units="in",
@@ -213,7 +214,7 @@ crosstable_reset_options = function(quiet=FALSE){
 missing_options_helper = function(path="R/", ignore=NA){
   options_found = dir(path, full.names=T) %>%
     map(readLines) %>%
-    map(~str_subset(.x, "getOption")) %>%
+    map(~str_subset(.x, "getOption\\(")) %>%
     keep(~length(.x)>0) %>%
     unlist() %>%
     str_extract("getOption\\((.*?)[,\\)]", group=1) %>%
