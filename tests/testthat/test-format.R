@@ -32,6 +32,9 @@ test_that("`format_fixed` works", {
     format_fixed(x_posix)
     format_fixed(x_posix, date_format="%Y/%m/%d")
 
+    #test for 0.5 rounding
+    format_fixed(1.65)
+
     withr::with_package("lubridate", format_fixed(lubridate::days(1:5)))
     withr::with_package("lubridate", format_fixed(lubridate::weeks(1:5)))
   })

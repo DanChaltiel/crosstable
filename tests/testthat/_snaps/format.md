@@ -76,6 +76,10 @@
     Output
       [1] "1960/01/12" "1960/02/27" "1960/04/25"
     Code
+      format_fixed(1.65)
+    Output
+      [1] "1.6"
+    Code
       withr::with_package("lubridate", format_fixed(lubridate::days(1:5)))
     Output
       [1] "1d 0H 0M 0S" "2d 0H 0M 0S" "3d 0H 0M 0S" "4d 0H 0M 0S" "5d 0H 0M 0S"
