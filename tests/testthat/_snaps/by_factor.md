@@ -8,12 +8,12 @@
       1    am             Transmission            auto       2 (18.18%)       9 (81.82%)                8
       2    am             Transmission          manual       7 (53.85%)       6 (46.15%)                0
       3   mpg        Miles/(US) gallon       Min / Max      21.4 / 33.9      10.4 / 26.0      14.3 / 24.4
-      4   mpg        Miles/(US) gallon       Med [IQR] 27.3 [21.5;30.4] 15.5 [14.8;19.4] 18.4 [17.5;20.1]
+      4   mpg        Miles/(US) gallon       Med [IQR] 27.3 [21.5;30.4] 15.5 [14.9;19.5] 18.4 [17.5;20.1]
       5   mpg        Miles/(US) gallon      Mean (std)       26.8 (5.1)       16.6 (4.2)       19.0 (3.3)
       6   mpg        Miles/(US) gallon          N (NA)            9 (0)           15 (0)            8 (0)
       7   cyl      Number of cylinders               4       7 (87.50%)       1 (12.50%)                2
-      8   cyl      Number of cylinders               6           0 (0%)      1 (100.00%)                3
-      9   cyl      Number of cylinders               8           0 (0%)     11 (100.00%)                2
+      8   cyl      Number of cylinders               6           0 (0%)         1 (100%)                3
+      9   cyl      Number of cylinders               8           0 (0%)        11 (100%)                2
       10  cyl      Number of cylinders              NA                2                2                1
       11 surv Dummy survival (disp/am)             t=0       1.00 (0/9)      1.00 (0/15)       1.00 (0/8)
       12 surv Dummy survival (disp/am)           t=100       0.44 (5/4)      1.00 (0/15)       1.00 (0/8)
@@ -28,12 +28,12 @@
       1    am             Transmission            auto       2 (18.18%)       9 (81.82%)
       2    am             Transmission          manual       7 (53.85%)       6 (46.15%)
       3   mpg        Miles/(US) gallon       Min / Max      21.4 / 33.9      10.4 / 26.0
-      4   mpg        Miles/(US) gallon       Med [IQR] 27.3 [21.5;30.4] 15.5 [14.8;19.4]
+      4   mpg        Miles/(US) gallon       Med [IQR] 27.3 [21.5;30.4] 15.5 [14.9;19.5]
       5   mpg        Miles/(US) gallon      Mean (std)       26.8 (5.1)       16.6 (4.2)
       6   mpg        Miles/(US) gallon          N (NA)            9 (0)           15 (0)
       7   cyl      Number of cylinders               4       7 (87.50%)       1 (12.50%)
-      8   cyl      Number of cylinders               6           0 (0%)      1 (100.00%)
-      9   cyl      Number of cylinders               8           0 (0%)     11 (100.00%)
+      8   cyl      Number of cylinders               6           0 (0%)         1 (100%)
+      9   cyl      Number of cylinders               8           0 (0%)        11 (100%)
       10 surv Dummy survival (disp/am)             t=0       1.00 (0/9)      1.00 (0/15)
       11 surv Dummy survival (disp/am)           t=100       0.44 (5/4)      1.00 (0/15)
       12 surv Dummy survival (disp/am)           t=200       0.17 (2/1)      0.73 (4/11)
@@ -47,12 +47,12 @@
       1    am             Transmission            auto       2 (18.18%)       9 (81.82%)                8
       2    am             Transmission          manual       7 (53.85%)       6 (46.15%)                0
       3   mpg        Miles/(US) gallon       Min / Max      21.4 / 33.9      10.4 / 26.0      14.3 / 24.4
-      4   mpg        Miles/(US) gallon       Med [IQR] 27.3 [21.5;30.4] 15.5 [14.8;19.4] 18.4 [17.5;20.1]
+      4   mpg        Miles/(US) gallon       Med [IQR] 27.3 [21.5;30.4] 15.5 [14.9;19.5] 18.4 [17.5;20.1]
       5   mpg        Miles/(US) gallon      Mean (std)       26.8 (5.1)       16.6 (4.2)       19.0 (3.3)
       6   mpg        Miles/(US) gallon          N (NA)            9 (0)           15 (0)            8 (0)
       7   cyl      Number of cylinders               4       7 (87.50%)       1 (12.50%)                2
-      8   cyl      Number of cylinders               6           0 (0%)      1 (100.00%)                3
-      9   cyl      Number of cylinders               8           0 (0%)     11 (100.00%)                2
+      8   cyl      Number of cylinders               6           0 (0%)         1 (100%)                3
+      9   cyl      Number of cylinders               8           0 (0%)        11 (100%)                2
       10  cyl      Number of cylinders              NA                2                2                1
       11 surv Dummy survival (disp/am)             t=0       1.00 (0/9)      1.00 (0/15)       1.00 (0/8)
       12 surv Dummy survival (disp/am)           t=100       0.44 (5/4)      1.00 (0/15)       1.00 (0/8)
@@ -68,12 +68,12 @@
       2    am             Transmission          manual       7 (53.85%)       6 (46.15%)                0
       3    am             Transmission              NA                0                0                0
       4   mpg        Miles/(US) gallon       Min / Max      21.4 / 33.9      10.4 / 26.0      14.3 / 24.4
-      5   mpg        Miles/(US) gallon       Med [IQR] 27.3 [21.5;30.4] 15.5 [14.8;19.4] 18.4 [17.5;20.1]
+      5   mpg        Miles/(US) gallon       Med [IQR] 27.3 [21.5;30.4] 15.5 [14.9;19.5] 18.4 [17.5;20.1]
       6   mpg        Miles/(US) gallon      Mean (std)       26.8 (5.1)       16.6 (4.2)       19.0 (3.3)
       7   mpg        Miles/(US) gallon          N (NA)            9 (0)           15 (0)            8 (0)
       8   cyl      Number of cylinders               4       7 (87.50%)       1 (12.50%)                2
-      9   cyl      Number of cylinders               6           0 (0%)      1 (100.00%)                3
-      10  cyl      Number of cylinders               8           0 (0%)     11 (100.00%)                2
+      9   cyl      Number of cylinders               6           0 (0%)         1 (100%)                3
+      10  cyl      Number of cylinders               8           0 (0%)        11 (100%)                2
       11  cyl      Number of cylinders              NA                2                2                1
       12 surv Dummy survival (disp/am)             t=0       1.00 (0/9)      1.00 (0/15)       1.00 (0/8)
       13 surv Dummy survival (disp/am)           t=100       0.44 (5/4)      1.00 (0/15)       1.00 (0/8)
@@ -92,7 +92,7 @@
       2    vs                   Engine         vshaped       9 (60.00%)       6 (40.00%)
       3    vs                   Engine              NA                8                0
       4   mpg        Miles/(US) gallon       Min / Max      10.4 / 24.4      15.0 / 33.9
-      5   mpg        Miles/(US) gallon       Med [IQR] 17.3 [14.9;19.2] 22.8 [21.0;30.4]
+      5   mpg        Miles/(US) gallon       Med [IQR] 17.3 [15.0;19.2] 22.8 [21.0;30.4]
       6   mpg        Miles/(US) gallon      Mean (std)       17.1 (3.8)       24.4 (6.2)
       7   mpg        Miles/(US) gallon          N (NA)           19 (0)           13 (0)
       8   cyl      Number of cylinders               4       3 (30.00%)       7 (70.00%)
@@ -112,7 +112,7 @@
       1    vs                   Engine        straight       2 (22.22%)       7 (77.78%)
       2    vs                   Engine         vshaped       9 (60.00%)       6 (40.00%)
       3   mpg        Miles/(US) gallon       Min / Max      10.4 / 24.4      15.0 / 33.9
-      4   mpg        Miles/(US) gallon       Med [IQR] 17.3 [14.9;19.2] 22.8 [21.0;30.4]
+      4   mpg        Miles/(US) gallon       Med [IQR] 17.3 [15.0;19.2] 22.8 [21.0;30.4]
       5   mpg        Miles/(US) gallon      Mean (std)       17.1 (3.8)       24.4 (6.2)
       6   mpg        Miles/(US) gallon          N (NA)           19 (0)           13 (0)
       7   cyl      Number of cylinders               4       3 (30.00%)       7 (70.00%)
@@ -132,7 +132,7 @@
       2    vs                   Engine         vshaped       9 (60.00%)       6 (40.00%)
       3    vs                   Engine              NA                8                0
       4   mpg        Miles/(US) gallon       Min / Max      10.4 / 24.4      15.0 / 33.9
-      5   mpg        Miles/(US) gallon       Med [IQR] 17.3 [14.9;19.2] 22.8 [21.0;30.4]
+      5   mpg        Miles/(US) gallon       Med [IQR] 17.3 [15.0;19.2] 22.8 [21.0;30.4]
       6   mpg        Miles/(US) gallon      Mean (std)       17.1 (3.8)       24.4 (6.2)
       7   mpg        Miles/(US) gallon          N (NA)           19 (0)           13 (0)
       8   cyl      Number of cylinders               4       3 (30.00%)       7 (70.00%)
@@ -153,7 +153,7 @@
       2    vs                   Engine         vshaped       9 (60.00%)       6 (40.00%)     0
       3    vs                   Engine              NA                8                0     0
       4   mpg        Miles/(US) gallon       Min / Max      10.4 / 24.4      15.0 / 33.9 no NA
-      5   mpg        Miles/(US) gallon       Med [IQR] 17.3 [14.9;19.2] 22.8 [21.0;30.4] no NA
+      5   mpg        Miles/(US) gallon       Med [IQR] 17.3 [15.0;19.2] 22.8 [21.0;30.4] no NA
       6   mpg        Miles/(US) gallon      Mean (std)       17.1 (3.8)       24.4 (6.2) no NA
       7   mpg        Miles/(US) gallon          N (NA)           19 (0)           13 (0) no NA
       8   cyl      Number of cylinders               4       3 (30.00%)       7 (70.00%)     0
@@ -176,12 +176,12 @@
       1    am             Transmission            auto       2 (18.18%)       9 (81.82%)                8
       2    am             Transmission          manual       7 (53.85%)       6 (46.15%)                0
       3   mpg        Miles/(US) gallon       Min / Max      21.4 / 33.9      10.4 / 26.0      14.3 / 24.4
-      4   mpg        Miles/(US) gallon       Med [IQR] 27.3 [21.5;30.4] 15.5 [14.8;19.4] 18.4 [17.5;20.1]
+      4   mpg        Miles/(US) gallon       Med [IQR] 27.3 [21.5;30.4] 15.5 [14.9;19.5] 18.4 [17.5;20.1]
       5   mpg        Miles/(US) gallon      Mean (std)       26.8 (5.1)       16.6 (4.2)       19.0 (3.3)
       6   mpg        Miles/(US) gallon          N (NA)            9 (0)           15 (0)            8 (0)
       7   cyl      Number of cylinders               4       7 (87.50%)       1 (12.50%)                2
-      8   cyl      Number of cylinders               6           0 (0%)      1 (100.00%)                3
-      9   cyl      Number of cylinders               8           0 (0%)     11 (100.00%)                2
+      8   cyl      Number of cylinders               6           0 (0%)         1 (100%)                3
+      9   cyl      Number of cylinders               8           0 (0%)        11 (100%)                2
       10  cyl      Number of cylinders              NA                2                2                1
       11 surv Dummy survival (disp/am)             t=0       1.00 (0/9)      1.00 (0/15)       1.00 (0/8)
       12 surv Dummy survival (disp/am)           t=100       0.44 (5/4)      1.00 (0/15)       1.00 (0/8)
@@ -196,12 +196,12 @@
       1    am             Transmission            auto       2 (18.18%)       9 (81.82%)                8
       2    am             Transmission          manual       7 (53.85%)       6 (46.15%)                0
       3   mpg        Miles/(US) gallon       Min / Max      21.4 / 33.9      10.4 / 26.0      14.3 / 24.4
-      4   mpg        Miles/(US) gallon       Med [IQR] 27.3 [21.5;30.4] 15.5 [14.8;19.4] 18.4 [17.5;20.1]
+      4   mpg        Miles/(US) gallon       Med [IQR] 27.3 [21.5;30.4] 15.5 [14.9;19.5] 18.4 [17.5;20.1]
       5   mpg        Miles/(US) gallon      Mean (std)       26.8 (5.1)       16.6 (4.2)       19.0 (3.3)
       6   mpg        Miles/(US) gallon          N (NA)            9 (0)           15 (0)            8 (0)
       7   cyl      Number of cylinders               4       7 (87.50%)       1 (12.50%)                2
-      8   cyl      Number of cylinders               6           0 (0%)      1 (100.00%)                3
-      9   cyl      Number of cylinders               8           0 (0%)     11 (100.00%)                2
+      8   cyl      Number of cylinders               6           0 (0%)         1 (100%)                3
+      9   cyl      Number of cylinders               8           0 (0%)        11 (100%)                2
       10  cyl      Number of cylinders              NA                2                2                1
       11 surv Dummy survival (disp/am)             t=0       1.00 (0/9)      1.00 (0/15)       1.00 (0/8)
       12 surv Dummy survival (disp/am)           t=100       0.44 (5/4)      1.00 (0/15)       1.00 (0/8)
@@ -216,12 +216,12 @@
       1    am             Transmission            auto       2 (18.18%)       9 (81.82%)                8      19 (59.38%)
       2    am             Transmission          manual       7 (53.85%)       6 (46.15%)                0      13 (40.62%)
       3   mpg        Miles/(US) gallon       Min / Max      21.4 / 33.9      10.4 / 26.0      14.3 / 24.4      10.4 / 33.9
-      4   mpg        Miles/(US) gallon       Med [IQR] 27.3 [21.5;30.4] 15.5 [14.8;19.4] 18.4 [17.5;20.1] 19.2 [15.4;22.8]
+      4   mpg        Miles/(US) gallon       Med [IQR] 27.3 [21.5;30.4] 15.5 [14.9;19.5] 18.4 [17.5;20.1] 19.2 [15.4;22.8]
       5   mpg        Miles/(US) gallon      Mean (std)       26.8 (5.1)       16.6 (4.2)       19.0 (3.3)       20.1 (6.0)
       6   mpg        Miles/(US) gallon          N (NA)            9 (0)           15 (0)            8 (0)           32 (0)
       7   cyl      Number of cylinders               4       7 (87.50%)       1 (12.50%)                2      10 (37.04%)
-      8   cyl      Number of cylinders               6           0 (0%)      1 (100.00%)                3       4 (14.81%)
-      9   cyl      Number of cylinders               8           0 (0%)     11 (100.00%)                2      13 (48.15%)
+      8   cyl      Number of cylinders               6           0 (0%)         1 (100%)                3       4 (14.81%)
+      9   cyl      Number of cylinders               8           0 (0%)        11 (100%)                2      13 (48.15%)
       10  cyl      Number of cylinders              NA                2                2                1                5
       11 surv Dummy survival (disp/am)             t=0       1.00 (0/9)      1.00 (0/15)       1.00 (0/8)      1.00 (0/32)
       12 surv Dummy survival (disp/am)           t=100       0.44 (5/4)      1.00 (0/15)       1.00 (0/8)      0.84 (5/27)
@@ -237,12 +237,12 @@
       2    am             Transmission          manual       7 (53.85%)       6 (46.15%)                0
       3    am             Transmission           Total       9 (37.50%)      15 (62.50%)                8
       4   mpg        Miles/(US) gallon       Min / Max      21.4 / 33.9      10.4 / 26.0      14.3 / 24.4
-      5   mpg        Miles/(US) gallon       Med [IQR] 27.3 [21.5;30.4] 15.5 [14.8;19.4] 18.4 [17.5;20.1]
+      5   mpg        Miles/(US) gallon       Med [IQR] 27.3 [21.5;30.4] 15.5 [14.9;19.5] 18.4 [17.5;20.1]
       6   mpg        Miles/(US) gallon      Mean (std)       26.8 (5.1)       16.6 (4.2)       19.0 (3.3)
       7   mpg        Miles/(US) gallon          N (NA)            9 (0)           15 (0)            8 (0)
       8   cyl      Number of cylinders               4       7 (87.50%)       1 (12.50%)                2
-      9   cyl      Number of cylinders               6           0 (0%)      1 (100.00%)                3
-      10  cyl      Number of cylinders               8           0 (0%)     11 (100.00%)                2
+      9   cyl      Number of cylinders               6           0 (0%)         1 (100%)                3
+      10  cyl      Number of cylinders               8           0 (0%)        11 (100%)                2
       11  cyl      Number of cylinders              NA                2                2                1
       12  cyl      Number of cylinders           Total       9 (37.50%)      15 (62.50%)                8
       13 surv Dummy survival (disp/am)             t=0       1.00 (0/9)      1.00 (0/15)       1.00 (0/8)
@@ -257,16 +257,16 @@
           .id                    label        variable         straight          vshaped               NA            Total
       1    am             Transmission            auto       2 (18.18%)       9 (81.82%)                8      19 (59.38%)
       2    am             Transmission          manual       7 (53.85%)       6 (46.15%)                0      13 (40.62%)
-      3    am             Transmission           Total       9 (37.50%)      15 (62.50%)                8     32 (100.00%)
+      3    am             Transmission           Total       9 (37.50%)      15 (62.50%)                8        32 (100%)
       4   mpg        Miles/(US) gallon       Min / Max      21.4 / 33.9      10.4 / 26.0      14.3 / 24.4      10.4 / 33.9
-      5   mpg        Miles/(US) gallon       Med [IQR] 27.3 [21.5;30.4] 15.5 [14.8;19.4] 18.4 [17.5;20.1] 19.2 [15.4;22.8]
+      5   mpg        Miles/(US) gallon       Med [IQR] 27.3 [21.5;30.4] 15.5 [14.9;19.5] 18.4 [17.5;20.1] 19.2 [15.4;22.8]
       6   mpg        Miles/(US) gallon      Mean (std)       26.8 (5.1)       16.6 (4.2)       19.0 (3.3)       20.1 (6.0)
       7   mpg        Miles/(US) gallon          N (NA)            9 (0)           15 (0)            8 (0)           32 (0)
       8   cyl      Number of cylinders               4       7 (87.50%)       1 (12.50%)                2      10 (37.04%)
-      9   cyl      Number of cylinders               6           0 (0%)      1 (100.00%)                3       4 (14.81%)
-      10  cyl      Number of cylinders               8           0 (0%)     11 (100.00%)                2      13 (48.15%)
+      9   cyl      Number of cylinders               6           0 (0%)         1 (100%)                3       4 (14.81%)
+      10  cyl      Number of cylinders               8           0 (0%)        11 (100%)                2      13 (48.15%)
       11  cyl      Number of cylinders              NA                2                2                1                5
-      12  cyl      Number of cylinders           Total       9 (37.50%)      15 (62.50%)                8     32 (100.00%)
+      12  cyl      Number of cylinders           Total       9 (37.50%)      15 (62.50%)                8        32 (100%)
       13 surv Dummy survival (disp/am)             t=0       1.00 (0/9)      1.00 (0/15)       1.00 (0/8)      1.00 (0/32)
       14 surv Dummy survival (disp/am)           t=100       0.44 (5/4)      1.00 (0/15)       1.00 (0/8)      0.84 (5/27)
       15 surv Dummy survival (disp/am)           t=200       0.17 (2/1)      0.73 (4/11)       1.00 (0/4)      0.64 (6/16)
@@ -279,35 +279,35 @@
       x0 = crosstable(mtcars3, c(am, cyl), by = vs, total = "none")
       as.data.frame(x0)
     Output
-        .id               label variable   straight      vshaped NA
-      1  am        Transmission     auto 2 (18.18%)   9 (81.82%)  8
-      2  am        Transmission   manual 7 (53.85%)   6 (46.15%)  0
-      3 cyl Number of cylinders        4 7 (87.50%)   1 (12.50%)  2
-      4 cyl Number of cylinders        6     0 (0%)  1 (100.00%)  3
-      5 cyl Number of cylinders        8     0 (0%) 11 (100.00%)  2
-      6 cyl Number of cylinders       NA          2            2  1
+        .id               label variable   straight    vshaped NA
+      1  am        Transmission     auto 2 (18.18%) 9 (81.82%)  8
+      2  am        Transmission   manual 7 (53.85%) 6 (46.15%)  0
+      3 cyl Number of cylinders        4 7 (87.50%) 1 (12.50%)  2
+      4 cyl Number of cylinders        6     0 (0%)   1 (100%)  3
+      5 cyl Number of cylinders        8     0 (0%)  11 (100%)  2
+      6 cyl Number of cylinders       NA          2          2  1
     Code
       x1 = crosstable(mtcars3, c(am, cyl), by = vs, total = "none", margin = "row")
       as.data.frame(x1)
     Output
-        .id               label variable   straight      vshaped NA
-      1  am        Transmission     auto 2 (18.18%)   9 (81.82%)  8
-      2  am        Transmission   manual 7 (53.85%)   6 (46.15%)  0
-      3 cyl Number of cylinders        4 7 (87.50%)   1 (12.50%)  2
-      4 cyl Number of cylinders        6     0 (0%)  1 (100.00%)  3
-      5 cyl Number of cylinders        8     0 (0%) 11 (100.00%)  2
-      6 cyl Number of cylinders       NA          2            2  1
+        .id               label variable   straight    vshaped NA
+      1  am        Transmission     auto 2 (18.18%) 9 (81.82%)  8
+      2  am        Transmission   manual 7 (53.85%) 6 (46.15%)  0
+      3 cyl Number of cylinders        4 7 (87.50%) 1 (12.50%)  2
+      4 cyl Number of cylinders        6     0 (0%)   1 (100%)  3
+      5 cyl Number of cylinders        8     0 (0%)  11 (100%)  2
+      6 cyl Number of cylinders       NA          2          2  1
     Code
       x2 = crosstable(mtcars3, c(am, cyl), by = vs, total = "none", margin = "col")
       as.data.frame(x2)
     Output
-        .id               label variable    straight     vshaped NA
-      1  am        Transmission     auto  2 (22.22%)  9 (60.00%)  8
-      2  am        Transmission   manual  7 (77.78%)  6 (40.00%)  0
-      3 cyl Number of cylinders        4 7 (100.00%)   1 (7.69%)  2
-      4 cyl Number of cylinders        6      0 (0%)   1 (7.69%)  3
-      5 cyl Number of cylinders        8      0 (0%) 11 (84.62%)  2
-      6 cyl Number of cylinders       NA           2           2  1
+        .id               label variable   straight     vshaped NA
+      1  am        Transmission     auto 2 (22.22%)  9 (60.00%)  8
+      2  am        Transmission   manual 7 (77.78%)  6 (40.00%)  0
+      3 cyl Number of cylinders        4   7 (100%)   1 (7.69%)  2
+      4 cyl Number of cylinders        6     0 (0%)   1 (7.69%)  3
+      5 cyl Number of cylinders        8     0 (0%) 11 (84.62%)  2
+      6 cyl Number of cylinders       NA          2           2  1
     Code
       x3 = crosstable(mtcars3, c(am, cyl), by = vs, total = "none", margin = "cell")
       as.data.frame(x3)
@@ -334,24 +334,24 @@
       x5 = crosstable(mtcars3, c(am, cyl), by = vs, total = "none", margin = "all")
       as.data.frame(x5)
     Output
-        .id               label variable                      straight                        vshaped NA
-      1  am        Transmission     auto   2 (8.33% / 18.18% / 22.22%)   9 (37.50% / 81.82% / 60.00%)  8
-      2  am        Transmission   manual  7 (29.17% / 53.85% / 77.78%)   6 (25.00% / 46.15% / 40.00%)  0
-      3 cyl Number of cylinders        4 7 (35.00% / 87.50% / 100.00%)     1 (5.00% / 12.50% / 7.69%)  2
-      4 cyl Number of cylinders        6              0 (0% / 0% / 0%)    1 (5.00% / 100.00% / 7.69%)  3
-      5 cyl Number of cylinders        8              0 (0% / 0% / 0%) 11 (55.00% / 100.00% / 84.62%)  2
-      6 cyl Number of cylinders       NA                             2                              2  1
+        .id               label variable                     straight                      vshaped NA
+      1  am        Transmission     auto  2 (8.33% / 18.18% / 22.22%) 9 (37.50% / 81.82% / 60.00%)  8
+      2  am        Transmission   manual 7 (29.17% / 53.85% / 77.78%) 6 (25.00% / 46.15% / 40.00%)  0
+      3 cyl Number of cylinders        4   7 (35.00% / 87.50% / 100%)   1 (5.00% / 12.50% / 7.69%)  2
+      4 cyl Number of cylinders        6             0 (0% / 0% / 0%)     1 (5.00% / 100% / 7.69%)  3
+      5 cyl Number of cylinders        8             0 (0% / 0% / 0%)  11 (55.00% / 100% / 84.62%)  2
+      6 cyl Number of cylinders       NA                            2                            2  1
     Code
       x6 = crosstable(mtcars3, c(am, cyl), by = vs, total = "none", margin = 1:2)
       as.data.frame(x6)
     Output
-        .id               label variable             straight               vshaped NA
-      1  am        Transmission     auto  2 (18.18% / 22.22%)   9 (81.82% / 60.00%)  8
-      2  am        Transmission   manual  7 (53.85% / 77.78%)   6 (46.15% / 40.00%)  0
-      3 cyl Number of cylinders        4 7 (87.50% / 100.00%)    1 (12.50% / 7.69%)  2
-      4 cyl Number of cylinders        6          0 (0% / 0%)   1 (100.00% / 7.69%)  3
-      5 cyl Number of cylinders        8          0 (0% / 0%) 11 (100.00% / 84.62%)  2
-      6 cyl Number of cylinders       NA                    2                     2  1
+        .id               label variable            straight             vshaped NA
+      1  am        Transmission     auto 2 (18.18% / 22.22%) 9 (81.82% / 60.00%)  8
+      2  am        Transmission   manual 7 (53.85% / 77.78%) 6 (46.15% / 40.00%)  0
+      3 cyl Number of cylinders        4   7 (87.50% / 100%)  1 (12.50% / 7.69%)  2
+      4 cyl Number of cylinders        6         0 (0% / 0%)    1 (100% / 7.69%)  3
+      5 cyl Number of cylinders        8         0 (0% / 0%)  11 (100% / 84.62%)  2
+      6 cyl Number of cylinders       NA                   2                   2  1
 
 # Margins with totals
 
@@ -359,54 +359,54 @@
       x0 = crosstable(mtcars3, c(am, cyl), by = vs, total = "both")
       as.data.frame(x0)
     Output
-        .id               label variable   straight      vshaped NA        Total
-      1  am        Transmission     auto 2 (18.18%)   9 (81.82%)  8  19 (59.38%)
-      2  am        Transmission   manual 7 (53.85%)   6 (46.15%)  0  13 (40.62%)
-      3  am        Transmission    Total 9 (37.50%)  15 (62.50%)  8 32 (100.00%)
-      4 cyl Number of cylinders        4 7 (87.50%)   1 (12.50%)  2  10 (37.04%)
-      5 cyl Number of cylinders        6     0 (0%)  1 (100.00%)  3   4 (14.81%)
-      6 cyl Number of cylinders        8     0 (0%) 11 (100.00%)  2  13 (48.15%)
-      7 cyl Number of cylinders       NA          2            2  1            5
-      8 cyl Number of cylinders    Total 9 (37.50%)  15 (62.50%)  8 32 (100.00%)
+        .id               label variable   straight     vshaped NA       Total
+      1  am        Transmission     auto 2 (18.18%)  9 (81.82%)  8 19 (59.38%)
+      2  am        Transmission   manual 7 (53.85%)  6 (46.15%)  0 13 (40.62%)
+      3  am        Transmission    Total 9 (37.50%) 15 (62.50%)  8   32 (100%)
+      4 cyl Number of cylinders        4 7 (87.50%)  1 (12.50%)  2 10 (37.04%)
+      5 cyl Number of cylinders        6     0 (0%)    1 (100%)  3  4 (14.81%)
+      6 cyl Number of cylinders        8     0 (0%)   11 (100%)  2 13 (48.15%)
+      7 cyl Number of cylinders       NA          2           2  1           5
+      8 cyl Number of cylinders    Total 9 (37.50%) 15 (62.50%)  8   32 (100%)
     Code
       x1 = crosstable(mtcars3, c(am, cyl), by = vs, total = "both", margin = "row")
       as.data.frame(x1)
     Output
-        .id               label variable   straight      vshaped NA        Total
-      1  am        Transmission     auto 2 (18.18%)   9 (81.82%)  8  19 (59.38%)
-      2  am        Transmission   manual 7 (53.85%)   6 (46.15%)  0  13 (40.62%)
-      3  am        Transmission    Total 9 (37.50%)  15 (62.50%)  8 32 (100.00%)
-      4 cyl Number of cylinders        4 7 (87.50%)   1 (12.50%)  2  10 (37.04%)
-      5 cyl Number of cylinders        6     0 (0%)  1 (100.00%)  3   4 (14.81%)
-      6 cyl Number of cylinders        8     0 (0%) 11 (100.00%)  2  13 (48.15%)
-      7 cyl Number of cylinders       NA          2            2  1            5
-      8 cyl Number of cylinders    Total 9 (37.50%)  15 (62.50%)  8 32 (100.00%)
+        .id               label variable   straight     vshaped NA       Total
+      1  am        Transmission     auto 2 (18.18%)  9 (81.82%)  8 19 (59.38%)
+      2  am        Transmission   manual 7 (53.85%)  6 (46.15%)  0 13 (40.62%)
+      3  am        Transmission    Total 9 (37.50%) 15 (62.50%)  8   32 (100%)
+      4 cyl Number of cylinders        4 7 (87.50%)  1 (12.50%)  2 10 (37.04%)
+      5 cyl Number of cylinders        6     0 (0%)    1 (100%)  3  4 (14.81%)
+      6 cyl Number of cylinders        8     0 (0%)   11 (100%)  2 13 (48.15%)
+      7 cyl Number of cylinders       NA          2           2  1           5
+      8 cyl Number of cylinders    Total 9 (37.50%) 15 (62.50%)  8   32 (100%)
     Code
       x2 = crosstable(mtcars3, c(am, cyl), by = vs, total = "both", margin = "col")
       as.data.frame(x2)
     Output
-        .id               label variable    straight     vshaped NA        Total
-      1  am        Transmission     auto  2 (22.22%)  9 (60.00%)  8  19 (59.38%)
-      2  am        Transmission   manual  7 (77.78%)  6 (40.00%)  0  13 (40.62%)
-      3  am        Transmission    Total  9 (37.50%) 15 (62.50%)  8 32 (100.00%)
-      4 cyl Number of cylinders        4 7 (100.00%)   1 (7.69%)  2  10 (37.04%)
-      5 cyl Number of cylinders        6      0 (0%)   1 (7.69%)  3   4 (14.81%)
-      6 cyl Number of cylinders        8      0 (0%) 11 (84.62%)  2  13 (48.15%)
-      7 cyl Number of cylinders       NA           2           2  1            5
-      8 cyl Number of cylinders    Total  9 (37.50%) 15 (62.50%)  8 32 (100.00%)
+        .id               label variable   straight     vshaped NA       Total
+      1  am        Transmission     auto 2 (22.22%)  9 (60.00%)  8 19 (59.38%)
+      2  am        Transmission   manual 7 (77.78%)  6 (40.00%)  0 13 (40.62%)
+      3  am        Transmission    Total 9 (37.50%) 15 (62.50%)  8   32 (100%)
+      4 cyl Number of cylinders        4   7 (100%)   1 (7.69%)  2 10 (37.04%)
+      5 cyl Number of cylinders        6     0 (0%)   1 (7.69%)  3  4 (14.81%)
+      6 cyl Number of cylinders        8     0 (0%) 11 (84.62%)  2 13 (48.15%)
+      7 cyl Number of cylinders       NA          2           2  1           5
+      8 cyl Number of cylinders    Total 9 (37.50%) 15 (62.50%)  8   32 (100%)
     Code
       x3 = crosstable(mtcars3, c(am, cyl), by = vs, total = "both", margin = "cell")
       as.data.frame(x3)
     Output
-        .id               label variable   straight     vshaped NA        Total
-      1  am        Transmission     auto  2 (8.33%)  9 (37.50%)  8  19 (59.38%)
-      2  am        Transmission   manual 7 (29.17%)  6 (25.00%)  0  13 (40.62%)
-      3  am        Transmission    Total 9 (37.50%) 15 (62.50%)  8 32 (100.00%)
-      4 cyl Number of cylinders        4 7 (35.00%)   1 (5.00%)  2  10 (37.04%)
-      5 cyl Number of cylinders        6     0 (0%)   1 (5.00%)  3   4 (14.81%)
-      6 cyl Number of cylinders        8     0 (0%) 11 (55.00%)  2  13 (48.15%)
-      7 cyl Number of cylinders       NA          2           2  1            5
-      8 cyl Number of cylinders    Total 9 (37.50%) 15 (62.50%)  8 32 (100.00%)
+        .id               label variable   straight     vshaped NA       Total
+      1  am        Transmission     auto  2 (8.33%)  9 (37.50%)  8 19 (59.38%)
+      2  am        Transmission   manual 7 (29.17%)  6 (25.00%)  0 13 (40.62%)
+      3  am        Transmission    Total 9 (37.50%) 15 (62.50%)  8   32 (100%)
+      4 cyl Number of cylinders        4 7 (35.00%)   1 (5.00%)  2 10 (37.04%)
+      5 cyl Number of cylinders        6     0 (0%)   1 (5.00%)  3  4 (14.81%)
+      6 cyl Number of cylinders        8     0 (0%) 11 (55.00%)  2 13 (48.15%)
+      7 cyl Number of cylinders       NA          2           2  1           5
+      8 cyl Number of cylinders    Total 9 (37.50%) 15 (62.50%)  8   32 (100%)
     Code
       x4 = crosstable(mtcars3, c(am, cyl), by = vs, total = "both", margin = "none")
       as.data.frame(x4)
@@ -424,28 +424,28 @@
       x5 = crosstable(mtcars3, c(am, cyl), by = vs, total = "both", margin = "all")
       as.data.frame(x5)
     Output
-        .id               label variable                      straight                        vshaped NA        Total
-      1  am        Transmission     auto   2 (8.33% / 18.18% / 22.22%)   9 (37.50% / 81.82% / 60.00%)  8  19 (59.38%)
-      2  am        Transmission   manual  7 (29.17% / 53.85% / 77.78%)   6 (25.00% / 46.15% / 40.00%)  0  13 (40.62%)
-      3  am        Transmission    Total                    9 (37.50%)                    15 (62.50%)  8 32 (100.00%)
-      4 cyl Number of cylinders        4 7 (35.00% / 87.50% / 100.00%)     1 (5.00% / 12.50% / 7.69%)  2  10 (37.04%)
-      5 cyl Number of cylinders        6              0 (0% / 0% / 0%)    1 (5.00% / 100.00% / 7.69%)  3   4 (14.81%)
-      6 cyl Number of cylinders        8              0 (0% / 0% / 0%) 11 (55.00% / 100.00% / 84.62%)  2  13 (48.15%)
-      7 cyl Number of cylinders       NA                             2                              2  1            5
-      8 cyl Number of cylinders    Total                    9 (37.50%)                    15 (62.50%)  8 32 (100.00%)
+        .id               label variable                     straight                      vshaped NA       Total
+      1  am        Transmission     auto  2 (8.33% / 18.18% / 22.22%) 9 (37.50% / 81.82% / 60.00%)  8 19 (59.38%)
+      2  am        Transmission   manual 7 (29.17% / 53.85% / 77.78%) 6 (25.00% / 46.15% / 40.00%)  0 13 (40.62%)
+      3  am        Transmission    Total                   9 (37.50%)                  15 (62.50%)  8   32 (100%)
+      4 cyl Number of cylinders        4   7 (35.00% / 87.50% / 100%)   1 (5.00% / 12.50% / 7.69%)  2 10 (37.04%)
+      5 cyl Number of cylinders        6             0 (0% / 0% / 0%)     1 (5.00% / 100% / 7.69%)  3  4 (14.81%)
+      6 cyl Number of cylinders        8             0 (0% / 0% / 0%)  11 (55.00% / 100% / 84.62%)  2 13 (48.15%)
+      7 cyl Number of cylinders       NA                            2                            2  1           5
+      8 cyl Number of cylinders    Total                   9 (37.50%)                  15 (62.50%)  8   32 (100%)
     Code
       x6 = crosstable(mtcars3, c(am, cyl), by = vs, total = "both", margin = 1:2)
       as.data.frame(x6)
     Output
-        .id               label variable             straight               vshaped NA        Total
-      1  am        Transmission     auto  2 (18.18% / 22.22%)   9 (81.82% / 60.00%)  8  19 (59.38%)
-      2  am        Transmission   manual  7 (53.85% / 77.78%)   6 (46.15% / 40.00%)  0  13 (40.62%)
-      3  am        Transmission    Total           9 (37.50%)           15 (62.50%)  8 32 (100.00%)
-      4 cyl Number of cylinders        4 7 (87.50% / 100.00%)    1 (12.50% / 7.69%)  2  10 (37.04%)
-      5 cyl Number of cylinders        6          0 (0% / 0%)   1 (100.00% / 7.69%)  3   4 (14.81%)
-      6 cyl Number of cylinders        8          0 (0% / 0%) 11 (100.00% / 84.62%)  2  13 (48.15%)
-      7 cyl Number of cylinders       NA                    2                     2  1            5
-      8 cyl Number of cylinders    Total           9 (37.50%)           15 (62.50%)  8 32 (100.00%)
+        .id               label variable            straight             vshaped NA       Total
+      1  am        Transmission     auto 2 (18.18% / 22.22%) 9 (81.82% / 60.00%)  8 19 (59.38%)
+      2  am        Transmission   manual 7 (53.85% / 77.78%) 6 (46.15% / 40.00%)  0 13 (40.62%)
+      3  am        Transmission    Total          9 (37.50%)         15 (62.50%)  8   32 (100%)
+      4 cyl Number of cylinders        4   7 (87.50% / 100%)  1 (12.50% / 7.69%)  2 10 (37.04%)
+      5 cyl Number of cylinders        6         0 (0% / 0%)    1 (100% / 7.69%)  3  4 (14.81%)
+      6 cyl Number of cylinders        8         0 (0% / 0%)  11 (100% / 84.62%)  2 13 (48.15%)
+      7 cyl Number of cylinders       NA                   2                   2  1           5
+      8 cyl Number of cylinders    Total          9 (37.50%)         15 (62.50%)  8   32 (100%)
 
 # Percent pattern
 
@@ -475,7 +475,7 @@
     Output
          .id               label   variable                                                                                                     am=auto & dummy=dummy                                                                                               am=manual & dummy=dummy    NA            Total
       1  mpg   Miles/(US) gallon  Min / Max                                                                                                               10.4 / 24.4                                                                                                           15.0 / 33.9 no NA      10.4 / 33.9
-      2  mpg   Miles/(US) gallon  Med [IQR]                                                                                                          17.3 [14.9;19.2]                                                                                                      22.8 [21.0;30.4] no NA 19.2 [15.4;22.8]
+      2  mpg   Miles/(US) gallon  Med [IQR]                                                                                                          17.3 [15.0;19.2]                                                                                                      22.8 [21.0;30.4] no NA 19.2 [15.4;22.8]
       3  mpg   Miles/(US) gallon Mean (std)                                                                                                                17.1 (3.8)                                                                                                            24.4 (6.2) no NA       20.1 (6.0)
       4  mpg   Miles/(US) gallon     N (NA)                                                                                                                    19 (0)                                                                                                                13 (0) no NA           32 (0)
       5   vs              Engine   straight          N=2\nCell: p = 8% (2/24) [95%CI 2%; 26%]\nCol: p = 18% (2/11) [95%CI 5%; 48%]\nRow:p = 22% (2/9) [95%CI 6%; 55%]  N=7\nCell: p = 29% (7/24) [95%CI 15%; 49%]\nCol: p = 54% (7/13) [95%CI 29%; 77%]\nRow:p = 78% (7/9) [95%CI 45%; 94%]     0          9 (38%)
@@ -494,21 +494,21 @@
       x1 = crosstable(mtcars3, cyl, by = vs, percent_digits = 0, total = TRUE, showNA = "always", percent_pattern = ULTIMATE_PATTERN)
       as.data.frame(x1)
     Output
-        .id               label variable                                                                                                                                                                                                                 straight                                                                                                                                                                                                                            vshaped NA                                                                       Total
-      1 cyl Number of cylinders        4 N=7\nCell: p = 35% (7/20) [2e+01%; 57%]\nCol: p = 100% (7/7) [65%; 100%]\nRow: p = 88% (7/8) [53%; 98%]\n\nCell (NA): p = 22% (7/32) [11%; 39%]\nCol (NA): p = 78% (7/9) [45%; 94%]\nRow (NA): p = 70% (7/10) [40%; 89%]                    N=1\nCell: p = 5% (1/20) [9e-01%; 24%]\nCol: p = 8% (1/13) [1%; 33%]\nRow: p = 12% (1/8) [2%; 47%]\n\nCell (NA): p = 3% (1/32) [1%; 16%]\nCol (NA): p = 7% (1/15) [1%; 30%]\nRow (NA): p = 10% (1/10) [2%; 40%]  2 N=10\nCol: p = 37% (10/27) [22%; 56%]\nCol (NA): p = 31% (10/32) [18%; 49%]
-      2 cyl Number of cylinders        6               N=0\nCell: p = 0% (0/20) [1e-15%; 16%]\nCol: p = 0% (0/7) [0%; 35%]\nRow: p = 0% (0/1) [0%; 79%]\n\nCell (NA): p = 0% (0/32) [0%; 11%]\nCol (NA): p = 0% (0/9) [0%; 30%]\nRow (NA): p = 0% (0/4) [0%; 49%]                  N=1\nCell: p = 5% (1/20) [9e-01%; 24%]\nCol: p = 8% (1/13) [1%; 33%]\nRow: p = 100% (1/1) [21%; 100%]\n\nCell (NA): p = 3% (1/32) [1%; 16%]\nCol (NA): p = 7% (1/15) [1%; 30%]\nRow (NA): p = 25% (1/4) [5%; 70%]  3      N=4\nCol: p = 15% (4/27) [6%; 32%]\nCol (NA): p = 12% (4/32) [5%; 28%]
-      3 cyl Number of cylinders        8             N=0\nCell: p = 0% (0/20) [1e-15%; 16%]\nCol: p = 0% (0/7) [0%; 35%]\nRow: p = 0% (0/11) [0%; 26%]\n\nCell (NA): p = 0% (0/32) [0%; 11%]\nCol (NA): p = 0% (0/9) [0%; 30%]\nRow (NA): p = 0% (0/13) [0%; 23%] N=11\nCell: p = 55% (11/20) [3e+01%; 74%]\nCol: p = 85% (11/13) [58%; 96%]\nRow: p = 100% (11/11) [74%; 100%]\n\nCell (NA): p = 34% (11/32) [20%; 52%]\nCol (NA): p = 73% (11/15) [48%; 89%]\nRow (NA): p = 85% (11/13) [58%; 96%]  2 N=13\nCol: p = 48% (13/27) [31%; 66%]\nCol (NA): p = 41% (13/32) [26%; 58%]
-      4 cyl Number of cylinders       NA                                                                                                                                                                                                                        2                                                                                                                                                                                                                                  2  1                                                                           5
-      5 cyl Number of cylinders    Total                                                                                                                                                 N=9\nRow: p = 38% (9/24) [21%; 57%]\nRow (NA): p = 28% (9/32) [16%; 45%]                                                                                                                                                        N=15\nRow: p = 62% (15/24) [43%; 79%]\nRow (NA): p = 47% (15/32) [31%; 64%]  8                         N=32\nP: 100% [89%; 100%]\nP (NA): 100% [89%; 100%]
+        .id               label variable                                                                                                                                                                                                              straight                                                                                                                                                                                                                         vshaped NA                                                                       Total
+      1 cyl Number of cylinders        4 N=7\nCell: p = 35% (7/20) [18%; 57%]\nCol: p = 100% (7/7) [65%; 100%]\nRow: p = 88% (7/8) [53%; 98%]\n\nCell (NA): p = 22% (7/32) [11%; 39%]\nCol (NA): p = 78% (7/9) [45%; 94%]\nRow (NA): p = 70% (7/10) [40%; 89%]                     N=1\nCell: p = 5% (1/20) [1%; 24%]\nCol: p = 8% (1/13) [1%; 33%]\nRow: p = 13% (1/8) [2%; 47%]\n\nCell (NA): p = 3% (1/32) [1%; 16%]\nCol (NA): p = 7% (1/15) [1%; 30%]\nRow (NA): p = 10% (1/10) [2%; 40%]  2 N=10\nCol: p = 37% (10/27) [22%; 56%]\nCol (NA): p = 31% (10/32) [18%; 49%]
+      2 cyl Number of cylinders        6            N=0\nCell: p = 0% (0/20) [1e-15%; 16%]\nCol: p = 0% (0/7) [0%; 35%]\nRow: p = 0% (0/1) [0%; 79%]\n\nCell (NA): p = 0% (0/32) [0%; 11%]\nCol (NA): p = 0% (0/9) [0%; 30%]\nRow (NA): p = 0% (0/4) [0%; 49%]                   N=1\nCell: p = 5% (1/20) [1%; 24%]\nCol: p = 8% (1/13) [1%; 33%]\nRow: p = 100% (1/1) [21%; 100%]\n\nCell (NA): p = 3% (1/32) [1%; 16%]\nCol (NA): p = 7% (1/15) [1%; 30%]\nRow (NA): p = 25% (1/4) [5%; 70%]  3      N=4\nCol: p = 15% (4/27) [6%; 32%]\nCol (NA): p = 13% (4/32) [5%; 28%]
+      3 cyl Number of cylinders        8          N=0\nCell: p = 0% (0/20) [1e-15%; 16%]\nCol: p = 0% (0/7) [0%; 35%]\nRow: p = 0% (0/11) [0%; 26%]\n\nCell (NA): p = 0% (0/32) [0%; 11%]\nCol (NA): p = 0% (0/9) [0%; 30%]\nRow (NA): p = 0% (0/13) [0%; 23%] N=11\nCell: p = 55% (11/20) [34%; 74%]\nCol: p = 85% (11/13) [58%; 96%]\nRow: p = 100% (11/11) [74%; 100%]\n\nCell (NA): p = 34% (11/32) [20%; 52%]\nCol (NA): p = 73% (11/15) [48%; 89%]\nRow (NA): p = 85% (11/13) [58%; 96%]  2 N=13\nCol: p = 48% (13/27) [31%; 66%]\nCol (NA): p = 41% (13/32) [26%; 58%]
+      4 cyl Number of cylinders       NA                                                                                                                                                                                                                     2                                                                                                                                                                                                                               2  1                                                                           5
+      5 cyl Number of cylinders    Total                                                                                                                                              N=9\nRow: p = 38% (9/24) [21%; 57%]\nRow (NA): p = 28% (9/32) [16%; 45%]                                                                                                                                                     N=15\nRow: p = 62% (15/24) [43%; 79%]\nRow (NA): p = 47% (15/32) [31%; 64%]  8                         N=32\nP: 100% [89%; 100%]\nP (NA): 100% [89%; 100%]
     Code
       x2 = crosstable(mtcars3, cyl, by = vs, percent_digits = 0, total = TRUE, showNA = "no", percent_pattern = ULTIMATE_PATTERN)
       as.data.frame(x2)
     Output
-        .id               label variable                                                                                                                                                                                                                     straight                                                                                                                                                                                                                                 vshaped                                                                          Total
-      1 cyl Number of cylinders        4 N=7\nCell: p = 35% (7/20) [2e+01%; 57%]\nCol: p = 100% (7/7) [65%; 100%]\nRow: p = 88% (7/8) [53%; 98%]\n\nCell (NA): p = 35% (7/20) [2e+01%; 57%]\nCol (NA): p = 100% (7/7) [65%; 100%]\nRow (NA): p = 88% (7/8) [53%; 98%]                      N=1\nCell: p = 5% (1/20) [9e-01%; 24%]\nCol: p = 8% (1/13) [1%; 33%]\nRow: p = 12% (1/8) [2%; 47%]\n\nCell (NA): p = 5% (1/20) [9e-01%; 24%]\nCol (NA): p = 8% (1/13) [1%; 33%]\nRow (NA): p = 12% (1/8) [2%; 47%]    N=8\nCol: p = 40% (8/20) [22%; 61%]\nCol (NA): p = 40% (8/20) [2e+01%; 61%]
-      2 cyl Number of cylinders        6               N=0\nCell: p = 0% (0/20) [1e-15%; 16%]\nCol: p = 0% (0/7) [0%; 35%]\nRow: p = 0% (0/1) [0%; 79%]\n\nCell (NA): p = 0% (0/20) [1e-15%; 16%]\nCol (NA): p = 0% (0/7) [0%; 35%]\nRow (NA): p = 0% (0/1) [0%; 79%]                N=1\nCell: p = 5% (1/20) [9e-01%; 24%]\nCol: p = 8% (1/13) [1%; 33%]\nRow: p = 100% (1/1) [21%; 100%]\n\nCell (NA): p = 5% (1/20) [9e-01%; 24%]\nCol (NA): p = 8% (1/13) [1%; 33%]\nRow (NA): p = 100% (1/1) [21%; 100%]       N=1\nCol: p = 5% (1/20) [1%; 24%]\nCol (NA): p = 5% (1/20) [9e-01%; 24%]
-      3 cyl Number of cylinders        8             N=0\nCell: p = 0% (0/20) [1e-15%; 16%]\nCol: p = 0% (0/7) [0%; 35%]\nRow: p = 0% (0/11) [0%; 26%]\n\nCell (NA): p = 0% (0/20) [1e-15%; 16%]\nCol (NA): p = 0% (0/7) [0%; 35%]\nRow (NA): p = 0% (0/11) [0%; 26%] N=11\nCell: p = 55% (11/20) [3e+01%; 74%]\nCol: p = 85% (11/13) [58%; 96%]\nRow: p = 100% (11/11) [74%; 100%]\n\nCell (NA): p = 55% (11/20) [3e+01%; 74%]\nCol (NA): p = 85% (11/13) [58%; 96%]\nRow (NA): p = 100% (11/11) [74%; 100%] N=11\nCol: p = 55% (11/20) [34%; 74%]\nCol (NA): p = 55% (11/20) [3e+01%; 74%]
-      4 cyl Number of cylinders    Total                                                                                                                                                     N=7\nRow: p = 35% (7/20) [18%; 57%]\nRow (NA): p = 35% (7/20) [18%; 57%]                                                                                                                                                             N=13\nRow: p = 65% (13/20) [43%; 82%]\nRow (NA): p = 65% (13/20) [43%; 82%]                            N=20\nP: 100% [84%; 100%]\nP (NA): 100% [84%; 100%]
+        .id               label variable                                                                                                                                                                                                               straight                                                                                                                                                                                                                           vshaped                                                                       Total
+      1 cyl Number of cylinders        4 N=7\nCell: p = 35% (7/20) [18%; 57%]\nCol: p = 100% (7/7) [65%; 100%]\nRow: p = 88% (7/8) [53%; 98%]\n\nCell (NA): p = 35% (7/20) [18%; 57%]\nCol (NA): p = 100% (7/7) [65%; 100%]\nRow (NA): p = 88% (7/8) [53%; 98%]                        N=1\nCell: p = 5% (1/20) [1%; 24%]\nCol: p = 8% (1/13) [1%; 33%]\nRow: p = 13% (1/8) [2%; 47%]\n\nCell (NA): p = 5% (1/20) [1%; 24%]\nCol (NA): p = 8% (1/13) [1%; 33%]\nRow (NA): p = 13% (1/8) [2%; 47%]    N=8\nCol: p = 40% (8/20) [22%; 61%]\nCol (NA): p = 40% (8/20) [22%; 61%]
+      2 cyl Number of cylinders        6         N=0\nCell: p = 0% (0/20) [1e-15%; 16%]\nCol: p = 0% (0/7) [0%; 35%]\nRow: p = 0% (0/1) [0%; 79%]\n\nCell (NA): p = 0% (0/20) [1e-15%; 16%]\nCol (NA): p = 0% (0/7) [0%; 35%]\nRow (NA): p = 0% (0/1) [0%; 79%]                  N=1\nCell: p = 5% (1/20) [1%; 24%]\nCol: p = 8% (1/13) [1%; 33%]\nRow: p = 100% (1/1) [21%; 100%]\n\nCell (NA): p = 5% (1/20) [1%; 24%]\nCol (NA): p = 8% (1/13) [1%; 33%]\nRow (NA): p = 100% (1/1) [21%; 100%]        N=1\nCol: p = 5% (1/20) [1%; 24%]\nCol (NA): p = 5% (1/20) [1%; 24%]
+      3 cyl Number of cylinders        8       N=0\nCell: p = 0% (0/20) [1e-15%; 16%]\nCol: p = 0% (0/7) [0%; 35%]\nRow: p = 0% (0/11) [0%; 26%]\n\nCell (NA): p = 0% (0/20) [1e-15%; 16%]\nCol (NA): p = 0% (0/7) [0%; 35%]\nRow (NA): p = 0% (0/11) [0%; 26%] N=11\nCell: p = 55% (11/20) [34%; 74%]\nCol: p = 85% (11/13) [58%; 96%]\nRow: p = 100% (11/11) [74%; 100%]\n\nCell (NA): p = 55% (11/20) [34%; 74%]\nCol (NA): p = 85% (11/13) [58%; 96%]\nRow (NA): p = 100% (11/11) [74%; 100%] N=11\nCol: p = 55% (11/20) [34%; 74%]\nCol (NA): p = 55% (11/20) [34%; 74%]
+      4 cyl Number of cylinders    Total                                                                                                                                               N=7\nRow: p = 35% (7/20) [18%; 57%]\nRow (NA): p = 35% (7/20) [18%; 57%]                                                                                                                                                       N=13\nRow: p = 65% (13/20) [43%; 82%]\nRow (NA): p = 65% (13/20) [43%; 82%]                         N=20\nP: 100% [84%; 100%]\nP (NA): 100% [84%; 100%]
 
 # Unique numeric
 
@@ -539,8 +539,8 @@
       2 carb Number of carburetors        2 10 (31.25%)
       3 carb Number of carburetors        3   3 (9.38%)
       4 carb Number of carburetors        4 10 (31.25%)
-      5 carb Number of carburetors        6   1 (3.12%)
-      6 carb Number of carburetors        8   1 (3.12%)
+      5 carb Number of carburetors        6   1 (3.13%)
+      6 carb Number of carburetors        8   1 (3.13%)
 
 # By dummy
 
@@ -639,15 +639,15 @@
       as.data.frame(x2)
     Output
           .id                    label        variable            dummy               NA
-      1    am             Transmission            auto     11 (100.00%)                8
-      2    am             Transmission          manual     13 (100.00%)                0
+      1    am             Transmission            auto        11 (100%)                8
+      2    am             Transmission          manual        13 (100%)                0
       3   mpg        Miles/(US) gallon       Min / Max      10.4 / 33.9      14.3 / 24.4
       4   mpg        Miles/(US) gallon       Med [IQR] 20.4 [15.2;23.6] 18.4 [17.5;20.1]
       5   mpg        Miles/(US) gallon      Mean (std)       20.5 (6.7)       19.0 (3.3)
       6   mpg        Miles/(US) gallon          N (NA)           24 (0)            8 (0)
-      7   cyl      Number of cylinders               4      8 (100.00%)                2
-      8   cyl      Number of cylinders               6      1 (100.00%)                3
-      9   cyl      Number of cylinders               8     11 (100.00%)                2
+      7   cyl      Number of cylinders               4         8 (100%)                2
+      8   cyl      Number of cylinders               6         1 (100%)                3
+      9   cyl      Number of cylinders               8        11 (100%)                2
       10  cyl      Number of cylinders              NA                4                1
       11 surv Dummy survival (disp/am)          t=71.1      0.96 (1/24)       1.00 (0/8)
       12 surv Dummy survival (disp/am)          t=75.7      0.92 (1/23)       1.00 (0/8)
@@ -682,15 +682,15 @@
       as.data.frame(x3)
     Output
           .id                    label        variable            dummy
-      1    am             Transmission            auto     11 (100.00%)
-      2    am             Transmission          manual     13 (100.00%)
+      1    am             Transmission            auto        11 (100%)
+      2    am             Transmission          manual        13 (100%)
       3   mpg        Miles/(US) gallon       Min / Max      10.4 / 33.9
       4   mpg        Miles/(US) gallon       Med [IQR] 20.4 [15.2;23.6]
       5   mpg        Miles/(US) gallon      Mean (std)       20.5 (6.7)
       6   mpg        Miles/(US) gallon          N (NA)           24 (0)
-      7   cyl      Number of cylinders               4      8 (100.00%)
-      8   cyl      Number of cylinders               6      1 (100.00%)
-      9   cyl      Number of cylinders               8     11 (100.00%)
+      7   cyl      Number of cylinders               4         8 (100%)
+      8   cyl      Number of cylinders               6         1 (100%)
+      9   cyl      Number of cylinders               8        11 (100%)
       10 surv Dummy survival (disp/am)          t=71.1      0.96 (1/24)
       11 surv Dummy survival (disp/am)          t=75.7      0.92 (1/23)
       12 surv Dummy survival (disp/am)          t=78.7      0.88 (1/22)
@@ -723,8 +723,8 @@
     Output
          .id                   label   variable cyl=4 & am=auto & vs=straight cyl=6 & am=auto & vs=straight cyl=8 & am=auto & vs=straight cyl=NA & am=auto & vs=straight cyl=4 & am=manual & vs=straight cyl=6 & am=manual & vs=straight cyl=8 & am=manual & vs=straight cyl=NA & am=manual & vs=straight cyl=4 & am=auto & vs=vshaped cyl=6 & am=auto & vs=vshaped cyl=8 & am=auto & vs=vshaped cyl=NA & am=auto & vs=vshaped cyl=4 & am=manual & vs=vshaped cyl=6 & am=manual & vs=vshaped cyl=8 & am=manual & vs=vshaped cyl=NA & am=manual & vs=vshaped cyl=4 & am=auto & vs=NA cyl=6 & am=auto & vs=NA cyl=8 & am=auto & vs=NA cyl=NA & am=auto & vs=NA cyl=4 & am=manual & vs=NA cyl=6 & am=manual & vs=NA cyl=8 & am=manual & vs=NA cyl=NA & am=manual & vs=NA
       1  mpg       Miles/(US) gallon  Min / Max                   21.5 / 21.5                       NA / NA                       NA / NA                    21.4 / 21.4                     21.4 / 33.9                         NA / NA                         NA / NA                      22.8 / 22.8                      NA / NA                      NA / NA                  10.4 / 19.2                       NA / NA                    26.0 / 26.0                    19.7 / 19.7                    15.0 / 15.8                     21.0 / 21.0             22.8 / 24.4             17.8 / 19.2             14.3 / 16.4              18.7 / 18.7                   NA / NA                   NA / NA                   NA / NA                    NA / NA
-      2  mpg       Miles/(US) gallon  Med [IQR]              21.5 [21.5;21.5]                    NA [NA;NA]                    NA [NA;NA]               21.4 [21.4;21.4]                30.4 [28.1;31.9]                      NA [NA;NA]                      NA [NA;NA]                 22.8 [22.8;22.8]                   NA [NA;NA]                   NA [NA;NA]             15.2 [13.3;15.5]                    NA [NA;NA]               26.0 [26.0;26.0]               19.7 [19.7;19.7]               15.4 [15.2;15.6]                21.0 [21.0;21.0]        23.6 [23.2;24.0]        18.1 [18.0;18.6]        15.3 [14.8;15.9]         18.7 [18.7;18.7]                NA [NA;NA]                NA [NA;NA]                NA [NA;NA]                 NA [NA;NA]
-      3  mpg       Miles/(US) gallon Mean (std)                     21.5 (NA)                       NA (NA)                       NA (NA)                      21.4 (NA)                      29.3 (4.5)                         NA (NA)                         NA (NA)                        22.8 (NA)                      NA (NA)                      NA (NA)                   14.6 (2.9)                       NA (NA)                      26.0 (NA)                      19.7 (NA)                     15.4 (0.6)                        21.0 (0)              23.6 (1.1)              18.4 (0.7)              15.3 (1.5)                18.7 (NA)                   NA (NA)                   NA (NA)                   NA (NA)                    NA (NA)
+      2  mpg       Miles/(US) gallon  Med [IQR]              21.5 [21.5;21.5]                    NA [NA;NA]                    NA [NA;NA]               21.4 [21.4;21.4]                30.4 [28.1;31.9]                      NA [NA;NA]                      NA [NA;NA]                 22.8 [22.8;22.8]                   NA [NA;NA]                   NA [NA;NA]             15.2 [13.3;15.5]                    NA [NA;NA]               26.0 [26.0;26.0]               19.7 [19.7;19.7]               15.4 [15.2;15.6]                21.0 [21.0;21.0]        23.6 [23.2;24.0]        18.1 [18.0;18.7]        15.4 [14.8;15.9]         18.7 [18.7;18.7]                NA [NA;NA]                NA [NA;NA]                NA [NA;NA]                 NA [NA;NA]
+      3  mpg       Miles/(US) gallon Mean (std)                     21.5 (NA)                      NaN (NA)                      NaN (NA)                      21.4 (NA)                      29.3 (4.5)                        NaN (NA)                        NaN (NA)                        22.8 (NA)                     NaN (NA)                     NaN (NA)                   14.6 (2.9)                      NaN (NA)                      26.0 (NA)                      19.7 (NA)                     15.4 (0.6)                        21.0 (0)              23.6 (1.1)              18.4 (0.7)              15.4 (1.5)                18.7 (NA)                  NaN (NA)                  NaN (NA)                  NaN (NA)                   NaN (NA)
       4  mpg       Miles/(US) gallon     N (NA)                         1 (0)                         0 (0)                         0 (0)                          1 (0)                           6 (0)                           0 (0)                           0 (0)                            1 (0)                        0 (0)                        0 (0)                        9 (0)                         0 (0)                          1 (0)                          1 (0)                          2 (0)                           2 (0)                   2 (0)                   3 (0)                   2 (0)                    1 (0)                     0 (0)                     0 (0)                     0 (0)                      0 (0)
       5 gear Number of forward gears          3                     1 (6.67%)                        0 (0%)                        0 (0%)                      1 (6.67%)                          0 (0%)                          0 (0%)                          0 (0%)                           0 (0%)                       0 (0%)                       0 (0%)                   9 (60.00%)                        0 (0%)                         0 (0%)                         0 (0%)                         0 (0%)                          0 (0%)                  0 (0%)               1 (6.67%)              2 (13.33%)                1 (6.67%)                    0 (0%)                    0 (0%)                    0 (0%)                     0 (0%)
       6 gear Number of forward gears          4                        0 (0%)                        0 (0%)                        0 (0%)                         0 (0%)                      5 (41.67%)                          0 (0%)                          0 (0%)                        1 (8.33%)                       0 (0%)                       0 (0%)                       0 (0%)                        0 (0%)                         0 (0%)                         0 (0%)                         0 (0%)                      2 (16.67%)              2 (16.67%)              2 (16.67%)                  0 (0%)                   0 (0%)                    0 (0%)                    0 (0%)                    0 (0%)                     0 (0%)
@@ -736,7 +736,7 @@
          .id                   label   variable cyl=4 & am=auto & vs=straight cyl=6 & am=auto & vs=straight cyl=8 & am=auto & vs=straight cyl=NA & am=auto & vs=straight cyl=4 & am=manual & vs=straight cyl=6 & am=manual & vs=straight cyl=8 & am=manual & vs=straight cyl=NA & am=manual & vs=straight cyl=4 & am=auto & vs=vshaped cyl=6 & am=auto & vs=vshaped cyl=8 & am=auto & vs=vshaped cyl=NA & am=auto & vs=vshaped cyl=4 & am=manual & vs=vshaped cyl=6 & am=manual & vs=vshaped cyl=8 & am=manual & vs=vshaped cyl=NA & am=manual & vs=vshaped
       1  mpg       Miles/(US) gallon  Min / Max                   21.5 / 21.5                       NA / NA                       NA / NA                    21.4 / 21.4                     21.4 / 33.9                         NA / NA                         NA / NA                      22.8 / 22.8                      NA / NA                      NA / NA                  10.4 / 19.2                       NA / NA                    26.0 / 26.0                    19.7 / 19.7                    15.0 / 15.8                     21.0 / 21.0
       2  mpg       Miles/(US) gallon  Med [IQR]              21.5 [21.5;21.5]                    NA [NA;NA]                    NA [NA;NA]               21.4 [21.4;21.4]                30.4 [28.1;31.9]                      NA [NA;NA]                      NA [NA;NA]                 22.8 [22.8;22.8]                   NA [NA;NA]                   NA [NA;NA]             15.2 [13.3;15.5]                    NA [NA;NA]               26.0 [26.0;26.0]               19.7 [19.7;19.7]               15.4 [15.2;15.6]                21.0 [21.0;21.0]
-      3  mpg       Miles/(US) gallon Mean (std)                     21.5 (NA)                       NA (NA)                       NA (NA)                      21.4 (NA)                      29.3 (4.5)                         NA (NA)                         NA (NA)                        22.8 (NA)                      NA (NA)                      NA (NA)                   14.6 (2.9)                       NA (NA)                      26.0 (NA)                      19.7 (NA)                     15.4 (0.6)                        21.0 (0)
+      3  mpg       Miles/(US) gallon Mean (std)                     21.5 (NA)                      NaN (NA)                      NaN (NA)                      21.4 (NA)                      29.3 (4.5)                        NaN (NA)                        NaN (NA)                        22.8 (NA)                     NaN (NA)                     NaN (NA)                   14.6 (2.9)                      NaN (NA)                      26.0 (NA)                      19.7 (NA)                     15.4 (0.6)                        21.0 (0)
       4  mpg       Miles/(US) gallon     N (NA)                         1 (0)                         0 (0)                         0 (0)                          1 (0)                           6 (0)                           0 (0)                           0 (0)                            1 (0)                        0 (0)                        0 (0)                        9 (0)                         0 (0)                          1 (0)                          1 (0)                          2 (0)                           2 (0)
       5 gear Number of forward gears          3                     1 (9.09%)                        0 (0%)                        0 (0%)                      1 (9.09%)                          0 (0%)                          0 (0%)                          0 (0%)                           0 (0%)                       0 (0%)                       0 (0%)                   9 (81.82%)                        0 (0%)                         0 (0%)                         0 (0%)                         0 (0%)                          0 (0%)
       6 gear Number of forward gears          4                        0 (0%)                        0 (0%)                        0 (0%)                         0 (0%)                      5 (62.50%)                          0 (0%)                          0 (0%)                       1 (12.50%)                       0 (0%)                       0 (0%)                       0 (0%)                        0 (0%)                         0 (0%)                         0 (0%)                         0 (0%)                      2 (25.00%)
@@ -747,20 +747,20 @@
     Output
          .id                   label   variable cyl=4 & am=auto & vs=straight cyl=6 & am=auto & vs=straight cyl=8 & am=auto & vs=straight cyl=NA & am=auto & vs=straight cyl=4 & am=manual & vs=straight cyl=6 & am=manual & vs=straight cyl=8 & am=manual & vs=straight cyl=NA & am=manual & vs=straight cyl=4 & am=auto & vs=vshaped cyl=6 & am=auto & vs=vshaped cyl=8 & am=auto & vs=vshaped cyl=NA & am=auto & vs=vshaped cyl=4 & am=manual & vs=vshaped cyl=6 & am=manual & vs=vshaped cyl=8 & am=manual & vs=vshaped cyl=NA & am=manual & vs=vshaped cyl=4 & am=auto & vs=NA cyl=6 & am=auto & vs=NA cyl=8 & am=auto & vs=NA cyl=NA & am=auto & vs=NA cyl=4 & am=manual & vs=NA cyl=6 & am=manual & vs=NA cyl=8 & am=manual & vs=NA cyl=NA & am=manual & vs=NA            Total
       1  mpg       Miles/(US) gallon  Min / Max                   21.5 / 21.5                       NA / NA                       NA / NA                    21.4 / 21.4                     21.4 / 33.9                         NA / NA                         NA / NA                      22.8 / 22.8                      NA / NA                      NA / NA                  10.4 / 19.2                       NA / NA                    26.0 / 26.0                    19.7 / 19.7                    15.0 / 15.8                     21.0 / 21.0             22.8 / 24.4             17.8 / 19.2             14.3 / 16.4              18.7 / 18.7                   NA / NA                   NA / NA                   NA / NA                    NA / NA      10.4 / 33.9
-      2  mpg       Miles/(US) gallon  Med [IQR]              21.5 [21.5;21.5]                    NA [NA;NA]                    NA [NA;NA]               21.4 [21.4;21.4]                30.4 [28.1;31.9]                      NA [NA;NA]                      NA [NA;NA]                 22.8 [22.8;22.8]                   NA [NA;NA]                   NA [NA;NA]             15.2 [13.3;15.5]                    NA [NA;NA]               26.0 [26.0;26.0]               19.7 [19.7;19.7]               15.4 [15.2;15.6]                21.0 [21.0;21.0]        23.6 [23.2;24.0]        18.1 [18.0;18.6]        15.3 [14.8;15.9]         18.7 [18.7;18.7]                NA [NA;NA]                NA [NA;NA]                NA [NA;NA]                 NA [NA;NA] 19.2 [15.4;22.8]
-      3  mpg       Miles/(US) gallon Mean (std)                     21.5 (NA)                       NA (NA)                       NA (NA)                      21.4 (NA)                      29.3 (4.5)                         NA (NA)                         NA (NA)                        22.8 (NA)                      NA (NA)                      NA (NA)                   14.6 (2.9)                       NA (NA)                      26.0 (NA)                      19.7 (NA)                     15.4 (0.6)                        21.0 (0)              23.6 (1.1)              18.4 (0.7)              15.3 (1.5)                18.7 (NA)                   NA (NA)                   NA (NA)                   NA (NA)                    NA (NA)       20.1 (6.0)
+      2  mpg       Miles/(US) gallon  Med [IQR]              21.5 [21.5;21.5]                    NA [NA;NA]                    NA [NA;NA]               21.4 [21.4;21.4]                30.4 [28.1;31.9]                      NA [NA;NA]                      NA [NA;NA]                 22.8 [22.8;22.8]                   NA [NA;NA]                   NA [NA;NA]             15.2 [13.3;15.5]                    NA [NA;NA]               26.0 [26.0;26.0]               19.7 [19.7;19.7]               15.4 [15.2;15.6]                21.0 [21.0;21.0]        23.6 [23.2;24.0]        18.1 [18.0;18.7]        15.4 [14.8;15.9]         18.7 [18.7;18.7]                NA [NA;NA]                NA [NA;NA]                NA [NA;NA]                 NA [NA;NA] 19.2 [15.4;22.8]
+      3  mpg       Miles/(US) gallon Mean (std)                     21.5 (NA)                      NaN (NA)                      NaN (NA)                      21.4 (NA)                      29.3 (4.5)                        NaN (NA)                        NaN (NA)                        22.8 (NA)                     NaN (NA)                     NaN (NA)                   14.6 (2.9)                      NaN (NA)                      26.0 (NA)                      19.7 (NA)                     15.4 (0.6)                        21.0 (0)              23.6 (1.1)              18.4 (0.7)              15.4 (1.5)                18.7 (NA)                  NaN (NA)                  NaN (NA)                  NaN (NA)                   NaN (NA)       20.1 (6.0)
       4  mpg       Miles/(US) gallon     N (NA)                         1 (0)                         0 (0)                         0 (0)                          1 (0)                           6 (0)                           0 (0)                           0 (0)                            1 (0)                        0 (0)                        0 (0)                        9 (0)                         0 (0)                          1 (0)                          1 (0)                          2 (0)                           2 (0)                   2 (0)                   3 (0)                   2 (0)                    1 (0)                     0 (0)                     0 (0)                     0 (0)                      0 (0)           32 (0)
       5 gear Number of forward gears          3                     1 (6.67%)                        0 (0%)                        0 (0%)                      1 (6.67%)                          0 (0%)                          0 (0%)                          0 (0%)                           0 (0%)                       0 (0%)                       0 (0%)                   9 (60.00%)                        0 (0%)                         0 (0%)                         0 (0%)                         0 (0%)                          0 (0%)                  0 (0%)               1 (6.67%)              2 (13.33%)                1 (6.67%)                    0 (0%)                    0 (0%)                    0 (0%)                     0 (0%)      15 (46.88%)
       6 gear Number of forward gears          4                        0 (0%)                        0 (0%)                        0 (0%)                         0 (0%)                      5 (41.67%)                          0 (0%)                          0 (0%)                        1 (8.33%)                       0 (0%)                       0 (0%)                       0 (0%)                        0 (0%)                         0 (0%)                         0 (0%)                         0 (0%)                      2 (16.67%)              2 (16.67%)              2 (16.67%)                  0 (0%)                   0 (0%)                    0 (0%)                    0 (0%)                    0 (0%)                     0 (0%)      12 (37.50%)
-      7 gear Number of forward gears          5                        0 (0%)                        0 (0%)                        0 (0%)                         0 (0%)                      1 (20.00%)                          0 (0%)                          0 (0%)                           0 (0%)                       0 (0%)                       0 (0%)                       0 (0%)                        0 (0%)                     1 (20.00%)                     1 (20.00%)                     2 (40.00%)                          0 (0%)                  0 (0%)                  0 (0%)                  0 (0%)                   0 (0%)                    0 (0%)                    0 (0%)                    0 (0%)                     0 (0%)       5 (15.62%)
-      8 gear Number of forward gears      Total                     1 (3.12%)                        0 (0%)                        0 (0%)                      1 (3.12%)                      6 (18.75%)                          0 (0%)                          0 (0%)                        1 (3.12%)                       0 (0%)                       0 (0%)                   9 (28.12%)                        0 (0%)                      1 (3.12%)                      1 (3.12%)                      2 (6.25%)                       2 (6.25%)               2 (6.25%)               3 (9.38%)               2 (6.25%)                1 (3.12%)                    0 (0%)                    0 (0%)                    0 (0%)                     0 (0%)     32 (100.00%)
+      7 gear Number of forward gears          5                        0 (0%)                        0 (0%)                        0 (0%)                         0 (0%)                      1 (20.00%)                          0 (0%)                          0 (0%)                           0 (0%)                       0 (0%)                       0 (0%)                       0 (0%)                        0 (0%)                     1 (20.00%)                     1 (20.00%)                     2 (40.00%)                          0 (0%)                  0 (0%)                  0 (0%)                  0 (0%)                   0 (0%)                    0 (0%)                    0 (0%)                    0 (0%)                     0 (0%)       5 (15.63%)
+      8 gear Number of forward gears      Total                     1 (3.13%)                        0 (0%)                        0 (0%)                      1 (3.13%)                      6 (18.75%)                          0 (0%)                          0 (0%)                        1 (3.13%)                       0 (0%)                       0 (0%)                   9 (28.13%)                        0 (0%)                      1 (3.13%)                      1 (3.13%)                      2 (6.25%)                       2 (6.25%)               2 (6.25%)               3 (9.38%)               2 (6.25%)                1 (3.13%)                    0 (0%)                    0 (0%)                    0 (0%)                     0 (0%)        32 (100%)
     Code
       x3 = crosstable(mtcars3, c(mpg, vs, cyl), by = c(am, dummy))
       as.data.frame(x3)
     Output
          .id               label   variable am=auto & dummy=dummy am=manual & dummy=dummy
       1  mpg   Miles/(US) gallon  Min / Max           10.4 / 24.4             15.0 / 33.9
-      2  mpg   Miles/(US) gallon  Med [IQR]      17.3 [14.9;19.2]        22.8 [21.0;30.4]
+      2  mpg   Miles/(US) gallon  Med [IQR]      17.3 [15.0;19.2]        22.8 [21.0;30.4]
       3  mpg   Miles/(US) gallon Mean (std)            17.1 (3.8)              24.4 (6.2)
       4  mpg   Miles/(US) gallon     N (NA)                19 (0)                  13 (0)
       5   vs              Engine   straight            2 (22.22%)              7 (77.78%)
@@ -776,39 +776,39 @@
     Output
                 .id                              label                     variable                                              am=auto & gear=3 am=manual & gear=3                                              am=auto & gear=4                                            am=manual & gear=4 am=auto & gear=5                                            am=manual & gear=5                                                         Total
       1         mpg                  Miles/(US) gallon                    Min / Max                                                   10.4 / 21.5            NA / NA                                                   17.8 / 24.4                                                   21.0 / 33.9          NA / NA                                                   15.0 / 30.4                                                   10.4 / 33.9
-      2         mpg                  Miles/(US) gallon                    Med [IQR]                                              15.5 [14.5;18.4]         NA [NA;NA]                                              21.0 [18.8;23.2]                                              25.1 [21.3;30.9]       NA [NA;NA]                                              19.7 [15.8;26.0]                                              19.2 [15.4;22.8]
-      3         mpg                  Miles/(US) gallon                   Mean (std)                                                    16.1 (3.4)            NA (NA)                                                    21.1 (3.1)                                                    26.3 (5.4)          NA (NA)                                                    21.4 (6.7)                                                    20.1 (6.0)
+      2         mpg                  Miles/(US) gallon                    Med [IQR]                                              15.5 [14.5;18.4]         NA [NA;NA]                                              21.0 [18.9;23.2]                                              25.1 [21.3;30.9]       NA [NA;NA]                                              19.7 [15.8;26.0]                                              19.2 [15.4;22.8]
+      3         mpg                  Miles/(US) gallon                   Mean (std)                                                    16.1 (3.4)           NaN (NA)                                                    21.1 (3.1)                                                    26.3 (5.4)         NaN (NA)                                                    21.4 (6.7)                                                    20.1 (6.0)
       4         mpg                  Miles/(US) gallon                       N (NA)                                                        15 (0)              0 (0)                                                         4 (0)                                                         8 (0)            0 (0)                                                         5 (0)                                                        32 (0)
       5          vs                             Engine                     straight                                                    2 (22.22%)             0 (0%)                                                        0 (0%)                                                    6 (66.67%)           0 (0%)                                                    1 (11.11%)                                                    9 (37.50%)
       6          vs                             Engine                      vshaped                                                    9 (60.00%)             0 (0%)                                                        0 (0%)                                                    2 (13.33%)           0 (0%)                                                    4 (26.67%)                                                   15 (62.50%)
       7          vs                             Engine                           NA                                                             4                  0                                                             4                                                             0                0                                                             0                                                             8
-      8          vs                             Engine                        Total                                                   15 (46.88%)             0 (0%)                                                    4 (12.50%)                                                    8 (25.00%)           0 (0%)                                                    5 (15.62%)                                                  32 (100.00%)
+      8          vs                             Engine                        Total                                                   15 (46.88%)             0 (0%)                                                    4 (12.50%)                                                    8 (25.00%)           0 (0%)                                                    5 (15.63%)                                                     32 (100%)
       9         cyl                Number of cylinders                            4                                                    1 (10.00%)             0 (0%)                                                    2 (20.00%)                                                    5 (50.00%)           0 (0%)                                                    2 (20.00%)                                                   10 (37.04%)
       10        cyl                Number of cylinders                            6                                                    1 (25.00%)             0 (0%)                                                    2 (50.00%)                                                        0 (0%)           0 (0%)                                                    1 (25.00%)                                                    4 (14.81%)
       11        cyl                Number of cylinders                            8                                                   11 (84.62%)             0 (0%)                                                        0 (0%)                                                        0 (0%)           0 (0%)                                                    2 (15.38%)                                                   13 (48.15%)
       12        cyl                Number of cylinders                           NA                                                             2                  0                                                             0                                                             3                0                                                             0                                                             5
-      13        cyl                Number of cylinders                        Total                                                   15 (46.88%)             0 (0%)                                                    4 (12.50%)                                                    8 (25.00%)           0 (0%)                                                    5 (15.62%)                                                  32 (100.00%)
-      14      dummy                              dummy                        dummy                                                   15 (46.88%)             0 (0%)                                                    4 (12.50%)                                                    8 (25.00%)           0 (0%)                                                    5 (15.62%)                                                  32 (100.00%)
-      15      dummy                              dummy                        Total                                                   15 (46.88%)             0 (0%)                                                    4 (12.50%)                                                    8 (25.00%)           0 (0%)                                                    5 (15.62%)                                                  32 (100.00%)
+      13        cyl                Number of cylinders                        Total                                                   15 (46.88%)             0 (0%)                                                    4 (12.50%)                                                    8 (25.00%)           0 (0%)                                                    5 (15.63%)                                                     32 (100%)
+      14      dummy                              dummy                        dummy                                                   15 (46.88%)             0 (0%)                                                    4 (12.50%)                                                    8 (25.00%)           0 (0%)                                                    5 (15.63%)                                                     32 (100%)
+      15      dummy                              dummy                        Total                                                   15 (46.88%)             0 (0%)                                                    4 (12.50%)                                                    8 (25.00%)           0 (0%)                                                    5 (15.63%)                                                     32 (100%)
       16       surv           Dummy survival (disp/am)                        t=100                                                   1.00 (0/15)               <NA>                                                    1.00 (0/4)                                                    0.50 (4/4)             <NA>                                                    0.80 (1/4)                                                   0.84 (5/27)
       17       surv           Dummy survival (disp/am)                        t=200                                                   1.00 (0/14)               <NA>                                                    1.00 (0/0)                                                       0 (4/0)             <NA>                                                    0.40 (2/2)                                                   0.64 (6/16)
       18       surv           Dummy survival (disp/am) Median follow up [min ; max]                                             318 [120.1 ; 472]               <NA>                                        157.15 [140.8 ; 167.6]                                                NA [Inf ; 160]             <NA>                                                NA [Inf ; 351]                                             304 [120.1 ; 472]
       19       surv           Dummy survival (disp/am)              Median survival                                                          <NA>               <NA>                                                          <NA>                                                          93.5             <NA>                                                           145                                                          <NA>
       20    hp_date                 Some nonsense date                    Min / Max                                       2010-04-08 - 2010-09-03            NA / NA                                       2010-03-04 - 2010-05-04                                       2010-02-22 - 2010-04-21          NA / NA                                       2010-04-02 - 2010-12-02                                       2010-02-22 - 2010-12-02
       21    hp_date                 Some nonsense date                    Med [IQR]                            2010-06-30 [2010-05-31;2010-08-04]         NA [NA;NA]                            2010-04-20 [2010-03-04;2010-05-04]                            2010-03-21 [2010-03-07;2010-04-20]       NA [NA;NA]                            2010-06-25 [2010-04-24;2010-09-22]                            2010-05-04 [2010-04-06;2010-06-30]
-      22    hp_date                 Some nonsense date                   Mean (std)                                       2010-06-26 (1.6 months)            NA (NA)                                        2010-04-11 (29.0 days)                                        2010-03-25 (24.2 days)          NA (NA)                                       2010-07-15 (3.4 months)                                       2010-05-27 (2.3 months)
+      22    hp_date                 Some nonsense date                   Mean (std)                                       2010-06-26 (1.6 months)           NaN (NA)                                        2010-04-11 (29.0 days)                                        2010-03-25 (24.2 days)         NaN (NA)                                       2010-07-15 (3.4 months)                                       2010-05-27 (2.3 months)
       23    hp_date                 Some nonsense date                       N (NA)                                                        15 (0)              0 (0)                                                         4 (0)                                                         8 (0)            0 (0)                                                         5 (0)                                                        32 (0)
       24 qsec_posix                          Date+time                    Min / Max                     2010-01-16 10:50:24 - 2010-01-21 06:16:48            NA / NA                     2010-01-19 08:12:00 - 2010-01-23 22:36:00                     2010-01-17 12:02:24 - 2010-01-20 22:36:00          NA / NA                     2010-01-15 13:00:00 - 2010-01-17 22:36:00                     2010-01-15 13:00:00 - 2010-01-23 22:36:00
       25 qsec_posix                          Date+time                    Med [IQR] 2010-01-18 11:04:48 [2010-01-18 01:28:48;2010-01-19 01:00:00]         NA [NA;NA] 2010-01-20 11:48:00 [2010-01-19 08:12:00;2010-01-21 01:00:00] 2010-01-19 15:31:12 [2010-01-18 01:28:48;2010-01-19 22:36:00]       NA [NA;NA] 2010-01-16 13:00:00 [2010-01-15 15:24:00;2010-01-17 17:48:00] 2010-01-18 18:02:24 [2010-01-17 21:52:48;2010-01-19 22:36:00]
-      26 qsec_posix                          Date+time                   Mean (std)                                2010-01-18 17:36:28 (1.3 days)            NA (NA)                                2010-01-21 01:36:00 (2.0 days)                                2010-01-19 11:26:24 (1.2 days)          NA (NA)                                2010-01-16 16:21:36 (1.1 days)                                2010-01-18 21:22:12 (1.8 days)
+      26 qsec_posix                          Date+time                   Mean (std)                                2010-01-18 17:36:28 (1.3 days)           NaN (NA)                                2010-01-21 01:36:00 (2.0 days)                                2010-01-19 11:26:24 (1.2 days)         NaN (NA)                                2010-01-16 16:21:36 (1.1 days)                                2010-01-18 21:22:12 (1.8 days)
       27 qsec_posix                          Date+time                       N (NA)                                                        15 (0)              0 (0)                                                         4 (0)                                                         8 (0)            0 (0)                                                         5 (0)                                                        32 (0)
       28       diff Difftime hp_date-qsec_posix (days)                    Min / Max                                                  77.0 / 229.6            NA / NA                                                  42.0 / 104.7                                                   33.5 / 93.5          NA / NA                                                  74.3 / 320.4                                                  33S / 5M 20S
       29       diff Difftime hp_date-qsec_posix (days)                    Med [IQR]                                           162.0 [132.9;192.1]         NA [NA;NA]                                             88.1 [64.6;104.2]                                              60.7 [46.2;91.0]       NA [NA;NA]                                            159.5 [96.1;249.5]                                        1M 44S [1M 16S;2M 42S]
-      30       diff Difftime hp_date-qsec_posix (days)                   Mean (std)                                                  158.4 (48.8)            NA (NA)                                                   80.7 (30.0)                                                   65.4 (25.0)          NA (NA)                                                 180.0 (103.9)                                                2M 9S (1M 10S)
+      30       diff Difftime hp_date-qsec_posix (days)                   Mean (std)                                                  158.4 (48.8)           NaN (NA)                                                   80.7 (30.0)                                                   65.4 (25.0)         NaN (NA)                                                 180.0 (103.9)                                                2M 9S (1M 10S)
       31       diff Difftime hp_date-qsec_posix (days)                       N (NA)                                                        15 (0)              0 (0)                                                         4 (0)                                                         8 (0)            0 (0)                                                         5 (0)                                                        32 (0)
-      32       cyl3                               cyl3                        FALSE                                                   13 (48.15%)             0 (0%)                                                    4 (14.81%)                                                    5 (18.52%)           0 (0%)                                                    5 (18.52%)                                                  27 (100.00%)
+      32       cyl3                               cyl3                        FALSE                                                   13 (48.15%)             0 (0%)                                                    4 (14.81%)                                                    5 (18.52%)           0 (0%)                                                    5 (18.52%)                                                     27 (100%)
       33       cyl3                               cyl3                           NA                                                             2                  0                                                             0                                                             3                0                                                             0                                                             5
-      34       cyl3                               cyl3                        Total                                                   15 (46.88%)             0 (0%)                                                    4 (12.50%)                                                    8 (25.00%)           0 (0%)                                                    5 (15.62%)                                                  32 (100.00%)
+      34       cyl3                               cyl3                        Total                                                   15 (46.88%)             0 (0%)                                                    4 (12.50%)                                                    8 (25.00%)           0 (0%)                                                    5 (15.63%)                                                     32 (100%)
 
 # By multiple (formula)
 
@@ -818,13 +818,13 @@
     Output
          .id                   label   variable I(am == "auto")=FALSE & vs=straight I(am == "auto")=TRUE & vs=straight I(am == "auto")=FALSE & vs=vshaped I(am == "auto")=TRUE & vs=vshaped I(am == "auto")=FALSE & vs=NA I(am == "auto")=TRUE & vs=NA            Total
       1  mpg       Miles/(US) gallon  Min / Max                         21.4 / 33.9                        21.4 / 21.5                        15.0 / 26.0                       10.4 / 19.2                       NA / NA                  14.3 / 24.4      10.4 / 33.9
-      2  mpg       Miles/(US) gallon  Med [IQR]                    30.4 [25.1;31.4]                   21.4 [21.4;21.5]                   20.4 [16.8;21.0]                  15.2 [13.3;15.5]                    NA [NA;NA]             18.4 [17.5;20.1] 19.2 [15.4;22.8]
-      3  mpg       Miles/(US) gallon Mean (std)                          28.4 (4.8)                         21.4 (0.1)                         19.8 (4.0)                        14.6 (2.9)                       NA (NA)                   19.0 (3.3)       20.1 (6.0)
+      2  mpg       Miles/(US) gallon  Med [IQR]                    30.4 [25.1;31.4]                   21.5 [21.4;21.5]                   20.4 [16.8;21.0]                  15.2 [13.3;15.5]                    NA [NA;NA]             18.4 [17.5;20.1] 19.2 [15.4;22.8]
+      3  mpg       Miles/(US) gallon Mean (std)                          28.4 (4.8)                         21.5 (0.1)                         19.8 (4.0)                        14.6 (2.9)                      NaN (NA)                   19.0 (3.3)       20.1 (6.0)
       4  mpg       Miles/(US) gallon     N (NA)                               7 (0)                              2 (0)                              6 (0)                             9 (0)                         0 (0)                        8 (0)           32 (0)
       5 gear Number of forward gears          3                              0 (0%)                         2 (13.33%)                             0 (0%)                        9 (60.00%)                        0 (0%)                   4 (26.67%)      15 (46.88%)
       6 gear Number of forward gears          4                          6 (50.00%)                             0 (0%)                         2 (16.67%)                            0 (0%)                        0 (0%)                   4 (33.33%)      12 (37.50%)
-      7 gear Number of forward gears          5                          1 (20.00%)                             0 (0%)                         4 (80.00%)                            0 (0%)                        0 (0%)                       0 (0%)       5 (15.62%)
-      8 gear Number of forward gears      Total                          7 (21.88%)                          2 (6.25%)                         6 (18.75%)                        9 (28.12%)                        0 (0%)                   8 (25.00%)     32 (100.00%)
+      7 gear Number of forward gears          5                          1 (20.00%)                             0 (0%)                         4 (80.00%)                            0 (0%)                        0 (0%)                       0 (0%)       5 (15.63%)
+      8 gear Number of forward gears      Total                          7 (21.88%)                          2 (6.25%)                         6 (18.75%)                        9 (28.13%)                        0 (0%)                   8 (25.00%)        32 (100%)
 
 # get_percent_pattern()
 

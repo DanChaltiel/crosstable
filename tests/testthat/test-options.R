@@ -78,7 +78,7 @@ test_that("All options work", {
 
   crosstable_options(
     remove_zero_percent=TRUE,
-    only_round=TRUE,
+    zero_digits=NULL,
     verbosity_autotesting="quiet",
     verbosity_duplicate_cols="quiet",
     total="both",

@@ -28,7 +28,7 @@ test_that("by factor if numeric <= 3 levels", {
   x10 %>% as_flextable()
   x10 = as.data.frame(x10)
 
-  expect_identical(x10[3,5], "14 (43.75% / 100.00% / 77.78%)")
+  expect_identical(x10[3,5], "14 (43.75% / 100% / 77.78%)")
   expect_equal(dim(x10), c(4,6))
   expect_equal(sum(is.na(x10)), 0)
 })
@@ -222,12 +222,10 @@ test_that("Special summary functions", {
   ct = crosstable(mtcars2, hp_date, date_format="%d/%m/%Y") %>% as.data.frame()
   expect_equal(ct[1,4], "22/02/2010 - 02/12/2010")
 
-  #only_round
+  #only_round: zero_digits=NULL
   x = mtcars2 %>% dplyr::transmute(mpg=mpg/100000)
-  rlang::local_options(crosstable_only_round=NULL)
   ct = crosstable(x, funs_arg=list(dig=2, zero_digits=5)) %>% as.data.frame()
-  expect_equal(ct[1,4], "0.000104 / 0.000339")
-  rlang::local_options(crosstable_only_round=TRUE)
-  ct = crosstable(x, funs_arg=list(dig=2, zero_digits=5)) %>% as.data.frame()
-  expect_equal(ct[1,4], "0 / 0")
+  expect_equal(ct[1,4], "1.0400e-04 / 3.3900e-04")
+  ct = crosstable(x, funs_arg=list(dig=2, zero_digits=NULL)) %>% as.data.frame()
+  expect_equal(ct[1,4], "0.00 / 0.00")
 })

@@ -9,7 +9,7 @@
 #'
 #---crosstable() ---
 #' @param remove_zero_percent set to TRUE so that proportions are not displayed if `n==0`
-#' @param only_round default argument for [format_fixed()]
+#' @param zero_digits default argument for [format_fixed()]
 #' @param verbosity_autotesting one of `default`, `quiet`, or `verbose`
 #' @param verbosity_duplicate_cols one of `default`, `quiet`, or `verbose`.
 #' @param fishertest_B number of simulations to perform when `fisher.test()` is failing (FEXACT error 7).
@@ -69,7 +69,7 @@
 #' @param style_legend For specifying styles used in your `{officer}` template.
 #' @param style_heading For specifying styles used by headings on different levels. Levels will be pasted in the end (e.g. use `"title"` if your level 2 heading style is `"title2"`).
 #' @param style_list_ordered,style_list_unordered For specifying styles used by lists in the `rdocx` template. Needed for [body_add_list()] to work.
-#' @param scientific_log the maximum power a number can have before being formatted as scientific. Default to 4 so applies on numbers <1e-4 or >1e4.
+#' @param format_scientific the maximum power a number can have before being formatted as scientific. Default to 4 so applies on numbers <1e-4 or >1e4.
 #' @param clean_names_fun cf. [clean_names_with_labels()]
 #' @param verbosity_na_cols verbosity of a warning
 #' @param format_epsilon cf. [format_fixed()]
@@ -87,10 +87,8 @@ crosstable_options = function(
     ...,
     #crosstable()
     remove_zero_percent=FALSE,
-    only_round=FALSE,
     verbosity_autotesting="default",
     verbosity_duplicate_cols="default",
-    fishertest_B=1e5,
     total, percent_pattern, margin, percent_digits, num_digits, showNA, label, funs, funs_arg,
     cor_method, drop_levels, unique_numeric, date_format, times, followup, test_args, effect_args,
     #as_flextable()
@@ -116,10 +114,12 @@ crosstable_options = function(
     style_normal, style_image,style_legend, style_heading,
     style_list_ordered, style_list_unordered,
     #misc
-    scientific_log,
     clean_names_fun,
     verbosity_na_cols,
+    fishertest_B=1e5,
     format_epsilon,
+    format_scientific,
+    zero_digits=1,
     #util
     .local=FALSE,
     reset=deprecated()

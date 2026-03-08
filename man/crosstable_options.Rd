@@ -7,10 +7,8 @@
 crosstable_options(
   ...,
   remove_zero_percent = FALSE,
-  only_round = FALSE,
   verbosity_autotesting = "default",
   verbosity_duplicate_cols = "default",
-  fishertest_B = 1e+05,
   total,
   percent_pattern,
   margin,
@@ -35,6 +33,7 @@ crosstable_options(
   by_header,
   autofit,
   compact,
+  collapse,
   remove_header_keys,
   show_test_name,
   padding_v,
@@ -67,10 +66,12 @@ crosstable_options(
   style_heading,
   style_list_ordered,
   style_list_unordered,
-  scientific_log,
   clean_names_fun,
   verbosity_na_cols,
+  fishertest_B = 1e+05,
   format_epsilon,
+  format_scientific,
+  zero_digits = 1,
   .local = FALSE,
   reset = deprecated()
 )
@@ -80,13 +81,9 @@ crosstable_options(
 
 \item{remove_zero_percent}{set to TRUE so that proportions are not displayed if \code{n==0}}
 
-\item{only_round}{default argument for \code{\link[=format_fixed]{format_fixed()}}}
-
 \item{verbosity_autotesting}{one of \code{default}, \code{quiet}, or \code{verbose}}
 
 \item{verbosity_duplicate_cols}{one of \code{default}, \code{quiet}, or \code{verbose}.}
-
-\item{fishertest_B}{number of simulations to perform when \code{fisher.test()} is failing (FEXACT error 7).}
 
 \item{total}{For setting \code{\link[=crosstable]{crosstable()}} arguments globally.}
 
@@ -135,6 +132,8 @@ crosstable_options(
 \item{autofit}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
 
 \item{compact}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
+
+\item{collapse}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
 
 \item{remove_header_keys}{For setting \code{\link[=as_flextable]{as_flextable()}} arguments globally.}
 
@@ -190,13 +189,17 @@ crosstable_options(
 
 \item{style_list_ordered, style_list_unordered}{For specifying styles used by lists in the \code{rdocx} template. Needed for \code{\link[=body_add_list]{body_add_list()}} to work.}
 
-\item{scientific_log}{the maximum power a number can have before being formatted as scientific. Default to 4 so applies on numbers <1e-4 or >1e4.}
-
 \item{clean_names_fun}{cf. \code{\link[=clean_names_with_labels]{clean_names_with_labels()}}}
 
 \item{verbosity_na_cols}{verbosity of a warning}
 
+\item{fishertest_B}{number of simulations to perform when \code{fisher.test()} is failing (FEXACT error 7).}
+
 \item{format_epsilon}{cf. \code{\link[=format_fixed]{format_fixed()}}}
+
+\item{format_scientific}{the maximum power a number can have before being formatted as scientific. Default to 4 so applies on numbers <1e-4 or >1e4.}
+
+\item{zero_digits}{default argument for \code{\link[=format_fixed]{format_fixed()}}}
 
 \item{.local}{if TRUE, the effect will only apply to the local frame (thanks to \code{rlang::local_options()})}
 

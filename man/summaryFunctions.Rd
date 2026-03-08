@@ -53,7 +53,7 @@ Summary functions to use with \code{\link[=crosstable]{crosstable()}} or anywher
 
 \item \code{minmax()}: returns minimum and maximum
 
-\item \code{nna()}: returns  number of observations and number of missing values
+\item \code{nna()}: returns number of observations and number of missing values
 
 }}
 \section{Fixed format}{

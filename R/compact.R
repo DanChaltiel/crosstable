@@ -29,7 +29,7 @@ ct_compact = function(data, ...){
 #' @author Dan Chaltiel
 #' @export
 #' @importFrom checkmate assert_scalar
-#' @importFrom dplyr across all_of any_of arrange bind_rows distinct everything filter if_else lag mutate pull row_number select summarise
+#' @importFrom dplyr across all_of any_of arrange bind_rows distinct everything filter if_else lag mutate n pull row_number select summarise
 #' @importFrom flextable align bold border
 #' @importFrom officer fp_border
 #' @importFrom rlang ensym set_names
@@ -66,11 +66,11 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", ...,
     #collapse the group if only 2 levels exactly, one being in `collapse`
     collapse_grp = data %>%
       filter(
-        n()==2, 
-        sum(!!ensym(name_to) %in% collapse)==1, 
+        n()==2,
+        sum(!!ensym(name_to) %in% collapse)==1,
         .by=all_of(id_from)
-      ) %>% 
-      pull(all_of(id_from)) %>% 
+      ) %>%
+      pull(all_of(id_from)) %>%
       unique()
   }
 

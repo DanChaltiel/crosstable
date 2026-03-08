@@ -78,7 +78,7 @@
        * <chr> <chr>                 <chr>              <chr>              
        1 disp  Displacement (cu.in.) <NA>               <NA>               
        2 disp  Min / Max             71.1 / 258.0       120.3 / 472.0      
-       3 disp  Med [IQR]             120.5 [83.0;162.4] 311.0 [275.8;360.0]
+       3 disp  Med [IQR]             120.6 [83.0;162.4] 311.0 [275.8;360.0]
        4 disp  Mean (std)            132.5 (56.9)       307.1 (106.8)      
        5 disp  N (NA)                14 (0)             18 (0)             
        6 hp    Gross horsepower      <NA>               <NA>               
@@ -89,7 +89,7 @@
       11 cyl   Number of cylinders   <NA>               <NA>               
       12 cyl   4                     10 (90.91%)        1 (9.09%)          
       13 cyl   6                     4 (57.14%)         3 (42.86%)         
-      14 cyl   8                     0 (0%)             14 (100.00%)       
+      14 cyl   8                     0 (0%)             14 (100%)          
       15 am    Transmission          <NA>               <NA>               
       16 am    auto                  7 (36.84%)         12 (63.16%)        
       17 am    manual                7 (53.85%)         6 (46.15%)         
@@ -101,7 +101,7 @@
        * <chr> <chr>      <chr>                 <chr>              <chr>              
        1 disp  disp       <NA>                  <NA>               <NA>               
        2 disp  Min / Max  Displacement (cu.in.) 71.1 / 258.0       120.3 / 472.0      
-       3 disp  Med [IQR]  Displacement (cu.in.) 120.5 [83.0;162.4] 311.0 [275.8;360.0]
+       3 disp  Med [IQR]  Displacement (cu.in.) 120.6 [83.0;162.4] 311.0 [275.8;360.0]
        4 disp  Mean (std) Displacement (cu.in.) 132.5 (56.9)       307.1 (106.8)      
        5 disp  N (NA)     Displacement (cu.in.) 14 (0)             18 (0)             
        6 hp    hp         <NA>                  <NA>               <NA>               
@@ -112,7 +112,7 @@
       11 cyl   cyl        <NA>                  <NA>               <NA>               
       12 cyl   4          Number of cylinders   10 (90.91%)        1 (9.09%)          
       13 cyl   6          Number of cylinders   4 (57.14%)         3 (42.86%)         
-      14 cyl   8          Number of cylinders   0 (0%)             14 (100.00%)       
+      14 cyl   8          Number of cylinders   0 (0%)             14 (100%)          
       15 am    am         <NA>                  <NA>               <NA>               
       16 am    auto       Transmission          7 (36.84%)         12 (63.16%)        
       17 am    manual     Transmission          7 (53.85%)         6 (46.15%)         
@@ -125,7 +125,7 @@
            .id            variable          straight             vshaped                                                                     effect
       1    mpg   Miles/(US) gallon              <NA>                <NA> Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -
       2    mpg           Min / Max       17.8 / 33.9         10.4 / 26.0                                                                       <NA>
-      3    mpg           Med [IQR]  22.8 [21.4;29.6]    15.6 [14.8;19.1]                                                                       <NA>
+      3    mpg           Med [IQR]  22.8 [21.4;29.6]    15.7 [14.8;19.1]                                                                       <NA>
       4    mpg          Mean (std)        24.6 (5.4)          16.6 (3.9)                                                                       <NA>
       5    mpg              N (NA)            14 (0)              18 (0)                                                                       <NA>
       6     am Manual transmission              <NA>                <NA>           Odds ratio [95% Wald CI], ref='vshaped vs straight'\nYes vs No: 
@@ -145,7 +145,7 @@
            .id            variable          straight             vshaped                                                                     effect
       1    mpg   Miles/(US) gallon              <NA>                <NA> Difference in means (t-test CI), ref='straight'\nvshaped minus straight: -
       2    mpg           Min / Max       17.8 / 33.9         10.4 / 26.0                                                                       <NA>
-      3    mpg           Med [IQR]  22.8 [21.4;29.6]    15.6 [14.8;19.1]                                                                       <NA>
+      3    mpg           Med [IQR]  22.8 [21.4;29.6]    15.7 [14.8;19.1]                                                                       <NA>
       4    mpg          Mean (std)        24.6 (5.4)          16.6 (3.9)                                                                       <NA>
       5    mpg              N (NA)            14 (0)              18 (0)                                                                       <NA>
       6     am Manual transmission        7 (53.85%)          6 (46.15%)           Odds ratio [95% Wald CI], ref='vshaped vs straight'\nYes vs No: 

@@ -65,7 +65,9 @@ crosstable(
 
 \item{unique_numeric}{The number of non-missing different levels a variable should have to be considered as numeric.}
 
-\item{date_format}{if \code{x} is a vector of Date or POSIXt, the format to apply (see \link{strptime} for formats)}
+\item{date_format}{A format string passed to \code{\link[=format]{format()}} for \code{Date} and
+\code{POSIXt} vectors. See \link{strptime} for formats. Can be set globally
+with \code{crosstable_options(date_format = ...)}}
 
 \item{times}{When using formula with \code{\link[survival:Surv]{survival::Surv()}} objects, which times to summarize.}
 
