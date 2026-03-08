@@ -1,7 +1,8 @@
-# Format numbers with the exact same number of decimals, including trailing zeros
+# Format values for display
 
-Format numbers with the exact same number of decimals, including
-trailing zeros
+Format numeric values for display in tables and inline text.
+`format_fixed()` supports fixed or scientific notation, percentages,
+dates, and small-value formatting through `epsilon` and `zero_digits`.
 
 ## Usage
 
@@ -9,14 +10,14 @@ trailing zeros
 format_fixed(
   x,
   digits = 1,
+  ...,
+  scientific = 4,
   zero_digits = 1,
-  date_format = NULL,
   percent = FALSE,
+  date_format = NULL,
+  epsilon = NULL,
   is_period = FALSE,
-  scientific = getOption("crosstable_scientific_log", 4),
-  epsilon = getOption("crosstable_format_epsilon", NULL),
-  only_round = getOption("crosstable_only_round", FALSE),
-  ...
+  only_round = "deprecated"
 )
 ```
 
@@ -24,51 +25,61 @@ format_fixed(
 
 - x:
 
-  a numeric vector to format
+  A numeric vector to format. Can also be a `Date`, `POSIXt`, or
+  `Period`.
 
 - digits:
 
-  number of decimals
-
-- zero_digits:
-
-  number of significant digits for values rounded to 0 (can be set to
-  NULL to keep the original 0 value)
-
-- date_format:
-
-  if `x` is a vector of Date or POSIXt, the format to apply (see
-  [strptime](https://rdrr.io/r/base/strptime.html) for formats)
-
-- percent:
-
-  if TRUE, format the values as percentages
-
-- is_period:
-
-  whether `x` is a period (a numeric value of seconds)
-
-- scientific:
-
-  the power of ten above/under which numbers will be displayed as
-  scientific notation.
-
-- epsilon:
-
-  values less than `epsilon` are formatted as `"< [epsilon]"`
-
-- only_round:
-
-  if TRUE, `format_fixed` simply returns the rounded value. Can be set
-  globally with `options("crosstable_only_round"=TRUE)`.
+  number of decimals places in decimal notation or number of significant
+  digits in scientific notation.
 
 - ...:
 
-  unused
+  Not used.
+
+- scientific:
+
+  Order of magnitude beyond which numbers are printed in scientific
+  notation. For example, `scientific = 4` prints values of order `10^±4`
+  or larger in scientific notation. Can also be `TRUE` (always) or
+  `FALSE` (never). Can be set globally with
+  `crosstable_options(format_scientific = ...)`.
+
+- zero_digits:
+
+  Number of significant digits to use for non-zero values that would
+  otherwise round to `0`. Use `NULL` to disable this behavior. Can be
+  set globally with `crosstable_options(zero_digits = ...)`.
+
+- percent:
+
+  If `TRUE`, values are formatted as percentages.
+
+- date_format:
+
+  A format string passed to
+  [`format()`](https://rdrr.io/r/base/format.html) for `Date` and
+  `POSIXt` vectors. See [strptime](https://rdrr.io/r/base/strptime.html)
+  for formats. Can be set globally with
+  `crosstable_options(date_format = ...)`
+
+- epsilon:
+
+  Values smaller than `epsilon` are displayed as `"< [epsilon]"`. Can be
+  set globally with `crosstable_options(format_epsilon = ...)`.
+
+- is_period:
+
+  Whether `x` is a period (a numeric value of seconds). Mainly for
+  internal use.
+
+- only_round:
+
+  Deprecated, use `zero_digits=NULL` instead.
 
 ## Value
 
-a character vector of formatted numbers
+A character vector of formatted numbers
 
 ## Author
 
@@ -77,34 +88,35 @@ Dan Chaltiel
 ## Examples
 
 ``` r
-x = c(1, 1.2, 12.78749, pi, 0.00000012)
-format_fixed(x, digits=3) #default zero_digits=1
-#> [1] "1.000e+00" "1.200e+00" "1.279e+01" "3.142e+00" "1.200e-07"
-format_fixed(x, digits=3, zero_digits=2)
-#> [1] "1.000e+00" "1.200e+00" "1.279e+01" "3.142e+00" "1.200e-07"
-format_fixed(x, digits=3, zero_digits=NULL)
-#> [1] "1.000e+00" "1.200e+00" "1.279e+01" "3.142e+00" "1.200e-07"
+# Basic formatting
+x = c(1, 1.2, 99.999, pi, 0.00000012)
+format_fixed(x, digits = 2)
+#> [1] "1.00"    "1.20"    "100.00"  "3.14"    "1.2e-07"
 
-x_sd = sd(iris$Sepal.Length/10000, na.rm=TRUE)
-format_fixed(x_sd, dig=6)
-#> [1] "8.280661e-05"
-format_fixed(x_sd, dig=3, zero_digits=2) #default only_round=FALSE
-#> [1] "8.281e-05"
-format_fixed(x_sd, dig=3, zero_digits=2, only_round=TRUE)
-#> [1] "8.281e-05"
-options("crosstable_only_round"=TRUE)
-format_fixed(x_sd, dig=3, zero_digits=2) #override default
-#> [1] "8.281e-05"
-options("crosstable_only_round"=NULL)
+# Prevent small values from rounding to zero
+x = c(1.1, 0.1, 0.008280661)
+format_fixed(x, digits = 1, zero_digits = 1)
+#> [1] "1.1"   "0.1"   "0.008"
 
-x2 = c(0.01, 0.1001, 0.500005, 0.00000012)
-format_fixed(x2, scientific=0, dig=1) #everything abs>10^0 gets scientific
-#> [1] "1.0e-02" "1.0e-01" "5.0e-01" "1.2e-07"
-#last would be 0 so it is scientific. Try `zero_digits=NA` or `dig=7`
-format_fixed(x2, scientific=FALSE, dig=6)
-#> [1] "0.010000" "0.100100" "0.500005" "1e-07"   
-format_fixed(x2, scientific=FALSE, percent=TRUE, dig=0)
-#> [1] "1%"     "10%"    "50%"    "1e-05%"
-format_fixed(x2, scientific=FALSE, eps=0.05)
-#> [1] "<0.05" "0.1"   "0.5"   "<0.05"
+# Control when scientific notation is used
+x = c(0.11e-04, 0.001, 0.01, 0.1, 1, 10)
+format_fixed(x, scientific = 2, digits = 2)
+#> [1] "1.1e-05" "1.0e-03" "1.0e-02" "0.10"    "1.00"    "10.00"  
+
+# Force scientific or fixed notation
+x = c(0.5, 0.01, 1e-07)
+format_fixed(x, scientific = TRUE, digits = 1)
+#> [1] "5e-01" "1e-02" "1e-07"
+format_fixed(x, scientific = FALSE, digits = 4)
+#> [1] "0.5000"    "0.0100"    "0.0000001"
+
+# Percent formatting
+x = c(0.5, 0.1001, 0.01)
+format_fixed(x, percent = TRUE, digits = 1)
+#> [1] "50.0%" "10.0%" "1.0%" 
+
+# Threshold display for very small values
+x = c(0.5, 0.1, 0.01)
+format_fixed(x, epsilon = 0.05)
+#> [1] "0.5"   "0.1"   "<0.05"
 ```

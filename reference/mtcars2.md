@@ -55,23 +55,23 @@ library(crosstable)
 ct=crosstable(mtcars2, by=vs)
 ct
 #> # A tibble: 76 × 5
-#>    .id   label variable           straight    vshaped    
-#>    <chr> <chr> <chr>              <chr>       <chr>      
-#>  1 model Model AMC Javelin        0 (0%)      1 (100.00%)
-#>  2 model Model Cadillac Fleetwood 0 (0%)      1 (100.00%)
-#>  3 model Model Camaro Z28         0 (0%)      1 (100.00%)
-#>  4 model Model Chrysler Imperial  0 (0%)      1 (100.00%)
-#>  5 model Model Datsun 710         1 (100.00%) 0 (0%)     
-#>  6 model Model Dodge Challenger   0 (0%)      1 (100.00%)
-#>  7 model Model Duster 360         0 (0%)      1 (100.00%)
-#>  8 model Model Ferrari Dino       0 (0%)      1 (100.00%)
-#>  9 model Model Fiat 128           1 (100.00%) 0 (0%)     
-#> 10 model Model Fiat X1-9          1 (100.00%) 0 (0%)     
+#>    .id   label variable           straight vshaped 
+#>    <chr> <chr> <chr>              <chr>    <chr>   
+#>  1 model Model AMC Javelin        0 (0%)   1 (100%)
+#>  2 model Model Cadillac Fleetwood 0 (0%)   1 (100%)
+#>  3 model Model Camaro Z28         0 (0%)   1 (100%)
+#>  4 model Model Chrysler Imperial  0 (0%)   1 (100%)
+#>  5 model Model Datsun 710         1 (100%) 0 (0%)  
+#>  6 model Model Dodge Challenger   0 (0%)   1 (100%)
+#>  7 model Model Duster 360         0 (0%)   1 (100%)
+#>  8 model Model Ferrari Dino       0 (0%)   1 (100%)
+#>  9 model Model Fiat 128           1 (100%) 0 (0%)  
+#> 10 model Model Fiat X1-9          1 (100%) 0 (0%)  
 #> # ℹ 66 more rows
 as_flextable(ct)
 
 
-.cl-af7e71ae{table-layout:auto;}.cl-af75d5f8{font-family:'DejaVu Sans';font-size:14pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-af75d60c{font-family:'DejaVu Sans';font-size:8pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-af7914ca{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-af7914d4{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-af7914de{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-af7940f8{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-af794102{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-af79410c{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-af79410d{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-af794116{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-af794117{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-af794120{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-af794121{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-af794122{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
+.cl-7f4a0eb0{table-layout:auto;}.cl-7f417386{font-family:'DejaVu Sans';font-size:14pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7f41739a{font-family:'DejaVu Sans';font-size:8pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7f44b2e4{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-7f44b2f8{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-7f44b2f9{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-7f44d74c{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f44d756{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f44d760{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f44d761{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f44d76a{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f44d76b{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f44d774{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f44d775{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f44d77e{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}
 
 
 
@@ -92,29 +92,29 @@ AMC Javelin
 
 0 (0%)
 
-1 (100.00%)
+1 (100%)
 
 Cadillac Fleetwood
 
 0 (0%)
 
-1 (100.00%)
+1 (100%)
 
 Camaro Z28
 
 0 (0%)
 
-1 (100.00%)
+1 (100%)
 
 Chrysler Imperial
 
 0 (0%)
 
-1 (100.00%)
+1 (100%)
 
 Datsun 710
 
-1 (100.00%)
+1 (100%)
 
 0 (0%)
 
@@ -122,29 +122,29 @@ Dodge Challenger
 
 0 (0%)
 
-1 (100.00%)
+1 (100%)
 
 Duster 360
 
 0 (0%)
 
-1 (100.00%)
+1 (100%)
 
 Ferrari Dino
 
 0 (0%)
 
-1 (100.00%)
+1 (100%)
 
 Fiat 128
 
-1 (100.00%)
+1 (100%)
 
 0 (0%)
 
 Fiat X1-9
 
-1 (100.00%)
+1 (100%)
 
 0 (0%)
 
@@ -152,17 +152,17 @@ Ford Pantera L
 
 0 (0%)
 
-1 (100.00%)
+1 (100%)
 
 Honda Civic
 
-1 (100.00%)
+1 (100%)
 
 0 (0%)
 
 Hornet 4 Drive
 
-1 (100.00%)
+1 (100%)
 
 0 (0%)
 
@@ -170,17 +170,17 @@ Hornet Sportabout
 
 0 (0%)
 
-1 (100.00%)
+1 (100%)
 
 Lincoln Continental
 
 0 (0%)
 
-1 (100.00%)
+1 (100%)
 
 Lotus Europa
 
-1 (100.00%)
+1 (100%)
 
 0 (0%)
 
@@ -188,41 +188,41 @@ Maserati Bora
 
 0 (0%)
 
-1 (100.00%)
+1 (100%)
 
 Mazda RX4
 
 0 (0%)
 
-1 (100.00%)
+1 (100%)
 
 Mazda RX4 Wag
 
 0 (0%)
 
-1 (100.00%)
+1 (100%)
 
 Merc 230
 
-1 (100.00%)
+1 (100%)
 
 0 (0%)
 
 Merc 240D
 
-1 (100.00%)
+1 (100%)
 
 0 (0%)
 
 Merc 280
 
-1 (100.00%)
+1 (100%)
 
 0 (0%)
 
 Merc 280C
 
-1 (100.00%)
+1 (100%)
 
 0 (0%)
 
@@ -230,53 +230,53 @@ Merc 450SE
 
 0 (0%)
 
-1 (100.00%)
+1 (100%)
 
 Merc 450SL
 
 0 (0%)
 
-1 (100.00%)
+1 (100%)
 
 Merc 450SLC
 
 0 (0%)
 
-1 (100.00%)
+1 (100%)
 
 Pontiac Firebird
 
 0 (0%)
 
-1 (100.00%)
+1 (100%)
 
 Porsche 914-2
 
 0 (0%)
 
-1 (100.00%)
+1 (100%)
 
 Toyota Corolla
 
-1 (100.00%)
+1 (100%)
 
 0 (0%)
 
 Toyota Corona
 
-1 (100.00%)
+1 (100%)
 
 0 (0%)
 
 Valiant
 
-1 (100.00%)
+1 (100%)
 
 0 (0%)
 
 Volvo 142E
 
-1 (100.00%)
+1 (100%)
 
 0 (0%)
 
@@ -324,7 +324,7 @@ Number of cylinders
 
 0 (0%)
 
-14 (100.00%)
+14 (100%)
 
 Displacement (cu.in.)
 
@@ -336,7 +336,7 @@ Min / Max
 
 Med \[IQR\]
 
-120.5 \[83.0;162.4\]
+120.6 \[83.0;162.4\]
 
 311.0 \[275.8;360.0\]
 
@@ -502,7 +502,7 @@ Med \[IQR\]
 
 1.5 \[1.0;2.0\]
 
-4.0 \[2.2;4.0\]
+4.0 \[2.3;4.0\]
 
 Mean (std)
 

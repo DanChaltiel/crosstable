@@ -12,7 +12,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,10 +52,8 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">crosstable_options</span><span class="op">(</span></span>
 <span>  <span class="va">...</span>,</span>
 <span>  remove_zero_percent <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  only_round <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbosity_autotesting <span class="op">=</span> <span class="st">"default"</span>,</span>
 <span>  verbosity_duplicate_cols <span class="op">=</span> <span class="st">"default"</span>,</span>
-<span>  fishertest_B <span class="op">=</span> <span class="fl">1e+05</span>,</span>
 <span>  <span class="va">total</span>,</span>
 <span>  <span class="va">percent_pattern</span>,</span>
 <span>  <span class="va">margin</span>,</span>
@@ -80,6 +78,7 @@
 <span>  <span class="va">by_header</span>,</span>
 <span>  <span class="va">autofit</span>,</span>
 <span>  <span class="va">compact</span>,</span>
+<span>  <span class="va">collapse</span>,</span>
 <span>  <span class="va">remove_header_keys</span>,</span>
 <span>  <span class="va">show_test_name</span>,</span>
 <span>  <span class="va">padding_v</span>,</span>
@@ -112,10 +111,12 @@
 <span>  <span class="va">style_heading</span>,</span>
 <span>  <span class="va">style_list_ordered</span>,</span>
 <span>  <span class="va">style_list_unordered</span>,</span>
-<span>  <span class="va">scientific_log</span>,</span>
 <span>  <span class="va">clean_names_fun</span>,</span>
 <span>  <span class="va">verbosity_na_cols</span>,</span>
+<span>  fishertest_B <span class="op">=</span> <span class="fl">1e+05</span>,</span>
 <span>  <span class="va">format_epsilon</span>,</span>
+<span>  <span class="va">format_scientific</span>,</span>
+<span>  zero_digits <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  .local <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  reset <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -133,20 +134,12 @@
 <dd><p>set to TRUE so that proportions are not displayed if <code>n==0</code></p></dd>
 
 
-<dt id="arg-only-round">only_round<a class="anchor" aria-label="anchor" href="#arg-only-round"></a></dt>
-<dd><p>default argument for <code><a href="format_fixed.html">format_fixed()</a></code></p></dd>
-
-
 <dt id="arg-verbosity-autotesting">verbosity_autotesting<a class="anchor" aria-label="anchor" href="#arg-verbosity-autotesting"></a></dt>
 <dd><p>one of <code>default</code>, <code>quiet</code>, or <code>verbose</code></p></dd>
 
 
 <dt id="arg-verbosity-duplicate-cols">verbosity_duplicate_cols<a class="anchor" aria-label="anchor" href="#arg-verbosity-duplicate-cols"></a></dt>
 <dd><p>one of <code>default</code>, <code>quiet</code>, or <code>verbose</code>.</p></dd>
-
-
-<dt id="arg-fishertest-b">fishertest_B<a class="anchor" aria-label="anchor" href="#arg-fishertest-b"></a></dt>
-<dd><p>number of simulations to perform when <code><a href="https://rdrr.io/r/stats/fisher.test.html" class="external-link">fisher.test()</a></code> is failing (FEXACT error 7).</p></dd>
 
 
 <dt id="arg-total">total<a class="anchor" aria-label="anchor" href="#arg-total"></a></dt>
@@ -242,6 +235,10 @@
 
 
 <dt id="arg-compact">compact<a class="anchor" aria-label="anchor" href="#arg-compact"></a></dt>
+<dd><p>For setting <code><a href="as_flextable.html">as_flextable()</a></code> arguments globally.</p></dd>
+
+
+<dt id="arg-collapse">collapse<a class="anchor" aria-label="anchor" href="#arg-collapse"></a></dt>
 <dd><p>For setting <code><a href="as_flextable.html">as_flextable()</a></code> arguments globally.</p></dd>
 
 
@@ -353,10 +350,6 @@
 <dd><p>For specifying styles used by lists in the <code>rdocx</code> template. Needed for <code><a href="body_add_list.html">body_add_list()</a></code> to work.</p></dd>
 
 
-<dt id="arg-scientific-log">scientific_log<a class="anchor" aria-label="anchor" href="#arg-scientific-log"></a></dt>
-<dd><p>the maximum power a number can have before being formatted as scientific. Default to 4 so applies on numbers &lt;1e-4 or &gt;1e4.</p></dd>
-
-
 <dt id="arg-clean-names-fun">clean_names_fun<a class="anchor" aria-label="anchor" href="#arg-clean-names-fun"></a></dt>
 <dd><p>cf. <code><a href="clean_names_with_labels.html">clean_names_with_labels()</a></code></p></dd>
 
@@ -365,8 +358,20 @@
 <dd><p>verbosity of a warning</p></dd>
 
 
+<dt id="arg-fishertest-b">fishertest_B<a class="anchor" aria-label="anchor" href="#arg-fishertest-b"></a></dt>
+<dd><p>number of simulations to perform when <code><a href="https://rdrr.io/r/stats/fisher.test.html" class="external-link">fisher.test()</a></code> is failing (FEXACT error 7).</p></dd>
+
+
 <dt id="arg-format-epsilon">format_epsilon<a class="anchor" aria-label="anchor" href="#arg-format-epsilon"></a></dt>
 <dd><p>cf. <code><a href="format_fixed.html">format_fixed()</a></code></p></dd>
+
+
+<dt id="arg-format-scientific">format_scientific<a class="anchor" aria-label="anchor" href="#arg-format-scientific"></a></dt>
+<dd><p>the maximum power a number can have before being formatted as scientific. Default to 4 so applies on numbers &lt;1e-4 or &gt;1e4.</p></dd>
+
+
+<dt id="arg-zero-digits">zero_digits<a class="anchor" aria-label="anchor" href="#arg-zero-digits"></a></dt>
+<dd><p>default argument for <code><a href="format_fixed.html">format_fixed()</a></code></p></dd>
 
 
 <dt id="arg--local">.local<a class="anchor" aria-label="anchor" href="#arg--local"></a></dt>

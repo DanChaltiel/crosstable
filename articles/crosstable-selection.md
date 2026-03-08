@@ -37,7 +37,7 @@ ct %>%
 |              |                 | Mean (std)  | 3.1 (0.4)       |
 |              |                 | N (NA)      | 150 (0)         |
 | Petal.Length | Length of Petal | Min / Max   | 1.0 / 6.9       |
-|              |                 | Med \[IQR\] | 4.3 \[1.6;5.1\] |
+|              |                 | Med \[IQR\] | 4.4 \[1.6;5.1\] |
 |              |                 | Mean (std)  | 3.8 (1.8)       |
 |              |                 | N (NA)      | 150 (0)         |
 | Petal.Width  | Width of Petal  | Min / Max   | 0.1 / 2.5       |
@@ -97,7 +97,7 @@ crosstable(mtcars2, any_of(qsec), by=vs) %>%
 |     |                     | N (NA)      | 14 (0)             | 18 (0)             |
 | cyl | Number of cylinders | 4           | 10 (90.91%)        | 1 (9.09%)          |
 |     |                     | 6           | 4 (57.14%)         | 3 (42.86%)         |
-|     |                     | 8           | 0 (0%)             | 14 (100.00%)       |
+|     |                     | 8           | 0 (0%)             | 14 (100%)          |
 
 ### Negation
 
@@ -112,7 +112,7 @@ crosstable(mtcars2, c(-mpg, -cyl, -1), by=vs) %>% head(8) %>% #-c(mpg, cyl, 1) w
 |------|-----------------------|-------------|----------------------|-----------------------|
 |      |                       |             | straight             | vshaped               |
 | disp | Displacement (cu.in.) | Min / Max   | 71.1 / 258.0         | 120.3 / 472.0         |
-|      |                       | Med \[IQR\] | 120.5 \[83.0;162.4\] | 311.0 \[275.8;360.0\] |
+|      |                       | Med \[IQR\] | 120.6 \[83.0;162.4\] | 311.0 \[275.8;360.0\] |
 |      |                       | Mean (std)  | 132.5 (56.9)         | 307.1 (106.8)         |
 |      |                       | N (NA)      | 14 (0)               | 18 (0)                |
 | hp   | Gross horsepower      | Min / Max   | 52.0 / 123.0         | 91.0 / 335.0          |
@@ -139,9 +139,9 @@ crosstable(mtcars2, 2:4, by=vs) %>%
 |      |                       | N (NA)      | 14 (0)               | 18 (0)                |
 | cyl  | Number of cylinders   | 4           | 10 (90.91%)          | 1 (9.09%)             |
 |      |                       | 6           | 4 (57.14%)           | 3 (42.86%)            |
-|      |                       | 8           | 0 (0%)               | 14 (100.00%)          |
+|      |                       | 8           | 0 (0%)               | 14 (100%)             |
 | disp | Displacement (cu.in.) | Min / Max   | 71.1 / 258.0         | 120.3 / 472.0         |
-|      |                       | Med \[IQR\] | 120.5 \[83.0;162.4\] | 311.0 \[275.8;360.0\] |
+|      |                       | Med \[IQR\] | 120.6 \[83.0;162.4\] | 311.0 \[275.8;360.0\] |
 |      |                       | Mean (std)  | 132.5 (56.9)         | 307.1 (106.8)         |
 |      |                       | N (NA)      | 14 (0)               | 18 (0)                |
 
@@ -217,7 +217,7 @@ crosstable(mtcars2, matches("^d|g.{3}$")) %>%
 |      |                         | N (NA)      | 32 (0)                |
 | gear | Number of forward gears | 3           | 15 (46.88%)           |
 |      |                         | 4           | 12 (37.50%)           |
-|      |                         | 5           | 5 (15.62%)            |
+|      |                         | 5           | 5 (15.63%)            |
 
 ## Select with predicate functions
 
@@ -245,7 +245,7 @@ crosstable(mtcars2, c(where(is.character), where(is.factor), -model)) %>%
 |      |                         | 8        | 14 (43.75%) |
 | gear | Number of forward gears | 3        | 15 (46.88%) |
 |      |                         | 4        | 12 (37.50%) |
-|      |                         | 5        | 5 (15.62%)  |
+|      |                         | 5        | 5 (15.63%)  |
 
 Using anonymous functions, you can even use more complicated patterns.
 For instance, you might want only numeric variables which mean is higher
@@ -297,7 +297,7 @@ crosstable(mtcars2, mpg+cyl ~ vs) %>%
 |     |                     | N (NA)      | 14 (0)             | 18 (0)             |
 | cyl | Number of cylinders | 4           | 10 (90.91%)        | 1 (9.09%)          |
 |     |                     | 6           | 4 (57.14%)         | 3 (42.86%)         |
-|     |                     | 8           | 0 (0%)             | 14 (100.00%)       |
+|     |                     | 8           | 0 (0%)             | 14 (100%)          |
 
 This permits very complex and interesting patterns, using functions *in
 situ* and operations using with the `I` function. Labels are inherited
@@ -309,17 +309,17 @@ crosstable(mtcars2, sqrt(mpg) + I(qsec^2) ~ ifelse(mpg>20,"mpg>20","mpg<20"),
   as_flextable()
 ```
 
-| label     | variable    | ifelse(mpg \> 20, "mpg\>20", "mpg\<20") |                       |
-|-----------|-------------|-----------------------------------------|-----------------------|
-|           |             | mpg\<20                                 | mpg\>20               |
-| sqrt(mpg) | Min / Max   | 3.2 / 4.4                               | 4.6 / 5.8             |
-|           | Med \[IQR\] | 4.0 \[3.8;4.2\]                         | 4.9 \[4.6;5.4\]       |
-|           | Mean (std)  | 4.0 (0.4)                               | 5.0 (0.4)             |
-|           | N (NA)      | 18 (0)                                  | 14 (0)                |
-| I(qsec^2) | Min / Max   | 210.2 / 408.8                           | 270.9 / 524.4         |
-|           | Med \[IQR\] | 301.0 \[259.3;321.8\]                   | 351.8 \[303.0;391.8\] |
-|           | Mean (std)  | 294.3 (50.4)                            | 356.8 (66.7)          |
-|           | N (NA)      | 18 (0)                                  | 14 (0)                |
+| label     | variable    | ifelse(mpg \> 20, "mpg\>20", "mpg\<20") |                      |
+|-----------|-------------|-----------------------------------------|----------------------|
+|           |             | mpg\<20                                 | mpg\>20              |
+| sqrt(mpg) | Min / Max   | 3.2 / 4.4                               | 4.6 / 5.8            |
+|           | Med \[IQR\] | 4.0 \[3.8;4.2\]                         | 4.9 \[4.6;5.4\]      |
+|           | Mean (std)  | 4.0 (0.4)                               | 5.0 (0.4)            |
+|           | N (NA)      | 18 (0)                                  | 14 (0)               |
+| I(qsec^2) | Min / Max   | 210.2 / 408.8                           | 270.9 / 524.4        |
+|           | Med \[IQR\] | 301.0 \[259.3;321.8\]                   | 351.8 \[ 303;391.8\] |
+|           | Mean (std)  | 294.3 (50.4)                            | 356.8 (66.7)         |
+|           | N (NA)      | 18 (0)                                  | 14 (0)               |
 
 Note that you cannot use `tidyselect` helpers in formulas and that you
 cannot use formula declared in an object.

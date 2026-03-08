@@ -104,14 +104,14 @@ nna(iris$Sepal.Length)
 x = iris$Sepal.Length/10000 #closer to zero
 
 meansd(x, dig=3)
-#> [1] "0.001 (8.281e-05)"
+#> [1] "5.84e-04 (8.28e-05)"
 meansd(x, dig=3, zero_digits=NULL) #or NA
-#> [1] "0.001 (8.281e-05)"
+#> [1] "5.84e-04 (0.000)"
 meansd(x, dig=3, only_round=TRUE)
-#> [1] "0.001 (8.281e-05)"
+#> [1] "5.84e-04 (8.28e-05)"
 options("crosstable_only_round"=TRUE)
 meansd(x, dig=3, zero_digits=2)
-#> [1] "0.001 (8.281e-05)"
+#> [1] "5.84e-04 (8.28e-05)"
 options("crosstable_only_round"=NULL)
 meanCI(mtcars2$x_date)
 #> Warning: Unknown or uninitialised column: `x_date`.

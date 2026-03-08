@@ -34,6 +34,11 @@
 - Fixed
   [`ct_compact()`](https://danchaltiel.github.io/crosstable/reference/ct_compact.md)
   so that `.id` is kept in the output.
+- Improved
+  [`format_fixed()`](https://danchaltiel.github.io/crosstable/reference/format_fixed.md)
+  for more reproducible output across platforms. This may result in
+  minor rounding differences.
+  ([\#114](https://github.com/DanChaltiel/crosstable/issues/114))
 - Fixed bug in
   [`rename_with_labels()`](https://danchaltiel.github.io/crosstable/reference/rename_with_labels.md)
   when `except` contains

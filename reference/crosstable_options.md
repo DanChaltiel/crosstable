@@ -13,10 +13,8 @@ to set all options back to default.
 crosstable_options(
   ...,
   remove_zero_percent = FALSE,
-  only_round = FALSE,
   verbosity_autotesting = "default",
   verbosity_duplicate_cols = "default",
-  fishertest_B = 1e+05,
   total,
   percent_pattern,
   margin,
@@ -41,6 +39,7 @@ crosstable_options(
   by_header,
   autofit,
   compact,
+  collapse,
   remove_header_keys,
   show_test_name,
   padding_v,
@@ -73,10 +72,12 @@ crosstable_options(
   style_heading,
   style_list_ordered,
   style_list_unordered,
-  scientific_log,
   clean_names_fun,
   verbosity_na_cols,
+  fishertest_B = 1e+05,
   format_epsilon,
+  format_scientific,
+  zero_digits = 1,
   .local = FALSE,
   reset = deprecated()
 )
@@ -92,11 +93,6 @@ crosstable_options(
 
   set to TRUE so that proportions are not displayed if `n==0`
 
-- only_round:
-
-  default argument for
-  [`format_fixed()`](https://danchaltiel.github.io/crosstable/reference/format_fixed.md)
-
 - verbosity_autotesting:
 
   one of `default`, `quiet`, or `verbose`
@@ -104,12 +100,6 @@ crosstable_options(
 - verbosity_duplicate_cols:
 
   one of `default`, `quiet`, or `verbose`.
-
-- fishertest_B:
-
-  number of simulations to perform when
-  [`fisher.test()`](https://rdrr.io/r/stats/fisher.test.html) is failing
-  (FEXACT error 7).
 
 - total:
 
@@ -247,6 +237,12 @@ crosstable_options(
   arguments globally.
 
 - compact:
+
+  For setting
+  [`as_flextable()`](https://danchaltiel.github.io/crosstable/reference/as_flextable.md)
+  arguments globally.
+
+- collapse:
 
   For setting
   [`as_flextable()`](https://danchaltiel.github.io/crosstable/reference/as_flextable.md)
@@ -393,11 +389,6 @@ crosstable_options(
   [`body_add_list()`](https://danchaltiel.github.io/crosstable/reference/body_add_list.md)
   to work.
 
-- scientific_log:
-
-  the maximum power a number can have before being formatted as
-  scientific. Default to 4 so applies on numbers \<1e-4 or \>1e4.
-
 - clean_names_fun:
 
   cf.
@@ -407,9 +398,25 @@ crosstable_options(
 
   verbosity of a warning
 
+- fishertest_B:
+
+  number of simulations to perform when
+  [`fisher.test()`](https://rdrr.io/r/stats/fisher.test.html) is failing
+  (FEXACT error 7).
+
 - format_epsilon:
 
   cf.
+  [`format_fixed()`](https://danchaltiel.github.io/crosstable/reference/format_fixed.md)
+
+- format_scientific:
+
+  the maximum power a number can have before being formatted as
+  scientific. Default to 4 so applies on numbers \<1e-4 or \>1e4.
+
+- zero_digits:
+
+  default argument for
   [`format_fixed()`](https://danchaltiel.github.io/crosstable/reference/format_fixed.md)
 
 - .local:

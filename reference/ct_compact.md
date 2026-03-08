@@ -199,7 +199,7 @@ ct_compact(x)
 #>  * <chr> <chr>                 <chr>              <chr>             <chr>  <chr>
 #>  1 disp  Displacement (cu.in.) NA                 NA                "Diff… "p v…
 #>  2 disp  Min / Max             71.1 / 258.0       120.3 / 472.0      NA     NA  
-#>  3 disp  Med [IQR]             120.5 [83.0;162.4] 311.0 [275.8;360…  NA     NA  
+#>  3 disp  Med [IQR]             120.6 [83.0;162.4] 311.0 [275.8;360…  NA     NA  
 #>  4 disp  Mean (std)            132.5 (56.9)       307.1 (106.8)      NA     NA  
 #>  5 disp  N (NA)                14 (0)             18 (0)             NA     NA  
 #>  6 hp    Gross horsepower      NA                 NA                "Diff… "p v…
@@ -216,7 +216,7 @@ ct_compact(x, name_from=".id")
 #>  * <chr> <chr>      <chr>                 <chr>             <chr>   <chr>  <chr>
 #>  1 disp  disp       NA                    NA                NA      "Diff… "p v…
 #>  2 disp  Min / Max  Displacement (cu.in.) 71.1 / 258.0      120.3 …  NA     NA  
-#>  3 disp  Med [IQR]  Displacement (cu.in.) 120.5 [83.0;162.… 311.0 …  NA     NA  
+#>  3 disp  Med [IQR]  Displacement (cu.in.) 120.6 [83.0;162.… 311.0 …  NA     NA  
 #>  4 disp  Mean (std) Displacement (cu.in.) 132.5 (56.9)      307.1 …  NA     NA  
 #>  5 disp  N (NA)     Displacement (cu.in.) 14 (0)            18 (0)   NA     NA  
 #>  6 hp    hp         NA                    NA                NA      "Diff… "p v…

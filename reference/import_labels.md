@@ -99,7 +99,7 @@ iris %>%
 #>  7 Sepal.Width  Width of Sepals  Mean (std) 3.1 (0.4)    
 #>  8 Sepal.Width  Width of Sepals  N (NA)     150 (0)      
 #>  9 Petal.Length Length of Petals Min / Max  1.0 / 6.9    
-#> 10 Petal.Length Length of Petals Med [IQR]  4.3 [1.6;5.1]
+#> 10 Petal.Length Length of Petals Med [IQR]  4.4 [1.6;5.1]
 #> 11 Petal.Length Length of Petals Mean (std) 3.8 (1.8)    
 #> 12 Petal.Length Length of Petals N (NA)     150 (0)      
 #> 13 Petal.Width  Width of Petals  Min / Max  0.1 / 2.5    

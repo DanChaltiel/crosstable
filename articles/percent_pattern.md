@@ -37,7 +37,7 @@ crosstable(mtcars3, cyl, by=vs) %>% as_flextable()
 | label               | variable | Engine   |           |     |
 |---------------------|----------|----------|-----------|-----|
 |                     |          | straight | vshaped   | NA  |
-| Number of cylinders | 4        | 7 (88%)  | 1 (12%)   | 2   |
+| Number of cylinders | 4        | 7 (88%)  | 1 (13%)   | 2   |
 |                     | 6        | 0 (0%)   | 1 (100%)  | 3   |
 |                     | 8        | 0 (0%)   | 11 (100%) | 2   |
 |                     | NA       | 2        | 2         | 1   |
@@ -78,7 +78,7 @@ crosstable(mtcars3, cyl, by=vs,
 | label               | variable | Engine          |                    |     |
 |---------------------|----------|-----------------|--------------------|-----|
 |                     |          | straight        | vshaped            | NA  |
-| Number of cylinders | 4        | N=7/8 -\> p=88% | N=1/8 -\> p=12%    | 2   |
+| Number of cylinders | 4        | N=7/8 -\> p=88% | N=1/8 -\> p=13%    | 2   |
 |                     | 6        | N=0/1 -\> p=0%  | N=1/1 -\> p=100%   | 3   |
 |                     | 8        | N=0/11 -\> p=0% | N=11/11 -\> p=100% | 2   |
 |                     | NA       | 2               | 2                  | 1   |
@@ -114,7 +114,7 @@ crosstable(mtcars3, cyl, by=vs, total=TRUE,
 | label               | variable | Engine           |                      |     | Total     |
 |---------------------|----------|------------------|----------------------|-----|-----------|
 |                     |          | straight         | vshaped              | NA  |           |
-| Number of cylinders | 4        | N=7, p=88% (7/8) | N=1, p=12% (1/8)     | 2   | 10 (37%)  |
+| Number of cylinders | 4        | N=7, p=88% (7/8) | N=1, p=13% (1/8)     | 2   | 10 (37%)  |
 |                     | 6        | N=0, p=0% (0/1)  | N=1, p=100% (1/1)    | 3   | 4 (15%)   |
 |                     | 8        | N=0, p=0% (0/11) | N=11, p=100% (11/11) | 2   | 13 (48%)  |
 |                     | NA       | 2                | 2                    | 1   | 5         |

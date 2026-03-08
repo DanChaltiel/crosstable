@@ -57,7 +57,7 @@ iris %>%
 #>  7 Sepal.Width  Width of Sepal  Mean (std) 3.1 (0.4)    
 #>  8 Sepal.Width  Width of Sepal  N (NA)     150 (0)      
 #>  9 Petal.Length Petal.Length    Min / Max  1.0 / 6.9    
-#> 10 Petal.Length Petal.Length    Med [IQR]  4.3 [1.6;5.1]
+#> 10 Petal.Length Petal.Length    Med [IQR]  4.4 [1.6;5.1]
 #> 11 Petal.Length Petal.Length    Mean (std) 3.8 (1.8)    
 #> 12 Petal.Length Petal.Length    N (NA)     150 (0)      
 #> 13 Petal.Width  Petal.Width     Min / Max  0.1 / 2.5    
@@ -82,7 +82,7 @@ iris2 %>%
 #>  7 Sepal.Width  width of sepal  Mean (std) 3.1 (0.4)    
 #>  8 Sepal.Width  width of sepal  N (NA)     150 (0)      
 #>  9 Petal.Length length of petal Min / Max  1.0 / 6.9    
-#> 10 Petal.Length length of petal Med [IQR]  4.3 [1.6;5.1]
+#> 10 Petal.Length length of petal Med [IQR]  4.4 [1.6;5.1]
 #> 11 Petal.Length length of petal Mean (std) 3.8 (1.8)    
 #> 12 Petal.Length length of petal N (NA)     150 (0)      
 #> 13 Petal.Width  width of petal  Min / Max  0.1 / 2.5    

@@ -134,8 +134,11 @@ crosstable(
 
 - date_format:
 
-  if `x` is a vector of Date or POSIXt, the format to apply (see
-  [strptime](https://rdrr.io/r/base/strptime.html) for formats)
+  A format string passed to
+  [`format()`](https://rdrr.io/r/base/format.html) for `Date` and
+  `POSIXt` vectors. See [strptime](https://rdrr.io/r/base/strptime.html)
+  for formats. Can be set globally with
+  `crosstable_options(date_format = ...)`
 
 - times:
 
@@ -232,7 +235,7 @@ crosstable(iris)
 #>  7 Sepal.Width  Sepal.Width  Mean (std) 3.1 (0.4)    
 #>  8 Sepal.Width  Sepal.Width  N (NA)     150 (0)      
 #>  9 Petal.Length Petal.Length Min / Max  1.0 / 6.9    
-#> 10 Petal.Length Petal.Length Med [IQR]  4.3 [1.6;5.1]
+#> 10 Petal.Length Petal.Length Med [IQR]  4.4 [1.6;5.1]
 #> 11 Petal.Length Petal.Length Mean (std) 3.8 (1.8)    
 #> 12 Petal.Length Petal.Length N (NA)     150 (0)      
 #> 13 Petal.Width  Petal.Width  Min / Max  0.1 / 2.5    
@@ -261,16 +264,16 @@ crosstable(mtcars2)
 #> # A tibble: 78 × 4
 #>    .id   label variable           value    
 #>    <chr> <chr> <chr>              <chr>    
-#>  1 model Model AMC Javelin        1 (3.12%)
-#>  2 model Model Cadillac Fleetwood 1 (3.12%)
-#>  3 model Model Camaro Z28         1 (3.12%)
-#>  4 model Model Chrysler Imperial  1 (3.12%)
-#>  5 model Model Datsun 710         1 (3.12%)
-#>  6 model Model Dodge Challenger   1 (3.12%)
-#>  7 model Model Duster 360         1 (3.12%)
-#>  8 model Model Ferrari Dino       1 (3.12%)
-#>  9 model Model Fiat 128           1 (3.12%)
-#> 10 model Model Fiat X1-9          1 (3.12%)
+#>  1 model Model AMC Javelin        1 (3.13%)
+#>  2 model Model Cadillac Fleetwood 1 (3.13%)
+#>  3 model Model Camaro Z28         1 (3.13%)
+#>  4 model Model Chrysler Imperial  1 (3.13%)
+#>  5 model Model Datsun 710         1 (3.13%)
+#>  6 model Model Dodge Challenger   1 (3.13%)
+#>  7 model Model Duster 360         1 (3.13%)
+#>  8 model Model Ferrari Dino       1 (3.13%)
+#>  9 model Model Fiat 128           1 (3.13%)
+#> 10 model Model Fiat X1-9          1 (3.13%)
 #> # ℹ 68 more rows
 
 #tidyselection, custom functions
@@ -278,20 +281,20 @@ library(dplyr)
 crosstable(mtcars2, c(ends_with("t"), starts_with("c")), by=vs,
            funs=c(mean, quantile), funs_arg=list(probs=c(.25,.75)))
 #> # A tibble: 12 × 5
-#>    .id   label                 variable     straight    vshaped     
-#>    <chr> <chr>                 <chr>        <chr>       <chr>       
-#>  1 drat  Rear axle ratio       mean         3.9         3.4         
-#>  2 drat  Rear axle ratio       quantile 25% 3.7         3.1         
-#>  3 drat  Rear axle ratio       quantile 75% 4.1         3.7         
-#>  4 wt    Weight (1000 lbs)     mean         2.6         3.7         
-#>  5 wt    Weight (1000 lbs)     quantile 25% 2.0         3.2         
-#>  6 wt    Weight (1000 lbs)     quantile 75% 3.2         3.8         
-#>  7 cyl   Number of cylinders   4            10 (90.91%) 1 (9.09%)   
-#>  8 cyl   Number of cylinders   6            4 (57.14%)  3 (42.86%)  
-#>  9 cyl   Number of cylinders   8            0 (0%)      14 (100.00%)
-#> 10 carb  Number of carburetors mean         1.8         3.6         
-#> 11 carb  Number of carburetors quantile 25% 1.0         2.2         
-#> 12 carb  Number of carburetors quantile 75% 2.0         4.0         
+#>    .id   label                 variable     straight    vshaped   
+#>    <chr> <chr>                 <chr>        <chr>       <chr>     
+#>  1 drat  Rear axle ratio       mean         3.9         3.4       
+#>  2 drat  Rear axle ratio       quantile 25% 3.7         3.1       
+#>  3 drat  Rear axle ratio       quantile 75% 4.1         3.7       
+#>  4 wt    Weight (1000 lbs)     mean         2.6         3.7       
+#>  5 wt    Weight (1000 lbs)     quantile 25% 2.0         3.2       
+#>  6 wt    Weight (1000 lbs)     quantile 75% 3.2         3.8       
+#>  7 cyl   Number of cylinders   4            10 (90.91%) 1 (9.09%) 
+#>  8 cyl   Number of cylinders   6            4 (57.14%)  3 (42.86%)
+#>  9 cyl   Number of cylinders   8            0 (0%)      14 (100%) 
+#> 10 carb  Number of carburetors mean         1.8         3.6       
+#> 11 carb  Number of carburetors quantile 25% 1.0         2.3       
+#> 12 carb  Number of carburetors quantile 75% 2.0         4.0       
 
 #margin and totals, multiple by
 crosstable(mtcars2, c(disp, cyl), by=c(am, vs),
@@ -300,10 +303,10 @@ crosstable(mtcars2, c(disp, cyl), by=c(am, vs),
 #>   .id   label             variable am=auto & vs=straigh…¹ am=manual & vs=strai…²
 #>   <chr> <chr>             <chr>    <chr>                  <chr>                 
 #> 1 disp  Displacement (cu… Min / M… 120.1 / 258.0          71.1 / 121.0          
-#> 2 disp  Displacement (cu… Med [IQ… 167.6 [143.8;196.3]    79.0 [77.2;101.5]     
+#> 2 disp  Displacement (cu… Med [IQ… 167.6 [143.8;196.3]    79.0 [77.2;101.6]     
 #> 3 disp  Displacement (cu… Mean (s… 175.1 (49.1)           89.8 (18.8)           
 #> 4 disp  Displacement (cu… N (NA)   7 (0)                  7 (0)                 
-#> 5 cyl   Number of cylind… 4        3 (42.86% / 27.27%)    7 (100.00% / 63.64%)  
+#> 5 cyl   Number of cylind… 4        3 (42.86% / 27.27%)    7 (100% / 63.64%)     
 #> 6 cyl   Number of cylind… 6        4 (57.14% / 57.14%)    0 (0% / 0%)           
 #> 7 cyl   Number of cylind… 8        0 (0% / 0%)            0 (0% / 0%)           
 #> 8 cyl   Number of cylind… Total    7 (21.88%)             7 (21.88%)            
@@ -329,7 +332,7 @@ crosstable(mtcars2, ~is.numeric(.x) && mean(.x)>50, by=vs, test=TRUE)
 #>   .id   label                 variable   straight           vshaped        test 
 #>   <chr> <chr>                 <chr>      <chr>              <chr>          <chr>
 #> 1 disp  Displacement (cu.in.) Min / Max  71.1 / 258.0       120.3 / 472.0  "p v…
-#> 2 disp  Displacement (cu.in.) Med [IQR]  120.5 [83.0;162.4] 311.0 [275.8;… "p v…
+#> 2 disp  Displacement (cu.in.) Med [IQR]  120.6 [83.0;162.4] 311.0 [275.8;… "p v…
 #> 3 disp  Displacement (cu.in.) Mean (std) 132.5 (56.9)       307.1 (106.8)  "p v…
 #> 4 disp  Displacement (cu.in.) N (NA)     14 (0)             18 (0)         "p v…
 #> 5 hp    Gross horsepower      Min / Max  52.0 / 123.0       91.0 / 335.0   "p v…

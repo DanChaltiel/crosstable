@@ -184,8 +184,7 @@ Practical functions for various purposes
   : Percent pattern helper
 
 - [`format_fixed()`](https://danchaltiel.github.io/crosstable/reference/format_fixed.md)
-  : Format numbers with the exact same number of decimals, including
-  trailing zeros
+  : Format values for display
 
 - [`ct_compact(`*`<data.frame>`*`)`](https://danchaltiel.github.io/crosstable/reference/ct_compact.md)
   [`ct_compact(`*`<crosstable>`*`)`](https://danchaltiel.github.io/crosstable/reference/ct_compact.md)
