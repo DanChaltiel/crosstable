@@ -2,68 +2,86 @@
 % Please edit documentation in R/funs.R
 \name{format_fixed}
 \alias{format_fixed}
-\title{Format numbers with the exact same number of decimals, including trailing zeros}
+\title{Format values for display}
 \usage{
 format_fixed(
   x,
   digits = 1,
+  ...,
+  scientific = 4,
   zero_digits = 1,
-  date_format = NULL,
   percent = FALSE,
+  date_format = NULL,
+  epsilon = NULL,
   is_period = FALSE,
-  scientific = getOption("crosstable_scientific_log", 4),
-  epsilon = getOption("crosstable_format_epsilon", NULL),
-  only_round = getOption("crosstable_only_round", FALSE),
-  ...
+  only_round = "deprecated"
 )
 }
 \arguments{
-\item{x}{a numeric vector to format}
+\item{x}{A numeric vector to format. Can also be a \code{Date}, \code{POSIXt}, or \code{Period}.}
 
-\item{digits}{number of decimals}
+\item{digits}{number of decimals places in decimal notation or number of
+significant digits in scientific notation.}
 
-\item{zero_digits}{number of significant digits for values rounded to 0 (can be set to NULL to keep the original 0 value)}
+\item{...}{Not used.}
 
-\item{date_format}{if \code{x} is a vector of Date or POSIXt, the format to apply (see \link{strptime} for formats)}
+\item{scientific}{Order of magnitude beyond which numbers are printed in
+scientific notation. For example, \code{scientific = 4} prints values of order
+\verb{10^±4} or larger in scientific notation. Can also be \code{TRUE} (always)
+or \code{FALSE} (never).
+Can be set globally with \code{crosstable_options(format_scientific = ...)}.}
 
-\item{percent}{if TRUE, format the values as percentages}
+\item{zero_digits}{Number of significant digits to use for non-zero values
+that would otherwise round to \code{0}. Use \code{NULL} to disable this behavior.
+Can be set globally with \code{crosstable_options(zero_digits = ...)}.}
 
-\item{is_period}{whether \code{x} is a period (a numeric value of seconds)}
+\item{percent}{If \code{TRUE}, values are formatted as percentages.}
 
-\item{scientific}{the power of ten above/under which numbers will be displayed as scientific notation.}
+\item{date_format}{A format string passed to \code{\link[=format]{format()}} for \code{Date} and
+\code{POSIXt} vectors. See \link{strptime} for formats. Can be set globally
+with \code{crosstable_options(date_format = ...)}}
 
-\item{epsilon}{values less than \code{epsilon} are formatted as \code{"< [epsilon]"}}
+\item{epsilon}{Values smaller than \code{epsilon} are displayed as \code{"< [epsilon]"}.
+Can be set globally with \code{crosstable_options(format_epsilon = ...)}.}
 
-\item{only_round}{if TRUE, \code{format_fixed} simply returns the rounded value. Can be set globally with \code{options("crosstable_only_round"=TRUE)}.}
+\item{is_period}{Whether \code{x} is a period (a numeric value of seconds).
+Mainly for internal use.}
 
-\item{...}{unused}
+\item{only_round}{Deprecated, use \code{zero_digits=NULL} instead.}
 }
 \value{
-a character vector of formatted numbers
+A character vector of formatted numbers
 }
 \description{
-Format numbers with the exact same number of decimals, including trailing zeros
+Format numeric values for display in tables and inline text.
+\code{format_fixed()} supports fixed or scientific notation, percentages,
+dates, and small-value formatting through \code{epsilon} and \code{zero_digits}.
 }
 \examples{
-x = c(1, 1.2, 12.78749, pi, 0.00000012)
-format_fixed(x, digits=3) #default zero_digits=1
-format_fixed(x, digits=3, zero_digits=2)
-format_fixed(x, digits=3, zero_digits=NULL)
+# Basic formatting
+x = c(1, 1.2, 99.999, pi, 0.00000012)
+format_fixed(x, digits = 2)
 
-x_sd = sd(iris$Sepal.Length/10000, na.rm=TRUE)
-format_fixed(x_sd, dig=6)
-format_fixed(x_sd, dig=3, zero_digits=2) #default only_round=FALSE
-format_fixed(x_sd, dig=3, zero_digits=2, only_round=TRUE)
-options("crosstable_only_round"=TRUE)
-format_fixed(x_sd, dig=3, zero_digits=2) #override default
-options("crosstable_only_round"=NULL)
+# Prevent small values from rounding to zero
+x = c(1.1, 0.1, 0.008280661)
+format_fixed(x, digits = 1, zero_digits = 1)
 
-x2 = c(0.01, 0.1001, 0.500005, 0.00000012)
-format_fixed(x2, scientific=0, dig=1) #everything abs>10^0 gets scientific
-#last would be 0 so it is scientific. Try `zero_digits=NA` or `dig=7`
-format_fixed(x2, scientific=FALSE, dig=6)
-format_fixed(x2, scientific=FALSE, percent=TRUE, dig=0)
-format_fixed(x2, scientific=FALSE, eps=0.05)
+# Control when scientific notation is used
+x = c(0.11e-04, 0.001, 0.01, 0.1, 1, 10)
+format_fixed(x, scientific = 2, digits = 2)
+
+# Force scientific or fixed notation
+x = c(0.5, 0.01, 1e-07)
+format_fixed(x, scientific = TRUE, digits = 1)
+format_fixed(x, scientific = FALSE, digits = 4)
+
+# Percent formatting
+x = c(0.5, 0.1001, 0.01)
+format_fixed(x, percent = TRUE, digits = 1)
+
+# Threshold display for very small values
+x = c(0.5, 0.1, 0.01)
+format_fixed(x, epsilon = 0.05)
 }
 \author{
 Dan Chaltiel

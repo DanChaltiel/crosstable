@@ -2,20 +2,36 @@
 # Formatting --------------------------------------------------------------
 
 
-#' Format numbers with the exact same number of decimals, including trailing zeros
+#' Format values for display
 #'
-#' @param x a numeric vector to format
-#' @param digits number of decimals
-#' @param zero_digits number of significant digits for values rounded to 0 (can be set to NULL to keep the original 0 value)
-#' @param date_format if `x` is a vector of Date or POSIXt, the format to apply (see [strptime] for formats)
-#' @param is_period whether `x` is a period (a numeric value of seconds)
-#' @param percent if TRUE, format the values as percentages
-#' @param epsilon values less than `epsilon` are formatted as `"< [epsilon]"`
-#' @param scientific the power of ten above/under which numbers will be displayed as scientific notation.
-#' @param only_round if TRUE, `format_fixed` simply returns the rounded value. Can be set globally with `options("crosstable_only_round"=TRUE)`.
-#' @param ... unused
+
+#' Format numeric values for display in tables and inline text.
+#' `format_fixed()` supports fixed or scientific notation, percentages,
+#' dates, and small-value formatting through `epsilon` and `zero_digits`.
 #'
-#' @return a character vector of formatted numbers
+#' @param x A numeric vector to format. Can also be a `Date`, `POSIXt`, or `Period`.
+#' @param digits number of decimals places in decimal notation or number of
+#'   significant digits in scientific notation.
+#' @param scientific Order of magnitude beyond which numbers are printed in
+#'   scientific notation. For example, `scientific = 4` prints values of order
+#'   `10^±4` or larger in scientific notation. Can also be `TRUE` (always)
+#'   or `FALSE` (never).
+#' Can be set globally with `crosstable_options(format_scientific = ...)`.
+#' @param zero_digits Number of significant digits to use for non-zero values
+#'   that would otherwise round to `0`. Use `NULL` to disable this behavior.
+#'   Can be set globally with `crosstable_options(zero_digits = ...)`.
+#' @param percent If `TRUE`, values are formatted as percentages.
+#' @param date_format A format string passed to [format()] for `Date` and
+#'   `POSIXt` vectors. See [strptime] for formats. Can be set globally
+#'   with `crosstable_options(date_format = ...)`
+#' @param epsilon Values smaller than `epsilon` are displayed as `"< [epsilon]"`.
+#'   Can be set globally with `crosstable_options(format_epsilon = ...)`.
+#' @param is_period Whether `x` is a period (a numeric value of seconds).
+#'   Mainly for internal use.
+#' @param only_round Deprecated, use `zero_digits=NULL` instead.
+#' @param ... Not used.
+#'
+#' @return A character vector of formatted numbers
 #' @author Dan Chaltiel
 #' @importFrom checkmate assert assert_logical assert_numeric
 #' @importFrom glue glue
@@ -23,73 +39,109 @@
 #' @export
 #'
 #' @examples
-#' x = c(1, 1.2, 12.78749, pi, 0.00000012)
-#' format_fixed(x, digits=3) #default zero_digits=1
-#' format_fixed(x, digits=3, zero_digits=2)
-#' format_fixed(x, digits=3, zero_digits=NULL)
+#' # Basic formatting
+#' x = c(1, 1.2, 99.999, pi, 0.00000012)
+#' format_fixed(x, digits = 2)
 #'
-#' x_sd = sd(iris$Sepal.Length/10000, na.rm=TRUE)
-#' format_fixed(x_sd, dig=6)
-#' format_fixed(x_sd, dig=3, zero_digits=2) #default only_round=FALSE
-#' format_fixed(x_sd, dig=3, zero_digits=2, only_round=TRUE)
-#' options("crosstable_only_round"=TRUE)
-#' format_fixed(x_sd, dig=3, zero_digits=2) #override default
-#' options("crosstable_only_round"=NULL)
+#' # Prevent small values from rounding to zero
+#' x = c(1.1, 0.1, 0.008280661)
+#' format_fixed(x, digits = 1, zero_digits = 1)
 #'
-#' x2 = c(0.01, 0.1001, 0.500005, 0.00000012)
-#' format_fixed(x2, scientific=0, dig=1) #everything abs>10^0 gets scientific
-#' #last would be 0 so it is scientific. Try `zero_digits=NA` or `dig=7`
-#' format_fixed(x2, scientific=FALSE, dig=6)
-#' format_fixed(x2, scientific=FALSE, percent=TRUE, dig=0)
-#' format_fixed(x2, scientific=FALSE, eps=0.05)
-format_fixed = function(x, digits=1, zero_digits=1, date_format=NULL,
-                        percent=FALSE, is_period=FALSE,
-                        scientific=getOption("crosstable_scientific_log", 4),
-                        epsilon=getOption("crosstable_format_epsilon", NULL),
-                        only_round=getOption("crosstable_only_round", FALSE), ...){
-  assert_numeric(x)
-  assert_numeric(digits)
-  assert_logical(percent)
-  assert_logical(only_round)
-  assert(is.null(zero_digits)||is.na(zero_digits)||is.numeric(zero_digits))
-  assert(is.null(epsilon)||is.numeric(epsilon))
+#' # Control when scientific notation is used
+#' x = c(0.11e-04, 0.001, 0.01, 0.1, 1, 10)
+#' format_fixed(x, scientific = 2, digits = 2)
+#'
+#' # Force scientific or fixed notation
+#' x = c(0.5, 0.01, 1e-07)
+#' format_fixed(x, scientific = TRUE, digits = 1)
+#' format_fixed(x, scientific = FALSE, digits = 4)
+#'
+#' # Percent formatting
+#' x = c(0.5, 0.1001, 0.01)
+#' format_fixed(x, percent = TRUE, digits = 1)
+#'
+#' # Threshold display for very small values
+#' x = c(0.5, 0.1, 0.01)
+#' format_fixed(x, epsilon = 0.05)
+format_fixed = function(x, digits=1, ..., scientific=4,
+                        zero_digits=1, percent=FALSE,
+                        date_format=NULL, epsilon=NULL, is_period=FALSE,
+                        only_round="deprecated"){
+  assert_numeric(x, null.ok=TRUE)
+  assert_numeric(digits, len=1)
+  assert_numeric(epsilon, len=1, null.ok=TRUE, any.missing=FALSE)
+  assert_numeric(zero_digits, len=1, null.ok=TRUE, any.missing=FALSE)
+  assert_logical(percent, len=1)
+  assert_logical(is_period, len=1)
+  assert_scalar(scientific)
+  if(length(x)==0) return(NULL)
+  if(missing(zero_digits)) zero_digits = getOption("crosstable_zero_digits", zero_digits)
+  if(missing(date_format)) date_format = getOption("crosstable_date_format", date_format)
+  if(missing(scientific)) scientific = getOption("crosstable_format_scientific", scientific)
+  if(missing(epsilon)) epsilon = getOption("crosstable_format_epsilon", epsilon)
+  #TODO optionize()
+
   if(is_period){
     check_installed("lubridate", reason="to use `format_fixed(is_period=TRUE)`")
     d = structure(round(x), class="difftime", units="secs")
     return(format(lubridate::as.period(d)))
   }
+
+  if(inherits(x, "Period")){
+    return(x)
+  }
+
   if(is.date(x)){
     if(is.null(date_format)) date_format=""
     return(format(x, format=date_format))
   }
 
-  format = "f"
-  if(isFALSE(scientific)) sci = FALSE
-  else sci = any(abs(x)>=10^abs(scientific) | (x!=0 & abs(x)<=10^-abs(scientific)), na.rm=TRUE)
+  if(percent) x = x*100
+  x_stable = x + sign(x) * .Machine$double.eps * 10 #avoid floating-point tie errors
 
-  x_bak = x
-  if(sci) format = "e"
-  if(percent) x=x*100
-  if(only_round) {
-    if(sci){
-      rtn = sprintf(glue("%.{digits}e"), x)
-    } else {
-      rtn = as.character(round(x, digits))
-    }
+  x_round = round(x_stable, digits=digits)
+  rtn_dec = format(x_round, nsmall=digits, scientific=FALSE, trim=TRUE)
+  x_signif = signif(x_stable, digits=digits)
+  rtn_sci = .format_sci(x_signif, digits=digits)
+
+  if(is.logical(scientific)){
+    sci = rep(scientific, length(x))
   } else {
-    rtn = ifelse(is.na(x), NA_character_, formatC(x, format=format, digits=digits))
-    if(!is.null(zero_digits) && !is.na(zero_digits)){
-      rtn = ifelse(as.numeric(rtn)==0, as.character(signif(x, digits=zero_digits)), rtn)
-    }
+    assert_numeric(scientific, null.ok=FALSE, any.missing=FALSE, lower=1)
+    expo = floor(log10(abs(x)))
+    sci = x!=0 & abs(expo) >= scientific
+    sci = replace_na(sci, FALSE)
   }
-  if(percent) rtn=paste0(rtn, "%")
+
+  rtn = ifelse(sci & x_round!=0, rtn_sci, rtn_dec)
+
+  if(!is.null(zero_digits) && !is.na(zero_digits)){
+    x_signif = signif(x, digits=zero_digits)
+    rtn_zero_dec = format(x_signif, digits=zero_digits, scientific=FALSE, trim=TRUE)
+    rtn_zero_sci = .format_sci(x, digits=max(zero_digits, digits))
+    rtn_zero = ifelse(sci, rtn_zero_sci, rtn_zero_dec)
+    rtn = ifelse(x_round==0, rtn_zero, rtn)
+  }
+
+  rtn = ifelse(x==0, "0", rtn)
+
+  if(percent){
+    rtn[x == 100] = "100"
+    rtn=paste0(rtn, "%")
+  }
 
   if(!is.null(epsilon) && !is.na(epsilon)){
-    rtn = ifelse(x_bak<epsilon, paste0("<", epsilon), rtn)
+    rtn = ifelse(x<epsilon, paste0("<", epsilon), rtn)
   }
+
+  is_special = is.infinite(x) | is.na(x) | is.nan(x)
+  rtn = ifelse(is_special, x, rtn)
 
   rtn
 }
+
+
+
 
 
 
@@ -120,7 +172,21 @@ narm = function(x){
   x[!is.na(x)]
 }
 
-
+#' @noRd
+#' @importFrom stringr str_pad
+#' @examples
+#' x = c(1e-4, 1e-3, 1e-2, 1e-1, 1, 10, 5881747999, 152e150)
+#' .format_sci(x, 1)
+#' .format_sci(x, 2)
+.format_sci = function(x, digits){
+  expo = floor(log10(abs(x)))
+  mant = x / 10^expo
+  mant = round(mant, digits - 1)
+  mant_chr = format(mant, scientific = FALSE, trim = TRUE, nsmall = max(digits - 1, 0))
+  expo_abs = str_pad(abs(expo), width = 2, pad = "0")
+  expo_chr = ifelse(expo >= 0, "+", "-")
+  paste0(mant_chr, "e", expo_chr, expo_abs)
+}
 
 # Summary functions --------------------------------------------------------
 
@@ -266,7 +332,7 @@ minmax = function(x, na.rm = TRUE, dig = 2, ...) {
   }
 }
 
-#' @describeIn summaryFunctions returns  number of observations and number of missing values
+#' @describeIn summaryFunctions returns number of observations and number of missing values
 #' @author Dan Chaltiel, David Hajage
 #' @export
 nna = function(x) {
