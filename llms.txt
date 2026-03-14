@@ -12,7 +12,7 @@ create automatized reports.
 install.packages("crosstable")
 
 # Install development version on Github
-remotes::install_github("DanChaltiel/crosstable@v0.8.2.9009")
+remotes::install_github("DanChaltiel/crosstable@v0.8.2.9011")
 ```
 
 Note that, for reproducibility purpose, an even better solution would be
@@ -446,6 +446,7 @@ Practical functions for various purposes
   Crosstable](https://danchaltiel.github.io/crosstable/articles/crosstable.md):
 - [Select
   variables](https://danchaltiel.github.io/crosstable/articles/crosstable-selection.md):
+- [Customization](https://danchaltiel.github.io/crosstable/articles/customization.md):
 - [Make automatic
   reports](https://danchaltiel.github.io/crosstable/articles/crosstable-report.md):
 - [Using

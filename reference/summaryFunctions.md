@@ -113,11 +113,8 @@ options("crosstable_only_round"=TRUE)
 meansd(x, dig=3, zero_digits=2)
 #> [1] "5.84e-04 (8.28e-05)"
 options("crosstable_only_round"=NULL)
-meanCI(mtcars2$x_date)
-#> Warning: Unknown or uninitialised column: `x_date`.
-#> Warning: argument is not numeric or logical: returning NA
-#> Warning: argument is not numeric or logical: returning NA
-#> [1] "NA [NA;NA]"
+meanCI(mtcars2$hp_date)
+#> [1] "2010-05-27 [2010-05-03;2010-06-20]"
 
 #dates
 x = as.POSIXct(mtcars$qsec*3600*24 , origin="2010-01-01")

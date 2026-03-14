@@ -50,16 +50,20 @@ mtcars_labels = read.table(header=TRUE, text="
   am    'Transmission'
   gear  'Number of forward gears'
   carb  'Number of carburetors'
+  hp_date  'Some nonsense date'
+  qsec_posix  'Date+time'
 ")
 mtcars2 = mtcars %>% 
   mutate(model=rownames(mtcars), 
          vs=ifelse(vs==0, "vshaped", "straight"),
          am=ifelse(am==0, "auto", "manual"), 
+         hp_date = as.Date(hp , origin="2010-01-01"),
+         qsec_posix = as.POSIXct(qsec*3600*24 , origin="2010-01-01"),
          across(c("cyl", "gear"), factor),
          .before=1) %>% 
   import_labels(mtcars_labels, name_from="name", label_from="label") %>% 
   as_tibble()
-#I also could have used `labelled::set_variable_labels()` to add labels
+#I also could have used `apply_labels()` to add labels
 ```
 
 ## First overview
@@ -299,22 +303,20 @@ Use `date_format` to apply a specific format (see
 this, they are considered as numeric variables.
 
 ``` r
-mtcars2$x_date = as.Date(mtcars2$hp , origin="2010-01-01") %>% set_label("Date")
-mtcars2$x_posix = as.POSIXct(mtcars2$qsec*3600*24 , origin="2010-01-01") %>% set_label("Date+time")
-crosstable(mtcars2, c(x_date, x_posix), date_format="%d/%m/%Y") %>% 
+crosstable(mtcars2, c(hp_date, qsec_posix), date_format="%d/%m/%Y") %>% 
   as_flextable(keep_id=TRUE)
 ```
 
-| .id     | label     | variable    | value                                |
-|---------|-----------|-------------|--------------------------------------|
-| x_date  | Date      | Min / Max   | 22/02/2010 - 02/12/2010              |
-|         |           | Med \[IQR\] | 04/05/2010 \[06/04/2010;30/06/2010\] |
-|         |           | Mean (std)  | 27/05/2010 (2.3 months)              |
-|         |           | N (NA)      | 32 (0)                               |
-| x_posix | Date+time | Min / Max   | 15/01/2010 - 23/01/2010              |
-|         |           | Med \[IQR\] | 18/01/2010 \[17/01/2010;19/01/2010\] |
-|         |           | Mean (std)  | 18/01/2010 (1.8 days)                |
-|         |           | N (NA)      | 32 (0)                               |
+| .id        | label              | variable    | value                                |
+|------------|--------------------|-------------|--------------------------------------|
+| hp_date    | Some nonsense date | Min / Max   | 22/02/2010 - 02/12/2010              |
+|            |                    | Med \[IQR\] | 04/05/2010 \[06/04/2010;30/06/2010\] |
+|            |                    | Mean (std)  | 27/05/2010 (2.3 months)              |
+|            |                    | N (NA)      | 32 (0)                               |
+| qsec_posix | Date+time          | Min / Max   | 15/01/2010 - 23/01/2010              |
+|            |                    | Med \[IQR\] | 18/01/2010 \[17/01/2010;19/01/2010\] |
+|            |                    | Mean (std)  | 18/01/2010 (1.8 days)                |
+|            |                    | N (NA)      | 32 (0)                               |
 
 For the standard deviation to be readable, date unit is chosen
 automatically among
@@ -323,14 +325,15 @@ don’t want two groups to have different date unit, you can set it
 globally using the `date_unit` key in `funs_arg`:
 
 ``` r
-crosstable(mtcars2, c(x_date, x_posix), funs=meansd, funs_arg=list(date_unit="days")) %>% 
+crosstable(mtcars2, c(hp_date, qsec_posix), 
+           funs=meansd, funs_arg=list(date_unit="days")) %>% 
   as_flextable(keep_id=TRUE)
 ```
 
-| .id     | label     | variable | value                          |
-|---------|-----------|----------|--------------------------------|
-| x_date  | Date      | meansd   | 2010-05-27 (68.6 days)         |
-| x_posix | Date+time | meansd   | 2010-01-18 20:22:12 (1.8 days) |
+| .id        | label              | variable | value                          |
+|------------|--------------------|----------|--------------------------------|
+| hp_date    | Some nonsense date | meansd   | 2010-05-27 (68.6 days)         |
+| qsec_posix | Date+time          | meansd   | 2010-01-18 20:22:12 (1.8 days) |
 
 ## Effects
 

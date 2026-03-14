@@ -29,6 +29,15 @@
   apply if there are 2 levels only, `NA` included. See examples for
   more.
 
+##### Documentation
+
+- New vignette on advanced customization, demonstrating how to plug
+  custom summary functions, effect estimators and statistical tests into
+  [`crosstable()`](https://danchaltiel.github.io/crosstable/reference/crosstable.md).
+  ([\#112](https://github.com/DanChaltiel/crosstable/issues/112))
+- New hex logo!
+  ([\#115](https://github.com/DanChaltiel/crosstable/issues/115))
+
 ##### Bug fixes and improvements
 
 - Fixed

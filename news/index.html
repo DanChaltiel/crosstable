@@ -12,7 +12,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.9011</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,11 @@
 <li>New function <code><a href="../reference/ct_bind_cols.html">ct_bind_cols()</a></code> helper to combine (column-bind) two multi-<code>by</code> crosstables into a wider crosstable, enabling multi-column outputs with intra-group margins (<strong>experimental</strong>). (<a href="https://github.com/DanChaltiel/crosstable/issues/97" class="external-link">#97</a>)</li>
 <li>New argument <code>as_flextable(allow_breaks=FALSE)</code>, to avoid breaking a table group in 2 pages. (<a href="https://github.com/DanChaltiel/crosstable/issues/92" class="external-link">#92</a>)</li>
 <li>New argument <code>as_flextable(compact=TRUE, collapse)</code>, to collapse levels in compact format. (<a href="https://github.com/DanChaltiel/crosstable/issues/98" class="external-link">#98</a>) For example, <code>collapse="Yes"</code> will yield a single row for the “Yes” level, instead of a redundant Yes/No that sums up to 100%. This will only apply if there are 2 levels only, <code>NA</code> included. See examples for more.</li>
+</ul></div>
+<div class="section level5">
+<h5 id="documentation-0-9-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-9-0"></a></h5>
+<ul><li>New vignette on advanced customization, demonstrating how to plug custom summary functions, effect estimators and statistical tests into <code><a href="../reference/crosstable.html">crosstable()</a></code>. (<a href="https://github.com/DanChaltiel/crosstable/issues/112" class="external-link">#112</a>)</li>
+<li>New hex logo! (<a href="https://github.com/DanChaltiel/crosstable/issues/115" class="external-link">#115</a>)</li>
 </ul></div>
 <div class="section level5">
 <h5 id="bug-fixes-and-improvements-0-9-0">Bug fixes and improvements<a class="anchor" aria-label="anchor" href="#bug-fixes-and-improvements-0-9-0"></a></h5>
