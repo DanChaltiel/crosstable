@@ -236,7 +236,6 @@ as_flextable.crosstable = function(x, keep_id=FALSE,
       mutate(across(starts_with(".col_"), ~ifelse(is.na(.x), col_keys, .x))) %>%
       select(col_keys, rev(everything()))
 
-
     if(!isFALSE(header_show_n)){
       if(isTRUE(header_show_n)) header_show_n = seq(n_levels)
       header_show_n = as.numeric(header_show_n)
@@ -271,8 +270,10 @@ as_flextable.crosstable = function(x, keep_id=FALSE,
         header_mapping %>%
         mutate(across(-col_keys, ~str_remove(.x, "^.*?="))) %>%
         mutate(across(-col_keys, ~{
-          i=as.numeric(str_sub(cur_column(), -1))
-          ifelse(col_keys %in% a, by_label[i], .x)
+          i = as.numeric(str_sub(cur_column(), -1))
+          lab = by_label[i]
+          lab = if(keep_id) glue("{lab} ({id})", id=names(lab)) else lab
+          ifelse(col_keys %in% a, lab, .x)
         }))
     }
 
