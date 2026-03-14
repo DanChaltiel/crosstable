@@ -1,4 +1,5 @@
 
+# Illustration table.png generated with ChatGPT
 
 hexSticker::sticker(
   #package name
