@@ -21,7 +21,7 @@
 
 \method{ct_compact}{crosstable}(
   data,
-  name_from = c("label", ".id"),
+  name_from = "label",
   name_to = "variable",
   id_from = ".id",
   label_with_id = FALSE,
