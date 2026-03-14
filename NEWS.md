@@ -23,6 +23,8 @@ For example, `collapse="Yes"` will yield a single row for the "Yes" level, inste
 -   Improved `format_fixed()` for more reproducible output across platforms. This may result in minor rounding differences. (#114)
 -   Fixed bug in `rename_with_labels()` when `except` contains `c()`.(#99)
 -   Fixed bug in `crosstable()` when a factor variable had `NA` as a level (like after `forcats::fct_value_to_na_level()`). (#94)
+-   Fixed `as_flextable()` so that `compact=TRUE` works in trasnposed (`t()`) crosstables (#91).
+-   Fixed `as_flextable()` so that `keep_id=TRUE` works in multi-`by` crosstables (#88).
 
 #### Lifecycle
 
