@@ -12,6 +12,11 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 -   New argument `as_flextable(compact=TRUE, collapse)`, to collapse levels in compact format. (#98)
 For example, `collapse="Yes"` will yield a single row for the "Yes" level, instead of a redundant Yes/No that sums up to 100%. This will only apply if there are 2 levels only, `NA` included. See examples for more.
 
+#### Documentation
+
+-   New vignette on advanced customization, demonstrating how to plug custom summary functions, effect estimators and statistical tests into `crosstable()`. (#112)
+-   New hex logo! (#115)
+
 #### Bug fixes and improvements
 
 -   Fixed `ct_compact()` so that `.id` is kept in the output.
