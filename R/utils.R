@@ -435,12 +435,10 @@ attributes_from = function(x, y, replace=FALSE, verbose=FALSE){
 #' @importFrom stats sd
 #'
 #' @examples
-#' x_date = as.Date(mtcars2$hp , origin="2010-01-01") %>% set_label("Date")
-#' x_posix = as.POSIXct(mtcars2$qsec*3600*24 , origin="2010-01-01") %>% set_label("Date+time")
-#' sd_date(x_date)
-#' sd_date(as.POSIXct(x_date))
-#' sd_date(x_date, date_unit="days")
-#' sd_date(x_posix)
+#' sd_date(mtcars2$hp_date)
+#' sd_date(as.POSIXct(mtcars2$hp_date))
+#' sd_date(mtcars2$hp_date, date_unit="days")
+#' sd_date(mtcars2$qsec_posix)
 sd_date = function(x, date_unit=c("auto", "seconds", "minutes", "hours", "days", "months", "years")){
   assert(is.date(x))
   unit=match.arg(date_unit)

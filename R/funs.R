@@ -227,7 +227,7 @@ narm = function(x){
 #' options("crosstable_only_round"=TRUE)
 #' meansd(x, dig=3, zero_digits=2)
 #' options("crosstable_only_round"=NULL)
-#' meanCI(mtcars2$x_date)
+#' meanCI(mtcars2$hp_date)
 #'
 #' #dates
 #' x = as.POSIXct(mtcars$qsec*3600*24 , origin="2010-01-01")

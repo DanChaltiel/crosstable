@@ -206,9 +206,7 @@ Note that, using the formula interface, you could declare the `Surv` object dire
 Although less usual, you can describe variables of call `Date` or `POSIXt` with `crosstable()`. Use `date_format` to apply a specific format (see `?strptime` for formats). Beside this, they are considered as numeric variables.
 
 ```{r crosstable-dates}
-mtcars2$x_date = as.Date(mtcars2$hp , origin="2010-01-01") %>% set_label("Date")
-mtcars2$x_posix = as.POSIXct(mtcars2$qsec*3600*24 , origin="2010-01-01") %>% set_label("Date+time")
-crosstable(mtcars2, c(x_date, x_posix), date_format="%d/%m/%Y") %>% 
+crosstable(mtcars2, c(hp_date, qsec_posix), date_format="%d/%m/%Y") %>% 
   as_flextable(keep_id=TRUE)
 ```
 
