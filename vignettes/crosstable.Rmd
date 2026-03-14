@@ -76,16 +76,20 @@ mtcars_labels = read.table(header=TRUE, text="
   am    'Transmission'
   gear  'Number of forward gears'
   carb  'Number of carburetors'
+  hp_date  'Some nonsense date'
+  qsec_posix  'Date+time'
 ")
 mtcars2 = mtcars %>% 
   mutate(model=rownames(mtcars), 
          vs=ifelse(vs==0, "vshaped", "straight"),
          am=ifelse(am==0, "auto", "manual"), 
+         hp_date = as.Date(hp , origin="2010-01-01"),
+         qsec_posix = as.POSIXct(qsec*3600*24 , origin="2010-01-01"),
          across(c("cyl", "gear"), factor),
          .before=1) %>% 
   import_labels(mtcars_labels, name_from="name", label_from="label") %>% 
   as_tibble()
-#I also could have used `labelled::set_variable_labels()` to add labels
+#I also could have used `apply_labels()` to add labels
 ```
 
 
@@ -213,7 +217,8 @@ crosstable(mtcars2, c(hp_date, qsec_posix), date_format="%d/%m/%Y") %>%
 For the standard deviation to be readable, date unit is chosen automatically among `["seconds", "minutes", "hours", "days", "months", "years"]`. If you don't want two groups to have different date unit, you can set it globally using the `date_unit` key in `funs_arg`:
 
 ```{r crosstable-dates2}
-crosstable(mtcars2, c(x_date, x_posix), funs=meansd, funs_arg=list(date_unit="days")) %>% 
+crosstable(mtcars2, c(hp_date, qsec_posix), 
+           funs=meansd, funs_arg=list(date_unit="days")) %>% 
   as_flextable(keep_id=TRUE)
 ```
 
