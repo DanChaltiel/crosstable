@@ -136,7 +136,8 @@ as_flextable.crosstable = function(x, keep_id=FALSE,
     x[[test]] = str_remove(x[[test]], "\\n\\(.*\\)")
   }
   if (compact && !inherits(x, "compacted_crosstable")) {
-    x = ct_compact.crosstable(x, label_with_id=keep_id, collapse=collapse)
+    name_from = if(is.null(inner_labels)) "label" else inner_labels$label
+    x = ct_compact.crosstable(x, label_with_id=keep_id, name_from=name_from, collapse=collapse)
   }
 
   if(inherits(x, "compacted_crosstable")) {

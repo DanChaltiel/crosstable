@@ -139,11 +139,10 @@ ct_compact.data.frame = function(data, name_from, name_to="variable", ...,
 #' x=crosstable(mtcars2, c(disp,hp,am), by=vs, test=TRUE, effect=TRUE)
 #' ct_compact(x)
 #' ct_compact(x, name_from=".id")
-ct_compact.crosstable = function(data, name_from=c("label", ".id"), name_to="variable",
+ct_compact.crosstable = function(data, name_from="label", name_to="variable",
                                  id_from=".id", label_with_id=FALSE, keep_id=TRUE, ...){
   by_levels = attr(data, "by_levels")
   by = attr(data, "by")
-  name_from = match.arg(name_from)
   wrap_cols = intersect(names(data), c("test", "effect"))
   if(name_from=="label") rcol=".id" else rcol="label"
   if(!isFALSE(label_with_id)) {
