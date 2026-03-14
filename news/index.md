@@ -57,6 +57,15 @@
   when a factor variable had `NA` as a level (like after
   `forcats::fct_value_to_na_level()`).
   ([\#94](https://github.com/DanChaltiel/crosstable/issues/94))
+- Fixed
+  [`as_flextable()`](https://danchaltiel.github.io/crosstable/reference/as_flextable.md)
+  so that `compact=TRUE` works in trasnposed
+  ([`t()`](https://rdrr.io/r/base/t.html)) crosstables
+  ([\#91](https://github.com/DanChaltiel/crosstable/issues/91)).
+- Fixed
+  [`as_flextable()`](https://danchaltiel.github.io/crosstable/reference/as_flextable.md)
+  so that `keep_id=TRUE` works in multi-`by` crosstables
+  ([\#88](https://github.com/DanChaltiel/crosstable/issues/88)).
 
 ##### Lifecycle
 
