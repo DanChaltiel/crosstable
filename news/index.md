@@ -1,6 +1,8 @@
 # Changelog
 
-## crosstable 0.9.0 (dev)
+## crosstable 0.9.0
+
+CRAN release: 2026-03-15
 
 ##### New features
 
@@ -59,7 +61,7 @@
   ([\#94](https://github.com/DanChaltiel/crosstable/issues/94))
 - Fixed
   [`as_flextable()`](https://danchaltiel.github.io/crosstable/reference/as_flextable.md)
-  so that `compact=TRUE` works in trasnposed
+  so that `compact=TRUE` works in transposed
   ([`t()`](https://rdrr.io/r/base/t.html)) crosstables
   ([\#91](https://github.com/DanChaltiel/crosstable/issues/91)).
 - Fixed

@@ -12,7 +12,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.2.9012</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,7 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.9.0" id="crosstable-090-dev">crosstable 0.9.0 (dev)<a class="anchor" aria-label="anchor" href="#crosstable-090-dev"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.9.0" id="crosstable-090">crosstable 0.9.0<a class="anchor" aria-label="anchor" href="#crosstable-090"></a></h2><p class="text-muted">CRAN release: 2026-03-15</p>
 <div class="section level5">
 <h5 id="new-features-0-9-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-9-0"></a></h5>
 <ul><li>New function <code><a href="../reference/body_add_flextable2.html">body_add_flextable2()</a></code>: automatically adds a legend if the <code>flextable</code> object has a <code>"legend"</code> attribute. Equivalent functionality is now available in <code><a href="../reference/body_add_gg2.html">body_add_gg2()</a></code>. (<a href="https://github.com/DanChaltiel/crosstable/issues/100" class="external-link">#100</a>)</li>
@@ -63,7 +63,7 @@
 <li>Improved <code><a href="../reference/format_fixed.html">format_fixed()</a></code> for more reproducible output across platforms. This may result in minor rounding differences. (<a href="https://github.com/DanChaltiel/crosstable/issues/114" class="external-link">#114</a>)</li>
 <li>Fixed bug in <code><a href="../reference/rename_with_labels.html">rename_with_labels()</a></code> when <code>except</code> contains <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code>.(<a href="https://github.com/DanChaltiel/crosstable/issues/99" class="external-link">#99</a>)</li>
 <li>Fixed bug in <code><a href="../reference/crosstable.html">crosstable()</a></code> when a factor variable had <code>NA</code> as a level (like after <code>forcats::fct_value_to_na_level()</code>). (<a href="https://github.com/DanChaltiel/crosstable/issues/94" class="external-link">#94</a>)</li>
-<li>Fixed <code><a href="../reference/as_flextable.html">as_flextable()</a></code> so that <code>compact=TRUE</code> works in trasnposed (<code><a href="https://rdrr.io/r/base/t.html" class="external-link">t()</a></code>) crosstables (<a href="https://github.com/DanChaltiel/crosstable/issues/91" class="external-link">#91</a>).</li>
+<li>Fixed <code><a href="../reference/as_flextable.html">as_flextable()</a></code> so that <code>compact=TRUE</code> works in transposed (<code><a href="https://rdrr.io/r/base/t.html" class="external-link">t()</a></code>) crosstables (<a href="https://github.com/DanChaltiel/crosstable/issues/91" class="external-link">#91</a>).</li>
 <li>Fixed <code><a href="../reference/as_flextable.html">as_flextable()</a></code> so that <code>keep_id=TRUE</code> works in multi-<code>by</code> crosstables (<a href="https://github.com/DanChaltiel/crosstable/issues/88" class="external-link">#88</a>).</li>
 </ul></div>
 <div class="section level5">
