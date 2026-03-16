@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/DanChaltiel/crosstable/",
   "issueTracker": "https://github.com/DanChaltiel/crosstable/issues/",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.4.1 (2024-06-14 ucrt)",
+  "runtimePlatform": "R version 4.4.3 (2025-02-28 ucrt)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -518,10 +518,10 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "1612.194KB",
+  "fileSize": "2565.438KB",
   "releaseNotes": "https://github.com/DanChaltiel/crosstable/blob/master/NEWS.md",
   "readme": "https://github.com/DanChaltiel/crosstable/blob/main/README.md",
-  "contIntegration": ["https://app.codecov.io/gh/DanChaltiel/crosstable?branch=main", "https://github.com/DanChaltiel/crosstable/actions/workflows/check-standard.yaml"],
+  "contIntegration": ["https://app.codecov.io/gh/DanChaltiel/crosstable", "https://github.com/DanChaltiel/crosstable/actions/workflows/check-standard.yaml"],
   "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html",
   "keywords": ["r", "descriptive-statistics", "rstats", "html-report", "frequency-table", "msword", "flextable", "officer"]
 }
