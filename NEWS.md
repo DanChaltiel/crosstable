@@ -1,6 +1,12 @@
 Crosstables for descriptive analyses. See documentation at <https://danchaltiel.github.io/crosstable/> and browse code at <https://github.com/DanChaltiel/crosstable>.
 
 
+# crosstable (dev)
+
+#### Bug fixes and improvements
+
+-   Keep labels when `NA` is mixed with "NA" (#118)
+
 # crosstable 0.9.0
 
 #### New features 
