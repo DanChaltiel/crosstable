@@ -12,6 +12,8 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 -   `get_label()` now gains a new argument `recursive`. By default, labels are no longer
   retrieved recursively in **nested** lists. To restore the previous behaviour, use
   `recursive = TRUE`. (#119 ).
+-   Rename argument `data` to `.data` in `apply_labels()` to avoid partial matching issues with `...`.
+
 # crosstable 0.9.0
 
 #### New features 

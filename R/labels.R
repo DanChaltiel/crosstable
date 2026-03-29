@@ -255,7 +255,7 @@ clean_names_with_labels = function(df, except=NULL, .fun=getOption("crosstable_c
 #'
 #' This function is a copycat of from expss package v0.10.7 (slightly modified) to avoid having to depend on expss. See [expss::apply_labels()] for more documentation. Note that this version is not compatible with `data.table`.
 #'
-#' @param data data.frame/list
+#' @param .data data.frame/list
 #' @param ... named arguments, as `colname="label"`
 #' @param fn alternatively, a function to be applied to all existing labels.
 #' @param warn_missing if TRUE, throw a warning if some names are missing
@@ -277,23 +277,22 @@ clean_names_with_labels = function(df, except=NULL, .fun=getOption("crosstable_c
 #' iris2 %>%
 #'   apply_labels(fn=tolower) %>%
 #'   crosstable()
-apply_labels = function(data, ..., fn, warn_missing=FALSE) {
+apply_labels = function(.data, ..., fn, warn_missing=FALSE) {
   if(!missing(fn)){
     check_dots_empty()
     fn = as_function(fn)
-    rtn = data %>%
+    rtn = .data %>%
       mutate(across(everything(),
                     ~set_label(.x, fn(get_label(.x)))))
   } else {
     args = lst(...)
-    unknowns = setdiff(names(args), names(data))
+    unknowns = setdiff(names(args), names(.data))
     if (length(unknowns) && warn_missing) {
       cli_warn("Cannot find following column{?s} in `data`: {.var {unknowns}}",
                class="crosstable_missing_label_warning",
                call=current_env())
     }
-
-    rtn = data %>%
+    rtn = .data %>%
       mutate(across(everything(),
                     ~set_label(.x, args[[cur_column()]])))
   }

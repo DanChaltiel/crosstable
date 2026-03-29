@@ -4,10 +4,10 @@
 \alias{apply_labels}
 \title{Batch set variable labels}
 \usage{
-apply_labels(data, ..., fn, warn_missing = FALSE)
+apply_labels(.data, ..., fn, warn_missing = FALSE)
 }
 \arguments{
-\item{data}{data.frame/list}
+\item{.data}{data.frame/list}
 
 \item{...}{named arguments, as \code{colname="label"}}
 
