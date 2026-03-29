@@ -45,7 +45,7 @@ Handle label attributes (compatible with Hmisc, expss, haven…)
   [`copy_label_from()`](https://danchaltiel.github.io/crosstable/reference/set_label.md)
   : Set the "label" attribute of an object
 - [`get_label()`](https://danchaltiel.github.io/crosstable/reference/get_label.md)
-  : Get label if wanted and available, or default (name) otherwise
+  : Get variable labels, or return a default value
 - [`remove_labels()`](https://danchaltiel.github.io/crosstable/reference/remove_labels.md)
   : Remove all label attributes.
 - [`apply_labels()`](https://danchaltiel.github.io/crosstable/reference/apply_labels.md)

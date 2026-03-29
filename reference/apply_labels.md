@@ -9,12 +9,12 @@ for more documentation. Note that this version is not compatible with
 ## Usage
 
 ``` r
-apply_labels(data, ..., fn, warn_missing = FALSE)
+apply_labels(.data, ..., fn, warn_missing = FALSE)
 ```
 
 ## Arguments
 
-- data:
+- .data:
 
   data.frame/list
 

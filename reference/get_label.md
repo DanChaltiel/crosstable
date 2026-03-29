@@ -1,36 +1,55 @@
-# Get label if wanted and available, or default (name) otherwise
+# Get variable labels, or return a default value
 
-Get label if wanted and available, or default (name) otherwise
+Returns the `"label"` attribute of `x` when available. If no label is
+found, `default` is returned instead.
 
 ## Usage
 
 ``` r
-get_label(x, default = names(x), object = FALSE, simplify = TRUE)
+get_label(
+  x,
+  default = names(x),
+  object = FALSE,
+  recursive = FALSE,
+  simplify = TRUE
+)
 ```
 
 ## Arguments
 
 - x:
 
-  labelled object. If `x` is a list/data.frame, `get_label()` will
-  return the labels of all children recursively
+  A labelled object. If `x` is a list or data frame, labels can be
+  retrieved recursively from its elements.
 
 - default:
 
-  value returned if there is no label. Default to `names(x)`.
+  Value returned when no label is found. Defaults to `names(x)`.
 
 - object:
 
-  if `x` is a list/data.frame, `object=TRUE` will force getting the
-  labels of the object instead of the children
+  Logical. If `TRUE`, and `x` is a list or data frame, return the label
+  of `x` itself instead of the labels of its children.
+
+- recursive:
+
+  Logical. If `TRUE`, recurse into nested lists. Otherwise, labels are
+  only retrieved from the first level.
 
 - simplify:
 
-  if `x` is a list and `object=FALSE`, simplify the result to a vector
+  Logical. If `TRUE` and `object = FALSE`, simplify the result to a
+  character vector when possible. Otherwise, return a list.
 
 ## Value
 
-A character vector if `simplify==TRUE`, a list otherwise
+A character vector when `simplify = TRUE`, or a list otherwise.
+
+## Details
+
+If `x` is a list or a data frame, `get_label()` returns the labels of
+its elements by default. Use `object = TRUE` to retrieve the label of
+the object itself instead.
 
 ## See also
 
