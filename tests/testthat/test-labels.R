@@ -39,12 +39,13 @@ test_that("Labelling objects", {
 
 test_that("Labelling nested lists (get)", {
   x = list(
-    list(1,2,3),
-    list(iris=iris2, mtcars2),
-    list("foo"="bar", "ffoo"="bbar")
+    l1=list(1,2,3),
+    l2=list(iris=iris2, mtcars2),
+    l3=list("foo"="bar", "ffoo"="bbar")
   )
   expect_snapshot(get_label(x))
-  expect_snapshot(get_label(x, simplify=FALSE))
+  expect_snapshot(get_label(x, recursive=TRUE))
+  expect_snapshot(get_label(x, recursive=TRUE, simplify=FALSE))
   # expect_equal(get_label(x),
   #              c(NA, NA, NA, iris.Sepal.Length = "Length of Sepal", iris.Sepal.Width = "Width of Sepal",
   #                iris.Petal.Length = "Length of Petal", iris.Petal.Width = "Width of Petal",
@@ -79,7 +80,7 @@ test_that("Labelling nested lists (set)", {
     list("foo"="bar", "ffoo"="bbar")
   )
   xx=set_label(x, "not foobar at all")
-  expect_setequal(get_label(xx), "not foobar at all")
+  expect_setequal(get_label(xx, recursive=TRUE), "not foobar at all")
 })
 
 test_that("Copying labels", {

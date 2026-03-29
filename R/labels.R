@@ -1,12 +1,30 @@
 
-#' Get label if wanted and available, or default (name) otherwise
+#' Get variable labels, or return a default value
 #'
-#' @param x labelled object. If `x` is a list/data.frame, `get_label()` will return the labels of all children recursively
-#' @param default value returned if there is no label. Default to `names(x)`.
-#' @param object if `x` is a list/data.frame, `object=TRUE` will force getting the labels of the object instead of the children
-#' @param simplify if `x` is a list and `object=FALSE`, simplify the result to a vector
+#' Returns the `"label"` attribute of `x` when available.
+#' If no label is found, `default` is returned instead.
 #'
-#' @return A character vector if `simplify==TRUE`, a list otherwise
+#' If `x` is a list or a data frame, `get_label()` returns the labels of its
+#' elements by default. Use `object = TRUE` to retrieve the label of the object
+#' itself instead.
+#'
+#' @param x A labelled object.
+#'   If `x` is a list or data frame, labels can be retrieved recursively from
+#'   its elements.
+#' @param default Value returned when no label is found.
+#'   Defaults to `names(x)`.
+#' @param object Logical.
+#'   If `TRUE`, and `x` is a list or data frame, return the label of `x` itself
+#'   instead of the labels of its children.
+#' @param recursive Logical.
+#'   If `TRUE`, recurse into nested lists. Otherwise, labels are only retrieved
+#'   from the first level.
+#' @param simplify Logical.
+#'   If `TRUE` and `object = FALSE`, simplify the result to a character vector
+#'   when possible. Otherwise, return a list.
+#'
+#'
+#' @return A character vector when `simplify = TRUE`, or a list otherwise.
 #'
 #' @author Dan Chaltiel
 #' @export
@@ -33,7 +51,7 @@
 #' get_label(list(xx$cyl, xx$mpg))          #cyl is NA
 #' get_label(list(foo=xx$cyl, bar=xx$mpg))  #default to names
 #' get_label(list(foo=xx$cyl, bar=xx$mpg), default="Default value")
-get_label = function(x, default=names(x), object=FALSE, simplify=TRUE){
+get_label = function(x, default=names(x), object=FALSE, recursive=FALSE, simplify=TRUE){
   labels_env$recurs = labels_env$recurs + 1
   if(labels_env$recurs>getOption("ct_label_recursion_max", 1000)) {
     labels_env$recurs = 0
@@ -47,7 +65,7 @@ get_label = function(x, default=names(x), object=FALSE, simplify=TRUE){
                 class="crosstable_labels_get_wrong_default_error")
     }
     lab = x %>%
-      map(get_label) %>%
+      map(get_label, object=!recursive, recursive=recursive) %>%
       map2(default, ~{if(is.null(.x)) .y else .x})
     labels_env$recurs = 0
     if(simplify) lab = unlist(lab)

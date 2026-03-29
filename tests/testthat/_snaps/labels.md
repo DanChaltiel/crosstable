@@ -19,32 +19,40 @@
     Code
       get_label(x)
     Output
-                                                                                    
+        l1   l2   l3 
+      "l1" "l2" "l3" 
+
+---
+
+    Code
+      get_label(x, recursive = TRUE)
+    Output
+                            l11                       l12                       l13 
                              NA                        NA                        NA 
-              iris.Sepal.Length          iris.Sepal.Width         iris.Petal.Length 
+           l2.iris.Sepal.Length       l2.iris.Sepal.Width      l2.iris.Petal.Length 
               "Length of Sepal"          "Width of Sepal"         "Length of Petal" 
-               iris.Petal.Width              iris.Species                     model 
+            l2.iris.Petal.Width           l2.iris.Species                  l2.model 
                "Width of Petal"                  "Specie"                   "Model" 
-                            mpg                       cyl                      disp 
+                         l2.mpg                    l2.cyl                   l2.disp 
             "Miles/(US) gallon"     "Number of cylinders"   "Displacement (cu.in.)" 
-                             hp                      drat                        wt 
+                          l2.hp                   l2.drat                     l2.wt 
              "Gross horsepower"         "Rear axle ratio"       "Weight (1000 lbs)" 
-                           qsec                        vs                        am 
+                        l2.qsec                     l2.vs                     l2.am 
                 "1/4 mile time"                  "Engine"            "Transmission" 
-                           gear                      carb                   hp_date 
+                        l2.gear                   l2.carb                l2.hp_date 
       "Number of forward gears"   "Number of carburetors"      "Some nonsense date" 
-                     qsec_posix                       foo                      ffoo 
+                  l2.qsec_posix                    l3.foo                   l3.ffoo 
                     "Date+time"                     "foo"                    "ffoo" 
 
 ---
 
     Code
-      get_label(x, simplify = FALSE)
+      get_label(x, recursive = TRUE, simplify = FALSE)
     Output
-      [[1]]
+      $l1
       [1] NA NA NA
       
-      [[2]]
+      $l2
               iris.Sepal.Length          iris.Sepal.Width         iris.Petal.Length 
               "Length of Sepal"          "Width of Sepal"         "Length of Petal" 
                iris.Petal.Width              iris.Species                     model 
@@ -60,7 +68,7 @@
                      qsec_posix 
                     "Date+time" 
       
-      [[3]]
+      $l3
          foo   ffoo 
        "foo" "ffoo" 
       

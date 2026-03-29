@@ -2,24 +2,47 @@
 % Please edit documentation in R/labels.R
 \name{get_label}
 \alias{get_label}
-\title{Get label if wanted and available, or default (name) otherwise}
+\title{Get variable labels, or return a default value}
 \usage{
-get_label(x, default = names(x), object = FALSE, simplify = TRUE)
+get_label(
+  x,
+  default = names(x),
+  object = FALSE,
+  recursive = FALSE,
+  simplify = TRUE
+)
 }
 \arguments{
-\item{x}{labelled object. If \code{x} is a list/data.frame, \code{get_label()} will return the labels of all children recursively}
+\item{x}{A labelled object.
+If \code{x} is a list or data frame, labels can be retrieved recursively from
+its elements.}
 
-\item{default}{value returned if there is no label. Default to \code{names(x)}.}
+\item{default}{Value returned when no label is found.
+Defaults to \code{names(x)}.}
 
-\item{object}{if \code{x} is a list/data.frame, \code{object=TRUE} will force getting the labels of the object instead of the children}
+\item{object}{Logical.
+If \code{TRUE}, and \code{x} is a list or data frame, return the label of \code{x} itself
+instead of the labels of its children.}
 
-\item{simplify}{if \code{x} is a list and \code{object=FALSE}, simplify the result to a vector}
+\item{recursive}{Logical.
+If \code{TRUE}, recurse into nested lists. Otherwise, labels are only retrieved
+from the first level.}
+
+\item{simplify}{Logical.
+If \code{TRUE} and \code{object = FALSE}, simplify the result to a character vector
+when possible. Otherwise, return a list.}
 }
 \value{
-A character vector if \code{simplify==TRUE}, a list otherwise
+A character vector when \code{simplify = TRUE}, or a list otherwise.
 }
 \description{
-Get label if wanted and available, or default (name) otherwise
+Returns the \code{"label"} attribute of \code{x} when available.
+If no label is found, \code{default} is returned instead.
+}
+\details{
+If \code{x} is a list or a data frame, \code{get_label()} returns the labels of its
+elements by default. Use \code{object = TRUE} to retrieve the label of the object
+itself instead.
 }
 \examples{
 xx=mtcars2 \%>\%

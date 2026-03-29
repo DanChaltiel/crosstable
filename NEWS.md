@@ -7,6 +7,11 @@ Crosstables for descriptive analyses. See documentation at <https://danchaltiel.
 
 -   Keep labels when `NA` is mixed with "NA" (#118)
 
+#### Minor breaking changes in labels
+
+-   `get_label()` now gains a new argument `recursive`. By default, labels are no longer
+  retrieved recursively in **nested** lists. To restore the previous behaviour, use
+  `recursive = TRUE`. (#119 ).
 # crosstable 0.9.0
 
 #### New features 
