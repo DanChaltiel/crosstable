@@ -63,7 +63,7 @@ crosstable(mtcars2, wt, funs=c(" "=f)) %>% as_flextable()
 
 To this end, crosstable exports convenience functions: `meansd()`, `meanCI()`, `mediqr()`, `minmax()`, and `nna()`.
 
-## Calculating effects
+## Customizing effects
 
 When `effect = TRUE`, `crosstable` computes an effect comparing the levels of the `by` variable.
 
@@ -129,30 +129,39 @@ See `?effect_summary`, `?effect_tabular`, and `?effect_survival` for available o
 
 
 
-## Calculating tests
+## Customizing tests
 
-Customizing statistical tests is even simpler.  
-A custom test function only needs to return a list with two elements:
+Customizing statistical tests is even simpler: you specify the test function in [crosstable_test_args()], using the appropriate argument depending on the variable type.
 
+For example, the following code forces all tests for categorical variables to use Fisher's exact test:
+
+```{r test-custom}
+my_test_args = crosstable_test_args(test_tabular=fisher.test)
+mtcars2 %>% 
+  crosstable(am, by=vs, test=TRUE, test_args=my_test_args) %>% 
+  as_flextable()
+```
+
+
+You can also provide your own custom test function.
+Such a function must return a list with two elements:
 - `p.value`: the p-value
 - `method`: the label displayed for the test
 
-For example, the following function replaces the default numeric test with a linear model.  
-In a two-group setting, this is close in spirit to a classical comparison test, but it illustrates how custom testing logic can be integrated into `crosstable`.
+For example, the function below performs a test for numeric variables using a linear model.
+In a two-group setting, this is conceptually close to a standard group comparison test, but it mainly serves here as an illustration of how custom testing logic can be integrated into `crosstable`.
 
-```{r test-custom}
+```{r test-custom-adv}
 ct_test_lm = function(x, by){
   fit = lm(x ~ by)
   pval = anova(fit)$`Pr(>F)`[1]
   list(p.value = pval, method = "Linear model ANOVA")
 }
+
 my_test_args = crosstable_test_args(test_summarize=ct_test_lm)
-  
-# crosstable_options(test_args=my_test_args) #set globally if desired
 mtcars2 %>% 
   crosstable(mpg, by=vs, test=TRUE, test_args=my_test_args) %>% 
   as_flextable()
 ```
-
 
 
