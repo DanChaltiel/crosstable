@@ -43,12 +43,12 @@ navbar:
       menu:
       - text: Get started
         href: articles/crosstable.html
-      - text: Select columns
-        href: articles/crosstable-selection.html
-      - text: Automatic reporting
-        href: articles/crosstable-report.html
       - text: Using `percent_pattern`
         href: articles/percent_pattern.html
+      - text: Advanced customization
+        href: articles/customization.html
+      - text: Automatic reporting
+        href: articles/crosstable-report.html
 
 
 articles:
