@@ -92,7 +92,7 @@ To this end, crosstable exports convenience functions:
 and
 [`nna()`](https://danchaltiel.github.io/crosstable/reference/summaryFunctions.md).
 
-## Calculating effects
+## Customizing effects
 
 When `effect = TRUE`, `crosstable` computes an effect comparing the
 levels of the `by` variable.
@@ -177,19 +177,36 @@ and
 [`?effect_survival`](https://danchaltiel.github.io/crosstable/reference/effect_survival.md)
 for available options.
 
-## Calculating tests
+## Customizing tests
 
-Customizing statistical tests is even simpler.  
-A custom test function only needs to return a list with two elements:
+Customizing statistical tests is even simpler: you specify the test
+function in \[crosstable_test_args()\], using the appropriate argument
+depending on the variable type.
 
-- `p.value`: the p-value
-- `method`: the label displayed for the test
+For example, the following code forces all tests for categorical
+variables to use Fisher’s exact test:
 
-For example, the following function replaces the default numeric test
-with a linear model.  
-In a two-group setting, this is close in spirit to a classical
-comparison test, but it illustrates how custom testing logic can be
-integrated into `crosstable`.
+``` r
+my_test_args = crosstable_test_args(test_tabular=fisher.test)
+mtcars2 %>% 
+  crosstable(am, by=vs, test=TRUE, test_args=my_test_args) %>% 
+  as_flextable()
+#> Warning in crosstable(., am, by = vs, test = TRUE, test_args = my_test_args): Be aware that automatic global testing should only be done in an exploratory
+#> context, as it would cause extensive alpha inflation otherwise.
+#> This warning is displayed once every 8 hours.
+```
+
+[TABLE]
+
+You can also provide your own custom test function. Such a function must
+return a list with two elements: - `p.value`: the p-value - `method`:
+the label displayed for the test
+
+For example, the function below performs a test for numeric variables
+using a linear model. In a two-group setting, this is conceptually close
+to a standard group comparison test, but it mainly serves here as an
+illustration of how custom testing logic can be integrated into
+`crosstable`.
 
 ``` r
 ct_test_lm = function(x, by){
@@ -197,15 +214,11 @@ ct_test_lm = function(x, by){
   pval = anova(fit)$`Pr(>F)`[1]
   list(p.value = pval, method = "Linear model ANOVA")
 }
+
 my_test_args = crosstable_test_args(test_summarize=ct_test_lm)
-  
-# crosstable_options(test_args=my_test_args) #set globally if desired
 mtcars2 %>% 
   crosstable(mpg, by=vs, test=TRUE, test_args=my_test_args) %>% 
   as_flextable()
-#> Warning in crosstable(., mpg, by = vs, test = TRUE, test_args = my_test_args): Be aware that automatic global testing should only be done in an exploratory
-#> context, as it would cause extensive alpha inflation otherwise.
-#> This warning is displayed once every 8 hours.
 ```
 
 [TABLE]
