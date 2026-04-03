@@ -143,8 +143,9 @@ as_flextable.crosstable = function(x, keep_id=FALSE,
   if(inherits(x, "compacted_crosstable")) {
     hl = set_names("", generic_labels$variable)
     cols = names(x) %>% setdiff(id)
-    title_rows = which(x$.id!=lag(x$.id, default=""))
-    padded_rows = which(x$.id==lag(x$.id, default=""))
+    x_id = as.character(x[[id]])
+    title_rows = which(x_id!=lag(x_id, default=""))
+    padded_rows = which(x_id==lag(x_id, default=""))
     rtn = x %>%
       flextable(col_keys=cols) %>%
       set_header_labels(values=hl) %>%
