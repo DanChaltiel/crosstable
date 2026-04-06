@@ -281,9 +281,7 @@ apply_labels = function(.data, ..., fn, warn_missing=FALSE) {
   if(!missing(fn)){
     check_dots_empty()
     fn = as_function(fn)
-    rtn = .data %>%
-      mutate(across(everything(),
-                    ~set_label(.x, fn(get_label(.x)))))
+    rtn = set_label(.data, value=fn)
   } else {
     args = lst(...)
     unknowns = setdiff(names(args), names(.data))

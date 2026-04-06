@@ -83,13 +83,34 @@ test_that("Labelling nested lists (set)", {
   expect_setequal(get_label(xx, recursive=TRUE), "not foobar at all")
 })
 
+test_that("With a function", {
+  #with labels
+  l = mtcars2 %>% apply_labels(fn=toupper) %>% get_label()
+  l2 = mtcars2 %>% set_label(value=toupper) %>% get_label()
+  expect_identical(l, toupper(l))
+  expect_identical(l, l2)
+
+  #with names
+  l = mtcars %>% apply_labels(fn=toupper) %>% get_label()
+  l2 = mtcars %>% set_label(value=toupper) %>% get_label()
+  expect_identical(l, toupper(l))
+  expect_identical(l, l2)
+})
+
 test_that("Copying labels", {
   x = mtcars2 %>%
     mutate(mpg2=as.numeric(mpg)+1,
-           mpg3=copy_label_from(mpg2, mpg))
+           mpg3=copy_label_from(mpg2, mpg)) %>%
+    apply_labels(am="foobar")
   expect_null(get_label(x$mpg2))
   expect_equal(get_label(x$mpg3), "Miles/(US) gallon")
+
+  y = mtcars2 %>%
+    copy_label_from(x)
+  expect_equal(get_label(y$am), "foobar")
 })
+
+
 
 test_that("Removing labels", {
   x = mtcars2$mpg
