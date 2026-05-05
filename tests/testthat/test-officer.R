@@ -4,8 +4,8 @@ skip_on_ci()
 # Init --------------------------------------------------------------------
 
 compare_snapshot_doc = function(name){
-  doc1 = read_docx(paste0('tests/testthat/docx/4-officer/snap_',name,'.docx'))
-  doc2 = read_docx(paste0('tests/testthat/docx/4-officer/snap_',name,'_new.docx'))
+  doc1 = officer::read_docx(paste0('tests/testthat/docx/4-officer/snap_',name,'.docx'))
+  doc2 = officer::read_docx(paste0('tests/testthat/docx/4-officer/snap_',name,'_new.docx'))
 
   x1 = doc1$doc_obj$get() %>% xml2::as_list() %>% jsonlite::serializeJSON(pretty = TRUE)
   x2 = doc2$doc_obj$get() %>% xml2::as_list() %>% jsonlite::serializeJSON(pretty = TRUE)
