@@ -20,6 +20,7 @@ load this latter package.
 Here are the 10 first lines of the `iris2` dataset:
 
 ``` r
+
 library(crosstable)
 ct = crosstable(iris2, everything()) #or simply `crosstable(iris2)`
 ct %>% 
@@ -59,6 +60,7 @@ describe. Use [`c()`](https://rdrr.io/r/base/c.html) to select several
 columns:
 
 ``` r
+
 crosstable(mtcars2, c(mpg, "qsec"), by=vs) %>% 
   as_flextable(keep_id=TRUE)
 ```
@@ -83,6 +85,7 @@ ambiguity as you might have wanted to select a column named like this
 vector.
 
 ``` r
+
 qsec = c("mpg", "cyl") #wouldn't that be the most evil variable name ever?
 crosstable(mtcars2, any_of(qsec), by=vs) %>% 
   as_flextable(keep_id=TRUE)
@@ -104,21 +107,22 @@ crosstable(mtcars2, any_of(qsec), by=vs) %>%
 You can use negation to keep all but some columns:
 
 ``` r
+
 crosstable(mtcars2, c(-mpg, -cyl, -1), by=vs) %>% head(8) %>% #-c(mpg, cyl, 1) would also work
   as_flextable(keep_id=TRUE)
 ```
 
-| .id  | label                 | variable    | Engine               |                       |
-|------|-----------------------|-------------|----------------------|-----------------------|
-|      |                       |             | straight             | vshaped               |
-| disp | Displacement (cu.in.) | Min / Max   | 71.1 / 258.0         | 120.3 / 472.0         |
-|      |                       | Med \[IQR\] | 120.6 \[83.0;162.4\] | 311.0 \[275.8;360.0\] |
-|      |                       | Mean (std)  | 132.5 (56.9)         | 307.1 (106.8)         |
-|      |                       | N (NA)      | 14 (0)               | 18 (0)                |
-| hp   | Gross horsepower      | Min / Max   | 52.0 / 123.0         | 91.0 / 335.0          |
-|      |                       | Med \[IQR\] | 96.0 \[66.0;109.8\]  | 180.0 \[156.2;226.2\] |
-|      |                       | Mean (std)  | 91.4 (24.4)          | 189.7 (60.3)          |
-|      |                       | N (NA)      | 14 (0)               | 18 (0)                |
+| .id | label | variable | Engine |  |
+|----|----|----|----|----|
+|  |  |  | straight | vshaped |
+| disp | Displacement (cu.in.) | Min / Max | 71.1 / 258.0 | 120.3 / 472.0 |
+|  |  | Med \[IQR\] | 120.6 \[83.0;162.4\] | 311.0 \[275.8;360.0\] |
+|  |  | Mean (std) | 132.5 (56.9) | 307.1 (106.8) |
+|  |  | N (NA) | 14 (0) | 18 (0) |
+| hp | Gross horsepower | Min / Max | 52.0 / 123.0 | 91.0 / 335.0 |
+|  |  | Med \[IQR\] | 96.0 \[66.0;109.8\] | 180.0 \[156.2;226.2\] |
+|  |  | Mean (std) | 91.4 (24.4) | 189.7 (60.3) |
+|  |  | N (NA) | 14 (0) | 18 (0) |
 
 ### Indice
 
@@ -126,24 +130,25 @@ This can be useful sometimes, for instance when you want to quickly
 describe the 3 first columns.
 
 ``` r
+
 crosstable(mtcars2, 2:4, by=vs) %>% 
   as_flextable(keep_id=TRUE)
 ```
 
-| .id  | label                 | variable    | Engine               |                       |
-|------|-----------------------|-------------|----------------------|-----------------------|
-|      |                       |             | straight             | vshaped               |
-| mpg  | Miles/(US) gallon     | Min / Max   | 17.8 / 33.9          | 10.4 / 26.0           |
-|      |                       | Med \[IQR\] | 22.8 \[21.4;29.6\]   | 15.7 \[14.8;19.1\]    |
-|      |                       | Mean (std)  | 24.6 (5.4)           | 16.6 (3.9)            |
-|      |                       | N (NA)      | 14 (0)               | 18 (0)                |
-| cyl  | Number of cylinders   | 4           | 10 (90.91%)          | 1 (9.09%)             |
-|      |                       | 6           | 4 (57.14%)           | 3 (42.86%)            |
-|      |                       | 8           | 0 (0%)               | 14 (100%)             |
-| disp | Displacement (cu.in.) | Min / Max   | 71.1 / 258.0         | 120.3 / 472.0         |
-|      |                       | Med \[IQR\] | 120.6 \[83.0;162.4\] | 311.0 \[275.8;360.0\] |
-|      |                       | Mean (std)  | 132.5 (56.9)         | 307.1 (106.8)         |
-|      |                       | N (NA)      | 14 (0)               | 18 (0)                |
+| .id | label | variable | Engine |  |
+|----|----|----|----|----|
+|  |  |  | straight | vshaped |
+| mpg | Miles/(US) gallon | Min / Max | 17.8 / 33.9 | 10.4 / 26.0 |
+|  |  | Med \[IQR\] | 22.8 \[21.4;29.6\] | 15.7 \[14.8;19.1\] |
+|  |  | Mean (std) | 24.6 (5.4) | 16.6 (3.9) |
+|  |  | N (NA) | 14 (0) | 18 (0) |
+| cyl | Number of cylinders | 4 | 10 (90.91%) | 1 (9.09%) |
+|  |  | 6 | 4 (57.14%) | 3 (42.86%) |
+|  |  | 8 | 0 (0%) | 14 (100%) |
+| disp | Displacement (cu.in.) | Min / Max | 71.1 / 258.0 | 120.3 / 472.0 |
+|  |  | Med \[IQR\] | 120.6 \[83.0;162.4\] | 311.0 \[275.8;360.0\] |
+|  |  | Mean (std) | 132.5 (56.9) | 307.1 (106.8) |
+|  |  | N (NA) | 14 (0) | 18 (0) |
 
 You can also use negation (`-(1:3)`), concatenation (`c(1,2,3)`), or
 both (`crosstable(mtcars2, 1:4, -2, by=vs)`).
@@ -168,6 +173,7 @@ and
 Here are some examples:
 
 ``` r
+
 crosstable(mtcars2, starts_with("d")) %>% 
   as_flextable(keep_id=TRUE)
 ```
@@ -184,6 +190,7 @@ crosstable(mtcars2, starts_with("d")) %>%
 |      |                       | N (NA)      | 32 (0)                |
 
 ``` r
+
 crosstable(mtcars2, c(ends_with("g"), contains("yl"))) %>% 
   as_flextable(keep_id=TRUE)
 ```
@@ -199,6 +206,7 @@ crosstable(mtcars2, c(ends_with("g"), contains("yl"))) %>%
 |     |                     | 8           | 14 (43.75%)        |
 
 ``` r
+
 #to all regex haters: the following call selects all columns which name 
 #starts with "d" or "g", followed by exactly 3 characters
 crosstable(mtcars2, matches("^d|g.{3}$")) %>% 
@@ -230,6 +238,7 @@ the function is named, it is a good practice to wrap it in
 For instance, you might want to keep only `character` variables:
 
 ``` r
+
 crosstable(mtcars2, c(where(is.character), where(is.factor), -model)) %>% 
   as_flextable(keep_id=TRUE)
 ```
@@ -252,6 +261,7 @@ For instance, you might want only numeric variables which mean is higher
 than 100:
 
 ``` r
+
 crosstable(mtcars2, where(function(x) is.numeric(x) && mean(x)>100)) %>% 
   as_flextable(keep_id=TRUE)
 ```
@@ -284,6 +294,7 @@ while the right-hand-side is the `by` variable (which can be set to
 `NULL`, `0` or `1` for “no variable”).
 
 ``` r
+
 crosstable(mtcars2, mpg+cyl ~ vs) %>% 
   as_flextable(keep_id=TRUE)
 ```
@@ -304,22 +315,23 @@ situ* and operations using with the `I` function. Labels are inherited
 and make little sense though.
 
 ``` r
+
 crosstable(mtcars2, sqrt(mpg) + I(qsec^2) ~ ifelse(mpg>20,"mpg>20","mpg<20"),
            label=FALSE) %>% 
   as_flextable()
 ```
 
-| label     | variable    | ifelse(mpg \> 20, "mpg\>20", "mpg\<20") |                      |
-|-----------|-------------|-----------------------------------------|----------------------|
-|           |             | mpg\<20                                 | mpg\>20              |
-| sqrt(mpg) | Min / Max   | 3.2 / 4.4                               | 4.6 / 5.8            |
-|           | Med \[IQR\] | 4.0 \[3.8;4.2\]                         | 4.9 \[4.6;5.4\]      |
-|           | Mean (std)  | 4.0 (0.4)                               | 5.0 (0.4)            |
-|           | N (NA)      | 18 (0)                                  | 14 (0)               |
-| I(qsec^2) | Min / Max   | 210.2 / 408.8                           | 270.9 / 524.4        |
-|           | Med \[IQR\] | 301.0 \[259.3;321.8\]                   | 351.8 \[ 303;391.8\] |
-|           | Mean (std)  | 294.3 (50.4)                            | 356.8 (66.7)         |
-|           | N (NA)      | 18 (0)                                  | 14 (0)               |
+| label | variable | ifelse(mpg \> 20, "mpg\>20", "mpg\<20") |  |
+|----|----|----|----|
+|  |  | mpg\<20 | mpg\>20 |
+| sqrt(mpg) | Min / Max | 3.2 / 4.4 | 4.6 / 5.8 |
+|  | Med \[IQR\] | 4.0 \[3.8;4.2\] | 4.9 \[4.6;5.4\] |
+|  | Mean (std) | 4.0 (0.4) | 5.0 (0.4) |
+|  | N (NA) | 18 (0) | 14 (0) |
+| I(qsec^2) | Min / Max | 210.2 / 408.8 | 270.9 / 524.4 |
+|  | Med \[IQR\] | 301.0 \[259.3;321.8\] | 351.8 \[ 303;391.8\] |
+|  | Mean (std) | 294.3 (50.4) | 356.8 (66.7) |
+|  | N (NA) | 18 (0) | 14 (0) |
 
 Note that you cannot use `tidyselect` helpers in formulas and that you
 cannot use formula declared in an object.
@@ -332,6 +344,7 @@ I want all numeric variables that do not start by “d” or “w”, but I
 still want `drat` in the end.
 
 ``` r
+
 crosstable(mtcars2, c(where(is.numeric), -matches("^d|w"), drat), label=FALSE) %>% 
   as_flextable()
 ```

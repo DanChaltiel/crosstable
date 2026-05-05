@@ -8,11 +8,12 @@ create automatized reports.
 ## Installation
 
 ``` r
+
 # Install last version available on CRAN
 install.packages("crosstable")
 
 # Install development version on Github
-remotes::install_github("DanChaltiel/crosstable@v0.9.0.9004")
+remotes::install_github("DanChaltiel/crosstable@v0.9.0.9005")
 ```
 
 Note that, for reproducibility purpose, an even better solution would be
@@ -32,6 +33,7 @@ website](https://danchaltiel.github.io/crosstable/) for more.
 > percent on row and percent on column, with no decimals.
 
 ``` r
+
 library(crosstable)
 ct1 = crosstable(mtcars2, c(disp, vs), by=am, total="both", 
                  percent_pattern="{n} ({p_row}/{p_col})", percent_digits=0) %>%
@@ -74,6 +76,7 @@ Here is a more advanced example.
 > and with 3 decimals for numeric variables:
 
 ``` r
+
 ct2 = crosstable(mtcars2, c(starts_with("cy"), ends_with("at")), by=c(am, vs), 
                  label=FALSE, num_digits=3, funs=c(mean, quantile), 
                  funs_arg=list(probs=c(.25,.75))) %>% 

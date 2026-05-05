@@ -66,6 +66,11 @@ Dan Chaltiel
 ``` r
 #Officer
 library(officer)
+#> 
+#> Attaching package: ‘officer’
+#> The following object is masked from ‘package:crosstable’:
+#> 
+#>     body_add_list
 mytable = crosstable(mtcars2)
 doc = read_docx() %>%
     body_add_crosstable(mytable) %>%

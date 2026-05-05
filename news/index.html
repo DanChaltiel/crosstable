@@ -12,7 +12,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">crosstable</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0.9005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -158,8 +158,20 @@ See <code><a href="../reference/body_add_normal.html">?body_add_normal</a></code
 <h2 class="pkg-version" data-toc-text="0.6.0" id="crosstable-060-2023-03-26">crosstable 0.6.0 <sub><sup>2023-03-26</sup></sub><a class="anchor" aria-label="anchor" href="#crosstable-060-2023-03-26"></a></h2><p class="text-muted">CRAN release: 2023-03-26</p>
 <div class="section level5">
 <h5 id="new-features-0-6-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-6-0"></a></h5>
-<ul><li><p>New function <code><a href="../reference/transpose_crosstable.html">transpose_crosstable()</a></code> (or simply <code><a href="https://rdrr.io/r/base/t.html" class="external-link">t()</a></code>), which transposes a crosstable so that <code>by</code> is in rows instead of columns.<br><code>r     ct = crosstable(mtcars2, c(mpg, drat), by=am)     t_ct = t(ct)     as_flextable(t_ct, by_header="Variables")</code></p></li>
-<li><p>New function <code><a href="../reference/pivot_crosstable.html">pivot_crosstable()</a></code>, which pivots a crosstable so that <code>variable</code> is spread as several columns.<br><code>r     ct = crosstable(mtcars2, c(mpg, drat))     p_ct = pivot_crosstable(ct)     as_flextable(p_ct)</code></p></li>
+<ul><li>
+<p>New function <code><a href="../reference/transpose_crosstable.html">transpose_crosstable()</a></code> (or simply <code><a href="https://rdrr.io/r/base/t.html" class="external-link">t()</a></code>), which transposes a crosstable so that <code>by</code> is in rows instead of columns.<br></p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ct</span> <span class="op">=</span> <span class="fu"><a href="../reference/crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">drat</span><span class="op">)</span>, by<span class="op">=</span><span class="va">am</span><span class="op">)</span></span>
+<span><span class="va">t_ct</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">ct</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">t_ct</span>, by_header<span class="op">=</span><span class="st">"Variables"</span><span class="op">)</span></span></code></pre></div>
+</li>
+<li>
+<p>New function <code><a href="../reference/pivot_crosstable.html">pivot_crosstable()</a></code>, which pivots a crosstable so that <code>variable</code> is spread as several columns.<br></p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ct</span> <span class="op">=</span> <span class="fu"><a href="../reference/crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">drat</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p_ct</span> <span class="op">=</span> <span class="fu"><a href="../reference/pivot_crosstable.html">pivot_crosstable</a></span><span class="op">(</span><span class="va">ct</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/as_flextable.html">as_flextable</a></span><span class="op">(</span><span class="va">p_ct</span><span class="op">)</span></span></code></pre></div>
+</li>
 <li><p><code><a href="../reference/body_add_table_list.html">body_add_table_list()</a></code> now replaces <code><a href="../reference/body_add_table_list.html">body_add_crosstable_list()</a></code> and <code><a href="../reference/body_add_table_list.html">body_add_flextable_list()</a></code>. It allows both crosstables and flextable (and even dataframes, which are turned to flextables first) and has a new argument <code>fun_after</code> to control what comes after the table. See examples in <code><a href="../reference/body_add_table_list.html">?body_add_table_list</a></code>.</p></li>
 <li><p>New function <code><a href="../reference/get_percent_pattern.html">get_percent_pattern()</a></code>. See also the new vignette <code><a href="../articles/percent_pattern.html">vignette("percent_pattern")</a></code>.</p></li>
 <li><p>New argument <code>crosstable(drop_levels=TRUE)</code> to drop unused levels in factors.</p></li>
@@ -195,7 +207,7 @@ See <code><a href="../reference/body_add_normal.html">?body_add_normal</a></code
 <ul><li>New <code><a href="../reference/clean_names_with_labels.html">clean_names_with_labels()</a></code> which cleans the names of the dataframe but keeps the old names as labels. Obviously inspired by <a href="https://github.com/sfirke/janitor" class="external-link">janitor</a>.</li>
 <li>New variables <code>n_col</code>, <code>n_row</code>, and <code>n_tot</code> available for <code>percent_pattern</code>. Also, every variable has now its counterpart with the <code>_na</code> suffix which accounts for missing values.<br>
 For instance, one can now write:</li>
-</ul><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+</ul><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="fu"><a href="../reference/crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="va">cyl</span>, percent_pattern<span class="op">=</span><span class="st">"{p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]"</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="../reference/crosstable.html">crosstable</a></span><span class="op">(</span><span class="va">mtcars2</span>, <span class="va">cyl</span>, percent_pattern<span class="op">=</span><span class="st">"{p_col_na} ({n}/{n_col_na}) [95%CI: {p_col_inf}; {p_col_sup}]"</span><span class="op">)</span></span></code></pre></div>
 <ul><li>

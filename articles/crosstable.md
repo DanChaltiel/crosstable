@@ -34,6 +34,7 @@ For convenience, this dataset is already packed into {`crosstable`} as
 so don’t bother re-creating it for your own tests.
 
 ``` r
+
 library(crosstable)
 library(dplyr)
 mtcars_labels = read.table(header=TRUE, text="
@@ -78,6 +79,7 @@ table. This table will be automatically displayed in the Viewer pane if
 your are using RStudio.
 
 ``` r
+
 crosstable(mtcars2, c(mpg, cyl), by=am) %>%
   as_flextable(keep_id=TRUE)
 ```
@@ -125,21 +127,22 @@ To display totals, use the `total` argument as one of
 `c("none", "row", "column", "both")`.
 
 ``` r
+
 #of course, the total of a "column" in only meaningful for categorical variables.
 crosstable(mtcars2, c(am, mpg), by=vs, total="both") %>% 
   as_flextable(keep_id=TRUE)
 ```
 
-| .id | label             | variable    | Engine             |                    | Total              |
-|-----|-------------------|-------------|--------------------|--------------------|--------------------|
-|     |                   |             | straight           | vshaped            |                    |
-| am  | Transmission      | auto        | 7 (36.84%)         | 12 (63.16%)        | 19 (59.38%)        |
-|     |                   | manual      | 7 (53.85%)         | 6 (46.15%)         | 13 (40.62%)        |
-|     |                   | Total       | 14 (43.75%)        | 18 (56.25%)        | 32 (100%)          |
-| mpg | Miles/(US) gallon | Min / Max   | 17.8 / 33.9        | 10.4 / 26.0        | 10.4 / 33.9        |
-|     |                   | Med \[IQR\] | 22.8 \[21.4;29.6\] | 15.7 \[14.8;19.1\] | 19.2 \[15.4;22.8\] |
-|     |                   | Mean (std)  | 24.6 (5.4)         | 16.6 (3.9)         | 20.1 (6.0)         |
-|     |                   | N (NA)      | 14 (0)             | 18 (0)             | 32 (0)             |
+| .id | label | variable | Engine |  | Total |
+|----|----|----|----|----|----|
+|  |  |  | straight | vshaped |  |
+| am | Transmission | auto | 7 (36.84%) | 12 (63.16%) | 19 (59.38%) |
+|  |  | manual | 7 (53.85%) | 6 (46.15%) | 13 (40.62%) |
+|  |  | Total | 14 (43.75%) | 18 (56.25%) | 32 (100%) |
+| mpg | Miles/(US) gallon | Min / Max | 17.8 / 33.9 | 10.4 / 26.0 | 10.4 / 33.9 |
+|  |  | Med \[IQR\] | 22.8 \[21.4;29.6\] | 15.7 \[14.8;19.1\] | 19.2 \[15.4;22.8\] |
+|  |  | Mean (std) | 24.6 (5.4) | 16.6 (3.9) | 20.1 (6.0) |
+|  |  | N (NA) | 14 (0) | 18 (0) | 32 (0) |
 
 Note that totals always take missing values into account. Therefore, be
 aware that if `showNA="no"`, totals may be higher than the sum of the
@@ -174,6 +177,7 @@ Use `showNA` (one of `c("ifany", "always", "no")`) to control when
 missing values should be displayed.
 
 ``` r
+
 mtcars3 = mtcars2
 mtcars3$cyl[1:5] = NA
 crosstable(mtcars3, c(am, cyl), by=vs, showNA="always", 
@@ -211,6 +215,7 @@ However, this might not be the information you need, so you can use the
 `funs` argument to apply the set of functions of your choice:
 
 ``` r
+
 crosstable(mtcars2, c(mpg, wt), funs=c("mean"=mean, "std dev"=sd, q1=~quantile(.x, prob=0.25))) %>% 
   as_flextable(keep_id=TRUE)
 ```
@@ -252,6 +257,7 @@ On the other hand, if `by` refers to a numeric variable, correlation
 coefficients will be calculated.
 
 ``` r
+
 library(survival)
 crosstable(mtcars2, where(is.numeric), cor_method="pearson", by=mpg) %>% 
   as_flextable(keep_id=TRUE)
@@ -274,6 +280,7 @@ the number of events before this time, and the number of patients at
 risk, as per `survival:::summary.survfit()`.
 
 ``` r
+
 library(survival)
 aml$surv = Surv(aml$time, aml$status)
 crosstable(aml, surv, by=x, times=c(0,50,150), followup=TRUE) %>% 
@@ -303,20 +310,21 @@ Use `date_format` to apply a specific format (see
 this, they are considered as numeric variables.
 
 ``` r
+
 crosstable(mtcars2, c(hp_date, qsec_posix), date_format="%d/%m/%Y") %>% 
   as_flextable(keep_id=TRUE)
 ```
 
-| .id        | label              | variable    | value                                |
-|------------|--------------------|-------------|--------------------------------------|
-| hp_date    | Some nonsense date | Min / Max   | 22/02/2010 - 02/12/2010              |
-|            |                    | Med \[IQR\] | 04/05/2010 \[06/04/2010;30/06/2010\] |
-|            |                    | Mean (std)  | 27/05/2010 (2.3 months)              |
-|            |                    | N (NA)      | 32 (0)                               |
-| qsec_posix | Date+time          | Min / Max   | 15/01/2010 - 23/01/2010              |
-|            |                    | Med \[IQR\] | 18/01/2010 \[17/01/2010;19/01/2010\] |
-|            |                    | Mean (std)  | 18/01/2010 (1.8 days)                |
-|            |                    | N (NA)      | 32 (0)                               |
+| .id | label | variable | value |
+|----|----|----|----|
+| hp_date | Some nonsense date | Min / Max | 22/02/2010 - 02/12/2010 |
+|  |  | Med \[IQR\] | 04/05/2010 \[06/04/2010;30/06/2010\] |
+|  |  | Mean (std) | 27/05/2010 (2.3 months) |
+|  |  | N (NA) | 32 (0) |
+| qsec_posix | Date+time | Min / Max | 15/01/2010 - 23/01/2010 |
+|  |  | Med \[IQR\] | 18/01/2010 \[17/01/2010;19/01/2010\] |
+|  |  | Mean (std) | 18/01/2010 (1.8 days) |
+|  |  | N (NA) | 32 (0) |
 
 For the standard deviation to be readable, date unit is chosen
 automatically among
@@ -325,6 +333,7 @@ don’t want two groups to have different date unit, you can set it
 globally using the `date_unit` key in `funs_arg`:
 
 ``` r
+
 crosstable(mtcars2, c(hp_date, qsec_posix), 
            funs=meansd, funs_arg=list(date_unit="days")) %>% 
   as_flextable(keep_id=TRUE)
@@ -342,6 +351,7 @@ automatically compute an effect-size, most often along with its
 confidence interval.
 
 ``` r
+
 crosstable(mtcars2, c(vs, qsec), by=am, funs=mean, effect=TRUE) %>% 
   as_flextable(keep_id=TRUE)
 ```
@@ -360,6 +370,7 @@ for more details on the effect choice algorithm and how to customize it.
 It is also possible to perform statistical tests automatically.
 
 ``` r
+
 library(flextable)
 crosstable(mtcars2, c(vs, qsec), by=am, funs=mean, test=TRUE) %>% 
   as_flextable(keep_id=TRUE)

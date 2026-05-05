@@ -239,13 +239,25 @@ CRAN release: 2023-03-26
   [`transpose_crosstable()`](https://danchaltiel.github.io/crosstable/reference/transpose_crosstable.md)
   (or simply [`t()`](https://rdrr.io/r/base/t.html)), which transposes a
   crosstable so that `by` is in rows instead of columns.  
-  `r ct = crosstable(mtcars2, c(mpg, drat), by=am) t_ct = t(ct) as_flextable(t_ct, by_header="Variables")`
+
+  ``` r
+
+  ct = crosstable(mtcars2, c(mpg, drat), by=am)
+  t_ct = t(ct)
+  as_flextable(t_ct, by_header="Variables")
+  ```
 
 - New function
   [`pivot_crosstable()`](https://danchaltiel.github.io/crosstable/reference/pivot_crosstable.md),
   which pivots a crosstable so that `variable` is spread as several
   columns.  
-  `r ct = crosstable(mtcars2, c(mpg, drat)) p_ct = pivot_crosstable(ct) as_flextable(p_ct)`
+
+  ``` r
+
+  ct = crosstable(mtcars2, c(mpg, drat))
+  p_ct = pivot_crosstable(ct)
+  as_flextable(p_ct)
+  ```
 
 - [`body_add_table_list()`](https://danchaltiel.github.io/crosstable/reference/body_add_table_list.md)
   now replaces
@@ -328,6 +340,7 @@ CRAN release: 2022-08-16
   For instance, one can now write:
 
 ``` r
+
     crosstable(mtcars2, cyl, percent_pattern="{p_col} ({n}/{n_col}) [95%CI: {p_col_inf}; {p_col_sup}]")
     crosstable(mtcars2, cyl, percent_pattern="{p_col_na} ({n}/{n_col_na}) [95%CI: {p_col_inf}; {p_col_sup}]")
 ```

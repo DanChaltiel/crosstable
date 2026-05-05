@@ -13,6 +13,7 @@ First, let’s add some missing values to the `mtcars2` dataset and tweak
 some options:
 
 ``` r
+
 library(crosstable)
 mtcars3 = mtcars2
 mtcars3$cyl[1:5] = NA
@@ -31,6 +32,7 @@ will use `percent_pattern="{n} ({p_row})"`, so it outputs the size `n`
 along with the row’s percentage `p_row`:
 
 ``` r
+
 crosstable(mtcars3, cyl, by=vs) %>% as_flextable()
 ```
 
@@ -70,6 +72,7 @@ external variable defined outside of
 Here is a simple example:
 
 ``` r
+
 crosstable(mtcars3, cyl, by=vs, 
            percent_pattern="N={n}/{n_row} -> p={p_row}") %>% 
   as_flextable()
@@ -106,19 +109,20 @@ the standard variables and the `_na` variables.
 As you may have noticed, totals are considered separately:
 
 ``` r
+
 crosstable(mtcars3, cyl, by=vs, total=TRUE, 
            percent_pattern="N={n}, p={p_row} ({n}/{n_row})") %>% 
   as_flextable()
 ```
 
-| label               | variable | Engine           |                      |     | Total     |
-|---------------------|----------|------------------|----------------------|-----|-----------|
-|                     |          | straight         | vshaped              | NA  |           |
-| Number of cylinders | 4        | N=7, p=88% (7/8) | N=1, p=13% (1/8)     | 2   | 10 (37%)  |
-|                     | 6        | N=0, p=0% (0/1)  | N=1, p=100% (1/1)    | 3   | 4 (15%)   |
-|                     | 8        | N=0, p=0% (0/11) | N=11, p=100% (11/11) | 2   | 13 (48%)  |
-|                     | NA       | 2                | 2                    | 1   | 5         |
-|                     | Total    | 9 (38%)          | 15 (62%)             | 8   | 32 (100%) |
+| label | variable | Engine |  |  | Total |
+|----|----|----|----|----|----|
+|  |  | straight | vshaped | NA |  |
+| Number of cylinders | 4 | N=7, p=88% (7/8) | N=1, p=13% (1/8) | 2 | 10 (37%) |
+|  | 6 | N=0, p=0% (0/1) | N=1, p=100% (1/1) | 3 | 4 (15%) |
+|  | 8 | N=0, p=0% (0/11) | N=11, p=100% (11/11) | 2 | 13 (48%) |
+|  | NA | 2 | 2 | 1 | 5 |
+|  | Total | 9 (38%) | 15 (62%) | 8 | 32 (100%) |
 
 Indeed, you cannot have the same pattern for totals. For instance, the
 proportion relative to the row would not make sense in the context of
@@ -128,6 +132,7 @@ To get control over the `percent_pattern` in totals, you have to pass a
 list with names `body`, `total_row`, `total_col`, and `total_all`:
 
 ``` r
+
 pp = list(body="N={n}, p={p_tot} ({n}/{n_tot})", 
           total_row="N={n} p=({p_col})", 
           total_col="{n}", total_all="Total={n}")
@@ -136,14 +141,14 @@ crosstable(mtcars3, cyl, by=vs, total=TRUE,
   as_flextable()
 ```
 
-| label               | variable | Engine            |                     |     | Total    |
-|---------------------|----------|-------------------|---------------------|-----|----------|
-|                     |          | straight          | vshaped             | NA  |          |
-| Number of cylinders | 4        | N=7, p=35% (7/20) | N=1, p=5% (1/20)    | 2   | 10       |
-|                     | 6        | N=0, p=0% (0/20)  | N=1, p=5% (1/20)    | 3   | 4        |
-|                     | 8        | N=0, p=0% (0/20)  | N=11, p=55% (11/20) | 2   | 13       |
-|                     | NA       | 2                 | 2                   | 1   | 5        |
-|                     | Total    | N=9 p=(38%)       | N=15 p=(62%)        | 8   | Total=32 |
+| label | variable | Engine |  |  | Total |
+|----|----|----|----|----|----|
+|  |  | straight | vshaped | NA |  |
+| Number of cylinders | 4 | N=7, p=35% (7/20) | N=1, p=5% (1/20) | 2 | 10 |
+|  | 6 | N=0, p=0% (0/20) | N=1, p=5% (1/20) | 3 | 4 |
+|  | 8 | N=0, p=0% (0/20) | N=11, p=55% (11/20) | 2 | 13 |
+|  | NA | 2 | 2 | 1 | 5 |
+|  | Total | N=9 p=(38%) | N=15 p=(62%) | 8 | Total=32 |
 
 ## `get_percent_pattern()`
 
@@ -152,6 +157,7 @@ To easily get a `percent_pattern` list, you can use the
 helper:
 
 ``` r
+
 get_percent_pattern("all")
 #> $body
 #> [1] "{n} ({p_tot} / {p_row} / {p_col})"
@@ -189,6 +195,7 @@ Here is the ultimate example for `percent_pattern`. Give a close look to
 all possible values and you will surely find the one that you need.
 
 ``` r
+
 ULTIMATE_PATTERN=list(
   body="N={n}
         Cell: p = {p_tot} ({n}/{n_tot}) [{p_tot_inf}; {p_tot_sup}]

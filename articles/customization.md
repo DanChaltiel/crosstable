@@ -8,6 +8,7 @@ Before exploring these options, we start by loading the package and
 setting a few convenient defaults.
 
 ``` r
+
 library(crosstable)
 crosstable_options(compact=TRUE, keep_id=TRUE)
 ```
@@ -47,6 +48,7 @@ returns multiple values (as with
 returned statistics are automatically combined.
 
 ``` r
+
 crosstable_options(funs=c("mean"=mean, "std dev"=sd, qtl=~quantile(.x, prob=c(0.25, 0.75))))
 crosstable(mtcars2, mpg) %>% as_flextable()
 ```
@@ -64,6 +66,7 @@ several statistics at once. In this case, you should give the function
 an empty name (`" "`) so that its internal labels are used directly.
 
 ``` r
+
 f = function(x) c("Mean (SD)"=meansd(x), "Med [IQR]"=mediqr(x))
 crosstable(mtcars2, wt, funs=f) %>% as_flextable()
 ```
@@ -75,6 +78,7 @@ crosstable(mtcars2, wt, funs=f) %>% as_flextable()
 | f Med \[IQR\]          | 3.33 \[2.58;3.61\] |
 
 ``` r
+
 crosstable(mtcars2, wt, funs=c(" "=f)) %>% as_flextable()
 ```
 
@@ -113,6 +117,7 @@ By default, `effect_tabular` is set to
 which computes an odds ratio for categorical variables.
 
 ``` r
+
 mtcars2 %>% 
   crosstable(am, by=vs, effect=TRUE) %>% 
   as_flextable()
@@ -143,6 +148,7 @@ The following example computes a difference in proportions and uses
 confidence interval.
 
 ``` r
+
 ct_effect_prop_diff = function(x, by, conf.level){
   tb = table(x, by) 
   test = prop.test(tb, conf.level=conf.level)
@@ -187,6 +193,7 @@ For example, the following code forces all tests for categorical
 variables to use Fisher’s exact test:
 
 ``` r
+
 my_test_args = crosstable_test_args(test_tabular=fisher.test)
 mtcars2 %>% 
   crosstable(am, by=vs, test=TRUE, test_args=my_test_args) %>% 
@@ -209,6 +216,7 @@ illustration of how custom testing logic can be integrated into
 `crosstable`.
 
 ``` r
+
 ct_test_lm = function(x, by){
   fit = lm(x ~ by)
   pval = anova(fit)$`Pr(>F)`[1]

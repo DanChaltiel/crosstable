@@ -40,6 +40,7 @@ a `bookmark` argument that can be referred to in the text for automatic
 numbering.
 
 ``` r
+
 library(officer)
 library(ggplot2)
 
@@ -91,6 +92,7 @@ course, you should use whatever syntax you are most comfortable with.
 To see the resulting Word document, use:
 
 ``` r
+
 write_and_open(doc, "vignette_officer.docx")
 ```
 
