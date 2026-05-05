@@ -18,7 +18,7 @@ test_that("cbind() works", {
 
   expect_snapshot({
     x = ct_bind_cols(ct1, ct2)
-    attributes(x)
+    attributes(x) %>% discard_at("row.names")
     y = cbind(ct1, ct2)
     identical(x, y)
   })

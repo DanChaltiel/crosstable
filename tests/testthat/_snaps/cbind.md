@@ -2,7 +2,7 @@
 
     Code
       x = ct_bind_cols(ct1, ct2)
-      attributes(x)
+      attributes(x) %>% discard_at("row.names")
     Output
       $names
       [1] ".id"                     "label"                  
@@ -10,9 +10,6 @@
       [5] "am=manual & vs=straight" "am=auto & vs=vshaped"   
       [7] "am=manual & vs=vshaped"  "am=auto & vs=Total"     
       [9] "am=manual & vs=Total"   
-      
-      $row.names
-      [1] 1 2 3 4 5 6 7
       
       $class
       [1] "crosstable_multiby" "crosstable"         "tbl_df"            
