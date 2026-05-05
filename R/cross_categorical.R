@@ -46,6 +46,7 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
 
 
 #' @importFrom dplyr across bind_rows filter matches mutate select starts_with transmute
+#' @importFrom forcats fct_count fct_na_value_to_level
 #' @importFrom glue glue
 #' @importFrom tibble tibble
 #' @importFrom tidyr replace_na
@@ -53,11 +54,11 @@ cross_categorical=function(data_x, data_y, showNA, total, label, percent_digits,
 #' @noRd
 summarize_categorical_single = function(x, showNA, total, digits, percent_pattern,
                                         remove_zero_percent=NULL){
-  tbd = x %>%
-    drop_na_level() %>%
-    table(useNA = "always") %>%
-    as_tibble() %>%
-    select(x=1, n=2) #needed for an odd bug on fedora-devel
+  tbd = x %>% 
+    fct_na_value_to_level() %>% 
+    fct_count() %>%
+    select(x=f, n) %>% 
+    mutate(x=as.character(x))
   if(is.null(remove_zero_percent)){
     remove_zero_percent = getOption("crosstable_remove_zero_percent", FALSE)
   }
