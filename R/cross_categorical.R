@@ -56,7 +56,7 @@ summarize_categorical_single = function(x, showNA, total, digits, percent_patter
   tbd = x %>%
     drop_na_level() %>%
     table(useNA = "always") %>%
-    as.data.frame() %>%
+    as_tibble() %>%
     select(x=1, n=2) #needed for an odd bug on fedora-devel
   if(is.null(remove_zero_percent)){
     remove_zero_percent = getOption("crosstable_remove_zero_percent", FALSE)
